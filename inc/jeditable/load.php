@@ -1,0 +1,24 @@
+<?php
+require_once (__DIR__ .'/../../inc/config.php');
+header( 'Content-type: text/html; charset=windows-1251' );
+if(isset($_GET['renderer'])) {
+	$renderer = $_GET['renderer'];
+} else if(isset($_POST['renderer'])) {
+	$renderer = $_POST['renderer'];
+} else {
+	$renderer = NULL;
+}
+if(isset($_GET['id'])) {
+	$token = $_GET['id'];
+} else if(isset($_POST['id'])) {
+	$token = $_POST['id'];
+} else {
+	$token = NULL;
+}
+
+$db->where("teg_id", $token);
+$query = $db->getOne("spec_category", 'text');
+
+
+
+print $query['text'];

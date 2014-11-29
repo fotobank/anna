@@ -1,0 +1,104 @@
+.onlineWidget, .onlineWidget .panel {
+    border: 1px solid #bbbbbb;
+    height: 25px;
+    width: 130px;
+    cursor: pointer;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -moz-box-shadow: 0 0 3px #bbbbbb;
+    -webkit-box-shadow: 0 0 3px #bbbbbb;
+    position: absolute;
+    margin-left: 325px;
+    margin-bottom: 0;
+    margin-top: -38px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: -1px -1px #000;
+    user-select: none;
+    padding: 4px 8px;
+    outline: none;
+    background-color: #000;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .0) 30%, rgba(255, 255, 255, .8), rgba(255, 255, 255, .0) 70%),radial-gradient(190% 100% at 50% 0%, rgba(255, 255, 255, .7) 0%, rgba(255, 255, 255, .5) 50%, rgba(0, 0, 0, 0) 50%);
+    background-repeat: no-repeat;
+    background-size: 200% 100%, auto;
+    background-position: 200% 0, 0 0;
+    box-shadow: rgba(0, 0, 0, .3) 0 2px 5px;
+	line-height: 1.5em;
+}
+
+.onlineWidget:hover {
+    transition: .5s linear;
+    background-position: -200% 0, 0 0;
+    .arrow {
+        background-position: bottom center;
+    }
+}
+.onlineWidget {
+    .count {
+        color: #ffffff;
+        float: left;
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+        width: 30px;
+        font-family: Times New Roman, serif;
+    }
+    .label {
+        float: left;
+        font-size: 10px;
+        padding: 7px 0 0 7px;
+        text-transform: uppercase;
+        font-family: Times New Roman, serif;
+        background: transparent;
+        text-shadow: -1px -1px #000;
+        line-height: 10px;
+    }
+    .panel {
+        position: absolute;
+        cursor: default;
+        bottom: 50px;
+        left: 0;
+        height: auto;
+        display: none;
+        margin: -2px;
+        z-index: 1000;
+    }
+}
+.arrow {
+    background: url(/inc/who_is_online/img/arrow.png) no-repeat top center;
+    position: absolute;
+    right: 6px;
+    width: 25px;
+    height: 25px;
+}
+.preloader {
+    display: block;
+    margin: 10px auto;
+}
+.geoRow {
+    height: 16px;
+    overflow: hidden;
+    padding: 2px 0;
+}
+.flag {
+    float: left;
+    margin: 0 4px;
+}
+.country, .people {
+    float: left;
+    font-size: 10px;
+    padding: 2px;
+    font-family: Times New Roman, serif;
+    background: transparent;
+    text-shadow: -1px -1px #000;
+    line-height: 10px;
+}
+.country {
+    width: 85px;
+    overflow: hidden;
+}
+.people {
+    font-weight: bold;
+}

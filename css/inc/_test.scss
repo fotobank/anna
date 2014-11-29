@@ -1,0 +1,45 @@
+$debug: 0;
+// для тестов
+
+@if $debug == 1 {
+	div:empty, span:empty, li:empty, p:empty, td:empty, th:empty {
+		padding: 0.5em !important;
+		background: yellow !important;
+	}
+	*[style], img, a[href], font, center {
+		outline: 5px solid red !important;
+	}
+	table, th {
+		border: 5px solid red !important;
+	}
+	img[alt][title] {
+		outline-width: 0 !important;
+	}
+	img[alt] {
+		outline-color: fuchsia !important;
+	}
+	img[alt=""][title=""] {
+		outline-style: dotted !important;
+	}
+	a[title] {
+		outline-width: 0 !important;
+	}
+	a[title=""] {
+		outline-width: 3px !important;
+	}
+	a[href="#"] {
+		background: lime !important;
+	}
+	a[href=""] {
+		background: fuchsia !important;
+	}
+	img[alt], img[title] {
+		outline-style: double !important;
+	}
+	img[alt=""][title], img[alt][title=""] {
+		outline-width: 3px !important;
+	}
+	table[summary], th[scope="col"], th[scope="row"] {
+		border: 1px solid $text_color !important;
+	}
+}

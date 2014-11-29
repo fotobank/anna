@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" deleteMissingItems="true" createEmptyFolders="true">
+    <serverData>
+      <paths name="anna.od.ua">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cache" />
+            <excludedPath local="true" path="$PROJECT_DIR$/No_id" />
+            <excludedPath local="true" path="$PROJECT_DIR$/abrowser" />
+            <excludedPath local="true" path="$PROJECT_DIR$/ai-cache" />
+            <excludedPath local="true" path="$PROJECT_DIR$/class_protect_pictur" />
+            <excludedPath local="true" path="$PROJECT_DIR$/image-crop" />
+            <excludedPath local="true" path="$PROJECT_DIR$/Form" />
+            <excludedPath local="true" path="$PROJECT_DIR$/ImageFileBrowser" />
+            <excludedPath path="/sitemap.xml" />
+            <excludedPath path="/robots.txt" />
+            <excludedPath local="true" path="$PROJECT_DIR$/sitemap.xml" />
+            <excludedPath local="true" path="$PROJECT_DIR$/robots.txt" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.idea" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
+

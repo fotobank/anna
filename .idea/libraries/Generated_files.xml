@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/js/minified/portfolio.min.js" />
+        <item url="file://$PROJECT_DIR$/js/minified/owl.carousel.min.js" />
+        <item url="file://$PROJECT_DIR$/js/minified/functions.min.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/js/owl.carousel.min.js" />
+      <root url="file://$PROJECT_DIR$/js/portfolio.min.js" />
+      <root url="file://$PROJECT_DIR$/js/owl.carousel.min.js" />
+      <root url="file://$PROJECT_DIR$/js/portfolio.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/portfolio.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/owl.carousel.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/functions.min.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

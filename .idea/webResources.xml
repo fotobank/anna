@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebResourcesPaths">
+    <contentEntries>
+      <entry url="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets">
+        <entryData>
+          <resourceRoots>
+            <path value="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+      <entry url="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-recipes-0.3.0/stylesheets">
+        <entryData>
+          <resourceRoots>
+            <path value="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-recipes-0.3.0/stylesheets" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+      <entry url="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-rgbapng-0.2.1/lib/stylesheets">
+        <entryData>
+          <resourceRoots>
+            <path value="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-rgbapng-0.2.1/lib/stylesheets" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+      <entry url="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/fancy-buttons-1.2.0/lib/stylesheets">
+        <entryData>
+          <resourceRoots>
+            <path value="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/fancy-buttons-1.2.0/lib/stylesheets" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+      <entry url="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sassy-buttons-0.2.6/stylesheets">
+        <entryData>
+          <resourceRoots>
+            <path value="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sassy-buttons-0.2.6/stylesheets" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+    </contentEntries>
+  </component>
+</project>
+

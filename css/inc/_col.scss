@@ -1,0 +1,98 @@
+.col-1 {
+	float: left;
+	width: 200px;
+}
+
+.col-2 {
+	float: left;
+	width: 460px;
+	margin-left: 50px;
+}
+
+.col-3 {
+	float: right;
+}
+
+.col-4 {
+	float: left;
+	width: 570px;
+	margin-right: 70px;
+}
+
+.col-5 {
+	float: left;
+	width: 300px;
+}
+
+.col-6 {
+	float: left;
+	width: 570px;
+	padding-right: 30px;
+	margin-right: 20px;
+	border-right: #303030 1px solid;
+}
+
+.col-7 {
+	float: left;
+	width: 320px;
+}
+.col-8 {
+	float: left;
+	width: 190px;
+	padding-right: 50px;
+}
+
+.col-9 {
+	float: left;
+	width: 744px;
+}
+.col-10 {
+	float: left;
+	width: 240px;
+	margin-right: 40px;
+}
+
+.col-11 {
+	float: left;
+	width: 670px;
+}
+.col-12 {
+	float: left;
+	width: 600px;
+	margin-right: 79px;
+}
+
+.col-13 {
+	float: left;
+	width: 265px;
+}
+.col-14 {
+	float: left;
+	width: 270px;
+	margin-right: 50px;
+}
+
+.col-15 {
+	float: left;
+	width: 273px;
+	margin-right: 89px;
+}
+
+.col-16 {
+	float: left;
+	width: 260px;
+}
+
+.col-17 {
+	width: 100%;
+	position: relative;
+	font-size: 16px;
+	text-align: center;
+	margin: 5px auto;
+	overflow: visible;
+	p {
+		&.clr-1 {
+			color: #cccccc;
+		}
+	}
+}

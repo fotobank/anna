@@ -1,0 +1,68 @@
+<!--
+ Created with Visual Form Builder by 23rd and Walnut
+ www.visualformbuilder.com
+ www.23andwalnut.com
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/style.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="css/uniform.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.tools.js"></script>
+    <script type="text/javascript" src="js/jquery.uniform.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+
+<div class="TTWForm-container">
+     
+     
+     <form style="width: 248px;" action="process_form.php" class="TTWForm"
+     method="post" novalidate="">
+          
+          
+          <div id="field1-container" class="field f_100">
+               <label for="field1">
+                    Представьтесь
+               </label>
+               <input pattern="[?a-zA-Zа-яА-Я0-9_-]{2,20}" name="nick" id="field1" required="required"
+               type="text">
+          </div>
+          
+          
+          <div id="field2-container" class="field f_100">
+               <label for="field2">
+                    Name
+               </label>
+               <input name="name" id="field2" type="text">
+          </div>
+          
+          
+          <div id="field3-container" class="field f_100">
+               <label for="field3">
+                    E-mail
+               </label>
+               <input name="email" id="field3" required="required" type="email">
+          </div>
+          
+          
+          <div id="field4-container" class="field f_100">
+               <label for="field4">
+                    Сообщение
+               </label>
+               <textarea rows="5" cols="20" name="mess" id="field4" required="required"></textarea>
+          </div>
+          
+          
+          <div id="form-submit" class="field f_100 clearfix submit">
+               <input value="Submit" type="submit">
+          </div>
+     </form>
+</div>
+
+</body>
+</html>

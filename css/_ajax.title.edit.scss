@@ -1,0 +1,105 @@
+.list-categorii {
+    position: relative;
+    li {
+        list-style: none;
+        margin: 6px;
+        position: relative;
+        cursor: pointer;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border: 1px;
+        border-radius: 6px;
+        padding: 0 0 8px 14px;
+        line-height: 18px;
+        background: url(/images/marker-1.gif) 0 8px no-repeat;
+        width: 230px;
+        height: 24px;
+        vertical-align: middle;
+        font-family: 'Bad Script', cursive;
+        color: #ffffff;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 16px;
+        .actions {
+            position: absolute;
+            right: 0;
+            top: 5px;
+            float: right;
+            display: none;
+            z-index: 10;
+        }
+        input {
+            border: 1px solid #ffec0e;
+            color: #666666;
+            font-family: Arial,Helvetica,sans-serif;
+            padding: 3px 4px;
+            width: 130px;
+            margin-left: -5px;
+        }
+    }
+}
+.list-categorii li:hover, .list-categorii li:active {
+    color: #fc0;
+}
+.block_body {
+    .actions {
+        position: absolute;
+        z-index: 1;
+    }
+}
+.block_wrap {
+    .actions {
+        position: absolute;
+        right: 10px;
+        z-index: 1;
+    }
+}
+.list-categorii li .actions a, .block_wrapper_body .actions a {
+    display: block;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    float: left;
+    text-indent: -9999px;
+    margin: 3px;
+    z-index: 1000;
+}
+.list-categorii li .actions a.edit, .block_wrapper_body a.edit {
+    background: url("/images/edit.png") no-repeat center center;
+}
+.list-categorii li .actions a.delete, .block_wrapper_body a.delete {
+    background: url("/images/delete.png") no-repeat center center;
+}
+img.return, img.ok {
+    float: right;
+    cursor: pointer;
+}
+img {
+    &.ok {
+        margin-right: 3px;
+    }
+}
+.ok-cancel {
+    display: inline;
+    font-size: 0.6em;
+    padding-left: 6px;
+    position: relative;
+    top: 4px;
+    float: right;
+}
+.text {
+    vertical-align: middle;
+    position: relative;
+}
+.ui-button,.ui-dialog-titlebar {
+    font-size: 0.72em !important;
+}
+#dialog-confirm {
+    display: none;
+    font-size: 0.9em;
+    padding: 1em 1em 0;
+    height: 40px;
+}
+#addButton {
+    margin: 20px auto;
+}

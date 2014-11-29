@@ -1,0 +1,31 @@
+
+/* גûחמג
+
+<div class="centered_img">
+   <img alt="" src="sourse" />
+   <span></span>
+</div>
+
+*/
+
+%inline-block {
+
+		display: -moz-inline-stack;
+		display: inline-block;
+		vertical-align: middle;
+		zoom: 1;
+		*display: inline;
+}
+
+
+@mixin center_img($width: 150px, $height: 150px, $img: 'img', $help_el: 'span') {
+
+		overflow: hidden;
+		width: $width;
+		height: $height;
+		text-align: center;
+		white-space: nowrap;
+
+	    #{$img}, #{$help_el} {@extend %inline-block;}
+		#{$help_el} {height: 100%}
+}

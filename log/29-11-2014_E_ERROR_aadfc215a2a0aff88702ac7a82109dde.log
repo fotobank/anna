@@ -1,0 +1,2 @@
+[4] 29-11-2014 12:18:57	/index.php?	ERROR_GET_LAST	E_ERROR	Code 1	Call to a member function merge() on a non-object	O:\domains\anna.od.ua\inc\head.php	Line 162
+[TRACE]	#0			Inter_Error::detect_fatal_error()

@@ -1,0 +1,106 @@
+Error.php является независимым файл.
+PHP версия должна быть> = 5.0.0.
+Вы должны использовать Inter_Error_PHP4.php файл в то время как PHP> = 4.3.0 & <5.0.0
+* /
+// Использование (Demo):
+date_default_timezone_set ("PRC '); // (PHP> = 5.1.0 необходимость, чтобы сделать ТАК) Устанавливает часовой пояс по умолчанию, используемый всеми даты / времени функций в скрипте. Это демо устанавливает часовой пояс КНР
+require_once("Error.php"); // требует / require_once error.php в нужном месте, как вы хотите
+// Устанавливает пользовательскую функцию (error_handler &-исключения) для обработки ошибок в сценарии
+set_exception_handler(array('Inter_Error', 'exception_handler'));
+set_error_handler(array('Inter_Error', 'error_handler'), E_ALL);
+if(version_compare(PHP_VERSION, '5.2', '>=')){
+    register_shutdown_function(array('Inter_Error', 'detect_fatal_error'));
+}
+}
+// Настройка Inter_Error::$conf :
+/ **
+* Ключи и значение по умолчанию в статическое свойство Inter_Error::$conf :
+* DebugMode:
+* Открыть режим отладки? Если это так, он будет показывать в конце веб-страницы в веб-браузере
+* Опция: ложь (по умолчанию) / правда
+* Переменная типа: BOOL
+*
+* FriendlyExceptionPage:
+* В то время как DebugMode ложно и происходят исключение, которое HTML файл должен быть дисплей (с помощью 'требуют')
+* Оставьте это поле пустым, если вы не хотите, чтобы вступили в силу.
+* Опция:option: ''(blank, default)/любое значение каталог
+* Переменная типа: строка
+*
+* logType:
+* Определить, как войти ошибок.
+* 'detail': войти с информацией трассировки. Не рекомендуется использовать это значение в развертывания среды, если вы не сталкиваются с трудной проблемой
+* 'simple': войти без информации трассировки.
+* false: do not log
+* option: false(default)/'detail'/'simple'
+* Переменная типа: BOOL | строка
+*
+* LogDir:
+* Каталог для сохранения файла журнала. Не имеют '/' или '\' в конце сценария
+* На эту настройку влияет "logType". Если 'logType' является ложным, он ничего не будет делать.
+* Но если 'logType' не является ложным, и этот параметр пуст или не является каталогом. он будет will ошибку с помощью настройки в php.ini.
+* option: ''(blank, default)/any directory value
+* var type: string
+*
+* suffix:
+* Суффикс файла журнала
+* Опция: '-Inter-ErrorLog.log' (по умолчанию)
+* Переменная типа: var type: string
+*
+* variables:
+* Ключ, который вы хотите экспортировать и показать переменные в $ GLOBALS
+* Опция: array ("_GET", "_POST", "_SESSION", "_COOKIE") (по умолчанию)
+* Переменная типа: array
+*
+* ignoreERROR:
+* Некоторые программы могут легко генерировать много E_NOTICEs и E_STRICTs. Можно опустить их, изменив настройки массива 'IgnoreError'
+* Предопределенные константы в Error Handling: http://docs.php.net/manual/en/errorfunc.constants.php
+* По умолчанию, он не будет войти E_STRICT. Но вы должны быть осторожны, чтобы не перезаписать настройки по умолчанию.
+* Вот пример:
+* <pre>
+* Inter_Error::$conf['ignoreERROR'] = array(E_NOTICE, E_STRICT); / / перепишет настройки ignoreERROR умолчанию, но остаются не войти E_STRICT
+* </pre>
+* option: array(E_STRICT)(default)
+* var type: array
+* /
+Inter_Error::$conf['debugMode'] = true;
+//Inter_Error::$conf['friendlyExceptionPage']='1234.htm';
+//Inter_Error::$conf['logType'] = 'simple';
+//Inter_Error::$conf['logDir'] = dirname(__FILE__).'/Log';
+//Inter_Error::$conf['ignoreERROR'] = array(E_NOTICE, E_STRICT);
+
+// демо код, который может генерировать ошибку
+$variable1 = '1111 ';
+
+function a(){
+    b();
+}
+
+function b(){
+    echo $k;
+    echo 1/0;
+}
+
+function c(){
+	// иногда вы хотите знать, как и где функция с называется.
+    // Теперь вы можете использовать trigger_error показать выполнения процедуры в конце веб-страницы.
+	trigger_error('function c is running~', E_USER_WARNING);
+	throw new exception('Exception Occur!');
+}
+
+a();
+
+
+// Если вы хотите экспортировать и показать некоторые переменные в $GLOBALS,
+// Вы можете использовать: Inter_Error :: Inter_Error::$conf['variables'] = array(xxxxxxxxxx, xxxxxx, ...);
+// Затем: Inter_Error::show_variables();
+// Внимание: Inter_Error::show_variables() будет вызван автоматически при возникновении любой PHP ошибки и если 'debugMode' = true.
+/*
+
+/*
+Inter_Error::$conf['variables'] = array("_GET", "_POST", "_SESSION", "_COOKIE", "variable1", "variable2");
+echo '<hr />';
+Inter_Error::show_variables();
+echo '<hr />';
+*/
+
+c();

@@ -1,0 +1,28 @@
+@import "compass/css3";
+
+@mixin linear_gradient ($color_begin, $color_stop)
+{
+		$experimental-support-for-svg: true; /*поддержка svg*/
+		background: $color_stop;
+		@include filter-gradient($color_begin, $color_stop); /*для ie*/
+		@include background-image (linear-gradient(top, $color_begin, $color_stop));
+}
+
+@mixin gradient ($color_begin, $color_stop, $image:'', $direction: 'top')
+{
+		$experimental-support-for-svg: true;
+
+		background: $color_stop;
+
+		@include filter-gradient($color_begin, $color_stop);
+		@if($image != '')
+		{
+				@include background(
+								image-url($image),
+								linear-gradient($direction, $color_begin, $color_stop));
+		}
+		@else
+		{
+				@include background(linear-gradient($direction, $color_begin, $color_stop));
+		}
+}

@@ -1,0 +1,8 @@
+$url_lazy: "/fonts/lazy-webfont/lazy-webfont";
+@font-face {
+	font-family: 'LazyCrazyRegular';
+	src: url("#{$url_lazy}.eot");
+	src: url('#{$url_lazy}.eot?#iefix') format('embedded-opentype'), url('#{$url_lazy}.woff') format('woff'), url('#{$url_lazy}.ttf') format('truetype'), url('#{$url_lazy}.svg#LazyCrazyRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

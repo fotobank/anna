@@ -1,0 +1,5 @@
+<Files passwords.php>
+order allow,deny 
+deny from all 
+</Files>
+AddDefaultCharset Windows-1251

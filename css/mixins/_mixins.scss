@@ -1,0 +1,377 @@
+// Mixins
+@mixin my-box-shadow($properties) {
+  -webkit-box-shadow: $properties;
+  -moz-box-shadow: $properties;
+  box-shadow: $properties;
+}
+
+@mixin inline-block2 {
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+}
+
+@mixin opacity2($value) {
+  opacity: $value;
+  filter: alpha(opacity = $value * 100);
+  zoom: 1;
+}
+
+@mixin placeholder-color($color) {
+  &:-moz-placeholder {
+    color: $color;
+  }
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+  &.placeholder {
+    color: $color;
+  }
+}
+
+@mixin vertical-gradient($from, $to) {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $from), color-stop(100%, $to));
+  background: -webkit-linear-gradient(top, $from, $to);
+  background: -moz-linear-gradient(top, $from, $to);
+  background: -ms-linear-gradient(top, $from, $to);
+  background: -o-linear-gradient(top, $from, $to);
+  background: linear-gradient(to bottom, $from, $to);
+}
+
+@mixin clearfix2 {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin dropdown-arrow($color: $base, $top: 5px, $left: 15px, $size: 9px) {
+  &:before {
+    content: "";
+    border-style: solid;
+    border-width: 0 $size $size $size;
+    border-color: transparent transparent $color transparent;
+    height: 0px;
+    position: absolute;
+    left: $left;
+    top: $top;
+    width: 0px;
+    // Make corners smooth
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@mixin drop-ie-gradient {
+  filter: unquote("progid:DXImageTransform.Microsoft.gradient(enabled = false)");
+}
+
+@mixin keyframes($name) {
+		@-webkit-keyframes #{$name} {
+				@content
+		}
+		@-moz-keyframes #{$name} {
+				@content
+		}
+		@-ms-keyframes #{$name} {
+				@content
+		}
+		@-o-keyframes #{$name} {
+				@content
+		}
+		@keyframes #{$name} {
+				@content
+		}
+}
+
+// Текстовая скрытие
+@mixin screen-reader-text() {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+}
+// Переполнение Многоточие  Overflow Ellipsis
+@mixin ellipsis() {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+}
+
+// Перенос слов
+@mixin word-wrap() {
+		-ms-word-break: break-all;
+		word-break: break-all;
+		word-break: break-word;
+		-webkit-hyphens: auto;
+		-moz-hyphens: auto;
+		hyphens: auto;
+}
+
+/* вдавленный блок
+.box{
+    @include box-emboss(0.8, 0.05);
+}
+ */
+@mixin box-emboss($opacity, $opacity2){
+		box-shadow:white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0;
+}
+/*
+.module {
+  @include box-emboss2(0.3, 0.6);
+}
+*/
+@mixin box-emboss2($outerOpacity, $innerOpacity) {
+		box-shadow:
+				rgba(white, $outerOpacity) 0 1px 0,
+				rgba(black, $innerOpacity) 0 1px 0 inset;
+}
+//преесс шрифта
+@mixin letterpress($opacity){
+		text-shadow:white($opacity) 0 1px 0;
+}
+/*
+скрыть текст
+.logo{
+    background: url("logo.png");
+    height:100px;
+    width:200px;
+    @include hide-text2;
+}
+*/
+@mixin hide-text2{
+		font: 0/0 a;
+		text-shadow: none;
+		color: transparent;
+}
+// Horizontal Navigation Lists
+@mixin navigation-list {
+		list-style-type:none;
+		padding:0;
+		margin:0;
+		overflow:hidden;
+		> li{
+				display:block;
+				float:left;
+				&:last-child{
+						margin-right:0px;
+				}
+		}
+}
+@mixin clear($style) {
+		@if $style == 'clear-all' {
+				padding:0;
+				background-image:none;
+				background-color:transparent;
+				margin:0;
+				height:auto;
+				width:auto;
+				float:none;
+				border:none;
+		}
+}
+/*
+  Example:
+  @include gradient(background-image, linear,
+                  ( top,
+                    transparent,
+                    hsla(0, 0%, 100%, .1)
+                  )
+                );;
+*/
+
+@mixin gradient($prop, $type, $val) {
+		#{$prop}: -webkit-#{$type}-gradient($val);
+		#{$prop}:    -moz-#{$type}-gradient($val);
+		#{$prop}:     -ms-#{$type}-gradient($val);
+		#{$prop}:      -o-#{$type}-gradient($val);
+		#{$prop}:         #{$type}-gradient($val);
+}
+
+
+/*Make your element a circle.  Remember to set height and width to an equal value.*/
+.radius-circle {
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		border-radius: 50%;
+}
+
+/*A more advanced border-radius where you pass in 4 value, thus emabling you to set the radius on 2 corners (for example)
+  Follows the clockwise TRBL. */
+@mixin border-radius2( $topleft: 0, $topright: 0, $bottomright: 0, $bottomleft: 0 ) {
+		-webkit-border-top-right-radius: $topright;
+		-webkit-border-bottom-right-radius: $bottomright;
+		-webkit-border-bottom-left-radius: $bottomleft;
+		-webkit-border-top-left-radius: $topleft;
+		-moz-border-radius-topright: $topright;
+		-moz-border-radius-bottomright: $bottomright;
+		-moz-border-radius-bottomleft: $bottomleft;
+		-moz-border-radius-topleft: $topleft;
+		border-top-right-radius: $topright;
+		border-bottom-right-radius: $bottomright;
+		border-bottom-left-radius: $bottomleft;
+		border-top-left-radius: $topleft;
+		-moz-background-clip: padding;
+		-webkit-background-clip: padding-box;
+		background-clip: padding-box;
+}
+
+/*I use a global transition2, but can pass in the 3 values to change the animation*/
+@mixin transition2(
+$what : all,
+$duration : .5s,
+$easing : ease-in-out
+) {
+		-webkit-transition: $what $duration $easing;
+		-moz-transition: $what $duration $easing;
+		-o-transition: $what $duration $easing;
+		transition: $what $duration $easing;
+}
+
+/*Mixin to set fallback and compatible rgba*/
+@mixin rgb_a($color, $alpha) {
+		$alpha_color: hsla(hue($color), saturation($color), lightness($color), $alpha); /* you can use HEX as your color ! */
+		$ie_alpha_color: argb($alpha_color);
+		background-color: $color; // Fallback for older browsers
+		background-color: $alpha_color;
+		// IE hacks
+		zoom: 1; // hasLayout
+		background-color: transparent\9;
+		-ms-filter:  "progid:DXImageTransform.Microsoft.gradient(startColorstr=@{ie_alpha_color}, endColorstr=@{ie_alpha_color})";
+		filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=@{ie_alpha_color}, endColorstr=@{ie_alpha_color})";
+
+}
+
+/*Simple mixin for a gradient, setting the beginning color, end color, and when to switch*/
+@mixin gradient2(
+$begin: black,
+$end: white,
+$switch : 100%
+) {
+		background: $begin;
+		background: -webkit-gradient(linear, 0 0, 0 100%, from($begin), color-stop($switch, $end));
+		background: -moz-linear-gradient(top, $begin, $end $switch);
+		background: -o-linear-gradient(top, $begin, $end $switch);
+		background: linear-gradient(top, $begin, $end $switch);
+}
+
+/*Another compatibility mixin with fallback*/
+@mixin opacit_y($opacity: 0.5) {
+		-webkit-opacity: $opacity;
+		-moz-opacity: $opacity;
+		-khtml-opacity: $opacity;
+		opacity: $opacity;
+		$ie: $opacity*100;
+		filter: alpha(opacity=$ie);
+}
+
+@mixin if-blur($amt: 4px) {
+		-o-filter: blur($amt);
+		-ms-filter: blur($amt);
+		-moz-filter: blur($amt);
+		-webkit-filter: blur($amt);
+}
+
+@mixin if-brightness($amt: 0.35) {
+		-o-filter: brightness($amt);
+		-ms-filter: brightness($amt);
+		-moz-filter: brightness($amt);
+		-webkit-filter: brightness($amt);
+}
+
+@mixin if-contrast($amt: 140%) {
+		-o-filter: contrast($amt);
+		-ms-filter: contrast($amt);
+		-moz-filter: contrast($amt);
+		-webkit-filter: contrast($amt);
+}
+
+@mixin if-grayscale($amt: 100%) {
+		-o-filter: grayscale($amt);
+		-ms-filter: grayscale($amt);
+		-moz-filter: grayscale($amt);
+		-webkit-filter: grayscale($amt);
+}
+
+@mixin if-huerotate($deg: 180deg) {
+		-o-filter: hue-rotate($deg);
+		-ms-filter: hue-rotate($deg);
+		-moz-filter: hue-rotate($deg);
+		-webkit-filter: hue-rotate($deg);
+}
+
+@mixin if-invert($amt: 100%) {
+		-o-filter: invert($amt);
+		-ms-filter: invert($amt);
+		-moz-filter: invert($amt);
+		-webkit-filter: invert($amt);
+}
+
+@mixin if-opacity($amt: 60%) {
+		-o-filter: opacity($amt);
+		-ms-filter: opacity($amt);
+		-moz-filter: opacity($amt);
+		-webkit-filter: opacity($amt);
+}
+
+@mixin if-saturate($amt: 4) {
+		-o-filter: saturate($amt);
+		-ms-filter: saturate($amt);
+		-moz-filter: saturate($amt);
+		-webkit-filter: saturate($amt);
+}
+
+@mixin if-sepia($amt: 100%) {
+		-o-filter: sepia($amt);
+		-ms-filter: sepia($amt);
+		-moz-filter: sepia($amt);
+		-webkit-filter: sepia($amt);
+}
+
+
+
+//  Usage: Gradient position and shape-size are required. Color stops are optional.
+//  @include radial-gradient(50% 50%, circle cover, #1e5799, #efefef);
+//  @include radial-gradient(50% 50%, circle cover, #eee 10%, #1e5799 30%, #efefef);
+@mixin radial-gradient2($pos, $shape-size,
+$G1,        $G2,
+$G3: false, $G4: false,
+$G5: false, $G6: false,
+$G7: false, $G8: false,
+$G9: false, $G10: false) {
+
+	  $full: compact($G1, $G2, $G3, $G4, $G5, $G6, $G7, $G8, $G9, $G10);
+
+	  background-color:  nth($G1, 1);
+	  background-image:          deprecated-webkit-gradient(radial, $full); // Safari <= 5.0
+	  background-image:  -webkit-radial-gradient($pos, $shape-size, $full);
+	  background-image:     -moz-radial-gradient($pos, $shape-size, $full);
+	  background-image:      -ms-radial-gradient($pos, $shape-size, $full);
+	  background-image:       -o-radial-gradient($pos, $shape-size, $full);
+	  background-image: unquote("radial-gradient(#{$pos}, #{$shape-size}, #{$full})");
+}
+
+
+// Usage: Gradient position is optional, default is top. Position can be a degree. Color stops are optional as well.
+// @include linear-gradient(#1e5799, #2989d8);
+// @include linear-gradient(#1e5799, #2989d8, $fallback:#2989d8);
+// @include linear-gradient(top, #1e5799 0%, #2989d8 50%);
+// @include linear-gradient(50deg, rgba(10, 10, 10, 0.5) 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+@mixin linear-gradient2($topColor, $bottomColor, $backgroundColor: false) {
+	  @if $backgroundColor {
+			background:$backgroundColor;
+	  }
+	  background-image:-webkit-gradient(linear, left top, left bottom, from($topColor), to($bottomColor));
+	  background-image:-webkit-linear-gradient(top, $topColor, $bottomColor);
+	  background-image:-moz-linear-gradient(top, $topColor, $bottomColor);
+	  background-image:-ms-linear-gradient(top, $topColor, $bottomColor);
+	  background-image:-o-linear-gradient(top, $topColor, $bottomColor);
+	  background-image:linear-gradient(top, $topColor, $bottomColor);
+	  $ieTopColor: rgb(red($topColor), green($topColor), blue($topColor));
+	  $ieBottomColor: rgb(red($bottomColor), green($bottomColor), blue($bottomColor));
+	  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$ieTopColor}', endColorstr='#{$ieBottomColor}'); // IE6 & IE7
+	  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$ieTopColor}', endColorstr='#{$ieBottomColor}')"; // IE8
+}

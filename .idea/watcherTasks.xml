@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectTasksOptions">
+    <TaskOptions isEnabled="false">
+      <option name="arguments" value="-u nib $FileName$" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Compiles .styl files into .css files" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="styl" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="Stylus" />
+      <option name="output" value="$FileNameWithoutExtension$.css" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="$USER_HOME$/node_modules/.bin/stylus.cmd" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="false">
+      <option name="arguments" value="--no-color -x $FileName$" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Compiles .less files into .css files" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="less" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="LESS" />
+      <option name="output" value="$FileParentDir$/$FileNameWithoutAllExtensions$.min.css" />
+      <option name="outputFilters">
+        <array>
+          <FilterInfo>
+            <option name="description" value="lessc error format" />
+            <option name="name" value="lessc" />
+            <option name="regExp" value="$MESSAGE$$FILE_PATH$?:$LINE$:$COLUMN$" />
+          </FilterInfo>
+        </array>
+      </option>
+      <option name="outputFromStdout" value="true" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="$USER_HOME$/AppData/Roaming/npm/lessc.cmd" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="false" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs>
+        <env name="C:\Program Files\nodejs" value="" />
+      </envs>
+    </TaskOptions>
+    <TaskOptions isEnabled="false">
+      <option name="arguments" value="--no-cache --style compressed --update $FileName$:$FileParentDir$/$FileNameWithoutAllExtensions$.css" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Compiles .sass files into .css files" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="sass" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="SASS" />
+      <option name="output" value="$FileNameWithoutExtension$.css" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="C:/Ruby200-x64/bin/sass.bat" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="false">
+      <option name="arguments" value="--no-cache --style compressed --update $FileName$:$FileParentDir$/$FileNameWithoutAllExtensions$.min.css" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Compiles .scss files into .css files" />
+      <option name="exitCodeBehavior" value="NEVER" />
+      <option name="fileExtension" value="scss" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="SCSS" />
+      <option name="output" value="$FileNameWithoutExtension$.min.css" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="C:/Ruby200-x64/bin/scss.bat" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="$FileName$ -o minified/$FileNameWithoutExtension$.min.js" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Compress .js files" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="js" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="UglifyJS" />
+      <option name="output" value="minified/$FileNameWithoutExtension$.min.js" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="$USER_HOME$/node_modules/.bin/uglifyjs.cmd" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="false">
+      <option name="arguments" value="compile C:/Ruby200/lib/ruby/gems/2.0.0/gems/compass-0.12.2/bin $UnixSeparators($FilePath$)$" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Compiles .scss files into .css files using compass" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="scss" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="compass scss" />
+      <option name="output" value="C:/Ruby200/lib/ruby/gems/2.0.0/gems/compass-0.12.2/bin" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="C:/Ruby200-x64/bin/compass.bat" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="C:/Ruby200/lib/ruby/gems/2.0.0/gems/compass-0.12.2/bin" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="false">
+      <option name="arguments" value="compile  $ProjectFileDir$ -s nested --no-line-comments" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Compiles .scss files into .css files using compass" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="scss" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="compass scss nested" />
+      <option name="output" value="$FileNameWithoutAllExtensions$.css" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="C:/Ruby200-x64/bin/compass.bat" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="false">
+      <option name="arguments" value="compile  $ProjectFileDir$ -s compact --no-line-comments" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Compiles .scss files into .css files using compass" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="scss" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="compass scss compact" />
+      <option name="output" value="$FileNameWithoutAllExtensions$.css" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="C:/Ruby200-x64/bin/compass.bat" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="false">
+      <option name="arguments" value="compile  $ProjectFileDir$ -s compressed --boring -c $FileParentDir$\css\compass\config.rb" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Compiles .scss files into .css files using compass" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="scss" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="compass scss compressed" />
+      <option name="output" value="$FileNameWithoutExtension$.css" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="C:/Ruby200-x64/bin/compass.bat" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="compile $ProjectFileDir$ -c $ProjectFileDir$\css\compass_config\config.rb" />
+      <option name="checkSyntaxErrors" value="false" />
+      <option name="description" value="Compiles .scss files into .css files using compass" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="scss" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="compass scss compressed New" />
+      <option name="output" value="$FileNameWithoutExtension$.css" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="C:/Ruby200-x64/bin/compass.bat" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs />
+    </TaskOptions>
+  </component>
+</project>
+
