@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" deleteMissingItems="true" createEmptyFolders="true">
+  <component name="PublishConfigData" serverName="annafoto.in.ua" deleteMissingItems="true" createEmptyFolders="true">
     <serverData>
-      <paths name="anna.od.ua">
+      <paths name="annafoto.in.ua">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
@@ -21,10 +21,10 @@
             <excludedPath local="true" path="$PROJECT_DIR$/sitemap.xml" />
             <excludedPath local="true" path="$PROJECT_DIR$/robots.txt" />
             <excludedPath local="true" path="$PROJECT_DIR$/.idea" />
+            <excludedPath local="true" path="$PROJECT_DIR$/1" />
           </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
   </component>
 </project>
-
