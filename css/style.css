@@ -1,5 +1,5 @@
 /*
-Errno::ENOENT: No such file or directory - C:/OpenServer/domains/anna.od.ua/css/.sass-cache/75fcaf1b4852ceb732871195e41567cc2a7d8997/C%058%092Ruby200-x64%092lib%092ruby%092gems%0922.0.0%092gems%092compass-core-1.0.1%092stylesheets%092compass%092utilities%092general%092_clearfix.scssc20150214-17956-lr0iy1
+Errno::ENOENT: No such file or directory - C:/OpenServer/domains/anna.od.ua/css/.sass-cache/75fcaf1b4852ceb732871195e41567cc2a7d8997/C%058%092Ruby200-x64%092lib%092ruby%092gems%0922.0.0%092gems%092compass-core-1.0.1%092stylesheets%092compass%092utilities%092general%092_clearfix.scssc20150214-13696-171ldk2
 
 Backtrace:
 C:/Ruby200-x64/lib/ruby/2.0.0/tempfile.rb:146:in `initialize'
@@ -115,4 +115,4 @@ C:/Ruby200-x64/bin/compass:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Errno::ENOENT: No such file or directory - C:/OpenServer/domains/anna.od.ua/css/.sass-cache/75fcaf1b4852ceb732871195e41567cc2a7d8997/C%058%092Ruby200-x64%092lib%092ruby%092gems%0922.0.0%092gems%092compass-core-1.0.1%092stylesheets%092compass%092utilities%092general%092_clearfix.scssc20150214-17956-lr0iy1"; }
+  content: "Errno::ENOENT: No such file or directory - C:/OpenServer/domains/anna.od.ua/css/.sass-cache/75fcaf1b4852ceb732871195e41567cc2a7d8997/C%058%092Ruby200-x64%092lib%092ruby%092gems%0922.0.0%092gems%092compass-core-1.0.1%092stylesheets%092compass%092utilities%092general%092_clearfix.scssc20150214-13696-171ldk2"; }
