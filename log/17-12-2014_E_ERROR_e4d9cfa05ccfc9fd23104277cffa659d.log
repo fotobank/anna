@@ -1,0 +1,2 @@
+[1] 17-12-2014 20:47:42	/index.php?XDEBUG_SESSION_START=17218	ERROR_GET_LAST	E_ERROR	Code 1	Call to a member function execute() on a non-object	O:\domains\anna.od.ua\classes\Mysqli\Db.php	Line 317
+[TRACE]	#0			Inter_Error::detect_fatal_error()
