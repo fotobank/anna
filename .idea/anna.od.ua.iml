@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
   <component name="CompassSettings">
-    <option name="compassConfigPath" value="$MODULE_DIR$/css/compass/config.rb" />
-    <option name="compassExecutableFilePath" value="C:/Ruby200-x64/bin/compass.bat" />
+    <option name="compassConfigPath" value="$MODULE_DIR$/css/compass_config/config.rb" />
+    <option name="compassExecutableFilePath" value="C:/Ruby21-x64/bin/compass.bat" />
     <option name="compassSupportEnabled" value="true" />
     <option name="importPaths">
       <list>
-        <option value="C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-blend-modes-0.0.2/lib/compass/../../stylesheets" />
-        <option value="C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-recipes-0.3.0/lib/../stylesheets" />
-        <option value="C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-colors-0.9.0/sass" />
-        <option value="C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets" />
-        <option value="C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-normalize-1.5/lib/../stylesheets" />
+        <option value="C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/fancy-buttons-1.2.0/lib/stylesheets" />
+        <option value="C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-colors-0.9.0/sass" />
+        <option value="C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-recipes-0.3.0/lib/../stylesheets" />
+        <option value="C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-normalize-1.5/lib/../stylesheets" />
+        <option value="C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sassy-buttons-0.2.6/stylesheets" />
+        <option value="C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/color-schemer-0.2.8/lib/../stylesheets" />
+        <option value="C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-core-1.0.3/stylesheets" />
+        <option value="C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-rgbapng-0.2.1/lib/stylesheets" />
+        <option value="C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-blend-modes-0.0.2/lib/compass/../../stylesheets" />
       </list>
     </option>
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <content url="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets" />
-    <content url="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-recipes-0.3.0/stylesheets" />
-    <content url="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-rgbapng-0.2.1/lib/stylesheets" />
-    <content url="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/fancy-buttons-1.2.0/lib/stylesheets" />
-    <content url="file://C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sassy-buttons-0.2.6/stylesheets" />
+    <content url="file://C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-core-1.0.3/stylesheets" />
+    <content url="file://C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-recipes-0.3.0/stylesheets" />
+    <content url="file://C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-rgbapng-0.2.1/lib/stylesheets" />
+    <content url="file://C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/fancy-buttons-1.2.0/lib/stylesheets" />
+    <content url="file://C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/sassy-buttons-0.2.6/stylesheets" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sass-stdlib" level="application" />
     <orderEntry type="library" name="compass-library" level="project" />
   </component>
 </module>
-
