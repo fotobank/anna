@@ -6,7 +6,7 @@
  * Time: 22:15
  */
 
-// require( __DIR__ . "/func.php");
+// require_once( __DIR__ . "/func.php");
 
 /**
  * @return string
@@ -37,10 +37,11 @@ function carousel() {
 		$carousel .= "</li>";
 	}
 	$carousel .= "</ul>";
-//	return $carousel;
-
+	return $carousel;
+}
 	?>
-	<div id='new-gal'>
+
+	<!--<div id='new-gal'>
 		<div class="page1-row1 pad-1">
 			<div class="col-1">
 				<div id="TimerDiv"></div>
@@ -81,7 +82,7 @@ function carousel() {
 			<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
 			<a href="#" class="jcarousel-control-next">&rsaquo;</a>
 		</div>
-	</div>
+	</div>-->
 
 	<!--<div class="jcarousel-wrapper">
 		<div class="jcarousel">
@@ -102,8 +103,4 @@ function carousel() {
 		<a href="#" class="jcarousel-control-prev">&lsaquo;</a>
 		<a href="#" class="jcarousel-control-next">&rsaquo;</a>
 	</div>-->
-
 <?
-
-
-}

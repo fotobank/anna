@@ -1,9 +1,10 @@
 /**
  * Created by Jurii on 07.07.14.
  */
+
 $(document).ready(function () {
 
-			/*$('.slider')
+			$('.slider')
 					._TMS({
 						show               : 0,
 						pauseOnHover       : false,
@@ -19,19 +20,19 @@ $(document).ready(function () {
 						banners            : false, // fromLeft, fromRight, fromTop, fromBottom
 						waitBannerAnimation: false,
 						progressBar        : false
-					});*/
+					});
 
-			/*jQuery('#mycarousel')
+			jQuery('#mycarousel')
 					.jcarousel({
 						horisontal: true,
 						wrap      : 'circular',
 						scroll    : 1,
 						easing    : 'easeInOutBack',
 						animation : 1200
-					});*/
+					});
 
 
-	(function($, Modernizr) {
+	/*(function($, Modernizr) {
 		$(function() {
 			$('.mycarousel').jcarousel({
 				wrap: 'circular',
@@ -50,7 +51,7 @@ $(document).ready(function () {
 				target: '+=1'
 			});
 		});
-	})(jQuery, Modernizr);
+	})(jQuery, Modernizr);*/
 
 
 });

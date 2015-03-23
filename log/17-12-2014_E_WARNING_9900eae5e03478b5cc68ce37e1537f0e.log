@@ -1,6 +1,0 @@
-[1] 17-12-2014 20:47:42	/index.php?XDEBUG_SESSION_START=17218	ERROR	E_WARNING	Code 2	mysqli::set_charset(): Couldn't fetch mysqli	O:\domains\anna.od.ua\classes\Mysqli\Db.php	Line 137
-[TRACE]	#1	O:\domains\anna.od.ua\classes\Mysqli\Db.php	137	mysqli->set_charset('cp1251')
-[TRACE]	#2	O:\domains\anna.od.ua\classes\Mysqli\Db.php	121	Mysqli_Db->connect()
-[TRACE]	#3	O:\domains\anna.od.ua\classes\Mysqli\Db.php	196	Mysqli_Db->__construct(array)
-[TRACE]	#4	O:\domains\anna.od.ua\inc\config.php	81	Mysqli_Db::getInstance(array)
-[TRACE]	#5	O:\domains\anna.od.ua\index.php	2	require('O:\domains\anna.od.ua\inc\config.php')

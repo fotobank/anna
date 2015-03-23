@@ -10,19 +10,6 @@ if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {
 include( __DIR__ . '/title.php' ); // титры в разделах для СЕО
 list( $razdel, $title ) = title();
 
-
-/** --Initialize the class with image encoding, gzip, a timer, and use the google closure API---*/
-$vars      = array(
-	'encode'           => true,
-	'timer'            => true,
-	'gzip'             => true,
-	'packer'           => 'minifier', // closure / jsminplus / packer  / minifier / jsmin
-	'remove_comments'  => true,
-	'hashed_filenames' => false // Generate hashbased filenames to break caches
-);
-$minimized = new CssJsCompress\Compressor( $vars );
-/** --------------------------------------------------------------------------------------------*/
-
 ?>
 <!DOCTYPE html>
 <html lang="ru" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -44,26 +31,12 @@ $minimized = new CssJsCompress\Compressor( $vars );
 
 	<link rel="stylesheet" href="/js/native/alloy-ui-master/build/aui-css/css/bootstrap.css">
 
-	<?
-	$exclude_styles = array(
-		'css/skin-2.css',
-		'css/skin.css',
-		'css/ie.css'
-	);
-	$prioritize     = array(
-		'css/reset.css',
-		'css/style.css',
-		'css/jquery.fancybox-1.3.4.css',
-		'css/tabs.css',
-		'css/slider.css'
-	);
 
-	?>
 	<!--	<link rel="stylesheet" href="--><?php //$minimized->merge( 'cache/css/master.min.css', 'css', 'css', $exclude_styles, $prioritize ); ?><!--" />-->
 
-	<!--	<link rel="stylesheet" href="/css/owl.carousel.css">-->
-	<!--	<link rel="stylesheet" href="/css/owl.theme.css">-->
-	<!--	<link rel="stylesheet" href="/css/owl.transitions.css">-->
+<!--		<link rel="stylesheet" href="/css/owl.carousel.css">-->
+<!--		<link rel="stylesheet" href="/css/owl.theme.css">-->
+<!--		<link rel="stylesheet" href="/css/owl.transitions.css">-->
 
 	<link rel="stylesheet" type="text/css" media="screen" href="/css/style.css">
 
@@ -71,81 +44,56 @@ $minimized = new CssJsCompress\Compressor( $vars );
 	<link rel="stylesheet" type="text/css" media="screen" href="/css/ie.css">
 	<script src="/js/if_IE/html5.js"></script>
 	<![endif]-->
+
+
+
+
 	<?
 
 	if ($_SERVER['PHP_SELF'] == '/portfolio.php') {
 
 	//
-	?><!--<link rel="stylesheet" type="text/css" media="screen" href="/css/skin-2.css">--><?//
-
-$exclude    = array(
-
-	'js/jquery-ui.min.js',
-	'js/index.who.is.online.js',
-	//	'js/tms-0.4.1.js',
-	'js/index.slider.js',
-	'js/ajax.tabs.js'
-
-);
-$prioritize = array(
-	'js/jquery-1.7.js',
-	'js/jquery.easing.1.3.js',
-	'js/jquery.jcarousel.min.js',
-	'js/jquery.fancybox-1.3.4.js',
-//			'js/ajax.tabs.js',
-	'js/portfolio.js',
-	'js/functions.js'
-);
-$cash       = 'cache/js/portfolio.min.js';
+	?><!--<link rel="stylesheet" type="text/css" media="screen" href="/css/skin-2.css">--><? //
+	?>
+	<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
+	<script src="/js/jquery.easing.1.3.js"></script>
+	<script src="/js/jquery.jcarousel.min.js"></script>
+	<script src="/js/jquery.fancybox-1.3.4.js"></script>
+<!--	<script src="/js/ajax.tabs.js"></script>-->
+	<script src="/js/portfolio.js"></script>
+	<script src="/js/functions.js"></script>
+	<?
 
 } else if ( $_SERVER['PHP_SELF'] == '/index.php' ) {
 
 	?>
-	<!--		<link rel="stylesheet" type="text/css" media="screen" href="/css/skin.css">-->
+<!--	<link rel="stylesheet" type="text/css" media="screen" href="/css/skin.css">-->
+<!--	<script type='text/javascript' src='/js/native/jquery-1.11.1.min.js'></script>-->
+<!--	<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>-->
+<!--	<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>-->
+<!--	<script type='text/javascript' src='/js/native/jquery-migrate-1.2.1.js'></script>-->
+<!--	<script type='text/javascript' src='/js/native/jquery-ui-1.11.1/jquery-ui.js'></script>-->
+<!--	<script src="/js/native/alloy-ui-master/build/aui/aui-min.js"></script>-->
 
-	<script type='text/javascript' src='/js/native/jquery-1.11.1.min.js'></script>
-	<!--<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>-->
-	<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
-	<!--<script type='text/javascript' src='/js/native/jquery-migrate-1.2.1.js'></script>-->
+		<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
+		<script src="/js/jquery.easing.1.3.js"></script>
+		<script src="/js/tms-0.4.1.js"></script>
+		<script src="/js/jquery.jcarousel.min.js"></script>
+		<script src="/js/index.who.is.online.js"></script>
+		<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
+		<script src="/js/ajax.tabs.js"></script>
+		<script src="/js/index.slider.js"></script>
 
-	<script type='text/javascript' src='/js/native/jquery-ui-1.11.1/jquery-ui.js'></script>
+<?
 
-	<script src="/js/native/alloy-ui-master/build/aui/aui-min.js"></script>
-
-	<?
-
-
-	$exclude    = array(
-		'js/jquery-1.7.js',
-		'js/ajax.tabs.js',
-		'js/jquery-ui.min.js',
-
-		'js/jquery.fancybox-1.3.4.js',
-		'js/portfolio.js'
-	);
-	$prioritize = array(
-//			'js/jquery-1.7.js',
-
-
-		'js/jquery.easing.1.3.js',
-		//	'js/tms-0.4.1.js',
-		'js/owl.carousel.js',
-		'js/jquery.jcarousel.min.js',
-		'js/index.slider.js',
-//			'js/ajax.tabs.js',
-		'js/functions.js',
-		'js/index.who.is.online.js'
-	);
-	$cash       = 'cache/js/index.min.js';
 } else {
+		?>
+		<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
+		<script src="/js/jquery.easing.1.3.js"></script>
+		<script src="/js/functions.js"></script>
+	    <?
 	$exclude    = array(
-		'js/jquery.fancybox-1.3.4.js',
-		'js/jquery-ui.min.js',
-		'js/index.who.is.online.js',
-		'js/portfolio.js',
-		'js/index.slider.js',
-		'js/ajax.tabs.js',
-		'js/jquery.jcarousel.min.js',
+
 		//	'js/tms-0.4.1.js'
 	);
 	$prioritize = array(
@@ -153,24 +101,16 @@ $cash       = 'cache/js/portfolio.min.js';
 		'js/jquery.easing.1.3.js',
 		'js/functions.js'
 	);
-	$cash       = 'cache/js/master.min.js';
+	$cash  = 'cache/js/master.min.js';
 }
-?>
 
 
 
-
-	<script src="<?php $minimized->merge( $cash, 'js', 'js', $exclude, $prioritize ); ?>"></script>
-
-	<script src="/js/ajax.tabs.js"></script>
-	<script src="/js/web/index/index.async.load.js"></script>
-
-
-
-	<?
 	if ( if_admin( $script = "
 	<!--<script type='text/javascript' src='/js/jeditable/jquery.jeditable.js'></script>-->
+
 	<link href='/js/jqueryui-editable/css/jqueryui-editable.css' rel='stylesheet'/>
+	<script src='/js/native/alloy-ui-master/build/aui/aui-min.js'></script>
 	<script src='/js/jqueryui-editable/js/jqueryui-editable.js'></script>
 	<script type='text/javascript' src='/js/web/admin/ajax_title_edit.js'></script>
 	<script type='text/javascript' src='/js/web/admin/admin.js'></script>
@@ -190,70 +130,13 @@ $cash       = 'cache/js/portfolio.min.js';
 			<header class="gallery-block">
 				<h1>Профессиональный фотограф в Одессе Алексеева Анна</h1>
 			</header>
-
-			<nav class="centered-navigation">
-				<div class="centered-navigation-wrapper">
-					<a href="/index.php" class="mobile-logo">
-						<img src="/images/logo.png" alt="">
-					</a>
-					<a href="" class="centered-navigation-menu-button">MENU</a>
-					<?
-					if ( $razdel ) {
-						?>
-						<ul class="centered-navigation-menu"
-							>
-							<li <?= ( $razdel == '/index.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
-								<a href="/index.php">Главная</a></li
-								>
-							<li <?= ( $razdel == '/about.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
-								<a href="/about.php">Об&nbsp;&nbsp;авторе</a></li
-								>
-							<li <?= ( $razdel == '/portfolio.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
-								<a href="/portfolio.php">Портфолио</a></li
-								>
-							<li class="nav-link logo">
-								<a href="/index.php" class="logo">
-									<img src="/images/logo.png" alt="Логотип сайта">
-								</a>
-							</li
-								>
-							<li <?= ( $razdel == '/news.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
-								<a href="/news.php">Новости</a></li
-								>
-							<li <?= ( $razdel == '/services.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
-								<a href="/services.php">Услуги</a></li
-								>
-							<li <?= ( $razdel == '/comments.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
-								<a href="/comments.php">Гостевая</a></li
-								>
-						</ul>
-					<?
-					}
-					?>
-				</div>
-			</nav>
-
-			<script>
-				$(document).ready(function () {
-					var menu = $('.centered-navigation-menu');
-					var menuToggle = $('.centered-navigation-menu-button');
-					var signUp = $('.sign-up');
-
-					$(menuToggle).on('click', function (e) {
-						e.preventDefault();
-						menu.slideToggle(function () {
-							if (menu.is(':hidden')) {
-								menu.removeAttr('style');
-							}
-						});
-					});
-				});
-			</script>
-
+            <? include (__DIR__. "/menu.php") ?>
 		</div>
+
+		<? /** лайтбокс на главной в шапке */ ?>
 		<div id="slide">
 			<?
-			/*if ( $razdel == '/index.php' ) {
+			if ( $razdel == '/index.php' ) {
 				$slides = glob( 'files/slides/*.jpg' ); // сканирование без субдиректорий
 				$items  = '<div class="slider"><ul class="items">';
 				$pags = '<ul class="pags">';
@@ -266,9 +149,9 @@ $cash       = 'cache/js/portfolio.min.js';
 				$items .= $pags;
 				echo( $items );
 
-			}*/
+			}
 
-			if ( $razdel == '/index.php' ) {
+			/*if ( $razdel == '/index.php' ) {
 				$slides = glob( 'files/slides/*.jpg' ); // сканирование без субдиректорий
 				$items  = '<div id = "owl-items" class="owl-carousel owl-theme">';
 				foreach ( $slides as $key => $slide ) {
@@ -276,7 +159,7 @@ $cash       = 'cache/js/portfolio.min.js';
 				}
 				$items .= '</div>';
 				echo( $items );
-			}
+			}*/
 
 			?>
 
@@ -285,7 +168,7 @@ $cash       = 'cache/js/portfolio.min.js';
 </div>
 
 
-<script>
+<!--<script>
 
 	$(document).ready(function () {
 
@@ -306,7 +189,7 @@ $cash       = 'cache/js/portfolio.min.js';
 	});
 
 
-</script>
+</script>-->
 
 
 <!--[if IE 6]>

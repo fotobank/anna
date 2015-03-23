@@ -1,5 +1,0 @@
-[1] 17-12-2014 20:47:42	/index.php?XDEBUG_SESSION_START=17218	ERROR	E_WARNING	Code 2	mysqli::ping(): Couldn't fetch mysqli	O:\domains\anna.od.ua\classes\Mysqli\Db.php	Line 560
-[TRACE]	#1	O:\domains\anna.od.ua\classes\Mysqli\Db.php	560	mysqli->ping()
-[TRACE]	#2	O:\domains\anna.od.ua\classes\Mysqli\Db.php	284	Mysqli_Db->ping()
-[TRACE]	#3	O:\domains\anna.od.ua\classes\Mysqli\Db.php	305	Mysqli_Db->check_connect()
-[TRACE]	#4	O:\domains\anna.od.ua\index.php	11	Mysqli_Db->get('menu_index_php',NULL,array)

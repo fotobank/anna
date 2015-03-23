@@ -1,6 +1,0 @@
-[11] 13-12-2014 19:50:54	/index.php?XDEBUG_SESSION_START=12226	ERROR	E_WARNING	Code 2	mysqli::mysqli(): (HY000/1045): Access denied for user 'anna'@'localhost' (using password: YES)	O:\domains\anna.od.ua\classes\Mysqli\Db.php	Line 134
-[TRACE]	#1	O:\domains\anna.od.ua\classes\Mysqli\Db.php	134	mysqli->mysqli('localhost','anna',278019,'annafoto',3306)
-[TRACE]	#2	O:\domains\anna.od.ua\classes\Mysqli\Db.php	121	Mysqli_Db->connect()
-[TRACE]	#3	O:\domains\anna.od.ua\classes\Mysqli\Db.php	196	Mysqli_Db->__construct(array)
-[TRACE]	#4	O:\domains\anna.od.ua\inc\config.php	81	Mysqli_Db::getInstance(array)
-[TRACE]	#5	O:\domains\anna.od.ua\index.php	2	require('O:\domains\anna.od.ua\inc\config.php')

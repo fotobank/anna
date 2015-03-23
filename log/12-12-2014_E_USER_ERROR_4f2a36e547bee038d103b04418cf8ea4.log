@@ -1,5 +1,0 @@
-[1] 12-12-2014 22:43:39	/index.php?	ERROR	E_USER_ERROR	Code 256	Problem preparing query (SELECT id, name_head FROM menu_index_php ORDER BY position ASC ) 	C:\OpenServer\domains\anna.od.ua\classes\Mysqli\Db.php	Line 840
-[TRACE]	#1	C:\OpenServer\domains\anna.od.ua\classes\Mysqli\Db.php	840	trigger_error('Problem preparing query (SELECT id, name_head FROM menu_index_php ORDER BY position ASC ) ',256)
-[TRACE]	#2	C:\OpenServer\domains\anna.od.ua\classes\Mysqli\Db.php	782	Mysqli_Db->_prepareQuery()
-[TRACE]	#3	C:\OpenServer\domains\anna.od.ua\classes\Mysqli\Db.php	312	Mysqli_Db->_buildQuery(NULL)
-[TRACE]	#4	C:\OpenServer\domains\anna.od.ua\index.php	11	Mysqli_Db->get('menu_index_php',NULL,array)

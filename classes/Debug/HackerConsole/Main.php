@@ -329,4 +329,3 @@ if (!function_exists('debugHC')) {
 		}
 	}
 }
-?>

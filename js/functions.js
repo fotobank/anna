@@ -13,6 +13,7 @@ function bookmarkthis(title, url) {
 	}
 }
 
+
 // фильтр входных даннных
 (function ($) {
 	$.fn.data_filter = function (html) {

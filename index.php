@@ -15,7 +15,7 @@ $categorii = $db->get('menu_index_php', Null, ['id', 'name_head']);
 	<!--==============================content================================-->
 	<section id="content">
 
-<!--	<div id='new-gal'>--><?//=carousel()?><!--</div>-->
+	<div id='new-gal'><?=carousel()?></div>
 
 
 	<div class="page1-row1 pad-1 tabs">

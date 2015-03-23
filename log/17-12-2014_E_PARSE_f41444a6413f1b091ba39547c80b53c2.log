@@ -1,2 +1,0 @@
-[1] 17-12-2014 20:54:19	/index.php?XDEBUG_SESSION_START=17218	ERROR_GET_LAST	E_PARSE	Code 4	syntax error, unexpected => (T_DOUBLE_ARROW)	xdebug://debug-eval	Line 1
-[TRACE]	#0			Inter_Error::detect_fatal_error()

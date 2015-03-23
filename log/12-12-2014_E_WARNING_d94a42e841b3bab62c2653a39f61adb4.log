@@ -1,5 +1,0 @@
-[1] 12-12-2014 22:43:39	/index.php?	ERROR	E_WARNING	Code 2	mysqli::ping(): Couldn't fetch mysqli	C:\OpenServer\domains\anna.od.ua\classes\Mysqli\Db.php	Line 560
-[TRACE]	#1	C:\OpenServer\domains\anna.od.ua\classes\Mysqli\Db.php	560	mysqli->ping()
-[TRACE]	#2	C:\OpenServer\domains\anna.od.ua\classes\Mysqli\Db.php	284	Mysqli_Db->ping()
-[TRACE]	#3	C:\OpenServer\domains\anna.od.ua\classes\Mysqli\Db.php	305	Mysqli_Db->check_connect()
-[TRACE]	#4	C:\OpenServer\domains\anna.od.ua\index.php	11	Mysqli_Db->get('menu_index_php',NULL,array)

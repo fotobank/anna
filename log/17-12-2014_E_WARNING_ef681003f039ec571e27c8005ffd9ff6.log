@@ -1,5 +1,0 @@
-[1] 17-12-2014 20:47:42	/index.php?XDEBUG_SESSION_START=17218	ERROR	E_WARNING	Code 2	mysqli::prepare(): Couldn't fetch mysqli	O:\domains\anna.od.ua\classes\Mysqli\Db.php	Line 839
-[TRACE]	#1	O:\domains\anna.od.ua\classes\Mysqli\Db.php	839	mysqli->prepare('SELECT id, name_head FROM menu_index_php ORDER BY position ASC ')
-[TRACE]	#2	O:\domains\anna.od.ua\classes\Mysqli\Db.php	782	Mysqli_Db->_prepareQuery()
-[TRACE]	#3	O:\domains\anna.od.ua\classes\Mysqli\Db.php	312	Mysqli_Db->_buildQuery(NULL)
-[TRACE]	#4	O:\domains\anna.od.ua\index.php	11	Mysqli_Db->get('menu_index_php',NULL,array)

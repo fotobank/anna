@@ -2,8 +2,8 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/js/minified/portfolio.min.js" />
-        <item url="file://$PROJECT_DIR$/js/minified/owl.carousel.min.js" />
+        <item url="file://$PROJECT_DIR$/js/web/index/minified/index.async.load.min.js" />
+        <item url="file://$PROJECT_DIR$/js/minified/index.slider.min.js" />
         <item url="file://$PROJECT_DIR$/js/minified/functions.min.js" />
       </sourceFilesUrls>
     </properties>
@@ -12,8 +12,16 @@
       <root url="file://$PROJECT_DIR$/js/portfolio.min.js" />
       <root url="file://$PROJECT_DIR$/js/owl.carousel.min.js" />
       <root url="file://$PROJECT_DIR$/js/portfolio.min.js" />
-      <root url="file://$PROJECT_DIR$/js/minified/portfolio.min.js" />
       <root url="file://$PROJECT_DIR$/js/minified/owl.carousel.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/portfolio.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/tms-0.4.1.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/jquery.jcarousel.min.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/owl.carousel.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/portfolio.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/tms-0.4.1.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/jquery.jcarousel.min.min.js" />
+      <root url="file://$PROJECT_DIR$/js/web/index/minified/index.async.load.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/index.slider.min.js" />
       <root url="file://$PROJECT_DIR$/js/minified/functions.min.js" />
     </CLASSES>
     <SOURCES />

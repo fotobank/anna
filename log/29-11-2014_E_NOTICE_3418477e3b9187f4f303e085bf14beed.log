@@ -1,2 +1,0 @@
-[4] 29-11-2014 12:18:57	/index.php?	ERROR	E_NOTICE	Code 8	Undefined variable: minimized	O:\domains\anna.od.ua\inc\head.php	Line 162
-[TRACE]	#1	O:\domains\anna.od.ua\index.php	3	require('O:\domains\anna.od.ua\inc\head.php')
