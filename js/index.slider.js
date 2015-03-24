@@ -26,9 +26,9 @@ $(document).ready(function () {
 					.jcarousel({
 						horisontal: true,
 						wrap      : 'circular',
-						scroll    : 1,
+						scroll    : 5,
 						easing    : 'easeInOutBack',
-						animation : 1200
+						animation : 1500
 					});
 
 

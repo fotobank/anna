@@ -22,7 +22,9 @@ include_once( __DIR__ . '/inc/head.php' );
 				<div class="col-8">
 					<h3 class="bb3 p2">Категории:</h3>
 <!--					<ul class="list-1 nav">-->
-					<ul class="list-categorii">
+<!--					<ul class="list-categorii">-->
+					<ul class="nav list-categorii">
+
 						<?
 						foreach ( $thumbdir as $name => $val ) {
 							$name = substr( $name, 3 );
@@ -54,6 +56,7 @@ include_once( __DIR__ . '/inc/head.php' );
 						}
 						?>
 					</ul>
+<!--					</ul>-->
 				</div>
 				<div class="col-9">
 					<?= $portfolio ?>
