@@ -1,5 +1,7 @@
 @import "compass";
-@import "mixins/my_mix";
+@import "../mixins/my_mix";
+
+
 
 @mixin screen_max_1024 {
 	  @media screen and (max-width: 1024px) {
@@ -52,6 +54,7 @@ body {
 	  background: $body_color;
 	  -webkit-font-smoothing: subpixel-antialiased !important;
 	  @include backface-visibility(hidden);
+	  background: url(../../images/tail-top.jpg) repeat-x center top #000;
 }
 
 p {
@@ -185,7 +188,7 @@ h4 {
 footer {
 	  @include font-stack-footer;
 	  width: 100%;
-	  position: relative;
+	  position: absolute;
 	  overflow: hidden;
 	  text-align: center;
 	  padding: 7px 0 20px 0;
@@ -197,4 +200,11 @@ footer {
 			padding-top: 13px;
 			line-height: 22px;
 	  }
+	  background: url(../../images/tail-bottom.jpg) repeat-x center bottom;
+	  margin-top: -130px;
+	  z-index: -100;
+
 }
+.container {margin:0 auto;overflow:hidden;width:100%;font-size:.875em;padding:60px 0 140px 0}
+footer .container {height:229px;text-align:center;color:#fff;padding:0;line-height:1.429em}
+footer .inside {padding:148px 0 0 0}

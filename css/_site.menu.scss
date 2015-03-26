@@ -173,7 +173,8 @@ $centered-navigation-height-menu-mobile: $centered-navigation-height-mobile * 1.
 	  }
 }
 
-@mixin site-menu-mobile {
+
+@mixin site-menu-mobile  {
 
 	  .centered-navigation {
 			background: image-url('nav.png') 0 0 repeat;

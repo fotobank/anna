@@ -752,7 +752,8 @@ function recursive_dir( $dir, $mask = '.jpg', $ok_subdir = array(), $no_subdir =
 							if ( $multi_arrau ) {
 								$arr[$name_subdir][] = $file;
 							} else {
-								$arr[] = $file;
+								$name_dir = explode("/", $file);
+								$arr[] = array($name_dir[2], $file);
 							}
 						}
 					}

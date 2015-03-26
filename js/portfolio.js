@@ -13,11 +13,27 @@ $(document).ready(function () {
 					});
 
 			$("a.plus")
+					.attr('rel', 'gallery')
 					.fancybox({
-						'transitionIn' : 'elastic',
-						'transitionOut': 'elastic',
-						'speedIn'      : 600,
-						'speedOut'     : 200,
-						'overlayShow'  : true
+						padding : 0,
+						openEffect  : 'elastic',
+						closeEffect	: 'elastic',
+						nextEffect  : 'elastic',
+						prevEffect  : 'elastic',
+						margin      : [20, 60, 20, 60], // Increase left/right margin
+						helpers : {
+							title : null,
+							thumbs	: {
+								width	: 50,
+								height	: 50
+							}
+						},
+						beforeShow: function () {
+							/* Disable right click */
+							$.fancybox.wrap.bind("contextmenu", function (e) {
+								return false;
+							});
+						}
+
 					})
 });

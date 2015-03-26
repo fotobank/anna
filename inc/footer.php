@@ -2,7 +2,10 @@
 defined('_SECUR') or die('Доступ запрещен');
 require_once (__DIR__. "/../inc/sitemap_generator.php");
 
-// $minimized->logs(); // логи минимизатора css
+//запуск главного меню
+?>
+	<script type='text/javascript' src='/js/menu.js'></script>
+<?
 
 if(DEBUG_MODE == false) {
 echo
@@ -18,7 +21,11 @@ echo
 
 }
 
-echo "<footer>";
+echo "
+<footer>
+	<div class='container'>
+		<div class='inside'>";
+
 if(DEBUG_MODE == true) {
 $bench->end();
 echo "Время: ".$bench->getTime()." / ";
@@ -27,7 +34,10 @@ echo "Память конечная: ".$bench->getMemoryUsage()."<br>";
 }
 echo "
 <span><strong>© ".auto_copyright('2011')." Алексеева Анна</strong><br>
-Студия <a target='_blank' href='http://www.aleks.od.ua' class='link-2'>Creative ls</a></span></footer>
+Студия <a target='_blank' href='http://www.aleks.od.ua' class='link-2'>Creative ls</a></span>
+</div>
+	</div>
+</footer>
 </body>
 </html>";
 ob_end_flush();

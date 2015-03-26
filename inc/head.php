@@ -32,12 +32,6 @@ list( $razdel, $title ) = title();
 	<link rel="stylesheet" href="/js/native/alloy-ui-master/build/aui-css/css/bootstrap.css">
 
 
-	<!--	<link rel="stylesheet" href="--><?php //$minimized->merge( 'cache/css/master.min.css', 'css', 'css', $exclude_styles, $prioritize ); ?><!--" />-->
-
-	<!--		<link rel="stylesheet" href="/css/owl.carousel.css">-->
-	<!--		<link rel="stylesheet" href="/css/owl.theme.css">-->
-	<!--		<link rel="stylesheet" href="/css/owl.transitions.css">-->
-
 	<link rel="stylesheet" type="text/css" media="screen" href="/css/style.css">
 
 	<!--[if IE]>
@@ -49,57 +43,59 @@ list( $razdel, $title ) = title();
 
 	if ( $_SERVER['PHP_SELF'] == '/portfolio.php' ) {
 
-
-		$script = "
-		<link rel='stylesheet' type='text/css' media='screen' href='/css/skin-2.css'>
-
-		<script type='text/javascript' src='/js/jquery-1.7.js'></script>
-		<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
-		<script type='text/javascript' src='/js/jquery.jcarousel.min.js'></script>
-		<script type='text/javascript' src='/js/jquery.fancybox-1.3.4.js'></script>
-		<script type='text/javascript' src='/js/tabs.js'></script>
-		<script type='text/javascript' src='/js/portfolio.js'></script>
-		";
-
-
-	} else if ( $_SERVER['PHP_SELF'] == '/index.php' ) {
-
 		?>
-		<!--	<link rel="stylesheet" type="text/css" media="screen" href="/css/skin.css">-->
-		<!--	<script type='text/javascript' src='/js/native/jquery-1.11.1.min.js'></script>-->
-		<!--	<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>-->
-		<!--	<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>-->
-		<!--	<script type='text/javascript' src='/js/native/jquery-migrate-1.2.1.js'></script>-->
-		<!--	<script type='text/javascript' src='/js/native/jquery-ui-1.11.1/jquery-ui.js'></script>-->
-		<!--	<script src="/js/native/alloy-ui-master/build/aui/aui-min.js"></script>-->
-		<?
-		$script = "
-	    <link rel='stylesheet' type='text/css' media='screen' href='/css/skin.css'>
+	<link rel='stylesheet' type='text/css' media='screen' href='/css/skin-2.css'>
+
 
 		<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
-		<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
 		<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
-		<script type='text/javascript' src='/js/minified/tms-0.4.1.min.js'></script>
+
+		<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
 		<script type='text/javascript' src='/js/jquery.jcarousel.min.js'></script>
+
+		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.js'></script>
+
+
+		<script type="text/javascript" src="/js/minified/jquery.mousewheel.min.js"></script>
+		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
+		<script type="text/javascript" src="/js/fancybox/jquery.fancybox-thumbs.js"></script>
+
+
+		<script type='text/javascript' src='/js/tabs.js'></script>
+		<script type='text/javascript' src='/js/portfolio.js'></script>
+	<?
+
+	} else if ($_SERVER['PHP_SELF'] == '/index.php') {
+
+	?>
+
+		<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
+		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.js'></script>
+		<script type="text/javascript" src="/js/minified/jquery.mousewheel.min.js"></script>
+		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
 		<script type='text/javascript' src='/js/minified/ajax.tabs.min.js'></script>
-		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>";
+		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>
 
+
+		<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
+		<script type='text/javascript' src='/js/minified/tms-0.4.1.min.js'></script>
+
+	<?
 
 	} else {
 
-		$script = "
+	?>
 		<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
 		<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
-		<script src='/js/jquery.easing.1.3.js'></script>
-		<script src='/js/functions.js'></script>";
+		<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
+		<script type='text/javascript' src='/js/functions.js'></script>
+	<?
 
 	}
 
-	echo $script;
-
-	if ( if_admin( $script .= "
-	<!--<script type='text/javascript' src='/js/jeditable/jquery.jeditable.js'></script>-->
+	if ( if_admin( $script = "
+	<script type='text/javascript' src='/js/jeditable/jquery.jeditable.js'></script>
 
 	<link href='/js/jqueryui-editable/css/jqueryui-editable.css' rel='stylesheet'/>
 	<script src='/js/native/alloy-ui-master/build/aui/aui-min.js'></script>

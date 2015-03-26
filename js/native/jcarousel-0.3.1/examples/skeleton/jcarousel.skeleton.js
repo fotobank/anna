@@ -3,7 +3,7 @@
         /*
         Carousel initialization
         */
-        $('.jcarousel')
+        $('.gallery-photo')
             .jcarousel({
                 // Options go here
             });
@@ -11,7 +11,7 @@
         /*
          Prev control initialization
          */
-        $('.jcarousel-control-prev')
+        $('.jcarousel-prev')
             .on('jcarouselcontrol:active', function() {
                 $(this).removeClass('inactive');
             })
@@ -26,7 +26,7 @@
         /*
          Next control initialization
          */
-        $('.jcarousel-control-next')
+        $('.jcarousel-next')
             .on('jcarouselcontrol:active', function() {
                 $(this).removeClass('inactive');
             })

@@ -46,7 +46,7 @@ IF ( ! isset( $_POST['submit'] ) ) {
 	$tpl->assign( "{A_IMG_COMM}", "/portfolio.php" );
 	foreach($thumbs as $thumb) {
 
-		$thumb = WinUtf( $thumb, 'w');
+		$thumb = WinUtf( $thumb[1], 'w');
 		$tpl->assign( "{THUMB_IMG_COMM}", $thumb );
 		$tpl->parse( "{FOTO_COMM}", ".foto_c");
 	}

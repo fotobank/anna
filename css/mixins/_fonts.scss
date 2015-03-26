@@ -1,4 +1,4 @@
-@import "mixins/my_mix";
+@import "../mixins/my_mix";
 
 @mixin font-stack-headers-h1 {
 		@include single-text-shadow(2px, 2px, 3px, 3px, #191919);
