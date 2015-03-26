@@ -1,6 +1,6 @@
+
 @import "compass", "compass/css3", "mixins/my_mix";
 @import "bourbon/bourbon", "base/base", "neat/neat";
-
 
 @import "media-queries";
 @import "reset";
@@ -31,7 +31,46 @@
 @import "who.is.online.styles";
 @import "media-queries";
 
-
+/*owl галерея в шапке*/
+#owl-head .item img{
+	  display: block;
+	  width: 100%;
+	  height: auto;
+}
+.owl-head-pags {
+	  position: absolute;
+	  top: 466px;
+	  left: 283px;
+	  display: inline-block;
+	  z-index: 10;
+	  padding: 0 0 0 113px;
+	  width: 344px;
+	  background: url(/images/pagination-bg.png) 0 24px no-repeat;
+	  margin: 0;
+	  list-style-image: none;
+	  font-size: 100%;
+	  border: 0;
+	  outline: 0;
+	  vertical-align: top;
+}
+.owl-head-pags div {
+	  float: left;
+	  display: block;
+	  width: 47px;
+	  height: 40px;
+	  padding: 10px 0 0 0;
+	  text-align: center;
+	  background: url(/images/pagination.png) right 0 no-repeat;
+	  font: 24px/30px "Times New Roman", Times, serif;
+	  font-style: italic;
+	  color: #686868;
+	  text-decoration: none;
+	  cursor: pointer;
+}
+.owl-head-pags div.active, .owl-head-pags div.owl-dot:hover a {
+	  background-position: 0 0;
+	  color: #bf96c7;
+}
 .fancybox-nav {
 	  background: transparent url("/images/blank.gif");
 }

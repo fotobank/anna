@@ -125,7 +125,7 @@ list( $razdel, $title ) = title();
 		<? /** лайтбокс на главной в шапке */ ?>
 		<div id="slide">
 			<?
-			if ( $razdel == '/index.php' ) {
+			/*if ( $razdel == '/index.php' ) {
 				$slides = glob( 'files/slides/*.jpg' ); // сканирование без субдиректорий
 				$items  = '<div class="slider"><ul class="items">';
 				$pags   = '<ul class="pags">';
@@ -138,8 +138,56 @@ list( $razdel, $title ) = title();
 				$items .= $pags;
 				echo( $items );
 
-			}
+			}*/
+			?>
+			<!--<div id="slide">
+				<div class="slider">
+					<ul class="items">
+						<li><img src="/files/slides/slide-1.jpg" alt=""></li>
+						<li><img src="/files/slides/slide-2.jpg" alt=""></li>
+						<li><img src="/files/slides/slide-3.jpg" alt=""></li>
+						<li><img src="/files/slides/slide-4.jpg" alt=""></li>
+						<li><img src="/files/slides/slide-5.jpg" alt=""></li>
+					</ul>
+				</div>
+				<ul class="pags">
+					<li><a href="#"><strong>0</strong>1</a></li>
+					<li><a href="#"><strong>0</strong>2</a></li>
+					<li><a href="#"><strong>0</strong>3</a></li>
+					<li><a href="#"><strong>0</strong>4</a></li>
+					<li><a href="#"><strong>0</strong>5</a></li>
+				</ul>
+			</div>-->
 
+
+			<div id="owl-head" class="owl-carousel owl-theme">
+
+				<div class="item"><img src="/files/slides/slide-1.jpg" alt="The Last of us"></div>
+				<div class="item"><img src="/files/slides/slide-2.jpg" alt="GTA V"></div>
+				<div class="item"><img src="/files/slides/slide-3.jpg" alt="Mirror Edge"></div>
+				<div class="item"><img src="/files/slides/slide-4.jpg" alt="GTA V"></div>
+				<div class="item"><img src="/files/slides/slide-5.jpg" alt="Mirror Edge"></div>
+
+			</div>
+
+			<div class="owl-head-pags">
+				<div class="owl-dot" ><strong>0</strong>1</div>
+				<div class="owl-dot" ><strong>0</strong>2</div>
+				<div class="owl-dot" ><strong>0</strong>3</div>
+				<div class="owl-dot" ><strong>0</strong>4</div>
+				<div class="owl-dot" ><strong>0</strong>5</div>
+			</div>
+
+			<!--<div class="owl-head-pags">
+				<div class="owl-dot"><span>1</span></div>
+				<div class="owl-dot"><span>2</span></div>
+				<div class="owl-dot"><span>3</span></div>
+				<div class="owl-dot"><span>4</span></div>
+				<div class="owl-dot"><span>5</span></div>
+			</div>-->
+
+
+			<?
 			/*if ( $razdel == '/index.php' ) {
 				$slides = glob( 'files/slides/*.jpg' ); // сканирование без субдиректорий
 				$items  = '<div id = "owl-items" class="owl-carousel owl-theme">';

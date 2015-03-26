@@ -4,58 +4,75 @@
 
 $(document).ready(function () {
 
-			$('.slider')
-					._TMS({
-						show               : 0,
-						pauseOnHover       : false,
-						prevBu             : false,
-						nextBu             : false,
-						playBu             : false,
-						duration           : 700,
-						preset             : 'fade',
-						pagination         : '.pags',
-						pagNums            : false,
-						slideshow          : 7000,
-						numStatus          : false,
-						banners            : false, // fromLeft, fromRight, fromTop, fromBottom
-						waitBannerAnimation: false,
-						progressBar        : false
-					});
 
+		$("#owl-head").owlCarousel({
 
-		var carousel = $("#owl-index");
-		carousel.owlCarousel({
+			slideSpeed : 300,
+			paginationSpeed : 400,
+			singleItem:true,
+			animateOut: 'fadeOut',
+			animateIn: 'fadeIn',
+			items:1,
+			smartSpeed:450,
 			loop:true,
-			autoWidth:true,
 			autoplay:true,
-			autoplayTimeout: 10000,
+			autoplayTimeout:8000,
 			autoplayHoverPause:true,
-			items:5,
-			responsive:{
-				0:{
-					items:1,
-					nav:true
-				},
-				600:{
-					items:3,
-					nav:true
-				},
-				1000:{
-					items:5,
-					nav:true
-				}
-			}
+
+			dots:true,
+			dotData:true,
+
+			dotsContainer: '.owl-head-pags'
+
 		});
 
 
-	carousel.on('mousewheel', '.owl-stage', function (e) {
+	var owl = $('#owl-index');
+	owl.owlCarousel({
+		slideBy:1,
+		singleItem: true,
+		navSpeed:300, // скорость prev next
+		autoplaySpeed:300,
+		slideSpeed: 300,
+		paginationSpeed: 300,
+		smartSpeed: 500, // скорость скрола мышкой
+		fluidSpeed:300,
+		loop:true,
+		autoplay:true,
+		autoplayTimeout:10000,
+		autoplayHoverPause:true,
+		dots:true,
+		dotsEach:true,
+
+		responsive:{
+			0:{
+				items:1,
+				nav:false
+			},
+			600:{
+				items:3,
+				nav:false
+			},
+			960:{
+				items:4,
+				nav:false
+			},
+			1200:{
+				items:5,
+				nav:true
+			}
+		}
+	});
+	owl.on('mousewheel', '.owl-stage', function (e) {
 		if (e.deltaY>0) {
-			carousel.trigger('next.owl');
+			owl.trigger('next.owl');
 		} else {
-			carousel.trigger('prev.owl');
+			owl.trigger('prev.owl');
 		}
 		e.preventDefault();
 	});
+
+
 
 
 	$("a.plus")
@@ -78,4 +95,5 @@ $(document).ready(function () {
 				}
 
 			});
+
 });
