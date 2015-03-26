@@ -124,110 +124,28 @@ list( $razdel, $title ) = title();
 
 		<? /** лайтбокс на главной в шапке */ ?>
 		<div id="slide">
-			<?
-			/*if ( $razdel == '/index.php' ) {
-				$slides = glob( 'files/slides/*.jpg' ); // сканирование без субдиректорий
-				$items  = '<div class="slider"><ul class="items">';
-				$pags   = '<ul class="pags">';
-				foreach ( $slides as $key => $slide ) {
-					$items .= '<li><img src="/' . $slide . '" alt=""></li>';
-					$pags .= '<li><a href="#"><strong>0</strong>' . ++ $key . '</a></li>';
-				}
-				$pags .= '</ul>';
-				$items .= '</ul></div>';
-				$items .= $pags;
-				echo( $items );
-
-			}*/
-			?>
-			<!--<div id="slide">
-				<div class="slider">
-					<ul class="items">
-						<li><img src="/files/slides/slide-1.jpg" alt=""></li>
-						<li><img src="/files/slides/slide-2.jpg" alt=""></li>
-						<li><img src="/files/slides/slide-3.jpg" alt=""></li>
-						<li><img src="/files/slides/slide-4.jpg" alt=""></li>
-						<li><img src="/files/slides/slide-5.jpg" alt=""></li>
-					</ul>
-				</div>
-				<ul class="pags">
-					<li><a href="#"><strong>0</strong>1</a></li>
-					<li><a href="#"><strong>0</strong>2</a></li>
-					<li><a href="#"><strong>0</strong>3</a></li>
-					<li><a href="#"><strong>0</strong>4</a></li>
-					<li><a href="#"><strong>0</strong>5</a></li>
-				</ul>
-			</div>-->
-
-
-			<div id="owl-head" class="owl-carousel owl-theme">
-
-				<div class="item"><img src="/files/slides/slide-1.jpg" alt="The Last of us"></div>
-				<div class="item"><img src="/files/slides/slide-2.jpg" alt="GTA V"></div>
-				<div class="item"><img src="/files/slides/slide-3.jpg" alt="Mirror Edge"></div>
-				<div class="item"><img src="/files/slides/slide-4.jpg" alt="GTA V"></div>
-				<div class="item"><img src="/files/slides/slide-5.jpg" alt="Mirror Edge"></div>
-
-			</div>
-
-			<div class="owl-head-pags">
-				<div class="owl-dot" ><strong>0</strong>1</div>
-				<div class="owl-dot" ><strong>0</strong>2</div>
-				<div class="owl-dot" ><strong>0</strong>3</div>
-				<div class="owl-dot" ><strong>0</strong>4</div>
-				<div class="owl-dot" ><strong>0</strong>5</div>
-			</div>
-
-			<!--<div class="owl-head-pags">
-				<div class="owl-dot"><span>1</span></div>
-				<div class="owl-dot"><span>2</span></div>
-				<div class="owl-dot"><span>3</span></div>
-				<div class="owl-dot"><span>4</span></div>
-				<div class="owl-dot"><span>5</span></div>
-			</div>-->
-
 
 			<?
-			/*if ( $razdel == '/index.php' ) {
+			if ( $razdel == '/index.php' ) {
 				$slides = glob( 'files/slides/*.jpg' ); // сканирование без субдиректорий
-				$items  = '<div id = "owl-items" class="owl-carousel owl-theme">';
+				$items  = '<div id = "owl-head" class="owl-carousel owl-theme">';
+				$pags = "<div class='owl-head-pags'>";
+				$i = 1;
 				foreach ( $slides as $key => $slide ) {
-					$items .= '<div class="item"><img src="/' . $slide . '" alt=""></div>';
+					$items .= "<div class='item'><img src='/". $slide."' alt='Фотография " .basename($slide)."'></div>";
+					$pags .= "<div class='owl-dot' ><strong>0</strong>{$i}</div>";
+					$i++;
 				}
 				$items .= '</div>';
+				$pags .=  '</div>';
 				echo( $items );
-			}*/
-
+				echo( $pags );
+			}
 			?>
 
 		</div>
 	</div>
 </div>
-
-
-<!--<script>
-
-	$(document).ready(function () {
-
-		$("#owl-items").owlCarousel({
-			autoPlay         : 15000,
-			stopOnHover      : true,
-			navigation       : false,
-			paginationSpeed  : 1000,
-			goToFirstSpeed   : 5000,
-			singleItem       : true,
-			autoHeight       : true,
-			paginationNumbers: true,
-
-			transitionStyle: "fade"  //Currently available: "fade", "backSlide", "goDown", "fadeUp"
-		});
-
-
-	});
-
-
-</script>-->
-
 
 <!--[if IE 6]>
 <div class="warning">

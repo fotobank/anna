@@ -18,10 +18,7 @@ $(document).ready(function () {
 			autoplay:true,
 			autoplayTimeout:8000,
 			autoplayHoverPause:true,
-
-			dots:true,
-			dotData:true,
-
+			dots:true, // показ чекбоксов
 			dotsContainer: '.owl-head-pags'
 
 		});

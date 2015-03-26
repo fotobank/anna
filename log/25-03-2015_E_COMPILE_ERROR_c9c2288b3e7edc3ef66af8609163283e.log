@@ -1,0 +1,2 @@
+[2] 25-03-2015 21:15:29	/index.php?	ERROR_GET_LAST	E_COMPILE_ERROR	Code 64	Cannot use [] for reading	xdebug://debug-eval	Line 1
+[TRACE]	#0			Inter_Error::detect_fatal_error()

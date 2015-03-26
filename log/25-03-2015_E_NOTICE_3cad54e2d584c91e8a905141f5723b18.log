@@ -1,0 +1,2 @@
+[1] 25-03-2015 20:43:39	/index.php?	ERROR	E_NOTICE	Code 8	Undefined variable: n	O:\domains\anna.od.ua\inc\carosel.php	Line 30
+[TRACE]	#1	O:\domains\anna.od.ua\index.php	18	carousel()

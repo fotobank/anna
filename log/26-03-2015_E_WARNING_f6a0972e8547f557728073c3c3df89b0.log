@@ -1,0 +1,6 @@
+[1] 26-03-2015 00:57:41	/comments.php?	ERROR	E_WARNING	Code 2	mysqli::ping(): MySQL server has gone away	O:\domains\anna.od.ua\classes\Mysqli\Db.php	Line 560
+[TRACE]	#1	O:\domains\anna.od.ua\classes\Mysqli\Db.php	560	mysqli->ping()
+[TRACE]	#2	O:\domains\anna.od.ua\classes\Mysqli\Db.php	284	Mysqli_Db->ping()
+[TRACE]	#3	O:\domains\anna.od.ua\classes\Mysqli\Db.php	305	Mysqli_Db->check_connect()
+[TRACE]	#4	O:\domains\anna.od.ua\classes\Mysqli\Db.php	338	Mysqli_Db->get('gb_posts',1,'count(*) as records')
+[TRACE]	#5	O:\domains\anna.od.ua\comments.php	56	Mysqli_Db->getOne('gb_posts','count(*) as records')

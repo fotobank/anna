@@ -1,0 +1,2 @@
+[1] 25-03-2015 20:32:56	/index.php?	ERROR	E_NOTICE	Code 8	Array to string conversion	O:\domains\anna.od.ua\inc\carosel.php	Line 33
+[TRACE]	#1	O:\domains\anna.od.ua\index.php	18	carousel()

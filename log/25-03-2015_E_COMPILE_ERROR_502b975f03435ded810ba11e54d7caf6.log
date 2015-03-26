@@ -1,0 +1,2 @@
+[1] 25-03-2015 03:04:15	/portfolio.php?	ERROR_GET_LAST	E_COMPILE_ERROR	Code 64	require_once(): Failed opening required 'O:\domains\anna.od.ua\classes\CssJsCompress\Compressor.php' (include_path='.;o:/modules/php/PHP-5.4;o:/modules/php/PHP-5.4/PEAR/pear;O:\domains\anna.od.ua\inc')	O:\domains\anna.od.ua\classes\autoload.php	Line 73
+[TRACE]	#0			Inter_Error::detect_fatal_error()
