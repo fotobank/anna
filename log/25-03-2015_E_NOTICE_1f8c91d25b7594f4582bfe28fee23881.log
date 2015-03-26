@@ -1,2 +1,0 @@
-[1] 25-03-2015 20:34:36	/index.php?XDEBUG_SESSION_START=17448	ERROR	E_NOTICE	Code 8	Array to string conversion	Unknown	Line 0
-[TRACE]	#1	O:\domains\anna.od.ua\index.php	18	carousel()

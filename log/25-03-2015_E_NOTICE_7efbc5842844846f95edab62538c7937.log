@@ -1,2 +1,0 @@
-[1] 25-03-2015 21:21:18	/index.php?	ERROR	E_NOTICE	Code 8	Undefined offset: 0	O:\domains\anna.od.ua\inc\carosel.php	Line 31
-[TRACE]	#1	O:\domains\anna.od.ua\index.php	18	carousel()

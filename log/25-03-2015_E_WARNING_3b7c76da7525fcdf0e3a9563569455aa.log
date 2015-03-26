@@ -1,3 +1,0 @@
-[3] 25-03-2015 21:19:51	/index.php?	ERROR	E_WARNING	Code 2	basename() expects parameter 1 to be string, array given	O:\domains\anna.od.ua\inc\carosel.php	Line 48
-[TRACE]	#1	O:\domains\anna.od.ua\inc\carosel.php	48	basename(array)
-[TRACE]	#2	O:\domains\anna.od.ua\index.php	18	carousel()

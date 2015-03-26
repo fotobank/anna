@@ -1,2 +1,0 @@
-[1] 25-03-2015 12:36:17	/comments.php?	ERROR	E_NOTICE	Code 8	Undefined variable: script	O:\domains\anna.od.ua\inc\head.php	Line 112
-[TRACE]	#1	O:\domains\anna.od.ua\comments.php	10	include_once('O:\domains\anna.od.ua\inc\head.php')

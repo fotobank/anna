@@ -1,3 +1,0 @@
-[1] 25-03-2015 21:48:41	/index.php?XDEBUG_SESSION_START=15737	ERROR	E_WARNING	Code 2	basename() expects parameter 1 to be string, array given	O:\domains\anna.od.ua\inc\carosel.php	Line 47
-[TRACE]	#1	O:\domains\anna.od.ua\inc\carosel.php	47	basename(array)
-[TRACE]	#2	O:\domains\anna.od.ua\index.php	18	carousel()

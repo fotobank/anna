@@ -1,5 +1,0 @@
-[1] 25-03-2015 03:04:15	/portfolio.php?	ERROR	E_WARNING	Code 2	require_once(O:\domains\anna.od.ua\classes\CssJsCompress\Compressor.php): failed to open stream: No such file or directory	O:\domains\anna.od.ua\classes\autoload.php	Line 73
-[TRACE]	#1	O:\domains\anna.od.ua\classes\autoload.php	73	autoload::autoload_class()
-[TRACE]	#2			autoload->autoload_class('CssJsCompress\Compressor')
-[TRACE]	#3	O:\domains\anna.od.ua\inc\head.php	23	spl_autoload_call('CssJsCompress\Compressor')
-[TRACE]	#4	O:\domains\anna.od.ua\portfolio.php	10	include_once('O:\domains\anna.od.ua\inc\head.php')

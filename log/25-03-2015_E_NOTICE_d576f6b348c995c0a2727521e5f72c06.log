@@ -1,3 +1,0 @@
-[1] 25-03-2015 20:34:30	/index.php?XDEBUG_SESSION_START=17448	ERROR	E_NOTICE	Code 8	Use of undefined constant i - assumed 'i'	xdebug://debug-eval	Line 1
-[TRACE]	#1	O:\domains\anna.od.ua\inc\carosel.php	29	carousel()
-[TRACE]	#2	O:\domains\anna.od.ua\index.php	18	carousel()

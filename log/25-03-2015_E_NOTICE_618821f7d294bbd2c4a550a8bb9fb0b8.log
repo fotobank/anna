@@ -1,5 +1,0 @@
-[1] 25-03-2015 21:05:47	/index.php?	ERROR	E_NOTICE	Code 8	Undefined index: thumb	xdebug://debug-eval	Line 1
-[TRACE]	#1	O:\domains\anna.od.ua\inc\func.php	751	recursive_dir()
-[TRACE]	#2	O:\domains\anna.od.ua\inc\func.php	764	recursive_dir('files/portfolio/01_Свадьбы/thumb','.jpg',array,array,false)
-[TRACE]	#3	O:\domains\anna.od.ua\inc\carosel.php	17	recursive_dir('files/portfolio','.jpg',array,array,false)
-[TRACE]	#4	O:\domains\anna.od.ua\index.php	18	carousel()

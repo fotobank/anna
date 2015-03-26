@@ -1,0 +1,15 @@
+files/portfolio/*
+files/rotate_image_news/*
+files/slides/*
+.sass-cache/*
+/css/.sass-cache/*
+cache/*
+git rm --cached test -r1/*
+No_id/*
+ImageFileBrowser/*
+images/*
+robots.txt
+sitemap.xml
+sitemap.xml.gz
+
+# git rm --cached images/*

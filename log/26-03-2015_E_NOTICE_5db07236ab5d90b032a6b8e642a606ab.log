@@ -1,6 +1,0 @@
-[2] 26-03-2015 00:57:36	/comments.php?	ERROR	E_NOTICE	Code 8	Array to string conversion	O:\domains\anna.od.ua\classes\Comments\Template.php	Line 189
-[TRACE]	#1	O:\domains\anna.od.ua\classes\Comments\Template.php	189	settype(array,'string')
-[TRACE]	#2	O:\domains\anna.od.ua\classes\Comments\Template.php	277	Comments_Template->parse_template('<div class='content-minigall'>
-	<a href='{A_IMG_COMM}'><img alt='' src='{THUMB_IMG_COMM}'></a>
-</div>',array)
-[TRACE]	#3	O:\domains\anna.od.ua\comments.php	51	Comments_Template->parse('{FOTO_COMM}','.foto_c')

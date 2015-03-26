@@ -1,2 +1,0 @@
-[1] 25-03-2015 20:47:38	/index.php?	ERROR_GET_LAST	E_PARSE	Code 4	syntax error, unexpected '}'	O:\domains\anna.od.ua\inc\carosel.php	Line 57
-[TRACE]	#0			Inter_Error::detect_fatal_error()
