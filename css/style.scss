@@ -1,14 +1,28 @@
 
-@import "compass", "compass/css3", "mixins/my_mix";
+@import "compass", "compass/css3";
 @import "bourbon/bourbon", "base/base", "neat/neat";
 
-@import "media-queries";
 @import "reset";
-@import "inc/config";
 @import "inc/test";
+@import "inc/config";
+@import "media-queries";
+
+
 @import "inc/fonts";
 @import "inc/core";
 @import "inc/col";
+
+@import "mixins/center_img";
+@import "mixins/gradient";
+@import "mixins/mixins";
+@import "mixins/prefiks";
+@import "mixins/spaces";
+@import "mixins/brightness";
+@import "mixins/btn";
+@import "mixins/center_img";
+@import "mixins/checkbox-and-radio";
+@import "mixins/css3-mixins";
+@import "mixins/palette";
 
 @import "inc/jquery-ui";
 @import "inc/jquery-ui.structure";
@@ -29,6 +43,8 @@
 @import "animate";
 @import "who.is.online.styles";
 @import "media-queries";
+@import "fancy-buttons";
+
 
 
 
@@ -177,22 +193,6 @@
 	  left: 425px;
 	  z-index: 1000;
 	  margin-top: 70px;
-}
-
-.bb2 {
-	  border-bottom: #353535 1px solid;
-	  padding-bottom: 7px;
-}
-
-.bb3 {
-	  border-bottom: #353535 1px solid;
-	  padding-top: 5px;
-	  padding-bottom: 8px;
-}
-
-.p5-17 {
-	  padding-top: 5px;
-	  padding-bottom: 17px;
 }
 
 ul {
@@ -420,7 +420,13 @@ ul.list-2 li span, .adr {
 
 .page1-row1 {
 	  overflow: hidden;
-	  padding-top: 36px;
+}
+
+
+.h-title {
+	  height: 100px;
+	  display: table-cell;
+	  vertical-align: middle;
 }
 
 .link-1-pad {
@@ -704,22 +710,18 @@ TEXTAREA, SELECT {
 	  background: #f0f0f0;
 }
 
-.b {
-	  font-weight: bold;
-	  font-family: Verdana, serif;
-	  @include font-size(15);
-	  text-align: center;
+$border-color: #353535;
+
+.bb1 {
+	  border-bottom: $border-color 1px solid;
 }
 
-.s {
-	  font-weight: plain;
-	  font-family: Arial, serif;
-	  @include font-size(11);
+.bb2 {
+	  border-bottom: $border-color 2px solid;
 }
 
-.s-ver {
-	  font-family: Verdana, serif;
-	  @include font-size(11);
+.bb3 {
+	  border-bottom: $border-color 3px solid;
 }
 
 .form-comments {
@@ -1246,7 +1248,7 @@ a.support-hover-two:hover em {
 }
 
 #new-gal {
-	  height: 329px;
+	  height: 368px;
 	  width: auto;
 }
 
@@ -1292,8 +1294,6 @@ a.support-hover-two:hover em {
 	  width: 100%;
 	  height: 100%;
 }
-
-@import "fancy-buttons";
 
 button {
 	  @include fancy-button(#124c89, 12px, 0.3em, 1px);

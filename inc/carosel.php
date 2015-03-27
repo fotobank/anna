@@ -36,10 +36,7 @@ function carousel() {
 	$thumb = get_random_elements( recursive_dir( "files/portfolio", ".jpg", array( 'thumb' ), array(), false ), 16 ); // сканирование в субдеррикториях 'thumb'
 
 	$carousel = '<div class="page1-row1 pad-1">';
-	$carousel .= '<div class="col-1">';
-	$carousel .= '<div id="TimerDiv"></div><h3 class="p2"></h3></div>';
-	$carousel .= '<div class="col-2">';
-	$carousel .= '<h3 class="bb2 p2">Новинки в галереях:</h3>';
+	$carousel .= '<div class="h-title"><h3>Новинки в галереях:</h3>';
 	$carousel .= '</div></div>';
 	$carousel .= '<div id="owl-index" class="owl-carousel">';
 	for ( $i = 0; $i < count( $thumb ); $i = $i + 2 ) {

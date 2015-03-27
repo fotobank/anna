@@ -77,10 +77,6 @@ list( $razdel, $title ) = title();
 		<script type='text/javascript' src='/js/minified/ajax.tabs.min.js'></script>
 		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>
 
-
-		<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
-		<script type='text/javascript' src='/js/minified/tms-0.4.1.min.js'></script>
-
 	<?
 
 	} else {

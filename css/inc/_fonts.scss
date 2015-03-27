@@ -1,3 +1,13 @@
+$georgia: Georgia, Cambria, "Times New Roman", Times, serif;
+$helvetica: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+$lucida-grande: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+$monospace: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
+$verdana: Verdana, Geneva, sans-serif;
+$marck: "Marck Script", cursive;
+
+$base-font-family: 'Lato', sans-serif;
+$base-font-size:   14px;
+
 $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
 @font-face {
 	font-family: 'LazyCrazyRegular';
@@ -5,4 +15,85 @@ $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
 	src: url('#{$url_lazy}.eot?#iefix') format('embedded-opentype'), url('#{$url_lazy}.woff') format('woff'), url('#{$url_lazy}.ttf') format('truetype'), url('#{$url_lazy}.svg#LazyCrazyRegular') format('svg');
 	font-weight: normal;
 	font-style: normal;
+}
+
+
+@mixin font-stack-headers-h1 {
+	  @include single-text-shadow(2px, 2px, 3px, 3px, #191919);
+	  font-family: 'Marck Script', cursive, Georgia, Times New Roman, serif;
+	  line-height: 36px;
+	  font-weight: bold;
+	  font-style: italic;
+	  @include font-size(38);
+	  color: $h1_color;
+}
+
+@mixin font-stack-headers-h2 {
+
+}
+@mixin font-stack-headers-h3 {
+	  font-family: 'Bad Script', 'Georgia', 'Tahoma', 'Arial', cursive;
+	  @include font-size(24);
+	  line-height: 30px;
+	  color: $h3_color;
+	  font-weight: normal;
+	  font-style: italic;
+}
+@mixin font-stack-headers-h4 {
+	  @include single-text-shadow(1px, 1px, 3px, 2px, rgba(0, 0, 0, 0.3));
+	  @include font-size(18);
+	  font-weight: bold;
+}
+@mixin font-stack-headers-h5 {
+
+}
+@mixin font-stack-body {
+	  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	  @include font-size(15);
+	  //		line-height: 22px;
+	  font-style: normal;
+}
+@mixin font-stack-footer {
+	  font-family: Times New Roman, serif;
+	  text-shadow: -1px -1px #000;
+}
+@mixin font-stack-code {
+
+}
+@mixin font-stack-brand {
+
+}
+
+
+@function px-to-rem($px){
+	  @return ($px/16) * 1rem;
+}
+@mixin font-size($font_px)
+{
+	  font-size: $font_px * 1px;
+	  font-size: px-to-rem($font_px);
+
+	  $line_h: $font_px * 1.2;
+
+	  line-height: $line_h * 1px;
+	  line-height: px-to-rem($line_h);
+}
+
+
+.b {
+	  font-weight: bold;
+	  font-family: Verdana, serif;
+	  @include font-size(15);
+	  text-align: center;
+}
+
+.s {
+	  font-weight: plain;
+	  font-family: Arial, serif;
+	  @include font-size(11);
+}
+
+.s-ver {
+	  font-family: Verdana, serif;
+	  @include font-size(11);
 }
