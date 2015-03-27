@@ -401,13 +401,147 @@ input, textarea, select {
 }
 
 /*Test*/
+/* line 179, _site.menu.scss */
+.centered-navigation {
+  background: url('/images/nav.png?1405111182') 0 0 repeat;
+  border-bottom: 1px solid #afafaf;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  width: 100%;
+  z-index: 9999;
+  height: 2.125em;
+}
+/* line 187, _site.menu.scss */
+.centered-navigation .mobile-logo {
+  display: inline;
+  float: left;
+  max-height: 2.125em;
+  padding-left: 1em;
+}
+/* line 192, _site.menu.scss */
+.centered-navigation .mobile-logo img {
+  max-height: 2.125em;
+  opacity: 1;
+}
+/* line 197, _site.menu.scss */
+.centered-navigation .centered-navigation-menu-button {
+  color: #ffffff;
+  display: block;
+  float: right;
+  font-weight: 700;
+  line-height: 2.125em;
+  margin: 0;
+  padding-right: 1em;
+  text-transform: uppercase;
+}
+/* line 206, _site.menu.scss */
+.centered-navigation .centered-navigation-menu-button:hover {
+  color: #fc0;
+}
+/* line 210, _site.menu.scss */
+.centered-navigation .centered-navigation-wrapper {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 999;
+}
+/* line 15, bourbon/addons/_clearfix.scss */
+.centered-navigation .centered-navigation-wrapper:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 220, _site.menu.scss */
+.centered-navigation ul.centered-navigation-menu {
+  -webkit-transform-style: preserve-3d;
+  clear: both;
+  display: none;
+  margin: 0 auto;
+  overflow: visible;
+  padding: 0;
+  width: 100%;
+  z-index: 99999;
+  height: 2.125em;
+}
+/* line 231, _site.menu.scss */
+.centered-navigation ul li.nav-link {
+  background: #494949;
+  background: transparent;
+  display: block;
+  padding-right: 1em;
+  line-height: 2.125em;
+  height: auto !important;
+  height: 2.7625em;
+  overflow: hidden;
+  text-align: right;
+  z-index: 9999;
+  vertical-align: middle;
+  zoom: 1;
+}
+/* line 245, _site.menu.scss */
+.centered-navigation ul li.nav-link a {
+  height: 2.7625em;
+  font-size: 17px;
+  font-size: 1.0625rem;
+  line-height: 20.4px;
+  line-height: 1.275rem;
+  text-shadow: #191919 2px 2px 5px;
+  color: #ffffff;
+  vertical-align: middle;
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+  text-decoration: none;
+}
+/* line 256, _site.menu.scss */
+.centered-navigation ul li.nav-link a:hover {
+  -moz-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
+  -webkit-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
+  box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
+  color: #fc0;
+  text-decoration: none;
+}
+/* line 261, _site.menu.scss */
+.centered-navigation ul li.nav-link a:active {
+  color: #fff5cc;
+  text-decoration: none;
+}
+/* line 265, _site.menu.scss */
+.centered-navigation ul li.nav-link a:visited {
+  text-decoration: none;
+}
+/* line 268, _site.menu.scss */
+.centered-navigation ul li.nav-link a:first-letter {
+  color: #FF0000;
+  font-family: "Marck Script", cursive;
+  font-size: 30px;
+  font-size: 1.875rem;
+  line-height: 36px;
+  line-height: 2.25rem;
+  text-shadow: #191919 2px 2px 5px;
+}
+/* line 276, _site.menu.scss */
+.centered-navigation ul li.current a {
+  color: #fc0;
+}
+/* line 279, _site.menu.scss */
+.centered-navigation li.logo.nav-link {
+  display: none;
+  line-height: 0;
+}
+/* line 283, _site.menu.scss */
+.centered-navigation .logo img {
+  margin-top: -1.875em;
+  max-height: 7.777em;
+  opacity: 1;
+  width: 11.063em;
+}
+
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-  /* Styles */
   /* Smartphones (landscape) ----------- */
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (min-width: 321px) {
-  /* Styles */
   /* line 179, _site.menu.scss */
   .centered-navigation {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
@@ -548,7 +682,6 @@ input, textarea, select {
   /* Smartphones (portrait) ----------- */
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (max-width: 320px) {
-  /* Styles */
   /* line 179, _site.menu.scss */
   .centered-navigation {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
@@ -685,22 +818,45 @@ input, textarea, select {
     width: 11.063em;
   }
 }
-/* iPads (portrait and landscape) ----------- */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  /* Styles */
-  /* line 25, _site.menu.scss */
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  /* line 179, _site.menu.scss */
   .centered-navigation {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
+    border-bottom: 1px solid #afafaf;
     font-family: Georgia, Cambria, "Times New Roman", Times, serif;
     width: 100%;
     z-index: 9999;
-    height: 7.25em;
+    height: 2.125em;
   }
-  /* line 33, _site.menu.scss */
-  .centered-navigation .mobile-logo, .centered-navigation .centered-navigation-menu-button {
-    display: none;
+  /* line 187, _site.menu.scss */
+  .centered-navigation .mobile-logo {
+    display: inline;
+    float: left;
+    max-height: 2.125em;
+    padding-left: 1em;
   }
-  /* line 37, _site.menu.scss */
+  /* line 192, _site.menu.scss */
+  .centered-navigation .mobile-logo img {
+    max-height: 2.125em;
+    opacity: 1;
+  }
+  /* line 197, _site.menu.scss */
+  .centered-navigation .centered-navigation-menu-button {
+    color: #ffffff;
+    display: block;
+    float: right;
+    font-weight: 700;
+    line-height: 2.125em;
+    margin: 0;
+    padding-right: 1em;
+    text-transform: uppercase;
+  }
+  /* line 206, _site.menu.scss */
+  .centered-navigation .centered-navigation-menu-button:hover {
+    color: #fc0;
+  }
+  /* line 210, _site.menu.scss */
   .centered-navigation .centered-navigation-wrapper {
     max-width: 100%;
     margin-left: auto;
@@ -714,39 +870,36 @@ input, textarea, select {
     display: table;
     clear: both;
   }
-  /* line 47, _site.menu.scss */
+  /* line 220, _site.menu.scss */
   .centered-navigation ul.centered-navigation-menu {
     -webkit-transform-style: preserve-3d;
     clear: both;
+    display: none;
     margin: 0 auto;
     overflow: visible;
     padding: 0;
     width: 100%;
     z-index: 99999;
-    display: block;
-    text-align: center;
-    height: 7.25em;
+    height: 2.125em;
   }
-  /* line 62, _site.menu.scss */
+  /* line 231, _site.menu.scss */
   .centered-navigation ul li.nav-link {
     background: #494949;
     background: transparent;
+    display: block;
+    padding-right: 1em;
+    line-height: 2.125em;
     height: auto !important;
-    height: 7.25em;
-    display: inline;
-    display: inline-block;
+    height: 2.7625em;
     overflow: hidden;
     text-align: right;
-    padding-right: 0;
     z-index: 9999;
     vertical-align: middle;
     zoom: 1;
-    background: url('/images/li.png?1405111182') 0 0 no-repeat;
-    background-position: left;
-    line-height: 7.25em;
   }
-  /* line 81, _site.menu.scss */
+  /* line 245, _site.menu.scss */
   .centered-navigation ul li.nav-link a {
+    height: 2.7625em;
     font-size: 17px;
     font-size: 1.0625rem;
     line-height: 20.4px;
@@ -758,11 +911,8 @@ input, textarea, select {
     zoom: 1;
     *display: inline;
     text-decoration: none;
-    height: 4.35em;
-    padding: 1.99375em 1.5em 0;
-    margin-top: -0.125em;
   }
-  /* line 95, _site.menu.scss */
+  /* line 256, _site.menu.scss */
   .centered-navigation ul li.nav-link a:hover {
     -moz-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
     -webkit-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
@@ -770,16 +920,16 @@ input, textarea, select {
     color: #fc0;
     text-decoration: none;
   }
-  /* line 100, _site.menu.scss */
+  /* line 261, _site.menu.scss */
   .centered-navigation ul li.nav-link a:active {
     color: #fff5cc;
     text-decoration: none;
   }
-  /* line 104, _site.menu.scss */
+  /* line 265, _site.menu.scss */
   .centered-navigation ul li.nav-link a:visited {
     text-decoration: none;
   }
-  /* line 107, _site.menu.scss */
+  /* line 268, _site.menu.scss */
   .centered-navigation ul li.nav-link a:first-letter {
     color: #FF0000;
     font-family: "Marck Script", cursive;
@@ -789,64 +939,16 @@ input, textarea, select {
     line-height: 2.25rem;
     text-shadow: #191919 2px 2px 5px;
   }
-  /* line 115, _site.menu.scss */
+  /* line 276, _site.menu.scss */
   .centered-navigation ul li.current a {
     color: #fc0;
   }
-  /* line 118, _site.menu.scss */
-  .centered-navigation .nav-link:first-child, .centered-navigation .nav-link:nth-child(4), .centered-navigation .nav-link:nth-child(5) {
-    background: transparent;
-  }
-  /* line 121, _site.menu.scss */
-  .centered-navigation .nav-link:first-child {
-    padding-left: 0;
-    margin-left: -1em;
-  }
-  /* line 122, _site.menu.scss */
-  .centered-navigation .nav-link:first-child a {
-    width: 4.25em;
-  }
-  /* line 129, _site.menu.scss */
-  .centered-navigation .nav-link:nth-child(2) a {
-    width: 5.125em;
-  }
-  /* line 134, _site.menu.scss */
-  .centered-navigation .nav-link:nth-child(3) a {
-    width: 5.625em;
-  }
-  /* line 138, _site.menu.scss */
-  .centered-navigation .nav-link:nth-child(4) {
-    margin-left: -1em;
-  }
-  /* line 140, _site.menu.scss */
-  .centered-navigation .nav-link:nth-child(4) a {
-    width: 10.628em;
-    padding-top: 0;
-  }
-  /* line 143, _site.menu.scss */
-  .centered-navigation .nav-link:nth-child(4) a:hover {
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
-  /* line 149, _site.menu.scss */
-  .centered-navigation .nav-link:nth-child(5) a {
-    width: 4.5em;
-  }
-  /* line 154, _site.menu.scss */
-  .centered-navigation .nav-link:nth-child(6) a {
-    width: 3.688em;
-  }
-  /* line 159, _site.menu.scss */
-  .centered-navigation .nav-link:nth-child(7) a {
-    width: 4.375em;
-  }
-  /* line 163, _site.menu.scss */
+  /* line 279, _site.menu.scss */
   .centered-navigation li.logo.nav-link {
+    display: none;
     line-height: 0;
-    display: inline;
   }
-  /* line 167, _site.menu.scss */
+  /* line 283, _site.menu.scss */
   .centered-navigation .logo img {
     margin-top: -1.875em;
     max-height: 7.777em;
@@ -856,7 +958,6 @@ input, textarea, select {
 }
 /* iPads (landscape) ----------- */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
-  /* Styles */
   /* line 25, _site.menu.scss */
   .centered-navigation {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
@@ -1025,7 +1126,6 @@ input, textarea, select {
 }
 /* iPads (portrait) ----------- */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
-  /* Styles */
   /* line 179, _site.menu.scss */
   .centered-navigation {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
@@ -1163,8 +1263,7 @@ input, textarea, select {
   }
 }
 /* Desktops and laptops ----------- */
-@media only screen and (min-width: 1139px) {
-  /* Styles */
+@media only screen and (min-width: 1100px) {
   /* line 25, _site.menu.scss */
   .centered-navigation {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
@@ -1333,7 +1432,6 @@ input, textarea, select {
 }
 /* Large screens ----------- */
 @media only screen and (min-width: 1824px) {
-  /* Styles */
   /* line 25, _site.menu.scss */
   .centered-navigation {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
@@ -1501,16 +1599,143 @@ input, textarea, select {
   }
 }
 /* iPhone 4 ----------- */
-/*
-@media
-only screen and (-webkit-min-device-pixel-ratio : 1.5),
-only screen and (min-device-pixel-ratio : 1.5) {
-	  */
-/* Styles */
-            /*
-
-	  @include site-menu-mobile;
-}*/
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
+  /* line 179, _site.menu.scss */
+  .centered-navigation {
+    background: url('/images/nav.png?1405111182') 0 0 repeat;
+    border-bottom: 1px solid #afafaf;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    width: 100%;
+    z-index: 9999;
+    height: 2.125em;
+  }
+  /* line 187, _site.menu.scss */
+  .centered-navigation .mobile-logo {
+    display: inline;
+    float: left;
+    max-height: 2.125em;
+    padding-left: 1em;
+  }
+  /* line 192, _site.menu.scss */
+  .centered-navigation .mobile-logo img {
+    max-height: 2.125em;
+    opacity: 1;
+  }
+  /* line 197, _site.menu.scss */
+  .centered-navigation .centered-navigation-menu-button {
+    color: #ffffff;
+    display: block;
+    float: right;
+    font-weight: 700;
+    line-height: 2.125em;
+    margin: 0;
+    padding-right: 1em;
+    text-transform: uppercase;
+  }
+  /* line 206, _site.menu.scss */
+  .centered-navigation .centered-navigation-menu-button:hover {
+    color: #fc0;
+  }
+  /* line 210, _site.menu.scss */
+  .centered-navigation .centered-navigation-wrapper {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 999;
+  }
+  /* line 15, bourbon/addons/_clearfix.scss */
+  .centered-navigation .centered-navigation-wrapper:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  /* line 220, _site.menu.scss */
+  .centered-navigation ul.centered-navigation-menu {
+    -webkit-transform-style: preserve-3d;
+    clear: both;
+    display: none;
+    margin: 0 auto;
+    overflow: visible;
+    padding: 0;
+    width: 100%;
+    z-index: 99999;
+    height: 2.125em;
+  }
+  /* line 231, _site.menu.scss */
+  .centered-navigation ul li.nav-link {
+    background: #494949;
+    background: transparent;
+    display: block;
+    padding-right: 1em;
+    line-height: 2.125em;
+    height: auto !important;
+    height: 2.7625em;
+    overflow: hidden;
+    text-align: right;
+    z-index: 9999;
+    vertical-align: middle;
+    zoom: 1;
+  }
+  /* line 245, _site.menu.scss */
+  .centered-navigation ul li.nav-link a {
+    height: 2.7625em;
+    font-size: 17px;
+    font-size: 1.0625rem;
+    line-height: 20.4px;
+    line-height: 1.275rem;
+    text-shadow: #191919 2px 2px 5px;
+    color: #ffffff;
+    vertical-align: middle;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    text-decoration: none;
+  }
+  /* line 256, _site.menu.scss */
+  .centered-navigation ul li.nav-link a:hover {
+    -moz-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
+    -webkit-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
+    box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
+    color: #fc0;
+    text-decoration: none;
+  }
+  /* line 261, _site.menu.scss */
+  .centered-navigation ul li.nav-link a:active {
+    color: #fff5cc;
+    text-decoration: none;
+  }
+  /* line 265, _site.menu.scss */
+  .centered-navigation ul li.nav-link a:visited {
+    text-decoration: none;
+  }
+  /* line 268, _site.menu.scss */
+  .centered-navigation ul li.nav-link a:first-letter {
+    color: #FF0000;
+    font-family: "Marck Script", cursive;
+    font-size: 30px;
+    font-size: 1.875rem;
+    line-height: 36px;
+    line-height: 2.25rem;
+    text-shadow: #191919 2px 2px 5px;
+  }
+  /* line 276, _site.menu.scss */
+  .centered-navigation ul li.current a {
+    color: #fc0;
+  }
+  /* line 279, _site.menu.scss */
+  .centered-navigation li.logo.nav-link {
+    display: none;
+    line-height: 0;
+  }
+  /* line 283, _site.menu.scss */
+  .centered-navigation .logo img {
+    margin-top: -1.875em;
+    max-height: 7.777em;
+    opacity: 1;
+    width: 11.063em;
+  }
+}
 /* line 22, inc/_core.scss */
 html {
   font-size: 100%;
