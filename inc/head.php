@@ -104,7 +104,7 @@ list( $razdel, $title ) = title();
 	<script type='text/javascript' src='/js/web/admin/admin.js'></script>
 	" ) ) {
 		echo $script;
-	};
+	}
 
 	?>
 

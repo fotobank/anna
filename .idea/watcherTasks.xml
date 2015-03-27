@@ -91,11 +91,11 @@
     </TaskOptions>
     <TaskOptions isEnabled="true">
       <option name="arguments" value="$FileName$ -o minified/$FileNameWithoutExtension$.min.js" />
-      <option name="checkSyntaxErrors" value="true" />
+      <option name="checkSyntaxErrors" value="false" />
       <option name="description" value="Compress .js files" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="js" />
-      <option name="immediateSync" value="true" />
+      <option name="immediateSync" value="false" />
       <option name="name" value="UglifyJS" />
       <option name="output" value="minified/$FileNameWithoutExtension$.min.js" />
       <option name="outputFilters">
@@ -170,8 +170,8 @@
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="false">
-      <option name="arguments" value="compile  $ProjectFileDir$ -s compressed --boring -c $FileParentDir$\css\compass\config.rb" />
-      <option name="checkSyntaxErrors" value="true" />
+      <option name="arguments" value="compile  $ProjectFileDir$ -s compressed --boring -c $FileParentDir$\css\compass_config\config.rb" />
+      <option name="checkSyntaxErrors" value="false" />
       <option name="description" value="Compiles .scss files into .css files using compass" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="scss" />
@@ -183,7 +183,7 @@
       </option>
       <option name="outputFromStdout" value="false" />
       <option name="passParentEnvs" value="true" />
-      <option name="program" value="C:/Ruby21-x64/bin/compass.bat" />
+      <option name="program" value="C:/Ruby22-x64/bin/compass.bat" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$FileDir$" />
@@ -195,15 +195,15 @@
       <option name="description" value="Compiles .scss files into .css files using compass" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="scss" />
-      <option name="immediateSync" value="true" />
-      <option name="name" value="compass scss compressed New" />
+      <option name="immediateSync" value="false" />
+      <option name="name" value="compass scss no compressed" />
       <option name="output" value="$FileNameWithoutExtension$.css" />
       <option name="outputFilters">
         <array />
       </option>
       <option name="outputFromStdout" value="false" />
       <option name="passParentEnvs" value="true" />
-      <option name="program" value="C:/Ruby21-x64/bin/compass.bat" />
+      <option name="program" value="C:/Ruby22-x64/bin/compass.bat" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$FileDir$" />

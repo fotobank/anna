@@ -11173,14 +11173,14 @@ Copyright (c) 2015 Daniel Eden
 }
 
 /*owl галерея в шапке*/
-/* line 35, style.scss */
+/* line 36, style.scss */
 #owl-head .item img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-/* line 40, style.scss */
+/* line 41, style.scss */
 .owl-head-pags {
   position: absolute;
   top: 466px;
@@ -11198,7 +11198,7 @@ Copyright (c) 2015 Daniel Eden
   vertical-align: top;
 }
 
-/* line 56, style.scss */
+/* line 57, style.scss */
 .owl-head-pags div {
   float: left;
   display: block;
@@ -11214,53 +11214,53 @@ Copyright (c) 2015 Daniel Eden
   cursor: pointer;
 }
 
-/* line 70, style.scss */
+/* line 71, style.scss */
 .owl-head-pags div.active, .owl-head-pags div.owl-dot:hover a {
   background-position: 0 0;
   color: #bf96c7;
 }
 
-/* line 74, style.scss */
+/* line 75, style.scss */
 .fancybox-nav {
   background: transparent url("/images/blank.gif");
 }
 
-/* line 77, style.scss */
+/* line 78, style.scss */
 .fancybox-overlay {
   background: url("/images/fancybox_overlay.png");
 }
 
-/* line 80, style.scss */
+/* line 81, style.scss */
 #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
   background-image: url("/images/fancybox_sprite.png");
 }
 
-/* line 83, style.scss */
+/* line 84, style.scss */
 #fancybox-loading div {
   background: url("/images/fancybox_loading.gif") center center no-repeat;
 }
 
-/* line 86, style.scss */
+/* line 87, style.scss */
 .tright {
   text-align: right;
 }
 
-/* line 89, style.scss */
+/* line 90, style.scss */
 .tleft {
   text-align: left;
 }
 
-/* line 93, style.scss */
+/* line 94, style.scss */
 .tjust {
   text-align: justify;
 }
 
-/* line 97, style.scss */
+/* line 98, style.scss */
 .center {
   text-align: center;
 }
 
-/* line 102, style.scss */
+/* line 103, style.scss */
 .ic {
   border: 0;
   float: right;
@@ -11277,18 +11277,18 @@ Copyright (c) 2015 Daniel Eden
   padding: 0;
 }
 
-/* line 115, style.scss */
+/* line 116, style.scss */
 .link {
   color: #aaaaaa;
   text-decoration: underline;
 }
-/* line 118, style.scss */
+/* line 119, style.scss */
 .link:hover {
   color: #fff;
   text-decoration: underline;
 }
 
-/* line 124, style.scss */
+/* line 125, style.scss */
 .link-1 {
   font-size: 11px;
   font-size: 0.6875rem;
@@ -11297,24 +11297,24 @@ Copyright (c) 2015 Daniel Eden
   line-height: 20px;
   font-style: italic;
 }
-/* line 128, style.scss */
+/* line 129, style.scss */
 .link-1:hover {
   color: #f7e35c;
   text-decoration: underline;
 }
 
-/* line 134, style.scss */
+/* line 135, style.scss */
 .link-2 {
   color: #aaaaaa;
   text-decoration: underline;
 }
-/* line 137, style.scss */
+/* line 138, style.scss */
 .link-2:hover {
   color: #aaaaaa;
   text-decoration: underline;
 }
 
-/* line 143, style.scss */
+/* line 144, style.scss */
 .link-3 {
   font-family: "Times New Roman", Times, serif;
   font-size: 16px;
@@ -11323,7 +11323,7 @@ Copyright (c) 2015 Daniel Eden
   line-height: 1.2rem;
 }
 
-/* line 148, style.scss */
+/* line 149, style.scss */
 .komment {
   color: #999999;
   font-size: 11px;
@@ -11334,7 +11334,7 @@ Copyright (c) 2015 Daniel Eden
   font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 }
 
-/* line 155, style.scss */
+/* line 156, style.scss */
 .text-1 {
   font-size: 18px;
   font-size: 1.125rem;
@@ -11345,7 +11345,7 @@ Copyright (c) 2015 Daniel Eden
   font-style: italic;
 }
 
-/* line 162, style.scss */
+/* line 163, style.scss */
 #TimerDiv {
   position: absolute;
   width: 200px;
@@ -11359,7 +11359,7 @@ Copyright (c) 2015 Daniel Eden
   margin-top: 8px;
 }
 
-/* line 172, style.scss */
+/* line 173, style.scss */
 #logo {
   display: inline-block;
   position: absolute;
@@ -11369,38 +11369,38 @@ Copyright (c) 2015 Daniel Eden
   margin-top: 70px;
 }
 
-/* line 181, style.scss */
+/* line 182, style.scss */
 .bb2 {
   border-bottom: #353535 1px solid;
   padding-bottom: 7px;
 }
 
-/* line 186, style.scss */
+/* line 187, style.scss */
 .bb3 {
   border-bottom: #353535 1px solid;
   padding-top: 5px;
   padding-bottom: 8px;
 }
 
-/* line 192, style.scss */
+/* line 193, style.scss */
 .p5-17 {
   padding-top: 5px;
   padding-bottom: 17px;
 }
 
-/* line 197, style.scss */
+/* line 198, style.scss */
 ul {
   margin: 0;
   padding: 0;
   list-style-image: none;
 }
-/* line 202, style.scss */
+/* line 203, style.scss */
 ul.list-2 li {
   padding: 0 0 13px 14px;
   line-height: 18px;
   background: url('/images/marker-1.gif?1405111182') 0 8px no-repeat;
 }
-/* line 207, style.scss */
+/* line 208, style.scss */
 ul.list-2 li span a {
   font-size: 13px;
   font-size: 0.8125rem;
@@ -11410,17 +11410,17 @@ ul.list-2 li span a {
   line-height: 18px;
   font-weight: bold;
 }
-/* line 212, style.scss */
+/* line 213, style.scss */
 ul.list-2 li span a:hover {
   color: #bf96c7;
 }
-/* line 220, style.scss */
+/* line 221, style.scss */
 ul.list-3 li {
   padding: 0 0 26px 0;
   line-height: 18px;
   overflow: hidden;
 }
-/* line 225, style.scss */
+/* line 226, style.scss */
 ul.list-3 li span.date {
   display: block;
   float: left;
@@ -11433,7 +11433,7 @@ ul.list-3 li span.date {
   line-height: 60px;
   font-style: italic;
 }
-/* line 233, style.scss */
+/* line 234, style.scss */
 ul.list-3 li span.date span {
   font-size: 24px;
   font-size: 1.5rem;
@@ -11444,7 +11444,7 @@ ul.list-3 li span.date span {
   float: left;
   color: #fff;
 }
-/* line 241, style.scss */
+/* line 242, style.scss */
 ul.list-3 li span.extra-wrap {
   font-size: 14px;
   font-size: 0.875rem;
@@ -11454,7 +11454,7 @@ ul.list-3 li span.extra-wrap {
   line-height: 18px;
   display: block;
 }
-/* line 246, style.scss */
+/* line 247, style.scss */
 ul.list-3 li span.extra-wrap a {
   font-size: 14px;
   font-size: 0.875rem;
@@ -11464,13 +11464,13 @@ ul.list-3 li span.extra-wrap a {
   line-height: 18px;
   text-decoration: underline;
 }
-/* line 251, style.scss */
+/* line 252, style.scss */
 ul.list-3 li span.extra-wrap a:hover {
   color: #fff;
   text-decoration: underline;
 }
 
-/* line 262, style.scss */
+/* line 263, style.scss */
 ul.list-2 li span, .adr {
   font-size: 13px;
   font-size: 0.8125rem;
@@ -11482,7 +11482,7 @@ ul.list-2 li span, .adr {
   font-style: normal;
 }
 
-/* line 270, style.scss */
+/* line 271, style.scss */
 .adr {
   width: 190px;
   margin-bottom: 40px;
@@ -11494,7 +11494,7 @@ ul.list-2 li span, .adr {
   line-height: 20px;
 }
 
-/* line 278, style.scss */
+/* line 279, style.scss */
 .clear {
   clear: both;
   line-height: 0;
@@ -11502,30 +11502,30 @@ ul.list-2 li span, .adr {
   width: 100%;
 }
 
-/* line 285, style.scss */
+/* line 286, style.scss */
 .wrapper {
   width: 100%;
   overflow: hidden;
   position: relative;
 }
 
-/* line 291, style.scss */
+/* line 292, style.scss */
 .wrap {
   overflow: hidden;
   position: relative;
 }
 
-/* line 296, style.scss */
+/* line 297, style.scss */
 .fleft {
   float: left;
 }
 
-/* line 300, style.scss */
+/* line 301, style.scss */
 .fright {
   float: right;
 }
 
-/* line 304, style.scss */
+/* line 305, style.scss */
 .img-indent {
   float: left;
   margin: 3px 24px 20px 0;
@@ -11536,94 +11536,94 @@ ul.list-2 li span, .adr {
   line-height: 1.05rem;
 }
 
-/* line 311, style.scss */
+/* line 312, style.scss */
 .img-indent-2 {
   margin: 3px 0 23px 0;
 }
 
-/* line 315, style.scss */
+/* line 316, style.scss */
 .last {
   margin-right: 0 !important;
 }
 
-/* line 319, style.scss */
+/* line 320, style.scss */
 .upper {
   text-transform: uppercase;
 }
 
-/* line 323, style.scss */
+/* line 324, style.scss */
 .top-1 {
   margin-top: 9px;
 }
 
-/* line 327, style.scss */
+/* line 328, style.scss */
 .left-1 {
   margin-left: 13px;
 }
 
-/* line 331, style.scss */
+/* line 332, style.scss */
 .bot-0 {
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
 }
 
-/* line 336, style.scss */
+/* line 337, style.scss */
 .bot-1 {
   margin-bottom: 21px;
 }
 
-/* line 340, style.scss */
+/* line 341, style.scss */
 .bot-2 {
   margin-bottom: 17px;
 }
 
-/* line 344, style.scss */
+/* line 345, style.scss */
 .bot-3 {
   margin-bottom: 51px;
 }
 
-/* line 348, style.scss */
+/* line 349, style.scss */
 .pad-1 {
   padding-left: 30px;
   padding-right: 30px;
 }
 
-/* line 353, style.scss */
+/* line 354, style.scss */
 .pad-2 {
   padding-left: 40px;
 }
 
-/* line 357, style.scss */
+/* line 358, style.scss */
 .p1 {
   padding-bottom: 18px;
 }
 
-/* line 361, style.scss */
+/* line 362, style.scss */
 .p2 {
   margin-bottom: 25px;
 }
 
-/* line 365, style.scss */
+/* line 366, style.scss */
 .p3 {
   padding-bottom: 20px;
 }
 
-/* line 369, style.scss */
+/* line 370, style.scss */
 .p4 {
   padding-bottom: 13px;
 }
 
-/* line 373, style.scss */
+/* line 374, style.scss */
 .p5 {
   padding-bottom: 6px;
 }
 
-/* line 377, style.scss */
+/* line 378, style.scss */
 .m1 {
   margin-bottom: 10px;
 }
 
-/* line 381, style.scss */
+/* line 382, style.scss */
 .subpages-nav {
   position: relative;
   width: 100%;
@@ -11631,13 +11631,13 @@ ul.list-2 li span, .adr {
   height: 197px;
   background: url('/images/banner.jpg?1406395079') center 0 no-repeat;
 }
-/* line 387, style.scss */
+/* line 388, style.scss */
 .subpages-nav nav {
   background: transparent !important;
   margin-top: 0 !important;
 }
 
-/* line 393, style.scss */
+/* line 394, style.scss */
 #content {
   width: 1024px;
   margin: 0 auto;
@@ -11646,52 +11646,52 @@ ul.list-2 li span, .adr {
   border-bottom: #303030 1px solid;
 }
 
-/* line 401, style.scss */
+/* line 402, style.scss */
 .img-border {
   border: #474747 4px solid;
   display: inline-block;
 }
 
-/* line 406, style.scss */
+/* line 407, style.scss */
 .gallery-block {
   position: relative;
   text-align: center;
 }
-/* line 409, style.scss */
+/* line 410, style.scss */
 .gallery-block h1 {
   padding: 26px 0 16px 0;
   text-align: center;
 }
 
-/* line 415, style.scss */
+/* line 416, style.scss */
 .gallery-photo {
   border-top: #303030 1px solid;
   border-bottom: #303030 1px solid;
 }
 
-/* line 420, style.scss */
+/* line 421, style.scss */
 .page1-row1 {
   overflow: hidden;
   padding-top: 36px;
 }
 
-/* line 425, style.scss */
+/* line 426, style.scss */
 .link-1-pad {
   float: right;
   margin-top: 9px;
 }
 
-/* line 430, style.scss */
+/* line 431, style.scss */
 .link-2-pad {
   float: right;
 }
 
-/* line 434, style.scss */
+/* line 435, style.scss */
 .soc-icons {
   overflow: hidden;
   margin: 17px 0 0 0;
 }
-/* line 437, style.scss */
+/* line 438, style.scss */
 .soc-icons a {
   display: block;
   width: 45px;
@@ -11699,77 +11699,77 @@ ul.list-2 li span, .adr {
   float: left;
   margin-right: 2px;
 }
-/* line 444, style.scss */
+/* line 445, style.scss */
 .soc-icons a:hover img {
   opacity: 0.7;
 }
 
-/* line 451, style.scss */
+/* line 452, style.scss */
 .page2-row1 {
   overflow: hidden;
   padding-top: 26px;
   padding-bottom: 41px;
 }
 
-/* line 457, style.scss */
+/* line 458, style.scss */
 .page2-row2 {
   overflow: hidden;
 }
 
-/* line 461, style.scss */
+/* line 462, style.scss */
 .comment {
   background: url('/images/comment-top.png?1405111181') 0 0 no-repeat;
   padding-left: 20px;
   margin-bottom: 9px;
   width: 270px;
 }
-/* line 466, style.scss */
+/* line 467, style.scss */
 .comment p {
   background: url('/images/comment-bottom.png?1405111181') right bottom no-repeat;
 }
 
-/* line 471, style.scss */
+/* line 472, style.scss */
 .slovo {
   background: url('/images/comment-top.png?1405111181') 0 0 no-repeat;
   padding-left: 20px;
   margin-bottom: 9px;
   width: 245px;
 }
-/* line 476, style.scss */
+/* line 477, style.scss */
 .slovo p {
   background: url('/images/comment-bottom.png?1405111181') right bottom no-repeat;
 }
 
-/* line 481, style.scss */
+/* line 482, style.scss */
 .page3-row1 {
   overflow: hidden;
   padding-top: 26px;
 }
 
-/* line 486, style.scss */
+/* line 487, style.scss */
 .page4-row1 {
   overflow: hidden;
   padding-top: 26px;
 }
 
-/* line 491, style.scss */
+/* line 492, style.scss */
 .page5-row1 {
   overflow: hidden;
   padding-top: 26px;
 }
 
-/* line 496, style.scss */
+/* line 497, style.scss */
 .page6-row1 {
   overflow: hidden;
   padding-top: 26px;
 }
 
-/* line 501, style.scss */
+/* line 502, style.scss */
 .lightbox-image {
   display: inline-block;
   position: relative;
 }
-/* line 505, style.scss */
+/* line 506, style.scss */
 .lightbox-image img.magnify {
   position: absolute;
   width: 0;
@@ -11778,29 +11778,29 @@ ul.list-2 li span, .adr {
   top: 50%;
 }
 
-/* line 515, style.scss */
+/* line 516, style.scss */
 .map {
   width: 265px;
   height: 202px;
   margin-top: 3px;
 }
-/* line 519, style.scss */
+/* line 520, style.scss */
 .map iframe {
   width: 265px;
   height: 202px;
 }
 
-/* line 525, style.scss */
+/* line 526, style.scss */
 dl {
   margin: 20px 0 0 0;
 }
-/* line 527, style.scss */
+/* line 528, style.scss */
 dl dt {
   line-height: 24px;
   margin-bottom: 3px;
   text-indent: 10px;
 }
-/* line 533, style.scss */
+/* line 534, style.scss */
 dl dd span {
   width: 62px;
   text-align: right;
@@ -11810,13 +11810,13 @@ dl dd span {
   text-indent: 10px;
 }
 
-/* line 548, style.scss */
+/* line 549, style.scss */
 .clr-1 {
   color: #dddddd;
   font-family: Georgia, Times New Roman, serif;
 }
 
-/* line 553, style.scss */
+/* line 554, style.scss */
 .clr-2 {
   color: #aaaaaa;
   font-style: italic;
@@ -11826,12 +11826,12 @@ dl dd span {
   line-height: 1.05rem;
 }
 
-/* line 559, style.scss */
+/* line 560, style.scss */
 #form {
   padding: 3px 0 0 0;
   width: 260px;
 }
-/* line 562, style.scss */
+/* line 563, style.scss */
 #form input {
   border: #3f3f3f 1px solid;
   background: #2c2c2c;
@@ -11845,7 +11845,7 @@ dl dd span {
   outline: medium none;
   float: left;
 }
-/* line 573, style.scss */
+/* line 574, style.scss */
 #form textarea {
   border: #3f3f3f 1px solid;
   background: #2c2c2c;
@@ -11864,7 +11864,7 @@ dl dd span {
   float: left;
   box-sizing: content-box;
 }
-/* line 589, style.scss */
+/* line 590, style.scss */
 #form label {
   position: relative;
   display: block;
@@ -11872,25 +11872,25 @@ dl dd span {
   overflow: hidden;
 }
 
-/* line 597, style.scss */
+/* line 598, style.scss */
 .btns {
   text-align: right;
   margin-left: 0;
   overflow: hidden;
 }
-/* line 602, style.scss */
+/* line 603, style.scss */
 .btns a.link-1 {
   display: inline-block;
   margin: 14px 0 0 25px;
 }
 
-/* line 609, style.scss */
+/* line 610, style.scss */
 .date {
   font-weight: bold;
   color: #fc0;
 }
 
-/* line 614, style.scss */
+/* line 615, style.scss */
 .title {
   font-weight: bold;
   font-size: 16px;
@@ -11901,18 +11901,18 @@ dl dd span {
   color: #ff9c9c;
 }
 
-/* line 621, style.scss */
+/* line 622, style.scss */
 .uslugi {
   width: 670px;
 }
 
-/* line 625, style.scss */
+/* line 626, style.scss */
 .new-slider {
   width: 205px;
   height: 114px;
 }
 
-/* line 630, style.scss */
+/* line 631, style.scss */
 #razrab {
   position: relative;
   left: 370px;
@@ -11922,25 +11922,25 @@ dl dd span {
   background: url('/images/pen.png?1405111182') 0 0 no-repeat;
 }
 
-/* line 639, style.scss */
+/* line 640, style.scss */
 #zapolnen {
   position: relative;
   height: 367px;
   background: url('/images/under-construction.jpg?1405423298') 0 0 no-repeat;
 }
 
-/* line 645, style.scss */
+/* line 646, style.scss */
 .thumb {
   width: 186px;
   height: 99px;
 }
 
-/* line 650, style.scss */
+/* line 651, style.scss */
 .error {
   color: #D0000D;
 }
 
-/* line 654, style.scss */
+/* line 655, style.scss */
 TD {
   border: 1pt dotted;
   font-family: Verdana, serif;
@@ -11950,56 +11950,56 @@ TD {
   line-height: 0.825rem;
 }
 
-/* line 660, style.scss */
+/* line 661, style.scss */
 .w270 {
   width: 270px;
 }
 
-/* line 665, style.scss */
+/* line 666, style.scss */
 .w290 {
   width: 290px;
 }
 
-/* line 671, style.scss */
+/* line 672, style.scss */
 TABLE.hide {
   background: #707486;
   color: #000;
 }
-/* line 675, style.scss */
+/* line 676, style.scss */
 TABLE.show {
   background: #d7ccc4;
   color: #000;
 }
-/* line 679, style.scss */
+/* line 680, style.scss */
 TABLE.bg1 {
   background: #3d3d3d;
   color: #bbbbb3;
 }
 
-/* line 685, style.scss */
+/* line 686, style.scss */
 hr {
   border-color: #353535 transparent transparent;
   border-bottom: 1px solid #353535;
   margin: 0.5em 0;
 }
 
-/* line 692, style.scss */
+/* line 693, style.scss */
 INPUT.check {
   border: 0;
   background: none;
 }
 
-/* line 698, style.scss */
+/* line 699, style.scss */
 TEXTAREA, SELECT {
   border: 1pt solid #424242;
 }
 
-/* line 702, style.scss */
+/* line 703, style.scss */
 .bggrey {
   background: #f0f0f0;
 }
 
-/* line 706, style.scss */
+/* line 707, style.scss */
 .b {
   font-weight: bold;
   font-family: Verdana, serif;
@@ -12010,7 +12010,7 @@ TEXTAREA, SELECT {
   text-align: center;
 }
 
-/* line 713, style.scss */
+/* line 714, style.scss */
 .s {
   font-weight: plain;
   font-family: Arial, serif;
@@ -12020,7 +12020,7 @@ TEXTAREA, SELECT {
   line-height: 0.825rem;
 }
 
-/* line 719, style.scss */
+/* line 720, style.scss */
 .s-ver {
   font-family: Verdana, serif;
   font-size: 11px;
@@ -12029,17 +12029,17 @@ TEXTAREA, SELECT {
   line-height: 0.825rem;
 }
 
-/* line 724, style.scss */
+/* line 725, style.scss */
 .form-comments {
   width: 700px;
 }
 
-/* line 728, style.scss */
+/* line 729, style.scss */
 .form-admin {
   width: 260px;
 }
 
-/* line 732, style.scss */
+/* line 733, style.scss */
 .form-admin, .form-comments {
   position: relative;
   margin: 5px auto;
@@ -12054,17 +12054,17 @@ TEXTAREA, SELECT {
   padding: 3px;
 }
 
-/* line 743, style.scss */
+/* line 744, style.scss */
 #form2 {
   padding: 3px 0 0 0;
   width: 700px;
   border: 0;
 }
-/* line 747, style.scss */
+/* line 748, style.scss */
 #form2 input[type=submit] {
   margin: 8px 65px 5px 0;
 }
-/* line 750, style.scss */
+/* line 751, style.scss */
 #form2 textarea {
   background: #2c2c2c;
   font-size: 14px;
@@ -12083,7 +12083,7 @@ TEXTAREA, SELECT {
   box-sizing: content-box;
 }
 
-/* line 767, style.scss */
+/* line 768, style.scss */
 #form input, #form2 input {
   border: #3f3f3f 1px solid;
   background: #2c2c2c;
@@ -12103,19 +12103,19 @@ TEXTAREA, SELECT {
   border-radius: 5px;
 }
 
-/* line 781, style.scss */
+/* line 782, style.scss */
 #form input[type=submit], #form2 input[type=submit] {
   background: none;
   cursor: pointer;
   width: 100px;
 }
 
-/* line 787, style.scss */
+/* line 788, style.scss */
 input[type=submit], label, select, .pointer {
   cursor: pointer;
 }
 
-/* line 791, style.scss */
+/* line 792, style.scss */
 #form label, #form2 label {
   position: relative;
   display: block;
@@ -12124,7 +12124,7 @@ input[type=submit], label, select, .pointer {
   border: 0;
 }
 
-/* line 799, style.scss */
+/* line 800, style.scss */
 .tabl-w100-b0-sp3-p1 {
   width: 100%;
   border: 0;
@@ -12132,7 +12132,7 @@ input[type=submit], label, select, .pointer {
   padding: 1px;
 }
 
-/* line 806, style.scss */
+/* line 807, style.scss */
 .tabl-w100-b0-sp3-p2 {
   width: 100%;
   border: 0;
@@ -12140,80 +12140,80 @@ input[type=submit], label, select, .pointer {
   padding: 2px;
 }
 
-/* line 813, style.scss */
+/* line 814, style.scss */
 .b0 {
   border: 0;
 }
 
-/* line 817, style.scss */
+/* line 818, style.scss */
 .b1 {
   border: 1px #cccccc;
 }
 
-/* line 821, style.scss */
+/* line 822, style.scss */
 .sp3 {
   border-spacing: 3px;
 }
 
-/* line 825, style.scss */
+/* line 826, style.scss */
 .pd1 {
   padding: 1px;
 }
 
-/* line 829, style.scss */
+/* line 830, style.scss */
 .pd2 {
   padding: 2px;
 }
 
-/* line 833, style.scss */
+/* line 834, style.scss */
 .adm-tr {
   background-color: #897e76;
   color: #000000;
 }
 
-/* line 838, style.scss */
+/* line 839, style.scss */
 .adm-td {
   padding: 5pt;
   border: 0;
   font-weight: bold;
 }
 
-/* line 844, style.scss */
+/* line 845, style.scss */
 .w5 {
   width: 5%;
 }
 
-/* line 848, style.scss */
+/* line 849, style.scss */
 .w10 {
   width: 10%;
 }
 
-/* line 852, style.scss */
+/* line 853, style.scss */
 .w25 {
   width: 25%;
 }
 
-/* line 856, style.scss */
+/* line 857, style.scss */
 .w100 {
   width: 100%;
 }
 
-/* line 860, style.scss */
+/* line 861, style.scss */
 .w50 {
   width: 50%;
 }
 
-/* line 864, style.scss */
+/* line 865, style.scss */
 .w60 {
   width: 60%;
 }
 
-/* line 868, style.scss */
+/* line 869, style.scss */
 .w80 {
   width: 80%;
 }
 
-/* line 872, style.scss */
+/* line 873, style.scss */
 .footer-time {
   position: relative;
   margin-top: 20px;
@@ -12224,19 +12224,19 @@ input[type=submit], label, select, .pointer {
   line-height: 1.05rem;
 }
 
-/* line 879, style.scss */
+/* line 880, style.scss */
 .mtop50 {
   margin-top: 50px;
 }
 
-/* line 883, style.scss */
+/* line 884, style.scss */
 .td-text {
   vertical-align: middle;
   padding-right: 4px;
   width: 150px;
 }
 
-/* line 889, style.scss */
+/* line 890, style.scss */
 .tabl2-ok {
   width: 100px;
   margin: 8px 60px 0 0;
@@ -12244,29 +12244,29 @@ input[type=submit], label, select, .pointer {
   position: relative;
 }
 
-/* line 896, style.scss */
+/* line 897, style.scss */
 .lab2-ok {
   position: absolute;
   margin-left: 550px;
 }
 
-/* line 901, style.scss */
+/* line 902, style.scss */
 #form :invalid, #form2 :invalid {
   border-color: #e88;
 }
 
-/* line 905, style.scss */
+/* line 906, style.scss */
 #form :required, #form2 :required {
   border-color: #3f3f3f;
 }
 
-/* line 909, style.scss */
+/* line 910, style.scss */
 .edit_rep_post {
   background: #b0a59d;
   margin-left: -20px;
 }
 
-/* line 914, style.scss */
+/* line 915, style.scss */
 .head_titl {
   color: #75916c;
   font-size: 18px;
@@ -12279,7 +12279,7 @@ input[type=submit], label, select, .pointer {
   text-transform: uppercase;
 }
 
-/* line 923, style.scss */
+/* line 924, style.scss */
 .commenttext-owner {
   float: left;
   width: 610px;
@@ -12288,12 +12288,12 @@ input[type=submit], label, select, .pointer {
   margin-left: 52px;
   color: #d1d1d1;
 }
-/* line 931, style.scss */
+/* line 932, style.scss */
 .commenttext-owner cite a {
   color: #5d9c50;
 }
 
-/* line 937, style.scss */
+/* line 938, style.scss */
 .comav-owner {
   position: absolute;
   top: 0;
@@ -12303,7 +12303,7 @@ input[type=submit], label, select, .pointer {
   background: url('/images/blocks/post.png?1406756686') no-repeat center right;
 }
 
-/* line 946, style.scss */
+/* line 947, style.scss */
 .commenttext-reply {
   float: left;
   width: 530px;
@@ -12312,12 +12312,12 @@ input[type=submit], label, select, .pointer {
   margin-left: 52px;
   color: #d1d1d1;
 }
-/* line 954, style.scss */
+/* line 955, style.scss */
 .commenttext-reply cite a {
   color: #af85b8;
 }
 
-/* line 960, style.scss */
+/* line 961, style.scss */
 .comav-reply {
   position: absolute;
   top: 0;
@@ -12327,7 +12327,7 @@ input[type=submit], label, select, .pointer {
   background: url('/images/blocks/reply.png?1406756608') no-repeat center right;
 }
 
-/* line 969, style.scss */
+/* line 970, style.scss */
 .commentlist {
   display: block;
   width: 100%;
@@ -12342,7 +12342,7 @@ input[type=submit], label, select, .pointer {
   line-height: 0.9rem;
   color: #d7d7d7;
 }
-/* line 979, style.scss */
+/* line 980, style.scss */
 .commentlist cite {
   font: bold tahoma, sans-serif;
   font-size: 14px;
@@ -12351,12 +12351,12 @@ input[type=submit], label, select, .pointer {
   line-height: 1.05rem;
 }
 
-/* line 985, style.scss */
+/* line 986, style.scss */
 .time {
   color: #ccc;
 }
 
-/* line 989, style.scss */
+/* line 990, style.scss */
 .spaced {
   font-size: 10px;
   font-size: 0.625rem;
@@ -12365,7 +12365,7 @@ input[type=submit], label, select, .pointer {
   color: #93adca;
 }
 
-/* line 994, style.scss */
+/* line 995, style.scss */
 .content-minigall {
   width: 125px;
   height: 70px;
@@ -12375,25 +12375,25 @@ input[type=submit], label, select, .pointer {
   overflow: hidden;
   border: 1px solid #666;
 }
-/* line 1002, style.scss */
+/* line 1003, style.scss */
 .content-minigall img {
   width: 119px;
   padding: 3px;
 }
 
-/* line 1008, style.scss */
+/* line 1009, style.scss */
 .content-bottom {
   width: 100%;
   height: 70px;
   padding: 5px 0 5px 0;
 }
 
-/* line 1014, style.scss */
+/* line 1015, style.scss */
 .tmiddle {
   vertical-align: middle;
 }
 
-/* line 1018, style.scss */
+/* line 1019, style.scss */
 .warning {
   display: block;
   padding: 10px;
@@ -12410,24 +12410,24 @@ input[type=submit], label, select, .pointer {
   background-color: #191939;
 }
 
-/* line 1031, style.scss */
+/* line 1032, style.scss */
 .avatar {
   padding: 2px;
   border: 1px solid #b9b9b9;
 }
 
-/* line 1036, style.scss */
+/* line 1037, style.scss */
 #enable {
   position: relative;
 }
 
-/* line 1042, style.scss */
+/* line 1043, style.scss */
 #help {
   position: relative;
   float: right;
 }
 
-/* line 1047, style.scss */
+/* line 1048, style.scss */
 .floating-admin {
   background: #1c1c1c;
   color: #fff;
@@ -12443,33 +12443,33 @@ input[type=submit], label, select, .pointer {
   border: 1px solid #b9b9b9;
   right: 10px;
 }
-/* line 1058, style.scss */
+/* line 1059, style.scss */
 .floating-admin div {
   position: relative;
   clear: both;
   padding-top: 10px;
 }
-/* line 1063, style.scss */
+/* line 1064, style.scss */
 .floating-admin span {
   float: left;
 }
-/* line 1066, style.scss */
+/* line 1067, style.scss */
 .floating-admin button {
   float: right;
 }
-/* line 1069, style.scss */
+/* line 1070, style.scss */
 .floating-admin h4 {
   padding-bottom: 10px;
   text-align: center;
 }
 
-/* line 1075, style.scss */
+/* line 1076, style.scss */
 .container-admin {
   position: absolute;
   right: 10px;
 }
 
-/* line 1080, style.scss */
+/* line 1081, style.scss */
 .fixed-admin {
   position: fixed;
   top: 10px;
@@ -12477,7 +12477,7 @@ input[type=submit], label, select, .pointer {
   right: 20px;
 }
 
-/* line 1087, style.scss */
+/* line 1088, style.scss */
 .support,
 .support-two {
   display: inline-block;
@@ -12486,7 +12486,7 @@ input[type=submit], label, select, .pointer {
   cursor: pointer;
 }
 
-/* line 1095, style.scss */
+/* line 1096, style.scss */
 .support em,
 .support-two em {
   background: #FF6600;
@@ -12502,7 +12502,7 @@ input[type=submit], label, select, .pointer {
   padding: 0 4px;
 }
 
-/* line 1107, style.scss */
+/* line 1108, style.scss */
 .tip,
 .tip-two,
 .tip-three {
@@ -12531,13 +12531,13 @@ input[type=submit], label, select, .pointer {
   height: auto;
 }
 
-/* line 1132, style.scss */
+/* line 1133, style.scss */
 .tip-two,
 .tip-three {
   margin: -30px 0 0 0;
 }
 
-/* line 1137, style.scss */
+/* line 1138, style.scss */
 .tip:before,
 .tip-two:before,
 .tip-three:before {
@@ -12547,7 +12547,7 @@ input[type=submit], label, select, .pointer {
   left: -9px;
 }
 
-/* line 1146, style.scss */
+/* line 1147, style.scss */
 .tip:after,
 .tip-two:after,
 .tip-three:after {
@@ -12557,7 +12557,7 @@ input[type=submit], label, select, .pointer {
   left: -7px;
 }
 
-/* line 1155, style.scss */
+/* line 1156, style.scss */
 .tip:before,
 .tip-two:before,
 .tip-three:before,
@@ -12571,14 +12571,14 @@ input[type=submit], label, select, .pointer {
   border-style: solid;
 }
 
-/* line 1168, style.scss */
+/* line 1169, style.scss */
 a.support:focus em,
 a.support-two:focus em,
 #tip-checkbox:checked ~ .support em {
   background: #6699FF;
 }
 
-/* line 1174, style.scss */
+/* line 1175, style.scss */
 .tip-block {
   display: inline-block;
   position: relative;
@@ -12590,17 +12590,17 @@ a.support-two:focus em,
   width: 1px;
 }
 
-/* line 1185, style.scss */
+/* line 1186, style.scss */
 .tip-checkbox {
   display: none;
 }
 
-/* line 1192, style.scss */
+/* line 1193, style.scss */
 #tip-checkbox:checked ~ * .tip-three {
   display: block;
 }
 
-/* line 1199, style.scss */
+/* line 1200, style.scss */
 .tip-close {
   display: inline-block;
   position: absolute;
@@ -12620,7 +12620,7 @@ a.support-two:focus em,
   padding: 0 4px;
 }
 
-/* line 1215, style.scss */
+/* line 1216, style.scss */
 .support-hover,
 .support-hover-two {
   display: inline-block;
@@ -12630,7 +12630,7 @@ a.support-two:focus em,
   cursor: pointer;
 }
 
-/* line 1224, style.scss */
+/* line 1225, style.scss */
 .support-hover em,
 .support-hover-two em {
   background: #FF6600;
@@ -12646,31 +12646,31 @@ a.support-two:focus em,
   padding: 0 4px;
 }
 
-/* line 1236, style.scss */
+/* line 1237, style.scss */
 a.support-hover:hover em,
 a.support-hover-two:hover em {
   background: #6699FF;
 }
 
-/* line 1242, style.scss */
+/* line 1243, style.scss */
 .btn:hover {
   cursor: pointer;
 }
 
-/* line 1247, style.scss */
+/* line 1248, style.scss */
 #new-gal {
   height: 329px;
   width: auto;
 }
 
-/* line 1252, style.scss */
+/* line 1253, style.scss */
 .wrapper-with-intrinsic-ratio {
   position: relative;
   padding-bottom: 20%;
   height: 0;
 }
 
-/* line 1258, style.scss */
+/* line 1259, style.scss */
 .element-to-stretch {
   position: absolute;
   top: 0;
@@ -12680,8 +12680,40 @@ a.support-hover-two:hover em {
   background: teal;
 }
 
+/* line 1269, style.scss */
+.video embed,
+.video object,
+.video iframe {
+  width: 100%;
+  height: auto;
+}
+
+/*img {
+	  max-width: 100%;
+	  height: auto;
+	  width: auto\9; */
+/* ie8 */
+	                            /*
+}*/
+/* line 1282, style.scss */
+.video {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+/* line 1289, style.scss */
+.video iframe, .video object, .video embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* incase an inverted custom gradient isn't specified */
-/* line 177, ../../../../Ruby21-x64/lib/ruby/gems/2.1.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+/* line 177, ../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
 .fancy-button-reset-base-class, button {
   font-family: "Lucida Grande", Lucida, Arial, sans-serif;
   background: url('/images/button_bg.png?1409260195') repeat-x bottom left;
@@ -12694,17 +12726,17 @@ a.support-hover-two:hover em {
   border-style: solid;
   font-weight: bold;
 }
-/* line 165, ../../../../Ruby21-x64/lib/ruby/gems/2.1.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+/* line 165, ../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
 .fancy-button-reset-base-class::-moz-focus-inner, button::-moz-focus-inner {
   border: none;
   padding: 0;
 }
-/* line 168, ../../../../Ruby21-x64/lib/ruby/gems/2.1.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+/* line 168, ../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
 .fancy-button-reset-base-class:focus, button:focus {
   outline: none;
 }
 
-/* line 1268, style.scss */
+/* line 1298, style.scss */
 button {
   -moz-border-radius: 0.3em;
   -webkit-border-radius: 0.3em;
@@ -12724,21 +12756,21 @@ button {
   -webkit-background-clip: padding;
   background-clip: padding-box;
 }
-/* line 116, ../../../../Ruby21-x64/lib/ruby/gems/2.1.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+/* line 116, ../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
 button, button:visited {
   color: white;
 }
-/* line 31, ../../../../Ruby21-x64/lib/ruby/gems/2.1.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+/* line 31, ../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
 button:hover, button:focus {
   background-color: #00448c;
   border-color: #071f38;
   text-shadow: #00060c 0px 1px 1px;
 }
-/* line 116, ../../../../Ruby21-x64/lib/ruby/gems/2.1.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+/* line 116, ../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
 button:hover, button:hover:visited, button:focus, button:focus:visited {
   color: white;
 }
-/* line 36, ../../../../Ruby21-x64/lib/ruby/gems/2.1.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+/* line 36, ../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
 button:active {
   background-color: #003d7c;
   border-color: #06172a;
@@ -12747,39 +12779,7 @@ button:active {
   -webkit-box-shadow: #092645 0 0.08em 0.2em 1px inset;
   box-shadow: #092645 0 0.08em 0.2em 1px inset;
 }
-/* line 116, ../../../../Ruby21-x64/lib/ruby/gems/2.1.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+/* line 116, ../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
 button:active, button:active:visited {
   color: white;
-}
-
-/* line 1273, style.scss */
-.video embed,
-.video object,
-.video iframe {
-  width: 100%;
-  height: auto;
-}
-
-/*img {
-	  max-width: 100%;
-	  height: auto;
-	  width: auto\9; */
-/* ie8 */
-	                            /*
-}*/
-/* line 1286, style.scss */
-.video {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-}
-
-/* line 1293, style.scss */
-.video iframe, .video object, .video embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }

@@ -70,8 +70,6 @@ $(document).ready(function () {
 	});
 
 
-
-
 	$("a.plus")
 			.attr('rel', 'gallery')
 			.fancybox({
