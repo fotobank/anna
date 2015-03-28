@@ -107,9 +107,8 @@ list( $razdel, $title ) = title();
 </head>
 <body>
 <!--==============================header=================================-->
-<div class="header">
-	<div id="header">
 
+	<div id="header">
 		<div class=<?= ( $razdel == '/index.php' ) ? "nav" : "subpages-nav" ?>>
 
 			<header class="gallery-block">
@@ -125,7 +124,7 @@ list( $razdel, $title ) = title();
 			if ( $razdel == '/index.php' ) {
 				$slides = glob( 'files/slides/*.jpg' ); // сканирование без субдиректорий
 				$items  = '<div id = "owl-head" class="owl-carousel owl-theme">';
-				$pags = "<div class='owl-head-pags'>";
+				$pags = "<div class='owl-head-pags-hide'><div class='owl-head-pags'>";
 				$i = 1;
 				foreach ( $slides as $key => $slide ) {
 					$items .= "<div class='item'><img src='/". $slide."' alt='Фотография " .basename($slide)."'></div>";
@@ -133,15 +132,14 @@ list( $razdel, $title ) = title();
 					$i++;
 				}
 				$items .= '</div>';
-				$pags .=  '</div>';
+				$pags .=  '</div></div>';
 				echo( $items );
 				echo( $pags );
 			}
 			?>
-
 		</div>
 	</div>
-</div>
+
 
 <!--[if IE 6]>
 <div class="warning">

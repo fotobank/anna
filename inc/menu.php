@@ -9,7 +9,10 @@
 <nav class="centered-navigation">
 	<div class="centered-navigation-wrapper">
 		<a href="/index.php" class="mobile-logo">
-			<img src="/images/logo.png" alt="">
+			<img src="/images/mobile-logo.png" alt="mobile-logo">
+		</a>
+		<a href="" class="centered-navigation-menu-button">
+		<img class="mobile-menu" src="/images/menu-mobil.png" alt="mobile-menu">
 		</a>
 		<a href="" class="centered-navigation-menu-button">MENU</a>
 		<?

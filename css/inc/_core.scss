@@ -1,6 +1,5 @@
 @import "compass";
 
-
 @mixin screen_max_1024 {
 	  @media screen and (max-width: 1024px) {
 			@content;
@@ -20,6 +19,7 @@
 }
 
 html {
+	  text-align: center;
 	  font-size: 100%;
 	  @include screen_max_1024() {
 			font-size: 90%;
@@ -46,18 +46,19 @@ html, body {
 }
 
 body {
+	  display: inline-block;
+	  max-width: 1024px;
 	  behavior: url('/js/if_IE/PIE.htc');
 	  color: $text_color;
-	  min-width: 1024px;
 	  background: $body_color;
 	  -webkit-font-smoothing: subpixel-antialiased !important;
 	  @include backface-visibility(hidden);
-	  background: url(../../images/tail-top.jpg) repeat-x center top #000;
+//	  background: url(../../images/tail-top.jpg) repeat-x center top #000;
 }
 
 p {
-	  text-indent: 10px;
-	  margin-bottom: 10px;
+	  text-indent: 0.625em;
+	  margin-bottom: 0.625em;
 }
 
 a {
@@ -124,23 +125,23 @@ a:active, a:focus {
 }
 
 .main {
-	  width: 1024px;
+	  width: 100%;
 	  margin: 0 auto;
 }
 
 h1 {
 	  @include font-stack-headers-h1;
 	  position: relative;
-	  top: -6px;
+	  top: -0.375em;
 }
 
 h2 {
 	  display: inline-block;
 	  position: absolute;
 	  top: 0;
-	  left: 425px;
+	  left: 26.563em;
 	  z-index: 1000;
-	  margin-top: 70px;
+	  margin-top: 4.375em;
 }
 
 h3 {
@@ -149,16 +150,16 @@ h3 {
 
 h4 {
 	  @include font-stack-headers-h4;
-	  margin-top: 5px;
+	  margin-top: 0.313em;
 }
 
 .h5 {
-	  border-bottom: #353535 1px solid;
-	  padding-top: 15px;
-	  padding-bottom: 5px;
+	  border-bottom: #353535 0.063em solid;
+	  padding-top: 0.938em;
+	  padding-bottom: 0.313em;
 }
 
-.header {
+#header {
 	  position: relative;
 	  width: 100%;
 	  & > div {
@@ -171,38 +172,32 @@ h4 {
 			width: 100%;
 			z-index: 999;
 			background: image-url('nav-line.png') 0 bottom repeat-x;
-			padding-bottom: 1px;
+			padding-bottom: 0.063em;
 			left: 0;
 	  }
 }
 
-#header {
-	  width: 1024px;
-	  margin: 0 auto;
-	  z-index: 1000;
-	  position: relative;
-}
-
 footer {
 	  @include font-stack-footer;
-	  width: 100%;
-	  position: absolute;
-	  overflow: hidden;
-	  text-align: center;
-	  padding: 7px 0 20px 0;
-	  background: transparent;
-	  span {
-			display: inline-block;
-			margin: 0 auto;
-			border-top: #3c3c3c 1px solid;
-			padding-top: 13px;
-			line-height: 22px;
-	  }
-	  background: url(../../images/tail-bottom.jpg) repeat-x center bottom;
-	  margin-top: -130px;
-	  z-index: -100;
+	  .container {
+			background: url(../../images/tail-bottom.jpg) repeat-x center bottom;
+			position: absolute;
+			right: 0;
+			margin-top: -8.5em;
+			z-index: -1;
+			width: 100%;
+			font-size: .875em;
+	        height: 14.313em;
+			color: #fff;
+			line-height: 1.429em;
 
+			.inside {
+				  padding: 9.250em 0 0 0;
+
+				  div {
+						border-top: #3c3c3c 0.063em solid;
+						padding-top: 0.40em;
+				  }
+			}
+	  }
 }
-.container {margin:0 auto;overflow:hidden;width:100%;font-size:.875em;padding:60px 0 140px 0}
-footer .container {height:229px;text-align:center;color:#fff;padding:0;line-height:1.429em}
-footer .inside {padding:148px 0 0 0}

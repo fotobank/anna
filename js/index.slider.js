@@ -40,22 +40,22 @@ $(document).ready(function () {
 		autoplayHoverPause:true,
 		dots:true,
 		dotsEach:true,
-
+		items:5,
 		responsive:{
 			0:{
-				items:1,
+				//items:5,
 				nav:false
 			},
 			600:{
-				items:3,
+				//items:5,
 				nav:false
 			},
 			960:{
-				items:4,
+				//items:5,
 				nav:false
 			},
 			1200:{
-				items:5,
+				//items:5,
 				nav:true
 			}
 		}

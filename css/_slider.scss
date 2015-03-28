@@ -1,70 +1,57 @@
+/*owl галерея в шапке*/
 #slide {
-    position: relative;
-    overflow: hidden;
-    width: 1024px;
-    margin: 0 auto;
-    z-index: 2;
-	height: 521px;
+	  position: relative;
+	  overflow: hidden;
+	  width: 100%;
+	  margin: 0 auto;
+	  z-index: 2;
+	  height: auto;
 
-    .pagination {
-        position: absolute;
-        top: 466px;
-        left: 283px;
-        display: inline-block;
-        z-index: 10;
-        padding: 0 0 0 113px;
-        width: 344px;
-        background: url(/images/pagination-bg.png) 0 24px no-repeat;
-        margin: 0;
-        li {
-            float: left;
-        }
-        a {
-            display: block;
-            width: 47px;
-            height: 40px;
-            padding: 10px 0 0 0;
-            text-align: center;
-            background: url(/images/pagination.png) right 0 no-repeat;
-            font: 24px/30px "Times New Roman", Times, serif;
-            font-style: italic;
-            color: #686868;
-            strong {
-                display: inline-block;
-                font-weight: normal;
-                font-size: 18px;
-                line-height: 24px;
-                margin-top: -1px;
-            }
-        }
-    }
-}
-.slider {
-    width: 1024px;
-    height: 521px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-}
-.items {
-    display: none;
-}
-#slide .pagination li.current a, #slide .pagination li:hover a {
-    background-position: 0 0;
-    color: #bf96c7;
-}
-.prev {
-    display: none;
-}
-.prev:hover {
-    background-position: 0 bottom;
-}
-.next {
-    display: none;
-}
-.next:hover {
-    background-position: 0 0;
-}
-.banner {
-    display: none;
+	  #owl-head .item img {
+			display: block;
+			width: 100%;
+			height: auto;
+	  }
+	  .owl-head-pags-hide {
+
+			@media only screen and (max-width: 1024px) {
+
+				  display: none;
+			}
+			.owl-head-pags {
+				  position: absolute;
+				  top: 466px;
+				  left: 283px;
+				  display: none;
+				  z-index: 10;
+				  padding: 0 0 0 113px;
+				  width: 344px;
+				  background: url(/images/pagination-bg.png) 0 24px no-repeat;
+				  margin: 0;
+				  list-style-image: none;
+				  font-size: 100%;
+				  border: 0;
+				  outline: 0;
+				  vertical-align: top;
+			}
+
+			.owl-head-pags div {
+				  float: left;
+				  display: block;
+				  width: 47px;
+				  height: 40px;
+				  padding: 10px 0 0 0;
+				  text-align: center;
+				  background: url(/images/pagination.png) right 0 no-repeat;
+				  font: 24px/30px "Times New Roman", Times, serif;
+				  font-style: italic;
+				  color: #686868;
+				  text-decoration: none;
+				  cursor: pointer;
+			}
+			.owl-head-pags div.active, .owl-head-pags div.owl-dot:hover a {
+				  background-position: 0 0;
+				  color: #bf96c7;
+			}
+	  }
 }

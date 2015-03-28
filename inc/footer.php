@@ -21,23 +21,24 @@ echo
 
 }
 
-echo "
+?>
 <footer>
 	<div class='container'>
-		<div class='inside'>";
-
+		<div class='inside'>
+<?
 if(DEBUG_MODE == true) {
 $bench->end();
 echo "Время: ".$bench->getTime()." / ";
 echo "Память пиковая: ".$bench->getMemoryPeak()." / ";
 echo "Память конечная: ".$bench->getMemoryUsage()."<br>";
 }
-echo "
-<span><strong>© ".auto_copyright('2011')." Алексеева Анна</strong><br>
-Студия <a target='_blank' href='http://www.aleks.od.ua' class='link-2'>Creative ls</a></span>
+?>
+<div><strong>© <?=auto_copyright('2011')?> Алексеева Анна </strong></div>
+<div> cтудия <a target='_blank' href='http://www.aleks.od.ua' class='link-2'>Creative ls</a></div>
 </div>
 	</div>
 </footer>
 </body>
-</html>";
+</html>
+<?
 ob_end_flush();
