@@ -39,8 +39,7 @@ defined('_SECUR') or die('Доступ запрещен');
 		}
 	</script>
 
-		<div class="pad-1">
-			<div class="page6-row1">
+			<div class="page6-row1 pad-1">
 				<div class="col-14">
 					<h3 class="bb2">Для связи:</h3>
 					<dl>
@@ -101,4 +100,3 @@ defined('_SECUR') or die('Доступ запрещен');
 					</form>
 				</div>
 			</div>
-		</div>

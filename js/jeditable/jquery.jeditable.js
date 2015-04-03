@@ -232,7 +232,7 @@
                         input_content = settings.data.apply(self, [self.revert, settings]);
                     }
                 } else {
-                    input_content = self.revert;
+                    input_content = self.revert; 
                 }
                 content.apply(form, [input_content, settings, self]);
 
@@ -327,6 +327,7 @@
                               } else {
                                   $.extend(submitdata, settings.submitdata);
                               }
+
                               /* Quick and dirty PUT support. */
                               if ('PUT' == settings.method) {
                                   submitdata['_method'] = 'put';
@@ -355,9 +356,10 @@
                                       onerror.apply(form, [settings, self, xhr]);
                                   }
                               };
+                              
                               /* Override with what is given in settings.ajaxoptions. */
-                              $.extend(ajaxoptions, settings.ajaxoptions);
-                              $.ajax(ajaxoptions);
+                              $.extend(ajaxoptions, settings.ajaxoptions);   
+                              $.ajax(ajaxoptions);          
                               
                             }
                         }
@@ -420,7 +422,7 @@
                         /* Otherwise use button with given string as text. */
                         } else {
                             var submit = $('<button type="submit" />');
-                            submit.html(settings.submit);
+                            submit.html(settings.submit);                            
                         }
                         $(this).append(submit);
                     }

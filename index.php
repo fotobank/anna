@@ -3,8 +3,6 @@ require( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение
 require( __DIR__ . '/inc/head.php' );
 require( __DIR__ . '/inc/carosel.php' );
 require( __DIR__ . '/inc/file_news.php' );
-require( __DIR__ . '/inc/social_icons.php' );
-require( __DIR__ . '/inc/online_widget.php' );
 
 
 $db->orderBy( 'position', 'ASC' );
@@ -13,27 +11,24 @@ $categorii = $db->get( 'menu_index_php', Null, [ 'id', 'name_head' ] );
 ?>
 
 	<!--==============================content================================-->
-	<section id="content">
-
-		<div id='new-gal'><?= carousel() ?></div>
-
-		<div class="page1-row1 pad-1 tabs">
+	<aside>
+    <div id="main" class="page1-row1 tabs">
 
 			<div class="col-1">
-<!--				<div class="title">-->
-				<h3 class="bb2 p2 h-title">Категории:</h3>
-<!--				</div>-->
+
+				<div class="h-mod">
+				<h3 class="bb2">Категории:</h3>
+				</div>
 				<?= new ajaxSite_EditTitle( $categorii ) ?>
 
-
 				<button class="sassy-button">Red Button</button>
-
 
 			</div>
 
 			<div class="col-2">
+				<div class="h-mod">
 				<h3 class="bb2">Коротко о разделе:</h3>
-
+				</div>
 				<div id="list-content"></div>
 
 				<!--<div class="block_wrapper_body">
@@ -208,27 +203,22 @@ $categorii = $db->get( 'menu_index_php', Null, [ 'id', 'name_head' ] );
 				</div>
 
 			</div>
+
 			<!--==============================новости================================-->
 			<div class="col-3">
-				<h3 class="bb2 p2">Акции и новости:</h3>
+
+				<div class="h-mod">
+				   <h3 class="bb2">Акции и новости:</h3>
+				</div>
 				<?= get_filenews( "news.txt" ) ?>
-			</div>
-		</div>
-		<!--==============================соцсети================================-->
-		<div class="page2-row2 pad-1">
-			<div class="col-1">
-				<div class="p2"></div>
-			</div>
-			<div class="col-2">
-				<div class="bot-1 clear"></div>
-				<h3 class="bb3">Поделиться с друзьями:</h3>
-
-				<?= social_icons() ?>
-				<?= online_widget() ?>
 
 			</div>
-		</div>
-	</section>
+
+        <div class="clear"></div>
+		<div id='new-gal'><?= carousel() ?></div>
+
+
+
 
 
 	<script>
@@ -241,6 +231,7 @@ $categorii = $db->get( 'menu_index_php', Null, [ 'id', 'name_head' ] );
 
 		});
 	</script>
-
+ </div>
+	</aside>
 
 <? include_once( __DIR__ . '/inc/footer.php' ); ?>

@@ -1658,21 +1658,12 @@
 		}, this));
 	}
 
-	/**
-	 * Releases suppressed events.
-	 * @protected
-	 * @param {Array.<String>} events - The events to release.
-	 */
 	Owl.prototype.release = function(events) {
 		$.each(events, $.proxy(function(index, event) {
 			delete this._supress[event];
 		}, this));
 	}
 
-	/**
-	 * Checks the availability of some browser features.
-	 * @protected
-	 */
 	Owl.prototype.browserSupport = function() {
 		this.support3d = isPerspective();
 

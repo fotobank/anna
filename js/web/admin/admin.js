@@ -11,9 +11,6 @@ $(function(){
 	});
 
 
-
-
-
 	$(this).on('hover', 'a, input, ul li div.text', $(this).tooltip({
 			    track: true,
 				    delay: 100,
@@ -32,16 +29,67 @@ $('#enable').click(function() {
 	$('.editable').editable('toggleDisabled');
 });
 
+	$('#edit-content').click(function() {
+		if ($(this).prop("checked")) {
+			$(this).removeClass('selected');
+			$('.editable').editable('toggleDisabled');
+		} else {
+			$(this).addClass('selected');
+			$('.editable').editable('toggleDisabled');
+		}
+	});
 
-$(function(){
+
+
 	$('.edit-txt').editable({
 		url: '/inc/jeditable/save.php',
 		type:'textarea',
-		title: 'Enter comments',
+		style  : "inherit",
+		title: 'Редактор новости',
 		placeholder: 'Введите текст',
+		id   : 'elementid',
+		name : 'newvalue',
 		rows: 15
 	});
-});
+
+
+
+	//---------------------------------------
+
+
+
+	/*$(".edit-txt").editable("/inc/jeditable/save.php", {
+		indicator : "<img src='/images/indicator.gif'>",
+		type   : 'textarea',
+		submitdata: { _method: "put" },
+		select : true,
+		submit : 'OK',
+		cancel : 'cancel',
+		cssclass : "editable"
+	});*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//---------------------------------------------------------
+
+
+
+
+
 
 
 /*$(function() {

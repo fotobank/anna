@@ -90,5 +90,13 @@ $(document).ready(function () {
 				}
 
 			});
+	jQuery('.col-1').containedStickyScroll({
+		duration: 0
+	});
+	jQuery('.col-3').containedStickyScroll({
+				easing: 'easeOutCubic',
+				duration: 550
+			}
+	);
 
 });

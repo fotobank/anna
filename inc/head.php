@@ -1,4 +1,11 @@
 <?php
+/*
+  Todo    - шапка проекта
+  @author - Jurii
+  @date   - 03.04.2015
+  @time   - 8:43
+*/
+
 defined( '_SECUR' ) or die( 'Доступ запрещен' );
 header( 'Content-type: text/html; charset=windows-1251' );
 /**==========================для раздела "отзывы"====================*/
@@ -26,18 +33,17 @@ list( $razdel, $title ) = title();
 	<link href='http://fonts.googleapis.com/css?family=Marck+Script&amp;subset=cyrillic' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Bad+Script&amp;subset=cyrillic' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Lora:400&amp;subset=cyrillic' rel='stylesheet' type='text/css'>
-
 	<link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-
-	<link rel="stylesheet" href="/js/native/alloy-ui-master/build/aui-css/css/bootstrap.css">
 
 
 	<link rel="stylesheet" type="text/css" media="screen" href="/css/style.css">
+
 
 	<!--[if IE]>
 	<link rel="stylesheet" type="text/css" media="screen" href="/css/ie.css">
 	<script src="/js/if_IE/html5.js"></script>
 	<![endif]-->
+
 
 	<?
 
@@ -70,12 +76,14 @@ list( $razdel, $title ) = title();
 	?>
 
 		<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
+		<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
 		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.js'></script>
 		<script type="text/javascript" src="/js/minified/jquery.mousewheel.min.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
 		<script type='text/javascript' src='/js/minified/ajax.tabs.min.js'></script>
 		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>
+		<script type="text/javascript" src="/js/jquery-contained-sticky-scroll.js"></script>
 
 	<?
 
@@ -91,10 +99,11 @@ list( $razdel, $title ) = title();
 	}
 
 	if ( if_admin( $script = "
-	<script type='text/javascript' src='/js/jeditable/jquery.jeditable.js'></script>
 
-	<link href='/js/jqueryui-editable/css/jqueryui-editable.css' rel='stylesheet'/>
-	<script src='/js/native/alloy-ui-master/build/aui/aui-min.js'></script>
+    <script type='text/javascript' src='/js/jquery-ui.min.js'></script>
+	<!-- <script type='text/javascript' src='/js/jeditable/jquery.jeditable.js'></script> -->
+	<!--<script src='/js/native/alloy-3.0.1/build/aui/aui-min.js'></script> -->
+
 	<script src='/js/jqueryui-editable/js/jqueryui-editable.js'></script>
 	<script type='text/javascript' src='/js/web/admin/ajax_title_edit.js'></script>
 	<script type='text/javascript' src='/js/web/admin/admin.js'></script>
@@ -109,17 +118,19 @@ list( $razdel, $title ) = title();
 <!--==============================header=================================-->
 
 	<div id="header">
+
 		<div class=<?= ( $razdel == '/index.php' ) ? "nav" : "subpages-nav" ?>>
 
-			<header class="gallery-block">
-				<h1>Профессиональный фотограф в Одессе Алексеева Анна</h1>
-			</header>
 			<? include( __DIR__ . "/menu.php" ) ?>
+
+			<header class="gallery-block">
+				<h1>Ваш фотограф в Одессе Алексеева Анна</h1>
+			</header>
+
 		</div>
 
 		<? /** лайтбокс на главной в шапке */ ?>
 		<div id="slide">
-
 			<?
 			if ( $razdel == '/index.php' ) {
 				$slides = glob( 'files/slides/*.jpg' ); // сканирование без субдиректорий
@@ -138,6 +149,7 @@ list( $razdel, $title ) = title();
 			}
 			?>
 		</div>
+
 	</div>
 
 
@@ -167,11 +179,12 @@ list( $razdel, $title ) = title();
 			<h4>Панель админа:</h4>
 			<div>
 			    <span>Включить редактирование:</span>
-				<button id="enable" class="btn btn-mini" type="button">enable / disable</button>
+				<button id="enable" class="btn btn-mini" type="button">on/off</button>
+				<input type="checkbox" id="edit-content" checked />
 			</div>
 			<div>
 				<span>Включить подсказки:</span>
-				<button id="help" class="btn btn-mini" type="button">enable / disable</button>
+				<button id="help" class="btn btn-mini" type="button">on/off</button>
 			</div>
 			<div>
 				<a href="/admin.php?adm_out=1" style="padding-right: 20px;">выход</a>

@@ -1,6 +1,7 @@
 <?php
 require_once (__DIR__ .'/../../inc/config.php');
 header( 'Content-type: text/html; charset=windows-1251' );
+header("Cache-Control: no-cache");
 if(isset($_GET['renderer'])) {
 	$renderer = $_GET['renderer'];
 } else if(isset($_POST['renderer'])) {

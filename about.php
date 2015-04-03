@@ -10,8 +10,8 @@ include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение
 include_once( __DIR__ . '/inc/head.php' );
 ?>
 	<!--==============================content================================-->
-	<section id="content">
-		<div class="pad-1">
+	<aside>
+		<div id="main">
 			<div class="page2-row1">
 				<div class="col-4">
 					<h3 class="bb3 p2">Немного о себе:</h3>
@@ -52,29 +52,28 @@ include_once( __DIR__ . '/inc/head.php' );
 				</div>
 			</div>
 
-			<h3 class="bb3 p3">Будущим заказчикам:</h3>
 
-			<div class="page2-row2">
+			<div class="page2-row2 pad-1">
+					<h3 class="bb2">Будущим заказчикам:</h3>
 				<div class="col-6">
 					<p class="upper clr-1 p5">Всегда рада новым знакомствам!</p>
-
 					<p>Надеюсь на приятную творчесскую атмосферу и интересное сотрудничество!</p>
 					<p class="fright">С уважением Алексеева Анна.</p>
 				</div>
 				<div class="col-7">
 					<div class="comment">
-						<p class="upper clr-1">Которая из моих фотографий самая любимая? Та, которую я собираюсь снять
-							завтра</p>
+						<p class="upper clr-1">Которая из моих фотографий самая любимая? Та, которую я собираюсь снять завтра</p>
 					</div>
 					<div class="link-2 link-1-pad"><span>Имоджен Каннингем.</span></div>
 				</div>
 			</div>
 
-		</div>
+
 		<?
 		include (__DIR__ . "/inc/contacts.php");
 		?>
-	</section>
+		</div>
+	</aside>
 	<!--==============================footer================================-->
 <?
 include_once( __DIR__ . '/inc/footer.php' );

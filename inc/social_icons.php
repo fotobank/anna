@@ -17,7 +17,17 @@ function social_icons() {
 	$ret .= 'title="Поделиться в Одноклассниках" rel="nofollow" style="cursor: pointer;"><img src="/images/icon-2.png" alt=""><span></span></a> ';
 	$ret .= '<a onclick="window.open(\'http://www.facebook.com/sharer.php?u=http://www.annafoto.in.ua/index.php\',\'mywindow\',\'width=500,height=500\')" ';
 	$ret .= 'title="Поделиться на Facebook" rel="nofollow" style="cursor: pointer;"><span></span>';
-	$ret .= '<img src="/images/icon-3.png" alt=""></a></div>';
+	$ret .= '<img src="/images/icon-3.png" alt=""></a>';
+
+	$ret .= '<a onclick="window.open(\'http://www.facebook.com/sharer.php?u=http://www.annafoto.in.ua/index.php\',\'mywindow\',\'width=500,height=500\')" ';
+	$ret .= 'title="Поделиться на " rel="nofollow" style="cursor: pointer;"><span></span>';
+	$ret .= '<img src="/images/icon-4.png" alt=""></a>';
+
+	$ret .= '<a onclick="window.open(\'http://www.facebook.com/sharer.php?u=http://www.annafoto.in.ua/index.php\',\'mywindow\',\'width=500,height=500\')" ';
+	$ret .= 'title="Поделиться на " rel="nofollow" style="cursor: pointer;"><span></span>';
+	$ret .= '<img src="/images/icon-5.png" alt=""></a>';
+
+	$ret .= '</div>';
 
 	return $ret;
 

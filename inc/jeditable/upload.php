@@ -1,4 +1,5 @@
 <?php
+header("Cache-Control: no-cache");
 
 //check if there are files uploaded
 if((isset($_FILES['value']['error']) && $_FILES['value'] == 0) ||	

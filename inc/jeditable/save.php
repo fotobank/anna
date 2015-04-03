@@ -2,6 +2,7 @@
 
 require_once (__DIR__ .'/../../inc/config.php');
 header( 'Content-type: text/html; charset=windows-1251' );
+header("Cache-Control: no-cache");
 
 $db->where("teg_id", $_POST['id']);
 //$text = cp1251(preg_replace('/[\n\t]{1,}/i', '', strip_tags( nl2br($_POST['value']), '<br>')));

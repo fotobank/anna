@@ -3,7 +3,7 @@ $helvetica: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 $lucida-grande: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
 $monospace: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
 $verdana: Verdana, Geneva, sans-serif;
-$marck: "Marck Script", cursive;
+$marck: 'Bad Script', 'Marck Script', 'Georgia', cursive;
 
 $base-font-family: 'Lato', sans-serif;
 $base-font-size:   14px;
@@ -32,7 +32,7 @@ $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
 
 }
 @mixin font-stack-headers-h3 {
-	  font-family: 'Bad Script', 'Georgia', 'Tahoma', 'Arial', cursive;
+	  font-family: $marck;
 	  @include font-size(24);
 	  line-height: 30px;
 	  color: $h3_color;
@@ -48,13 +48,13 @@ $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
 
 }
 @mixin font-stack-body {
-	  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	  font-family: $helvetica;
 	  @include font-size(15);
 	  //		line-height: 22px;
 	  font-style: normal;
 }
 @mixin font-stack-footer {
-	  font-family: Times New Roman, serif;
+	  font-family: $helvetica;
 	  text-shadow: -1px -1px #000;
 }
 @mixin font-stack-code {
