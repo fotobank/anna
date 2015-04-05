@@ -14,7 +14,7 @@ $centered-navigation-height: 7.25em;
 $centered-navigation-submenu-padding: 1.25em; // отступ с права в мобильном режиме
 $centered-navigation-menu-padding: 1.5em; // рассто€ние между разделами
 $centered-navigation-menu-padding-top: 2.85em; // отступ сверху
-$centered-navigation-menu-font-size: 14; // в "px"
+$centered-navigation-menu-font-size: 16; // в "px"
 $centered-navigation-menu-first-letter-font-size: 24; // –азмер буквицы
 $centered-navigation-font-family: $verdana;
 $centered-navigation-first-letter-font-family: $marck;
@@ -24,18 +24,15 @@ $centered-navigation-height-menu-mobile: $centered-navigation-height-mobile * 1.
 
 @mixin site-menu {
 	  .centered-navigation {
+			//noinspection CssInvalidPropertyValue
 			background: image-url('nav.png') 0 0 repeat;
-		//	border-bottom: 1px solid lighten($centered-navigation-background, 40);
 			font-family: $centered-navigation-font-family;
-//			letter-spacing: 1px;
 			width: 100%;
 			z-index: 9999;
 			height: $centered-navigation-height;
-
 			.mobile-logo, .centered-navigation-menu-button {
 				  display: none;
 			}
-
 			.centered-navigation-wrapper {
 				  max-width: 100%;
 				  @include clearfix;
@@ -77,7 +74,7 @@ $centered-navigation-height-menu-mobile: $centered-navigation-height-mobile * 1.
 				  zoom: 1;
 				  #profession{
 						font-family: $verdana;
-						font-size: 14px;
+						font-size: 12px;
 						color: #ffffff;
 						text-align: right;
 						letter-spacing: 4px;

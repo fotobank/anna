@@ -158,9 +158,6 @@ $class_header = ( $razdel == '/index.php' ) ? "nav" : "subpages-nav";
 			</div>
 		</td>
 	</tr>
-	<tr>
-		<td class="text-2">&nbsp;</td>
-	</tr>
 	</tbody>
 </table>
 
