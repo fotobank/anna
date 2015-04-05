@@ -5,6 +5,7 @@
 $(document).ready(function () {
 
 
+	//большой сдайдер
 		$("#owl-head").owlCarousel({
 
 			slideSpeed : 300,
@@ -16,16 +17,16 @@ $(document).ready(function () {
 			smartSpeed:450,
 			loop:true,
 			autoplay:true,
-			autoplayTimeout:8000,
+			autoplayTimeout:12000,
 			autoplayHoverPause:true,
 			dots:true, // показ чекбоксов
-			dotsContainer: '.owl-head-pags'
+			dotsContainer: '.owl-head-pags' // контейнер чекбоксов
 
 		});
 
 
-	var owl = $('#owl-index');
-	owl.owlCarousel({
+
+	$('#owl-index').owlCarousel({
 		slideBy:1,
 		singleItem: true,
 		navSpeed:300, // скорость prev next
@@ -43,31 +44,37 @@ $(document).ready(function () {
 		items:5,
 		responsive:{
 			0:{
-				//items:5,
+				items:2,
 				nav:false
 			},
-			600:{
-				//items:5,
+			420:{
+				items:3,
 				nav:false
 			},
-			960:{
-				//items:5,
+			610:{
+				items:4,
 				nav:false
 			},
-			1200:{
-				//items:5,
+			825:{
+				items:5,
+				nav:false
+			},
+			950:{
+				items:5,
 				nav:true
 			}
 		}
 	});
-	owl.on('mousewheel', '.owl-stage', function (e) {
+
+	// управление скроллом
+	/*owl.on('mousewheel', '.owl-stage', function (e) {
 		if (e.deltaY>0) {
 			owl.trigger('next.owl');
 		} else {
 			owl.trigger('prev.owl');
 		}
 		e.preventDefault();
-	});
+	});*/
 
 
 	$("a.plus")

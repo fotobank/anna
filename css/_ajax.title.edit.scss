@@ -80,12 +80,10 @@ img {
     }
 }
 .ok-cancel {
-    display: inline;
     font-size: 0.6em;
-    padding-left: 6px;
-    position: relative;
-    top: 4px;
-    float: right;
+    position: absolute;
+	  top: 4px;
+	  right: 70px;
 }
 .text {
     vertical-align: middle;

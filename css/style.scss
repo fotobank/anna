@@ -4,7 +4,7 @@
 
 @import "reset";
 
-//@import "bootstrap";
+@import "bootstrap";
 @import "jqueryui-editable";
 
 @import "inc/test";
@@ -36,7 +36,7 @@
 @import "ajax.title.edit";
 @import "tabs";
 @import "owl.carousel";
-@import "owl.animate";
+@import "owl.animateInOut";
 @import "owl.autoheight";
 @import "owl.lazyload";
 @import "owl.video";
@@ -166,6 +166,7 @@ ul {
 			li {
 				  padding: 0 0 13px 14px;
 				  line-height: 18px;
+				  //noinspection CssInvalidPropertyValue
 				  background: image-url('marker-1.gif') 0 8px no-repeat;
 				  span {
 						a {
@@ -189,6 +190,7 @@ ul {
 						&.date {
 							  display: block;
 							  float: left;
+							  //noinspection CssInvalidPropertyValue
 							  background: image-url('date-bg.png') 15px 0 no-repeat;
 							  width: 97px;
 							  @include font-size(48);
@@ -239,11 +241,36 @@ ul.list-2 li span, .adr {
 	  line-height: 20px;
 }
 
+/* Используйте класс clearfix на родителей, чтобы очистить вложенные столбцы,
+    или оберните каждый ряд колонн в <DIV класс = "clearfix"> */
+.clearfix:before,
+.clearfix:after, {
+	  content: '\0020';
+	  display: block;
+	  overflow: hidden;
+	  visibility: hidden;
+	  width: 0;
+	  height: 0;
+}
+
+.clearfix:after {
+	  clear: both;
+}
+
+.clearfix {
+	  zoom: 1;
+}
+
+//Вы также можете использовать <br class="clear" /> чтобы очистить столбцы
 .clear {
 	  clear: both;
 	  line-height: 0;
 	  font-size: 0;
-	  width: 100%;
+	  display: block;
+	  overflow: hidden;
+	  visibility: hidden;
+	  width: 0;
+	  height: 0;
 }
 
 .wrapper {
@@ -358,16 +385,6 @@ ul.list-2 li span, .adr {
 	  display: inline-block;
 }
 
-.gallery-block {
-	  position: relative;
-	  text-align: center;
-	  width: 100%;
-	  h1 {
-			padding: 26px 0 16px 0;
-			text-align: center;
-	  }
-}
-
 .gallery-photo {
 	  border-top: #303030 1px solid;
 	  border-bottom: #303030 1px solid;
@@ -414,6 +431,7 @@ ul.list-2 li span, .adr {
 }
 
 .comment {
+	  //noinspection CssInvalidPropertyValue
 	  background: image-url('comment-top.png') 0 0 no-repeat;
 	  padding-left: 20px;
 	  margin-bottom: 9px;
@@ -424,6 +442,7 @@ ul.list-2 li span, .adr {
 }
 
 .slovo {
+	  //noinspection CssInvalidPropertyValue
 	  background: image-url('comment-top.png') 0 0 no-repeat;
 	  padding-left: 20px;
 	  margin-bottom: 9px;
@@ -589,12 +608,15 @@ dl {
 	  top: 50px;
 	  width: 331px;
 	  height: 367px;
+	  //noinspection CssInvalidPropertyValue
 	  background: image-url('pen.png') 0 0 no-repeat;
 }
+
 
 #zapolnen {
 	  position: relative;
 	  height: 367px;
+	  //noinspection CssInvalidPropertyValue
 	  background: image-url('under-construction.jpg') 0 0 no-repeat;
 }
 
@@ -925,11 +947,15 @@ input[type=submit], label, select, .pointer {
 	  position: relative;
 	  padding-top: 10px;
 	  text-align: left;
-	  font: normal verdana, sans-serif;
+	  font-weight: normal;
+	  font-variant: normal;
+	  font-style: normal;
+	  font-family: verdana, sans-serif;
 	  @include font-size(12);
 	  color: #d7d7d7;
 	  cite {
-			font: bold tahoma, sans-serif;
+			font-weight: bold;
+			font-family: tahoma, sans-serif;
 			@include font-size(14);
 	  }
 }
@@ -974,7 +1000,10 @@ input[type=submit], label, select, .pointer {
 	  margin: 0 auto;
 	  position: relative;
 	  text-align: center;
-	  font: normal verdana, sans-serif;
+	  font-weight: normal;
+	  font-variant: normal;
+	  font-style: normal;
+	  font-family: verdana, sans-serif;
 	  @include font-size(12);
 	  color: #c65960;
 	  background-color: #191939;
@@ -1000,7 +1029,10 @@ input[type=submit], label, select, .pointer {
 	  z-index: 1;
 	  background: #1c1c1c;
 	  color: #fff;
-	  font: normal normal Tahoma;
+	  font-weight: normal;
+	  font-variant: normal;
+	  font-style: normal;
+	  font-family: Tahoma, sans-serif;
 	  @include font-size(14);
 	  padding: 10px 10px 20px 10px;
 	  margin: 5px;
@@ -1052,7 +1084,10 @@ input[type=submit], label, select, .pointer {
 	  border: 1px solid $border_color;
 	  text-align: center;
 	  color: #FFF;
-	  font: normal bold Arial;
+	  font-weight: bold;
+	  font-variant: normal;
+	  font-style: normal;
+	  font-family: Arial, sans-serif;
 	  @include font-size(16);
 	  padding: 0 4px;
 }
@@ -1071,7 +1106,9 @@ input[type=submit], label, select, .pointer {
 	  box-shadow: 5px 5px 0.5em -0.1em rgba(0, 0, 6, 0.5);
 	  text-align: left;
 	  color: #000;
-	  font: normal 500 Arial, sans-serif;
+	  font-variant: normal;
+	  font-style: normal;
+	  font-family: Arial, sans-serif;
 	  @include font-size(14);
 	  opacity: .9;
 	  cursor: default;
@@ -1157,7 +1194,10 @@ a.support-two:focus em,
 	  border: 2px solid #FFF;
 	  top: -8px;
 	  right: -8px;
-	  font: normal bold Comic Sans MS;
+	  font-weight: bold;
+	  font-variant: normal;
+	  font-style: normal;
+	  font-family: Comic, Sans, MS, serif;
 	  @include font-size(14);
 	  text-align: center;
 	  color: #fff;
@@ -1181,7 +1221,10 @@ a.support-two:focus em,
 	  border: 1px solid $border_color;
 	  text-align: center;
 	  color: #FFF;
-	  font: normal bold Arial;
+	  font-weight: bold;
+	  font-variant: normal;
+	  font-style: normal;
+	  font-family: Arial, sans-serif;
 	  @include font-size(16);
 	  padding: 0 4px;
 }
@@ -1241,10 +1284,14 @@ a.support-hover-two:hover em {
 }
 
 button {
-	  @include fancy-button(#124c89, 12px, 0.3em, 1px);
+	  @include fancy-button(#ea1dd1, 12px, 0.3em, 1px);
 }
 
 li h4 {
 	  background: none repeat scroll 0 0 #369;
 	  padding: 5px 10px;
+}
+.text-head-laitbox {
+	  max-width: 1024px;
+	  margin: 30px auto 0;
 }

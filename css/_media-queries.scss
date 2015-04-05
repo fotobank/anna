@@ -1,19 +1,15 @@
 // отзывчивость
-
 @import "site.menu";
 
-@include site-menu-mobile;
-@media only screen
-and (max-width : 1024px) {
+//@include site-menu-mobile;
+@media only screen and (max-width: 930px) {
 
 	  @include site-menu-mobile;
 
 }
 
 /* Smartphones (portrait and landscape) ----------- */
-@media only screen
-and (min-device-width : 320px)
-and (max-device-width : 480px) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
 
 	  /* Smartphones (landscape) ----------- */
 	  @media only screen and (min-width: 320px) {
@@ -29,9 +25,7 @@ and (max-device-width : 480px) {
 }
 
 /* iPads (portrait and landscape) ----------- */
-@media only screen
-and (min-device-width : 768px)
-and (max-device-width : 1024px) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 
 	  /* iPads (landscape) ----------- */
 	  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
@@ -47,16 +41,14 @@ and (max-device-width : 1024px) {
 }
 
 /* Desktops and laptops ----------- */
-@media only screen
-and (min-width : 930px) {
+@media only screen and (min-width: 930px) {
 
 	  @include site-menu;
 }
 
 /* iPhone 4 ----------- */
-@media
-only screen and (-webkit-min-device-pixel-ratio : 1.5),
-only screen and (min-device-pixel-ratio : 1.5) {
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
 
 	  @include site-menu;
 }

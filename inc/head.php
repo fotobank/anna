@@ -23,7 +23,8 @@ list( $razdel, $title ) = title();
 <head>
 
 	<title><?= $title ?></title>
-	<meta charset="windows-1251">
+<!--	<meta charset="windows-1251">-->
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="yes" name="apple-mobile-web-app-capable">
@@ -37,7 +38,6 @@ list( $razdel, $title ) = title();
 
 
 	<link rel="stylesheet" type="text/css" media="screen" href="/css/style.css">
-
 
 	<!--[if IE]>
 	<link rel="stylesheet" type="text/css" media="screen" href="/css/ie.css">
@@ -59,7 +59,7 @@ list( $razdel, $title ) = title();
 		<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
 		<script type='text/javascript' src='/js/jquery.jcarousel.min.js'></script>
 
-		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.js'></script>
+		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.min.js'></script>
 
 
 		<script type="text/javascript" src="/js/minified/jquery.mousewheel.min.js"></script>
@@ -77,7 +77,7 @@ list( $razdel, $title ) = title();
 
 		<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
 		<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
-		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.js'></script>
+		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.min.js'></script>
 		<script type="text/javascript" src="/js/minified/jquery.mousewheel.min.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
@@ -118,27 +118,34 @@ list( $razdel, $title ) = title();
 <!--==============================header=================================-->
 
 	<div id="header">
-
-		<div class=<?= ( $razdel == '/index.php' ) ? "nav" : "subpages-nav" ?>>
+<?
+$class_header = ( $razdel == '/index.php' ) ? "nav" : "subpages-nav";
+?>
 
 			<? include( __DIR__ . "/menu.php" ) ?>
 
-			<header class="gallery-block">
-				<h1>Ваш фотограф в Одессе Алексеева Анна</h1>
-			</header>
+	</div>
 
-		</div>
 
-		<? /** лайтбокс на главной в шапке */ ?>
-		<div id="slide">
+<table class="text-head-laitbox">
+	<tbody>
+	<tr>
+		<td class="header" style="text-align: right;"><u><a onclick="goog_report_conversion('tel: 067-76-84-086')" href="#">067-76-84-086</a></u><br>
+			<a href="http://annafoto.in.ua/wedding">свадебная фотосъёмка</a>,
+			<a href="http://www.annafoto.in.ua/studio">студийные фотосессии</a>, Одесса, Алексеева Анна</td>
+	</tr>
+	<tr>
+		<td>
+			<div id="slide">
 			<?
+			 /** лайтбокс на главной в шапке */
 			if ( $razdel == '/index.php' ) {
 				$slides = glob( 'files/slides/*.jpg' ); // сканирование без субдиректорий
 				$items  = '<div id = "owl-head" class="owl-carousel owl-theme">';
 				$pags = "<div class='owl-head-pags-hide'><div class='owl-head-pags'>";
 				$i = 1;
 				foreach ( $slides as $key => $slide ) {
-					$items .= "<div class='item'><img src='/". $slide."' alt='Фотография " .basename($slide)."'></div>";
+					$items .= "<div class='item'><img src='/". $slide."' alt='свадебный фотограф Алексеева Анна, свадебные фотосессии в Одессе'></div>";
 					$pags .= "<div class='owl-dot' ><strong>0</strong>{$i}</div>";
 					$i++;
 				}
@@ -148,9 +155,14 @@ list( $razdel, $title ) = title();
 				echo( $pags );
 			}
 			?>
-		</div>
-
-	</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="text-2">&nbsp;</td>
+	</tr>
+	</tbody>
+</table>
 
 
 <!--[if IE 6]>
@@ -179,12 +191,12 @@ list( $razdel, $title ) = title();
 			<h4>Панель админа:</h4>
 			<div>
 			    <span>Включить редактирование:</span>
-				<button id="enable" class="btn btn-mini" type="button">on/off</button>
+				<button id="enable" class="btn btn-xs" type="button">on/off</button>
 				<input type="checkbox" id="edit-content" checked />
 			</div>
 			<div>
 				<span>Включить подсказки:</span>
-				<button id="help" class="btn btn-mini" type="button">on/off</button>
+				<button id="help" class="btn btn-xs" type="button">on/off</button>
 			</div>
 			<div>
 				<a href="/admin.php?adm_out=1" style="padding-right: 20px;">выход</a>

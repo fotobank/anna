@@ -18,7 +18,7 @@ function get_filenews($file_news) {
 
 					$print .= "<div class='adr'>";
 					$print .= "<p class='title'>{$new[0]}</p>";
-					$print .= isset( $new[1] ) ? "<div class='h2'>".$new[1]."</div>" : '';
+					$print .= isset( $new[1] ) ? "<div>".$new[1]."</div>" : '';
 					$print .= isset( $new[2] ) ? "<a href='/news.php' class='link-1 link-2-pad'>подробно</a>" : '';
 					$print .= "</div>";
 

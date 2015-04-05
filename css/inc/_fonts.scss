@@ -1,14 +1,5 @@
-$georgia: Georgia, Cambria, "Times New Roman", Times, serif;
-$helvetica: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-$lucida-grande: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
-$monospace: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
-$verdana: Verdana, Geneva, sans-serif;
-$marck: 'Bad Script', 'Marck Script', 'Georgia', cursive;
-
-$base-font-family: 'Lato', sans-serif;
-$base-font-size:   14px;
-
 $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
+
 @font-face {
 	font-family: 'LazyCrazyRegular';
 	src: url("#{$url_lazy}.eot");
@@ -17,22 +8,39 @@ $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
 	font-style: normal;
 }
 
+$georgia: 'Georgia', 'Cambria', "Times New Roman", 'Times', serif;
+$lazy: 'LazyCrazyRegular','Georgia', 'Cambria', "Times New Roman", 'Times', serif;
+$helvetica: "Helvetica Neue", 'Helvetica', 'Roboto', 'Arial', sans-serif;
+$lucida-grande: "Lucida Grande", 'Tahoma', 'Verdana', 'Arial', sans-serif;
+$monospace: "Bitstream Vera Sans Mono", 'Consolas', 'Courier', monospace;
+$verdana: 'Verdana', 'Geneva', sans-serif;
+$marck: 'Marck Script', 'Georgia', cursive;
+$bad: 'Bad Script', 'Georgia', cursive;
+$base-font-family: 'Lato', sans-serif;
+$base-font-size:   14px;
+
 
 @mixin font-stack-headers-h1 {
 	  @include single-text-shadow(2px, 2px, 3px, 3px, #191919);
-	  font-family: 'Marck Script', cursive, Georgia, Times New Roman, serif;
-	  line-height: 36px;
+	  @include font-size(30);
+	  font-family: $lazy;
+	  line-height: 30px;
 	  font-weight: bold;
 	  font-style: italic;
-	  @include font-size(38);
 	  color: $h1_color;
 }
 
 @mixin font-stack-headers-h2 {
-
+	  @include single-text-shadow(2px, 2px, 3px, 3px, #191919);
+	  @include font-size(28);
+	  font-family: $helvetica;
+      line-height: 28px;
+	  font-weight: bold;
+	  font-style: italic;
+	  color: $h2_color;
 }
 @mixin font-stack-headers-h3 {
-	  font-family: $marck;
+	  font-family: $bad;
 	  @include font-size(24);
 	  line-height: 30px;
 	  color: $h3_color;

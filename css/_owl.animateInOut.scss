@@ -38,3 +38,32 @@
 		opacity: 0;
 	}
 }
+
+@-webkit-keyframes fadeIn {
+	  0% {
+			opacity: 0;
+	  }
+
+	  100% {
+			opacity: 1;
+	  }
+}
+
+@keyframes fadeIn {
+	  0% {
+			opacity: 0;
+	  }
+
+	  100% {
+			opacity: 1;
+	  }
+}
+
+.fadeOut {
+	  -webkit-animation-name: fadeOut;
+	  animation-name: fadeOut;
+}
+.fadeIn {
+	  -webkit-animation-name: fadeIn;
+	  animation-name: fadeIn;
+}
