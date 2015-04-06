@@ -10538,7 +10538,7 @@ a.editable-click.editable-disabled:hover {
     width: 4.375em;
   }
 }
-/* line 21, inc/_core.scss */
+/* line 23, inc/_core.scss */
 html {
   text-align: center;
   font-size: 100%;
@@ -10547,30 +10547,30 @@ html {
   box-sizing: content-box;
 }
 @media screen and (max-width: 1024px) {
-  /* line 21, inc/_core.scss */
+  /* line 23, inc/_core.scss */
   html {
     font-size: 90%;
   }
 }
 @media screen and (max-width: 1280px) {
-  /* line 21, inc/_core.scss */
+  /* line 23, inc/_core.scss */
   html {
     font-size: 115%;
   }
 }
 @media screen and (max-width: 1440px) {
-  /* line 21, inc/_core.scss */
+  /* line 23, inc/_core.scss */
   html {
     font-size: 125%;
   }
 }
 
-/* line 37, inc/_core.scss */
+/* line 39, inc/_core.scss */
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
-/* line 41, inc/_core.scss */
+/* line 43, inc/_core.scss */
 html, body {
   width: 100%;
   padding: 0;
@@ -10584,7 +10584,7 @@ html, body {
   font-style: normal;
 }
 
-/* line 49, inc/_core.scss */
+/* line 51, inc/_core.scss */
 body {
   display: inline-block;
   max-width: 100%;
@@ -10597,66 +10597,66 @@ body {
   background: url(../../images/tail-top.jpg) repeat-x center top #000;
 }
 
-/* line 60, inc/_core.scss */
+/* line 62, inc/_core.scss */
 p {
   text-indent: 0.625em;
   margin-bottom: 0.625em;
 }
 
-/* line 65, inc/_core.scss */
+/* line 67, inc/_core.scss */
 a {
   text-decoration: none;
   cursor: pointer;
   color: #7DADE0;
 }
-/* line 69, inc/_core.scss */
+/* line 71, inc/_core.scss */
 a:active {
   color: #ff8b91;
 }
-/* line 72, inc/_core.scss */
+/* line 74, inc/_core.scss */
 a:hover {
   text-decoration: none;
   color: #cab76c;
 }
-/* line 76, inc/_core.scss */
+/* line 78, inc/_core.scss */
 a img {
   border: none;
 }
-/* line 80, inc/_core.scss */
+/* line 82, inc/_core.scss */
 a.clr-1:hover {
   text-decoration: underline;
 }
-/* line 86, inc/_core.scss */
+/* line 88, inc/_core.scss */
 a.support:focus .tip {
   display: block;
 }
-/* line 91, inc/_core.scss */
+/* line 93, inc/_core.scss */
 a.support[tabindex="1"]:focus {
   outline: none;
 }
-/* line 97, inc/_core.scss */
+/* line 99, inc/_core.scss */
 a.support-two:focus + .tip-block .tip-two {
   display: block;
 }
-/* line 103, inc/_core.scss */
+/* line 105, inc/_core.scss */
 a.support-two[tabindex="1"]:focus {
   outline: none;
 }
-/* line 108, inc/_core.scss */
+/* line 110, inc/_core.scss */
 a.support-hover:hover .tip {
   display: block;
 }
-/* line 116, inc/_core.scss */
+/* line 118, inc/_core.scss */
 a.support-hover-two:hover + .tip-block .tip-two {
   display: block;
 }
 
-/* line 124, inc/_core.scss */
+/* line 126, inc/_core.scss */
 a:active, a:focus {
   outline: none;
 }
 
-/* line 128, inc/_core.scss */
+/* line 130, inc/_core.scss */
 #main {
   max-width: 1024px;
   margin: 30px auto 0;
@@ -10668,7 +10668,7 @@ a:active, a:focus {
   position: relative;
 }
 
-/* line 140, inc/_core.scss */
+/* line 142, inc/_core.scss */
 h1 {
   text-shadow: 2px 2px 3px #191919;
   text-shadow: 2px 2px 3px 3px #191919;
@@ -10684,7 +10684,7 @@ h1 {
   float: left;
 }
 
-/* line 145, inc/_core.scss */
+/* line 147, inc/_core.scss */
 h2 {
   text-shadow: 2px 2px 3px #191919;
   text-shadow: 2px 2px 3px 3px #191919;
@@ -10705,7 +10705,7 @@ h2 {
   margin-top: 4.375em;
 }
 
-/* line 155, inc/_core.scss */
+/* line 157, inc/_core.scss */
 h3 {
   font-family: "Bad Script", "Georgia", cursive;
   font-size: 24px;
@@ -10718,7 +10718,7 @@ h3 {
   font-style: italic;
 }
 
-/* line 159, inc/_core.scss */
+/* line 161, inc/_core.scss */
 h4 {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   text-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.3);
@@ -10730,25 +10730,25 @@ h4 {
   margin: 0;
 }
 
-/* line 164, inc/_core.scss */
+/* line 166, inc/_core.scss */
 .h5 {
   border-bottom: #353535 0.063em solid;
   padding-top: 0.938em;
   padding-bottom: 0.313em;
 }
 
-/* line 170, inc/_core.scss */
+/* line 172, inc/_core.scss */
 #header {
   position: relative;
   width: 100%;
 }
-/* line 174, inc/_core.scss */
+/* line 176, inc/_core.scss */
 #header > div {
   position: relative;
   width: 100%;
   background: url('/images/header-line.jpg?1405111181') 0 bottom repeat-x;
 }
-/* line 179, inc/_core.scss */
+/* line 181, inc/_core.scss */
 #header .nav {
   position: absolute;
   width: 100%;
@@ -10758,7 +10758,7 @@ h4 {
   left: 0;
 }
 
-/* line 189, inc/_core.scss */
+/* line 191, inc/_core.scss */
 .header {
   border-color: #E3E2E0;
   background: #E3C37F none repeat scroll 0 0;
@@ -10769,14 +10769,14 @@ h4 {
   font-family: Verdana,sans-serif;
   font-size: 13px;
 }
-/* line 198, inc/_core.scss */
+/* line 200, inc/_core.scss */
 .header a {
   color: #202021;
   outline: medium none;
   text-decoration: none;
 }
 
-/* line 205, inc/_core.scss */
+/* line 207, inc/_core.scss */
 footer {
   font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   text-shadow: -1px -1px #000;
@@ -10788,7 +10788,7 @@ footer {
   margin-top: -60px;
   z-index: -1;
 }
-/* line 215, inc/_core.scss */
+/* line 217, inc/_core.scss */
 footer .social {
   max-width: 880px;
   padding: 60px 30px 0;
@@ -10796,17 +10796,17 @@ footer .social {
   z-index: 1;
   position: relative;
 }
-/* line 221, inc/_core.scss */
+/* line 223, inc/_core.scss */
 footer .social .copirait {
   line-height: 1.5;
 }
-/* line 224, inc/_core.scss */
+/* line 226, inc/_core.scss */
 footer .social .texno {
   position: absolute;
   bottom: 30px;
   right: 0;
 }
-/* line 230, inc/_core.scss */
+/* line 232, inc/_core.scss */
 footer .container {
   width: 100%;
   z-index: 0;
@@ -10816,21 +10816,21 @@ footer .container {
   padding-top: 12px;
 }
 @media all and (max-width: 550px) {
-  /* line 205, inc/_core.scss */
+  /* line 207, inc/_core.scss */
   footer {
     height: 17.5em;
   }
-  /* line 244, inc/_core.scss */
+  /* line 246, inc/_core.scss */
   footer .social {
     padding: 50px 5px 0;
   }
-  /* line 247, inc/_core.scss */
+  /* line 249, inc/_core.scss */
   footer .container {
     clear: both;
   }
 }
 
-/* line 252, inc/_core.scss */
+/* line 254, inc/_core.scss */
 * html footer {
   bottomy: expression(parentNode.offsetHeight % 2 ? style.bottom="-1px" : style.bottom="0px");
   /* хак для ие6, у которого есть косяк со смещением на 1px */
@@ -17639,7 +17639,7 @@ img.ok {
 }
 
 /*owl галерея в шапке*/
-/* line 2, _index.owl.carousel.scss */
+/* line 3, _index.owl.carousel.scss */
 #slide {
   position: relative;
   overflow: hidden;
@@ -17648,19 +17648,19 @@ img.ok {
   z-index: 2;
   height: auto;
 }
-/* line 10, _index.owl.carousel.scss */
+/* line 11, _index.owl.carousel.scss */
 #slide #owl-head .item img {
   display: block;
   width: 100%;
   height: auto;
 }
 @media only screen and (max-width: 1024px) {
-  /* line 15, _index.owl.carousel.scss */
+  /* line 16, _index.owl.carousel.scss */
   #slide .owl-head-pags-hide {
     display: none;
   }
 }
-/* line 21, _index.owl.carousel.scss */
+/* line 22, _index.owl.carousel.scss */
 #slide .owl-head-pags-hide .owl-head-pags {
   position: absolute;
   top: 375px;
@@ -17677,7 +17677,7 @@ img.ok {
   outline: 0;
   vertical-align: top;
 }
-/* line 38, _index.owl.carousel.scss */
+/* line 39, _index.owl.carousel.scss */
 #slide .owl-head-pags-hide .owl-head-pags div {
   float: left;
   display: block;
@@ -17692,24 +17692,24 @@ img.ok {
   text-decoration: none;
   cursor: pointer;
 }
-/* line 52, _index.owl.carousel.scss */
+/* line 53, _index.owl.carousel.scss */
 #slide .owl-head-pags-hide .owl-head-pags div.active, #slide .owl-head-pags-hide .owl-head-pags div.owl-dot:hover a {
   background-position: 0 0;
   color: #bf96c7;
 }
 
-/* line 60, _index.owl.carousel.scss */
+/* line 61, _index.owl.carousel.scss */
 #new-gal {
   width: auto;
 }
 
-/* line 65, _index.owl.carousel.scss */
+/* line 66, _index.owl.carousel.scss */
 .owl-theme .owl-controls {
   text-align: center;
 }
 
 /* Styling Next and Prev buttons */
-/* line 72, _index.owl.carousel.scss */
+/* line 73, _index.owl.carousel.scss */
 .owl-theme .owl-controls .owl-buttons div {
   color: #FFF;
   display: inline-block;
@@ -17728,7 +17728,7 @@ img.ok {
   opacity: 0.5;
 }
 
-/* line 87, _index.owl.carousel.scss */
+/* line 88, _index.owl.carousel.scss */
 .owl-next, .owl-prev {
   position: absolute;
   top: 114px;
@@ -17745,19 +17745,26 @@ img.ok {
   margin-right: -1px;
 }
 
-/* line 102, _index.owl.carousel.scss */
+/* line 103, _index.owl.carousel.scss */
 .owl-next {
   right: 0;
 }
 
-/* line 106, _index.owl.carousel.scss */
+/* line 107, _index.owl.carousel.scss */
 .owl-prev {
   right: 205px;
 }
 
+/* line 110, _index.owl.carousel.scss */
+.fancybox-skin {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
 /* Clickable class fix problem with hover on touch devices */
 /* Use it for non-touch hover action */
-/* line 111, _index.owl.carousel.scss */
+/* line 115, _index.owl.carousel.scss */
 .owl-theme .owl-controls.clickable .owl-buttons div:hover {
   filter: Alpha(Opacity=100);
   /*IE7 fix*/
@@ -17766,7 +17773,7 @@ img.ok {
 }
 
 /* Styling Pagination*/
-/* line 119, _index.owl.carousel.scss */
+/* line 123, _index.owl.carousel.scss */
 .owl-theme .owl-controls .owl-page {
   display: inline-block;
   zoom: 1;
@@ -17774,7 +17781,7 @@ img.ok {
   /*IE7 life-saver */
 }
 
-/* line 124, _index.owl.carousel.scss */
+/* line 128, _index.owl.carousel.scss */
 .owl-theme .owl-controls .owl-page span {
   display: block;
   width: 12px;
@@ -17789,7 +17796,7 @@ img.ok {
   background: #869791;
 }
 
-/* line 137, _index.owl.carousel.scss */
+/* line 141, _index.owl.carousel.scss */
 .owl-theme .owl-controls .owl-page.active span,
 .owl-theme .owl-controls.clickable .owl-page:hover span {
   filter: Alpha(Opacity=100);
@@ -17798,7 +17805,7 @@ img.ok {
 }
 
 /* If PaginationNumbers is true */
-/* line 145, _index.owl.carousel.scss */
+/* line 149, _index.owl.carousel.scss */
 .owl-theme .owl-controls .owl-page span.owl-numbers {
   height: auto;
   width: auto;
@@ -17810,19 +17817,19 @@ img.ok {
   border-radius: 30px;
 }
 
-/* line 156, _index.owl.carousel.scss */
+/* line 160, _index.owl.carousel.scss */
 #owl-index img.thumb {
   display: block;
   width: 205px;
   height: 114px;
 }
 
-/* line 162, _index.owl.carousel.scss */
+/* line 166, _index.owl.carousel.scss */
 .wrapper-with-margin {
   margin: 0 50px;
 }
 
-/* line 166, _index.owl.carousel.scss */
+/* line 170, _index.owl.carousel.scss */
 .owl-theme .owl-controls .owl-buttons div {
   position: absolute;
 }
@@ -19522,4 +19529,15 @@ li h4 {
 .text-head-laitbox {
   width: auto;
   background-color: #336699;
+}
+
+/* line 1302, style.scss */
+.control-group textarea {
+  color: #000000;
+  width: 434px;
+}
+
+/* line 1307, style.scss */
+.editable-error-block {
+  max-width: 434px;
 }

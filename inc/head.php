@@ -147,12 +147,11 @@ list( $razdel, $title ) = title();
 			<h4>ѕанель админа:</h4>
 			<div>
 			    <span>¬ключить редактирование:</span>
-				<button id="enable" class="btn btn-xs" type="button">on/off</button>
-				<input type="checkbox" id="edit-content" checked />
+				<button id="enable" class="btn-xs" type="button">on/off</button>
 			</div>
 			<div>
 				<span>¬ключить подсказки:</span>
-				<button id="help" class="btn btn-xs" type="button">on/off</button>
+				<button id="help" class="btn-xs" type="button">on/off</button>
 			</div>
 			<div>
 				<a href="/admin.php?adm_out=1" style="padding-right: 20px;">выход</a>

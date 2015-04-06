@@ -80,7 +80,10 @@ $(document).ready(function () {
 	$("a.plus")
 			.attr('rel', 'gallery')
 			.fancybox({
-				padding : 0,
+				padding : 4,
+				scrolling : 'no',
+				closeBtn : false,
+
 				openEffect  : 'elastic',
 				closeEffect	: 'elastic',
 				nextEffect  : 'elastic',

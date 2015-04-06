@@ -1,3 +1,4 @@
+@import "compass/css3";
 /*owl галерея в шапке*/
 #slide {
 	  position: relative;
@@ -58,7 +59,7 @@
 // -----слайдер--------
 
 #new-gal {
-	  //	  height: 368px;
+
 	  width: auto;
 }
 
@@ -105,6 +106,9 @@
 
 .owl-prev{
 	  right: 205px;
+}
+.fancybox-skin {
+	  @include border-radius(0);
 }
 /* Clickable class fix problem with hover on touch devices */
 /* Use it for non-touch hover action */
