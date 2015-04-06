@@ -43,12 +43,12 @@ defined('_SECUR') or die('Доступ запрещен');
 				<div class="col-14">
 					<h3 class="bb2">Для связи:</h3>
 					<dl>
-						Удобное для меня место для встреч:
+						<dd>Удобное для меня место для встреч:</dd>
 						<dd class="clr-1"><p>г.Одесса ул.Троицкая <br>угол ул. Канатной, кафе "Cхiд".</p></dd>
-						По всем вопросам обращайтесь с 9.00 до 21.00 по телефонам:
-						<dd class="clr-1"><p>Телефон № +38 094 955 3167</p></dd>
-						<dd class="clr-1"><p>Телефон № +38 067 768 4086</p></dd>
-						Или пишите:
+						<dd>По всем вопросам обращайтесь с 9.00 до 21.00 по телефонам:</dd>
+						<dd class="clr-1"><p><a onclick="goog_report_conversion('tel: 094-95-53-167');return false;" href="#">Рабочий: (094)95-53-167</a></p></dd>
+						<dd class="clr-1"><p><a onclick="goog_report_conversion('tel: 067-76-84-086');return false;" href="#">Мобильный: (067)76-84-086</a></p></dd>
+						<dd>Или пишите:</dd>
 						<dd class="p3 clr-1"><span>Email:</span>
 							<a href="#" class="link">
 								<script type="text/javascript">

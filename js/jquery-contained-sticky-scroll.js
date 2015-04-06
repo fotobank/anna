@@ -11,7 +11,8 @@
 	$.fn.containedStickyScroll = function (options) {
 
 		var defaults = {
-			paddingBottom : 350,
+			paddingBottom : 300,
+			hightTop      : 460, //высота пропускаемых сверху блоков
 			unstick   : false,
 			easing    : 'easeOutQuart',
 			duration  : 400,
@@ -39,9 +40,9 @@
 			});
 		}
 		jQuery(window).scroll(function () {
-			if (jQuery(window).scrollTop() > (jQuery($getObject).parent().offset().top) &&
-					(jQuery($getObject).parent().height() + jQuery($getObject).parent().position().top - options.paddingBottom) > (jQuery(window).scrollTop() + jQuery($getObject).height())) {
-				jQuery($getObject).animate({top: (jQuery(window).scrollTop() - jQuery($getObject).parent().offset().top) + "px"},
+			if (jQuery(window).scrollTop() > (jQuery($getObject).parent().offset().top + options.hightTop ) &&
+					(jQuery($getObject).parent().height() + jQuery($getObject).parent().position().top - options.paddingBottom ) > (jQuery(window).scrollTop() + jQuery($getObject).height())) {
+				jQuery($getObject).animate({top: (jQuery(window).scrollTop() - jQuery($getObject).parent().offset().top) - options.hightTop + "px"},
 						{queue: options.queue, easing: options.easing, duration: options.duration});
 			}
 			else if (jQuery(window).scrollTop() < (jQuery($getObject).parent().offset().top)) {

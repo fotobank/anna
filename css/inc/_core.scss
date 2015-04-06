@@ -1,4 +1,6 @@
 @import "compass";
+@import "config";
+@import "fonts";
 
 @mixin screen_max_1024 {
 	  @media screen and (max-width: 1024px) {
@@ -127,7 +129,8 @@ a:active, a:focus {
 
 #main {
 	  max-width: 1024px;
-	  margin: 0 auto;
+	  margin: 30px auto 0;
+	  //noinspection CssInvalidPropertyValue
 	  background: image-url('bg.jpg') 0 0 repeat;
 	  border-bottom: #303030 1px solid;
 	  text-align: left;

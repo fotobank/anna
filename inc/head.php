@@ -121,48 +121,6 @@ list( $razdel, $title ) = title();
 			<? include( __DIR__ . "/menu.php" ) ?>
 	</div>
 
-<?
- if ( $razdel == '/index.php' ) {
-	 ?>
-	 <table class="text-head-laitbox">
-		 <tbody>
-		 <tr>
-			 <td class="header" style="text-align: right;">
-				 <span style="text-decoration: underline;"><a onclick="goog_report_conversion('tel: 067-76-84-086')" href="#">(067)-76-84-086</a></span><br>
-				 <a href="http://annafoto.in.ua/wedding">свадебная фотосъёмка</a>,
-				 <a href="http://www.annafoto.in.ua/studio">студийные фотосессии</a>, Одесса, Алексеева Анна
-			 </td>
-		 </tr>
-		 <tr>
-			 <td>
-				 <div id="slide">
-					 <?
-					 /** лайтбокс на главной в шапке */
-					 if ( $razdel == '/index.php' ) {
-						 $slides = glob( 'files/slides/*.jpg' ); // сканирование без субдиректорий
-						 $items  = '<div id = "owl-head" class="owl-carousel owl-theme">';
-						 $pags   = "<div class='owl-head-pags-hide'><div class='owl-head-pags'>";
-						 $i      = 1;
-						 foreach ( $slides as $key => $slide ) {
-							 $items .= "<div class='item'><img src='/" . $slide . "' alt='свадебный фотограф Алексеева Анна, свадебные фотосессии в Одессе'></div>";
-							 $pags .= "<div class='owl-dot' ><strong>0</strong>{$i}</div>";
-							 $i ++;
-						 }
-						 $items .= '</div>';
-						 $pags .= '</div></div>';
-						 echo( $items );
-						 echo( $pags );
-					 }
-					 ?>
-				 </div>
-			 </td>
-		 </tr>
-		 </tbody>
-	 </table>
- <?
- }
-?>
-
 <!--[if IE 6]>
 <div class="warning">
 	<noindex>Вы используете устаревший браузер! Для комфортной работы рекомендуем установить новый

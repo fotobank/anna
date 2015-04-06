@@ -14,6 +14,42 @@ $categorii = $db->get( 'menu_index_php', Null, [ 'id', 'name_head' ] );
 	<aside>
     <div id="main" class="page1-row1 tabs clearfix">
 
+		<table class="text-head-laitbox">
+			<tbody>
+			<tr>
+				<td class="header" style="text-align: right;">
+					<span style="text-decoration: underline;"><a onclick="goog_report_conversion('tel: 067-76-84-086')" href="#">(067)-76-84-086</a></span><br>
+					<a href="http://annafoto.in.ua/wedding">свадебная фотосъёмка</a>,
+					<a href="http://www.annafoto.in.ua/studio">студийные фотосессии</a>, Одесса, Алексеева Анна
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="slide">
+						<?
+						/** лайтбокс на главной в шапке */
+						if ( $razdel == '/index.php' ) {
+							$slides = glob( 'files/slides/*.jpg' ); // сканирование без субдиректорий
+							$items  = '<div id = "owl-head" class="owl-carousel owl-theme">';
+							$pags   = "<div class='owl-head-pags-hide'><div class='owl-head-pags'>";
+							$i      = 1;
+							foreach ( $slides as $key => $slide ) {
+								$items .= "<div class='item'><img src='/" . $slide . "' alt='свадебный фотограф Алексеева Анна, свадебные фотосессии в Одессе'></div>";
+								$pags .= "<div class='owl-dot' ><strong>0</strong>{$i}</div>";
+								$i ++;
+							}
+							$items .= '</div>';
+							$pags .= '</div></div>';
+							echo( $items );
+							echo( $pags );
+						}
+						?>
+					</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+
 			<div class="col-1">
 
 				<div class="h-mod">
@@ -206,16 +242,14 @@ $categorii = $db->get( 'menu_index_php', Null, [ 'id', 'name_head' ] );
 		<div id='new-gal'><?= carousel() ?></div>
 
 
-	<script>
+	<!--<script>
 		$(document).ready(function () {
 
-			/*$('.list-categorii li').mouseup('li',function(){
+			 $('.list-categorii li').mouseup('li',function(){
 			 $('.actions').attr('display', 'block');
-			 });*/
-
-
+			 });
 		});
-	</script>
+	</script>-->
  </div>
 	</aside>
 
