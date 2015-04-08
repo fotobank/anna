@@ -4,6 +4,5 @@ cache/*
 git rm --cached test -r1/*
 No_id/*
 ImageFileBrowser/*
-images/*
 
 # git rm --cached images/*
