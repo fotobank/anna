@@ -8,19 +8,19 @@ require_once (__DIR__ .'/../../inc/config.php');
 if(!empty($_POST['value'])) {
 
 	$pk = $_POST['pk'];
-	$name = $_POST['name'];
+	$name = $_POST['title'];
 	$value = $_POST['value'];
 
-	$db->where("teg_id", $_POST['id']);
+	$db->where("teg_id", $_POST['pk']['id']);
 //$text = cp1251(preg_replace('/[\n\t]{1,}/i', '', strip_tags( nl2br($_POST['value']), '<br>')));
 	$text = cp1251(preg_replace('/[\n\t]{1,}/i', '', nl2br(cleanInput($_POST['value']))));
-	$text = preg_replace('/[tm:]*/i', '', $text);
+//	$text = preg_replace('/[tm:]*/i', '', $text);
 	$value = array(
 		'text' => $text,
 	);
-	$db->update("spec_category", $value);
+	 $db->update("body_index_php", $value);
 
-	//$db->rawQuery("UPDATE spec_category SET text = ".stripslashes($_POST['value'])." WHERE id=". $_POST['id']);
+//	$db->rawQuery("UPDATE body_index_php SET text = ".stripslashes($_POST['value'])." WHERE id=". $_POST['pk']['id']);
 
 	/*
 	  If value is correct you process it (for example, save to db).

@@ -81,14 +81,14 @@ $('#firstname').editable({
 // инициализация редактора новостей
 	$('.edit-txt').editable({
 		url: '/inc/jeditable/save.php',
+		showbuttons: 'bottom',
+		send: 'always',
 		type:'textarea',
 		title: 'Редактор новости',
 		placeholder: 'Введите текст',
 		id   : 'elementid',
 		name : 'newvalue',
-		showbuttons: 'bottom',
-		send: 'always',
-		pk: {id: 1, lang: 'en'},
+		pk: {id: 'elementid', lang: 'en'},
 
 		rows: 15
 	});
