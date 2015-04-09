@@ -22,6 +22,9 @@
  * THE SOFTWARE.
  */
 
+/**
+ * Class Ubench_Test
+ */
 class Ubench_Test
 {
     protected $start_time;
