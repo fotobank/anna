@@ -6,7 +6,7 @@
 	<fieldset>
 <table class="w100">
 <tr>
-	<td class='b'>Ваше Имя*:</td>
+	<td class='b'>*Ваше Имя:</td>
 	<td class="w270">
 		<label>
 			<input  type='text' name='nick' value='{COOK_NICK}' required
@@ -14,10 +14,10 @@
 											 title="Допустимы любые латинские и русские буквы, цифры, подчеркивание и тире.">
 		</label>
 	</td>
-	<td rowspan='3'>	<h3 class="bb3 p2 w290">Отзывы и рекомендации:</h3></td>
+	<td class="w270" rowspan='3'>	<h3>Отзывы и рекомендации:</h3></td>
 </tr>
-	<tr style="position: absolute; margin-left: -10000px;">
-		<td class='b'>Фамилия :</td>
+	<tr id="bot">
+		<td>Фамилия:</td>
 		<td>
 			<label>
 				<input type='text' name='name' value='cool'>
@@ -36,7 +36,7 @@
 	</td>
 </tr>
 <tr>
-	<td class='b td-text center' colspan='1'>Сообщение*:</td>
+	<td class='b td-text center' colspan='1'>*Сообщение:</td>
 	<td colspan='2' rowspan="2">
 		<label>
 			<textarea name='mess' cols='90' rows='6' required
@@ -47,7 +47,7 @@
 </tr>
 <tr>
 	<td class="td-text center" colspan="1">Допустимые HTML-тэги:<br>
-		&lt;b>, &lt;i> и &lt;u><br>( для тех кто знает<br> что это такое :) )
+		&lt;b>, &lt;i> и &lt;u>
 	</td>
 </tr>
 <tr>
@@ -57,8 +57,8 @@
 		<div class="link-3 fright">{REFRESH_LINK} {ADMIN_LINK}</div>
 	</td>
 	<td>
-		<label class="fright" >
-			<input class="fright" type='submit' name='submit' value='отправить'>
+		<label class="label-submit" >
+			<input type='submit' name='submit' value='отправить'>
 		</label>
 	</td>
 </tr>

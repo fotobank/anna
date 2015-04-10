@@ -4,25 +4,28 @@
 	CVS Revision. 1.1.0
 */
 
+/**
+ * Class Comments_Template
+ */
 class Comments_Template {
 
-	protected $FILELIST = array(); //	Holds the array of filehandles
+	protected $FILELIST = [ ]; //	Holds the array of filehandles
 	//	FILELIST[HANDLE] == "fileName"
 
-	protected $DYNAMIC = array(); //	Holds the array of dynamic
+	protected $DYNAMIC = [ ]; //	Holds the array of dynamic
 	//	blocks, and the fileHandles they
 	//	live in.
 
-	protected $PARSEVARS = array(); //	Holds the array of Variable
+	protected $PARSEVARS = [ ]; //	Holds the array of Variable
 	//	handles.
 	//	PARSEVARS[HANDLE] == "value"
 
-	protected $LOADED = array(); //	We only want to load a template
+	protected $LOADED = [ ]; //	We only want to load a template
 	//	once - when it's used.
 	//	LOADED[FILEHANDLE] == 1 if loaded
 	//	undefined if not loaded yet.
 
-	protected $HANDLE = array(); //	Holds the handle names assigned
+	protected $HANDLE = [ ]; //	Holds the handle names assigned
 	//	by a call to parse()
 
 	protected $ROOT = ""; //	Holds path-to-templates
@@ -39,7 +42,9 @@ class Comments_Template {
 	//	generate a warning when found.
 
 
-
+	/**
+	 * @param string $pathToTemplates
+	 */
 	function __construct( $pathToTemplates = "" ) {
 
 		if(isset($php_errormsg)) { global $php_errormsg; }
@@ -163,7 +168,7 @@ class Comments_Template {
 	 * @param $Line
 	 */
 	public function show_unknowns( $Line ) {
-		$unknown = array();
+		$unknown = [ ];
 		if ( preg_match( "/({[A-Z0-9_]+})/", $Line, $unknown ) ) {
 			$UnkVar = $unknown[1];
 			if ( ! ( empty( $UnkVar ) ) ) {
@@ -244,7 +249,7 @@ class Comments_Template {
 
 				//	For recursive calls.
 
-				$this->assign( array( $ReturnVar => $this->$ReturnVar ) );
+				$this->assign( [ $ReturnVar => $this->$ReturnVar ] );
 
 			}
 		} // end if FileTags is array()
@@ -282,7 +287,7 @@ class Comments_Template {
 
 			//	For recursive calls.
 
-			$this->assign( array( $ReturnVar => $this->$ReturnVar ) );
+			$this->assign( [ $ReturnVar => $this->$ReturnVar ] );
 
 		}
 		return;

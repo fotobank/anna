@@ -212,7 +212,7 @@ class Gravatar {
 	public function toHTML($src = NULL) {
 		$url = !empty($src)?$src:$this->getSrc();
 		return "<img src='". $url ."'"
-		. ( ! isset( $this->size ) ? '' : " width='{$this->size}px' height='{$this->size}px'")
+		. ( ! isset( $this->size ) ? '' : " width='{$this->size}px' height='{$this->size}px' ")
 		. $this->_extra
 		. " />";
 	}

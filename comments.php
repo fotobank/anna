@@ -168,6 +168,7 @@ IF ( !isset( $_POST['submit'] ) ) {
 	$tpl->FastPrint( "FORM" );
 
 	$end = $tpl->utime();
+	// время генерации скрипта
 	$tpl->assign( "{GEN_TIME}", sprintf( "%01.3f ", ( $end - $begin ) ) );
 	$tpl->parse( "FOOT", "foot" );
 	$tpl->FastPrint( "FOOT" );
@@ -181,7 +182,7 @@ IF ( !isset( $_POST['submit'] ) ) {
 		$tpl->parse( "ERROR", "error" );
 		$tpl->FastPrint( "ERROR" );
 	} else if ( $_POST['name'] != 'cool' ) {
-		$tpl->assign( "{ERROR}", "Хакер? Ip адрес твоего компьютра зафиксирован и отправлен в службу безопасности провайдера." );
+		$tpl->assign( "{ERROR}", "Хакер? Ip адрес вашего компьютра зафиксирован и отправлен в службу безопасности провайдера." );
 		$tpl->parse( "ERROR", "error" );
 		$tpl->FastPrint( "ERROR" );
 		?>
@@ -241,6 +242,7 @@ IF ( !isset( $_POST['submit'] ) ) {
 		$tpl->FastPrint( "HEAD" );
 		$tpl->FastPrint( "SENT" );
 		$end = $tpl->utime();
+		// время генерации скрипта
 		$tpl->assign( "{GEN_TIME}", sprintf( "%01.3f ", ( $end - $begin ) ) );
 		$tpl->parse( "FOOT", "foot" );
 		$tpl->FastPrint( "FOOT" );
