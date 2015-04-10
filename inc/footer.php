@@ -10,9 +10,6 @@ require( __DIR__ . '/online_widget.php' );
 	<script type='text/javascript' src='/js/menu.js'></script>
 
 <footer>
-<?
-if ( DEBUG_MODE == false ) { include (__DIR__ . "/inc.foter.google.php"); }
-?>
 <!--==============================סמצסועט================================-->
 <div class='social'>
 				<div class="h-mod w100">
@@ -37,7 +34,9 @@ if ( DEBUG_MODE == true ) {
 
 </div>
 </footer>
-
+<?
+if ( DEBUG_MODE == false ) { include (__DIR__ . "/inc.foter.google.php"); }
+?>
 </body>
 </html>
 <?
