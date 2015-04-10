@@ -1,3 +1,5 @@
+<aside>
+	<div id="main" class="page1-row1 tabs clearfix">
 <div class="center">
 	<div class="form-comments">
 <strong class="b h5 p2"> Пишем ответ к сообщению №{ID}:</strong>
@@ -43,3 +45,5 @@
 	</div>
 </div>
 		<br><br>
+	</div>
+</aside>

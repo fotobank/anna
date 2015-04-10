@@ -1,3 +1,5 @@
+<aside>
+	<div id="main" class="page1-row1 tabs clearfix">
 <div class="center">
 	<div class="form-comments">
 <p class="m1">Редактирование сообщения #{ID}:</p>
@@ -38,3 +40,5 @@
 	<a href='{SCRIPT}?mode=del&id={ID}' target=_blank>удалить</a> его из базы данных.</span>
 		<div class="center"><span class="s">Желательно не использовать HTML-тэги, потому что они всё равно будут вырезаны при выводе сообщений в гостевую книгу.</span></div>
 </div></div>
+	</div>
+</aside>

@@ -1,4 +1,5 @@
-
+<aside>
+	<div id="main" class="page1-row1 tabs clearfix">
 <div class="center">
 	<div class="form-comments">
 <form name="redactor" id="form" style="width: 100%;" action='{FORM}' method='post'>
@@ -126,3 +127,6 @@
 			document.getElementById("password2").setCustomValidity('');
 	}
 </script>
+
+	</div>
+</aside>

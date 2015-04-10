@@ -1,3 +1,5 @@
+<aside>
+	<div id="main" class="page1-row1 tabs clearfix">
 <div class="center">
 <p class="bb3 p2">Пожалуйста, введите свой логин и пароль, чтобы войти в административный раздел.</p>
 <div class="form-admin">
@@ -25,3 +27,5 @@
 <div style="float: right;">
 	<a href='/comments.php' style="padding-right: 20px;">...вернуться назад</a>
 </div>
+		</div>
+	</aside>

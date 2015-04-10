@@ -1,3 +1,5 @@
+<aside>
+	<div id="main" class="page1-row1 tabs clearfix">
 <div class="center">
 	<div class="form-comments">
 <table class="w100 b1 sp3 pd1 tleft tmiddle">
@@ -18,3 +20,5 @@
 	</tr>-->
 </table>
 	</div></div>
+	</div>
+</aside>
