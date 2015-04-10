@@ -8,14 +8,14 @@
 
 include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 include_once( __DIR__ . '/inc/head.php' );
-$db = Mysqli_Db::getInstance(Mysqli_Db::get_param());
+$db = Mysqli_Db::getInstance( Mysqli_Db::get_param() );
 ?>
 	<!--==============================content================================-->
 <?
 $perpage = 10; //сообщений на страницу
 
-$tpl = new Comments_Template("classes/Comments/_templates/");
-$tpl->define( array(
+$tpl = new Comments_Template( "classes/Comments/_templates/" );
+$tpl->define( [
 	"head"     => "head.tpl",
 	"error"    => "error.tpl",
 	"form"     => "form.tpl",
@@ -24,13 +24,13 @@ $tpl->define( array(
 	"adm_opts" => "adm_opts.tpl",
 	"foot"     => "foot.tpl",
 	"sent"     => "sent.tpl",
-	"foto_c" => "foto_comm.tpl"
-) );
+	"foto_c"   => "foto_comm.tpl"
+] );
 $begin = $tpl->utime();
 $tpl->assign( "{ADM_MENU}", "" );
 $tpl->assign( "{SCRIPT}", $_SERVER['PHP_SELF'] );
 
-IF ( ! isset( $_POST['submit'] ) ) {
+IF ( !isset( $_POST['submit'] ) ) {
 	$tpl->assign( "{REFRESH_LINK}", "<a href='" . $_SERVER['PHP_SELF'] . "'>reset</a>" );
 	if ( isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" ) {
 		$tpl->assign( "{ADMIN_LINK}", "| <a href='/admin.php'>admin section</a>" );
@@ -42,32 +42,32 @@ IF ( ! isset( $_POST['submit'] ) ) {
 	$tpl->assign( "{COOK_EMAIL}", isset( $_COOKIE['email'] ) ? $_COOKIE['email'] : NULL );
 
 
-	$thumbs = get_random_elements( recursive_dir("files/portfolio", ".jpg", array('thumb'), array(), false ), 7 ); // сканирование в субдеррикториях 'thumb'
+	$thumbs = get_random_elements( recursive_dir( "files/portfolio", ".jpg", [ 'thumb' ], [ ], false ), 7 ); // сканирование в субдеррикториях 'thumb'
 	$tpl->assign( "{A_IMG_COMM}", "/portfolio.php" );
-	foreach($thumbs as $thumb) {
+	foreach ( $thumbs as $thumb ) {
 
-		$thumb = WinUtf( $thumb[1], 'w');
+		$thumb = WinUtf( $thumb[1], 'w' );
 		$tpl->assign( "{THUMB_IMG_COMM}", $thumb );
-		$tpl->parse( "{FOTO_COMM}", ".foto_c");
+		$tpl->parse( "{FOTO_COMM}", ".foto_c" );
 	}
 
 
-	$db->where ("flag", 1);
-	$total = $db->getOne ( $GLOBALS['tbl_posts'], "count(*) as records"); // всего разрешенных записей
-	if($total['records']) {
+	$db->where( "flag", 1 );
+	$total = $db->getOne( $GLOBALS['tbl_posts'], "count(*) as records" ); // всего разрешенных записей
+	if ( $total['records'] ) {
 		$pages = $total['records'] / $perpage; // рассчетное число страниц
 	} else {
 		$pages = 1;
 	}
 
-	if (($pages + 1) / ((int)$pages + 1) <> 1 ) {
+	if ( ( $pages + 1 ) / ( (int) $pages + 1 ) <> 1 ) {
 		$pages = (int) $pages + 1;
 	}
 	$offset = 0;
-	if(isset($_GET['offset'])) {
-		$offset = intval($_GET['offset']);
+	if ( isset( $_GET['offset'] ) ) {
+		$offset = intval( $_GET['offset'] );
 	}
-	if ( $offset > $total['records'] || !is_numeric( $offset )) {
+	if ( $offset > $total['records'] || !is_numeric( $offset ) ) {
 		$offset = 0; // текущая страница
 	}
 	$pagenow = is_null( $offset ) ? 1 : ( $offset / $perpage + 1 );
@@ -80,10 +80,10 @@ IF ( ! isset( $_POST['submit'] ) ) {
 	if ( $pages <> 1 ) {
 		if ( $previous < 0 ) {
 			$tpl->assign( "{PAGE_NEXT}", "<a href=" . $_SERVER['PHP_SELF'] . "?offset=" . $next . ">следующие " . $perpage . " записей</a> &raquo;" );
-			$tpl->assign( "{PAGE_PREV}", "");
+			$tpl->assign( "{PAGE_PREV}", "" );
 		} elseif ( $next >= $total['records'] ) {
 			$tpl->assign( "{PAGE_PREV}", "&laquo; <a href=" . $_SERVER['PHP_SELF'] . "?offset=" . $previous . ">предыдущие " . $perpage . " записей</a>" );
-			$tpl->assign( "{PAGE_NEXT}", "");
+			$tpl->assign( "{PAGE_NEXT}", "" );
 		} else {
 			$tpl->assign( "{PAGE_PREV}", "&laquo; <a href=" . $_SERVER['PHP_SELF'] . "?offset=" . $previous . ">предыдущие " . $perpage . " записей</a> |" );
 			$tpl->assign( "{PAGE_NEXT}", " <a href=" . $_SERVER['PHP_SELF'] . "?offset=" . $next . ">следующие " . $perpage . " записей</a> &raquo;" );
@@ -92,7 +92,7 @@ IF ( ! isset( $_POST['submit'] ) ) {
 		$tpl->assign( "{PAGE_PREV}", "" );
 		$tpl->assign( "{PAGE_NEXT}", "" );
 	}
-	$i = 0;
+	$i         = 0;
 	$page_list = "";
 	while ( $i < $pages ) {
 		$ri       = $i + 1;
@@ -105,40 +105,40 @@ IF ( ! isset( $_POST['submit'] ) ) {
 		$i ++;
 	}
 	$tpl->assign( "{PAGES}", $page_list );
-	$db->where ("flag", 1);
-	$db->orderBy("create_time","DESC");
-	$resutls = $db->get($GLOBALS['tbl_posts'], array($offset,$perpage));
+	$db->where( "flag", 1 );
+	$db->orderBy( "create_time", "DESC" );
+	$resutls = $db->get( $GLOBALS['tbl_posts'], [ $offset, $perpage ] );
 
 	if ( count( $resutls ) > 0 ) {
 
-		$gravatar = new Gravatar();
+		$gravatar          = new Gravatar();
 		$gravatar->default = "http://www.annafoto.in.ua/images/blocks/no_avatar.jpg";
-        $gravatar->size = 40;
-        $gravatar->extra = "alt='Аватар' class = 'avatar'";
+		$gravatar->size    = 40;
+		$gravatar->extra   = "alt='Аватар' class = 'avatar'";
 
-		foreach ($resutls as $row) {
+		foreach ( $resutls as $row ) {
 
 			$gravatar->email = $row['email'];
 			$tpl->assign( "{GRAVATAR}", $gravatar->toHTML() );
 			$tpl->assign( "{ID}", $row['id'] );
 			$tpl->assign( "{AUTHOR}", $row['poster'] );
-			$tpl->assign( "{EMAIL}", (!empty($row['email']))?"E-mail: <a href='mailto:".$row['email']."'>".$row['email']."</a>":"");
+			$tpl->assign( "{EMAIL}", ( !empty( $row['email'] ) ) ? "E-mail: <a href='mailto:" . $row['email'] . "'>" . $row['email'] . "</a>" : "" );
 			$tpl->assign( "{TXT}", nl2br( strip_tags( $row['text'], "<b><i><u>" ) ) );
 			$tpl->assign( "{TIME_CREATED}", VrTime( $row['create_time'] ) );
 
-			$db->where ("parent",  $row['id']);
-			$db->orderBy("create_time","DESC");
-			$rep = $db->get($GLOBALS['tbl_replies'], NULL, array('poster','reply'));
+			$db->where( "parent", $row['id'] );
+			$db->orderBy( "create_time", "DESC" );
+			$rep = $db->get( $GLOBALS['tbl_replies'], NULL, [ 'poster', 'reply' ] );
 
 			if ( count( $rep ) > 0 ) {
-				foreach ( $rep as $reply) {
+				foreach ( $rep as $reply ) {
 
-					$db->where ("id", $reply['poster']);
-					$query = $db->get($GLOBALS['tbl_users'], NULL, array('login','email'));
+					$db->where( "id", $reply['poster'] );
+					$query = $db->get( $GLOBALS['tbl_users'], NULL, [ 'login', 'email' ] );
 
-					$gravatar->email = $query[0]['email'];
+					$gravatar->email   = $query[0]['email'];
 					$gravatar->default = "http://www.annafoto.in.ua/images/avtor.jpg";
-				    $tpl->assign( "{GRAVATAR_AUTHOR}", $gravatar->toHTML() );
+					$tpl->assign( "{GRAVATAR_AUTHOR}", $gravatar->toHTML() );
 					$tpl->assign( "{REP_AUTHOR}", $query[0]['login'] );
 					$tpl->assign( "{REPLY}", nl2br( strip_tags( $reply['reply'], "<b><i><u>" ) ) );
 					$tpl->parse( "{REPLIES}", ".rep" );
@@ -148,7 +148,7 @@ IF ( ! isset( $_POST['submit'] ) ) {
 				$tpl->assign( "{REPLIES}", "" );
 			}
 			$tpl->assign( "{IP}", $row['ip'] );
-			if ( isset($_SESSION['logged']) && $_SESSION['logged'] == "1" ) {
+			if ( isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" ) {
 				$tpl->parse( "{ADMIN_OPTS}", ".adm_opts" );
 				$tpl->clear( "{ADMIN_OPTS}" );
 			} else {
@@ -175,7 +175,8 @@ IF ( ! isset( $_POST['submit'] ) ) {
 
 } else {
 	if ( isset( $_SESSION['l_act'] ) && ( time() - $_SESSION['l_act'] ) <= 300 &&
-		(!isset($_SESSION['logged']) || isset($_SESSION['logged']) && !$_SESSION['logged'])) {
+		( !isset( $_SESSION['logged'] ) || isset( $_SESSION['logged'] ) && !$_SESSION['logged'] )
+	) {
 		$tpl->assign( "{ERROR}", "Вы не можете отправить следующее сообщение меньше, чем через пять минут после предыдущего." );
 		$tpl->parse( "ERROR", "error" );
 		$tpl->FastPrint( "ERROR" );
@@ -188,7 +189,7 @@ IF ( ! isset( $_POST['submit'] ) ) {
 			function moveTo() {
 				location.href = "<?=$_SERVER['HTTP_HOST']?>";
 			}
-			window.onload=setTimeout('moveTo()', 8000);
+			window.onload = setTimeout("moveTo()", 8000);
 		</script>
 	<?
 	} else if ( empty( $_POST['nick'] ) ) {
@@ -203,20 +204,20 @@ IF ( ! isset( $_POST['submit'] ) ) {
 
 		/*setcookie("nick", $_POST['nick'], time()+300);
 		setcookie("email", $_POST['email'], time()+300);*/ // перенес в шапку
-		$_SESSION['l_act']=time();
+		$_SESSION['l_act'] = time();
 
-		$values = array (
-			"poster" => $_POST['nick'],
-			"email" => $_POST['email'],
-			"text" => $_POST['mess'],
-			"ip" => ip(),
+		$values = [
+			"poster"      => $_POST['nick'],
+			"email"       => $_POST['email'],
+			"text"        => $_POST['mess'],
+			"ip"          => ip(),
 			"create_time" => time()
-		);
-		$db->insert ($GLOBALS['tbl_posts'], $values);
-		$db->orderBy("id");
-		$q = $db->get($GLOBALS['tbl_users'], NULL, array('login','email'));
+		];
+		$db->insert( $GLOBALS['tbl_posts'], $values );
+		$db->orderBy( "id" );
+		$q = $db->get( $GLOBALS['tbl_users'], NULL, [ 'login', 'email' ] );
 
-		foreach($q as $row) {
+		foreach ( $q as $row ) {
 
 			mail(
 				$row['email'],
@@ -225,10 +226,10 @@ IF ( ! isset( $_POST['submit'] ) ) {
 				"!\n\nВ гостевую книгу было отправлено следующее сообщение:\n\nАвтор: " . $_POST['nick'] . "\nE-mail: " .
 				$_POST['email'] . "\nСообщение:\n" . $_POST['mess'] . "\n\n------\nЧтобы открыть это сообщение, пройдите по следующей ссылке:\nhttp://" .
 				$_SERVER['SERVER_NAME'] . dirname( $_SERVER['PHP_SELF'] ) . "/admin.php?mode=show&id=" . $db->getLastQuery() . "\nУдаление:\nhttp://" .
-				$_SERVER['SERVER_NAME'] . dirname( $_SERVER['PHP_SELF'] ) . "/admin.php?mode=del&id=" .  $db->getLastQuery() . "\nРедактирование: http://" .
+				$_SERVER['SERVER_NAME'] . dirname( $_SERVER['PHP_SELF'] ) . "/admin.php?mode=del&id=" . $db->getLastQuery() . "\nРедактирование: http://" .
 				$_SERVER['SERVER_NAME'] . dirname( $_SERVER['PHP_SELF'] ) . "/admin.php?mode=edit&id=" . $db->getLastQuery() . "\nНаписать ответ: http://" .
-				$_SERVER['SERVER_NAME'] . dirname( $_SERVER['PHP_SELF'] ) . "/admin.php?mode=show&id=" . $db->getLastQuery() ,
-				"From: ".$_SERVER['SERVER_NAME'] );
+				$_SERVER['SERVER_NAME'] . dirname( $_SERVER['PHP_SELF'] ) . "/admin.php?mode=show&id=" . $db->getLastQuery(),
+				"From: " . $_SERVER['SERVER_NAME'] );
 		}
 
 		$tpl->assign( "{TITLE}", "- спасибо за сообщение." );
@@ -252,6 +253,6 @@ IF ( ! isset( $_POST['submit'] ) ) {
 	<!--==============================footer================================-->
 <?
 
-$_SESSION['referer'] = isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:$_SERVER['PHP_SELF'];
+$_SESSION['referer'] = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : $_SERVER['PHP_SELF'];
 include_once( __DIR__ . '/inc/footer.php' );
 ?>

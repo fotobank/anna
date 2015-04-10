@@ -10,8 +10,9 @@ include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение
 include_once( __DIR__ . '/inc/head.php' );
 ?>
 	<!--==============================content================================-->
-	<section id="content">
-		<div class="page3-row1 pad-2 tabs">
+	<aside>
+	<div id="main" class="page1-row1 tabs clearfix">
+<!--		<div class="page3-row1 pad-2 tabs">-->
 			<?
 		//	$thumbdir = recursive( '/files',  array('thumb' , 'slides', 'rotate_image_news', 'thu'));
 			$thumbdir = recursive_dir("files/portfolio", ".jpg", array(), array('thumb'), true );
@@ -65,7 +66,7 @@ include_once( __DIR__ . '/inc/head.php' );
 			?>
 	</div>
 
-	</section>
+	</aside>
 	<!--==============================footer================================-->
 <?
 include_once( __DIR__ . '/inc/footer.php' );

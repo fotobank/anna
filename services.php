@@ -10,7 +10,8 @@ include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение
 include_once( __DIR__ . '/inc/head.php' );
 ?>
 	<!--==============================content================================-->
-	<section id="content">
+	<aside>
+		<div id="main" class="page1-row1 tabs clearfix">
 		<div id="razrab"></div>
 
 		<!--        <div class="page3-row1 pad-2 tabs">
@@ -80,8 +81,8 @@ include_once( __DIR__ . '/inc/head.php' );
 								</div>
 						</div>
 		-->
-
-	</section>
+       </div>
+	</aside>
 	<!--==============================footer================================-->
 <?
 include_once( __DIR__ . '/inc/footer.php' );

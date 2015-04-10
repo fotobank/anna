@@ -23,6 +23,10 @@
  *
  *    Class Page: http://www.phpclasses.org/browse/package/4227.html
  *
+ * @property string default
+ * @property string extra
+ * @property int    size
+ * @property  array email
  * @author  Lucas Araújo <araujo.lucas@gmail.com>
  * @version 1.0
  * @package Gravatar
@@ -36,17 +40,17 @@ class Gravatar {
 	/**
 	 *    Ratings available
 	 */
-	private $GRAVATAR_RATING = array( "G", "PG", "R", "X" );
+	private $GRAVATAR_RATING = [ "G", "PG", "R", "X" ];
 
 	/**
 	 *    Query string. key/value
 	 */
-	protected $properties = array(
+	protected $properties = [
 		"gravatar_id" => NULL,
 		"default"     => NULL,
 		"size"        => 40,
 		"rating"      => "G"
-	);
+	];
 
 	/**
 	 *    Extra attributes to the IMG tag like ALT, CLASS, STYLE...
@@ -55,7 +59,9 @@ class Gravatar {
 
 
 	/**
+	 * @param $email
 	 *
+	 * @return bool
 	 */
 	public function setEmail( $email ) {
 		if ( $this->isValidEmail( $email ) ) {
@@ -76,7 +82,9 @@ class Gravatar {
 	}
 
 	/**
+	 * @param $rating
 	 *
+	 * @return bool
 	 */
 	public function setRating( $rating ) {
 		if ( in_array( $rating, $this->GRAVATAR_RATING ) ) {
@@ -100,7 +108,9 @@ class Gravatar {
 	}
 
 	/**
+	 * @param $extra
 	 *
+	 * @return bool
 	 */
 	public function setExtra( $extra ) {
 		$this->_extra = $extra;
@@ -109,7 +119,9 @@ class Gravatar {
 
 
 	/**
+	 * @param $email
 	 *
+	 * @return int
 	 */
 	public function isValidEmail( $email ) {
 		// Source: http://www.zend.com/zend/spotlight/ev12apr.php
@@ -118,6 +130,10 @@ class Gravatar {
 
 	/**
 	 *    Object property overloading
+	 *
+	 * @param $var
+	 *
+	 * @return
 	 */
 	public function __get( $var ) {
 		return @$this->properties[$var];
@@ -125,6 +141,11 @@ class Gravatar {
 
 	/**
 	 *    Object property overloading
+	 *
+	 * @param $var
+	 * @param $value
+	 *
+	 * @return bool
 	 */
 	public function __set( $var, $value ) {
 		switch ( $var ) {
@@ -144,6 +165,10 @@ class Gravatar {
 
 	/**
 	 *    Object property overloading
+	 *
+	 * @param $var
+	 *
+	 * @return bool
 	 */
 	public function __isset( $var ) {
 		return isset( $this->properties[$var] );
@@ -151,9 +176,13 @@ class Gravatar {
 
 	/**
 	 *    Object property overloading
+	 *
+	 * @param $var
+	 *
+	 * @return bool
 	 */
 	public function __unset( $var ) {
-		return @$this->properties[$var] == NULL;
+		return NULL == @$this->properties[$var];
 	}
 
 	/**
@@ -175,6 +204,10 @@ class Gravatar {
 
 	/**
 	 *    toHTML
+	 *
+	 * @param null $src
+	 *
+	 * @return string
 	 */
 	public function toHTML($src = NULL) {
 		$url = !empty($src)?$src:$this->getSrc();
