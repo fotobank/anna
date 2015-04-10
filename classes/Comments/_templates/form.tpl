@@ -81,4 +81,4 @@
 	<div class="s-ver bb2">Страница: <b>{PAGE_NOW}</b> из {TOTAL_PAGES}<br>
 		Всего сообщений: <b>{TOTAL_SHOW_MESS}</b></div>
 </div>
-	</div>
+	</div></div>

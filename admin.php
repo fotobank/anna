@@ -7,13 +7,13 @@ IF ( isset( $_GET['adm_out'] ) || !isset( $_SESSION['logged'] ) || $_SESSION['lo
 	unset( $_SESSION['nick'] );
 	if ( isset( $_SESSION['admnews'] ) ) unset( $_SESSION['admnews'] );
 	unset( $_COOKIE['nick'] );
-	header( 'Location: ' . $_SERVER['HTTP_REFERER'], true, 303 );
+	header( 'Location: ' . "/auth.php", true, 303 );
 }
 
 $db = Mysqli_Db::getInstance( Mysqli_Db::get_param() );
 
 $tpl = new Comments_Template( "classes/Comments/_templates/" );
-$tpl->define( array(
+$tpl->define( [
 	"head"        => "head.tpl",
 	"index"       => "adm_index.tpl",
 	"edit_index"  => "adm_edit_index.tpl",
@@ -26,12 +26,24 @@ $tpl->define( array(
 	"list_us"     => "adm_list_us.tpl",
 	"error"       => "error.tpl",
 	"foot"        => "foot.tpl"
-) );
+] );
+$return_page = null;
+if ( isset($_REQUEST['mode']) && isset($_REQUEST['id']) && $_REQUEST['mode'] == ('reply' || 'edit') ) {
+	$return_page = "<a href='./admin.php?mode=edit'>к таблице сообщений</a>";
+} else if ( isset( $_REQUEST['act'] ) && $_REQUEST['act'] == 'edit' ) {
+	$return_page = "<a href='./admin.php?mode=users'>к таблице модераторов</a>";
+} else if ( isset( $_REQUEST['mode']) && $_REQUEST['mode'] == ('users' || 'edit')) {
+	$return_page = "<a href='./admin.php'>к выбору действий</a>";
+} else {
+	$return_page = "<a href='./comments.php'>в гостевую</a>";;
+}
+
 $start = $tpl->utime();
-$nick  = isset( $_SESSION['nick'] ) ? '<a href=\'#\'>вход выполнил(а): "' . $_SESSION['nick'] . '"</a> |' : FALSE;
+$nick  = isset( $_SESSION['nick'] ) ? "<a href='#'>вход выполнил(а): '" . $_SESSION['nick'] . "'</a> |" : FALSE;
 $tpl->assign( "{SCRIPT}", $_SERVER['PHP_SELF'] );
-$tpl->assign( "{ADM_MENU}", "<a href='./comments.php' style='padding-left: 20px;'>гостева€</a> | <a href='" .
-	$_SERVER['PHP_SELF'] . "'>main menu</a> <span class='fright'>" . $nick . " <a href='./admin.php?adm_out=1' style='padding-right: 20px;'>выход</a></span>" );
+$tpl->assign( "{ADM_MENU}",
+	"<a href='./comments.php' style='padding-left: 20px;'>гостева€</a> | {$return_page}
+<span class='fright'>" . $nick . " <a href='./admin.php?adm_out=1' style='padding-right: 20px;'>выход</a></span>" );
 $mode   = isset( $_GET['mode'] ) ? $_GET['mode'] : FALSE;
 $ids    = isset( $_POST['ids'] ) ? $_POST['ids'] : FALSE;
 $id     = isset( $_GET['id'] ) ? $_GET['id'] : FALSE;
@@ -70,9 +82,9 @@ SWITCH ( $mode ) {
 
 					for ( $i = 0; $i < count( $ids ); $i ++ ) {
 						$db->where( 'id', $ids[$i] );
-						$vars = array(
+						$vars = [
 							'flag' => '1'
-						);
+						];
 						$db->update( $GLOBALS['tbl_posts'], $vars );
 					}
 					header( "Location: " . $_SERVER['PHP_SELF'] . "?mode=edit" );
@@ -87,9 +99,9 @@ SWITCH ( $mode ) {
 				} else {
 					for ( $i = 0; $i < count( $ids ); $i ++ ) {
 						$db->where( 'id', $ids[$i] );
-						$vars = array(
+						$vars = [
 							'flag' => '0'
-						);
+						];
 						$db->update( $GLOBALS['tbl_posts'], $vars );
 					}
 					header( "Location: " . $_SERVER['PHP_SELF'] . "?mode=edit" );
@@ -106,7 +118,7 @@ SWITCH ( $mode ) {
 		} ELSE {
 
 			$db->where( "id", $id );
-			$q    = $db->get( $GLOBALS['tbl_posts'], 1, array( 'poster', 'email', 'text' ) );
+			$q    = $db->get( $GLOBALS['tbl_posts'], 1, [ 'poster', 'email', 'text' ] );
 			$test = count( $q );
 			if ( count( $q ) != 0 ) {
 
@@ -114,7 +126,7 @@ SWITCH ( $mode ) {
 				extract( $q[0], EXTR_OVERWRITE );
 				$db->where( "parent", $id );
 				$db->where( "poster", $ses_id );
-				$q = $db->get( $GLOBALS['tbl_replies'], 1, array( 'id', 'reply', 'poster' ) );
+				$q = $db->get( $GLOBALS['tbl_replies'], 1, [ 'id', 'reply', 'poster' ] );
 
 				if ( count( $q ) != 0 ) {
 					$_id = $_reply = $_poster = NULL;
@@ -140,10 +152,10 @@ SWITCH ( $mode ) {
 					} else {
 
 						$db->where( 'id', $_POST['rep_id'] );
-						$vars = array(
+						$vars = [
 							'reply'       => $_POST['reply'],
 							'create_time' => time()
-						);
+						];
 						$db->update( $GLOBALS['tbl_replies'], $vars );
 						//	header("Location: ".$_SERVER['PHP_SELF']."?mode=edit"); exit;
 						header( "Location: " . $return );
@@ -174,12 +186,12 @@ SWITCH ( $mode ) {
 						$tpl->parse( "ERROR", "error" );
 						$tpl->FastPrint( "ERROR" );
 					} else {
-						$values = array(
+						$values = [
 							"parent"      => $id,
 							"poster"      => $ses_id,
 							"reply"       => $_POST['reply'],
 							"create_time" => time()
-						);
+						];
 						$db->insert( $GLOBALS['tbl_replies'], $values );
 						//	header("Location: ".$_SERVER['PHP_SELF']."?mode=edit");
 						header( "Location: " . $return );
@@ -196,7 +208,7 @@ SWITCH ( $mode ) {
 			exit;
 		} ELSE {
 			$db->where( 'id', $id );
-			$vars = array( 'flag' => '1' );
+			$vars = [ 'flag' => '1' ];
 			$db->update( $GLOBALS['tbl_posts'], $vars );
 			//	header("Location: ".$_SERVER['PHP_SELF']."?mode=edit"); exit;
 			header( "Location: " . $_SERVER['HTTP_REFERER'] );
@@ -210,7 +222,7 @@ SWITCH ( $mode ) {
 			exit;
 		} ELSE {
 			$db->where( 'id', $id );
-			$vars = array( 'flag' => '0' );
+			$vars = [ 'flag' => '0' ];
 			$db->update( $GLOBALS['tbl_posts'], $vars );
 			//	header("Location: ".$_SERVER['PHP_SELF']."?mode=edit"); exit;
 			header( "Location: " . $_SERVER['HTTP_REFERER'] );
@@ -259,10 +271,10 @@ SWITCH ( $mode ) {
 						$tpl->assign( "{REPLIES}", "ќтветов на это сообщение пока нет." );
 					}
 					if ( $row['flag'] == '1' ) {
-						$tpl->assign( "{TD_STYLE}", "show" );
+						$tpl->assign( "{TD_STYLE}", "show-post" );
 						$tpl->assign( "{SHOW_HIDE}", "<a href='" . $_SERVER['PHP_SELF'] . "?mode=hide&id=" . $row['id'] . "'>спр€тать</a>" );
 					} else {
-						$tpl->assign( "{TD_STYLE}", "hide" );
+						$tpl->assign( "{TD_STYLE}", "hide-post" );
 						$tpl->assign( "{SHOW_HIDE}", "<a href='" . $_SERVER['PHP_SELF'] . "?mode=show&id=" . $row['id'] . "'>показать</a>" );
 					}
 					$tpl->assign( "{ID}", $row['id'] );
@@ -282,7 +294,7 @@ SWITCH ( $mode ) {
 			if ( !isset( $_POST['submit'] ) ) {
 				include( __DIR__ . "/inc/head.php" );
 				$db->where( "id", $id );
-				$q = $db->get( $GLOBALS['tbl_posts'], 1, array( 'poster', 'text', 'email', 'flag' ) );
+				$q = $db->get( $GLOBALS['tbl_posts'], 1, [ 'poster', 'text', 'email', 'flag' ] );
 				if ( count( $q ) == '0' ) {
 					$tpl->assign( "{ERROR}", "—ообщени€ с таким ID не существует." );
 					$tpl->parse( "ERROR", "error" );
@@ -317,12 +329,12 @@ SWITCH ( $mode ) {
 
 				} else {
 					$db->where( 'id', $id );
-					$vars = array(
+					$vars = [
 						'poster' => $_POST['nick'],
 						'text'   => $_POST['mess'],
 						'email'  => $_POST['email'],
 						'flag'   => $_POST['flag']
-					);
+					];
 					$db->update( $GLOBALS['tbl_posts'], $vars );
 					header( "Location: " . $return );
 					exit;
@@ -347,7 +359,7 @@ SWITCH ( $mode ) {
 					} else if ( !isset( $_POST['submit'] ) ) {
 						include( __DIR__ . "/inc/head.php" );
 						$db->where( "id", $id );
-						$c      = $db->get( $GLOBALS['tbl_users'], 1, array( 'login', 'email' ) );
+						$c      = $db->get( $GLOBALS['tbl_users'], 1, [ 'login', 'email' ] );
 						$_login = $_email = NULL;
 						extract( $c[0], EXTR_PREFIX_ALL, "" );
 						$tpl->assign( "{TITLE}", "- admin section - Users - —оздание нового модератора" );
@@ -380,21 +392,21 @@ SWITCH ( $mode ) {
 
 					} else if ( empty( $_POST['p_1'] ) ) {
 						$db->where( 'id', $id );
-						$vars = array(
+						$vars = [
 							'login' => $_POST['login'],
 							'email' => $_POST['email']
-						);
+						];
 						$db->update( $GLOBALS['tbl_users'], $vars );
 						//	header("Location: ".$_SERVER['PHP_SELF']."?mode=".$mode); exit;
 						header( "Location: " . $return );
 						exit;
 					} else {
 						$db->where( 'id', $id );
-						$vars = array(
+						$vars = [
 							'login' => $_POST['login'],
 							'email' => $_POST['email'],
 							'pass'  => md5( $_POST['p_1'] )
-						);
+						];
 						$db->update( $GLOBALS['tbl_users'], $vars );
 						//	header("Location: ".$_SERVER['PHP_SELF']."?mode=".$mode); exit;
 						header( "Location: " . $return );
@@ -500,11 +512,11 @@ SWITCH ( $mode ) {
 						$tpl->FastPrint( "ERROR" );
 						exit;
 					}
-					$values = array(
+					$values = [
 						"login" => $_POST['login'],
 						"pass"  => md5( $_POST['p_1'] ),
 						"email" => $_POST['email']
-					);
+					];
 					$db->insert( $GLOBALS['tbl_users'], $values );
 					header( "Location: " . $_SERVER['PHP_SELF'] . "?mode=" . $mode );
 					exit;
@@ -518,7 +530,7 @@ SWITCH ( $mode ) {
 				$tpl->FastPrint( "HEAD" );
 				$db->check_connect();
 				$db->orderBy( 'id', 'ASC' );
-				$q = $db->get( $GLOBALS['tbl_users'], NULL, array( 'id', 'login', 'email' ) );
+				$q = $db->get( $GLOBALS['tbl_users'], NULL, [ 'id', 'login', 'email' ] );
 
 				foreach ( $q as $row ) {
 					$tpl->assign( "{ID}", $row['id'] );

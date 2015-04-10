@@ -5,8 +5,8 @@
 <strong class="b h5 p2"> Пишем ответ к сообщению №{ID}:</strong>
 <table class="w100 b0 sp3 pd1">
 <tr>
-	<td style='height:30px;border:0;vertical-align: middle;'><b>Автор:  {POSTER}</td>
-	<td style='height:30px;border:0; vertical-align: middle;'><b>E-mail: <a href='mailto:{EMAIL}'>{EMAIL}</a></b></td>
+	<td style='height:30px; border:0; vertical-align: middle;'><b>Автор:  {POSTER}</b></td>
+	<td style='height:30px; border:0; vertical-align: middle;'><b>E-mail: <a href='mailto:{EMAIL}'>{EMAIL}</a></b></td>
 </tr>
 <tr>
 	<td colspan='2'><b>Сообщение:</b></td>

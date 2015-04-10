@@ -14,10 +14,6 @@
 	<td style='padding:10px;'><a href='{SCRIPT}?mode=users'>Управление пользователями</a></td>
 	<td style='border:0;'>Здесь можно создать новых модераторов, изменить пароли уже имеющимся или вообще удалить оных из базы данных.</td>
 </tr>
-<!--	<tr>
-		<td style='padding:10px;'><a href="/admin.php?adm_out=1">Выход</a></td>
-		<td style='border:0;'>Выход из админки.</td>
-	</tr>-->
 </table>
 	</div></div>
 	</div>

@@ -545,9 +545,6 @@ dl {
 			color: $form_text_color;
 			padding: 8px;
 			outline: medium none;
-//			width: 238px;
-			float: left;
-
 	  }
 	  textarea {
 			border: #3f3f3f 1px solid;
@@ -640,11 +637,11 @@ TD {
 }
 
 TABLE {
-	  &.hide {
+	  &.hide-post {
 			background: #707486;
 			color: #000;
 	  }
-	  &.show {
+	  &.show-post {
 			background: #d7ccc4;
 			color: #000;
 	  }
@@ -652,6 +649,10 @@ TABLE {
 			background: #3d3d3d;
 			color: #bbbbb3;
 	  }
+}
+
+form[name="mass"] input[type="submit"] {
+	  padding: 0.22em 1em;
 }
 
 hr {
@@ -712,6 +713,20 @@ $border-color: #353535;
 	  padding: 3px 0 0 0;
 	  width: 700px;
 	  border: 0;
+	  #bot {
+			position: absolute;
+			margin-left: -10000px;
+	  }
+	  h3 {
+			border-bottom: $border-color 3px solid;
+			margin: 0 0 9px 20px;
+			width: 225px;
+			padding-bottom: 1px;
+
+	  }
+	  input {
+			width: 260px;
+	  }
 	  input[type=submit] {
 			margin: 8px 65px 5px 0;
 	  }
@@ -738,29 +753,10 @@ $border-color: #353535;
 	  @include font-size(14);
 	  font-family: "Times New Roman", Times, serif;
 	  color: $form_text_color;
-//	  padding: 4px 10px 5px 10px;
 	  outline: medium none;
 	  float: left;
 	  box-sizing: content-box;
 	  @include experimental('border-radius', 5px);
-}
-
-#form2 input {
-	  width: 260px;
-}
-
-
-#form2 h3 {
-	  border-bottom: $border-color 3px solid;
-	  margin: 0 0 9px 20px;
-	  width: 225px;
-	  padding-bottom: 1px;
-
-}
-
-#form2 #bot {
-	  position: absolute;
-	  margin-left: -10000px;
 }
 
 .td-text {
@@ -768,9 +764,8 @@ $border-color: #353535;
 	  padding-right: 4px;
 	  width: 150px;
 }
-#form2 .label-submit {
+#form .label-submit, #form2 .label-submit {
 	  width: 100px;
-	  margin: 2px 60px 0 0;
 	  float: right;
 	  position: relative;
 }
@@ -786,8 +781,8 @@ $border-color: #353535;
 
 #form input[type=submit], #form2 input[type=submit] {
 	  background: none;
-	  cursor: pointer;
 	  width: 100px;
+	  float: right;
 }
 
 input[type=submit], label, select, .pointer {

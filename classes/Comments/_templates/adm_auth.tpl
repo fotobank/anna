@@ -1,5 +1,3 @@
-<aside>
-	<div id="main" class="page1-row1 tabs clearfix">
 <div class="center">
 <p class="bb3 p2">Пожалуйста, введите свой логин и пароль, чтобы войти в административный раздел.</p>
 <div class="form-admin">
@@ -16,8 +14,8 @@
 						 pattern="[0-9a-zA-Z\_\-\!\~\*\:\<\>\+\.]{4,20}" placeholder="Pass"
 						 title="Допустимы любые латинские буквы, цифры и знаки.">
 		</label>
-<label>
-	<input style="width: 100px; margin: 0 80px 0 0; float: right;" type='submit' name='submit' value='ok'>
+<label class="label-submit">
+	<input type='submit' name='submit' value='ok'>
 </label>
 	</fieldset>
 </form>
@@ -25,7 +23,5 @@
 </div>
 <div class="clear"></div>
 <div style="float: right;">
-	<a href='/comments.php' style="padding-right: 20px;">...вернуться назад</a>
+	<a href='/comments.php' style="padding-right: 20px;">...вернуться к странице отзывов</a>
 </div>
-		</div>
-	</aside>
