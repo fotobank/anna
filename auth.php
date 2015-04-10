@@ -3,12 +3,12 @@ include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение
 $db = Mysqli_Db::getInstance(Mysqli_Db::get_param());
 
 $tpl = new Comments_Template("classes/Comments/_templates/");
-$tpl->define( array(
+$tpl->define( [
 	"head"  => "head.tpl",
 	"index" => "adm_auth.tpl",
 	"error" => "error.tpl",
 	"foot"  => "foot.tpl",
-) );
+] );
 $tpl->assign( "{SCRIPT}", isset( $_SERVER['PHP_SELF'] ) ? $_SERVER['PHP_SELF'] : NULL );
 $tpl->assign( "{ADM_MENU}", "" );
 $start = $tpl->utime();
@@ -36,7 +36,7 @@ IF ( !isset( $_SESSION['logged'] )  || $_SESSION['logged'] !== TRUE ):
 			$tpl->FastPrint( "ERROR" );
 		} else {
 			$db->where("login", $_POST['login']);
-			$q = $db->get($GLOBALS['tbl_users'], NULL, array('id','login','pass'));
+			$q = $db->get($GLOBALS['tbl_users'], NULL, [ 'id','login','pass' ] );
 
 			if ( count( $q ) > '0' ) {
 				$_pass = $_id = $_login = NULL;

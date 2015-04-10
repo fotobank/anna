@@ -7,18 +7,21 @@
  */
 
 include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
-include_once( __DIR__ . '/inc/head.php' );
+include( __DIR__ . '/inc/head.php' );
+include( __DIR__ . '/inc/carosel.php' );
 
-$tune = array(
-		'time'   => 7, // интервал обновления в днях
-		'upd_db' => false // true - обновить принудительно (для настройки)
-);
+$tune   = [
+	'time'   => 7, // интервал обновления в днях
+	'upd_db' => false // true - обновить принудительно (для настройки)
+];
 $parser = new citates( $tune );
 
 ?>
 	<!--==============================content================================-->
-	<section id="content">
-		<!--        <div id="razrab"></div>-->
+	<aside>
+	<div id="main" class="page1-row1 tabs clearfix">
+<!--		        <div id="razrab"></div>-->
+		<div id='new-gal'><?= carousel() ?></div>
 		<div class="pad-1">
 			<div class="page5-row1">
 				<div class="col-12">
@@ -40,7 +43,8 @@ $parser = new citates( $tune );
 
 				<div class="col-13">
 					<h3 class="bb3 p2">Разное:</h3>
-					<img src = "inc/rotate.php" alt="" class="img-border img-indent-2">
+					<img src="inc/rotate.php" alt="" class="img-border img-indent-2">
+
 					<p class="upper clr-1 p5 ">Цитаты известых людей: </p>
 
 					<div class="slovo">
@@ -51,7 +55,8 @@ $parser = new citates( $tune );
 			</div>
 
 		</div>
-	</section>
+	</div>
+	</aside>
 	<!--==============================footer================================-->
 <?
 include_once( __DIR__ . '/inc/footer.php' );
