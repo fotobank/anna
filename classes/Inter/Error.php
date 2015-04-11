@@ -1,29 +1,32 @@
 <?php
 
+/**
+ * Class Inter_Error
+ */
 class Inter_Error
 {
 
     /**
 	 * @var array
 	 */
-    public static $conf = array(
+    public static $conf = [
                                 'debugMode' => false,
                                 'friendlyExceptionPage' => 'stop.php',
                                 'logType' => 'detail', // false / simple / detail
                                 'logDir' => '',
                                 'suffix' => '-Inter-ErrorLog.log',
-                                'variables' => array("_GET", "_POST", "_SESSION", "_COOKIE"),
-                                'ignoreERROR' => array(),
+                                'variables' => [ "_GET", "_POST", "_SESSION", "_COOKIE" ],
+                                'ignoreERROR' => [ ],
 								 'email' => 'aleksjurii@gmail.com', //  email для отправки ошибок
 								 'time_log' => 5, // время в минутах между обновлениями лога
 								 'otl' => false,  // временно включить лог для отладки этого скрипта ( т.к. на '127.0.0.1' лог отключен )
 								 'max_dir' => 1000 // максимальный размер лог папки в килобайтах, после которого папка самоочистится
-                                );
+	];
 
     /**
 	 * @var array
 	 */
-    private static $_allError = array();
+    private static $_allError = [ ];
 
     /**
 	 *
@@ -39,7 +42,7 @@ class Inter_Error
      * @link http://docs.php.net/manual/zh/errorfunc.constants.php
      * @var array
      */
-    private static $_errorText = array(
+    private static $_errorText = [
     						'1'=>'E_ERROR',
                             '2'=>'E_WARNING',
                             '4'=>'E_PARSE',
@@ -55,22 +58,25 @@ class Inter_Error
                             '4096'=>'E_RECOVERABLE_ERROR',
                             '8192'=>'E_DEPRECATED',
                             '16384'=>'E_USER_DEPRECATED',
-                          );
+	];
 
-	private static $hash_w =  array();  // проверка ошибок на повторение
-	private static $hash_d =  array();
+	private static $hash_w =  [ ];  // проверка ошибок на повторение
+	private static $hash_d =  [ ];
 	private static $key_fatal_error = false;
 
 
+	/**
+	 * @return bool
+	 */
 	public static function init(){
 		if( self::$_registered  == false){
 			date_default_timezone_set ("Europe/Moscow");
-			set_exception_handler(array('Inter_Error', 'exception_handler'));
-			set_error_handler(array('Inter_Error', 'error_handler'), E_ALL);
+			set_exception_handler( [ 'Inter_Error', 'exception_handler' ] );
+			set_error_handler( [ 'Inter_Error', 'error_handler' ], E_ALL);
 			self::$_registered = new Inter_Error();
 			self::$conf['debugMode'] = DEBUG_MODE;
 			if(version_compare(PHP_VERSION, '5.2', '>=')){
-				register_shutdown_function(array('Inter_Error', 'detect_fatal_error'));
+				register_shutdown_function( [ 'Inter_Error', 'detect_fatal_error' ] );
 			}
 			self::$_request_uri = self::_get_request_uri();
 			self::$_registered = true;
@@ -95,7 +101,7 @@ class Inter_Error
      */
     public static function exception_handler(Exception $e){
 
-        $errorInfo = array();
+        $errorInfo = [ ];
         $errorInfo['time'] = time();
         $errorInfo['type'] = 'EXCEPTION';
         $errorInfo['name'] = get_class($e);
@@ -137,7 +143,7 @@ class Inter_Error
 	public static function error_handler($errno, $errstr, $errfile, $errline) {
         
         if( empty(self::$conf['ignoreERROR']) || !in_array($errno, self::$conf['ignoreERROR']) ){
-            $errorInfo = array();
+            $errorInfo = [ ];
             $errorInfo['time'] = time();
             $errorInfo['type'] = 'ERROR';
             
@@ -157,7 +163,7 @@ class Inter_Error
 				self::$_allError[] = $errorInfo;
 			}
 
-		if( in_array($errno, array(1, 4, 16, 64, 4096 )) ){
+		if( in_array($errno, [ 1, 4, 16, 64, 4096 ] ) ){
 			self::print_err();
 				die();
 		}
@@ -195,7 +201,7 @@ class Inter_Error
         }
 
         if( empty(self::$conf['ignoreERROR']) || !in_array($last_error['type'], self::$conf['ignoreERROR']) ){
-            $errorInfo = array();
+            $errorInfo = [ ];
             $errorInfo['time'] = time();
             $errorInfo['type'] = 'ERROR_GET_LAST';
             
@@ -215,7 +221,7 @@ class Inter_Error
 			$errorInfo['trace'] = self::_format_trace($trace);
 			$errorInfo['hash'] = md5($errorInfo['code'].$errorInfo['line'].$errorInfo['message']);
             self::$_allError[] = $errorInfo;
-			if( in_array($errorInfo['code'], array(1, 4, 16, 64, 4096 )) ){
+			if( in_array($errorInfo['code'], [ 1, 4, 16, 64, 4096 ] ) ){
 
 				self:: printExceptionPage();
 			    return false;
@@ -253,7 +259,7 @@ class Inter_Error
      * @return array $trace
      */
     private static function _format_trace($trace){
-        $return = array();
+        $return = [ ];
         foreach ($trace as $stack => $detail){
             if(!empty($detail['args'])){
                 $args_string = self::_args_to_string($detail['args']);
@@ -276,8 +282,8 @@ class Inter_Error
      * @return string
      */
     private static function _args_to_string($args){
-        $string = '';
-        $argsAll = array();
+    //    $string = '';
+        $argsAll = [ ];
         foreach ($args as $key => $value){
             if(true == is_object($value)){
                 $argsAll[$key] = 'Object('.get_class($value).')';
@@ -356,8 +362,10 @@ class Inter_Error
     }
 
 
-
-    public static function error_display(){
+	/**
+	 * @return bool
+	 */
+	public static function error_display(){
         if(false != self::$conf['debugMode'] && !empty(self::$_allError)){
             $htmlText = '';
             foreach (self::$_allError as $key => $errorInfo){
@@ -520,6 +528,9 @@ END;
 
 	}
 
+	/**
+	 * @param $variables
+	 */
 	public static function show_variables($variables){
 		$variables_link = '';
 		$variables_content = '';

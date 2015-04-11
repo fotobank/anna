@@ -40,17 +40,43 @@ else session_regenerate_id(true);
 if ( ! defined( 'SITE_PATH' ) ) {
 	define( 'SITE_PATH', realpath( __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR );
 }
-include_once( __DIR__ . '/../classes/autoload.php' );
+require (SITE_PATH . '/classes/autoload.php');
 autoload::getInstance();
 
+// mustache
+require (SITE_PATH. '/vendor/autoload.php');
+// инициализация шаблонизатора Mustache
+$mustache = new Mustache_Engine( [
+	// 'template_class_prefix' => '__MyTemplates_',
+	'cache' => (__DIR__.'/../cache/mustache'),
+	'cache_file_mode' => 0666, // Please, configure your umask instead of doing this :)
+	'cache_lambda_templates' => true,
+	'loader' => new Mustache_Loader_FilesystemLoader(__DIR__.'/../classes/Mustache/templates'),
+	'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__.'/../classes/Mustache/templates/partials'),
+	// 'helpers' => [ 'i18n' => function($text) {  } ],
+	'escape' => function($value) { return htmlspecialchars($value, ENT_COMPAT, 'windows-1251'); },
+	'charset' => 'windows-1251',
+	'logger' => new Mustache_Logger_StreamLogger(__DIR__.'/../log'),
+	'strict_callables' => true,
+	'pragmas' => [Mustache_Engine::PRAGMA_FILTERS],
+] );
+
+
+
+
 if ( ! function_exists( 'debugHC' ) ) {
+	/**
+	 * @param        $v
+	 * @param string $group
+	 */
 	function debugHC( $v, $group = "message" ) {
-		if ( DEBUG_MODE && is_callable( $f = array( 'Debug_HackerConsole_Main', 'out' ) ) ) {
+		if ( DEBUG_MODE && is_callable( $f = [ 'Debug_HackerConsole_Main', 'out' ] ) ) {
 			call_user_func( $f, $v, $group );
 		}
 	}
 }
 
+// демо debug:
 // debugHC(SITE_PATH, 'test');
 Inter_Error::init();
 Inter_Error::$conf['logDir'] = SITE_PATH . 'log';
@@ -58,7 +84,7 @@ Inter_Error::$conf['otl'] = true; // включить запись лога на 127.0.0.1
 // Inter_Error::var_dump('Test'); // вывод дампа переменных
 if ( ! function_exists( 'v_dump' ) ) {
 	function v_dump() {
-		if ( DEBUG_MODE && is_callable( $func = array( 'Inter_Error', 'var_dump' ) ) ) {
+		if ( DEBUG_MODE && is_callable( $func = [ 'Inter_Error', 'var_dump' ] ) ) {
 			$variables = func_get_args();
 			call_user_func( $func, $variables );
 		}

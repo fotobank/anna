@@ -47,7 +47,7 @@ class autoload {
 
 
 		spl_autoload_extensions( ".php" );
-		spl_autoload_register(array("autoload", "autoload_class"));
+		spl_autoload_register( [ "autoload", "autoload_class" ] );
 	//	spl_autoload_register(array("autoload", "autoloadController"));
 	//	spl_autoload_register(array("autoload", "__autoload")); // новый автолоад
 	}

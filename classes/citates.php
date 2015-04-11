@@ -40,6 +40,9 @@ class citates {
 		}
 	}
 
+	/**
+	 * @param $tune
+	 */
 	private function _get_var( $tune ) {
 		if ( count( $tune ) ) {
 			foreach ( $tune as $name => $data ) {

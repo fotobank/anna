@@ -19,7 +19,11 @@
     </option>
   </component>
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mustache" />
+    </content>
     <content url="file://C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-core-1.0.3/stylesheets" />
     <content url="file://C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-recipes-0.3.0/stylesheets" />
     <content url="file://C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-rgbapng-0.2.1/lib/stylesheets" />
@@ -30,12 +34,14 @@
     <orderEntry type="library" name="sass-stdlib" level="application" />
     <orderEntry type="library" name="compass-library" level="project" />
     <orderEntry type="module-library">
-      <library name="PHARS">
+      <library name="PHP">
         <CLASSES>
-          <root url="phar://$MODULE_DIR$/composer.phar" />
+          <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
         </CLASSES>
         <SOURCES>
-          <root url="phar://$MODULE_DIR$/composer.phar" />
+          <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
         </SOURCES>
       </library>
     </orderEntry>

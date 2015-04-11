@@ -17,7 +17,7 @@ class categorii {
 	 */
 	public function __construct() {
 		$this->db = Mysqli_Db::getInstance(Mysqli_Db::get_param());
-		$this->categorii = $this->db->get("menu_index_php", NULL, array("id", "name_head"));
+		$this->categorii = $this->db->get("index_menu", NULL, [ "id", "name_head" ] );
 	}
 
 	/**

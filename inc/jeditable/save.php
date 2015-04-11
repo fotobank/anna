@@ -18,9 +18,9 @@ if(!empty($_POST['value'])) {
 	$value = array(
 		'text' => $text,
 	);
-	 $db->update("body_index_php", $value);
+	 $db->update("index_body", $value);
 
-//	$db->rawQuery("UPDATE body_index_php SET text = ".stripslashes($_POST['value'])." WHERE id=". $_POST['pk']['id']);
+//	$db->rawQuery("UPDATE index_body SET text = ".stripslashes($_POST['value'])." WHERE id=". $_POST['pk']['id']);
 
 	/*
 	  If value is correct you process it (for example, save to db).

@@ -46,7 +46,7 @@ class Backup
 	/**
 	 * @var - stores the table structure + inserts for every table
 	 */
-	var $struktur = array();
+	var $struktur = [ ];
 
 	/**
 	 * @var - zip file name
@@ -88,8 +88,8 @@ class Backup
 			}
 
 			/** start backup **/
-			$tables = array();
-			$insert = array();
+			$tables = [ ];
+			$insert = [ ];
 			$sql_statement = '';
 
 			// lock tables

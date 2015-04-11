@@ -4,6 +4,9 @@ if(session_id() == '')
 	session_start();
 
 
+/**
+ * Class ajaxSite_EditBody
+ */
 class ajaxSite_EditBody{
 
 	private $data;
@@ -136,7 +139,7 @@ class ajaxSite_EditBody{
 			'red_id' => isset($_SESSION['id'])?$_SESSION['id']:0
 		);
 		self::db()->where("id", $id);
-		self::db()->update("menu_index_php", $value);
+		self::db()->update("index_menu", $value);
 
 		self::if_error("Не могу обновить пункт!");
 	}
@@ -150,7 +153,7 @@ class ajaxSite_EditBody{
 	public static function delete($id){
 
 		self::db()->where("id", $id);
-		self::db()->delete("menu_index_php");
+		self::db()->delete("index_menu");
 
 		self::if_error("Не могу удалить пункт!");
 	}
@@ -176,12 +179,12 @@ class ajaxSite_EditBody{
 
 		// Мы используем оператор CASE SQL для массового обновления позиции заголовка:
 		
-		/*mysql_query("	UPDATE menu_index_php SET position = CASE id
+		/*mysql_query("	UPDATE index_menu SET position = CASE id
 						".implode ($strVals)."
 						ELSE position
 						END");*/
 
-		self::db()->rawQuery("UPDATE menu_index_php SET position = CASE id ".implode ($strVals)." ELSE position END");
+		self::db()->rawQuery("UPDATE index_menu SET position = CASE id ".implode ($strVals)." ELSE position END");
 
 		self::if_error("Ошибка обновления позиции!");
 	}
@@ -201,28 +204,28 @@ class ajaxSite_EditBody{
 		$text = self::esc($text);
 		if(!$text) throw new Exception("Неправильный ввод данных!");
 
-//		$position = $db->rawQuery("SELECT MAX(position)+1 FROM menu_index_php");
+//		$position = $db->rawQuery("SELECT MAX(position)+1 FROM index_menu");
 
-		$position = self::db()->getOne ("menu_index_php", "MAX(position)+1 as maxPosition");
+		$position = self::db()->getOne ("index_menu", "MAX(position)+1 as maxPosition");
 
 
 		if(!$position['maxPosition']) $position['maxPosition'] = 1;
 
-		$values = array(
+		$values = [
 			'name_head' => $text,
 			'position' => $position['maxPosition'],
 			'red_id' => isset($_SESSION['id'])?$_SESSION['id']:0
 
-		);
-		self::db()->insert("menu_index_php", $values);
+		];
+		self::db()->insert("index_menu", $values);
 
 		self::if_error("Ошибка вставки главы!");
 
 		echo (self::new_li_body(
-							array(
+							[
 								'id'	=> self::db()->getInsertId(),
 								'name_head'	=> $text
-								 )
+							]
 							)
 			);
 		

@@ -6,7 +6,7 @@ require( __DIR__ . '/inc/file_news.php' );
 
 
 $db->orderBy( 'position', 'ASC' );
-$categorii = $db->get( 'menu_index_php', Null, [ 'id', 'name_head' ] );
+$categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 
 ?>
 

@@ -30,7 +30,7 @@ if(isset($_GET['location'])) {
 	switch($location)
 	{
 		case 'index':
-			$table = 'body_index_php';
+			$table = 'index_body';
 //			ajaxText_Edit::load($table);
 			break;
 		case 'about':

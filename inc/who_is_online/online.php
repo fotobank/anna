@@ -68,12 +68,12 @@ if(!count($inDB))
 		$city='(Unknown City?)';
 	}*/
 
-	$values = array(
+	$values = [
 		'ip' => 'INET_ATON('.$intIp.')',
 		'country' => $countryName,
 		'countrycode' => $countryAbbrev,
 		'city' => $city
-	);
+	];
 	$db->insert("tz_who_is_online", $values);
 }
 else

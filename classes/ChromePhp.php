@@ -108,7 +108,7 @@ class ChromePhp {
 	 *
 	 * @var array
 	 */
-	protected $_processed = array();
+	protected $_processed = [ ];
 
 	/**
 	 * constructor

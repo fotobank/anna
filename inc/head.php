@@ -23,7 +23,7 @@ list( $razdel, $title ) = title();
 <head>
 
 	<title><?= $title ?></title>
-<!--	<meta charset="windows-1251">-->
+
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -66,6 +66,7 @@ list( $razdel, $title ) = title();
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox-thumbs.js"></script>
 
+		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
 
 		<script type='text/javascript' src='/js/tabs.js'></script>
 		<script type='text/javascript' src='/js/portfolio.js'></script>
@@ -80,7 +81,7 @@ list( $razdel, $title ) = title();
 		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.min.js'></script>
 		<script type="text/javascript" src="/js/minified/jquery.mousewheel.min.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
-		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
+
 		<script type='text/javascript' src='/js/minified/ajax.tabs.min.js'></script>
 		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>
 		<script type="text/javascript" src="/js/jquery-contained-sticky-scroll.js"></script>
@@ -94,6 +95,7 @@ list( $razdel, $title ) = title();
 		<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
 		<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
 		<script type='text/javascript' src='/js/functions.js'></script>
+		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
 	<?
 
 	}
