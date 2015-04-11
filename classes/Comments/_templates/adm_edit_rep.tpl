@@ -9,18 +9,18 @@
 	<td style='height:30px; border:0; vertical-align: middle;'><b>E-mail: <a href='mailto:{EMAIL}'>{EMAIL}</a></b></td>
 </tr>
 <tr>
-	<td colspan='2'><b>Сообщение:</b></td>
+	<td colspan='2'><b>Текст сообщения:</b></td>
 </tr>
 <tr>
 	<td colspan='2'>
-		<div style='width:700px;padding: 10pt;background: #2C2C2C;'>{TEXT}</div></td>
+		<div style='width:700px; padding: 10pt; background: #2C2C2C;'>{TEXT}</div></td>
 </tr>
 </table>
 
 <form id="form2" name='edit' action='{SCRIPT}?mode=reply&id={ID}' method='post'>
 <table class="w100 b0 sp3 pd1">
 <tr>
-	<td style='height:30px;border:0; vertical-align: middle;'><b>by:</b>
+	<td style='height:30px;border:0; vertical-align: middle;'><b>Отвечает:</b>
 		<label>
 			<input type='text' name='rep_poster' value='{REP_POSTER}' disabled>
 		</label>

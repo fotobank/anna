@@ -24,13 +24,13 @@
 							title="Поле сообщений пустое!">{TEXT}</textarea>
 	</label>
     <label class="fleft"><span class="fleft">Статус сообщения: </span><span style="color: #FF9900; "><b>{STATUS}</b></span>
-		<br><span class="fleft"> Желаете его сделать: </span>
-
-		<select style="display: inline-block;" name='flag'>
+		<br><span class="fleft pts"> Желаете его сделать: </span>
+			<span class="select">
+		<select class="option" style="display: inline-block;" name='flag'>
 			<option value='1'>видимым</option>
 			<option value='0'>скрытым</option>
 		</select>
-
+				</span>
 	</label>
 	<label>
 	<input style="margin: 0 150px 30px 0;" type='submit' value='OK' name='submit'>
