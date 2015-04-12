@@ -26,7 +26,7 @@ if ( $_SERVER['REMOTE_ADDR'] === '188.115.142.130' || $_SERVER['REMOTE_ADDR'] ==
 }
 ini_set( 'log_errors', 1 );
 
-require_once( __DIR__ . '/../classes/Alex/Security.php' );
+// require_once( __DIR__ . '/../classes/Alex/Security.php' );
 
 /*if ( ! defined( "PATH_SEPARATOR" ) )
 	define( "PATH_SEPARATOR", getenv( "COMSPEC" ) ? ";" : ":" );
