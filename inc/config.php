@@ -7,7 +7,7 @@ ob_start();
  * Date: 12.07.14
  * Time: 7:18
  */
-/*if ( $_SERVER['REMOTE_ADDR'] === '188.115.142.130' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ||
+if ( $_SERVER['REMOTE_ADDR'] === '188.115.142.130' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ||
 	isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" ) {
 
 	ini_set( 'display_errors', 1 );
@@ -23,7 +23,7 @@ ob_start();
 	ini_set( 'display_startup_errors', 0 );
 	error_reporting( E_ALL );
 	define( 'DEBUG_MODE', false );
-}*/
+}
 ini_set( 'log_errors', 1 );
 
 // require_once( __DIR__ . '/../classes/Alex/Security.php' );
