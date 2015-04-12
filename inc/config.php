@@ -44,7 +44,7 @@ require (SITE_PATH . 'classes/autoload.php');
 autoload::getInstance();
 
 // mustache
-require (__DIR__. '/../vendor/autoload.php');
+require ('/../vendor/autoload.php');
 // инициализация шаблонизатора Mustache
 /*$mustache = new Mustache_Engine( [
 	// 'template_class_prefix' => '__MyTemplates_',
