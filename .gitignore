@@ -1,8 +1,6 @@
 .sass-cache/*
 /css/.sass-cache/*
-cache/*
 git rm --cached test -r1/*
 No_id/*
 ImageFileBrowser/*
-
 # git rm --cached images/*
