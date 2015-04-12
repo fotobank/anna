@@ -40,7 +40,7 @@ else session_regenerate_id(true);
 if ( ! defined( 'SITE_PATH' ) ) {
 	define( 'SITE_PATH', realpath( __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR );
 }
-include ('/../classes/autoload.php');
+include ('./../classes/autoload.php');
 autoload::getInstance();
 
 // mustache
