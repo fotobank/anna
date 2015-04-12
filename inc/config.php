@@ -46,7 +46,7 @@ autoload::getInstance();
 // mustache
  include (__DIR__.'/../vendor/autoload.php');
 // инициализация шаблонизатора Mustache
-$mustache = new Mustache_Engine( [
+/*$mustache = new Mustache_Engine( [
 	// 'template_class_prefix' => '__MyTemplates_',
 	'cache' => ( __DIR__.'/../cache/mustache'),
 	'cache_file_mode' => 0666, // Please, configure your umask instead of doing this :)
@@ -59,7 +59,7 @@ $mustache = new Mustache_Engine( [
 	'logger' => new Mustache_Logger_StreamLogger(__DIR__.'/../log'),
 	'strict_callables' => true,
 	'pragmas' => [Mustache_Engine::PRAGMA_FILTERS],
-] );
+] );*/
 
 
 
