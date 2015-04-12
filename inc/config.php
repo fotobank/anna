@@ -12,7 +12,7 @@ ob_start();
 
 	ini_set( 'display_errors', 1 );
 	ini_set( 'display_startup_errors', 1 );
-	error_reporting( - 1 ); /* обычно должно хватить только этой строки E_ALL */
+	error_reporting( - 1 ); //обычно должно хватить только этой строки E_ALL
 	define( 'DEBUG_MODE', true ); // показ ошибок на монитор
 	require_once( __DIR__ . '/../classes/Ubench/Test.php' );  // профилирование
 	$bench = new Ubench_Test;
@@ -23,8 +23,8 @@ ob_start();
 	ini_set( 'display_startup_errors', 0 );
 	error_reporting( E_ALL );
 	define( 'DEBUG_MODE', false );
-}
-ini_set( 'log_errors', 1 );*/
+}*/
+ini_set( 'log_errors', 1 );
 
 // require_once( __DIR__ . '/../classes/Alex/Security.php' );
 
