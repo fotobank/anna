@@ -19,8 +19,8 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 			<tr>
 				<td class="header" style="text-align: right;">
 					<span style="text-decoration: underline;"><a onclick="goog_report_conversion('tel: 067-76-84-086')" href="#">(067)-76-84-086</a></span><br>
-					<a href="http://annafoto.in.ua/wedding">свадебная фотосъёмка</a>,
-					<a href="http://www.annafoto.in.ua/studio">студийные фотосессии</a>, Одесса, Алексеева Анна
+					<a href="<?=$_SERVER['HTTP_HOST']?>/portfolio.php#tab-1">свадебная фотосъёмка</a>,
+					<a href="<?=$_SERVER['HTTP_HOST']?>/portfolio.php#tab-3">студийные фотосессии</a>, Одесса, Алексеева Анна
 				</td>
 			</tr>
 			<tr>
