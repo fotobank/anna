@@ -82,6 +82,7 @@
 	  -moz-border-radius: 30px;
 	  border-radius: 30px;
 	  background: #869791;
+	  //noinspection CssInvalidFunction
 	  filter: Alpha(Opacity=50);/*IE7 fix*/
 	  opacity: 0.5;
 }
@@ -113,6 +114,7 @@
 /* Clickable class fix problem with hover on touch devices */
 /* Use it for non-touch hover action */
 .owl-theme .owl-controls.clickable .owl-buttons div:hover{
+	  //noinspection CssInvalidFunction
 	  filter: Alpha(Opacity=100);/*IE7 fix*/
 	  opacity: 1;
 	  text-decoration: none;
@@ -130,6 +132,7 @@
 	  width: 12px;
 	  height: 12px;
 	  margin: 5px 7px;
+	  //noinspection CssInvalidFunction
 	  filter: Alpha(Opacity=50);/*IE7 fix*/
 	  opacity: 0.5;
 	  -webkit-border-radius: 20px;
@@ -140,6 +143,7 @@
 
 .owl-theme .owl-controls .owl-page.active span,
 .owl-theme .owl-controls.clickable .owl-page:hover span{
+	  //noinspection CssInvalidFunction
 	  filter: Alpha(Opacity=100);/*IE7 fix*/
 	  opacity: 1;
 }

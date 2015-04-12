@@ -10567,19 +10567,19 @@ h4 {
   text-decoration: none;
 }
 
-/* line 207, ../sass/inc/_core.scss */
+/* line 208, ../sass/inc/_core.scss */
 footer {
   font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   text-shadow: -1px -1px #000;
   position: absolute;
-  background: url(../../images/tail-bottom.jpg) repeat-x center bottom;
+  background: url(/images/tail-bottom.jpg) repeat-x center bottom;
   width: 100%;
   left: 0;
   margin-bottom: -60px;
   margin-top: -60px;
   z-index: -1;
 }
-/* line 217, ../sass/inc/_core.scss */
+/* line 218, ../sass/inc/_core.scss */
 footer .social {
   max-width: 880px;
   padding: 60px 30px 0;
@@ -10587,17 +10587,17 @@ footer .social {
   z-index: 1;
   position: relative;
 }
-/* line 223, ../sass/inc/_core.scss */
+/* line 224, ../sass/inc/_core.scss */
 footer .social .copirait {
   line-height: 1.5;
 }
-/* line 226, ../sass/inc/_core.scss */
+/* line 227, ../sass/inc/_core.scss */
 footer .social .texno {
   position: absolute;
   bottom: 30px;
   right: 0;
 }
-/* line 232, ../sass/inc/_core.scss */
+/* line 233, ../sass/inc/_core.scss */
 footer .container {
   width: 100%;
   z-index: 0;
@@ -10607,21 +10607,21 @@ footer .container {
   padding-top: 12px;
 }
 @media all and (max-width: 550px) {
-  /* line 207, ../sass/inc/_core.scss */
+  /* line 208, ../sass/inc/_core.scss */
   footer {
     height: 17.5em;
   }
-  /* line 246, ../sass/inc/_core.scss */
+  /* line 247, ../sass/inc/_core.scss */
   footer .social {
     padding: 50px 5px 0;
   }
-  /* line 249, ../sass/inc/_core.scss */
+  /* line 250, ../sass/inc/_core.scss */
   footer .container {
     clear: both;
   }
 }
 
-/* line 254, ../sass/inc/_core.scss */
+/* line 255, ../sass/inc/_core.scss */
 * html footer {
   bottomy: expression(parentNode.offsetHeight % 2 ? style.bottom="-1px" : style.bottom="0px");
   /* хак для ие6, у которого есть косяк со смещением на 1px */
@@ -16148,7 +16148,7 @@ body .ui-tooltip {
 
 /* line 78, ../sass/_jquery.fancybox.scss */
 #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-  background-image: url("fancybox_sprite.png");
+  background-image: url("/images/fancybox_sprite.png");
 }
 
 /* line 82, ../sass/_jquery.fancybox.scss */
@@ -16168,7 +16168,7 @@ body .ui-tooltip {
 #fancybox-loading div {
   width: 44px;
   height: 44px;
-  background: url("fancybox_loading.gif") center center no-repeat;
+  background: url("/images/fancybox_loading.gif") center center no-repeat;
 }
 
 /* line 100, ../sass/_jquery.fancybox.scss */
@@ -16190,7 +16190,7 @@ body .ui-tooltip {
   height: 100%;
   cursor: pointer;
   text-decoration: none;
-  background: transparent url("blank.gif");
+  background: transparent url("/images/blank.gif");
   /* helps IE */
   -webkit-tap-highlight-color: transparent;
   z-index: 8040;
@@ -16271,7 +16271,7 @@ body .ui-tooltip {
   overflow: hidden;
   display: none;
   z-index: 8010;
-  background: url("fancybox_overlay.png");
+  background: url("/images/fancybox_overlay.png");
 }
 
 /* line 190, ../sass/_jquery.fancybox.scss */
@@ -16357,14 +16357,14 @@ body .ui-tooltip {
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
   /* line 265, ../sass/_jquery.fancybox.scss */
   #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-    background-image: url("fancybox_sprite@2x.png");
+    background-image: url("/images/fancybox_sprite@2x.png");
     background-size: 44px 152px;
     /*The size of the normal image, half the size of the hi-res image*/
   }
 
   /* line 270, ../sass/_jquery.fancybox.scss */
   #fancybox-loading div {
-    background-image: url("fancybox_loading@2x.gif");
+    background-image: url("/images/fancybox_loading@2x.gif");
     background-size: 24px 24px;
     /*The size of the normal image, half the size of the hi-res image*/
   }
@@ -16916,18 +16916,18 @@ img.ok {
   padding: 0;
   overflow: hidden;
 }
-/* line 17, ../sass/_tabs.scss */
+/* line 18, ../sass/_tabs.scss */
 .tabs ul.list-categorii {
   list-style-image: none;
   display: inline-block;
 }
-/* line 20, ../sass/_tabs.scss */
+/* line 21, ../sass/_tabs.scss */
 .tabs ul.list-categorii li {
   padding: 2px 0 8px 14px;
   line-height: 18px;
   background: url('/images/marker-1.gif?1405111182') 0 8px no-repeat;
 }
-/* line 24, ../sass/_tabs.scss */
+/* line 26, ../sass/_tabs.scss */
 .tabs ul.list-categorii li a {
   color: #fff;
   line-height: 18px;
@@ -16935,38 +16935,38 @@ img.ok {
   text-decoration: none;
   display: inline-block;
 }
-/* line 32, ../sass/_tabs.scss */
+/* line 34, ../sass/_tabs.scss */
 .tabs ul.list-categorii li.selected a {
   color: #fc0;
   text-decoration: none;
 }
-/* line 38, ../sass/_tabs.scss */
+/* line 40, ../sass/_tabs.scss */
 .tabs ul.list-categorii li:hover a {
   color: #fc0;
 }
 
-/* line 47, ../sass/_tabs.scss */
+/* line 49, ../sass/_tabs.scss */
 .tabs-2 {
   margin: 35px 0 0 0 !important;
   width: 580px !important;
 }
-/* line 51, ../sass/_tabs.scss */
+/* line 53, ../sass/_tabs.scss */
 .tabs-2 ul.list-categorii {
   padding: 0 0 0 85px !important;
 }
-/* line 55, ../sass/_tabs.scss */
+/* line 57, ../sass/_tabs.scss */
 .tabs-2 .tab-content {
   padding: 61px 0 0 0 !important;
 }
 
-/* line 61, ../sass/_tabs.scss */
+/* line 63, ../sass/_tabs.scss */
 .tab-content p {
   text-indent: 0;
   margin-bottom: 50px;
   font-size: 16px;
   color: #aaa;
 }
-/* line 66, ../sass/_tabs.scss */
+/* line 68, ../sass/_tabs.scss */
 .tab-content p:first-letter {
   font-family: Georgia, Tahoma, Arial, sans-serif;
   font-size: 48px;
@@ -16975,7 +16975,7 @@ img.ok {
   padding: 0 10px 0 0;
 }
 
-/* line 76, ../sass/_tabs.scss */
+/* line 78, ../sass/_tabs.scss */
 .block_wrapper_body {
   position: relative;
   height: 100%;
@@ -16984,17 +16984,17 @@ img.ok {
   color: #cacaca;
   text-align: center;
 }
-/* line 83, ../sass/_tabs.scss */
+/* line 85, ../sass/_tabs.scss */
 .block_wrapper_body .blocks {
   margin: 50px 0 0 0;
 }
-/* line 86, ../sass/_tabs.scss */
+/* line 88, ../sass/_tabs.scss */
 .block_wrapper_body .block_rounded {
   -webkit-border-radius: 5px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
-/* line 90, ../sass/_tabs.scss */
+/* line 92, ../sass/_tabs.scss */
 .block_wrapper_body .block_rounded:before {
   border-width: 8px;
   border-color: #EBEAE6 #EBEAE6 transparent transparent;
@@ -17002,14 +17002,14 @@ img.ok {
   -moz-border-radius: 0 0 0 5px;
   border-radius: 0 0 0 5px;
 }
-/* line 98, ../sass/_tabs.scss */
+/* line 100, ../sass/_tabs.scss */
 .block_wrapper_body .border {
   border: 1px solid #b9b9b9;
   padding: 3px;
   background: #000000;
   margin: 15px 0 0 -4px;
 }
-/* line 103, ../sass/_tabs.scss */
+/* line 105, ../sass/_tabs.scss */
 .block_wrapper_body .border img {
   width: 100%;
   -o-filter: grayscale(0);
@@ -17021,7 +17021,7 @@ img.ok {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-/* line 107, ../sass/_tabs.scss */
+/* line 109, ../sass/_tabs.scss */
 .block_wrapper_body .border img:hover {
   -o-filter: grayscale(100%);
   -ms-filter: grayscale(100%);
@@ -17029,12 +17029,12 @@ img.ok {
   -webkit-filter: grayscale(100%);
 }
 
-/* line 114, ../sass/_tabs.scss */
+/* line 116, ../sass/_tabs.scss */
 .edit-txt {
   text-align: left;
 }
 
-/* line 118, ../sass/_tabs.scss */
+/* line 121, ../sass/_tabs.scss */
 .block_wrap {
   position: relative;
   padding: 1em 1em;
@@ -17048,17 +17048,17 @@ img.ok {
   background: -o-radial-gradient(center, circle, #363636, #222222);
   background: radial-gradient(circle at center, #363636, #222222);
 }
-/* line 130, ../sass/_tabs.scss */
+/* line 133, ../sass/_tabs.scss */
 .block_wrap img {
   width: 100%;
   margin: 0;
 }
-/* line 134, ../sass/_tabs.scss */
+/* line 137, ../sass/_tabs.scss */
 .block_wrap p {
   text-indent: 0;
   margin-top: 25px;
 }
-/* line 137, ../sass/_tabs.scss */
+/* line 140, ../sass/_tabs.scss */
 .block_wrap p:first-letter {
   font-family: Georgia, Tahoma, Arial, sans-serif;
   font-size: 38px;
@@ -17067,18 +17067,18 @@ img.ok {
   padding: 10px 10px 0 0;
 }
 
-/* line 147, ../sass/_tabs.scss */
+/* line 150, ../sass/_tabs.scss */
 .block_body {
   position: relative;
   padding: 30px 0;
 }
-/* line 152, ../sass/_tabs.scss */
+/* line 155, ../sass/_tabs.scss */
 .block_body ul:not(.block_wrap) li {
   display: inline-block;
   width: 130px;
   padding: 0 10px;
 }
-/* line 159, ../sass/_tabs.scss */
+/* line 162, ../sass/_tabs.scss */
 .block_body img {
   width: 120px;
 }
@@ -17310,7 +17310,7 @@ img.ok {
   top: 50%;
   margin-left: -40px;
   margin-top: -40px;
-  background: url("owl.video.play.png") no-repeat;
+  background: url("/images/owl.video.play.png") no-repeat;
   cursor: pointer;
   z-index: 1;
   -webkit-backface-visibility: hidden;
@@ -17517,7 +17517,7 @@ img.ok {
   opacity: 0.5;
 }
 
-/* line 88, ../sass/_index.owl.carousel.scss */
+/* line 89, ../sass/_index.owl.carousel.scss */
 .owl-next, .owl-prev {
   position: absolute;
   top: 114px;
@@ -17534,17 +17534,17 @@ img.ok {
   margin-right: -1px;
 }
 
-/* line 103, ../sass/_index.owl.carousel.scss */
+/* line 104, ../sass/_index.owl.carousel.scss */
 .owl-next {
   right: 0;
 }
 
-/* line 107, ../sass/_index.owl.carousel.scss */
+/* line 108, ../sass/_index.owl.carousel.scss */
 .owl-prev {
   right: 205px;
 }
 
-/* line 110, ../sass/_index.owl.carousel.scss */
+/* line 111, ../sass/_index.owl.carousel.scss */
 .fancybox-skin {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
@@ -17553,7 +17553,7 @@ img.ok {
 
 /* Clickable class fix problem with hover on touch devices */
 /* Use it for non-touch hover action */
-/* line 115, ../sass/_index.owl.carousel.scss */
+/* line 116, ../sass/_index.owl.carousel.scss */
 .owl-theme .owl-controls.clickable .owl-buttons div:hover {
   filter: Alpha(Opacity=100);
   /*IE7 fix*/
@@ -17562,7 +17562,7 @@ img.ok {
 }
 
 /* Styling Pagination*/
-/* line 123, ../sass/_index.owl.carousel.scss */
+/* line 125, ../sass/_index.owl.carousel.scss */
 .owl-theme .owl-controls .owl-page {
   display: inline-block;
   zoom: 1;
@@ -17570,7 +17570,7 @@ img.ok {
   /*IE7 life-saver */
 }
 
-/* line 128, ../sass/_index.owl.carousel.scss */
+/* line 130, ../sass/_index.owl.carousel.scss */
 .owl-theme .owl-controls .owl-page span {
   display: block;
   width: 12px;
@@ -17585,7 +17585,7 @@ img.ok {
   background: #869791;
 }
 
-/* line 141, ../sass/_index.owl.carousel.scss */
+/* line 144, ../sass/_index.owl.carousel.scss */
 .owl-theme .owl-controls .owl-page.active span,
 .owl-theme .owl-controls.clickable .owl-page:hover span {
   filter: Alpha(Opacity=100);
@@ -17594,7 +17594,7 @@ img.ok {
 }
 
 /* If PaginationNumbers is true */
-/* line 149, ../sass/_index.owl.carousel.scss */
+/* line 153, ../sass/_index.owl.carousel.scss */
 .owl-theme .owl-controls .owl-page span.owl-numbers {
   height: auto;
   width: auto;
@@ -17606,19 +17606,19 @@ img.ok {
   border-radius: 30px;
 }
 
-/* line 160, ../sass/_index.owl.carousel.scss */
+/* line 164, ../sass/_index.owl.carousel.scss */
 #owl-index img.thumb {
   display: block;
   width: 205px;
   height: 114px;
 }
 
-/* line 166, ../sass/_index.owl.carousel.scss */
+/* line 170, ../sass/_index.owl.carousel.scss */
 .wrapper-with-margin {
   margin: 0 50px;
 }
 
-/* line 170, ../sass/_index.owl.carousel.scss */
+/* line 174, ../sass/_index.owl.carousel.scss */
 .owl-theme .owl-controls .owl-buttons div {
   position: absolute;
 }

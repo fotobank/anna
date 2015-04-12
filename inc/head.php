@@ -46,11 +46,11 @@ list( $razdel, $title ) = title();
 
 
 	<?
-
 	if ( $_SERVER['PHP_SELF'] == '/portfolio.php' ) {
-
 		?>
-	<link rel='stylesheet' type='text/css' media='screen' href='/css/skin-2.css'>
+
+
+	    <link rel='stylesheet' type='text/css' media='screen' href='/css/skin-2.css'>
 
 
 		<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
@@ -66,10 +66,10 @@ list( $razdel, $title ) = title();
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox-thumbs.js"></script>
 
-		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
-
 		<script type='text/javascript' src='/js/tabs.js'></script>
 		<script type='text/javascript' src='/js/portfolio.js'></script>
+
+		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
 	<?
 
 	} else if ($_SERVER['PHP_SELF'] == '/index.php') {
@@ -85,6 +85,8 @@ list( $razdel, $title ) = title();
 		<script type='text/javascript' src='/js/minified/ajax.tabs.min.js'></script>
 		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>
 		<script type="text/javascript" src="/js/jquery-contained-sticky-scroll.js"></script>
+
+		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
 
 	<?
 

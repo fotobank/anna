@@ -42,21 +42,21 @@ if ( ! defined( 'SITE_PATH' ) ) {
 }
 require (SITE_PATH . '/classes/autoload.php');
 autoload::getInstance();
-
+$test = SITE_PATH;
 // mustache
 require (SITE_PATH. '/vendor/autoload.php');
 // инициализация шаблонизатора Mustache
 $mustache = new Mustache_Engine( [
 	// 'template_class_prefix' => '__MyTemplates_',
-	'cache' => (__DIR__.'/../cache/mustache'),
+	'cache' => (SITE_PATH.'/cache/mustache'),
 	'cache_file_mode' => 0666, // Please, configure your umask instead of doing this :)
 	'cache_lambda_templates' => true,
-	'loader' => new Mustache_Loader_FilesystemLoader(__DIR__.'/../classes/Mustache/templates'),
-	'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__.'/../classes/Mustache/templates/partials'),
+	'loader' => new Mustache_Loader_FilesystemLoader( SITE_PATH.'/classes/Mustache/templates'),
+	'partials_loader' => new Mustache_Loader_FilesystemLoader(SITE_PATH.'/classes/Mustache/templates/partials'),
 	// 'helpers' => [ 'i18n' => function($text) {  } ],
 	'escape' => function($value) { return htmlspecialchars($value, ENT_COMPAT, 'windows-1251'); },
 	'charset' => 'windows-1251',
-	'logger' => new Mustache_Logger_StreamLogger(__DIR__.'/../log'),
+	'logger' => new Mustache_Logger_StreamLogger(SITE_PATH.'/log'),
 	'strict_callables' => true,
 	'pragmas' => [Mustache_Engine::PRAGMA_FILTERS],
 ] );

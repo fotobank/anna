@@ -204,10 +204,11 @@ h4 {
 	  }
 }
 
+
 footer {
 	  @include font-stack-footer;
 	  position: absolute;
-	  background: url(../../images/tail-bottom.jpg) repeat-x center bottom;
+	  background: url(/images/tail-bottom.jpg) repeat-x center bottom;
 	  width: 100%;
 	  left: 0;
 //	  height: 14.313em;
