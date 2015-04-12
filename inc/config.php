@@ -51,8 +51,8 @@ $mustache = new Mustache_Engine( [
 	'cache' => (SITE_PATH.'cache/mustache'),
 	'cache_file_mode' => 0666, // Please, configure your umask instead of doing this :)
 	'cache_lambda_templates' => true,
-	'loader' => new Mustache_Loader_FilesystemLoader( SITE_PATH.'classes/Mustache/templates'),
-	'partials_loader' => new Mustache_Loader_FilesystemLoader(SITE_PATH.'classes/Mustache/templates/partials'),
+	//'loader' => new Mustache_Loader_FilesystemLoader( SITE_PATH.'classes/Mustache/templates'),
+	//'partials_loader' => new Mustache_Loader_FilesystemLoader(SITE_PATH.'classes/Mustache/templates/partials'),
 	// 'helpers' => [ 'i18n' => function($text) {  } ],
 	'escape' => function($value) { return htmlspecialchars($value, ENT_COMPAT, 'windows-1251'); },
 	'charset' => 'windows-1251',
@@ -77,8 +77,7 @@ if ( ! function_exists( 'debugHC' ) ) {
 }
 
 // демо debug:
-
- debugHC(SITE_PATH.'classes/Mustache/templates', 'test');
+// debugHC(SITE_PATH.'classes/Mustache/templates', 'test');
 Inter_Error::init();
 Inter_Error::$conf['logDir'] = SITE_PATH . 'log';
 Inter_Error::$conf['otl'] = true; // включить запись лога на 127.0.0.1
