@@ -45,6 +45,12 @@
 @import "who.is.online.styles";
 @import "fancy-buttons";
 
+//цвет заблокированного текста в онлайн редакторе
+.editable-click.editable-disabled,
+a.editable-click.editable-disabled,
+a.editable-click.editable-disabled:hover {
+	  color: #8B8B8B;
+}
 
 .fancybox-nav {
 	  background: transparent url("/images/blank.gif");
@@ -617,6 +623,7 @@ dl {
 #zapolnen {
 	  position: relative;
 	  height: 367px;
+	  width: 600px;
 	  //noinspection CssInvalidPropertyValue
 	  background: image-url('under-construction.jpg') 0 0 no-repeat;
 }

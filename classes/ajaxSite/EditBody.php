@@ -136,7 +136,7 @@ class ajaxSite_EditBody{
 
 		$value = array(
 			'name_head' => $text,
-			'red_id' => isset($_SESSION['id'])?$_SESSION['id']:0
+			'edit_id' => isset($_SESSION['id'])?$_SESSION['id']:0
 		);
 		self::db()->where("id", $id);
 		self::db()->update("index_menu", $value);
@@ -214,7 +214,7 @@ class ajaxSite_EditBody{
 		$values = [
 			'name_head' => $text,
 			'position' => $position['maxPosition'],
-			'red_id' => isset($_SESSION['id'])?$_SESSION['id']:0
+			'edit_id' => isset($_SESSION['id'])?$_SESSION['id']:0
 
 		];
 		self::db()->insert("index_menu", $values);

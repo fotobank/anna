@@ -34,19 +34,19 @@ if(isset($_GET['location'])) {
 //			ajaxText_Edit::load($table);
 			break;
 		case 'about':
-			$table = 'spec_about';
+			$table = 'about_body';
 			break;
 		case 'portfolio':
-			$table = 'spec_portfolio';
+			$table = 'portfolio_body';
 			break;
 		case 'services':
-			$table = 'spec_services';
+			$table = 'services_body';
 			break;
 		case 'news':
-			$table = 'spec_news';
+			$table = 'news_body';
 			break;
 		case 'comments':
-			$table = 'spec_comments';
+			$table = 'comments_body';
 			break;
 		default:
 			$table = false;
