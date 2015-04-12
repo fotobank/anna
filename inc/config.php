@@ -42,7 +42,7 @@ if ( ! defined( 'SITE_PATH' ) ) {
 }
 require (SITE_PATH . '/classes/autoload.php');
 autoload::getInstance();
-$test = SITE_PATH;
+
 // mustache
 require (SITE_PATH. '/vendor/autoload.php');
 // инициализация шаблонизатора Mustache
@@ -77,7 +77,8 @@ if ( ! function_exists( 'debugHC' ) ) {
 }
 
 // демо debug:
-// debugHC(SITE_PATH, 'test');
+
+ debugHC(SITE_PATH, 'test');
 Inter_Error::init();
 Inter_Error::$conf['logDir'] = SITE_PATH . 'log';
 Inter_Error::$conf['otl'] = true; // включить запись лога на 127.0.0.1
