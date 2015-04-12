@@ -28,13 +28,13 @@ ini_set( 'log_errors', 1 );
 
 require_once( __DIR__ . '/../classes/Alex/Security.php' );
 
-if ( ! defined( "PATH_SEPARATOR" ) )
+/*if ( ! defined( "PATH_SEPARATOR" ) )
 	define( "PATH_SEPARATOR", getenv( "COMSPEC" ) ? ";" : ":" );
 set_include_path( ini_get( "include_path" ) . PATH_SEPARATOR . __DIR__ );
 ini_set( 'session.auto_start', 1 );
 if(session_id() == '')
 	session_start();
-else session_regenerate_id(true);
+else session_regenerate_id(true);*/
 
 
 if ( ! defined( 'SITE_PATH' ) ) {
