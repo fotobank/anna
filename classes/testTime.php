@@ -6,19 +6,30 @@
  * Time: 8:50
  */
 
-class cTimer {
+class testTime {
 	// Создаем два свойства нашего класса
 	private $start;
 	// Создаем метод, который ставит начальную точку и переводит ее к виду "сек.микросек"
+	/**
+	 *
+	 */
 	public function __construct() {
 		set_time_limit(0);
 		$this->start = microtime(true);
 	}
 	// Создаем метод, который подсчитывает сколько прошло времени
+	/**
+	 * @return string
+	 */
 	public function finish(){
 		return number_format(microtime(true) - $this->start,5);
 	}
 
+	/**
+	 * @param     $test1
+	 * @param     $test2
+	 * @param int $test3
+	 */
 	public function rezult($test1, $test2, $test3 = 0){
 
 		if ($test1 < $test2) {
@@ -32,6 +43,10 @@ class cTimer {
 		}
 	}
 
+	/**
+	 * @param $test1
+	 * @param $test3
+	 */
 	public function rezult2($test1, $test3){
 
 		if ($test1 < $test3) {
@@ -43,6 +58,10 @@ class cTimer {
 		}
 	}
 
+	/**
+	 * @param $test2
+	 * @param $test3
+	 */
 	public function rezult3($test2, $test3){
 
 		if ($test2 < $test3) {

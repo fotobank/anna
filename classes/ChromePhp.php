@@ -75,16 +75,16 @@ class ChromePhp {
 	/**
 	 * @var array
 	 */
-	protected $_json = array(
+	protected $_json = [
 			'version' => self::VERSION,
-			'columns' => array( 'log', 'backtrace', 'type' ),
-			'rows'    => array()
-	);
+			'columns' => [ 'log', 'backtrace', 'type' ],
+			'rows'    => [ ]
+	];
 
 	/**
 	 * @var array
 	 */
-	protected $_backtraces = array();
+	protected $_backtraces = [ ];
 
 	/**
 	 * @var bool
@@ -94,9 +94,9 @@ class ChromePhp {
 	/**
 	 * @var array
 	 */
-	protected $_settings = array(
+	protected $_settings = [
 			self::BACKTRACE_LEVEL => 1
-	);
+	];
 
 	/**
 	 * @var ChromePhp
@@ -234,9 +234,9 @@ class ChromePhp {
 
 		$logger = self::getInstance();
 
-		$logger->_processed = array();
+		$logger->_processed = [ ];
 
-		$logs = array();
+		$logs = [ ];
 		foreach ( $args as $arg ) {
 			$logs[] = $logger->_convert( $arg );
 		}
@@ -269,7 +269,7 @@ class ChromePhp {
 		//Also avoid recursion when objects refer to each other
 		$this->_processed[] = $object;
 
-		$object_as_array = array();
+		$object_as_array = [ ];
 
 		// first add the class name
 		$object_as_array['___class_name'] = get_class( $object );
@@ -360,12 +360,15 @@ class ChromePhp {
 			$this->_backtraces[] = $backtrace;
 		}
 
-		$row = array( $logs, $backtrace, $type );
+		$row = [ $logs, $backtrace, $type ];
 
 		$this->_json['rows'][] = $row;
 		$this->_writeHeader( $this->_json );
 	}
 
+	/**
+	 * @param $data
+	 */
 	protected function _writeHeader( $data ) {
 		header( self::HEADER_NAME . ': ' . $this->_encode( $data ) );
 	}

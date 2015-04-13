@@ -24,6 +24,9 @@ class citates {
 	private $tabl = false; // текущая таблица
 	private $SITE_PATH = '';
 
+	/**
+	 * @param $tune
+	 */
 	function __construct( $tune ) {
 
 		$this->SITE_PATH = realpath( __DIR__ . DIRSEP . '..' . DIRSEP ) . DIRSEP;

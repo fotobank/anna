@@ -3,6 +3,9 @@
  * file.class.php
  */
 
+/**
+ * Class file
+ */
 class file {
 	
 	// The directory name where the file is located
@@ -39,7 +42,10 @@ class file {
 	protected $total_size = 0;
 
 
-
+	/**
+	 * @param      $filepath
+	 * @param bool $create
+	 */
 	public function __construct($filepath, $create = TRUE) {
 
 		if ( ( $filepath ) ) {
@@ -127,6 +133,9 @@ class file {
 		return $dir_size;
 	}
 
+	/**
+	 * @return bool
+	 */
 	protected function checkfolder(){
 		if(!empty($this->dirname) && !is_dir($this->dirname)) {
 			if(mkdir($this->dirname, 0777 )) {
@@ -182,7 +191,7 @@ class file {
 	 * array to_array( int $flags = FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES )
 	 */
 	public function to_array( $flags = NULL ) {
-		$arr = array();
+		$arr = [ ];
 		if($this->is_readable) {
 			if(is_null($flags)) {
 				$flags =  FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES;

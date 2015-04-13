@@ -35,10 +35,16 @@
  */
 set_time_limit(0);
 
+/**
+ * Class timer
+ */
 class timer
 {
 	private $start_time;
 
+	/**
+	 * @return float
+	 */
 	private function get_time()
 	{
 		list($usec, $seconds) = explode(" ", microtime());

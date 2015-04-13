@@ -19,6 +19,9 @@
  * 
  */
 
+/**
+ * Class log
+ */
 class log extends file {
 
 	/**
@@ -54,7 +57,7 @@ class log extends file {
 	 * Recent log activity
 	 * @var array
 	 */
-	protected $log = array();
+	protected $log = [ ];
 
 	// The End of line Glue
 	protected $glue = PHP_EOL;
@@ -108,6 +111,9 @@ class log extends file {
 	 * если он больше установленного размера - очистка
 	 * проверка и очистка директории, если размер превышает установленный
 	 * void filename( string $filename )
+	 *
+	 * @param      $filepath
+	 * @param bool $create
 	 */
 	public function is_file( $filepath, $create = TRUE ) {
 		if ( (int) ( $this->total_size ) > (int) ( $this->max_dir ) ) {
@@ -130,7 +136,7 @@ class log extends file {
 			foreach ( $this->log as $line ) {
 				$this->write( trim( $line ) );
 			}
-			$this->log = array();
+			$this->log = [ ];
 		}
 	}
 
@@ -212,7 +218,7 @@ class log extends file {
 		}
 	}
 
-	/*
+	/**
 	 * Set the Glue
 	 * void setglue( string $glue )
 	 */
@@ -228,10 +234,10 @@ class log extends file {
 		if ( $this->exists ) {
 			$this->truncate();
 		}
-		$this->log = array();
+		$this->log = [ ];
 	}
 
-	/*
+	/**
 	 * Return Object string
 	 * string __toString( void )
 	 */
@@ -239,7 +245,7 @@ class log extends file {
 		return implode( $this->glue, $this->log );
 	}
 
-	/*
+	/**
 	 * Load the log file
 	 * void filename( void )
 	 */

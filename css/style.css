@@ -10600,7 +10600,7 @@ footer .social .texno {
 /* line 233, ../sass/inc/_core.scss */
 footer .container {
   width: 100%;
-  z-index: 0;
+  z-index: -1;
   font-size: .875em;
   color: #fff;
   position: relative;
@@ -17651,19 +17651,20 @@ img.ok {
   background-position: 200% 0, 0 0;
   box-shadow: rgba(0, 0, 0, 0.3) 0 2px 5px;
   line-height: 1.5em;
+  z-index: 1;
 }
 
-/* line 30, ../sass/_who.is.online.styles.scss */
+/* line 31, ../sass/_who.is.online.styles.scss */
 .onlineWidget:hover {
   transition: .5s linear;
   background-position: -200% 0, 0 0;
 }
-/* line 33, ../sass/_who.is.online.styles.scss */
+/* line 34, ../sass/_who.is.online.styles.scss */
 .onlineWidget:hover .arrow {
   background-position: bottom center;
 }
 
-/* line 38, ../sass/_who.is.online.styles.scss */
+/* line 39, ../sass/_who.is.online.styles.scss */
 .onlineWidget .count {
   color: #ffffff;
   float: left;
@@ -17673,7 +17674,7 @@ img.ok {
   width: 30px;
   font-family: Times New Roman, serif;
 }
-/* line 47, ../sass/_who.is.online.styles.scss */
+/* line 48, ../sass/_who.is.online.styles.scss */
 .onlineWidget .label {
   float: left;
   font-size: 10px;
@@ -17684,7 +17685,7 @@ img.ok {
   text-shadow: -1px -1px #000;
   line-height: 10px;
 }
-/* line 57, ../sass/_who.is.online.styles.scss */
+/* line 58, ../sass/_who.is.online.styles.scss */
 .onlineWidget .panel {
   position: absolute;
   cursor: default;
@@ -17696,7 +17697,7 @@ img.ok {
   z-index: 1000;
 }
 
-/* line 68, ../sass/_who.is.online.styles.scss */
+/* line 69, ../sass/_who.is.online.styles.scss */
 .arrow {
   background: url(/inc/who_is_online/img/arrow.png) no-repeat top center;
   position: absolute;
@@ -17705,26 +17706,26 @@ img.ok {
   height: 25px;
 }
 
-/* line 75, ../sass/_who.is.online.styles.scss */
+/* line 76, ../sass/_who.is.online.styles.scss */
 .preloader {
   display: block;
   margin: 10px auto;
 }
 
-/* line 79, ../sass/_who.is.online.styles.scss */
+/* line 80, ../sass/_who.is.online.styles.scss */
 .geoRow {
   height: 16px;
   overflow: hidden;
   padding: 2px 0;
 }
 
-/* line 84, ../sass/_who.is.online.styles.scss */
+/* line 85, ../sass/_who.is.online.styles.scss */
 .flag {
   float: left;
   margin: 0 4px;
 }
 
-/* line 88, ../sass/_who.is.online.styles.scss */
+/* line 89, ../sass/_who.is.online.styles.scss */
 .country, .people {
   float: left;
   font-size: 10px;
@@ -17735,13 +17736,13 @@ img.ok {
   line-height: 10px;
 }
 
-/* line 97, ../sass/_who.is.online.styles.scss */
+/* line 98, ../sass/_who.is.online.styles.scss */
 .country {
   width: 85px;
   overflow: hidden;
 }
 
-/* line 101, ../sass/_who.is.online.styles.scss */
+/* line 102, ../sass/_who.is.online.styles.scss */
 .people {
   font-weight: bold;
 }
