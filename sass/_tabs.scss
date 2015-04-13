@@ -1,23 +1,46 @@
-.tabs {
-	  width: auto;
-}
+@import "inc/_fonts";
+
 
 .tabs {
+	  width: auto;
 	  & > div {
 			position: relative;
 	  }
 	  .tab-content {
 			//noinspection CssInvalidPropertyValue
 			background: image-url('bg.jpg') 0 0 repeat;
-			font-size: 16px;
-			color: #aaa;
-			padding: 0;
 			overflow: hidden;
+			max-width: 670px;
+			p {
+				  text-indent: 0; // отступ красной строки
+				  text-align: left;
+				  white-space: pre-line; // Пробелы не учитываются, текст автоматически переносится на следующую строку, если не помещается в заданную область.
+				  margin-top: 20px;
+				  @include font-stack-body();
+				  color: #aaa;
+				  &:first-letter {
+						font-family: "Georgia", "Cambria", "Times New Roman", "Times", serif;
+						font-size: 44px;
+						font-size: 2.75rem;
+						line-height: 70.4px;
+						line-height: 1rem;
+						float: left;
+						color: rgba(112, 255, 0, 0.76);
+						padding: 10px 8px 0 0;
+				  }
+			}
+			img {
+				  float: left;
+				  width: 250px;
+				  height: auto;
+				  margin: 0 15px 0 0;
+			}
 	  }
 	  ul {
-			&.list-categorii {
+			&.list-categorii, &.list-menu {
 				  list-style-image: none;
 				  display: inline-block;
+				  margin-top: 30px;
 				  li {
 						padding: 2px 0 8px 14px;
 						line-height: 18px;
@@ -50,7 +73,7 @@
 	  margin: 35px 0 0 0 !important;
 	  width: 580px !important;
 	  ul {
-			&.list-categorii {
+			&.list-categorii, &.list-menu {
 				  padding: 0 0 0 85px !important;
 			}
 	  }
@@ -59,20 +82,111 @@
 	  }
 }
 
-.tab-content {
-	  p {
-			text-indent: 0;
-			margin-bottom: 50px;
+.img-indent-2 {
+	  margin: 3px 0 23px 0;
+}
+
+.list-categorii, .list-menu {
+	  position: relative;
+	  li {
+			list-style: none;
+			position: relative;
+			cursor: pointer;
+			-moz-border-radius: 6px;
+			-webkit-border-radius: 6px;
+			border: 1px;
+			border-radius: 6px;
+			padding: 0 0 8px 14px;
+			line-height: 18px;
+			background: url(/images/marker-1.gif) 0 8px no-repeat;
+			width: 230px;
+			height: 24px;
+			vertical-align: middle;
+			font-family: 'Bad Script', cursive;
+			color: #ffffff;
+			font-weight: bold;
+			text-decoration: none;
 			font-size: 16px;
-			color: #aaa;
-			&:first-letter {
-				  font-family: Georgia, Tahoma, Arial, sans-serif;
-				  font-size: 48px;
-				  float: left;
-				  color: rgba(112, 255, 0, 0.76);
-				  padding: 0 10px 0 0;
+			.actions {
+				  position: absolute;
+				  right: 0;
+				  top: 5px;
+				  float: right;
+				  display: none;
+				  z-index: 10;
+			}
+			input {
+				  border: 1px solid #ffec0e;
+				  color: #666666;
+				  font-family: Arial,Helvetica,sans-serif;
+				  padding: 3px 4px;
+				  width: 130px;
+				  margin-left: -5px;
 			}
 	  }
+}
+.list-categorii li:hover, .list-categorii li:active, .list-menu li:hover, .list-menu li:active {
+	  color: #fc0;
+}
+.block_body {
+	  .actions {
+			position: absolute;
+			z-index: 1;
+	  }
+}
+.block_wrap {
+	  .actions {
+			position: absolute;
+			right: 10px;
+			z-index: 1;
+	  }
+}
+.list-categorii li .actions a, .list-menu li .actions a, .block_wrapper_body .actions a {
+	  display: block;
+	  width: 16px;
+	  height: 16px;
+	  overflow: hidden;
+	  float: left;
+	  text-indent: -9999px;
+	  margin: 3px;
+	  z-index: 1000;
+}
+.list-categorii li .actions a.edit, .list-menu li .actions a.edit, .block_wrapper_body a.edit {
+	  background: url("/images/edit.png") no-repeat center center;
+}
+.list-categorii li .actions a.delete, .list-menu li .actions a.delete, .block_wrapper_body a.delete {
+	  background: url("/images/delete.png") no-repeat center center;
+}
+img.return, img.ok {
+	  float: right;
+	  cursor: pointer;
+}
+img {
+	  &.ok {
+			margin-right: 3px;
+	  }
+}
+.ok-cancel {
+	  font-size: 0.6em;
+	  position: absolute;
+	  top: 4px;
+	  right: 70px;
+}
+.text {
+	  vertical-align: middle;
+	  position: relative;
+}
+.ui-button,.ui-dialog-titlebar {
+	  font-size: 0.72em !important;
+}
+#dialog-confirm {
+	  display: none;
+	  font-size: 0.9em;
+	  padding: 1em 1em 0;
+	  height: 40px;
+}
+#addButton {
+	  margin: 20px auto;
 }
 
 .block_wrapper_body {

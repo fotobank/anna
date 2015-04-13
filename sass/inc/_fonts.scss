@@ -33,16 +33,14 @@ $base-font-size:   14px;
 @mixin font-stack-headers-h2 {
 	  @include single-text-shadow(2px, 2px, 3px, 3px, #191919);
 	  @include font-size(28);
-	  font-family: $helvetica;
+	  font-family: $verdana;
       line-height: 28px;
 	  font-weight: bold;
-	  font-style: italic;
 	  color: $h2_color;
 }
 @mixin font-stack-headers-h3 {
 	  font-family: $bad;
 	  @include font-size(24);
-	  line-height: 24px;
 	  color: $h3_color;
 	  font-weight: normal;
 	  font-style: italic;
@@ -56,9 +54,9 @@ $base-font-size:   14px;
 
 }
 @mixin font-stack-body {
-	  font-family: $helvetica;
-	  @include font-size(15);
-	  //		line-height: 22px;
+	  font-family: $verdana;
+	  @include font-size(14);
+	  word-spacing: normal;
 	  font-style: normal;
 }
 @mixin font-stack-footer {
@@ -81,7 +79,7 @@ $base-font-size:   14px;
 	  font-size: $font_px * 1px;
 	  font-size: px-to-rem($font_px);
 
-	  $line_h: $font_px * 1.2;
+	  $line_h: $font_px * 1.6;
 
 	  line-height: $line_h * 1px;
 	  line-height: px-to-rem($line_h);

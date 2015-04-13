@@ -41,7 +41,6 @@
 @import "jquery.fancybox.scss";
 @import "jquery.fancybox-thumbs.scss";
 @import "focal-point";
-@import "ajax.title.edit";
 @import "tabs";
 @import "owl.carousel";
 @import "owl.animateInOut";
@@ -63,16 +62,17 @@ a.editable-click.editable-disabled:hover {
 }
 
 .fancybox-nav {
-	  background: transparent url("/images/blank.gif");
+	  background: transparent image-url("blank.gif");
 }
 .fancybox-overlay {
-	  background: url("/images/fancybox_overlay.png");
+	  background: image-url("fancybox_overlay.png");
 }
 #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-	  background-image: url("/images/fancybox_sprite.png");
+	  background: image-url("fancybox_sprite.png");
 }
 #fancybox-loading div {
-	  background: url("/images/fancybox_loading.gif") center center no-repeat;
+	  //noinspection CssInvalidPropertyValue
+	  background: image-url("fancybox_loading.gif") center center no-repeat;
 }
 .tright {
 	  text-align: right;
@@ -308,17 +308,6 @@ ul.list-2 li span, .adr {
 	  float: right;
 }
 
-.img-indent {
-	  float: left;
-	  margin: 3px 24px 20px 0;
-	  font-family: Georgia, Tahoma, Arial, sans-serif;
-	  @include font-size(14);
-}
-
-.img-indent-2 {
-	  margin: 3px 0 23px 0;
-}
-
 .last {
 	  margin-right: 0 !important;
 }
@@ -470,7 +459,6 @@ ul.list-2 li span, .adr {
 
 .page3-row1 {
 	  overflow: hidden;
-	  padding-top: 30px;
 }
 
 .page4-row1 {
@@ -608,10 +596,6 @@ dl {
 	  @include font-size(16);
 	  font-family: "Times New Roman", Times, serif;
 	  color: #ff9c9c;
-}
-
-.uslugi {
-	  width: 670px;
 }
 
 .new-slider {
@@ -1045,17 +1029,6 @@ select:focus {
 	  border: 1px solid #b9b9b9;
 }
 
-#enable {
-	  position: relative;
-	  .selected {
-	  }
-}
-
-#help {
-	  position: relative;
-	  float: right;
-}
-
 .floating-admin {
 	  z-index: 1;
 	  background: #1c1c1c;
@@ -1099,7 +1072,22 @@ select:focus {
 	  z-index: 9999;
 	  right: 20px;
 }
-
+// для кнопок админки
+#enable, #help {
+	  position: relative;
+	  width: 32px;
+	  height: 18px;
+}
+.btn-on, .btn-off {
+	  width: 32px;
+	  height: 10px;
+}
+.btn-on{
+	  background: transparent image-url('lock-open.png') no-repeat center;
+}
+.btn-off {
+	  background: transparent image-url('lock.png') no-repeat center;
+}
 .support,
 .support-two {
 	  display: inline-block;
@@ -1321,9 +1309,10 @@ button {
 
 
 li h4 {
-	  background: none repeat scroll 0 0 #46657D;
 	  padding: 5px 10px;
+	  background: #46657D image-url('pero.png') no-repeat left;
 }
+
 .text-head-laitbox {
 	  width: auto;
 	  background-color: #336699;
@@ -1336,4 +1325,8 @@ li h4 {
 
 .editable-error-block {
    max-width: 434px;
+}
+
+.editable-pre-wrapped {
+	  white-space: pre-line;
 }

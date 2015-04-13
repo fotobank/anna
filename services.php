@@ -13,7 +13,7 @@ include_once( __DIR__ . '/inc/head.php' );
 
 
 
-$services =
+/*$services =
 	['content' =>
 				 ['tabs' =>
 					  [ 'names_li' =>
@@ -21,32 +21,32 @@ $services =
 								[
 								'li_name_class' => 'class="selected"',
 								'tab' => '#tab-1',
-								'name' => 'Фотограф на свадьбу'
+								'name' => 'Фотограф на свадьбу:'
 								],
 								[
 									'li_name_class' => 'class="selected"',
 									'tab' => '#tab-1',
-									'name' => 'Фотограф на свадьбу'
+									'name' => 'Изготовление фотокниг:'
 								]
 							]
 					  ]
 				 ], 'data' => true
-			];
+			];*/
 
  $services = [
 	 'content' => true,
 	 'tabs' => true,
 	 'data' => true,
-	 'names_li' => [
+	 'link' => [
 			 [
-				 'li_name_class' => 'class="selected"',
+				 'li_class' => 'class="selected"',
 				 'tab' => '#tab-1',
-				 'name' => 'Фотограф на свадьбу'
+				 'name' => 'Фотограф на свадьбу:'
 			 ],
 			 [
-				 'li_name_class' => '',
-				 'tab' => '#tab-1',
-				 'name' => 'Фотограф на свадьбу'
+				 'li_class' => '',
+				 'tab' => '#tab-2',
+				 'name' => 'Изготовление фотокниг:'
 			 ]
 	 ]
  ];
@@ -69,7 +69,6 @@ echo $tpl->render($services);
 
 
 ?>
-
 	<!--==============================footer================================-->
 <?
 include_once( __DIR__ . '/inc/footer.php' );

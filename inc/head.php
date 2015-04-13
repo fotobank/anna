@@ -45,6 +45,15 @@ list( $razdel, $title ) = title();
 	<![endif]-->
 
 
+
+	<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
+	<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
+	<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
+
+	<script type='text/javascript' src='/js/functions.js'></script>
+	<script type='text/javascript' src='/js/web/minified/who.is.online.min.js'></script>
+
+
 	<?
 	if ( $_SERVER['PHP_SELF'] == '/portfolio.php' ) {
 		?>
@@ -53,10 +62,6 @@ list( $razdel, $title ) = title();
 	    <link rel='stylesheet' type='text/css' media='screen' href='/css/skin-2.css'>
 
 
-		<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
-		<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
-
-		<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
 		<script type='text/javascript' src='/js/jquery.jcarousel.min.js'></script>
 
 		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.min.js'></script>
@@ -66,18 +71,21 @@ list( $razdel, $title ) = title();
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox-thumbs.js"></script>
 
-		<script type='text/javascript' src='/js/tabs.js'></script>
+		<script type='text/javascript' src='/js/web/tabs.js'></script>
 		<script type='text/javascript' src='/js/portfolio.js'></script>
 
-		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
+
 	<?
+
+	} else if ($_SERVER['PHP_SELF'] == '/services.php') {
+    ?>
+		<script type='text/javascript' src='/js/web/tabs.js'></script>
+     <?
 
 	} else if ($_SERVER['PHP_SELF'] == '/index.php') {
 
 	?>
 
-		<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
-		<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
 		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.min.js'></script>
 		<script type="text/javascript" src="/js/minified/jquery.mousewheel.min.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
@@ -86,22 +94,8 @@ list( $razdel, $title ) = title();
 		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>
 		<script type="text/javascript" src="/js/jquery-contained-sticky-scroll.js"></script>
 
-		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
-
 	<?
-
-	} else {
-
-	?>
-		<script type='text/javascript' src='/js/native/jquery-2.1.1.min.js'></script>
-		<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
-		<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
-		<script type='text/javascript' src='/js/functions.js'></script>
-		<script type='text/javascript' src='/js/minified/index.who.is.online.min.js'></script>
-	<?
-
 	}
-
 	if ( if_admin( $script = "
 
     <script type='text/javascript' src='/js/jquery-ui.min.js'></script>
@@ -120,11 +114,11 @@ list( $razdel, $title ) = title();
 </head>
 <body>
 <!--==============================header=================================-->
-
+<article>
 	<div id="header">
 			<? include( __DIR__ . "/menu.php" ) ?>
 	</div>
-
+</article>
 <!--[if IE 6]>
 <div class="warning">
 	<noindex>Вы используете устаревший браузер! Для комфортной работы рекомендуем установить новый
@@ -151,11 +145,11 @@ list( $razdel, $title ) = title();
 			<h4>Панель админа:</h4>
 			<div>
 			    <span>Включить редактирование:</span>
-				<button id="enable" class="btn-xs" type="button">on/off</button>
+				<button id="enable" class="btn-xs" type="button"><div class="btn-off"></div></button>
 			</div>
 			<div>
 				<span>Включить подсказки:</span>
-				<button id="help" class="btn-xs" type="button">on/off</button>
+				<button id="help" class="btn-xs" type="button"><div class="btn-off"></div></button>
 			</div>
 			<div>
 				<a href="/admin.php?adm_out=1" style="padding-right: 20px;">выход</a>

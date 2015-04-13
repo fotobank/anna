@@ -19,12 +19,12 @@
 		<?
 		if ( $razdel ) {
 			?>
+			<header>
 			<ul class="centered-navigation-menu"
 				>
 				<li class="nav-link">
-						<header>
+
 							<h1>Алексеева Анна<span id="profession">фотограф в Одессе</span></h1>
-						</header>
 				</li
 					>
 				<li <?= ( $razdel == '/index.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
@@ -46,6 +46,7 @@
 					<a href="/comments.php">Гостевая</a></li
 					>
 			</ul>
+			</header>
 		<?
 		}
 		?>

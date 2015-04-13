@@ -1,4 +1,6 @@
 /*!
+ * сдвиг панелей при склолинге
+ *
  * Contained Sticky Scroll v1.1
  * http://blog.echoenduring.com/2010/11/15/freebie-contained-sticky-scroll-jquery-plugin/
  *
