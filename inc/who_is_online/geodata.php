@@ -21,8 +21,7 @@ foreach($result as $row) {
 		<div class="flag"><img src="/inc/who_is_online/img/famfamfam-countryflags/'.strtolower($row['countryCode']).'.gif" width="16" height="11" /></div>
 		<div class="country" title="'.htmlspecialchars($row['country']).'">'.$row['country'].'</div>
 		<div class="people">'.$row['total'].'</div>
-	</div>
-	';
+	</div>';
 }
 echo '</div>';
 ?>

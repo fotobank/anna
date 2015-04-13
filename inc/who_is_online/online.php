@@ -17,7 +17,7 @@ if(!count($inDB))
 {
 	// This user is not in the database, so we must fetch
 	// the geoip data and insert it into the online table:
-	if(!$_COOKIE['geoData'])
+	if($_COOKIE['geoData'])
 	{
 		// A "geoData" cookie has been previously set by the script, so we will use it
 		// Always escape any user input, including cookies:
