@@ -26,15 +26,15 @@ if ( $_SERVER['REMOTE_ADDR'] === '188.115.142.130' || $_SERVER['REMOTE_ADDR'] ==
 }
 ini_set( 'log_errors', 1 );
 
-// require_once( __DIR__ . '/../classes/Alex/Security.php' );
+require_once( __DIR__ . '/../classes/Alex/Security.php' );
 
-/*if ( ! defined( "PATH_SEPARATOR" ) )
+if ( ! defined( "PATH_SEPARATOR" ) )
 	define( "PATH_SEPARATOR", getenv( "COMSPEC" ) ? ";" : ":" );
 set_include_path( ini_get( "include_path" ) . PATH_SEPARATOR . __DIR__ );
 ini_set( 'session.auto_start', 1 );
 if(session_id() == '')
 	session_start();
-else session_regenerate_id(true);*/
+else session_regenerate_id(true);
 
 
 if ( ! defined( 'SITE_PATH' ) ) {
@@ -44,9 +44,9 @@ include (__DIR__.'/../classes/autoload.php');
 autoload::getInstance();
 
 // mustache
-// include (__DIR__.'/../vendor/autoload.php');
+include (__DIR__.'/../vendor/autoload.php');
 // инициализация шаблонизатора Mustache
-/*$mustache = new Mustache_Engine( [
+$mustache = new Mustache_Engine( [
 	// 'template_class_prefix' => '__MyTemplates_',
 	'cache' => ( __DIR__.'/../cache/mustache'),
 	'cache_file_mode' => 0666, // Please, configure your umask instead of doing this :)
@@ -59,7 +59,7 @@ autoload::getInstance();
 	'logger' => new Mustache_Logger_StreamLogger(__DIR__.'/../log'),
 	'strict_callables' => true,
 	'pragmas' => [Mustache_Engine::PRAGMA_FILTERS],
-] );*/
+] );
 
 
 
