@@ -13,7 +13,12 @@ if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)$#i', $path ) ) {
 	$portolio_dir = "files/portfolio/";
 
 	// if ( $_SERVER['REMOTE_ADDR'] !== '127.0.0.1' ) $path = iconv( 'windows-1251', 'utf-8', $path );
-	$path = iconv( 'utf-8',  'windows-1251',$path );
+
+
+//	$path = WinUtf( $path, 'w' );
+	$path = urlencode($path);
+
+
 	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . $path;
 	$image    = @imagecreatefromstring( @file_get_contents( $realpath ) );
 	if ( ! $image ) {
