@@ -663,7 +663,7 @@ function WinUtf( $str, $type ) // $type: 'w' - encodes from UTF to win 'u' - enc
 {
 	static $conv = '';
 	if ( !is_array( $conv ) ) {
-		$conv = array();
+		$conv = [ ];
 		for ( $x = 128; $x <= 143; $x ++ ) {
 			$conv['utf'][] = chr( 209 ) . chr( $x );
 			$conv['win'][] = chr( $x + 112 );
