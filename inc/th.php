@@ -15,35 +15,6 @@ require_once (__DIR__ . "/../inc/func.php");
 
 	$portolio_dir = "files/portfolio/";
 
-
-	/*if ( $_SERVER['REMOTE_ADDR'] !== '127.0.0.1' ) {
-
-		$path = iconv( 'windows-1251', 'utf-8', $path );
-		// basename с поддержкой cp1251 для utf-8
-		$file_name = strrpos($path, DIRECTORY_SEPARATOR);
-		$file_name = substr($path, $file_name );
-		$file_name = ltrim($file_name, DIRECTORY_SEPARATOR);
-
-	}  else {
-
-		$file_name = basename($path);
-	}
-	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . dirname($path) . "/thumb/" . $file_name;*/
-
-
-//	if ( $_SERVER['REMOTE_ADDR'] !== '127.0.0.1' ) $path = iconv( 'windows-1251', 'utf-8', $path );
-//	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . dirname($path) . "/thumb/" . __basename($path);
-
-
-//	if ( $_SERVER['REMOTE_ADDR'] !== '127.0.0.1' ) $path = iconv( 'windows-1251', 'utf-8', $path );
-//	$pathinfo = pathinfo_utf( $path );
-//	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . $pathinfo['dirname'] . "/thumb/" . $pathinfo['basename'];
-
-
-//	if ( $_SERVER['REMOTE_ADDR'] !== '127.0.0.1' ) $path = iconv( 'windows-1251', 'utf-8', $path );
-//	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . dirname($path) . "/thumb/" . _basename($path);
-
-
 	$codepage = detect_encoding(implode(glob('кодировка файловой системы.codepage')));
 
 	if ( $codepage == 'utf-8' ) {

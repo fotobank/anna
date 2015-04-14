@@ -8,7 +8,7 @@ ob_start();
  * Time: 7:18
  */
 require_once( __DIR__ . '/func.php' );
-if ( $_SERVER['REMOTE_ADDR'] === '188.115.142.130' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ||
+if ( $_SERVER['REMOTE_ADDR'] != '188.115.142.130' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ||
 	isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" ) {
 
 	ini_set( 'display_errors', 1 );
@@ -41,6 +41,11 @@ else session_regenerate_id(true);
 if ( ! defined( 'SITE_PATH' ) ) {
 	define( 'SITE_PATH', realpath( __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR );
 }
+
+if ( ! defined( 'CODE_PAGE' ) ) {
+	define( 'CODE_PAGE', detect_encoding(implode(glob('кодировка файловой системы.codepage'))));
+}
+
 include (__DIR__.'/../classes/autoload.php');
 autoload::getInstance();
 
@@ -79,6 +84,8 @@ if ( ! function_exists( 'debugHC' ) ) {
 
 // демо debug:
 // debugHC(SITE_PATH.'classes/Mustache/templates', 'test');
+debugHC( CODE_PAGE, 'CODE_PAGE' );
+
 Inter_Error::init();
 Inter_Error::$conf['logDir'] = SITE_PATH . 'log';
 Inter_Error::$conf['otl'] = true; // включить запись лога на 127.0.0.1
