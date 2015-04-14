@@ -736,6 +736,28 @@ function WinUtf( $str, $type ) // $type: 'w' - encodes from UTF to win 'u' - enc
 }
 
 /**
+ *
+ *  basename для сервера с utf-8 поддерживающая кодировку Windows-1251
+ *
+ * @param      $param
+ * @param null $suffix
+ *
+ * @return mixed|string
+ */
+function _basename($param, $suffix=null) {
+	if ( $suffix ) {
+		$tmpstr = ltrim(substr($param, strrpos($param, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
+		if ( (strpos($param, $suffix)+strlen($suffix) )  ==  strlen($param) ) {
+			return str_ireplace( $suffix, '', $tmpstr);
+		} else {
+			return ltrim(substr($param, strrpos($param, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
+		}
+	} else {
+		return ltrim(substr($param, strrpos($param, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
+	}
+}
+
+/**
  * Функция детектит кодировку
  *
  * @param $string

@@ -6,6 +6,24 @@
  * Time: 11:54
  */
 
+
+/**
+ * @param $path
+ *
+ * @return mixed|null
+ */
+function basename_utf8($path) {
+
+	if (strpos($path, '/') !== false)
+		return end(explode('/', $path));
+	elseif (strpos($path, '\\') !== false)
+		return end(explode('\\', $path));
+	else
+		return null;
+}
+
+
+
 $path = isset( $_GET['img'] ) ? $_GET['img'] : FALSE;
 
 if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)$#i', $path ) ) {
@@ -24,6 +42,8 @@ if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)$#i', $path ) ) {
 
 		$file_name = basename($path);
 	}
+
+	$file_name = basename_utf8($path);
 
 	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . dirname($path) . "/thumb/" . $file_name;
 	$image    = @imagecreatefromstring( @file_get_contents( $realpath ) );
