@@ -19,7 +19,8 @@ function photo_link($thumb_link) {
 	$name_dir = substr( $name_dir, 3 );
 //	$name_dir = WinUtf( $name_dir, 'w' );
 //	$patcUtf8 = WinUtf( $path_thumb, 'w' );
-	$patcUtf8 = $path_thumb;
+	$name_dir = utf8_cp1251( $name_dir );
+	$patcUtf8 = utf8_cp1251( $path_thumb );
 	$img_path = str_replace("/thumb", "", $patcUtf8);
 	$img_path = str_replace("files/portfolio/", "", $img_path);
 	$link  = "<a class='plus' href='/inc/wm.php?img={$img_path}'>";
