@@ -746,13 +746,14 @@ function WinUtf( $str, $type ) // $type: 'w' - encodes from UTF to win 'u' - enc
  */
 function pathinfo_utf($path) {
 
-	if (strpos($path, '/') !== false)
-		$basename = end(explode('/', $path));
-	elseif (strpos($path, '\\') !== false)
-		$basename = end(explode('\\', $path));
-	else
+	if (strpos($path, '/') !== false) {
+		$basename = explode( '/', $path );
+		$basename = end($basename );
+	} else if (strpos($path, '\\') !== false) {
+		$basename = end( explode( '\\', $path ) );
+	} else {
 		return false;
-
+	}
 	if (!$basename)
 		return false;
 
@@ -760,7 +761,8 @@ function pathinfo_utf($path) {
 		strlen($path) - strlen($basename) - 1);
 
 	if (strpos($basename, '.') !== false) {
-		$extension = end(explode('.', $path));
+		$extension = explode('.', $path);
+		$extension = end($extension);
 		$filename = substr($basename, 0,
 			strlen($basename) - strlen($extension) - 1);
 	} else {
@@ -821,6 +823,7 @@ function detect_encoding( $string ) {
 }
 
 /**
+ *  универсальный basename
  * @param $path
  *
  * @return string
