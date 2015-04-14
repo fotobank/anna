@@ -822,17 +822,17 @@ function basename_utf8( $path ) {
  *
  * @param $string
  *
- * @return null
+ * @return string $string
  */
 function detect_encoding( $string ) {
 	static $list = [ 'utf-8', 'windows-1251' ];
 
 	foreach ( $list as $item ) {
-		$sample = @iconv( $item, $item, $string );
+		$sample = iconv( $item, ($item.'//IGNORE'), $string );
 		if ( md5( $sample ) == md5( $string ) )
 			return $item;
 	}
-	return null;
+	return 'файловая система не опознана';
 }
 
 /**

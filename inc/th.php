@@ -6,18 +6,21 @@
  * Time: 11:54
  */
 
+require_once (__DIR__ .'/config.php');
+
+
 
 $path = isset( $_GET['img'] ) ? $_GET['img'] : FALSE;
 
 if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)$#i', $path ) ) {
 
-require_once (__DIR__ . "/../inc/func.php");
+// require_once (__DIR__ . "/../inc/func.php");
 
 	$portolio_dir = "files/portfolio/";
 
 	$codepage = detect_encoding(implode(glob('кодировка файловой системы.codepage')));
 
-	if ( $codepage == 'utf-8' ) {
+	if ( CODE_PAGE == 'utf-8' ) {
 
 		$path = iconv( 'windows-1251', 'utf-8', $path );
 

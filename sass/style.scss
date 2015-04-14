@@ -867,8 +867,11 @@ select:focus {
 	  font-style: normal;
 	  font-family: verdana, sans-serif;
 	  @include font-size(12);
-	  color: #c65960;
-	  background-color: #191939;
+	  color: #ffffff;
+	  background-color: rgba(77, 0, 10, 0.68);
+	  a, a:hover, a:active {
+			color: #61da70;
+	  }
 }
 
 .avatar {
