@@ -15,7 +15,7 @@ include_once( __DIR__ . '/inc/head.php' );
 <!--		<div class="page3-row1 pad-2 tabs">-->
 			<?
 		//	$thumbdir = recursive( '/files',  array('thumb' , 'slides', 'rotate_image_news', 'thu'));
-			$thumbdir = recursive_dir("files/portfolio", ".jpg", array(), array('thumb'), true );
+			$thumbdir = recursive_dir("files/portfolio", ".jpg", [ ], [ 'thumb' ], true );
 			$i = 1;
 			$portfolio = '';
 			if ( count( $thumbdir ) ) {
