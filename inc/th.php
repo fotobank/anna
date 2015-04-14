@@ -14,10 +14,16 @@ if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)$#i', $path ) ) {
 	$portolio_dir = "files/portfolio/";
 
 
-	if ( $_SERVER['REMOTE_ADDR'] !== '127.0.0.1' ) $path = iconv( 'windows-1251', 'utf-8', $path );
+	if ( $_SERVER['REMOTE_ADDR'] !== '127.0.0.1' ) {
 
-	//	$file_name = basename($path);
-	$file_name = ltrim(substr($path, strrpos($path, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR); // basename с поддержкой cp1251
+		$path = iconv( 'windows-1251', 'utf-8', $path );
+		// basename с поддержкой cp1251 для utf-8
+		$file_name = ltrim(substr($path, strrpos($path, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
+
+	}  else {
+
+		$file_name = basename($path);
+	}
 
 	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . dirname($path) . "/thumb/" . $file_name;
 	$image    = @imagecreatefromstring( @file_get_contents( $realpath ) );
