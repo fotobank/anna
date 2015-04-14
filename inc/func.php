@@ -62,7 +62,7 @@ function sklon( $num, $p ) {
 
 	if ( !array_key_exists( $p, $name ) ) return $num;
 
-	$cases = array( 2, 0, 1, 1, 1, 2 );
+	$cases = [ 2, 0, 1, 1, 1, 2 ];
 	$str   = $name[$p][( $num % 100 > 4 && $num % 100 < 20 ) ? 2 : $cases[min( $num % 10, 5 )]];
 
 	return $numret . ' ' . $str;
@@ -170,7 +170,7 @@ function generate_salt( $length ) {
  * @return array
  */
 function array_clean( $array ) {
-	return array_diff( $array, array( null ) );
+	return array_diff( $array, [ null ] );
 }
 
 /**
@@ -268,7 +268,7 @@ function hideEmail( $email ) {
 	$script = 'var a="' . $key . '";var b=a.split("").sort().join("");var c="' . $cipher_text . '";var d="";';
 	$script .= 'for(var e=0;e<c.length;e++)d+=b.charAt(a.indexOf(c.charAt(e)));';
 	$script .= 'document.getElementById("' . $id . '").innerHTML="<a href=\\"mailto:"+d+"\\">"+d+"</a>"';
-	$script = "eval(\"" . str_replace( array( "\\", '"' ), array( "\\\\", '\"' ), $script ) . "\")";
+	$script = "eval(\"" . str_replace( [ "\\", '"' ], [ "\\\\", '\"' ], $script ) . "\")";
 	$script = '<script type="text/javascript">/*<![CDATA[*/' . $script . '/*]]>*/</script>';
 	return '<span id="' . $id . '">[javascript protected email address]</span>' . $script;
 }
@@ -469,6 +469,10 @@ function sterilize( $input, $is_sql = false ) {
 	return $input;
 }
 
+/**
+ * @param string $addr
+ * @param string $code
+ */
 function main_redir( $addr = '', $code = '303' ) {
 	if ( empty( $addr ) ) {
 		if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
@@ -483,12 +487,20 @@ function main_redir( $addr = '', $code = '303' ) {
 	exit();
 }
 
+/**
+ *
+ */
 function admin_only() {
 	if ( !isset( $_SESSION['logged'] ) ) {
 		echo ' < div class="title2" > Извините ,данная функция доступна только для администратора < br /><a href = "index.php" > Админка</a ></div > ';
 	}
 }
 
+/**
+ * @param $str
+ *
+ * @return bool
+ */
 function if_admin( $str ) {
 	if ( isset( $_SESSION['logged'] ) && $_SESSION['logged'] == TRUE ) {
 		if ( isset( $_SESSION['admnews'] ) && $_SESSION['admnews'] == md5( login() . '///' . pass() ) ) ;
@@ -499,6 +511,9 @@ function if_admin( $str ) {
 	return false;
 }
 
+/**
+ * @return mixed
+ */
 function login() {
 	db()->where( "id", 1 );
 	$login = db()->getOne( $GLOBALS['tbl_users'], 'login' );
@@ -506,20 +521,29 @@ function login() {
 }
 
 
+/**
+ * @return mixed
+ */
 function pass() {
 	db()->where( "id", 1 );
 	$login = db()->getOne( $GLOBALS['tbl_users'], 'pass' );
 	return $login['pass'];
 }
 
+/**
+ * @param $array
+ */
 function pre( $array ) {
 	echo '<pre style="background-color: #cccccc; color: #010C01;" > ';
 	print_r( $array );
 	echo "</pre>";
 }
 
+/**
+ * @return array|bool
+ */
 function getConfig() {
-	$config = array();
+	$config = [ ];
 	if ( is_readable( __DIR__ . "/passwords.php" ) ) {
 		$handle = file( __DIR__ . "/passwords.php", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
 		array_shift( $handle );
@@ -669,11 +693,22 @@ function utf8( $string ) {
 	return iconv( 'cp1251', 'utf-8', $string );
 }
 
+/**
+ * @param $string
+ *
+ * @return string
+ */
 function cp1251( $string ) {
 	return iconv( 'utf-8', 'cp1251//IGNORE', $string );
 }
 
 
+/**
+ * @param $str
+ * @param $type
+ *
+ * @return mixed
+ */
 function WinUtf( $str, $type ) // $type: 'w' - encodes from UTF to win 'u' - encodes from win to UTF
 {
 	static $conv = '';
@@ -727,7 +762,7 @@ function detect_encoding( $string ) {
  * @return array
  */
 function flat_array( $multiarray ) {
-	$result   = array();
+	$result   = [ ];
 	$iterator = new RecursiveIteratorIterator( new RecursiveArrayIterator( $multiarray ) );
 
 	foreach ( $iterator as $value ) {
@@ -752,8 +787,8 @@ function flat_array( $multiarray ) {
  *
  * @return array
  */
-function recursive_dir( $dir, $mask = '.jpg', $ok_subdir = array(), $no_subdir = array(), $multi_arrau = true ) {
-	static $arr = array();
+function recursive_dir( $dir, $mask = '.jpg', $ok_subdir = [ ], $no_subdir = [ ], $multi_arrau = true ) {
+	static $arr = [ ];
 	$cont = glob( $dir . "/*" );
 	if ( count( $cont ) ) {
 		$name_subdir = basename( $dir );
@@ -768,7 +803,7 @@ function recursive_dir( $dir, $mask = '.jpg', $ok_subdir = array(), $no_subdir =
 								$arr[$name_subdir][] = $file;
 							} else {
 								$name_dir = explode("/", $file);
-								$arr[] = array($name_dir[2], $file);
+								$arr[] = [ $name_dir[2], $file ];
 							}
 						}
 					}
@@ -801,8 +836,8 @@ function recursive_dir( $dir, $mask = '.jpg', $ok_subdir = array(), $no_subdir =
  *
  * @return array
  */
-function recursive_dir2( $dir, $mask = '*', $ok_subdir = array(), $multi_arrau = true ) {
-	static $thumb = array();
+function recursive_dir2( $dir, $mask = '*', $ok_subdir = [ ], $multi_arrau = true ) {
+	static $thumb = [ ];
 	$skan = glob( $dir . $mask );
 	if ( in_array( basename( $dir ), $ok_subdir ) ) {
 		if ( $skan ) $thumb[] = $skan;
@@ -828,7 +863,7 @@ function recursive_dir2( $dir, $mask = '*', $ok_subdir = array(), $multi_arrau =
 	if ( $multi_arrau ) {
 		return $thumb;
 	} else {
-		$result = array();
+		$result = [ ];
 		array_walk_recursive( $thumb, function ( $value ) use ( &$result ) {
 			$result[] = $value; // тут возвращаете как вам хочется
 		} );
@@ -925,7 +960,7 @@ function replaceBBCode( $text_post ) {
 		"#\[listn](.+?)\[\/listn\]#is",
 		"#\[\*\](.+?)\[\/\*\]#"
 	);
-	$str_replace = array(
+	$str_replace = [
 		"",
 		"<p class=\"komment\">\\1</p>",
 		"<span class=\"date\">\\1</span>",
@@ -943,7 +978,7 @@ function replaceBBCode( $text_post ) {
 		"<ul>\\1</ul>",
 		"<ol>\\1</ol>",
 		"<li>\\1</li>"
-	);
+	];
 	return preg_replace( $str_search, $str_replace, $text_post );
 }
 
@@ -967,8 +1002,13 @@ function ip() {
 	return $ip;
 }
 
+/**
+ * @param $myIP
+ *
+ * @return string
+ */
 function detect_proxy( $myIP ) {
-	$scan_headers = array(
+	$scan_headers = [
 		'HTTP_VIA',
 		'HTTP_X_FORWARDED_FOR',
 		'HTTP_FORWARDED_FOR',
@@ -984,7 +1024,7 @@ function detect_proxy( $myIP ) {
 		'CLIENT_IP',
 		'FORWARDED_FOR_IP',
 		'HTTP_PROXY_CONNECTION'
-	);
+	];
 
 	$flagProxy = false;
 	$libProxy  = 'No';
@@ -1145,8 +1185,8 @@ function my_md5( $pass, $salt ) {
 function old( $papka, $times ) {
 	$old_time = time() - 60 * $times;
 	$dir      = opendir( $papka );
-	$files    = array();
-	$time     = array();
+	$files    = [ ];
+	$time     = [ ];
 	while ( $file = readdir( $dir ) ) {
 		if ( ( $file != "." ) && ( $file != ".." ) )
 			$files[] = "$papka/$file";

@@ -43,9 +43,9 @@ include_once( __DIR__ . '/inc/head.php' );
 								for ( $m = 0; $m < ( ( count( $val ) - $n * 4 < 4 ) ? count( $val ) - $n * 4 : 4 ); $m ++ ) {
 		 	 						$patcUtf8 = WinUtf( $val[$n * 4 + $m], 'w' );
 									$img      = preg_replace( '/(\w+\/\w+\/[0-9_a-zа-яёА-ЯЁ]*)/i', '$1/thumb', $patcUtf8 );
-			 						$patcUtf8 = urlencode($patcUtf8);
+			 					//	$patcUtf8 = urlencode($patcUtf8);
 									$portfolio .= "<a class='plus' href='inc/wm.php?img={$patcUtf8}'>
-                                <img class='thumb' src='{$img}' alt='Фотография из раздела {$name} №_".basename($img, '.jpg')."'></a>";
+                                <img class='thumb' src='{$img}' alt='Фотография из раздела {$name} : ".basename($img, '.jpg')."'></a>";
 
 								}
 								$portfolio .= '</li>';
