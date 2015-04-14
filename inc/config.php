@@ -8,7 +8,7 @@ ob_start();
  * Time: 7:18
  */
 require_once( __DIR__ . '/func.php' );
-if ( $_SERVER['REMOTE_ADDR'] != '188.115.142.130' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ||
+if ( $_SERVER['REMOTE_ADDR'] === '188.115.142.130' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ||
 	isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" ) {
 
 	ini_set( 'display_errors', 1 );
@@ -82,8 +82,8 @@ if ( ! function_exists( 'debugHC' ) ) {
 
 // демо debug:
 // debugHC(SITE_PATH.'classes/Mustache/templates', 'test');
- debugHC( CODE_PAGE, 'CODE_PAGE' );
- debugHC( SITE_PATH, 'SITE_PATH' );
+// debugHC( CODE_PAGE, 'CODE_PAGE' );
+// debugHC( SITE_PATH, 'SITE_PATH' );
 
 Inter_Error::init();
 Inter_Error::$conf['logDir'] = SITE_PATH . 'log';

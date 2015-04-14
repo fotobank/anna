@@ -34,8 +34,8 @@ class autoload {
 	 */
 	protected function __construct() {
 
-		if ( version_compare( phpversion(), '5.1.0', '<' ) == true ) {
-			die ( 'PHP5.1 Only' );
+		if ( version_compare( phpversion(), '5.3.0', '<' ) == true ) {
+			die ( 'PHP5.3 Only' );
 		}
 		// Константы:
 		define ( 'DIRSEP', DIRECTORY_SEPARATOR );
