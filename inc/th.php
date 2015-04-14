@@ -6,32 +6,18 @@
  * Time: 11:54
  */
 
-require_once (__DIR__ .'/config.php');
-
-
 
 $path = isset( $_GET['img'] ) ? $_GET['img'] : FALSE;
 
 if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)$#i', $path ) ) {
 
-// require_once (__DIR__ . "/../inc/func.php");
+	require_once (__DIR__ .'/config.php');
 
-	$portolio_dir = "files/portfolio/";
+	if ( CODE_PAGE == 'utf-8' ) $path = iconv( 'windows-1251', 'utf-8', $path );
 
-	$codepage = detect_encoding(implode(glob('кодировка файловой системы.codepage')));
-
-	if ( CODE_PAGE == 'utf-8' ) {
-
-		$path = iconv( 'windows-1251', 'utf-8', $path );
-
-	};
-
-
-	$pathinfo = pathinfo_utf( $path );
-	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . $pathinfo['dirname'] . "/thumb/" . $pathinfo['basename'];
-
-
-
+	$dirname = $basename = '';
+	extract(pathinfo_utf( $path, EXTR_OVERWRITE )); // если переменная существует она будет переписана
+	$realpath = SITE_PATH . '/files/portfolio/' . $dirname . "/thumb/" . $basename;
 
 	$image    = @imagecreatefromstring( @file_get_contents( $realpath ) );
 	if ( ! $image ) {
