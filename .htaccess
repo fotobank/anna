@@ -1,14 +1,10 @@
 Order deny,allow
 Allow from all
 Satisfy any
+AddDefaultCharset WINDOWS-1251
 
 AddEncoding gzip .gz
 
-
-#PHP5 support to enable compression and save bandwidth.
-#<ifModule mod_php5.c>
-#php_value zlib.output_compression 16386
-#</ifModule>
 
 <FilesMatch "\\.(css.gz)$">
     ForceType text/css
