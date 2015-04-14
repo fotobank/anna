@@ -18,11 +18,12 @@ require_once (__DIR__ . "/../inc/func.php");
 
 	if ( $_SERVER['REMOTE_ADDR'] !== '127.0.0.1' ) {
 
-		$path = iconv( 'windows-1251', 'utf-8', $path );
+
 		// basename с поддержкой cp1251 для utf-8
 		$file_name = strrpos($path, DIRECTORY_SEPARATOR);
 		$file_name = substr($path, $file_name );
 		$file_name = ltrim($file_name, DIRECTORY_SEPARATOR);
+		$path = iconv( 'windows-1251', 'utf-8', $path );
 
 	}  else {
 
