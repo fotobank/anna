@@ -11,9 +11,9 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 ?>
 
 	<!--==============================content================================-->
-	<aside>
-    <div id="main" class="page1-row1 tabs clearfix">
 
+    <div id="main" class="page1-row1 tabs clearfix">
+<aside>
 		<table class="text-head-laitbox">
 			<tbody>
 			<tr>
@@ -35,7 +35,8 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 							$pags   = "<div class='owl-head-pags-hide'><div class='owl-head-pags'>";
 							$i      = 1;
 							foreach ( $slides as $key => $slide ) {
-								$items .= "<div class='item'><img src='/" . $slide . "' alt='свадебный фотограф Алексеева Анна, свадебные фотосессии в Одессе'></div>";
+								$items .= "<div class='item'><img src='/" . $slide . "'
+								alt='свадебный фотограф Алексеева Анна, свадебные фотосессии в Одессе'></div>";
 								$pags .= "<div class='owl-dot' ><strong>0</strong>{$i}</div>";
 								$i ++;
 							}
@@ -58,7 +59,6 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 				</div>
 				<?= new ajaxSite_EditTitle( $categorii ) ?>
 
-				<button class="sassy-button">Red Button</button>
 
 			</div>
 

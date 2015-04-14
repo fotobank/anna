@@ -90,10 +90,10 @@ class ajaxSite_EditTitle {
 		$text = self::esc( $text );
 		if ( !$text ) throw new Exception( "Неправильный обновляемый текст!" );
 
-		$value = array(
+		$value = [
 			'name_head' => $text,
 			'edit_id'    => isset( $_SESSION['id'] ) ? $_SESSION['id'] : 0
-		);
+		];
 		self::db()->where( "id", $id );
 		self::db()->update( "index_menu", $value );
 
@@ -118,8 +118,7 @@ class ajaxSite_EditTitle {
 	 * Метод изменения порядка вызывается, когда изменяется
 	 *  упорядочение. Принимает параметр массива, который
 	 * содержит идентификаторы несделанного в новом порядке.
-	 */
-	/**
+	 *
 	 * @param $key_value
 	 *
 	 * @throws Exception
@@ -147,7 +146,7 @@ class ajaxSite_EditTitle {
 
 	/**
 	 * Метод createNew принимает только текст,
-	 * пишет в Databse и выводит новый заголовок на страницу
+	 * пишет в Databаse и выводит новый заголовок на страницу
 	 * обратно с помошью AJAX.
 	 *
 	 * @param $text

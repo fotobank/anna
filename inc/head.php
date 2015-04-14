@@ -91,8 +91,8 @@ list( $razdel, $title ) = title();
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 
 		<script type='text/javascript' src='/js/minified/ajax.tabs.min.js'></script>
-		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>
 		<script type="text/javascript" src="/js/jquery-contained-sticky-scroll.js"></script>
+		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>
 
 	<?
 	}

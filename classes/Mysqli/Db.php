@@ -45,27 +45,27 @@ class Mysqli_Db {
 	 *
 	 * @var array
 	 */
-	protected $_join = array();
+	protected $_join = [ ];
 	/**
 	 * An array that holds where conditions 'fieldname' => 'value'
 	 *
 	 * @var array
 	 */
-	protected $_where = array();
+	protected $_where = [ ];
 	/**
 	 * Dynamic type list for order by condition value
 	 */
-	protected $_orderBy = array();
+	protected $_orderBy = [ ];
 	/**
 	 * Dynamic type list for group by condition value
 	 */
-	protected $_groupBy = array();
+	protected $_groupBy = [ ];
 	/**
 	 * Dynamic array that holds a combination of where condition/table data value types and parameter referances
 	 *
 	 * @var array
 	 */
-	protected $_bindParams = array( '' ); // Create the empty 0 index
+	protected $_bindParams = [ '' ]; // Create the empty 0 index
 	/**
 	 * Variable which holds an amount of returned rows during get/getOne/select queries
 	 *
@@ -93,7 +93,7 @@ class Mysqli_Db {
 
 	protected $_transaction_in_progress; // добавил не была объ€вленна
 	protected static $_file_pass = "/../../inc/passwords.php"; // данные дл€ подключени€
-	protected static $config = array();
+	protected static $config = [ ];
 
 	/**
 	 * Is Subquery object
@@ -205,11 +205,11 @@ class Mysqli_Db {
 	 * @return object Returns the current instance.
 	 */
 	protected function reset() {
-		$this->_where      = array();
-		$this->_join       = array();
-		$this->_orderBy    = array();
-		$this->_groupBy    = array();
-		$this->_bindParams = array( '' ); // Create the empty 0 index
+		$this->_where      = [ ];
+		$this->_join       = [ ];
+		$this->_orderBy    = [ ];
+		$this->_groupBy    = [ ];
+		$this->_bindParams = [ '' ]; // Create the empty 0 index
 		$this->_query      = null;
 		$this->count       = 0;
 	}
@@ -243,13 +243,13 @@ class Mysqli_Db {
 		$stmt         = $this->_prepareQuery();
 
 		if ( is_array( $bindParams ) === true ) {
-			$params = array( '' ); // Create the empty 0 index
+			$params = [ '' ]; // Create the empty 0 index
 			foreach ( $bindParams as $prop => $val ) {
 				$params[0] .= $this->_determineType( $val );
 				array_push( $params, $bindParams[$prop] );
 			}
 
-			call_user_func_array( array( $stmt, 'bind_param' ), $this->refValues( $params ) );
+			call_user_func_array( [ $stmt, 'bind_param' ], $this->refValues( $params ) );
 
 		}
 
@@ -430,9 +430,9 @@ class Mysqli_Db {
 	 */
 	public function where( $whereProp, $whereValue = null, $operator = null ) {
 		if ( $operator )
-			$whereValue = Array( $operator => $whereValue );
+			$whereValue = [ $operator => $whereValue ];
 
-		$this->_where[] = Array( "AND", $whereValue, $whereProp );
+		$this->_where[] = [ "AND", $whereValue, $whereProp ];
 		return $this;
 	}
 
@@ -455,9 +455,9 @@ class Mysqli_Db {
 	 */
 	public function orWhere( $whereProp, $whereValue = null, $operator = null ) {
 		if ( $operator )
-			$whereValue = Array( $operator => $whereValue );
+			$whereValue = [ $operator => $whereValue ];
 
-		$this->_where[] = Array( "OR", $whereValue, $whereProp );
+		$this->_where[] = [ "OR", $whereValue, $whereProp ];
 		return $this;
 	}
 
@@ -473,7 +473,7 @@ class Mysqli_Db {
 	 * @return Mysqli_Db
 	 */
 	public function join( $joinTable, $joinCondition, $joinType = '' ) {
-		$allowedTypes = array( 'LEFT', 'RIGHT', 'OUTER', 'INNER', 'LEFT OUTER', 'RIGHT OUTER' );
+		$allowedTypes = [ 'LEFT', 'RIGHT', 'OUTER', 'INNER', 'LEFT OUTER', 'RIGHT OUTER' ];
 		$joinType     = strtoupper( trim( $joinType ) );
 		$joinTable    = filter_var( $joinTable, FILTER_SANITIZE_STRING );
 
@@ -501,7 +501,7 @@ class Mysqli_Db {
 	 * @return $this
 	 */
 	public function orderBy( $orderByField, $orderbyDirection = "DESC" ) {
-		$allowedDirection = Array( "ASC", "DESC" );
+		$allowedDirection = [ "ASC", "DESC" ];
 		$orderbyDirection = strtoupper( trim( $orderbyDirection ) );
 		$orderByField     = preg_replace( "/[^-a-z0-9\.\(\),_]+/i", '', $orderByField );
 
@@ -603,6 +603,12 @@ class Mysqli_Db {
 		array_push( $this->_bindParams, $value );
 	}
 
+	/**
+	 * @param $operator
+	 * @param $value
+	 *
+	 * @return string
+	 */
 	protected function _buildPair( $operator, $value ) {
 		if ( ! is_object( $value ) ) {
 			$this->_bindParam( $value );
@@ -783,7 +789,7 @@ class Mysqli_Db {
 
 		// Bind parameters to statement if any
 		if ( count( $this->_bindParams ) > 1 ) {
-			call_user_func_array( array( $stmt, 'bind_param' ), $this->refValues( $this->_bindParams ) );
+			call_user_func_array( [ $stmt, 'bind_param' ], $this->refValues( $this->_bindParams ) );
 		}
 
 		return $stmt;
@@ -798,27 +804,28 @@ class Mysqli_Db {
 	 * @return array The results of the SQL fetch.
 	 */
 	protected function _dynamicBindResults( mysqli_stmt $stmt ) {
-		$parameters = array();
-		$results    = array();
+		$parameters = [ ];
+		$results    = [ ];
 
 		$meta = $stmt->result_metadata();
 
 		// if $meta is false yet sqlstate is true, there's no sql error but the query is
 		// most likely an update/insert/delete which doesn't produce any results
 		if ( ! $meta && $stmt->sqlstate ) {
-			return array();
+			return [ ];
 		}
 
-		$row = array();
+		$row = [ ];
+
 		while ( $field = $meta->fetch_field() ) {
 			$row[$field->name] = null;
 			$parameters[]      = & $row[$field->name];
 		}
 
-		call_user_func_array( array( $stmt, 'bind_result' ), $parameters );
+		call_user_func_array( [ $stmt, 'bind_result' ], $parameters );
 
 		while ( $stmt->fetch() ) {
-			$x = array();
+			$x = [ ];
 			foreach ( $row as $key => $val ) {
 				$x[$key] = $val;
 			}
@@ -860,7 +867,7 @@ class Mysqli_Db {
 	protected function refValues( $arr ) {
 		//Reference is required for PHP 5.3+
 		if ( strnatcmp( phpversion(), '5.3' ) >= 0 ) {
-			$refs = array();
+			$refs = [ ];
 			foreach ( $arr as $key => $value ) {
 				$refs[$key] = & $arr[$key];
 			}
@@ -920,10 +927,10 @@ class Mysqli_Db {
 			return null;
 
 		array_shift( $this->_bindParams );
-		$val = Array(
+		$val = [
 			'query'  => $this->_query,
 			'params' => $this->_bindParams
-		);
+		];
 		$this->reset();
 		return $val;
 	}
@@ -941,7 +948,7 @@ class Mysqli_Db {
 	 * @return string
 	 */
 	public function interval( $diff, $func = "NOW()" ) {
-		$types = Array( "s" => "second", "m" => "minute", "h" => "hour", "d" => "day", "M" => "month", "Y" => "year" );
+		$types = [ "s" => "second", "m" => "minute", "h" => "hour", "d" => "day", "M" => "month", "Y" => "year" ];
 		$incr  = '+';
 		$items = '';
 		$type  = 'd';
@@ -970,7 +977,7 @@ class Mysqli_Db {
 	 * @return array
 	 */
 	public function now( $diff = null, $func = "NOW()" ) {
-		return Array( "[F]" => Array( $this->interval( $diff, $func ) ) );
+		return [ "[F]" => [ $this->interval( $diff, $func ) ] ];
 	}
 
 	/**
@@ -984,7 +991,7 @@ class Mysqli_Db {
 	 * @return array
 	 */
 	public function inc( $num = 1 ) {
-		return Array( "[I]" => "+" . (int) $num );
+		return [ "[I]" => "+" . (int) $num ];
 	}
 
 	/**
@@ -998,7 +1005,7 @@ class Mysqli_Db {
 	 * @return array
 	 */
 	public function dec( $num = 1 ) {
-		return Array( "[I]" => "-" . (int) $num );
+		return [ "[I]" => "-" . (int) $num ];
 	}
 
 	/**
@@ -1012,7 +1019,7 @@ class Mysqli_Db {
 	 * @return array
 	 */
 	public function not( $col = null ) {
-		return Array( "[N]" => (string) $col );
+		return [ "[N]" => (string) $col ];
 	}
 
 	/**
@@ -1027,7 +1034,7 @@ class Mysqli_Db {
 	 * @return array
 	 */
 	public function func( $expr, $bindParams = null ) {
-		return Array( "[F]" => Array( $expr, $bindParams ) );
+		return [ "[F]" => [ $expr, $bindParams ] ];
 	}
 
 	/**
@@ -1058,7 +1065,7 @@ class Mysqli_Db {
 	public function startTransaction() {
 		$this->_mysqli->autocommit( false );
 		$this->_transaction_in_progress = true;
-		register_shutdown_function( array( $this, "_transaction_status_check" ) );
+		register_shutdown_function( [ $this, "_transaction_status_check" ] );
 	}
 
 	/**

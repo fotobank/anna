@@ -10,13 +10,13 @@ include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение
 include_once( __DIR__ . '/inc/head.php' );
 ?>
 	<!--==============================content================================-->
-	<aside>
-		<div id="main">
+	<div id="main" class="clearfix">
+		<section>
 			<div class="page2-row1">
+				<article>
 				<div class="col-4">
-					<h3 class="bb3 p2">Немного о себе:</h3>
-
-					<div class="wrap"><img src="images/avtor.jpg" alt="" class="img-border img-indent">
+					<h2 class="bb3 p2">Немного о себе:</h2>
+					<div class="wrap"><img src="images/avtor.jpg" alt="фотограф в Одессе Алексеева Анна" class="img-border img-indent">
 
 						<div class="extra-wrap">
 							<p>Здраствуйте, дорогие посетители моего сайта. Рада, что Вы нашли время
@@ -37,6 +37,7 @@ include_once( __DIR__ . '/inc/head.php' );
 						</div>
 					</div>
 				</div>
+					</article>
 				<div class="col-5">
 					<h3 class="bb3 p2">Используемая аппаратура:</h3>
 					<ul class="list-2">
@@ -72,8 +73,8 @@ include_once( __DIR__ . '/inc/head.php' );
 		<?
 		include (__DIR__ . "/inc/contacts.php");
 		?>
+		</section>
 		</div>
-	</aside>
 	<!--==============================footer================================-->
 <?
 include_once( __DIR__ . '/inc/footer.php' );

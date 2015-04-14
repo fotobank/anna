@@ -4,8 +4,8 @@ require 'compass/import-once/activate'
 require 'bootstrap-sass'
 require 'compass-colors'
 require 'color-schemer'
-require 'fancy-buttons'
-require 'sassy-buttons'
+# require 'fancy-buttons'
+# require 'sassy-buttons'
 require "compass-recipes"
 require "rgbapng"
 

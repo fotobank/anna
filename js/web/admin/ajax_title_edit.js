@@ -99,7 +99,7 @@ $(function () {
 		$('<input type="text">').val(container.text()).appendTo(container.empty());
 
 		// Добавление параметров сохранения и отмены ссылки:
-		container.append(
+		currentBlock.append(
 				'<div class="ok-cancel">' +
 						'<a title="Сохранить." class="saveChanges"><img class="ok" src="/images/ok.png" /></a>' +
 						'<a title="Отменить редактирование." class="discardChanges"><img class="return" src="/images/return.png" /></a>' +
@@ -117,8 +117,7 @@ $(function () {
 				.end()
 				.removeData('origText');
 		e.preventDefault();
-
-		currentBlock.on_off('on', '.actions');
+		currentBlock.on_off('on', '.actions').find( 'div.ok-cancel' ).remove();
 	});
 
 	// Сохранить:
@@ -131,7 +130,7 @@ $(function () {
 				.find(".text")
 				.text(text);
 		e.preventDefault();
-		currentBlock.on_off('on', '.actions');
+		currentBlock.on_off('on', '.actions').find( 'div.ok-cancel' ).remove();
 	});
 
 	// Добавить новое

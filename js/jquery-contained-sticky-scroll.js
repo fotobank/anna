@@ -10,7 +10,7 @@
  */
 (function ($) {
 
-	$.fn.containedStickyScroll = function (options) {
+	$.fn.containedStickyScroll = function (opt) {
 
 		var defaults = {
 			paddingBottom : 300,
@@ -24,7 +24,7 @@
 			closeRight: 0
 		};
 
-		var options = $.extend(defaults, options);
+		var options = $.extend(defaults, opt);
 		var $getObject = $(this).selector;
 
 		if (options.unstick == true) {

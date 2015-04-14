@@ -2,6 +2,9 @@
  # prevent direct viewing of Alex_Security.php
  if ( false !== strpos( $_SERVER[ 'SCRIPT_NAME' ] , Alex_selfchk() ) ) send404();
 
+/**
+ * Class Alex_Security
+ */
 class Alex_Security {
 
    # protect from non-standard request types
@@ -29,7 +32,10 @@ class Alex_Security {
  	protected $_file_stop = '';
 
 
-   public function __construct() {
+	/**
+	 *
+	 */
+	public function __construct() {
        
        $this->setVars();
 
@@ -336,15 +342,19 @@ class Alex_Security {
    return false;
    }
 
-   /**
-    * blacklistMatch()
-    *
-    */
+	/**
+	 * blacklistMatch()
+	 *
+	 * @param     $val
+	 * @param int $list
+	 *
+	 * @return bool
+	 */
    private static function blacklistMatch( $val, $list = 0 ) {
      
      # $list should never have a value of 0
      if ( $list == 0 ) die( 'there is an error' );
-     $_blacklist = array();
+     $_blacklist = [ ];
      $_blacklist[1] = "php\/login|eval\(base64\_decode|asc%3Deval|eval\(\\$\_|EXTRACTVALUE\(|
            allow\_url\_include|safe\_mode|suhosin\.simulation|disable\_functions|phpinfo\(|
            open\_basedir|auto\_prepend\_file|php:\/\/input|\)limit|rush=|fromCharCode|\}catch\(e|
@@ -507,7 +517,7 @@ class Alex_Security {
        if ( false === ( bool )$this->_nonGETPOSTReqs ) return;
        
        $reqType = $_SERVER[ 'REQUEST_METHOD' ];
-       $req_whitelist = array( 'GET', 'OPTIONS', 'HEAD', 'POST' );
+       $req_whitelist = [ 'GET', 'OPTIONS', 'HEAD', 'POST' ];
        # first check for numbers in REQUEST_METHOD
        if ( false !== ( bool )preg_match( "/[0-9]+/", $reqType ) ) {
            $this->karo( true );
@@ -550,7 +560,7 @@ class Alex_Security {
    function _SPIDER_SHIELD() {
         if ( false === empty( $_SERVER[ 'HTTP_USER_AGENT' ] ) ) {
            if ( false !== $this->blacklistMatch( strtolower(  $this->hexoctaldecode( $_SERVER[ 'HTTP_USER_AGENT' ] ) ), 3 ) ) {
-                   $header = array( 'HTTP/1.1 404 Not Found', 'HTTP/1.1 404 Not Found', 'Content-Length: 0' );
+                   $header = [ 'HTTP/1.1 404 Not Found', 'HTTP/1.1 404 Not Found', 'Content-Length: 0' ];
                    foreach ( $header as $sent ) {
                        header( $sent );
                    }
@@ -561,7 +571,12 @@ class Alex_Security {
 
    # if you are using an older version of PHP ( < 5.4 ) then
    # use the uncommented version of this function below
-  function hexoctaldecode( $code ) {
+	/**
+	 * @param $code
+	 *
+	 * @return mixed
+	 */
+	function hexoctaldecode( $code ) {
 
 	  $y =  is_array($code)?implode("", $code):$code;
 	  $code = ( substr_count( $y, '\\x' ) > 0 ) ? $this->url_decoder( str_replace( '\\x', '%', $y ) ) : $y;
@@ -588,7 +603,13 @@ class Alex_Security {
        return $code;
    }*/
 
-   function cleanString( $b, $s ) {
+	/**
+	 * @param $b
+	 * @param $s
+	 *
+	 * @return mixed|string
+	 */
+	function cleanString( $b, $s ) {
      $s = strtolower( $this->url_decoder( $s ) );
        switch ( $b ) {
            case ( 1 ):
@@ -642,8 +663,8 @@ class Alex_Security {
                    "allow from all\n", $limitend );
            }
        } else {
-           $mybans = array( "# $this->_httphost $this->_psec Ban\n", "order allow,deny\n", $newline, "allow from all\n",
-               $limitend );
+           $mybans = [ "# $this->_httphost $this->_psec Ban\n", "order allow,deny\n", $newline, "allow from all\n",
+               $limitend ];
        }
        $myfile = fopen( $this->_htaccessfile, 'w' );
        fwrite( $myfile, implode( $mybans, '' ) );
@@ -714,7 +735,7 @@ class Alex_Security {
        if ( false === $preserve_keys ) {
            $array = array_values( $array );
        }
-       $flattened_array = array();
+       $flattened_array = [ ];
        foreach ( $array as $k => $v ) {
            if ( is_array( $v ) ) {
                $flattened_array = array_merge( $flattened_array, $this->array_flatten( $v, $preserve_keys ) );
@@ -735,13 +756,13 @@ class Alex_Security {
 	function byPass() {
 
        # list of files to bypass. I have added a few for consideration. Try to keep this list short
-       $filename_bypass = array();
+       $filename_bypass = [ ];
 
        # bypass all files in a directory. Use this sparingly
-       $dir_bypass = array();
+       $dir_bypass = [ ];
 
        # list of IP exceptions. Add bypass ips and uncomment for use
-       $exfrmBanlist = array();
+       $exfrmBanlist = [ ];
 
        $realip = $this->getRealIP();
        if ( false === empty( $exfrmBanlist ) ) {
@@ -803,7 +824,12 @@ class Alex_Security {
            return $theDIR;
    }
 
-    private static function is_server( $ip ) {
+	/**
+	 * @param $ip
+	 *
+	 * @return bool
+	 */
+	private static function is_server( $ip ) {
        if ( ( $_SERVER[ 'SERVER_ADDR' ] == $ip ) ||
             ( $ip == '127.0.0.1' ) ) return true;
        return false;
@@ -867,8 +893,8 @@ class Alex_Security {
         }
 
      }
-     $serverVars = new ArrayIterator( array( 'HTTP_CLIENT_IP', 'HTTP_PROXY_USER','HTTP_X_CLUSTER_CLIENT_IP',
-                                             'HTTP_FORWARDED', 'HTTP_CF_CONNECTING_IP', 'HTTP_FORWARDED_FOR' ) );
+     $serverVars = new ArrayIterator( [ 'HTTP_CLIENT_IP', 'HTTP_PROXY_USER','HTTP_X_CLUSTER_CLIENT_IP',
+                                             'HTTP_FORWARDED', 'HTTP_CF_CONNECTING_IP', 'HTTP_FORWARDED_FOR' ] );
      while ( $serverVars->valid() ) {
         if ( array_key_exists( $serverVars->current(), $_SERVER )
               && ! empty( $_SERVER[$serverVars->current()] )
@@ -909,20 +935,35 @@ class Alex_Security {
        error_reporting( $errlevel );
        return;
    }
-   /**
-    * url_decoder()
-    */
+
+	/**
+	 * url_decoder()
+	 *
+	 * @param $var
+	 *
+	 * @return string
+	 */
    private static function url_decoder( $var ) {
        return rawurldecode( urldecode( $var ) );
    }
-   private static function getREQUEST_URI() {
+
+	/**
+	 * @return string
+	 */
+	private static function getREQUEST_URI() {
        if ( false !== getenv( 'REQUEST_URI' ) ) {
            return getenv( 'REQUEST_URI' );
        } else {
            return $_SERVER[ 'REQUEST_URI' ];
        }
    }
-   private static function issetStrlen( $str ) {
+
+	/**
+	 * @param $str
+	 *
+	 * @return bool
+	 */
+	private static function issetStrlen( $str ) {
        if ( isset( $str ) && ( strlen( $str ) > 0 ) ) {
            return true;
        } else {
@@ -995,7 +1036,7 @@ function Alex_selfchk() {
 *
 */
 function send404() {
-   $header = array( 'HTTP/1.1 404 Not Found', 'HTTP/1.1 404 Not Found', 'Content-Length: 0' );
+   $header = [ 'HTTP/1.1 404 Not Found', 'HTTP/1.1 404 Not Found', 'Content-Length: 0' ];
 
    foreach ( $header as $sent ) {
        header( $sent );
@@ -1003,4 +1044,3 @@ function send404() {
 	header( 'Refresh: 0; url=/../../stop.php' ); // переадресовать на страницу ошибки немедленно (без задержки).
 	die ('404');
 }
-?>

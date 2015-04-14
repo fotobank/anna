@@ -87,10 +87,7 @@
 
 				loader.css({
 					display : "none",
-					position: "relative",
-					right   : "30px",
-					top     : "7px",
-					width   : "70px"
+					margin: "2px 50px 0 0"
 				});
 			});
 

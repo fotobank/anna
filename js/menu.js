@@ -2,7 +2,7 @@
  * Created by Jurii on 25.03.2015.
  * запуск главного меню
  */
-$(document).ready(function () {
+;$(document).ready(function () {
 	var menu = $('.centered-navigation-menu');
 	var menuToggle = $('.centered-navigation-menu-button');
 
