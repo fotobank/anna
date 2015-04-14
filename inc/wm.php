@@ -16,7 +16,7 @@ if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)$#i', $path ) ) {
 
 
 //	$path = WinUtf( $path, 'u' );
-	$path = urlencode($path);
+	$path = urldecode($path);
 
 
 	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . $path;
