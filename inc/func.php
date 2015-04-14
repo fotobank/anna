@@ -743,7 +743,7 @@ function WinUtf( $str, $type ) // $type: 'w' - encodes from UTF to win 'u' - enc
  * array [ dirname, basename, extension, filename ]
  * с поддержкоц кодировки UTF-8
  */
-function pathinfo_utf( $path ) {
+function path_info( $path ) {
 
 	if ( strpos( $path, '/' ) !== false ) {
 		$basename = explode( '/', $path );

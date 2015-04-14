@@ -55,7 +55,7 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 			<div class="col-1">
 
 				<div class="h-mod">
-				<h3 class="bb1">Категории:</h3>
+				<h2 class="bb1">Главная:</h2>
 				</div>
 				<?= new ajaxSite_EditTitle( $categorii ) ?>
 
