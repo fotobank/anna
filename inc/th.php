@@ -45,6 +45,7 @@ require_once (__DIR__ . "/../inc/func.php");
 	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . dirname($path) . "/thumb/" . basename($path);
 
 
+
 	$image    = @imagecreatefromstring( @file_get_contents( $realpath ) );
 	if ( ! $image ) {
 		error_log( "\$realpath = " . $realpath . " \$image = " . $image, 0 );
