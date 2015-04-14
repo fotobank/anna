@@ -54,7 +54,7 @@ require( __DIR__ . '/inc/carosel.php');
 
 			<div id="tab-1" class="tab-content">
 
-					 <p id="tab-1-1" class="col-txt bb3">Уникальность свадьбы в том, что это самый первый памятный и волнующий праздник
+					 <p id="tab-1-1" class="col-txt bb1">Уникальность свадьбы в том, что это самый первый памятный и волнующий праздник
 						новой молодой семьи. Незабываемое событие для возлюбленной пары. Которое в полном смысле
 						этого слова старается сделать незабываемым свадебный фотограф, чтобы сохранить воспоминания
 						об этом празднике на живых и ярких фотографиях, снятых профессионально и с любовью к своему
@@ -152,7 +152,7 @@ require( __DIR__ . '/inc/carosel.php');
 		</div>
 		<div class="col-2">
 			<div class="bot-1 clear"></div>
-			<h3 class="bb3">Поделиться с друзьями:</h3>
+			<h3 class="bb1">Поделиться с друзьями:</h3>
 
 			<div class="soc-icons">
 				<a onclick="window.open('http://vk.com/share.php?url=http://www.annafoto.in.ua//index.php','mywindow','width=500,height=500')"

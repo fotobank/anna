@@ -1,0 +1,145 @@
+// модификаторы классоа
+@import "config";
+
+.fleft {
+	  float: left;
+}
+
+.fright {
+	  float: right;
+}
+
+.last {
+	  margin-right: 0 !important;
+}
+
+.upper {
+	  text-transform: uppercase;
+}
+
+.top-1 {
+	  margin-top: 9px;
+}
+
+.left-1 {
+	  margin-left: 13px;
+}
+
+.bot-0 {
+	  padding-bottom: 0 !important;
+	  margin-bottom: 0 !important;
+}
+
+.bot-1 {
+	  margin-bottom: 21px;
+}
+
+.bot-2 {
+	  margin-bottom: 17px;
+}
+
+.bot-3 {
+	  margin-bottom: 51px;
+}
+
+.pad-1 {
+	  padding-left: 30px;
+	  padding-right: 30px;
+}
+
+.pad-2 {
+	  padding-left: 40px;
+}
+
+.p1 {
+	  padding-bottom: 18px;
+}
+
+.p2 {
+	  margin-bottom: 25px;
+}
+
+.p3 {
+	  padding-bottom: 20px;
+}
+
+.p4 {
+	  padding-bottom: 13px;
+}
+
+.p5 {
+	  padding-bottom: 6px;
+}
+
+.m1 {
+	  margin-bottom: 10px;
+}
+
+.bb1 {
+	  border-bottom: $border-color 1px solid;
+}
+
+.bb2 {
+	  border-bottom: $border-color 2px solid;
+}
+
+.bb3 {
+	  border-bottom: $border-color 3px solid;
+}
+
+.b0 {
+	  border: 0;
+}
+
+.b1 {
+	  border: 1px #cccccc;
+}
+
+.sp3 {
+	  border-spacing: 3px;
+}
+
+.pd1 {
+	  padding: 1px;
+}
+
+.pd2 {
+	  padding: 2px;
+}
+
+.w5 {
+	  width: 5%;
+}
+
+.w10 {
+	  width: 10%;
+}
+
+.w25 {
+	  width: 25%;
+}
+
+.w100 {
+	  width: 100%;
+}
+
+.w50 {
+	  width: 50%;
+}
+
+.w60 {
+	  width: 60%;
+}
+
+.w80 {
+	  width: 80%;
+}
+
+.w270 {
+	  width: 270px;
+}
+
+
+.w290 {
+	  width: 290px;
+}

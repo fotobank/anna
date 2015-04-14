@@ -41,7 +41,7 @@ defined('_SECUR') or die('Доступ запрещен');
 
 			<div class="page6-row1 pad-1">
 				<div class="col-14">
-					<h3 class="bb2">Для связи:</h3>
+					<h3 class="bb1">Для связи:</h3>
 					<dl>
 						<dd>Удобное для меня место для встреч:</dd>
 						<dd class="clr-1"><p>г.Одесса ул.Троицкая <br>угол ул. Канатной, кафе "Cхiд".</p></dd>
@@ -66,14 +66,14 @@ defined('_SECUR') or die('Доступ запрещен');
 					<a href="#"  onclick="return add_favorite(this);">Добавить в Избранное</a>
 				</div>
 				<div class="col-15">
-					<h3 class="bb2 p2">Карта:</h3>
+					<h3 class="bb1 p2">Карта:</h3>
 
 					<div>
 						<img src="/images/map.png" alt="" class="img-border img-indent-2">
 					</div>
 				</div>
 				<div class="col-16">
-					<h3 class="bb2 p2">Жду Ваших писем:</h3>
+					<h3 class="bb1 p2">Жду Ваших писем:</h3>
 
 					<form id="form" method="post" action="/about.php">
 						<fieldset>

@@ -21,7 +21,7 @@ include_once( __DIR__ . '/inc/head.php' );
 			if ( count( $thumbdir ) ) {
 				?>
 				<div class="col-8">
-					<h3 class="bb3 p2">Категории:</h3>
+					<h3 class="bb1 p2">Категории:</h3>
 					<ul class="nav list-categorii">
 
 						<?

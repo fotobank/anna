@@ -33,10 +33,10 @@ function photo_link($thumb_link) {
  */
 function carousel() {
 
-	$thumb = get_random_elements( recursive_dir( "files/portfolio", ".jpg", array( 'thumb' ), array(), false ), 16 ); // сканирование в субдеррикториях 'thumb'
+	$thumb = get_random_elements( recursive_dir( "files/portfolio", ".jpg", [ 'thumb' ], [ ], false ), 16 ); // сканирование в субдеррикториях 'thumb'
 
 	$carousel = '<div class="page1-row1 pad-1">';
-	$carousel .= '<div class="h-mod"><h3 class="bb3">Новинки в галереях:</h3></div></div>';
+	$carousel .= '<div class="h-mod"><h3 class="bb1">Новинки в галереях:</h3></div></div>';
 	$carousel .= '<div id="owl-index" class="owl-carousel">';
 	for ( $i = 0; $i < count( $thumb ); $i = $i + 2 ) {
 

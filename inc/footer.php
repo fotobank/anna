@@ -13,7 +13,7 @@ require( __DIR__ . '/online_widget.php' );
 <!--==============================соцсети================================-->
 <div class='social'>
 				<div class="h-mod w100">
-				<h3 class="bb3 fleft w100">Поделиться с друзьями:</h3>
+				<h3 class="bb1 fleft w100">Поделиться с друзьями:</h3>
 					<?
 if ( DEBUG_MODE == true ) {
 	$bench->end();

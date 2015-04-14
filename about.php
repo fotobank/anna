@@ -15,7 +15,7 @@ include_once( __DIR__ . '/inc/head.php' );
 			<div class="page2-row1">
 				<article>
 				<div class="col-4">
-					<h2 class="bb3 p2">Немного о себе:</h2>
+					<h2 class="bb1 p2">Немного о себе:</h2>
 					<div class="wrap"><img src="images/avtor.jpg" alt="фотограф в Одессе Алексеева Анна" class="img-border img-indent">
 
 						<div class="extra-wrap">
@@ -39,7 +39,7 @@ include_once( __DIR__ . '/inc/head.php' );
 				</div>
 					</article>
 				<div class="col-5">
-					<h3 class="bb3 p2">Используемая аппаратура:</h3>
+					<h3 class="bb1 p2">Используемая аппаратура:</h3>
 					<ul class="list-2">
 						<li><span><a href="#">CANON 5D Mark II</a> - профессиональная камера оснащенная полноразмерной КМОП-матрицей с установленной батарейной ручкой BG-E6. Благодаря использованию батарейной ручки время непрерывной съемки увеличенно до двух дней, что очень удобно при выездных съемках.</span>
 						</li>
@@ -55,7 +55,7 @@ include_once( __DIR__ . '/inc/head.php' );
 
 
 			<div class="page2-row2 pad-1">
-					<h3 class="bb2">Будущим заказчикам:</h3>
+					<h3 class="bb1">Будущим заказчикам:</h3>
 				<div class="col-6">
 					<p class="upper clr-1 p5">Всегда рада новым знакомствам!</p>
 					<p>Надеюсь на приятную творчесскую атмосферу и интересное сотрудничество!</p>

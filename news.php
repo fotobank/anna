@@ -25,7 +25,7 @@ $parser = new citates( $tune );
 		<div class="pad-1">
 			<div class="page5-row1">
 				<div class="col-12">
-					<h3 class="bb3 p2">Все новости:</h3>
+					<h3 class="bb1 p2">Все новости:</h3>
 
 					<div id="zapolnen"></div>
 					<!--                    <ul class="list-3">-->
@@ -42,7 +42,7 @@ $parser = new citates( $tune );
 
 
 				<div class="col-13">
-					<h3 class="bb3 p2">Разное:</h3>
+					<h3 class="bb1 p2">Разное:</h3>
 					<img src="inc/rotate.php" alt="" class="img-border img-indent-2">
 
 					<p class="upper clr-1 p5 ">Цитаты известых людей: </p>

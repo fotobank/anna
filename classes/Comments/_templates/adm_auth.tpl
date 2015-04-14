@@ -1,5 +1,5 @@
 <div class="center">
-<p class="bb3 p2">Пожалуйста, введите свой логин и пароль, чтобы войти в административный раздел.</p>
+<p class="bb1 p2">Пожалуйста, введите свой логин и пароль, чтобы войти в административный раздел.</p>
 <div class="form-admin">
 
 <form id="form" name='auth' action='{SCRIPT}' method='post'>

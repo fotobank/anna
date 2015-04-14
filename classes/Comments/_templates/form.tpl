@@ -78,7 +78,7 @@
 		<td colspan='2' style='padding-top:10pt;padding-bottom:10pt;text-align: center;'>{PAGE_PREV} {PAGES} {PAGE_NEXT}</td>
 	</tr>
 </table>
-	<div class="s-ver bb2">Страница: <b>{PAGE_NOW}</b> из {TOTAL_PAGES}<br>
+	<div class="s-ver bb1">Страница: <b>{PAGE_NOW}</b> из {TOTAL_PAGES}<br>
 		Всего сообщений: <b>{TOTAL_SHOW_MESS}</b></div>
 </div>
 	</div></div>
