@@ -736,7 +736,6 @@ function WinUtf( $str, $type ) // $type: 'w' - encodes from UTF to win 'u' - enc
 }
 
 /**
-
  *
  * @param $path
  *
@@ -744,37 +743,37 @@ function WinUtf( $str, $type ) // $type: 'w' - encodes from UTF to win 'u' - enc
  * array [ dirname, basename, extension, filename ]
  * для кодировки с UTF-8
  */
-function pathinfo_utf($path) {
+function pathinfo_utf( $path ) {
 
-	if (strpos($path, '/') !== false) {
+	if ( strpos( $path, '/' ) !== false ) {
 		$basename = explode( '/', $path );
-		$basename = end($basename );
-	} else if (strpos($path, '\\') !== false) {
+		$basename = end( $basename );
+	} else if ( strpos( $path, '\\' ) !== false ) {
 		$basename = end( explode( '\\', $path ) );
 	} else {
 		return false;
 	}
-	if (!$basename)
+	if ( !$basename )
 		return false;
 
-	$dirname = substr($path, 0,
-		strlen($path) - strlen($basename) - 1);
+	$dirname = substr( $path, 0,
+		strlen( $path ) - strlen( $basename ) - 1 );
 
-	if (strpos($basename, '.') !== false) {
-		$extension = explode('.', $path);
-		$extension = end($extension);
-		$filename = substr($basename, 0,
-			strlen($basename) - strlen($extension) - 1);
+	if ( strpos( $basename, '.' ) !== false ) {
+		$extension = explode( '.', $path );
+		$extension = end( $extension );
+		$filename  = substr( $basename, 0,
+			strlen( $basename ) - strlen( $extension ) - 1 );
 	} else {
 		$extension = '';
-		$filename = $basename;
+		$filename  = $basename;
 	}
 
 	return [
-		'dirname' => $dirname,
-		'basename' => $basename,
+		'dirname'   => $dirname,
+		'basename'  => $basename,
 		'extension' => $extension,
-		'filename' => $filename
+		'filename'  => $filename
 	];
 }
 
@@ -784,12 +783,26 @@ function pathinfo_utf($path) {
  *
  * @param      $param
  *
+ * @param null $suffix
+ *
  * @return mixed|string
  */
-function utf8_basename($param) {
+function __basename( $param, $suffix = null ) {
 
-	return ltrim(substr($param, strrpos($param, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
+	$tmpstr = strrpos( $param, DIRECTORY_SEPARATOR );
+	$tmpstr = substr( $param, $tmpstr );
+	$tmpstr = ltrim( $tmpstr, DIRECTORY_SEPARATOR );
 
+	if ( $suffix ) {
+
+		if ( ( strpos( $param, $suffix ) + strlen( $suffix ) ) == strlen( $param ) ) {
+			return str_ireplace( $suffix, '', $tmpstr );
+		} else {
+			return $tmpstr;
+		}
+	} else {
+		return $tmpstr;
+	}
 }
 
 /**
@@ -797,10 +810,10 @@ function utf8_basename($param) {
  *
  * @return mixed|null
  */
-function basename_utf8($path) {
+function basename_utf8( $path ) {
 
-	if (strpos($path, '/') !== false) return end(explode('/', $path));
-	elseif (strpos($path, '\\') !== false) return end(explode('\\', $path));
+	if ( strpos( $path, '/' ) !== false ) return end( explode( '/', $path ) );
+	elseif ( strpos( $path, '\\' ) !== false ) return end( explode( '\\', $path ) );
 	else return null;
 }
 
@@ -824,16 +837,17 @@ function detect_encoding( $string ) {
 
 /**
  *  универсальный basename
+ *
  * @param $path
  *
  * @return string
  */
-function _basename($path) {
+function _basename( $path ) {
 
-	if(detect_encoding( $path ) == 'windows-1251') {
-		return basename($path);
+	if ( detect_encoding( $path ) == 'windows-1251' ) {
+		return basename( $path );
 	} else {
-		return ltrim(substr($path, strrpos($path, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
+		return ltrim( substr( $path, strrpos( $path, DIRECTORY_SEPARATOR ) ), DIRECTORY_SEPARATOR );
 	}
 }
 
@@ -885,8 +899,8 @@ function recursive_dir( $dir, $mask = '.jpg', $ok_subdir = [ ], $no_subdir = [ ]
 							if ( $multi_arrau ) {
 								$arr[$name_subdir][] = $file;
 							} else {
-								$name_dir = explode("/", $file);
-								$arr[] = [ $name_dir[2], $file ];
+								$name_dir = explode( "/", $file );
+								$arr[]    = [ $name_dir[2], $file ];
 							}
 						}
 					}
