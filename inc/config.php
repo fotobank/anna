@@ -7,6 +7,7 @@ ob_start();
  * Date: 12.07.14
  * Time: 7:18
  */
+require_once( __DIR__ . '/func.php' );
 if ( $_SERVER['REMOTE_ADDR'] === '188.115.142.130' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ||
 	isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" ) {
 
@@ -102,6 +103,5 @@ $GLOBALS['tbl_posts']	=	"gb_posts";		// имя таблицы с сообщениями
 $GLOBALS['tbl_replies']	=	"gb_replies";	// имя таблицы с ответами
 $GLOBALS['tbl_users']	=	"gb_users";		// имя таблицы с модераторами
 
-require_once( __DIR__ . '/func.php' );
 // инициализация базы
 $db = Mysqli_Db::getInstance( Mysqli_Db::get_param());

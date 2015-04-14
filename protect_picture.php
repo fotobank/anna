@@ -1,14 +1,19 @@
 <?php
 session_start();
+require_once (__DIR__ . '/inc/func.php');
 
 $browser_cache = 60*60*24*7; // How long the BROWSER cache should last (seconds, minutes, hours, days. 7days by default)
 $id = (int)trim($_GET['id']);
 $document_root  = $_SERVER['DOCUMENT_ROOT'];
 
 /* helper function: Send headers and returns an image. */
+/**
+ * @param $filename
+ * @param $browser_cache
+ */
 function sendImage($filename, $browser_cache) {
 	$extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-	if (in_array($extension, array('png', 'gif', 'jpeg'))) {
+	if (in_array($extension, [ 'png', 'gif', 'jpeg' ] )) {
 		header("Content-Type: image/".$extension);
 	} else {
 		header("Content-Type: image/jpeg");
@@ -22,12 +27,18 @@ function sendImage($filename, $browser_cache) {
 
 /* Mobile detection
    NOTE: only used in the event a cookie isn't available. */
+/**
+ * @return bool|int
+ */
 function is_mobile() {
 	$userAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
 	return strpos($userAgent, 'mobile');
 }
 
 /* helper function: Create and send an image with an error message. */
+/**
+ * @param $message
+ */
 function sendErrorImage($message) {
 	/* get all of the required data from the HTTP request */
 	$document_root  = $_SERVER['DOCUMENT_ROOT'];

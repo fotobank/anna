@@ -736,28 +736,6 @@ function WinUtf( $str, $type ) // $type: 'w' - encodes from UTF to win 'u' - enc
 }
 
 /**
- *
- *  basename поддерживающая кодировку Windows-1251
- *
- * @param      $param
- * @param null $suffix
- *
- * @return mixed|string
- */
-function _basename($param, $suffix=null) {
-	if ( $suffix ) {
-		$tmpstr = ltrim(substr($param, strrpos($param, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
-		if ( (strpos($param, $suffix)+strlen($suffix) )  ==  strlen($param) ) {
-			return str_ireplace( $suffix, '', $tmpstr);
-		} else {
-			return ltrim(substr($param, strrpos($param, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
-		}
-	} else {
-		return ltrim(substr($param, strrpos($param, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
-	}
-}
-
-/**
  * Функция детектит кодировку
  *
  * @param $string
@@ -905,7 +883,7 @@ function my_array_rand( $input, $i = 2 ) {
 	if ( $i > count( $input ) ) $i = count( $input );
 	srand( (float) microtime() * 10000000 );
 	$rand_keys = array_rand( $input, $i );
-	$res       = array();
+	$res       = [ ];
 	if ( $i > 1 ) {
 		for ( $a = 0; $a < $i; $a ++ ) {
 			$res[] = $input[$rand_keys[$a]];
@@ -962,7 +940,7 @@ function showTree( $folder, $space ) {
 }
 
 function replaceBBCode( $text_post ) {
-	$str_search  = array(
+	$str_search  = [
 		"#\[del\](.+?)\[\/del\]#is",
 		"#\[komm\](.+?)\[\/komm\]#is",
 		"#\[y\](.+?)\[\/y\]#is",
@@ -980,7 +958,7 @@ function replaceBBCode( $text_post ) {
 		"#\[list\](.+?)\[\/list\]#is",
 		"#\[listn](.+?)\[\/listn\]#is",
 		"#\[\*\](.+?)\[\/\*\]#"
-	);
+	];
 	$str_replace = [
 		"",
 		"<p class=\"komment\">\\1</p>",
@@ -1003,6 +981,9 @@ function replaceBBCode( $text_post ) {
 	return preg_replace( $str_search, $str_replace, $text_post );
 }
 
+/**
+ * @return string
+ */
 function ip() {
 	if ( $_SERVER ) {
 		if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) && $_SERVER['HTTP_X_FORWARDED_FOR'] )

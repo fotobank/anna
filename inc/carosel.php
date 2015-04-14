@@ -6,8 +6,6 @@
  * Time: 22:15
  */
 
-// require_once( __DIR__ . "/func.php");
-
 /**
  * @param $thumb_link
  *
