@@ -694,7 +694,7 @@ function WinUtf( $str, $type ) // $type: 'w' - encodes from UTF to win 'u' - enc
  * @return null
  */
 function detect_encoding( $string ) {
-	static $list = array( 'utf-8', 'windows-1251' );
+	static $list = [ 'utf-8', 'windows-1251' ];
 
 	foreach ( $list as $item ) {
 		$sample = iconv( $item, $item, $string );
