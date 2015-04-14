@@ -736,25 +736,70 @@ function WinUtf( $str, $type ) // $type: 'w' - encodes from UTF to win 'u' - enc
 }
 
 /**
+
+ *
+ * @param $path
+ *
+ * @return array|bool
+ * array [ dirname, basename, extension, filename ]
+ * для кодировки с UTF-8
+ */
+function pathinfo_utf($path) {
+
+	if (strpos($path, '/') !== false)
+		$basename = end(explode('/', $path));
+	elseif (strpos($path, '\\') !== false)
+		$basename = end(explode('\\', $path));
+	else
+		return false;
+
+	if (!$basename)
+		return false;
+
+	$dirname = substr($path, 0,
+		strlen($path) - strlen($basename) - 1);
+
+	if (strpos($basename, '.') !== false) {
+		$extension = end(explode('.', $path));
+		$filename = substr($basename, 0,
+			strlen($basename) - strlen($extension) - 1);
+	} else {
+		$extension = '';
+		$filename = $basename;
+	}
+
+	return [
+		'dirname' => $dirname,
+		'basename' => $basename,
+		'extension' => $extension,
+		'filename' => $filename
+	];
+}
+
+/**
  *
  *  basename для сервера с utf-8 поддерживающая кодировку Windows-1251
  *
  * @param      $param
- * @param null $suffix
  *
  * @return mixed|string
  */
-function _basename($param, $suffix=null) {
-	if ( $suffix ) {
-		$tmpstr = ltrim(substr($param, strrpos($param, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
-		if ( (strpos($param, $suffix)+strlen($suffix) )  ==  strlen($param) ) {
-			return str_ireplace( $suffix, '', $tmpstr);
-		} else {
-			return ltrim(substr($param, strrpos($param, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
-		}
-	} else {
-		return ltrim(substr($param, strrpos($param, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
-	}
+function utf8_basename($param) {
+
+	return ltrim(substr($param, strrpos($param, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
+
+}
+
+/**
+ * @param $path
+ *
+ * @return mixed|null
+ */
+function basename_utf8($path) {
+
+	if (strpos($path, '/') !== false) return end(explode('/', $path));
+	elseif (strpos($path, '\\') !== false) return end(explode('\\', $path));
+	else return null;
 }
 
 /**
@@ -773,6 +818,20 @@ function detect_encoding( $string ) {
 			return $item;
 	}
 	return null;
+}
+
+/**
+ * @param $path
+ *
+ * @return string
+ */
+function _basename($path) {
+
+	if(detect_encoding( $path ) == 'windows-1251') {
+		return basename($path);
+	} else {
+		return ltrim(substr($path, strrpos($path, DIRECTORY_SEPARATOR) ), DIRECTORY_SEPARATOR);
+	}
 }
 
 /**
