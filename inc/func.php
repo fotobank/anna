@@ -634,6 +634,11 @@ function sanitize( $input ) {
 	return isset( $output ) ? $output : false;
 }
 
+/**
+ * @param $str
+ *
+ * @return string
+ */
 function cp1251_utf8( $str ) {
 
 	if ( mb_check_encoding( $str, 'Windows-1251' ) && !mb_check_encoding( $str, 'UTF-8' ) ) {
@@ -642,6 +647,11 @@ function cp1251_utf8( $str ) {
 	return $str;
 }
 
+/**
+ * @param $str
+ *
+ * @return string
+ */
 function utf8_cp1251( $str ) {
 
 	if ( !mb_check_encoding( $str, 'Windows-1251' ) && mb_check_encoding( $str, 'UTF-8' ) ) {
@@ -650,6 +660,11 @@ function utf8_cp1251( $str ) {
 	return $str;
 }
 
+/**
+ * @param $string
+ *
+ * @return string
+ */
 function utf8( $string ) {
 	return iconv( 'cp1251', 'utf-8', $string );
 }
