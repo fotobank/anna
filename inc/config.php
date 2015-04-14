@@ -43,7 +43,7 @@ if ( ! defined( 'SITE_PATH' ) ) {
 }
 
 if ( ! defined( 'CODE_PAGE' ) ) {
-	define( 'CODE_PAGE', detect_encoding(implode(glob('кодировка файловой системы.codepage'))));
+	define( 'CODE_PAGE', detect_encoding(implode(glob(SITE_PATH . 'inc/кодировка файловой системы.codepage'))));
 }
 
 include (__DIR__.'/../classes/autoload.php');
@@ -68,8 +68,6 @@ $mustache = new Mustache_Engine( [
 ] );
 
 
-
-
 if ( ! function_exists( 'debugHC' ) ) {
 	/**
 	 * @param        $v
@@ -84,7 +82,8 @@ if ( ! function_exists( 'debugHC' ) ) {
 
 // демо debug:
 // debugHC(SITE_PATH.'classes/Mustache/templates', 'test');
-debugHC( CODE_PAGE, 'CODE_PAGE' );
+ debugHC( CODE_PAGE, 'CODE_PAGE' );
+ debugHC( SITE_PATH, 'SITE_PATH' );
 
 Inter_Error::init();
 Inter_Error::$conf['logDir'] = SITE_PATH . 'log';
