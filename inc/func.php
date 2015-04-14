@@ -789,19 +789,19 @@ function pathinfo_utf( $path ) {
  */
 function __basename( $param, $suffix = null ) {
 
-	$tmpstr = strrpos( $param, DIRECTORY_SEPARATOR );
-	$tmpstr = substr( $param, $tmpstr );
-	$tmpstr = ltrim( $tmpstr, DIRECTORY_SEPARATOR );
+	$basename = strrpos( $param, DIRECTORY_SEPARATOR );
+	$basename = substr( $param, $basename );
+	$basename = ltrim( $basename, DIRECTORY_SEPARATOR );
 
 	if ( $suffix ) {
 
 		if ( ( strpos( $param, $suffix ) + strlen( $suffix ) ) == strlen( $param ) ) {
-			return str_ireplace( $suffix, '', $tmpstr );
+			return str_ireplace( $suffix, '', $basename );
 		} else {
-			return $tmpstr;
+			return $basename;
 		}
 	} else {
-		return $tmpstr;
+		return $basename;
 	}
 }
 

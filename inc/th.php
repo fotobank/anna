@@ -32,10 +32,16 @@ require_once (__DIR__ . "/../inc/func.php");
 
 
 
+//	if ( $_SERVER['REMOTE_ADDR'] !== '127.0.0.1' ) $path = iconv( 'windows-1251', 'utf-8', $path );
+//	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . dirname($path) . "/thumb/" . __basename($path);
+
+
+
 	if ( $_SERVER['REMOTE_ADDR'] !== '127.0.0.1' ) $path = iconv( 'windows-1251', 'utf-8', $path );
 
-	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . dirname($path) . "/thumb/" . __basename($path);
+	$pathinfo = pathinfo_utf( $path );
 
+	$realpath = $_SERVER['DOCUMENT_ROOT'] . '/' . $portolio_dir . $pathinfo['dirname'] . "/thumb/" . $pathinfo['basename'];
 
 
 	$image    = @imagecreatefromstring( @file_get_contents( $realpath ) );
