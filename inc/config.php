@@ -8,8 +8,7 @@ ob_start();
  * Time: 7:18
  */
 require_once( __DIR__ . '/func.php' );
-if ( $_SERVER['REMOTE_ADDR'] === '188.115.142.130' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ||
-	isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" ) {
+if ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" )) {
 
 	ini_set( 'display_errors', 1 );
 	ini_set( 'display_startup_errors', 1 );
@@ -27,7 +26,6 @@ if ( $_SERVER['REMOTE_ADDR'] === '188.115.142.130' || $_SERVER['REMOTE_ADDR'] ==
 }
 ini_set( 'log_errors', 1 );
 
-require_once( __DIR__ . '/../classes/Alex/Security.php' );
 
 if ( ! defined( "PATH_SEPARATOR" ) )
 	define( "PATH_SEPARATOR", getenv( "COMSPEC" ) ? ";" : ":" );
@@ -41,6 +39,8 @@ else session_regenerate_id(true);
 if ( ! defined( 'SITE_PATH' ) ) {
 	define( 'SITE_PATH', realpath( __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR );
 }
+
+require_once( SITE_PATH . 'classes/Alex/Security.php' );
 
 if ( ! defined( 'CODE_PAGE' ) ) {
 	define( 'CODE_PAGE', detect_encoding(implode(glob(SITE_PATH . 'inc/кодировка файловой системы.codepage'))));

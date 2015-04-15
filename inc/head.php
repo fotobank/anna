@@ -14,9 +14,9 @@ if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {
 	setcookie( "email", $_POST['email'], time() + 300 );
 }
 /**==================================================================*/
-include( __DIR__ . '/title.php' ); // титры в разделах для СЕО
+include( SITE_PATH . 'inc/title.php' ); // титры в разделах для СЕО
 list( $razdel, $title ) = title();
-
+debugHC( SITE_PATH . 'title.php');
 ?>
 <!DOCTYPE html>
 <html lang="ru" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
