@@ -29,8 +29,10 @@ class ajaxSite_EditTitle {
 		}
 		$ul .= '</ul>';
 		$ul .= if_admin( '<a id="addButton" class="support-hover" tabindex="1" title="Добавить раздел"><em>+</em></a>
-		        				<div id="dialog-confirm" title="Удалить запись?"><span>Запись будет удалена из базы данных!</span></div>
-		        			  ' );
+		     <div id="dialog-confirm" title="Удалить запись?">
+		     <span>Запись будет удалена из базы данных!</span>
+		     </div>'
+		);
 
 		return $ul;
 	}
