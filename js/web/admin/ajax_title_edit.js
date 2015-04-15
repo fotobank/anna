@@ -1,15 +1,15 @@
-$(function () {
+п»ї$(function () {
 
 	var blockList = $('.list-categorii');
 
 	blockList.sortable({
-		axis  : 'y',				// Разрешено только вертикальное перемещение
-		update: function () {		// Вызываемая после перестройки функция
+		axis  : 'y',				// Р Р°Р·СЂРµС€РµРЅРѕ С‚РѕР»СЊРєРѕ РІРµСЂС‚РёРєР°Р»СЊРЅРѕРµ РїРµСЂРµРјРµС‰РµРЅРёРµ
+		update: function () {		// Р’С‹Р·С‹РІР°РµРјР°СЏ РїРѕСЃР»Рµ РїРµСЂРµСЃС‚СЂРѕР№РєРё С„СѓРЅРєС†РёСЏ
 
-			// Метод toArray возвращает массив с перемещаемыми элементами
+			// РњРµС‚РѕРґ toArray РІРѕР·РІСЂР°С‰Р°РµС‚ РјР°СЃСЃРёРІ СЃ РїРµСЂРµРјРµС‰Р°РµРјС‹РјРё СЌР»РµРјРµРЅС‚Р°РјРё
 			var arr = blockList.sortable('toArray');
 
-			// заменить htad на id
+			// Р·Р°РјРµРЅРёС‚СЊ htad РЅР° id
 			arr = $.map(arr, function (val, key) {
 				return val.replace('head-', '');
 			});
@@ -25,23 +25,23 @@ $(function () {
 	});
 
 
-	//Глобальная переменная, содержащая объект JQuery
-	// текущий элемент текстового блока:
+	//Р“Р»РѕР±Р°Р»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ, СЃРѕРґРµСЂР¶Р°С‰Р°СЏ РѕР±СЉРµРєС‚ JQuery
+	// С‚РµРєСѓС‰РёР№ СЌР»РµРјРµРЅС‚ С‚РµРєСЃС‚РѕРІРѕРіРѕ Р±Р»РѕРєР°:
 	var currentBlock;
 
-	// Настройка диалогового окна подтверждения удаления
+	// РќР°СЃС‚СЂРѕР№РєР° РґРёР°Р»РѕРіРѕРІРѕРіРѕ РѕРєРЅР° РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ СѓРґР°Р»РµРЅРёСЏ
 	$("#dialog-confirm").dialog({
 		resizable: false,
 		modal    : true,
 		autoOpen : false,
 		buttons  : {
-			'Удалить': function () {
+			'РЈРґР°Р»РёС‚СЊ': function () {
 
 				$.get("/classes/ajaxSite/ajax_title_edit.php", {"action": "delete", "id": currentBlock.data('id')}, function (msg) {
 					if (1 == msg) {
-						console.log('Запись успешно удалена.');
+						console.log('Р—Р°РїРёСЃСЊ СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅР°.');
 					} else {
-						console.log('Ошибка удаления записи.');
+						console.log('РћС€РёР±РєР° СѓРґР°Р»РµРЅРёСЏ Р·Р°РїРёСЃРё.');
 					}
 
 					currentBlock.fadeOut('fast');
@@ -49,13 +49,13 @@ $(function () {
 
 				$(this).dialog('close');
 			},
-			'Отмена' : function () {
+			'РћС‚РјРµРЅР°' : function () {
 				$(this).dialog('close');
 			}
 		}
 	});
 
-	// При возникновении двойной щелчок, просто имитировать нажатие на кнопку редактирования:
+	// РџСЂРё РІРѕР·РЅРёРєРЅРѕРІРµРЅРёРё РґРІРѕР№РЅРѕР№ С‰РµР»С‡РѕРє, РїСЂРѕСЃС‚Рѕ РёРјРёС‚РёСЂРѕРІР°С‚СЊ РЅР°Р¶Р°С‚РёРµ РЅР° РєРЅРѕРїРєСѓ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ:
 	blockList.on('dblclick', 'li', function () {
 		$(this).find('a.edit').click();
 	});
@@ -71,24 +71,24 @@ $(function () {
 	});
 
 
-	// Прослушивание за клик по кнопке удаления:
+	// РџСЂРѕСЃР»СѓС€РёРІР°РЅРёРµ Р·Р° РєР»РёРє РїРѕ РєРЅРѕРїРєРµ СѓРґР°Р»РµРЅРёСЏ:
 	blockList.on('click', 'a.delete', function (e) {
 		$("#dialog-confirm").dialog('open');
 		e.preventDefault();
 	});
 
-	// переключает видимость блока actions при входе в редактор
+	// РїРµСЂРµРєР»СЋС‡Р°РµС‚ РІРёРґРёРјРѕСЃС‚СЊ Р±Р»РѕРєР° actions РїСЂРё РІС…РѕРґРµ РІ СЂРµРґР°РєС‚РѕСЂ
 	blockList.find('li').on_off('init', '.actions');
 
 
-	//Прослушивание за клик по кнопке редактирования
+	//РџСЂРѕСЃР»СѓС€РёРІР°РЅРёРµ Р·Р° РєР»РёРє РїРѕ РєРЅРѕРїРєРµ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
 	blockList.on('click', 'a.edit', function () {
 
 		var container = currentBlock.find('.text');
 
 		if (!currentBlock.data('origText')) {
-			// Сохранение текущего текста блока, чтобы мы могли
-			// восстановить его позже, если пользователь не учитывает изменения:
+			// РЎРѕС…СЂР°РЅРµРЅРёРµ С‚РµРєСѓС‰РµРіРѕ С‚РµРєСЃС‚Р° Р±Р»РѕРєР°, С‡С‚РѕР±С‹ РјС‹ РјРѕРіР»Рё
+			// РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ РµРіРѕ РїРѕР·Р¶Рµ, РµСЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ СѓС‡РёС‚С‹РІР°РµС‚ РёР·РјРµРЅРµРЅРёСЏ:
 
 			currentBlock.data('origText', container.text());
 		}
@@ -98,19 +98,19 @@ $(function () {
 
 		$('<input type="text">').val(container.text()).appendTo(container.empty());
 
-		// Добавление параметров сохранения и отмены ссылки:
+		// Р”РѕР±Р°РІР»РµРЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ СЃРѕС…СЂР°РЅРµРЅРёСЏ Рё РѕС‚РјРµРЅС‹ СЃСЃС‹Р»РєРё:
 		currentBlock.append(
 				'<div class="ok-cancel">' +
-						'<a title="Сохранить." class="saveChanges"><img class="ok" src="/images/ok.png" /></a>' +
-						'<a title="Отменить редактирование." class="discardChanges"><img class="return" src="/images/return.png" /></a>' +
+						'<a title="РЎРѕС…СЂР°РЅРёС‚СЊ." class="saveChanges"><img class="ok" src="/images/ok.png" /></a>' +
+						'<a title="РћС‚РјРµРЅРёС‚СЊ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ." class="discardChanges"><img class="return" src="/images/return.png" /></a>' +
 						'</div>'
 		);
-		//Блокирование кнопок редактирования, если поле ввода уже открыто:
+		//Р‘Р»РѕРєРёСЂРѕРІР°РЅРёРµ РєРЅРѕРїРѕРє СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ, РµСЃР»Рё РїРѕР»Рµ РІРІРѕРґР° СѓР¶Рµ РѕС‚РєСЂС‹С‚Рѕ:
 		 currentBlock.on_off('block');
 
 	});
 
-	//Отменить редактирование:
+	//РћС‚РјРµРЅРёС‚СЊ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ:
 	blockList.on('click', 'a.discardChanges', function (e) {
 		currentBlock.find('.text')
 				.text(currentBlock.data('origText'))
@@ -120,7 +120,7 @@ $(function () {
 		currentBlock.on_off('on', '.actions').find( 'div.ok-cancel' ).remove();
 	});
 
-	// Сохранить:
+	// РЎРѕС…СЂР°РЅРёС‚СЊ:
 	blockList.on('click', 'a.saveChanges', function (e) {
 		var text = currentBlock.find("input[type=text]").val();
 
@@ -133,16 +133,16 @@ $(function () {
 		currentBlock.on_off('on', '.actions').find( 'div.ok-cancel' ).remove();
 	});
 
-	// Добавить новое
+	// Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІРѕРµ
 	var timestamp = 0;
 	$('#addButton').click(function (e) {
 
-		// Добавление не чаще 1 раза в секунду
+		// Р”РѕР±Р°РІР»РµРЅРёРµ РЅРµ С‡Р°С‰Рµ 1 СЂР°Р·Р° РІ СЃРµРєСѓРЅРґСѓ
 		if ((new Date()).getTime() - timestamp < 1000) return false;
 
-		$.get("/classes/ajaxSite/ajax_title_edit.php", {'action': 'new', 'text': 'Новый раздел.', 'rand': Math.random()}, function (msg) {
+		$.get("/classes/ajaxSite/ajax_title_edit.php", {'action': 'new', 'text': 'РќРѕРІС‹Р№ СЂР°Р·РґРµР».', 'rand': Math.random()}, function (msg) {
 
-			// Добавление нового блока и вывод его на экран:
+			// Р”РѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕРіРѕ Р±Р»РѕРєР° Рё РІС‹РІРѕРґ РµРіРѕ РЅР° СЌРєСЂР°РЅ:
 			$(msg).hide().appendTo('.list-categorii').fadeIn();
 		});
 
@@ -160,7 +160,7 @@ $(function () {
 
 	var methods = {
 
-		// инициализация переключает видимость блока
+		// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїРµСЂРµРєР»СЋС‡Р°РµС‚ РІРёРґРёРјРѕСЃС‚СЊ Р±Р»РѕРєР°
 		init: function (id) {
 
 			return this.hover(
@@ -201,7 +201,7 @@ $(function () {
 		} else if (typeof method === 'object' || !method) {
 			return methods.init.apply(this, arguments);
 		} else {
-			$.error('Метод "' + method + '" не найден в плагине jQuery.on_off');
+			$.error('РњРµС‚РѕРґ "' + method + '" РЅРµ РЅР°Р№РґРµРЅ РІ РїР»Р°РіРёРЅРµ jQuery.on_off');
 			return false;
 		}
 	};

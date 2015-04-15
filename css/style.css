@@ -10330,6 +10330,7 @@ a.editable-click.editable-disabled:hover {
 }
 /* line 23, ../sass/inc/_core.scss */
 html {
+  overflow-x: hidden;
   text-align: center;
   font-size: 100%;
   -webkit-box-sizing: content-box;
@@ -10355,12 +10356,12 @@ html {
   }
 }
 
-/* line 39, ../sass/inc/_core.scss */
+/* line 40, ../sass/inc/_core.scss */
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
-/* line 43, ../sass/inc/_core.scss */
+/* line 44, ../sass/inc/_core.scss */
 html, body {
   width: 100%;
   padding: 0;
@@ -10375,7 +10376,7 @@ html, body {
   font-style: normal;
 }
 
-/* line 51, ../sass/inc/_core.scss */
+/* line 52, ../sass/inc/_core.scss */
 body {
   display: inline-block;
   max-width: 100%;
@@ -10389,66 +10390,66 @@ body {
   background: url('/images/tail-top.jpg?1427322335') repeat-x center top #000;
 }
 
-/* line 63, ../sass/inc/_core.scss */
+/* line 64, ../sass/inc/_core.scss */
 p {
   text-indent: 0.625em;
   margin-bottom: 0.625em;
 }
 
-/* line 68, ../sass/inc/_core.scss */
+/* line 69, ../sass/inc/_core.scss */
 a {
   text-decoration: none;
   cursor: pointer;
   color: #7DADE0;
 }
-/* line 72, ../sass/inc/_core.scss */
+/* line 73, ../sass/inc/_core.scss */
 a:active {
   color: #ff8b91;
 }
-/* line 75, ../sass/inc/_core.scss */
+/* line 76, ../sass/inc/_core.scss */
 a:hover {
   text-decoration: none;
   color: #cab76c;
 }
-/* line 79, ../sass/inc/_core.scss */
+/* line 80, ../sass/inc/_core.scss */
 a img {
   border: none;
 }
-/* line 83, ../sass/inc/_core.scss */
+/* line 84, ../sass/inc/_core.scss */
 a.clr-1:hover {
   text-decoration: underline;
 }
-/* line 89, ../sass/inc/_core.scss */
+/* line 90, ../sass/inc/_core.scss */
 a.support:focus .tip {
   display: block;
 }
-/* line 94, ../sass/inc/_core.scss */
+/* line 95, ../sass/inc/_core.scss */
 a.support[tabindex="1"]:focus {
   outline: none;
 }
-/* line 100, ../sass/inc/_core.scss */
+/* line 101, ../sass/inc/_core.scss */
 a.support-two:focus + .tip-block .tip-two {
   display: block;
 }
-/* line 106, ../sass/inc/_core.scss */
+/* line 107, ../sass/inc/_core.scss */
 a.support-two[tabindex="1"]:focus {
   outline: none;
 }
-/* line 111, ../sass/inc/_core.scss */
+/* line 112, ../sass/inc/_core.scss */
 a.support-hover:hover .tip {
   display: block;
 }
-/* line 119, ../sass/inc/_core.scss */
+/* line 120, ../sass/inc/_core.scss */
 a.support-hover-two:hover + .tip-block .tip-two {
   display: block;
 }
 
-/* line 127, ../sass/inc/_core.scss */
+/* line 128, ../sass/inc/_core.scss */
 a:active, a:focus {
   outline: none;
 }
 
-/* line 131, ../sass/inc/_core.scss */
+/* line 132, ../sass/inc/_core.scss */
 #main {
   max-width: 1024px;
   margin: 30px auto 0;
@@ -10460,7 +10461,7 @@ a:active, a:focus {
   position: relative;
 }
 
-/* line 143, ../sass/inc/_core.scss */
+/* line 144, ../sass/inc/_core.scss */
 h1 {
   text-shadow: 2px 2px 3px #191919;
   text-shadow: 2px 2px 3px 3px #191919;
@@ -10476,7 +10477,7 @@ h1 {
   float: left;
 }
 
-/* line 148, ../sass/inc/_core.scss */
+/* line 149, ../sass/inc/_core.scss */
 h2 {
   text-shadow: 2px 2px 3px #191919;
   text-shadow: 2px 2px 3px 3px #191919;
@@ -10490,7 +10491,7 @@ h2 {
   color: "";
 }
 
-/* line 152, ../sass/inc/_core.scss */
+/* line 153, ../sass/inc/_core.scss */
 h3 {
   font-family: "Bad Script", "Georgia", cursive;
   font-size: 24px;
@@ -10502,7 +10503,7 @@ h3 {
   font-style: italic;
 }
 
-/* line 156, ../sass/inc/_core.scss */
+/* line 157, ../sass/inc/_core.scss */
 h4 {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   text-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.3);
@@ -10514,25 +10515,25 @@ h4 {
   margin: 0;
 }
 
-/* line 161, ../sass/inc/_core.scss */
+/* line 162, ../sass/inc/_core.scss */
 .h5 {
   border-bottom: #353535 0.063em solid;
   padding-top: 0.938em;
   padding-bottom: 0.313em;
 }
 
-/* line 167, ../sass/inc/_core.scss */
+/* line 168, ../sass/inc/_core.scss */
 #header {
   position: relative;
   width: 100%;
 }
-/* line 170, ../sass/inc/_core.scss */
+/* line 171, ../sass/inc/_core.scss */
 #header > div {
   position: relative;
   width: 100%;
   background: url('/images/header-line.jpg?1405111181') 0 bottom repeat-x;
 }
-/* line 175, ../sass/inc/_core.scss */
+/* line 176, ../sass/inc/_core.scss */
 #header .nav {
   position: absolute;
   width: 100%;
@@ -10542,7 +10543,7 @@ h4 {
   left: 0;
 }
 
-/* line 185, ../sass/inc/_core.scss */
+/* line 186, ../sass/inc/_core.scss */
 .header {
   border-color: #E3E2E0;
   background: #E3C37F none repeat scroll 0 0;
@@ -10554,22 +10555,22 @@ h4 {
   font-size: 13px;
 }
 
-/* line 197, ../sass/inc/_core.scss */
+/* line 198, ../sass/inc/_core.scss */
 td.header span {
   background: url('/images/phone.png?1428928294') no-repeat left;
 }
-/* line 199, ../sass/inc/_core.scss */
+/* line 200, ../sass/inc/_core.scss */
 td.header span a {
   padding-left: 20px;
 }
-/* line 203, ../sass/inc/_core.scss */
+/* line 204, ../sass/inc/_core.scss */
 td.header a {
   color: #202021;
   outline: medium none;
   text-decoration: none;
 }
 
-/* line 210, ../sass/inc/_core.scss */
+/* line 211, ../sass/inc/_core.scss */
 footer {
   font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   text-shadow: -1px -1px #000;
@@ -10581,7 +10582,7 @@ footer {
   margin-top: -60px;
   z-index: -1;
 }
-/* line 219, ../sass/inc/_core.scss */
+/* line 220, ../sass/inc/_core.scss */
 footer .social {
   max-width: 880px;
   padding: 60px 30px 0;
@@ -10589,17 +10590,17 @@ footer .social {
   z-index: 1;
   position: relative;
 }
-/* line 225, ../sass/inc/_core.scss */
+/* line 226, ../sass/inc/_core.scss */
 footer .social .copirait {
   line-height: 1.5;
 }
-/* line 228, ../sass/inc/_core.scss */
+/* line 229, ../sass/inc/_core.scss */
 footer .social .texno {
   position: absolute;
   bottom: 30px;
   right: 0;
 }
-/* line 234, ../sass/inc/_core.scss */
+/* line 235, ../sass/inc/_core.scss */
 footer .container {
   width: 100%;
   z-index: -1;
@@ -10609,21 +10610,21 @@ footer .container {
   padding-top: 12px;
 }
 @media all and (max-width: 550px) {
-  /* line 210, ../sass/inc/_core.scss */
+  /* line 211, ../sass/inc/_core.scss */
   footer {
     height: 17.5em;
   }
-  /* line 248, ../sass/inc/_core.scss */
+  /* line 249, ../sass/inc/_core.scss */
   footer .social {
     padding: 50px 5px 0;
   }
-  /* line 251, ../sass/inc/_core.scss */
+  /* line 252, ../sass/inc/_core.scss */
   footer .container {
     clear: both;
   }
 }
 
-/* line 256, ../sass/inc/_core.scss */
+/* line 257, ../sass/inc/_core.scss */
 * html footer {
   bottomy: expression(parentNode.offsetHeight % 2 ? style.bottom="-1px" : style.bottom="0px");
   /* хак для ие6, у которого есть косяк со смещением на 1px */
