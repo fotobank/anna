@@ -46,11 +46,11 @@ if ( ! defined( 'CODE_PAGE' ) ) {
 	define( 'CODE_PAGE', detect_encoding(implode(glob(SITE_PATH . 'inc/кодировка файловой системы.codepage'))));
 }
 
-include (__DIR__.'/../classes/autoload.php');
+include (SITE_PATH.'classes/autoload.php');
 autoload::getInstance();
 
 // mustache
-include (__DIR__.'/../vendor/autoload.php');
+include (SITE_PATH.'vendor/autoload.php');
 // инициализация шаблонизатора Mustache
 $mustache = new Mustache_Engine( [
 	// 'template_class_prefix' => '__MyTemplates_',
