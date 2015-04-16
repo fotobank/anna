@@ -177,14 +177,14 @@
 
 			return this.mouseenter(function () {
 				$(this).find(id).css('display', 'block');
-			})
+			});
 		},
 
 		off: function (id) {
 
 			return this.mouseleave(function () {
 				$(this).find(id).css('display', 'none');
-			})
+			});
 		},
 
 		block: function () {

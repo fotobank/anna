@@ -18,8 +18,7 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 			<tbody>
 			<tr>
 				<td class="header" style="text-align: right;">
-					<div class="phone"></div>
-					<span style="text-decoration: underline;"><a onclick="goog_report_conversion('tel: 067-76-84-086')" href="#">(067)-76-84-086</a></span><br>
+					<span class="phone"><a onclick="goog_report_conversion('tel: 067-76-84-086')" href="#">(067)-76-84-086</a></span><br>
 					<a href="<?=$_SERVER['HTTP_HOST']?>/portfolio.php#tab-1">свадебная фотосъёмка</a>,
 					<a href="<?=$_SERVER['HTTP_HOST']?>/portfolio.php#tab-3">студийные фотосессии</a>, Одесса, Алексеева Анна
 				</td>
@@ -243,7 +242,6 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 				<div class="clock-container">
 					<div class="clock">
 						<div id="Date"></div>
-
 						<ul>
 							<li id="hours"> </li>
 							<li id="point">:</li>
@@ -260,7 +258,6 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 
         <div class="clear"></div>
 		<div id='new-gal'><?= carousel() ?></div>
-
 
 	<!--<script>
 		$(document).ready(function () {

@@ -67,22 +67,21 @@ p {
 
 a {
 	  text-decoration: none;
+	  outline: none;
 	  cursor: pointer;
-	  color: #7DADE0;
-	  &:active {
-			color: #ff8b91;
-	  }
-	  &:hover {
-			text-decoration: none;
-			color: #cab76c;
-	  }
+	  // 1. normal
+	  // 2. hover
+	  // 3. active
+	  // 4. visited
+	  // 5. focus
+	  @include link-colors(#7DADE0, #d7a100, #ffcb00, #7dade0, #7dade0);
+	  @include a-clear();
 	  img {
 			border: none;
 	  }
-	  &.clr-1 {
-			&:hover {
-				  text-decoration: underline;
-			}
+	  &.clr-1{
+			color: #e7b400;
+			font-family: $georgia;
 	  }
 	  &.support {
 			&:focus {
@@ -122,10 +121,6 @@ a {
 				  }
 			}
 	  }
-}
-
-a:active, a:focus {
-	  outline: none;
 }
 
 #main {
@@ -195,10 +190,7 @@ h4 {
 }
 td.header {
 	  span {
-			background: image-url('phone.png') no-repeat left;
-			a {
-				  padding-left: 20px;
-			}
+			text-decoration: underline;
 	  }
 	  a {
 			color: #202021;

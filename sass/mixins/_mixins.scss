@@ -375,3 +375,10 @@ $G9: false, $G10: false) {
 	  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$ieTopColor}', endColorstr='#{$ieBottomColor}'); // IE6 & IE7
 	  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$ieTopColor}', endColorstr='#{$ieBottomColor}')"; // IE8
 }
+
+@mixin a-clear() {
+	  &:hover, &:active, &:visited, &:focus {
+			outline: none;
+			text-decoration: none;
+	  }
+}

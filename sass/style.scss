@@ -19,10 +19,8 @@
 @import "inc/config";
 @import "media-queries";
 
-@import "inc/fonts";
-@import "inc/core";
-@import "inc/col";
-@import "inc/mod";
+
+
 
 @import "mixins/center_img";
 @import "mixins/gradient";
@@ -35,6 +33,11 @@
 @import "mixins/checkbox-and-radio";
 @import "mixins/css3-mixins";
 @import "mixins/palette";
+
+@import "inc/fonts";
+@import "inc/core";
+@import "inc/col";
+@import "inc/mod";
 
 @import "inc/jquery-ui";
 @import "inc/jquery-ui.structure";
@@ -414,28 +417,29 @@ dl {
 			margin-bottom: 3px;
 			text-indent: 10px;
 	  }
-	  dd {
-			span {
-				  width: 62px;
-				  text-align: right;
-				  display: block;
-				  float: left;
-				  margin-right: 12px;
-				  text-indent: 10px;
-			}
-			a {
-				  &:hover {
-				  }
-			}
-	  }
 }
 
+.phone {
+	  background: image-url('phone.png') no-repeat left;
+	  padding-left: 15px;
+}
+.e-mail {
+	  background: image-url('email.png') no-repeat left;
+	  padding-left: 16px;
+}
 .clr-1 {
 	  color: #dddddd;
 	  font-family: Georgia, Times New Roman, serif;
-	  a {
-			color: #e7b400;
+	  p {
+			text-indent: 0.625em;
+			margin: 0.3em;
 	  }
+
+}
+
+dd.clr-1 a {
+	  color: #e7b400;
+	  font-family: $georgia;
 }
 
 .clr-2 {
@@ -1156,4 +1160,9 @@ li h4 {
 
 .editable-pre-wrapped {
 	  white-space: pre-line;
+}
+.add-share {
+	  position: relative;
+	  margin-top: 15px;
+	  float: right;
 }
