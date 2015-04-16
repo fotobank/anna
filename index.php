@@ -13,7 +13,7 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 	<!--==============================content================================-->
 
     <div id="main" class="page1-row1 tabs clearfix">
-<aside>
+<section>
 		<table class="text-head-laitbox">
 			<tbody>
 			<tr>
@@ -256,7 +256,8 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 			 });
 		});
 	</script>-->
+	</section>
  </div>
-	</aside>
+
 
 <? include_once( __DIR__ . '/inc/footer.php' ); ?>

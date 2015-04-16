@@ -1,4 +1,6 @@
 $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
+@import "http://webfonts.ru/import/ralewayc.css";
+@import "http://webfonts.ru/import/permian.css";
 
 @font-face {
 	font-family: 'LazyCrazyRegular';
@@ -8,10 +10,12 @@ $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
 	font-style: normal;
 }
 
+
 $georgia: 'Georgia', 'Cambria', "Times New Roman", 'Times', serif;
 $lazy: 'LazyCrazyRegular','Georgia', 'Cambria', "Times New Roman", 'Times', serif;
-$helvetica: "Helvetica Neue", 'Helvetica', 'Roboto', 'Arial', sans-serif;
-$lucida-grande: "Lucida Grande", 'Tahoma', 'Verdana', 'Arial', sans-serif;
+$raleway: 'Raleway Cyr', "Helvetica Neue", 'Helvetica', 'Roboto', 'Arial', sans-serif;
+$lucida-grande: 'Lucida Grande', 'Tahoma', 'Verdana', 'Arial', sans-serif;
+$permian: 'Permian Sans', 'Verdana', 'Arial', sans-serif;
 $monospace: "Bitstream Vera Sans Mono", 'Consolas', 'Courier', monospace;
 $verdana: 'Verdana', 'Geneva', sans-serif;
 $marck: 'Marck Script', 'Georgia', cursive;
@@ -53,21 +57,32 @@ $base-font-size:   14px;
 @mixin font-stack-headers-h5 {
 
 }
+
 @mixin font-stack-body {
-	  font-family: $verdana;
-	  @include font-size(14);
-	  word-spacing: normal;
+      font-family: $raleway;
+	  @include font-size(15);
+	  font-weight: 400;
 	  font-style: normal;
+	  color: #747474;
+	  line-height: 1.47em;
+	  letter-spacing: 0;
 }
 @mixin font-stack-footer {
-	  font-family: $helvetica;
+	  font-family: $raleway;
 	  text-shadow: -1px -1px #000;
 }
-@mixin font-stack-code {
-
+@mixin font-stack-texno {
+	  font-family: $permian;
+	  @include font-size(14);
+	  font-weight: 400;
+	  line-height: 1.5em;
+	  text-indent: 1em;
 }
 @mixin font-stack-brand {
-
+	  font-family: $raleway;
+	  @include font-size(12);
+	  word-spacing: normal;
+	  font-style: normal;
 }
 
 

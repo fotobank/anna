@@ -9,8 +9,10 @@
       "email": "jurii@mail.ru"
     }
   ],
-   "require": {
-	    "php":">=5.3.0",
-        "mustache/mustache": "v2.8.0"
-    }
+  "require": {
+    "php": ">=5.3.0",
+    "mustache/mustache": "v2.8.0"
+  }
 }
+
+

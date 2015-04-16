@@ -96,6 +96,7 @@ debugHC( SITE_PATH . 'title.php');
 
 	<?
 	}
+
 	if ( if_admin( $script = "
 
     <script type='text/javascript' src='/js/jquery-ui.min.js'></script>

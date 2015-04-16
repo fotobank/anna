@@ -41,7 +41,8 @@
 		<label>
 			<textarea name='mess' cols='90' rows='6' required
 								title="Поле сообщений пустое!"
-								maxlength="300"></textarea>
+								maxlength="300">
+			</textarea>
 		</label>
 	</td>
 </tr>
@@ -81,4 +82,5 @@
 	<div class="s-ver bb1">Страница: <b>{PAGE_NOW}</b> из {TOTAL_PAGES}<br>
 		Всего сообщений: <b>{TOTAL_SHOW_MESS}</b></div>
 </div>
-	</div></div>
+	</div>
+</div>
