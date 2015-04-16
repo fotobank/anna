@@ -8,7 +8,7 @@
 
 function get_filenews($file_news) {
 	$print = '';
-	$news = ( file_exists( $file_news ) ) ? file_get_contents( $file_news ) : '';
+	$news = ( file_exists( $file_news ) ) ? file_get_contents( $file_news ) : $print = 'Файл новостей не найден!';
 	if ( $news ) {
 		$news = explode( "||", replaceBBCode( $news ) );
 		if ( count( ( $news ) ) ) {

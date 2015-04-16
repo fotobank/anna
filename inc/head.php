@@ -93,6 +93,7 @@ debugHC( SITE_PATH . 'title.php');
 		<script type='text/javascript' src='/js/minified/ajax.tabs.min.js'></script>
 		<script type="text/javascript" src="/js/jquery-contained-sticky-scroll.js"></script>
 		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>
+		<script type='text/javascript' src='/js/minified/clock.min.js'></script>
 
 	<?
 	}

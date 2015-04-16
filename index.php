@@ -240,6 +240,20 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 				<div class="h-mod">
 				   <h3 class="bb1">Акции и новости:</h3>
 				</div>
+				<div class="clock-container">
+					<div class="clock">
+						<div id="Date"></div>
+
+						<ul>
+							<li id="hours"> </li>
+							<li id="point">:</li>
+							<li id="min"> </li>
+							<li id="point">:</li>
+							<li id="sec"> </li>
+						</ul>
+
+					</div>
+				</div>
 				<?= get_filenews( "news.txt" ) ?>
 
 			</div>
