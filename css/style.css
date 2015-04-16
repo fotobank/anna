@@ -18003,14 +18003,14 @@ img.ok {
 /* line 1, ../sass/_clock.scss */
 .clock-container {
   width: 184px;
-  margin: 0 auto;
+  margin-left: -5px;
   overflow: hidden;
 }
 /* line 5, ../sass/_clock.scss */
 .clock-container .clock {
   width: 184px;
   margin: 0 auto;
-  color: #fff;
+  color: #b3b3b3;
   padding-bottom: 10px;
 }
 /* line 10, ../sass/_clock.scss */
@@ -18022,7 +18022,7 @@ img.ok {
 }
 /* line 15, ../sass/_clock.scss */
 .clock-container .clock #Date b {
-  font-size: 14px;
+  font-size: 16px;
 }
 /* line 20, ../sass/_clock.scss */
 .clock-container .clock ul {
@@ -18040,14 +18040,12 @@ img.ok {
   font-family: Calibri, sans-serif;
   text-shadow: 0 0 5px #00c6ff;
 }
-/* line 32, ../sass/_clock.scss */
-.clock-container .clock ul li #point {
+/* line 35, ../sass/_clock.scss */
+.clock-container .clock #point {
   position: relative;
-  bottom: 6px;
+  bottom: 1px;
   -moz-animation: mymove 1s ease infinite;
   -webkit-animation: mymove 1s ease infinite;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 @-webkit-keyframes mymove {
