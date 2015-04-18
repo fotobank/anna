@@ -5,14 +5,14 @@
 
 $(document).ready(function () {
 
-	var monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
-	var dayNames = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+	var monthNames = [ "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря" ]; 
+	var dayNames= ["Воскресенье - ","Понедельник - ","Вторник - ","Среда - ","Четверг - ","Пятница - ","Суббота - "];
 
 	var newDate = new Date();
 
 	newDate.setDate(newDate.getDate());
 
-	$('#Date').html("<b>" + dayNames[newDate.getDay()] + "</b><br>" + newDate.getDate() + " " + monthNames[newDate.getMonth()] + " " + newDate.getFullYear());
+	$('#Date').html(dayNames[newDate.getDay()] + "  " + newDate.getDate() + " " + monthNames[newDate.getMonth()] + " " + newDate.getFullYear());
 
 	setInterval(function () {
 

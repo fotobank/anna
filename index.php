@@ -82,8 +82,9 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 						<a href="http://www.aleks.od.ua">aleks.od.ua</a>
 					</div>
 				</div>-->
+				<?
 
-
+				?>
 				<div class="block_wrapper_body">
 					<ul>
 						<li class="block_body">
@@ -269,6 +270,5 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 	</script>-->
 	</section>
  </div>
-
 
 <? include_once( __DIR__ . '/inc/footer.php' ); ?>
