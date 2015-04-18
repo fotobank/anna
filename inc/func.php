@@ -777,6 +777,7 @@ function path_info( $path ) {
 	];
 }
 
+
 /**
  *
  *  basename для сервера с utf-8 поддерживающая кодировку Windows-1251

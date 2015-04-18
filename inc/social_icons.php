@@ -9,7 +9,7 @@
 function social_icons() {
 
 	$ret = '<div class="soc-icons">';
-	$ret .= '<a onclick="window.open(\'http://vk.com/share.php?url=http://www.annafoto.in.ua//index.php\',\'mywindow\',\'width=500,height=500\')" ';
+	$ret .= '<a onclick="window.open(\'http://vk.com/share.php?url=http://www.annafoto.in.ua/index.php\',\'mywindow\',\'width=500,height=500\')" ';
 	$ret .= 'title="Сохранить Вконтакте" rel="nofollow" style="cursor: pointer;">';
 	$ret .= '<img src="/images/icon-1.png" alt=""><span></span></a>';
 	$ret .= '<a onclick="window.open(\'http://www.odnoklassniki.ru/dk?st.cmd=addShare&amp;st.';
@@ -19,13 +19,10 @@ function social_icons() {
 	$ret .= 'title="Поделиться на Facebook" rel="nofollow" style="cursor: pointer;"><span></span>';
 	$ret .= '<img src="/images/icon-3.png" alt=""></a>';
 
-	$ret .= '<a onclick="window.open(\'http://www.facebook.com/sharer.php?u=http://www.annafoto.in.ua/index.php\',\'mywindow\',\'width=500,height=500\')" ';
-	$ret .= 'title="Поделиться на " rel="nofollow" style="cursor: pointer;"><span></span>';
+	$ret .= '<a class="twitter-share-button" data-lang="ru"
+	 onclick="window.open(\'https://twitter.com/share?url=http://www.annafoto.in.ua/index.php\',\'mywindow\',\'width=500,height=500\')" ';
+	$ret .= 'title="Поделиться на Twitter" rel="nofollow" style="cursor: pointer;"><span></span>';
 	$ret .= '<img src="/images/icon-4.png" alt=""></a>';
-
-	$ret .= '<a onclick="window.open(\'http://www.facebook.com/sharer.php?u=http://www.annafoto.in.ua/index.php\',\'mywindow\',\'width=500,height=500\')" ';
-	$ret .= 'title="Поделиться на " rel="nofollow" style="cursor: pointer;"><span></span>';
-	$ret .= '<img src="/images/icon-5.png" alt=""></a>';
 
 	$ret .= '</div>';
 
