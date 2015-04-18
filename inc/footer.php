@@ -1,3 +1,6 @@
+</div>
+<div id="bottom-inset"></div>
+</div>
 <?php
 defined( '_SECUR' ) or die( 'Доступ запрещен' );
 require_once( __DIR__ . "/../inc/sitemap_generator.php" );

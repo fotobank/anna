@@ -7,7 +7,7 @@
  */
 defined('_SECUR') or die('Доступ запрещен');
 
-$sites  = array();
+$sites  = [ ];
 $str    = $tmp = '';
 $needle = 'is listed as suspicious';
 $path   = 'http://safebrowsing.clients.google.com/safebrowsing/diagnostic?client=googlechrome&hl=en&site=';

@@ -122,19 +122,6 @@ a {
 			}
 	  }
 }
-
-#main {
-	  max-width: 1024px;
-	  margin: 30px auto 0;
-	  //noinspection CssInvalidPropertyValue
-	  background: image-url('bg.jpg') 0 0 repeat;
-	  border-bottom: #303030 1px solid;
-	  text-align: left;
-	  min-height: 100%;
-	  /* чтобы дочерние элементы позиционировались относительно этого блока */
-	  position: relative;
-}
-
 h1 {
 	  @include font-stack-headers-h1;
 	  float: left;
@@ -160,15 +147,14 @@ h4 {
 }
 
 #header {
-	  position: relative;
+	  position: absolute;
+	  left: 0;
 	  width: 100%;
 	  & > div {
-			position: relative;
 			width: 100%;
 			background: image-url('header-line.jpg') 0 bottom repeat-x;
 	  }
 	  .nav {
-			position: absolute;
 			width: 100%;
 			z-index: 999;
 			background: image-url('nav-line.png') 0 bottom repeat-x;
@@ -177,6 +163,79 @@ h4 {
 	  }
 }
 
+#wrapper-content {
+	  position: relative;
+	  max-width: 1024px;
+	  width: 100%;
+	  min-height: 100%;
+	  height: auto !important;
+	  height: 100%;
+	  margin: 0 auto;
+}
+#top-inset {
+	  min-height: 100px;
+	  background:transparent;
+	  float: none;
+}
+#main {
+	  margin: 30px auto 0;
+	  //noinspection CssInvalidPropertyValue
+	  background: image-url('bg.jpg') 0 0 repeat;
+	  text-align: left;
+	  position: relative;
+}
+
+#bottom-inset {
+	  min-height: 200px;
+	  background:transparent;
+	  float: none;
+}
+
+footer {
+	  @include font-stack-footer;
+	  position: relative;
+	  background: image-url('tail-bottom.jpg') repeat-x center bottom;
+	  width: 100%;
+	  left: 0;
+	  z-index: 0;
+	  margin: -200px /* = @footer-height */ auto 0;
+	  .social {
+			max-width: 880px;
+			padding: 60px 30px 0;
+			margin: 0 auto;
+			z-index: 1;
+			position: relative;
+			.texno {
+				  position: absolute;
+				  bottom: 30px;
+				  right: 0;
+			}
+	  }
+	  .container {
+			width: 100%;
+			z-index: 0;
+			font-size: .875em;
+			color: #fff;
+			position: relative;
+			padding-top: 12px;
+			.copirait {
+				  line-height: 1.5;
+			}
+	  }
+	  @media all and (max-width: 550px) {
+
+			height: 17.5em;
+			.social {
+				  padding: 50px 5px 0;
+			}
+			.container {
+clear: both;
+			}
+	  }
+}
+* html footer {
+	  bottomy:expression(parentNode.offsetHeight % 2 ? style.bottom="-1px" : style.bottom="0px"); /* хак для ие6, у которого есть косяк со смещением на 1px */
+}
 .header {
 	  border-color: #E3E2E0;
 	  background: #E3C37F none repeat scroll 0 0;
@@ -197,54 +256,4 @@ td.header {
 			outline: medium none;
 			text-decoration: none;
 	  }
-}
-
-footer {
-	  @include font-stack-footer;
-	  position: absolute;
-	  background: image-url('tail-bottom.jpg') repeat-x center bottom;
-	  width: 100%;
-	  left: 0;
-	  margin-bottom: -60px;
-	  margin-top: -60px;
-	  z-index: -1;
-	  .social {
-			max-width: 880px;
-			padding: 60px 30px 0;
-			margin: 0 auto;
-			z-index: 1;
-			position: relative;
-			.copirait {
-				  line-height: 1.5;
-			}
-			.texno {
-				  position: absolute;
-				  bottom: 30px;
-				  right: 0;
-			}
-	  }
-	  .container {
-			width: 100%;
-			z-index: -1;
-			font-size: .875em;
-			color: #fff;
-			position: relative;
-			padding-top: 12px;
-//			line-height: 18px;
-
-
-	  }
-	  @media all and (max-width: 550px) {
-
-			height: 17.5em;
-			.social {
-				  padding: 50px 5px 0;
-			}
-			.container {
-clear: both;
-			}
-	  }
-}
-* html footer {
-	  bottomy:expression(parentNode.offsetHeight % 2 ? style.bottom="-1px" : style.bottom="0px"); /* хак для ие6, у которого есть косяк со смещением на 1px */
 }

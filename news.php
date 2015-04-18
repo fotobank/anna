@@ -18,8 +18,8 @@ $parser = new citates( $tune );
 
 ?>
 	<!--==============================content================================-->
-	<aside>
-	<div id="main" class="page1-row1 tabs clearfix">
+	<section>
+	<div class="tabs clearfix">
 <!--		        <div id="razrab"></div>-->
 		<div id='new-gal'><?= carousel() ?></div>
 		<div class="pad-1">
@@ -56,7 +56,7 @@ $parser = new citates( $tune );
 
 		</div>
 	</div>
-	</aside>
+	</section>
 	<!--==============================footer================================-->
 <?
 include_once( __DIR__ . '/inc/footer.php' );

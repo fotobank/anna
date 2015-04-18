@@ -10,7 +10,6 @@ include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение
 include_once( __DIR__ . '/inc/head.php' );
 ?>
 	<!--==============================content================================-->
-	<div id="main" class="clearfix">
 		<section>
 			<div class="page2-row1">
 				<article>
@@ -74,7 +73,6 @@ include_once( __DIR__ . '/inc/head.php' );
 		include (__DIR__ . "/inc/contacts.php");
 		?>
 		</section>
-		</div>
 	<!--==============================footer================================-->
 <?
 include_once( __DIR__ . '/inc/footer.php' );

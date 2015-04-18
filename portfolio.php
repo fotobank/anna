@@ -10,8 +10,8 @@ include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение
 include_once( __DIR__ . '/inc/head.php' );
 ?>
 	<!--==============================content================================-->
-	<aside>
-	<div id="main" class="page1-row1 tabs clearfix">
+	<section>
+		<div class="tabs clearfix">
 <!--		<div class="page3-row1 pad-2 tabs">-->
 			<?
 		//	$thumbdir = recursive( '/files',  array('thumb' , 'slides', 'rotate_image_news', 'thu'));
@@ -64,9 +64,8 @@ include_once( __DIR__ . '/inc/head.php' );
 				echo "Фоторгафий в альбомах пока нет.";
 			}
 			?>
-	</div>
-
-	</aside>
+			</div>
+	</section>
 	<!--==============================footer================================-->
 <?
 include_once( __DIR__ . '/inc/footer.php' );

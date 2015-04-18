@@ -14,7 +14,7 @@
 											 title="Допустимы любые латинские и русские буквы, цифры, подчеркивание и тире.">
 		</label>
 	</td>
-	<td class="w270" rowspan='3'>	<h3>Отзывы и рекомендации:</h3></td>
+	<td class="w270" rowspan='3'>	<h3 class="bb1">Отзывы и рекомендации:</h3></td>
 </tr>
 	<tr id="bot">
 		<td>Фамилия:</td>
@@ -67,8 +67,7 @@
 	</fieldset>
 </form>
 	</div>
-		<div class="content-bottom">{FOTO_COMM}</div>
-		<hr>
+		<div class="content-bottom bb1">{FOTO_COMM}</div>
 		<div class="form-comments center">
 <table class="commentlist">
 <tr>
@@ -79,7 +78,7 @@
 		<td colspan='2' style='padding-top:10pt;padding-bottom:10pt;text-align: center;'>{PAGE_PREV} {PAGES} {PAGE_NEXT}</td>
 	</tr>
 </table>
-	<div class="s-ver bb1">Страница: <b>{PAGE_NOW}</b> из {TOTAL_PAGES}<br>
+	<div class="s-ver">Страница: <b>{PAGE_NOW}</b> из {TOTAL_PAGES}<br>
 		Всего сообщений: <b>{TOTAL_SHOW_MESS}</b></div>
 </div>
 	</div>
