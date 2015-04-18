@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Marck Script';
+    src: url('marckscript-regular.eot');
+    src: url('marckscript-regular.eot?#iefix') format('embedded-opentype'),
+         url('marckscript-regular.woff') format('woff'),
+         url('marckscript-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

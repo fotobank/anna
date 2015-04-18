@@ -317,19 +317,12 @@ ul.list-2 li span, .adr {
 	  float: right;
 }
 
-.soc-icons {
-	  overflow: hidden;
+.share42init {
+	//  overflow: hidden;
 	  float: left;
-	  a {
-			display: block;
-			width: 45px;
-			height: 45px;
-			float: left;
-			margin-right: 2px;
-			&:hover {
-				  img {
-						opacity: 0.7;
-				  }
+	  &:hover {
+			img {
+				  opacity: 0.7;
 			}
 	  }
 }

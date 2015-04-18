@@ -8,7 +8,7 @@
 
 function social_icons() {
 
-	$ret = '<div class="soc-icons">';
+	/*$ret = '<div class="soc-icons">';
 	$ret .= '<a onclick="window.open(\'http://vk.com/share.php?url=http://www.annafoto.in.ua/index.php\',\'mywindow\',\'width=500,height=500\')" ';
 	$ret .= 'title="Сохранить Вконтакте" rel="nofollow" style="cursor: pointer;">';
 	$ret .= '<img src="/images/icon-1.png" alt=""><span></span></a>';
@@ -26,6 +26,14 @@ function social_icons() {
 
 	$ret .= '</div>';
 
-	return $ret;
+	return $ret;*/
+?>
+
+
+	<div class="share42init"></div>
+
+	<script type='text/javascript' src='/js/share42/share42.js'></script>
+
+<?
 
 }

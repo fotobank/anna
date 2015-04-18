@@ -1,6 +1,5 @@
 $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
-@import "http://webfonts.ru/import/ralewayc.css";
-@import "http://webfonts.ru/import/permian.css";
+$marckscript: "/fonts/marck-script/marckscript-regular";
 
 @font-face {
 	font-family: 'LazyCrazyRegular';
@@ -9,10 +8,20 @@ $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
 	font-weight: normal;
 	font-style: normal;
 }
+@font-face {
+	  font-family: 'Marck Script';
+	  src: url('#{$marckscript}.eot');
+	  src: url('#{$marckscript}.eot?#iefix') format('embedded-opentype'),
+	  url('#{$marckscript}.woff') format('woff'),
+	  url('#{$marckscript}.ttf') format('truetype');
+	  font-weight: normal;
+	  font-style: normal;
+}
 
+@import "http://webfonts.ru/import/ralewayc.css";
+@import "http://webfonts.ru/import/permian.css";
 
 $georgia: 'Georgia', 'Cambria', "Times New Roman", 'Times', serif;
-$lazy: 'LazyCrazyRegular','Georgia', 'Cambria', "Times New Roman", 'Times', serif;
 $raleway: 'Raleway Cyr', "Helvetica Neue", 'Helvetica', 'Roboto', 'Arial', sans-serif;
 $lucida-grande: 'Lucida Grande', 'Tahoma', 'Verdana', 'Arial', sans-serif;
 $permian: 'Permian Sans', 'Verdana', 'Arial', sans-serif;
@@ -27,7 +36,7 @@ $base-font-size:   14px;
 @mixin font-stack-headers-h1 {
 	  @include single-text-shadow(2px, 2px, 3px, 3px, #191919);
 	  @include font-size(30);
-	  font-family: $lazy;
+	  font-family: $georgia;
 	  line-height: 30px;
 	  font-weight: bold;
 	  font-style: italic;
@@ -46,7 +55,7 @@ $base-font-size:   14px;
 	  font-family: $bad;
 	  @include font-size(24);
 	  color: $h3_color;
-	  font-weight: normal;
+	  font-weight: bold;
 	  font-style: italic;
 }
 @mixin font-stack-headers-h4 {

@@ -31,9 +31,7 @@ debugHC( SITE_PATH . 'title.php');
 	<meta content="<?= $title ?>" name="author">
 	<meta content="<?= $title ?>" name="keywords">
 	<meta content="<?= $title ?>" name="description">
-<!--	<link href='http://fonts.googleapis.com/css?family=Marck+Script&amp;subset=cyrillic' rel='stylesheet' type='text/css'>-->
-<!--	<link href='http://fonts.googleapis.com/css?family=Bad+Script&amp;subset=cyrillic' rel='stylesheet' type='text/css'>-->
-<!--	<link href='http://fonts.googleapis.com/css?family=Lora:400&amp;subset=cyrillic' rel='stylesheet' type='text/css'>-->
+	<link href='http://fonts.googleapis.com/css?family=Bad+Script&amp;subset=cyrillic' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="/images/favicon.png" type="image/png">
 
 

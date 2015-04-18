@@ -13,13 +13,14 @@ $centered-navigation-height-mobile: 2.125em;
 $centered-navigation-height: 100px;
 $centered-navigation-submenu-padding: 1.25em; // отступ с права в мобильном режиме
 $centered-navigation-menu-padding: 1.5em; // рассто€ние между разделами
-$centered-navigation-menu-padding-top: 2.85em; // отступ сверху
+$centered-navigation-menu-padding-top: 50px; // отступ сверху
 $centered-navigation-menu-font-size: 16; // в "px"
 $centered-navigation-menu-first-letter-font-size: 24; // –азмер буквицы
 $centered-navigation-font-family: $verdana;
 $centered-navigation-first-letter-font-family: $marck;
 $centered-navigation-logo-margin: -1em; // подт€нуть логотип влево
 $centered-navigation-height-menu-mobile: $centered-navigation-height-mobile * 1.3;
+$centered-navigation-background-color-hover: rgba(71, 28, 77, 0.67);
 
 
 @mixin site-menu {
@@ -72,6 +73,8 @@ $centered-navigation-height-menu-mobile: $centered-navigation-height-mobile * 1.
 				  z-index: 9999;
 				  vertical-align: middle;
 				  zoom: 1;
+				  position: relative;
+				  margin: 0 -3px;
 				  #profession{
 						font-family: $verdana;
 						font-size: 12px;
@@ -83,6 +86,7 @@ $centered-navigation-height-menu-mobile: $centered-navigation-height-mobile * 1.
 				  }
 				  a {
 						@include font-size($centered-navigation-menu-font-size);
+						height: 50px;
 						text-shadow: #191919 2px 2px 5px;
 						color: $centered-navigation-color;
 						vertical-align: middle;
@@ -92,11 +96,12 @@ $centered-navigation-height-menu-mobile: $centered-navigation-height-mobile * 1.
 						text-decoration: none;
 					//	transition: 0.6s, opacity 0s 2s, visibility 0s 2s;
 						padding: $centered-navigation-menu-padding-top $centered-navigation-menu-padding 0;
-
 						&:hover {
 							  @include box-shadow(inset 0 0 0 60px rgba(42, 42, 42, 0.24));
 							  color: $centered-navigation-color-hover;
 							  text-decoration: none;
+							  background: $centered-navigation-background-color-hover;
+							  box-shadow: 0 1px 2px rgba(0,0,0,0.28);
 						}
 						&:active {
 							  color: lighten($centered-navigation-color-hover, 40);
@@ -115,10 +120,12 @@ $centered-navigation-height-menu-mobile: $centered-navigation-height-mobile * 1.
 			}
 			ul li.current a {
 				  color: $centered-navigation-color-hover;
+				  background: $centered-navigation-background-color-hover;
+				  box-shadow: 0 1px 2px rgba(0,0,0,0.28);
 			}
-			/*.nav-link:first-child {
-
-			}*/
+			.nav-link:first-child {
+				  margin-top: -10px;
+			}
 			.nav-link:nth-child(2) {
 				  a {
 						width: 5.125em;
