@@ -22,10 +22,14 @@ var google_remarketing_only = false;
 <script type='text/javascript' src='//www.googleadservices.com/pagead/conversion.js'></script>
 
 <noscript>
+	<div class="google-stats">
+		<!-- SuperLog -->
 <div style='display:inline;'>
 <img height='1' width='1' style='border-style:none;' alt=''
 src='//www.googleadservices.com/pagead/conversion/996577394/?label=msCcCJq9-VoQ8qCa2wM&amp;guid=ON&amp;script=0'/>
 </div>
+		<!-- /SuperLog -->
+	</div>
 </noscript>
 
 <!-- Google Code for annafoto_mobil Conversion Page

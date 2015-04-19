@@ -31,7 +31,6 @@ debugHC( SITE_PATH . 'title.php');
 	<meta content="<?= $title ?>" name="author">
 	<meta content="<?= $title ?>" name="keywords">
 	<meta content="<?= $title ?>" name="description">
-<!--	<link href='http://fonts.googleapis.com/css?family=Bad+Script&amp;subset=cyrillic' rel='stylesheet' type='text/css'>-->
 	<link rel="shortcut icon" href="/images/favicon.png" type="image/png">
 
 
@@ -120,8 +119,8 @@ debugHC( SITE_PATH . 'title.php');
 </article>
 <div id="wrapper-content">
 	<div id="top-inset"></div>
-<!--[if IE 6]>
-<div class="warning">
+<!--[if IE 9]>
+<div class="alert alert-danger">
 	<noindex>Вы используете устаревший браузер! Для комфортной работы рекомендуем установить новый
 		<b>Firefox</b> или <b>Chrome</b> или <b>Internet Explorer</b> или <b>Opera 10</b>!
 	</noindex>
@@ -130,7 +129,8 @@ debugHC( SITE_PATH . 'title.php');
 
 <noindex>
 	<noscript>
-		<div class="warning">
+
+		<div class="alert alert-danger">
 			<strong>В Вашем браузере отключен JavaScript.</strong><br> Для полноценной работы сайта (просмотра галереи фотографий) необходимо,
 			<br>чтобы JavaScript был включен. Как включить — смотрите
 			<a href="http://www.google.ru/support/adsense/bin/answer.py?answer=12654" target="_blank">здесь</a>.
