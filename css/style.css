@@ -1,6 +1,4 @@
 @charset "UTF-8";
-@import "http://webfonts.ru/import/ralewayc.css";
-@import "http://webfonts.ru/import/permian.css";
 /* line 1, ../sass/base/extends/_button.scss */
 button,
 input[type="submit"] {
@@ -9267,7 +9265,121 @@ a.editable-click.editable-disabled:hover {
   font-style: normal;
   font-weight: normal;
 }
-/* line 135, ../sass/inc/_fonts.scss */
+/* font-family: "RalewayRegular"; */
+@font-face {
+  font-family: "RalewayRegular";
+  src: url("/fonts/Raleway/RalewayRegular/RalewayRegular.eot");
+  src: url("/fonts/Raleway/RalewayRegular/RalewayRegular.eot?#iefix") format("embedded-opentype"), url("/fonts/Raleway/RalewayRegular/RalewayRegular.woff") format("woff"), url("/fonts/Raleway/RalewayRegular/RalewayRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* font-family: "RalewayThin"; */
+/*@font-face {
+	  font-family: "RalewayThin";
+	  src: url("/fonts/Raleway/RalewayThin/RalewayThin.eot");
+	  src: url("/fonts/Raleway/RalewayThin/RalewayThin.eot?#iefix")format("embedded-opentype"),
+	  url("/fonts/Raleway/RalewayThin/RalewayThin.woff") format("woff"),
+	  url("/fonts/Raleway/RalewayThin/RalewayThin.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayExtraLight"; */
+/*@font-face {
+	  font-family: "RalewayExtraLight";
+	  src: url("/fonts/Raleway/RalewayExtraLight/RalewayExtraLight.eot");
+	  src: url("/fonts/Raleway/RalewayExtraLight/RalewayExtraLight.eot?#iefix")format("embedded-opentype"),
+	  url("/fonts/Raleway/RalewayExtraLight/RalewayExtraLight.woff") format("woff"),
+	  url("./fonts/Raleway/RalewayExtraLight/RalewayExtraLight.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayLight"; */
+/*@font-face {
+	  font-family: "RalewayLight";
+	  src: url("/fonts/Raleway/RalewayLight/RalewayLight.eot");
+	  src: url("/fonts/Raleway/RalewayLight/RalewayLight.eot?#iefix")format("embedded-opentype"),
+	  url("/fonts/Raleway/RalewayLight/RalewayLight.woff") format("woff"),
+	  url("/fonts/Raleway/RalewayLight/RalewayLight.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayMedium"; */
+@font-face {
+  font-family: "RalewayMedium";
+  src: url("/fonts/Raleway/RalewayMedium/RalewayMedium.eot");
+  src: url("/fonts/Raleway/RalewayMedium/RalewayMedium.eot?#iefix") format("embedded-opentype"), url("/fonts/Raleway/RalewayMedium/RalewayMedium.woff") format("woff"), url("/fonts/Raleway/RalewayMedium/RalewayMedium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* font-family: "RalewaySemiBold"; */
+/*@font-face {
+	  font-family: "RalewaySemiBold";
+	  src: url("/fonts/Raleway/RalewaySemiBold/RalewaySemiBold.eot");
+	  src: url("/fonts/Raleway/RalewaySemiBold/RalewaySemiBold.eot?#iefix")format("embedded-opentype"),
+	  url("/fonts/Raleway/RalewaySemiBold/RalewaySemiBold.woff") format("woff"),
+	  url("/fonts/Raleway/RalewaySemiBold/RalewaySemiBold.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayBold"; */
+/*@font-face {
+	  font-family: "RalewayBold";
+	  src: url("/fonts/Raleway/RalewayBold/RalewayBold.eot");
+	  src: url("/fonts/Raleway/RalewayBold/RalewayBold.eot?#iefix")format("embedded-opentype"),
+	  url("/fonts/Raleway/RalewayBold/RalewayBold.woff") format("woff"),
+	  url("/fonts/Raleway/RalewayBold/RalewayBold.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayExtraBold"; */
+/*@font-face {
+	  font-family: "RalewayExtraBold";
+	  src: url("/fonts/Raleway/RalewayExtraBold/RalewayExtraBold.eot");
+	  src: url("/fonts/Raleway/RalewayExtraBold/RalewayExtraBold.eot?#iefix")format("embedded-opentype"),
+	  url("/fonts/Raleway/RalewayExtraBold/RalewayExtraBold.woff") format("woff"),
+	  url("/fonts/Raleway/RalewayExtraBold/RalewayExtraBold.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayBlack"; */
+/*@font-face {
+	  font-family: "RalewayBlack";
+	  src: url("/fonts/Raleway/RalewayBlack/RalewayBlack.eot");
+	  src: url("/fonts/Raleway/RalewayBlack/RalewayBlack.eot?#iefix")format("embedded-opentype"),
+	  url("/fonts/Raleway/RalewayBlack/RalewayBlack.woff") format("woff"),
+	  url("/fonts/Raleway/RalewayBlack/RalewayBlack.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "PermianSansRegular"; */
+@font-face {
+  font-family: "PermianSansRegular";
+  src: url("/fonts/PermianSans/PermianSansRegular/PermianSansRegular.eot");
+  src: url("/fonts/PermianSans/PermianSansRegular/PermianSansRegular.eot?#iefix") format("embedded-opentype"), url("/fonts/PermianSans/PermianSansRegular/PermianSansRegular.woff") format("woff"), url("/fonts/PermianSans/PermianSansRegular/PermianSansRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* font-family: "PermianSansBold"; */
+/*@font-face {
+	  font-family: "PermianSansBold";
+	  src: url("/fonts/PermianSans/PermianSansBold/PermianSansBold.eot");
+	  src: url("/fonts/PermianSans/PermianSansBold/PermianSansBold.eot?#iefix")format("embedded-opentype"),
+	  url("/fonts/PermianSans/PermianSansBold/PermianSansBold.woff") format("woff"),
+	  url("/fonts/PermianSans/PermianSansBold/PermianSansBold.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "PermianSansItalic"; */
+/*@font-face {
+	  font-family: "PermianSansItalic";
+	  src: url("/fonts/PermianSans/PermianSansItalic/PermianSansItalic.eot");
+	  src: url("/fonts/PermianSans/PermianSansItalic/PermianSansItalic.eot?#iefix")format("embedded-opentype"),
+	  url("/fonts/PermianSans/PermianSansItalic/PermianSansItalic.woff") format("woff"),
+	  url("/fonts/PermianSans/PermianSansItalic/PermianSansItalic.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* line 256, ../sass/inc/_fonts.scss */
 .b {
   font-weight: bold;
   font-family: Verdana, serif;
@@ -9278,7 +9390,7 @@ a.editable-click.editable-disabled:hover {
   text-align: center;
 }
 
-/* line 142, ../sass/inc/_fonts.scss */
+/* line 263, ../sass/inc/_fonts.scss */
 .s {
   font-weight: plain;
   font-family: Arial, serif;
@@ -9288,7 +9400,7 @@ a.editable-click.editable-disabled:hover {
   line-height: 1.1rem;
 }
 
-/* line 148, ../sass/inc/_fonts.scss */
+/* line 269, ../sass/inc/_fonts.scss */
 .s-ver {
   font-family: Verdana, serif;
   font-size: 11px;
@@ -11142,12 +11254,11 @@ html, body {
   padding: 0;
   margin: 0;
   height: 100%;
-  font-family: "Raleway Cyr", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "RalewayMedium", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 15px;
   font-size: 0.9375rem;
   line-height: 24px;
   line-height: 1.5rem;
-  font-weight: 400;
   font-style: normal;
   color: #747474;
   line-height: 1.47em;
@@ -17056,12 +17167,11 @@ body .ui-tooltip {
   text-align: left;
   white-space: pre-line;
   margin-top: 20px;
-  font-family: "Raleway Cyr", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "RalewayMedium", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 15px;
   font-size: 0.9375rem;
   line-height: 24px;
   line-height: 1.5rem;
-  font-weight: 400;
   font-style: normal;
   color: #747474;
   line-height: 1.47em;
@@ -17319,12 +17429,11 @@ img.ok {
 
 /* line 229, ../sass/_tabs.scss */
 .block_wrap {
-  font-family: "Raleway Cyr", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "RalewayMedium", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 15px;
   font-size: 0.9375rem;
   line-height: 24px;
   line-height: 1.5rem;
-  font-weight: 400;
   font-style: normal;
   color: #747474;
   line-height: 1.47em;
@@ -18342,7 +18451,7 @@ ul.list-3 li span.extra-wrap a:hover {
 
 /* line 220, ../sass/style.scss */
 ul.list-2 li span, .adr {
-  font-family: "Permian Sans", "Verdana", "Arial", sans-serif;
+  font-family: "PermianSansRegular", "Verdana", "Arial", sans-serif;
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 22.4px;
@@ -18364,7 +18473,7 @@ ul.list-2 li span, .adr {
   line-height: 1.2rem;
   line-height: 20px;
   line-height: 1.5em;
-  font-family: "Permian Sans", "Verdana", "Arial", sans-serif;
+  font-family: "PermianSansRegular", "Verdana", "Arial", sans-serif;
   font-weight: 400;
   text-indent: 1em;
 }
@@ -18821,7 +18930,7 @@ TEXTAREA, SELECT {
 #form textarea, #form2 textarea {
   background: #2c2c2c;
   color: #ccc;
-  font-family: "Raleway Cyr", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "RalewayMedium", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 19.2px;

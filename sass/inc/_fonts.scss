@@ -1,6 +1,8 @@
 $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
 $marck_script: "/fonts/marck-script/marckscript-regular";
 $bad_script_regular: "/fonts/BadScriptRegular/BadScriptRegular";
+$raleway_fonts: "/fonts/Raleway/";
+$permian_fonts: "/fonts/PermianSans/";
 
 @font-face {
 	font-family: 'LazyCrazyRegular';
@@ -29,16 +31,133 @@ $bad_script_regular: "/fonts/BadScriptRegular/BadScriptRegular";
 	  font-style: normal;
 	  font-weight: normal;
 }
+/* font-family: "RalewayRegular"; */
+@font-face {
+	  font-family: "RalewayRegular";
+	  src: url("#{$raleway_fonts}RalewayRegular/RalewayRegular.eot");
+	  src: url("#{$raleway_fonts}RalewayRegular/RalewayRegular.eot?#iefix")format("embedded-opentype"),
+	  url("#{$raleway_fonts}RalewayRegular/RalewayRegular.woff") format("woff"),
+	  url("#{$raleway_fonts}RalewayRegular/RalewayRegular.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}
+/* font-family: "RalewayThin"; */
+/*@font-face {
+	  font-family: "RalewayThin";
+	  src: url("#{$raleway_fonts}RalewayThin/RalewayThin.eot");
+	  src: url("#{$raleway_fonts}RalewayThin/RalewayThin.eot?#iefix")format("embedded-opentype"),
+	  url("#{$raleway_fonts}RalewayThin/RalewayThin.woff") format("woff"),
+	  url("#{$raleway_fonts}RalewayThin/RalewayThin.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayExtraLight"; */
+/*@font-face {
+	  font-family: "RalewayExtraLight";
+	  src: url("#{$raleway_fonts}RalewayExtraLight/RalewayExtraLight.eot");
+	  src: url("#{$raleway_fonts}RalewayExtraLight/RalewayExtraLight.eot?#iefix")format("embedded-opentype"),
+	  url("#{$raleway_fonts}RalewayExtraLight/RalewayExtraLight.woff") format("woff"),
+	  url(".#{$raleway_fonts}RalewayExtraLight/RalewayExtraLight.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayLight"; */
+/*@font-face {
+	  font-family: "RalewayLight";
+	  src: url("#{$raleway_fonts}RalewayLight/RalewayLight.eot");
+	  src: url("#{$raleway_fonts}RalewayLight/RalewayLight.eot?#iefix")format("embedded-opentype"),
+	  url("#{$raleway_fonts}RalewayLight/RalewayLight.woff") format("woff"),
+	  url("#{$raleway_fonts}RalewayLight/RalewayLight.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayMedium"; */
+@font-face {
+	  font-family: "RalewayMedium";
+	  src: url("#{$raleway_fonts}RalewayMedium/RalewayMedium.eot");
+	  src: url("#{$raleway_fonts}RalewayMedium/RalewayMedium.eot?#iefix")format("embedded-opentype"),
+	  url("#{$raleway_fonts}RalewayMedium/RalewayMedium.woff") format("woff"),
+	  url("#{$raleway_fonts}RalewayMedium/RalewayMedium.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}
+/* font-family: "RalewaySemiBold"; */
+/*@font-face {
+	  font-family: "RalewaySemiBold";
+	  src: url("#{$raleway_fonts}RalewaySemiBold/RalewaySemiBold.eot");
+	  src: url("#{$raleway_fonts}RalewaySemiBold/RalewaySemiBold.eot?#iefix")format("embedded-opentype"),
+	  url("#{$raleway_fonts}RalewaySemiBold/RalewaySemiBold.woff") format("woff"),
+	  url("#{$raleway_fonts}RalewaySemiBold/RalewaySemiBold.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayBold"; */
+/*@font-face {
+	  font-family: "RalewayBold";
+	  src: url("#{$raleway_fonts}RalewayBold/RalewayBold.eot");
+	  src: url("#{$raleway_fonts}RalewayBold/RalewayBold.eot?#iefix")format("embedded-opentype"),
+	  url("#{$raleway_fonts}RalewayBold/RalewayBold.woff") format("woff"),
+	  url("#{$raleway_fonts}RalewayBold/RalewayBold.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayExtraBold"; */
+/*@font-face {
+	  font-family: "RalewayExtraBold";
+	  src: url("#{$raleway_fonts}RalewayExtraBold/RalewayExtraBold.eot");
+	  src: url("#{$raleway_fonts}RalewayExtraBold/RalewayExtraBold.eot?#iefix")format("embedded-opentype"),
+	  url("#{$raleway_fonts}RalewayExtraBold/RalewayExtraBold.woff") format("woff"),
+	  url("#{$raleway_fonts}RalewayExtraBold/RalewayExtraBold.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "RalewayBlack"; */
+/*@font-face {
+	  font-family: "RalewayBlack";
+	  src: url("#{$raleway_fonts}RalewayBlack/RalewayBlack.eot");
+	  src: url("#{$raleway_fonts}RalewayBlack/RalewayBlack.eot?#iefix")format("embedded-opentype"),
+	  url("#{$raleway_fonts}RalewayBlack/RalewayBlack.woff") format("woff"),
+	  url("#{$raleway_fonts}RalewayBlack/RalewayBlack.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
 
-
-@import "http://webfonts.ru/import/ralewayc.css";
-@import "http://webfonts.ru/import/permian.css";
+/* font-family: "PermianSansRegular"; */
+@font-face {
+	  font-family: "PermianSansRegular";
+	  src: url("#{$permian_fonts}PermianSansRegular/PermianSansRegular.eot");
+	  src: url("#{$permian_fonts}PermianSansRegular/PermianSansRegular.eot?#iefix")format("embedded-opentype"),
+	  url("#{$permian_fonts}PermianSansRegular/PermianSansRegular.woff") format("woff"),
+	  url("#{$permian_fonts}PermianSansRegular/PermianSansRegular.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}
+/* font-family: "PermianSansBold"; */
+/*@font-face {
+	  font-family: "PermianSansBold";
+	  src: url("#{$permian_fonts}PermianSansBold/PermianSansBold.eot");
+	  src: url("#{$permian_fonts}PermianSansBold/PermianSansBold.eot?#iefix")format("embedded-opentype"),
+	  url("#{$permian_fonts}PermianSansBold/PermianSansBold.woff") format("woff"),
+	  url("#{$permian_fonts}PermianSansBold/PermianSansBold.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
+/* font-family: "PermianSansItalic"; */
+/*@font-face {
+	  font-family: "PermianSansItalic";
+	  src: url("#{$permian_fonts}PermianSansItalic/PermianSansItalic.eot");
+	  src: url("#{$permian_fonts}PermianSansItalic/PermianSansItalic.eot?#iefix")format("embedded-opentype"),
+	  url("#{$permian_fonts}PermianSansItalic/PermianSansItalic.woff") format("woff"),
+	  url("#{$permian_fonts}PermianSansItalic/PermianSansItalic.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}*/
 
 $georgia: 'Georgia', 'Cambria', "Times New Roman", 'Times', serif;
-$raleway: 'Raleway Cyr', "Helvetica Neue", 'Helvetica', 'Roboto', 'Arial', sans-serif;
+$raleway: 'RalewayMedium', "Helvetica Neue", 'Helvetica', 'Roboto', 'Arial', sans-serif;
 $helvetica:"Helvetica Neue", 'Helvetica', 'Roboto', 'Arial', sans-serif;
 $lucida-grande: 'Lucida Grande', 'Tahoma', 'Verdana', 'Arial', sans-serif;
-$permian: 'Permian Sans', 'Verdana', 'Arial', sans-serif;
+$permian: 'PermianSansRegular', 'Verdana', 'Arial', sans-serif;
 $monospace: "Bitstream Vera Sans Mono", 'Consolas', 'Courier', monospace;
 $verdana: 'Verdana', 'Geneva', sans-serif;
 $marck: 'Marck Script', 'Georgia', cursive;
@@ -85,7 +204,6 @@ $base-font-size:   14px;
 @mixin font-stack-body {
       font-family: $raleway;
 	  @include font-size(15);
-	  font-weight: 400;
 	  font-style: normal;
 	  color: #747474;
 	  line-height: 1.47em;
