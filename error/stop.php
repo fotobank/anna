@@ -7,6 +7,7 @@
  */
 
 // defined( '_SECUR' ) or die( 'Доступ запрещен' );
+header( 'Content-type: text/html; charset=windows-1251' );
 ?>
 <!DOCTYPE html>
 <html>
