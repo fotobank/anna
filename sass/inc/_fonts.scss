@@ -1,5 +1,6 @@
 $url_lazy: "/fonts/lazy-webfont/lazy-webfont";
-$marckscript: "/fonts/marck-script/marckscript-regular";
+$marck_script: "/fonts/marck-script/marckscript-regular";
+$bad_script_regular: "/fonts/BadScriptRegular/BadScriptRegular";
 
 @font-face {
 	font-family: 'LazyCrazyRegular';
@@ -10,13 +11,25 @@ $marckscript: "/fonts/marck-script/marckscript-regular";
 }
 @font-face {
 	  font-family: 'Marck Script';
-	  src: url('#{$marckscript}.eot');
-	  src: url('#{$marckscript}.eot?#iefix') format('embedded-opentype'),
-	  url('#{$marckscript}.woff') format('woff'),
-	  url('#{$marckscript}.ttf') format('truetype');
+	  src: url('#{$marck_script}.eot');
+	  src: url('#{$marck_script}.eot?#iefix') format('embedded-opentype'),
+	  url('#{$marck_script}.woff') format('woff'),
+	  url('#{$marck_script}.ttf') format('truetype');
 	  font-weight: normal;
 	  font-style: normal;
 }
+
+/* font-family: "BadScriptRegular"; */
+@font-face {
+	  font-family: "BadScriptRegular";
+	  src: url("#{$bad_script_regular}.eot");
+	  src: url("#{$bad_script_regular}.eot?#iefix")format("embedded-opentype"),
+	  url("#{$bad_script_regular}.woff") format("woff"),
+	  url("#{$bad_script_regular}.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}
+
 
 @import "http://webfonts.ru/import/ralewayc.css";
 @import "http://webfonts.ru/import/permian.css";
@@ -29,7 +42,7 @@ $permian: 'Permian Sans', 'Verdana', 'Arial', sans-serif;
 $monospace: "Bitstream Vera Sans Mono", 'Consolas', 'Courier', monospace;
 $verdana: 'Verdana', 'Geneva', sans-serif;
 $marck: 'Marck Script', 'Georgia', cursive;
-$bad: 'Bad Script', 'Georgia', cursive;
+$bad: 'BadScriptRegular', 'Georgia', cursive;
 $base-font-family: 'Lato', sans-serif;
 $base-font-size:   14px;
 
@@ -55,6 +68,7 @@ $base-font-size:   14px;
 @mixin font-stack-headers-h3 {
 	  font-family: $bad;
 	  @include font-size(24);
+	  line-height: 24px;
 	  color: $h3_color;
 	  font-weight: bold;
 	  font-style: italic;

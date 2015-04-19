@@ -9259,7 +9259,15 @@ a.editable-click.editable-disabled:hover {
   font-weight: normal;
   font-style: normal;
 }
-/* line 114, ../sass/inc/_fonts.scss */
+/* font-family: "BadScriptRegular"; */
+@font-face {
+  font-family: "BadScriptRegular";
+  src: url("/fonts/BadScriptRegular/BadScriptRegular.eot");
+  src: url("/fonts/BadScriptRegular/BadScriptRegular.eot?#iefix") format("embedded-opentype"), url("/fonts/BadScriptRegular/BadScriptRegular.woff") format("woff"), url("/fonts/BadScriptRegular/BadScriptRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* line 128, ../sass/inc/_fonts.scss */
 .b {
   font-weight: bold;
   font-family: Verdana, serif;
@@ -9270,7 +9278,7 @@ a.editable-click.editable-disabled:hover {
   text-align: center;
 }
 
-/* line 121, ../sass/inc/_fonts.scss */
+/* line 135, ../sass/inc/_fonts.scss */
 .s {
   font-weight: plain;
   font-family: Arial, serif;
@@ -9280,7 +9288,7 @@ a.editable-click.editable-disabled:hover {
   line-height: 1.1rem;
 }
 
-/* line 127, ../sass/inc/_fonts.scss */
+/* line 141, ../sass/inc/_fonts.scss */
 .s-ver {
   font-family: Verdana, serif;
   font-size: 11px;
@@ -11258,11 +11266,12 @@ h2 {
 
 /* line 134, ../sass/inc/_core.scss */
 h3 {
-  font-family: "Bad Script", "Georgia", cursive;
+  font-family: "BadScriptRegular", "Georgia", cursive;
   font-size: 24px;
   font-size: 1.5rem;
   line-height: 38.4px;
   line-height: 2.4rem;
+  line-height: 24px;
   color: #C79CCF;
   font-weight: bold;
   font-style: italic;
@@ -17137,35 +17146,39 @@ body .ui-tooltip {
   border-radius: 6px;
   padding: 0 0 8px 14px;
   line-height: 18px;
-  background: url(/images/marker-1.gif) 0 8px no-repeat;
+  background: url('/images/marker-1.gif?1405111182') 0 8px no-repeat;
   width: 230px;
   height: 24px;
   vertical-align: middle;
-  font-family: 'Bad Script', cursive;
+  font-family: "BadScriptRegular", "Georgia", cursive;
+  font-style: oblique;
   color: #ffffff;
   font-weight: bold;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 28.8px;
+  line-height: 1.8rem;
 }
-/* line 106, ../sass/_tabs.scss */
+/* line 107, ../sass/_tabs.scss */
 .list-categorii li .actions, .list-categorii li .ok-cancel, .list-menu li .actions, .list-menu li .ok-cancel {
   position: absolute;
   right: 0;
   float: right;
   z-index: 10;
 }
-/* line 112, ../sass/_tabs.scss */
+/* line 113, ../sass/_tabs.scss */
 .list-categorii li .ok-cancel, .list-menu li .ok-cancel {
   top: 4px;
   right: 4px;
 }
-/* line 116, ../sass/_tabs.scss */
+/* line 117, ../sass/_tabs.scss */
 .list-categorii li .actions, .list-menu li .actions {
   z-index: 9;
   top: 0;
   display: none;
 }
-/* line 121, ../sass/_tabs.scss */
+/* line 122, ../sass/_tabs.scss */
 .list-categorii li input, .list-menu li input {
   border: 1px solid #ffec0e;
   color: #666666;
@@ -17175,25 +17188,25 @@ body .ui-tooltip {
   margin-left: -5px;
 }
 
-/* line 131, ../sass/_tabs.scss */
+/* line 132, ../sass/_tabs.scss */
 .list-categorii li:hover, .list-categorii li:active, .list-menu li:hover, .list-menu li:active {
   color: #fc0;
 }
 
-/* line 135, ../sass/_tabs.scss */
+/* line 136, ../sass/_tabs.scss */
 .block_body .actions {
   position: absolute;
   z-index: 1;
 }
 
-/* line 141, ../sass/_tabs.scss */
+/* line 142, ../sass/_tabs.scss */
 .block_wrap .actions {
   position: absolute;
   right: 10px;
   z-index: 1;
 }
 
-/* line 147, ../sass/_tabs.scss */
+/* line 148, ../sass/_tabs.scss */
 .list-categorii li .actions a, .list-menu li .actions a, .block_wrapper_body .actions a {
   display: block;
   width: 16px;
@@ -17205,39 +17218,39 @@ body .ui-tooltip {
   z-index: 1000;
 }
 
-/* line 157, ../sass/_tabs.scss */
+/* line 158, ../sass/_tabs.scss */
 .list-categorii li .actions a.edit, .list-menu li .actions a.edit, .block_wrapper_body a.edit {
   background: url("/images/edit.png") no-repeat center center;
 }
 
-/* line 160, ../sass/_tabs.scss */
+/* line 161, ../sass/_tabs.scss */
 .list-categorii li .actions a.delete, .list-menu li .actions a.delete, .block_wrapper_body a.delete {
   background: url("/images/delete.png") no-repeat center center;
 }
 
-/* line 163, ../sass/_tabs.scss */
+/* line 164, ../sass/_tabs.scss */
 img.return, img.ok {
   float: right;
   cursor: pointer;
 }
 
-/* line 168, ../sass/_tabs.scss */
+/* line 169, ../sass/_tabs.scss */
 img.ok {
   margin-right: 3px;
 }
 
-/* line 173, ../sass/_tabs.scss */
+/* line 174, ../sass/_tabs.scss */
 .text {
   vertical-align: middle;
   position: relative;
 }
 
-/* line 177, ../sass/_tabs.scss */
+/* line 178, ../sass/_tabs.scss */
 .ui-button, .ui-dialog-titlebar {
   font-size: 0.72em !important;
 }
 
-/* line 180, ../sass/_tabs.scss */
+/* line 181, ../sass/_tabs.scss */
 #dialog-confirm {
   display: none;
   font-size: 0.9em;
@@ -17245,7 +17258,7 @@ img.ok {
   height: 40px;
 }
 
-/* line 190, ../sass/_tabs.scss */
+/* line 191, ../sass/_tabs.scss */
 .block_wrapper_body {
   position: relative;
   height: 100%;
@@ -17254,17 +17267,17 @@ img.ok {
   color: #cacaca;
   text-align: center;
 }
-/* line 197, ../sass/_tabs.scss */
+/* line 198, ../sass/_tabs.scss */
 .block_wrapper_body .blocks {
   margin: 50px 0 0 0;
 }
-/* line 200, ../sass/_tabs.scss */
+/* line 201, ../sass/_tabs.scss */
 .block_wrapper_body .block_rounded {
   -webkit-border-radius: 5px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
-/* line 204, ../sass/_tabs.scss */
+/* line 205, ../sass/_tabs.scss */
 .block_wrapper_body .block_rounded:before {
   border-width: 8px;
   border-color: #EBEAE6 #EBEAE6 transparent transparent;
@@ -17272,14 +17285,14 @@ img.ok {
   -moz-border-radius: 0 0 0 5px;
   border-radius: 0 0 0 5px;
 }
-/* line 212, ../sass/_tabs.scss */
+/* line 213, ../sass/_tabs.scss */
 .block_wrapper_body .border {
   border: 1px solid #b9b9b9;
   padding: 3px;
   background: #000000;
   margin: 15px 0 0 -4px;
 }
-/* line 217, ../sass/_tabs.scss */
+/* line 218, ../sass/_tabs.scss */
 .block_wrapper_body .border img {
   width: 100%;
   -o-filter: grayscale(0);
@@ -17291,7 +17304,7 @@ img.ok {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-/* line 221, ../sass/_tabs.scss */
+/* line 222, ../sass/_tabs.scss */
 .block_wrapper_body .border img:hover {
   -o-filter: grayscale(100%);
   -ms-filter: grayscale(100%);
@@ -17299,12 +17312,12 @@ img.ok {
   -webkit-filter: grayscale(100%);
 }
 
-/* line 228, ../sass/_tabs.scss */
+/* line 229, ../sass/_tabs.scss */
 .edit-txt {
   text-align: left;
 }
 
-/* line 233, ../sass/_tabs.scss */
+/* line 234, ../sass/_tabs.scss */
 .block_wrap {
   font-family: "Raleway Cyr", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 15px;
@@ -17333,17 +17346,17 @@ img.ok {
   background: -o-radial-gradient(center, circle, #363636, #222222);
   background: radial-gradient(circle at center, #363636, #222222);
 }
-/* line 248, ../sass/_tabs.scss */
+/* line 249, ../sass/_tabs.scss */
 .block_wrap img {
   width: 100%;
   margin: 0;
 }
-/* line 252, ../sass/_tabs.scss */
+/* line 253, ../sass/_tabs.scss */
 .block_wrap p {
   text-indent: 0;
   margin-top: 25px;
 }
-/* line 255, ../sass/_tabs.scss */
+/* line 256, ../sass/_tabs.scss */
 .block_wrap p:first-letter {
   font-family: "Georgia", "Cambria", "Times New Roman", "Times", serif;
   font-size: 38px;
@@ -17356,18 +17369,18 @@ img.ok {
   padding: 10px 10px 0 0;
 }
 
-/* line 266, ../sass/_tabs.scss */
+/* line 267, ../sass/_tabs.scss */
 .block_body {
   position: relative;
   padding: 30px 0;
 }
-/* line 271, ../sass/_tabs.scss */
+/* line 272, ../sass/_tabs.scss */
 .block_body ul:not(.block_wrap) li {
   display: inline-block;
   width: 130px;
   padding: 0 10px;
 }
-/* line 278, ../sass/_tabs.scss */
+/* line 279, ../sass/_tabs.scss */
 .block_body img {
   width: 120px;
 }
