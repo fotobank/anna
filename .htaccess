@@ -155,4 +155,14 @@ ExpiresDefault "access plus 2 days"
   # END Adaptive-Images -------------------------------------------------------------------------------
 #</IfModule>
 
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+
+#Запрещаем загрузку файлов с внешних сайтов
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http://(www.)?annafoto.in.ua/ [nc]
+RewriteRule .*.(gif|jpg|png)$ http://annafoto.in.ua/img/not_foto.png[nc]
+
 ErrorDocument 404 /404.php
