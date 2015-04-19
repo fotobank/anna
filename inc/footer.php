@@ -37,10 +37,10 @@ if ( DEBUG_MODE == true ) {
 	<span> cтудия&nbsp;&nbsp; <a target='_blank' href='http://www.aleks.od.ua' class='link-2'>Creative ls</a></span>
 
 </div>
+	<?
+	if ( DEBUG_MODE == false ) { include (__DIR__ . "/inc.foter.google.php"); }
+	?>
 </footer>
-<?
-if ( DEBUG_MODE == false ) { include (__DIR__ . "/inc.foter.google.php"); }
-?>
 </body>
 </html>
 <?
