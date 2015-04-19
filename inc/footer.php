@@ -7,10 +7,7 @@ require_once( __DIR__ . "/../inc/sitemap_generator.php" );
 require( __DIR__ . '/online_widget.php' );
 
 
-//запуск главного меню
 ?>
-	<script type='text/javascript' src='/js/menu.js'></script>
-
 <footer>
 <!--==============================соцсети================================-->
 <div class='social'>
@@ -26,7 +23,6 @@ if ( DEBUG_MODE == true ) {
 ?>
 				</div>
 	<div class="share42init"></div>
-	<script type='text/javascript' src='/js/share42/share42.js'></script>
 		<?= online_widget() ?>
 </div>
 
@@ -40,6 +36,8 @@ if ( DEBUG_MODE == true ) {
 
 </div>
 </footer>
+<script type='text/javascript' src='/js/menu.js'></script>
+<script type='text/javascript' src='/js/share42/share42.js'></script>
 </body>
 </html>
 <?
