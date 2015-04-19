@@ -11348,32 +11348,32 @@ footer {
   width: 100%;
   left: 0;
   z-index: 0;
+  padding: 5px 0;
   margin: -200px auto 0;
 }
-/* line 202, ../sass/inc/_core.scss */
+/* line 203, ../sass/inc/_core.scss */
 footer .social {
   max-width: 880px;
-  padding: 60px 30px 0;
+  padding: 55px 30px 5px;
   margin: 0 auto;
   z-index: 1;
   position: relative;
 }
-/* line 208, ../sass/inc/_core.scss */
+/* line 209, ../sass/inc/_core.scss */
 footer .social .texno {
   position: absolute;
   bottom: 30px;
   right: 0;
 }
-/* line 214, ../sass/inc/_core.scss */
+/* line 215, ../sass/inc/_core.scss */
 footer .container {
   width: 100%;
   z-index: 0;
   font-size: .875em;
   color: #fff;
   position: relative;
-  padding-top: 12px;
 }
-/* line 221, ../sass/inc/_core.scss */
+/* line 222, ../sass/inc/_core.scss */
 footer .container .copirait {
   line-height: 1.5;
 }
@@ -11382,23 +11382,23 @@ footer .container .copirait {
   footer {
     height: 17.5em;
   }
-  /* line 228, ../sass/inc/_core.scss */
+  /* line 229, ../sass/inc/_core.scss */
   footer .social {
     padding: 50px 5px 0;
   }
-  /* line 231, ../sass/inc/_core.scss */
+  /* line 232, ../sass/inc/_core.scss */
   footer .container {
     clear: both;
   }
 }
 
-/* line 236, ../sass/inc/_core.scss */
+/* line 237, ../sass/inc/_core.scss */
 * html footer {
   bottomy: expression(parentNode.offsetHeight % 2 ? style.bottom="-1px" : style.bottom="0px");
   /* хак для ие6, у которого есть косяк со смещением на 1px */
 }
 
-/* line 239, ../sass/inc/_core.scss */
+/* line 240, ../sass/inc/_core.scss */
 .header {
   border-color: #E3E2E0;
   background: #E3C37F none repeat scroll 0 0;
@@ -11410,11 +11410,11 @@ footer .container .copirait {
   font-size: 13px;
 }
 
-/* line 251, ../sass/inc/_core.scss */
+/* line 252, ../sass/inc/_core.scss */
 td.header span {
   text-decoration: underline;
 }
-/* line 254, ../sass/inc/_core.scss */
+/* line 255, ../sass/inc/_core.scss */
 td.header a {
   color: #202021;
   outline: medium none;

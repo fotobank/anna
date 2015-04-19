@@ -4,7 +4,6 @@
 <?php
 defined( '_SECUR' ) or die( 'Доступ запрещен' );
 require_once( __DIR__ . "/../inc/sitemap_generator.php" );
-require( __DIR__ . '/social_icons.php' );
 require( __DIR__ . '/online_widget.php' );
 
 
@@ -26,7 +25,9 @@ if ( DEBUG_MODE == true ) {
 }
 ?>
 				</div>
-		<?= social_icons() . online_widget() ?>
+	<div class="share42init"></div>
+	<script type='text/javascript' src='/js/share42/share42.js'></script>
+		<?= online_widget() ?>
 </div>
 
 <!-- ==========================копирайт==================================-->
