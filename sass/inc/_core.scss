@@ -192,7 +192,7 @@ h4 {
 }
 
 footer {
-	  @include font-stack-footer;
+	  @include font-stack-footer();
 	  position: relative;
 	  background: image-url('tail-bottom.jpg') repeat-x center bottom;
 	  width: 100%;
@@ -218,9 +218,7 @@ footer {
 			font-size: .875em;
 			color: #fff;
 			position: relative;
-		//	padding-top: 12px;
 			.copirait {
-				  line-height: 1.5;
 			}
 	  }
 	  @media all and (max-width: 550px) {

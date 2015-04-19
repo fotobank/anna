@@ -23,6 +23,7 @@ $marckscript: "/fonts/marck-script/marckscript-regular";
 
 $georgia: 'Georgia', 'Cambria', "Times New Roman", 'Times', serif;
 $raleway: 'Raleway Cyr', "Helvetica Neue", 'Helvetica', 'Roboto', 'Arial', sans-serif;
+$helvetica:"Helvetica Neue", 'Helvetica', 'Roboto', 'Arial', sans-serif;
 $lucida-grande: 'Lucida Grande', 'Tahoma', 'Verdana', 'Arial', sans-serif;
 $permian: 'Permian Sans', 'Verdana', 'Arial', sans-serif;
 $monospace: "Bitstream Vera Sans Mono", 'Consolas', 'Courier', monospace;
@@ -77,7 +78,7 @@ $base-font-size:   14px;
 	  letter-spacing: 0;
 }
 @mixin font-stack-footer {
-	  font-family: $raleway;
+	  font-family: $helvetica;
 	  text-shadow: -1px -1px #000;
 }
 @mixin font-stack-texno {

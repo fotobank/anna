@@ -9259,7 +9259,7 @@ a.editable-click.editable-disabled:hover {
   font-weight: normal;
   font-style: normal;
 }
-/* line 113, ../sass/inc/_fonts.scss */
+/* line 114, ../sass/inc/_fonts.scss */
 .b {
   font-weight: bold;
   font-family: Verdana, serif;
@@ -9270,7 +9270,7 @@ a.editable-click.editable-disabled:hover {
   text-align: center;
 }
 
-/* line 120, ../sass/inc/_fonts.scss */
+/* line 121, ../sass/inc/_fonts.scss */
 .s {
   font-weight: plain;
   font-family: Arial, serif;
@@ -9280,7 +9280,7 @@ a.editable-click.editable-disabled:hover {
   line-height: 1.1rem;
 }
 
-/* line 126, ../sass/inc/_fonts.scss */
+/* line 127, ../sass/inc/_fonts.scss */
 .s-ver {
   font-family: Verdana, serif;
   font-size: 11px;
@@ -11341,7 +11341,7 @@ h4 {
 
 /* line 194, ../sass/inc/_core.scss */
 footer {
-  font-family: "Raleway Cyr", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   text-shadow: -1px -1px #000;
   position: relative;
   background: url('/images/tail-bottom.jpg?1281006514') repeat-x center bottom;
@@ -11373,32 +11373,28 @@ footer .container {
   color: #fff;
   position: relative;
 }
-/* line 222, ../sass/inc/_core.scss */
-footer .container .copirait {
-  line-height: 1.5;
-}
 @media all and (max-width: 550px) {
   /* line 194, ../sass/inc/_core.scss */
   footer {
     height: 17.5em;
   }
-  /* line 229, ../sass/inc/_core.scss */
+  /* line 227, ../sass/inc/_core.scss */
   footer .social {
     padding: 50px 5px 0;
   }
-  /* line 232, ../sass/inc/_core.scss */
+  /* line 230, ../sass/inc/_core.scss */
   footer .container {
     clear: both;
   }
 }
 
-/* line 237, ../sass/inc/_core.scss */
+/* line 235, ../sass/inc/_core.scss */
 * html footer {
   bottomy: expression(parentNode.offsetHeight % 2 ? style.bottom="-1px" : style.bottom="0px");
   /* хак для ие6, у которого есть косяк со смещением на 1px */
 }
 
-/* line 240, ../sass/inc/_core.scss */
+/* line 238, ../sass/inc/_core.scss */
 .header {
   border-color: #E3E2E0;
   background: #E3C37F none repeat scroll 0 0;
@@ -11410,11 +11406,11 @@ footer .container .copirait {
   font-size: 13px;
 }
 
-/* line 252, ../sass/inc/_core.scss */
+/* line 250, ../sass/inc/_core.scss */
 td.header span {
   text-decoration: underline;
 }
-/* line 255, ../sass/inc/_core.scss */
+/* line 253, ../sass/inc/_core.scss */
 td.header a {
   color: #202021;
   outline: medium none;
