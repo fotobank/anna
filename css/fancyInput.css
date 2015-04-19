@@ -1,0 +1,76 @@
+/*
+Error: Invalid CSS after "...v{ width:99.9%%": expected expression (e.g. 1px, bold), was "; }"
+        on line 41 of C:/OpenServer/domains/anna.od.ua/sass/fancyInput.scss
+
+36: 			&.empty:before{ opacity:0.2; left:0; }
+37: 		}
+38: 	}
+39: 	input:focus ~ div.empty:before{ opacity:.1; }
+40: 	
+41: 	&.textarea > div{ width:99.9%%; }
+42: 
+43: 	*:focus ~ .caret,
+44: 	*:focus ~ div .caret{ opacity:.8; box-shadow:0 0 8px #FFF; -webkit-animation:0.4s 40ms caret infinite; animation:0.4s 40ms caret infinite; }
+45: 	.caret:only-child{  }
+46: 	.caret{ font-weight:normal; opacity:0; display:inline-block; width:3px; margin-left:-3px; background:#FFF; border-radius:4px; -moz-user-select:none; }
+
+Backtrace:
+C:/OpenServer/domains/anna.od.ua/sass/fancyInput.scss:41
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:1165:in `expected'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/lexer.rb:221:in `expected!'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:573:in `assert_expr'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:235:in `times_div_or_mod'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:227:in `plus_or_minus'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:227:in `relational'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:227:in `eq_or_neq'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:227:in `and_expr'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:227:in `or_expr'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:361:in `space'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:345:in `interpolation'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:293:in `expr'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:571:in `assert_expr'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/script/parser.rb:62:in `parse'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:1027:in `sass_script'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:880:in `value!'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:753:in `block in try_declaration'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:1141:in `call'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:1141:in `rethrow'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:766:in `try_declaration'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:696:in `declaration_or_ruleset'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:661:in `block_child'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:650:in `block_contents'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:642:in `block'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:711:in `declaration_or_ruleset'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:661:in `block_child'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:653:in `block_contents'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:642:in `block'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:635:in `ruleset'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:660:in `block_child'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:653:in `block_contents'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:117:in `stylesheet'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/scss/parser.rb:42:in `parse'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/engine.rb:393:in `_to_tree'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/engine.rb:268:in `render'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-import-once-1.0.5/lib/compass/import-once/engine.rb:17:in `block in render'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-import-once-1.0.5/lib/compass/import-once/engine.rb:29:in `with_import_scope'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-import-once-1.0.5/lib/compass/import-once/engine.rb:16:in `render'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:492:in `update_stylesheet'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `each'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-1.0.3/lib/compass/sass_compiler.rb:40:in `compile!'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-1.0.3/lib/compass/commands/update_project.rb:49:in `perform'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-1.0.3/lib/compass/commands/base.rb:18:in `execute'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-1.0.3/lib/compass/commands/project_base.rb:19:in `execute'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-1.0.3/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-1.0.3/lib/compass/exec/sub_command_ui.rb:15:in `run!'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-1.0.3/bin/compass:30:in `block in <top (required)>'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-1.0.3/bin/compass:44:in `call'
+C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-1.0.3/bin/compass:44:in `<top (required)>'
+C:/Ruby22-x64/bin/compass:23:in `load'
+C:/Ruby22-x64/bin/compass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \"...v{ width:99.9%%\": expected expression (e.g. 1px, bold), was \"; }\"\A         on line 41 of C:/OpenServer/domains/anna.od.ua/sass/fancyInput.scss\A \A 36: 			&.empty:before{ opacity:0.2; left:0; }\A 37: 		}\A 38: 	}\A 39: 	input:focus ~ div.empty:before{ opacity:.1; }\A 40: 	\A 41: 	&.textarea > div{ width:99.9%%; }\A 42: \A 43: 	*:focus ~ .caret,\A 44: 	*:focus ~ div .caret{ opacity:.8; box-shadow:0 0 8px #FFF; -webkit-animation:0.4s 40ms caret infinite; animation:0.4s 40ms caret infinite; }\A 45: 	.caret:only-child{  }\A 46: 	.caret{ font-weight:normal; opacity:0; display:inline-block; width:3px; margin-left:-3px; background:#FFF; border-radius:4px; -moz-user-select:none; }"; }
