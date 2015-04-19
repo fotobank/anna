@@ -9,101 +9,89 @@ html {
           user-select: none;
 		  font-size: medium;
 }
+.info, .info:before, .info:after, .tehno-info, .tehno-info:before, .tehno-info:after, .error, .err-404:after,
+.err-404:before, .engineering:after, .engineering:before {
+	text-align: center;
+	position: absolute;
+}
+.err-404:after, .engineering:after, .err-404:before, .engineering:before {
+	font-size: 120px;
+	width: 750px;
+	margin: auto;
+	top: 20%;
+	bottom: 0;
+	left: 0;
+	right: 35%;
+	color: white;
+}
+.engineering:after, .err-404:after {
+	opacity: 0.1;
+	/*-webkit-animation: noise-1 7s linear infinite;*/
+	/*animation: noise-1 7s linear infinite;*/
+}
+.engineering:before, .err-404:before {
+	opacity: 0.6;
+	-webkit-animation: noise-2 7s linear infinite;
+	animation: noise-2 7s linear infinite;
+}
+.engineering:after, .engineering:before {
+	content: 'engineering';
+}
+.err-404:after, .err-404:before {
+  content: 'error 404';
+}
 
 .error {
-  text-align: center;
-  width: 100%;
-  height: 140px;
-  margin: auto;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -60px;
-  right: 0;
-  /*-webkit-animation: noise-3 15s linear infinite;*/
-          /*animation: noise-3 15s linear infinite;*/
-  overflow: visible;
+	content: 'error 404';
+	width: 100%;
+	height: 140px;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: -100px;
+	right: 0;
+	/*-webkit-animation: noise-3 15s linear infinite;*/
+	/*animation: noise-3 15s linear infinite;*/
+	overflow: visible;
 }
 
-body:after {
-  content: 'error 404';
-  font-size: 120px;
-  text-align: center;
-  width: 550px;
-  margin: auto;
-  position: absolute;
-  top: 25%;
-  bottom: 0;
-  left: 0;
-  right: 35%;
-  opacity: 0.1;
-  color: white;
-  /*-webkit-animation: noise-1 7s linear infinite;*/
-          /*animation: noise-1 7s linear infinite;*/
+.info,.tehno-info {
+	width: 200px;
+	height: 60px;
+	margin: auto;
+	top: 300px;
+	bottom: 0;
+	left: 40px;
+	right: 0;
+	-webkit-animation: noise-3 10s linear infinite;
+	animation: noise-3 10s linear infinite;
 }
-body:before {
-  content: 'error 404';
-  font-size: 120px;
-  text-align: center;
-  width: 550px;
-  margin: auto;
-  position: absolute;
-  top: 25%;
-  bottom: 0;
-  left: 0;
-  right: 35%;
-  opacity: 0.6;
-  color: white;
-  -webkit-animation: noise-2 7s linear infinite;
-          animation: noise-2 7s linear infinite;
+.info:before, .info:after, .tehno-info:before, .tehno-info:after {
+	font-size: 100px;
+	width: 800px;
+	margin: auto;
+	top: 90px;
+	bottom: 0;
+	left: 40px;
+	right: 10px;
 }
+.info:before, .tehno-info:before {
+	opacity: 0.3;
+	color: #8b92ff;
+	-webkit-animation: noise-1 9s linear infinite;
+	animation: noise-1 9s linear infinite;}
 
-.info {
-  text-align: center;
-  width: 200px;
-  height: 60px;
-  margin: auto;
-  position: absolute;
-  top: 300px;
-  bottom: 0;
-  left: 40px;
-  right: 0;
-  -webkit-animation: noise-3 10s linear infinite;
-          animation: noise-3 10s linear infinite;
+.info:after, .tehno-info:after {
+	opacity: 1;
+	color: white;
+	-webkit-animation: noise-2 10s linear infinite;
+	animation: noise-2 10s linear infinite;
 }
-
-.info:before {
-  content: 'file not found';
-  font-size: 100px;
-  text-align: center;
-  width: 800px; 
-  margin: auto;
-  position: absolute;
-  top: 90px;
-  bottom: 0;
-  left: 40px;
-  right: 10px;
-  opacity: 0.3;
-  color: #8b92ff;
-  -webkit-animation: noise-1 9s linear infinite;
-          animation: noise-1 9s linear infinite;
+.info:before, .info:after {
+	content: 'file not found';
 }
-
-.info:after {
-  content: 'file not found';
-  font-size: 100px;
-  text-align: center;
-  width: 800px;
-  margin: auto;
-  position: absolute;
-  top: 90px;
-  bottom: 0;
-  left: 40px;
-  right: 10px;
-  opacity: 1;
-  color: white;
-  -webkit-animation: noise-2 10s linear infinite;
-          animation: noise-2 10s linear infinite;
+.tehno-info:before, .tehno-info:after {
+	content: 'works';
 }
 
 @-webkit-keyframes noise-1 {

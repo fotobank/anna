@@ -13,12 +13,10 @@
 
 <body>
 
-<div class="error">
-
-	<div class="wrap">
-		<div class="404">
-    <pre><code>
-			<span class="green">&lt;!</span><span>DOCTYPE html</span><span class="green">&gt;</span>
+<div class="err-404">
+	<div class="error">
+		<div class="wrap">
+    <pre><code>                                 <span class="green">&lt;!</span><span>DOCTYPE html</span><span class="green">&gt;</span>
 			<span class="orange">&lt;html&gt;</span>
 			       <span class="orange">&lt;style&gt;</span>
 			          * {
@@ -27,7 +25,7 @@
 			         <span class="orange">&lt;/style&gt;</span>
 			           <span class="orange">&lt;body&gt;</span>
 			                           ОПАЧКИ 404!
-			                                 файл не найден!
+			                                 Файл не найден!
 			           <span class="comment">
 						            &lt;!--Вернитесь назад, для дальнейшего
 						             просмотра сайта.--&gt;</span>
