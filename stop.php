@@ -14,7 +14,7 @@ header( 'Content-type: text/html; charset=windows-1251' );
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
-	<title>Ошибка 404 - страница не найдена</title>
+	<title>stop - техничесские работы</title>
 	<link rel="shortcut icon" href="/images/favicon.png" />
 	<link rel="stylesheet" href="/css/404.css" media="screen" type="text/css" />
 </head>
