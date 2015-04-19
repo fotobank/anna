@@ -1,6 +1,6 @@
-#Order deny,allow
-#Allow from all
-#Satisfy any
+Order deny,allow
+Allow from all
+Satisfy any
 AddDefaultCharset WINDOWS-1251
 
 AddEncoding gzip .gz
@@ -155,4 +155,4 @@ ExpiresDefault "access plus 2 days"
   # END Adaptive-Images -------------------------------------------------------------------------------
 #</IfModule>
 
-ErrorDocument 404 /error/404.php
+ErrorDocument 404 /404.php
