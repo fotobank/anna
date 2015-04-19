@@ -29,7 +29,9 @@ if ( DEBUG_MODE == true ) {
 	<script type='text/javascript' src='/js/share42/share42.js'></script>
 		<?= online_widget() ?>
 </div>
-
+	<?
+	if ( DEBUG_MODE == false ) { include (__DIR__ . "/inc.foter.google.php"); }
+	?>
 <!-- ==========================копирайт==================================-->
 <div class='container'>
 
@@ -37,9 +39,6 @@ if ( DEBUG_MODE == true ) {
 	<span> cтудия&nbsp;&nbsp; <a target='_blank' href='http://www.aleks.od.ua' class='link-2'>Creative ls</a></span>
 
 </div>
-	<?
-	if ( DEBUG_MODE == false ) { include (__DIR__ . "/inc.foter.google.php"); }
-	?>
 </footer>
 </body>
 </html>
