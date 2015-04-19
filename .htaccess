@@ -156,15 +156,13 @@ ExpiresDefault "access plus 2 days"
 #</IfModule>
 
 RewriteEngine On
+#убираем расширение .php
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^(.*)$ $1.php
 
 #редирект на страницу без www
-#RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
-#RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
-
-RewriteCond %{HTTP_HOST} ^www.annafoto.in.ua$ [NC]
-RewriteRule ^(.*)$ http://annafoto.in.ua/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 
 ErrorDocument 404 /404.php
