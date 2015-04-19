@@ -155,4 +155,4 @@ ExpiresDefault "access plus 2 days"
   # END Adaptive-Images -------------------------------------------------------------------------------
 #</IfModule>
 
-ErrorDocument 404 /404.php
+ErrorDocument 404 /error/404.php
