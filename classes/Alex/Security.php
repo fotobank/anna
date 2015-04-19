@@ -1041,6 +1041,6 @@ function send404() {
    foreach ( $header as $sent ) {
        header( $sent );
    }
-	header( 'Refresh: 0; url=/../../error/stop.php' ); // переадресовать на страницу ошибки немедленно (без задержки).
+	header( 'Refresh: 0; url=/../../stop.php' ); // переадресовать на страницу ошибки немедленно (без задержки).
 	die ('');
 }
