@@ -28,9 +28,6 @@ if ( DEBUG_MODE == true ) {
 
 <!-- ==========================копирайт==================================-->
 <div class='container'>
-	<?
-	if ( DEBUG_MODE == false ) { include (__DIR__ . "/inc.foter.google.php"); }
-	?>
 	<span class="copirait"><strong>© <?= auto_copyright( '2011' ) ?> Алексеева Анна </strong></span><br>
 	<span> cтудия&nbsp;&nbsp; <a target='_blank' href='http://www.aleks.od.ua' class='link-2'>Creative ls</a></span>
 
@@ -38,6 +35,9 @@ if ( DEBUG_MODE == true ) {
 </footer>
 <script type='text/javascript' src='/js/menu.js'></script>
 <script type='text/javascript' src='/js/share42/share42.js'></script>
+<?
+if ( DEBUG_MODE == false ) { include (__DIR__ . "/inc.foter.google.php"); }
+?>
 </body>
 </html>
 <?
