@@ -3,6 +3,7 @@ $marck_script: "/fonts/marck-script/marckscript-regular";
 $bad_script_regular: "/fonts/BadScriptRegular/BadScriptRegular";
 $raleway_fonts: "/fonts/Raleway/";
 $permian_fonts: "/fonts/PermianSans/";
+$beer_regular: "/fonts/BeerRegular/BeerRegular";
 
 @font-face {
 	font-family: 'LazyCrazyRegular';
@@ -153,6 +154,18 @@ $permian_fonts: "/fonts/PermianSans/";
 	  font-weight: normal;
 }*/
 
+/* font-family: "BeerRegular"; */
+@font-face {
+	  font-family: "BeerRegular";
+	  src: url("#{$beer_regular}.eot");
+	  src: url("#{$beer_regular}.eot?#iefix")format("embedded-opentype"),
+	  url("#{$beer_regular}.woff") format("woff"),
+	  url("#{$beer_regular}.ttf") format("truetype");
+	  font-style: normal;
+	  font-weight: normal;
+}
+
+$beer: 'BeerRegular', 'Georgia', 'Cambria', "Times New Roman", 'Times', serif;
 $georgia: 'Georgia', 'Cambria', "Times New Roman", 'Times', serif;
 $raleway: 'RalewayMedium', "Helvetica Neue", 'Helvetica', 'Roboto', 'Arial', sans-serif;
 $helvetica:"Helvetica Neue", 'Helvetica', 'Roboto', 'Arial', sans-serif;
@@ -168,12 +181,13 @@ $base-font-size:   14px;
 
 @mixin font-stack-headers-h1 {
 	  @include single-text-shadow(2px, 2px, 3px, 3px, #191919);
-	  @include font-size(30);
-	  font-family: $georgia;
-	  line-height: 30px;
-	  font-weight: bold;
-	  font-style: italic;
+      @include font-size(40);
+	  font-family: $beer;
 	  color: $h1_color;
+	  font-weight: 400;
+	  font-style: normal;
+	  line-height: 0.7em;
+	  letter-spacing: 0;
 }
 
 @mixin font-stack-headers-h2 {
@@ -211,11 +225,9 @@ $base-font-size:   14px;
 }
 @mixin font-stack-list-categorii {
 	  font-family: $bad;
-	  font-style: oblique;
 	  color: #ffffff;
-	  font-weight: bold;
 	  text-decoration: none;
-	  @include font-size(18);
+	  @include font-size(19);
 }@mixin font-stack-footer {
 	  font-family: $helvetica;
 	  text-shadow: -1px -1px #000;
