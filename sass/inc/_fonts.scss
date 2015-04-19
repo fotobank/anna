@@ -91,7 +91,14 @@ $base-font-size:   14px;
 	  line-height: 1.47em;
 	  letter-spacing: 0;
 }
-@mixin font-stack-footer {
+@mixin font-stack-list-categorii {
+	  font-family: $bad;
+	  font-style: oblique;
+	  color: #ffffff;
+	  font-weight: bold;
+	  text-decoration: none;
+	  @include font-size(18);
+}@mixin font-stack-footer {
 	  font-family: $helvetica;
 	  text-shadow: -1px -1px #000;
 }

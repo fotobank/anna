@@ -85,6 +85,7 @@
 .list-categorii, .list-menu {
 	  position: relative;
 	  li {
+			@include font-stack-list-categorii();
 			list-style: none;
 			position: relative;
 			cursor: pointer;
@@ -98,12 +99,6 @@
 			width: 230px;
 			height: 24px;
 			vertical-align: middle;
-			font-family: $bad;
-			font-style: oblique;
-			color: #ffffff;
-			font-weight: bold;
-			text-decoration: none;
-			@include font-size(18);
 			.actions, .ok-cancel {
 				  position: absolute;
 				  right: 0;
