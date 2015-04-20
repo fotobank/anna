@@ -158,6 +158,7 @@ debugHC( SITE_PATH . 'title.php');
 	     </div>
 	</div>' );
 ?>
+
 <!-- Голова конец -->
 
 <div id="main" class="clearfix">
