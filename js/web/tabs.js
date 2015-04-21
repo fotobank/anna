@@ -19,13 +19,18 @@
 
 
 $(document).ready(function(){
-	var	tabs = ["#tab-1", "#tab-2", "#tab-3"], // создаем массив id вкладок для удобства проверок
+// создаем массив id вкладок для удобства проверок
+	var tabs = [],
 			tabList = jQuery(".tabs"),
 			ltie9 = jQuery.browser.msie && (jQuery.browser.version <= 9);
 	/*
 	 ltie9 будет true если используется IE8 или ниже
 	 IE9 сюда попал из-за того что при нажатии на Back предыдущая вкладка не скрывалась
 	 */
+
+	$("ul.list-menu a[href^=#tab-]").each(function(){
+		tabs.push($(this).attr("href"));
+	});
 
 	// смена таба
 	function changeTab(tabId){
@@ -48,6 +53,8 @@ $(document).ready(function(){
 
 			var targetURL = document.location.toString().substr(0, document.location.toString().indexOf('#')) + '#' +
 					tabId.substr(1);
+
+
 
 //		alert (window.location.hash);
 //		alert (window.location.pathname );

@@ -17,5 +17,3 @@ function online_widget() {
 return $ret;
 
 }
-
-// echo online_widget();

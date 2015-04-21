@@ -11,6 +11,9 @@ class ajaxSite_EditTitle {
 
 	private $data;
 
+	/**
+	 * @param $par
+	 */
 	public function __construct( $par ) {
 
 		if ( is_array( $par ) )
@@ -46,8 +49,8 @@ class ajaxSite_EditTitle {
 
 		return '
 			<li id="head-' . $li_data['id'] . '">
-				<a class="text" ' . if_admin( 'title="Двойной щелчок для редактирования."' ) . '>' . $li_data['name_head'] . '</a>
-			<span id="' . $li_data['id'] . '" class="fright"></span>' .
+				<a href="#tab-' . $li_data['id'] . '" class="navlink" ' .
+		if_admin( 'title="Двойной щелчок для редактирования."' ) . '>' . $li_data['name_head'] . '</a>' .
 		if_admin( '<div class="actions">
 							<a href="#" title="Изменить или добавить текст меню." class="edit">Edit</a>
 							<a href="#" title="Удалить раздел из базы данных без возможности восстановления." class="delete">Delete</a>

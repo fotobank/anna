@@ -17519,6 +17519,17 @@ img.ok {
   width: 120px;
 }
 
+/* line 292, ../sass/_tabs.scss */
+.aiax-load-gif {
+  position: relative;
+  float: right;
+  margin: 6px 50px 0 0;
+  background: url('/images/ajax-loader.gif?1429003887');
+  width: 32px;
+  height: 10px;
+  display: none;
+}
+
 /* 
  *  Core Owl Carousel CSS File
  */

@@ -86,7 +86,7 @@ debugHC( SITE_PATH . 'title.php');
 		<script type="text/javascript" src="/js/minified/jquery.mousewheel.min.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 
-		<script type='text/javascript' src='/js/minified/ajax.tabs.min.js'></script>
+		<script type='text/javascript' src='/js/ajax.tabs.js'></script>
 		<script type="text/javascript" src="/js/jquery-contained-sticky-scroll.js"></script>
 		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>
 		<script type='text/javascript' src='/js/clock.js'></script>

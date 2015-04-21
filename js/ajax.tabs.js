@@ -8,9 +8,9 @@
  * инициализация и вызов:
  * // id родителя для делегирования потомков
  * $('ul.list-categorii').ajax_load({
- * 'id_child': 'a.text', - id на который вешается делегируемый клик
+ * 'id_child': 'a.navlink', - id на который вешается делегируемый клик
  * 'metod'   : 'click', - вызываемый метод
- * 'url'     : '/classes/ajaxSite/index_loader.php', - адрес скрипта
+ * 'url'     : '/classes/ajaxSite/ajax_loader.php', - адрес скрипта
  * 'id_load' : '#list-content', - id для загрузки ответа сервера (контента)
  * 'type'    : 'POST', - тип вызова
  * 'header'  : 'Content-Type: application/json; charset=utf-8;', - посылаемый заголовок
@@ -21,7 +21,7 @@
  * просто вызов ajax:
  *
  * $(this).ajax_load('load', {
- * 'url'    : '/classes/ajaxSite/index_loader.php', - адрес скрипта
+ * 'url'    : '/classes/ajaxSite/ajax_loader.php', - адрес скрипта
  * 'id_load': '#list-content', - id для загрузки ответа сервера (контента)
  * 'type'   : 'POST', - тип вызова
  * 'header' : 'Content-Type: application/json; charset=utf-8;', - посылаемый заголовок
@@ -37,9 +37,9 @@
 
 			var o = $.extend({
 
-				'id_child': 'a.text', // id на который вешается клик
+				'id_child': 'a.navlink', // id на который вешается клик
 				'metod'   : 'click', // вызываемый метод
-				'url'     : '/classes/ajaxSite/index_loader.php', // адрес скрипта
+				'url'     : '/classes/ajaxSite/ajax_loader.php', // адрес скрипта
 				'id_load' : '#list-content', // id для загрузки ответа сервера (контента)
 				'type'    : 'POST', // тип вызова
 				'header'  : 'Content-Type: application/json; charset=utf-8;', // посылаемый заголовок
@@ -62,7 +62,7 @@
 					'data'   : o.data
 
 				});
-				e.preventDefault(); // удаление с тега 'а' действия по умолчанию
+		//		e.preventDefault(); // удаление с тега 'а' действия по умолчанию
 			})
 		},
 
@@ -70,37 +70,32 @@
 		load: function (argument) {
 			var a = $.extend({
 
-				'url'    : '/classes/ajaxSite/index_loader.php',
+				'url'    : '/classes/ajaxSite/ajax_loader.php',
 				'id_load': '#list-content',
-				'type'   : 'POST',
+				'type'   : 'GET',
 				'header' : 'Content-Type: application/json; charset=utf-8;',
 				'data'   : {}
 			}, argument);
 
-			var loader = $('#' + this.context.nextElementSibling.id);
-			loader.empty();
-			// индикатор загрузки
-			$(document).ready(function () {
 
-				// Установка ajax indicator
-				loader.append('<img src="/images/ajax-loader.gif">');
 
-				loader.css({
-					display : "none",
-					margin: "2px 50px 0 0"
-				});
-			});
+			var event = $(this); // Запоминаеи event
+			event.after("<span class='aiax-load-gif'></span>"); // добавляем скрытый индикатор загрузки
 
-			// Ajax activity indicator bound to ajax start/stop document events
 			$(document).ajaxStart(function () {
-				loader.show();
+
+			       	event.next().show();
+
 			}).ajaxStop(function () {
 
 				setTimeout(function () {
-					loader.empty();
-				}, 200)
+
+				     	event.next().remove();
+
+				}, 300)
 
 			});
+
 
 			$.ajax({
 				ifModified: true,
@@ -159,9 +154,9 @@ $(function () {
 	// id родителя для делегирования потомков
 	$('ul.list-categorii').ajax_load({
 
-		'id_child': 'a.text', // id на который вешается делегируемый клик
+		'id_child': 'a.navlink', // id на который вешается делегируемый клик
 		'metod'   : 'click', // вызываемый метод
-		'url'     : '/classes/ajaxSite/index_loader.php', // адрес скрипта
+		'url'     : '/classes/ajaxSite/ajax_loader.php', // адрес скрипта
 		'id_load' : '#list-content', // id для загрузки ответа сервера (контента)
 		'type'    : 'POST', // тип вызова
 		'header'  : 'Content-Type: application/json; charset=utf-8;', // посылаемый заголовок
@@ -170,8 +165,8 @@ $(function () {
 	});
 
 
-	// вызов клика на первом a.text для выделения и загрузки контента
-	$('.list-categorii li:first a.text').click();
+	// вызов клика на первом a.navlink для выделения и загрузки контента
+	$('.list-categorii li:first a.navlink').click();
 
 });
 
