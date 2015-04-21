@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="annafoto.in.ua" deleteMissingItems="true" createEmptyFolders="true" uploadOnCheckin="afc41fa9-bbc3-4b39-9b98-3958ae7f4667">
+  <component name="PublishConfigData" serverName="annafoto.in.ua" deleteMissingItems="true" createEmptyFolders="true" uploadOnCheckin="afc41fa9-bbc3-4b39-9b98-3958ae7f4667">
     <serverData>
       <paths name="annafoto.in.ua">
         <serverdata>
@@ -27,6 +27,5 @@
       </paths>
     </serverData>
     <option name="myUploadOnCheckinName" value="annafoto.in.ua" />
-    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

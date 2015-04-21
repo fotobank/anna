@@ -27,23 +27,23 @@
 							<h1>Алексеева Анна<span id="profession">фотограф в Одессе</span></h1>
 				</li
 					>
-				<li <?= ( $razdel == '/index.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
-					<a href="/index.php">Главная</a></li
+				<li <?= ( $razdel == '/index' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
+					<a href="/index">Главная</a></li
 					>
-				<li <?= ( $razdel == '/about.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
-					<a href="/about.php">Об&nbsp;&nbsp;авторе</a></li
+				<li <?= ( $razdel == '/about' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
+					<a href="/about">Об&nbsp;&nbsp;авторе</a></li
 					>
-				<li <?= ( $razdel == '/portfolio.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
-					<a href="/portfolio.php">Портфолио</a></li
+				<li <?= ( $razdel == '/portfolio' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
+					<a href="/portfolio">Портфолио</a></li
 					>
-				<li <?= ( $razdel == '/news.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
-					<a href="/news.php">Новости</a></li
+				<li <?= ( $razdel == '/news' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
+					<a href="/news">Новости</a></li
 					>
-				<li <?= ( $razdel == '/services.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
-					<a href="/services.php">Услуги</a></li
+				<li <?= ( $razdel == '/services' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
+					<a href="/services">Услуги</a></li
 					>
-				<li <?= ( $razdel == '/comments.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
-					<a href="/comments.php">Гостевая</a></li
+				<li <?= ( $razdel == '/comments' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
+					<a href="/comments">Гостевая</a></li
 					>
 			</ul>
 			</header>

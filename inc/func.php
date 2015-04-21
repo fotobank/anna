@@ -1430,3 +1430,23 @@ function translate($_str) {
 	$result = json_decode($content);
 	return $result[0][0][0];
 }
+
+/**
+ *  Для ajax запроса она вернет true, а для обычного запроса false.
+ *
+ * Check if current request is AJAX.
+ */
+function is_ajax() {
+
+	return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+
+}
+
+/**
+ * @return bool
+ */
+function ajax_test()
+{
+	$rq = filter_input(5, 'HTTP_X_REQUESTED_WITH');
+	return $rq === 'xmlhttprequest';
+}

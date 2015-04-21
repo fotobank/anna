@@ -55,21 +55,26 @@
 							  text-decoration: none;
 							  display: inline-block;
 						}
-						&.selected {
-							  background: image-url('marker-on.png') 0 8px no-repeat;
+						&:hover {
+							  background: image-url('marker-hover.png') 0 8px no-repeat;
 							  left: 8px;
 							  padding-left: 10px;
+							  a {
+									color: #fc0;
+							  }
+						}
+						&:active {
+							  background: image-url('marker-apply.png') 0 8px no-repeat;
+							  left: 8px;
+							  padding-left: 10px;
+						}
+						&.selected {
+							  background: image-url('marker-apply.png') 0 8px no-repeat;
+							  left: 0;
+							  padding-left: 18px;
 							  a {
 									color: #fc0;
 									text-decoration: none;
-							  }
-						}
-						&:hover {
-							  background: image-url('marker-on.png') 0 8px no-repeat;
-							  left: 8px;
-							  padding-left: 10px;
-							  a {
-									color: #fc0;
 							  }
 						}
 				  }

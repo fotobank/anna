@@ -40,16 +40,19 @@ if ( ! defined( 'SITE_PATH' ) ) {
 	define( 'SITE_PATH', realpath( __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR );
 }
 
+/** @noinspection PhpIncludeInspection */
 require_once( SITE_PATH . 'classes/Alex/Security.php' );
 
 if ( ! defined( 'CODE_PAGE' ) ) {
 	define( 'CODE_PAGE', detect_encoding(implode(glob(SITE_PATH . 'inc/кодировка файловой системы.codepage'))));
 }
 
-include (SITE_PATH.'classes/autoload.php');
+/** @noinspection PhpIncludeInspection */
+include (SITE_PATH .'classes/autoload.php');
 autoload::getInstance();
 
 // mustache
+/** @noinspection PhpIncludeInspection */
 include (SITE_PATH.'vendor/autoload.php');
 // инициализация шаблонизатора Mustache
 $mustache = new Mustache_Engine( [

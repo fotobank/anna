@@ -39,7 +39,7 @@ include_once( __DIR__ . '/inc/head.php' );
 	 'data' => true,
 	 'link' => [
 			 [
-				 'li_class' => 'class="selected"',
+				 'li_class' => '',
 				 'tab' => '#tab-1',
 				 'name' => 'Фотограф на свадьбу:'
 			 ],
@@ -47,7 +47,12 @@ include_once( __DIR__ . '/inc/head.php' );
 				 'li_class' => '',
 				 'tab' => '#tab-2',
 				 'name' => 'Изготовление фотокниг:'
-			 ]
+			 ],
+		 [
+			 'li_class' => '',
+			 'tab' => '#tab-3',
+			 'name' => 'Банкеты:'
+		 ]
 	 ]
  ];
 
@@ -63,7 +68,6 @@ $tpl = $mustache->loadTemplate('services');
 	'tab' => '#tab-1',
 	'name' => 'Фотограф на свадьбу'
 ]);*/
-
 
 echo $tpl->render($services);
 
