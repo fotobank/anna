@@ -27,7 +27,7 @@ class categorii {
 
 		$menu = "";
 		if(count($this->categorii)) {
-			$menu .= "<ul class='list-categorii nav'>";
+			$menu .= "<ul class='list-title nav'>";
 			foreach($this->categorii as $key => $cat) {
 
 				if(0 == $key) {

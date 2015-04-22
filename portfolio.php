@@ -22,7 +22,7 @@ include_once( __DIR__ . '/inc/head.php' );
 				?>
 				<div class="col-8">
 					<h3 class="bb1 p2">Категории:</h3>
-					<ul class="nav list-categorii">
+					<ul class="nav list-title">
 
 						<?
 						foreach ( $thumbdir as $name => $val ) {

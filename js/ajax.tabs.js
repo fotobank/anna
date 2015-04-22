@@ -7,11 +7,11 @@
  *
  * инициализация и вызов:
  * // id родителя для делегирования потомков
- * $('ul.list-categorii').ajax_load({
+ * $('ul.list-title').ajax_load({
  * 'id_child': 'a.navlink', - id на который вешается делегируемый клик
  * 'metod'   : 'click', - вызываемый метод
  * 'url'     : '/classes/ajaxSite/ajax_loader.php', - адрес скрипта
- * 'id_load' : '#list-content', - id для загрузки ответа сервера (контента)
+ * 'id_load' : '#pageContent', - id для загрузки ответа сервера (контента)
  * 'type'    : 'POST', - тип вызова
  * 'header'  : 'Content-Type: application/json; charset=utf-8;', - посылаемый заголовок
  * 'data': {'location': 'index'}  - массив посылаемого к серверу запроса
@@ -22,8 +22,8 @@
  *
  * $(this).ajax_load('load', {
  * 'url'    : '/classes/ajaxSite/ajax_loader.php', - адрес скрипта
- * 'id_load': '#list-content', - id для загрузки ответа сервера (контента)
- * 'type'   : 'POST', - тип вызова
+ * 'id_load': '#pageContent', - id для загрузки ответа сервера (контента)
+ * 'type'   : 'GET', - тип вызова
  * 'header' : 'Content-Type: application/json; charset=utf-8;', - посылаемый заголовок
  * 'data'   : {'location': 'index', 'id': '#element_id'}  - массив посылаемого к серверу запроса
  * 	});
@@ -40,8 +40,8 @@
 				'id_child': 'a.navlink', // id на который вешается клик
 				'metod'   : 'click', // вызываемый метод
 				'url'     : '/classes/ajaxSite/ajax_loader.php', // адрес скрипта
-				'id_load' : '#list-content', // id для загрузки ответа сервера (контента)
-				'type'    : 'POST', // тип вызова
+				'id_load' : '#pageContent', // id для загрузки ответа сервера (контента)
+				'type'    : 'GET', // тип вызова
 				'header'  : 'Content-Type: application/json; charset=utf-8;', // посылаемый заголовок
 				'data'    : {}  // массив посылаемого к серверу запроса
 
@@ -62,7 +62,7 @@
 					'data'   : o.data
 
 				});
-		//		e.preventDefault(); // удаление с тега 'а' действия по умолчанию
+				e.preventDefault(); // удаление с тега 'а' действия по умолчанию
 			})
 		},
 
@@ -71,7 +71,7 @@
 			var a = $.extend({
 
 				'url'    : '/classes/ajaxSite/ajax_loader.php',
-				'id_load': '#list-content',
+				'id_load': '#pageContent',
 				'type'   : 'GET',
 				'header' : 'Content-Type: application/json; charset=utf-8;',
 				'data'   : {}
@@ -131,6 +131,7 @@
 			// все параметры, кроме имени метода прийдут в метод
 			// this так же перекочует в метод
 			return methods[ method ].apply(this, Array.prototype.slice.call(arguments, 1));
+			//return methods.init.apply(this, arguments);
 		} else if (typeof method === 'object' || !method) {
 			// если первым параметром идет объект, либо совсем пусто
 			// выполняем метод init
@@ -145,53 +146,32 @@
 })(jQuery);
 
 
-
-// запуск таба
+// запуск ajax_load
 $(function () {
 
-	tabs.init();
-
 	// id родителя для делегирования потомков
-	$('ul.list-categorii').ajax_load({
+	/*$('ul.list-title').ajax_load({
 
 		'id_child': 'a.navlink', // id на который вешается делегируемый клик
 		'metod'   : 'click', // вызываемый метод
 		'url'     : '/classes/ajaxSite/ajax_loader.php', // адрес скрипта
-		'id_load' : '#list-content', // id для загрузки ответа сервера (контента)
-		'type'    : 'POST', // тип вызова
+		'id_load' : '#pageContent', // id для загрузки ответа сервера (контента)
+		'type'    : 'GET', // тип вызова
 		'header'  : 'Content-Type: application/json; charset=utf-8;', // посылаемый заголовок
 		'data': {'location': 'index'}  // массив посылаемого к серверу запроса
 
+	});*/
+
+	$(this).ajax_load('load', {
+		'url'    : '/classes/ajaxSite/ajax_loader.php', // адрес скрипта
+		'id_load': '#pageContent', // id для загрузки ответа сервера (контента)
+		'type'   : 'GET', // тип вызова
+		'header' : 'Content-Type: application/json; charset=utf-8;', // посылаемый заголовок
+		'data'   : {'location': 'index', 'id': '#tabId'}  // массив посылаемого к серверу запроса
 	});
 
 
 	// вызов клика на первом a.navlink для выделения и загрузки контента
-	$('.list-categorii li:first a.navlink').click();
+//	$('.list-title li:first a.navlink').click();
 
 });
-
-
-tabs = {
-	init: function () {
-
-		var tabCont = $('.tab-content');
-		$('.tabs').each(function () {
-
-			tabCont.hide();
-
-			$($('ul.list-categorii .selected a').attr('href')).fadeIn(300);
-
-			$('ul.list-categorii a').click(function (e) {
-
-				tabCont.hide();
-
-				$($(this).attr('href')).fadeIn(300);
-
-				$(this).parent().addClass('selected').siblings().removeClass('selected');
-
-				e.preventDefault();
-
-			});
-		});
-	}
-};

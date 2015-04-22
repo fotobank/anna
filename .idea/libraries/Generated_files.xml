@@ -20,6 +20,7 @@
         <item url="file://$PROJECT_DIR$/js/web/minified/tabs.min.js" />
         <item url="file://$PROJECT_DIR$/js/minified/bootstrap.min.js" />
         <item url="file://$PROJECT_DIR$/js/minified/queryLoader.min.js" />
+        <item url="file://$PROJECT_DIR$/js/minified/ajax.tabs.min.js" />
         <item url="file://$PROJECT_DIR$/js/minified/index.who.is.online.min.js" />
         <item url="file://$PROJECT_DIR$/js/minified/tabs.min.js" />
         <item url="file://$PROJECT_DIR$/js/minified/jquery.mousewheel.min.js" />
@@ -62,6 +63,7 @@
       <root url="file://$PROJECT_DIR$/js/web/minified/tabs.min.js" />
       <root url="file://$PROJECT_DIR$/js/minified/queryLoader.min.js" />
       <root url="file://$PROJECT_DIR$/js/minified/index.who.is.online.min.js" />
+      <root url="file://$PROJECT_DIR$/js/minified/ajax.tabs.min.js" />
       <root url="file://$PROJECT_DIR$/js/minified/tabs.min.js" />
       <root url="file://$PROJECT_DIR$/js/minified/jquery.mousewheel.min.js" />
       <root url="file://$PROJECT_DIR$/js/minified/switchery.min.js" />

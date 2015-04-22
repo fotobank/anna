@@ -19,7 +19,7 @@ if(isset($_GET['id'])) {
 }
 
 if(isset($_GET['location'])) {
-	$location = filter_var($_POST['location'], FILTER_SANITIZE_STRING);
+	$location = filter_var($_GET['location'], FILTER_SANITIZE_STRING);
 } else if(isset($_POST['location'])) {
 	$location = filter_var($_POST['location'], FILTER_SANITIZE_STRING);
 } else {

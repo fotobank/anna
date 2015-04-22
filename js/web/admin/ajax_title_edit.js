@@ -1,6 +1,6 @@
 ﻿$(function () {
 
-	var blockList = $('.list-categorii');
+	var blockList = $('.list-title');
 
 	blockList.sortable({
 		axis  : 'y',				// Разрешено только вертикальное перемещение
@@ -57,7 +57,7 @@
 
 	// При возникновении двойной щелчок, просто имитировать нажатие на кнопку редактирования:
 	blockList.on('dblclick', 'li', function () {
-		$(this).find('a.edit').click();
+		$(this).find('a.navlink').click();
 	});
 
 
@@ -82,9 +82,9 @@
 
 
 	//Прослушивание за клик по кнопке редактирования
-	blockList.on('click', 'a.edit', function () {
+	blockList.on('click', 'a.navlink', function () {
 
-		var container = currentBlock.find('.text');
+		var container = currentBlock.find('.navlink');
 
 		if (!currentBlock.data('origText')) {
 			// Сохранение текущего текста блока, чтобы мы могли
@@ -112,7 +112,7 @@
 
 	//Отменить редактирование:
 	blockList.on('click', 'a.discardChanges', function (e) {
-		currentBlock.find('.text')
+		currentBlock.find('.navlink')
 				.text(currentBlock.data('origText'))
 				.end()
 				.removeData('origText');
@@ -127,7 +127,7 @@
 		$.get("/classes/ajaxSite/ajax_title_edit.php", {'action': 'edit', 'id': currentBlock.data('id'), 'text': text});
 
 		currentBlock.removeData('origText')
-				.find(".text")
+				.find(".navlink")
 				.text(text);
 		e.preventDefault();
 		currentBlock.on_off('on', '.actions').find( 'div.ok-cancel' ).remove();
@@ -143,7 +143,7 @@
 		$.get("/classes/ajaxSite/ajax_title_edit.php", {'action': 'new', 'text': 'Новый раздел.', 'rand': Math.random()}, function (msg) {
 
 			// Добавление нового блока и вывод его на экран:
-			$(msg).hide().appendTo('.list-categorii').fadeIn();
+			$(msg).hide().appendTo('.list-title').fadeIn();
 		});
 
 		timestamp = (new Date()).getTime();

@@ -1,9 +1,9 @@
-.tabs ul.list-categorii li a {display: block;}
-.tabs ul.list-categorii li a:link {background-color: #1A1A1A;}
-.tabs ul.list-categorii li a:visited {background-color: #1A1A1A;}
-.tabs ul.list-categorii li a:hover {background-color: #1A1A1A;}
-.tabs ul.list-categorii li a:active {background-color: #1A1A1A;}
-.list-categorii li {
+.tabs ul.list-title li a {display: block;}
+.tabs ul.list-title li a:link {background-color: #1A1A1A;}
+.tabs ul.list-title li a:visited {background-color: #1A1A1A;}
+.tabs ul.list-title li a:hover {background-color: #1A1A1A;}
+.tabs ul.list-title li a:active {background-color: #1A1A1A;}
+.list-title li {
 	width: 180px;
 }
 .jcarousel-skin-tango .jcarousel-container {

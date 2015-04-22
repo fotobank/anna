@@ -47,7 +47,7 @@ debugHC( SITE_PATH . 'title.php');
 	<script type='text/javascript' src='/js/native/jquery.mb.browser.min.js'></script>
 
 	<script type='text/javascript' src='/js/functions.js'></script>
-	<script type='text/javascript' src='/js/web/minified/who.is.online.min.js'></script>
+	<script type='text/javascript' src='/js/web/who.is.online.js'></script>
 
 
 	<?
@@ -63,7 +63,7 @@ debugHC( SITE_PATH . 'title.php');
 		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.min.js'></script>
 
 
-		<script type="text/javascript" src="/js/minified/jquery.mousewheel.min.js"></script>
+		<script type="text/javascript" src="/js/jquery.mousewheel.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox-thumbs.js"></script>
 
@@ -75,6 +75,7 @@ debugHC( SITE_PATH . 'title.php');
 
 	} else if ($_SERVER['PHP_SELF'] == '/services.php') {
     ?>
+		<script type='text/javascript' src='/js/ajax.tabs.js'></script>
 		<script type='text/javascript' src='/js/web/tabs.js'></script>
      <?
 
@@ -83,12 +84,13 @@ debugHC( SITE_PATH . 'title.php');
 	?>
 
 		<script type='text/javascript' src='/js/owl.carousel/owl.carousel.min.js'></script>
-		<script type="text/javascript" src="/js/minified/jquery.mousewheel.min.js"></script>
+		<script type="text/javascript" src="/js/jquery.mousewheel.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 
 		<script type='text/javascript' src='/js/ajax.tabs.js'></script>
+		<script type='text/javascript' src='/js/web/tabs.js'></script>
 		<script type="text/javascript" src="/js/jquery-contained-sticky-scroll.js"></script>
-		<script type='text/javascript' src='/js/minified/index.slider.min.js'></script>
+		<script type='text/javascript' src='/js/index.slider.js'></script>
 		<script type='text/javascript' src='/js/clock.js'></script>
 
 	<?
@@ -111,6 +113,25 @@ debugHC( SITE_PATH . 'title.php');
 
 </head>
 <body>
+<?= if_admin( '
+	<div class="container-admin">
+		<div class="floating-admin">
+
+			<h4>Панель админа:</h4>
+			<div>
+			    <span>Включить редактирование:</span>
+				<button id="enable" class="btn-xs" type="button"><div class="btn-off"></div></button>
+			</div>
+			<div>
+				<span>Включить подсказки:</span>
+				<button id="help" class="btn-xs" type="button"><div class="btn-off"></div></button>
+			</div>
+			<div>
+				<a href="/admin.php?adm_out=1" style="padding-right: 20px;">выход</a>
+			</div>
+	     </div>
+	</div>' );
+?>
 <!--==============================header=================================-->
 <article>
 	<div id="header">
@@ -138,26 +159,6 @@ debugHC( SITE_PATH . 'title.php');
 		</div>
 	</noscript>
 </noindex>
-
-<?= if_admin( '
-	<div class="container-admin">
-		<div class="floating-admin">
-
-			<h4>Панель админа:</h4>
-			<div>
-			    <span>Включить редактирование:</span>
-				<button id="enable" class="btn-xs" type="button"><div class="btn-off"></div></button>
-			</div>
-			<div>
-				<span>Включить подсказки:</span>
-				<button id="help" class="btn-xs" type="button"><div class="btn-off"></div></button>
-			</div>
-			<div>
-				<a href="/admin.php?adm_out=1" style="padding-right: 20px;">выход</a>
-			</div>
-	     </div>
-	</div>' );
-?>
 
 <!-- Голова конец -->
 

@@ -26,7 +26,7 @@ class ajaxSite_EditTitle {
 	 */
 	public function __toString() {
 
-		$ul = '<ul class="list-categorii">';
+		$ul = '<ul class="list-title">';
 		foreach ( $this->data as $row ) {
 			$ul .= self::new_li_title( $row );
 		}

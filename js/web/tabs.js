@@ -5,8 +5,8 @@
 	init : function(){
 		$('.tabs').each(function(){
 			$(this).find('.tab-content').hide();
-			$($(this).find('ul.list-menu .selected a').attr('href')).fadeIn(300);
-			$(this).find('ul.list-menu a').click(function(){
+			$($(this).find('ul.list-title .selected a').attr('href')).fadeIn(300);
+			$(this).find('ul.list-title a').click(function(){
 				$(this).parents('.tabs').find('.tab-content').hide();
 				$($(this).attr('href')).fadeIn(300);
 				$(this).parent().addClass('selected').siblings().removeClass('selected');
@@ -28,9 +28,34 @@ $(document).ready(function(){
 	 IE9 сюда попал из-за того что при нажатии на Back предыдуща€ вкладка не скрывалась
 	 */
 
-	$("ul.list-menu a[href^=#tab-]").each(function(){
+	$("ul.list-title a[href^=#tab-]").each(function(){
 		tabs.push($(this).attr("href"));
 	});
+
+console.log(tabs);
+
+	/**
+	 *  jQuery quick Each
+	 *
+	 *  Example:
+	 *  a.quickEach(function() {
+ *      this; // jQuery object
+ *  });
+	 */
+	jQuery.fn.quickEach = (function() {
+		var jq = jQuery([1]);
+		return function(c) {
+			var i = -1, el, len = this.length;
+			try {
+				while (++i < len && (el = jq[0] = this[i]) && c.call(jq, i, el) !== false);
+			} catch (e) {
+				delete jq[0];
+				throw e;
+			}
+			delete jq[0];
+			return this;
+		};
+	}());
 
 	// смена таба
 	function changeTab(tabId){
@@ -51,8 +76,7 @@ $(document).ready(function(){
 		 например, выполнить ajax запрос
 		 */
 
-			var targetURL = document.location.toString().substr(0, document.location.toString().indexOf('#')) + '#' +
-					tabId.substr(1);
+			var targetURL = "/classes/ajaxSite/ajax_loader.php"; // адрес скрипта";
 
 
 
@@ -60,9 +84,13 @@ $(document).ready(function(){
 //		alert (window.location.pathname );
 
      // если информаци€ загружена она просто выводитс€ иначе подгружаетс€
+
 		if(!$(tabId).length) {
 
-			$.ajax({
+			// «агружаем страницу
+			var link = this;
+
+			/*$.ajax({
 			 context:$('#pageContent'),
 			 url:targetURL,
 			 dataType:'html',
@@ -76,7 +104,16 @@ $(document).ready(function(){
 			 // ќбновл€ем "динамическую" часть страницы.
 			 $('#pageContent').html(data);
 			 }
-			 });
+			 });*/
+
+			/*$(this).ajax_load('load', {
+			 'url'    : '/classes/ajaxSite/ajax_loader.php', // адрес скрипта
+			 'id_load': '#pageContent', // id дл€ загрузки ответа сервера (контента)
+			 'type'   : 'GET', // тип вызова
+			 'header' : 'Content-Type: application/json; charset=utf-8;', // посылаемый заголовок
+			 'data'   : {'location': window.location.pathname, 'id': tabId}  // массив посылаемого к серверу запроса
+			 	});
+*/
 
 		}
 
@@ -175,11 +212,6 @@ $(document).ready(function(){
 
 	var currentState = '';
 
-	function buildURL(anchor) {
-		return document.location.toString().substr(0, document.location.toString().indexOf('#')) + '#' +
-				anchor.substr(1);
-	}
-
 
 	function clickNavLink() {
 		// ”же там?
@@ -196,10 +228,10 @@ $(document).ready(function(){
 		// ѕоказываем индикатор загрузки
 		$(this).parent().find('.busy').show();
 		$(this).hide();
-		var targetURL = buildURL(href);
+		var targetURL = "/classes/ajaxSite/ajax_loader.php"; // адрес скрипта";
 		currentState = href;  // сразу помен€ем состо€ние, чтобы избежать повторных кликов
 
-		$.ajax({
+		/*$.ajax({
 			context:$('#pageContent'),
 			url:targetURL,
 			dataType:'html',
@@ -213,7 +245,7 @@ $(document).ready(function(){
 				// ќбновл€ем "динамическую" часть страницы.
 				$('#pageContent').html(data);
 			}
-		});
+		});*/
 		return true;
 	}
 

@@ -64,7 +64,7 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 				<div class="h-mod">
 				<h3 class="bb1">Коротко о разделе:</h3>
 				</div>
-				<div id="list-content"></div>
+				<div id="pageContent">
 
 				<!--<div class="block_wrapper_body">
 					<div class="block_wrap block_rounded">
@@ -232,6 +232,7 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 				</div>
 
 			</div>
+</div>
 
 			<!--==============================новости================================-->
 			<div class="col-3">
@@ -262,7 +263,7 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 	<!--<script>
 		$(document).ready(function () {
 
-			 $('.list-categorii li').mouseup('li',function(){
+			 $('.list-<title></title> li').mouseup('li',function(){
 			 $('.actions').attr('display', 'block');
 			 });
 		});

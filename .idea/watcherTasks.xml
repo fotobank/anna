@@ -89,7 +89,7 @@
       <option name="workingDir" value="$FileDir$" />
       <envs />
     </TaskOptions>
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="$FileName$ -o minified/$FileNameWithoutExtension$.min.js" />
       <option name="checkSyntaxErrors" value="false" />
       <option name="description" value="Compress .js files" />
