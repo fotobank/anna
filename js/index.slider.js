@@ -117,11 +117,10 @@ $(document).ready(function () {
 
 	// запуск скролла
 	jQuery('.col-1').containedStickyScroll({
-		duration: 0
+		hightTop      : 470
 	});
 	jQuery('.col-3').containedStickyScroll({
-				easing: 'easeOutCubic',
-				duration: 550
+				hightTop : 570
 			}
 	);
 

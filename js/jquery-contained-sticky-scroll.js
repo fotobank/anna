@@ -14,10 +14,10 @@
 
 		var defaults = {
 			paddingBottom : 300,
-			hightTop      : 460, //высота пропускаемых сверху блоков
+			hightTop      : 0, //высота пропускаемых сверху блоков
 			unstick   : false,
 			easing    : 'easeOutQuart',
-			duration  : 400,
+			duration  : 0,
 			queue     : false,
 			closeChar : '^',
 			closeTop  : 0,

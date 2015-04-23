@@ -67,7 +67,7 @@ list( $razdel, $title ) = title();
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox-thumbs.js"></script>
 
-		<script type='text/javascript' src='/js/web/tabs.js'></script>
+		<script type='text/javascript' src='/js/web/jquery.jurii.ajax.hash.control.js'></script>
 		<script type='text/javascript' src='/js/portfolio.js'></script>
 
 
@@ -76,7 +76,7 @@ list( $razdel, $title ) = title();
 	} else if ($_SERVER['PHP_SELF'] == '/services.php') {
     ?>
 		<script type='text/javascript' src='/js/jquery.jurii.ajax-load.js'></script>
-		<script type='text/javascript' src='/js/web/tabs.js'></script>
+		<script type='text/javascript' src='/js/web/jquery.jurii.ajax.hash.control.js'></script>
      <?
 
 	} else if ($_SERVER['PHP_SELF'] == '/index.php') {
@@ -88,7 +88,7 @@ list( $razdel, $title ) = title();
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 
 		<script type='text/javascript' src='/js/jquery.jurii.ajax-load.js'></script>
-		<script type='text/javascript' src='/js/web/tabs.js'></script>
+		<script type='text/javascript' src='/js/web/jquery.jurii.ajax.hash.control.js'></script>
 		<script type="text/javascript" src="/js/jquery-contained-sticky-scroll.js"></script>
 		<script type='text/javascript' src='/js/index.slider.js'></script>
 		<script type='text/javascript' src='/js/clock.js'></script>

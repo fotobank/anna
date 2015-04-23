@@ -62,7 +62,7 @@
 	});
 
 
-	// альтернативное управление меню и alax в админке:
+	// альтернативное управление меню и ajax в админке:
 
 	blockList.on("click", "a.navlink" , function(e){
 		$(".tabs").find('.tab-content').hide();
