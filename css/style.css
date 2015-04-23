@@ -17215,10 +17215,11 @@ body .ui-tooltip {
 /* line 45, ../sass/_tabs.scss */
 .tabs ul.list-title li {
   padding: 2px 0 6px 18px;
+  left: 0;
   line-height: 18px;
   background: url('/images/marker-1.gif?1405111182') 0 8px no-repeat;
 }
-/* line 51, ../sass/_tabs.scss */
+/* line 52, ../sass/_tabs.scss */
 .tabs ul.list-title li a {
   color: #fff;
   line-height: 18px;
@@ -17226,53 +17227,53 @@ body .ui-tooltip {
   text-decoration: none;
   display: inline-block;
 }
-/* line 58, ../sass/_tabs.scss */
+/* line 59, ../sass/_tabs.scss */
 .tabs ul.list-title li:hover {
   background: url('/images/marker-hover.png?1429515778') 0 8px no-repeat;
   left: 8px;
   padding-left: 10px;
 }
-/* line 62, ../sass/_tabs.scss */
+/* line 63, ../sass/_tabs.scss */
 .tabs ul.list-title li:hover a {
   color: #fc0;
 }
-/* line 66, ../sass/_tabs.scss */
+/* line 67, ../sass/_tabs.scss */
 .tabs ul.list-title li:active {
   background: url('/images/marker-apply.png?1429525582') 0 8px no-repeat;
   left: 8px;
   padding-left: 10px;
 }
-/* line 71, ../sass/_tabs.scss */
+/* line 72, ../sass/_tabs.scss */
 .tabs ul.list-title li.selected {
   background: url('/images/marker-apply.png?1429525582') 0 8px no-repeat;
   left: 0;
   padding-left: 18px;
 }
-/* line 75, ../sass/_tabs.scss */
+/* line 76, ../sass/_tabs.scss */
 .tabs ul.list-title li.selected a {
   color: #fc0;
   text-decoration: none;
 }
 
-/* line 85, ../sass/_tabs.scss */
+/* line 86, ../sass/_tabs.scss */
 .tabs-2 {
   margin: 35px 0 0 0 !important;
   width: 580px !important;
 }
-/* line 89, ../sass/_tabs.scss */
+/* line 90, ../sass/_tabs.scss */
 .tabs-2 ul.list-title {
   padding: 0 0 0 85px !important;
 }
-/* line 93, ../sass/_tabs.scss */
+/* line 94, ../sass/_tabs.scss */
 .tabs-2 .tab-content {
   padding: 61px 0 0 0 !important;
 }
 
-/* line 97, ../sass/_tabs.scss */
+/* line 98, ../sass/_tabs.scss */
 .list-title {
   position: relative;
 }
-/* line 99, ../sass/_tabs.scss */
+/* line 100, ../sass/_tabs.scss */
 .list-title li {
   font-family: "BadScriptRegular", "Georgia", cursive;
   color: #ffffff;
@@ -17295,25 +17296,25 @@ body .ui-tooltip {
   height: 24px;
   vertical-align: middle;
 }
-/* line 115, ../sass/_tabs.scss */
+/* line 116, ../sass/_tabs.scss */
 .list-title li .actions, .list-title li .ok-cancel {
   position: absolute;
   right: 0;
   float: right;
   z-index: 10;
 }
-/* line 121, ../sass/_tabs.scss */
+/* line 122, ../sass/_tabs.scss */
 .list-title li .ok-cancel {
   top: 4px;
   right: 4px;
 }
-/* line 125, ../sass/_tabs.scss */
+/* line 126, ../sass/_tabs.scss */
 .list-title li .actions {
   z-index: 9;
   top: 0;
   display: none;
 }
-/* line 130, ../sass/_tabs.scss */
+/* line 131, ../sass/_tabs.scss */
 .list-title li input {
   position: absolute;
   border: 1px solid #ffec0e;
@@ -17332,25 +17333,25 @@ body .ui-tooltip {
   top: 0;
 }
 
-/* line 141, ../sass/_tabs.scss */
+/* line 142, ../sass/_tabs.scss */
 .list-title li:hover, .list-title li:active {
   color: #fc0;
 }
 
-/* line 145, ../sass/_tabs.scss */
+/* line 146, ../sass/_tabs.scss */
 .block_body .actions {
   position: absolute;
   z-index: 1;
 }
 
-/* line 151, ../sass/_tabs.scss */
+/* line 152, ../sass/_tabs.scss */
 .block_wrap .actions {
   position: absolute;
   right: 10px;
   z-index: 1;
 }
 
-/* line 157, ../sass/_tabs.scss */
+/* line 158, ../sass/_tabs.scss */
 .list-title li .actions a, .block_wrapper_body .actions a {
   display: block;
   width: 16px;
@@ -17362,39 +17363,39 @@ body .ui-tooltip {
   z-index: 1000;
 }
 
-/* line 167, ../sass/_tabs.scss */
+/* line 168, ../sass/_tabs.scss */
 .list-title li .actions a.edit, .block_wrapper_body a.edit {
   background: url("/images/edit.png") no-repeat center center;
 }
 
-/* line 170, ../sass/_tabs.scss */
+/* line 171, ../sass/_tabs.scss */
 .list-title li .actions a.delete, .block_wrapper_body a.delete {
   background: url("/images/delete.png") no-repeat center center;
 }
 
-/* line 173, ../sass/_tabs.scss */
+/* line 174, ../sass/_tabs.scss */
 img.return, img.ok {
   float: right;
   cursor: pointer;
 }
 
-/* line 178, ../sass/_tabs.scss */
+/* line 179, ../sass/_tabs.scss */
 img.ok {
   margin-right: 3px;
 }
 
-/* line 183, ../sass/_tabs.scss */
+/* line 184, ../sass/_tabs.scss */
 .text {
   vertical-align: middle;
   position: relative;
 }
 
-/* line 187, ../sass/_tabs.scss */
+/* line 188, ../sass/_tabs.scss */
 .ui-button, .ui-dialog-titlebar {
   font-size: 0.72em !important;
 }
 
-/* line 190, ../sass/_tabs.scss */
+/* line 191, ../sass/_tabs.scss */
 #dialog-confirm {
   display: none;
   font-size: 0.9em;
@@ -17402,7 +17403,7 @@ img.ok {
   height: 40px;
 }
 
-/* line 200, ../sass/_tabs.scss */
+/* line 201, ../sass/_tabs.scss */
 .block_wrapper_body {
   position: relative;
   height: 100%;
@@ -17411,17 +17412,17 @@ img.ok {
   color: #cacaca;
   text-align: center;
 }
-/* line 207, ../sass/_tabs.scss */
+/* line 208, ../sass/_tabs.scss */
 .block_wrapper_body .blocks {
   margin: 50px 0 0 0;
 }
-/* line 210, ../sass/_tabs.scss */
+/* line 211, ../sass/_tabs.scss */
 .block_wrapper_body .block_rounded {
   -webkit-border-radius: 5px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
-/* line 214, ../sass/_tabs.scss */
+/* line 215, ../sass/_tabs.scss */
 .block_wrapper_body .block_rounded:before {
   border-width: 8px;
   border-color: #EBEAE6 #EBEAE6 transparent transparent;
@@ -17429,14 +17430,14 @@ img.ok {
   -moz-border-radius: 0 0 0 5px;
   border-radius: 0 0 0 5px;
 }
-/* line 222, ../sass/_tabs.scss */
+/* line 223, ../sass/_tabs.scss */
 .block_wrapper_body .border {
   border: 1px solid #b9b9b9;
   padding: 3px;
   background: #000000;
   margin: 15px 0 0 -4px;
 }
-/* line 227, ../sass/_tabs.scss */
+/* line 228, ../sass/_tabs.scss */
 .block_wrapper_body .border img {
   width: 100%;
   -o-filter: grayscale(0);
@@ -17448,7 +17449,7 @@ img.ok {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-/* line 231, ../sass/_tabs.scss */
+/* line 232, ../sass/_tabs.scss */
 .block_wrapper_body .border img:hover {
   -o-filter: grayscale(100%);
   -ms-filter: grayscale(100%);
@@ -17456,12 +17457,12 @@ img.ok {
   -webkit-filter: grayscale(100%);
 }
 
-/* line 238, ../sass/_tabs.scss */
+/* line 239, ../sass/_tabs.scss */
 .edit-txt {
   text-align: left;
 }
 
-/* line 243, ../sass/_tabs.scss */
+/* line 244, ../sass/_tabs.scss */
 .block_wrap {
   font-family: "RalewayMedium", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   font-size: 15px;
@@ -17489,17 +17490,17 @@ img.ok {
   background: -o-radial-gradient(center, circle, #363636, #222222);
   background: radial-gradient(circle at center, #363636, #222222);
 }
-/* line 258, ../sass/_tabs.scss */
+/* line 259, ../sass/_tabs.scss */
 .block_wrap img {
   width: 100%;
   margin: 0;
 }
-/* line 262, ../sass/_tabs.scss */
+/* line 263, ../sass/_tabs.scss */
 .block_wrap p {
   text-indent: 0;
   margin-top: 25px;
 }
-/* line 265, ../sass/_tabs.scss */
+/* line 266, ../sass/_tabs.scss */
 .block_wrap p:first-letter {
   font-family: "Georgia", "Cambria", "Times New Roman", "Times", serif;
   font-size: 38px;
@@ -17512,23 +17513,23 @@ img.ok {
   padding: 10px 10px 0 0;
 }
 
-/* line 276, ../sass/_tabs.scss */
+/* line 277, ../sass/_tabs.scss */
 .block_body {
   position: relative;
   padding: 30px 0;
 }
-/* line 281, ../sass/_tabs.scss */
+/* line 282, ../sass/_tabs.scss */
 .block_body ul:not(.block_wrap) li {
   display: inline-block;
   width: 130px;
   padding: 0 10px;
 }
-/* line 288, ../sass/_tabs.scss */
+/* line 289, ../sass/_tabs.scss */
 .block_body img {
   width: 120px;
 }
 
-/* line 293, ../sass/_tabs.scss */
+/* line 294, ../sass/_tabs.scss */
 .aiax-load-gif {
   position: relative;
   float: right;

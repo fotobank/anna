@@ -1,21 +1,25 @@
-//;$(function(){
-//	tabs.init();
-//});
-/*tabs = {
-	init : function(){
-		$('.tabs').each(function(){
-			$(this).find('.tab-content').hide();
-			$($(this).find('ul.list-title .selected a').attr('href')).fadeIn(300);
-			$(this).find('ul.list-title a').click(function(){
-				$(this).parents('.tabs').find('.tab-content').hide();
-				$($(this).attr('href')).fadeIn(300);
-				$(this).parent().addClass('selected').siblings().removeClass('selected');
-				//Cufon.refresh();
-				return false;
-			});
-		});
-	}
-};*/
+/**
+ *  jQuery quick Each
+ *
+ *  Example:
+ *  a.quickEach(function() {
+ *      this; // jQuery object
+ *  });
+ */
+jQuery.fn.quickEach = (function() {
+	var jq = jQuery([1]);
+	return function(c) {
+		var i = -1, el, len = this.length;
+		try {
+			while (++i < len && (el = jq[0] = this[i]) && c.call(jq, i, el) !== false);
+		} catch (e) {
+			delete jq[0];
+			throw e;
+		}
+		delete jq[0];
+		return this;
+	};
+}());
 
 
 $(document).ready(function(){
@@ -28,34 +32,13 @@ $(document).ready(function(){
 	 IE9 сюда попал из-за того что при нажатии на Back предыдущая вкладка не скрывалась
 	 */
 
-	$("ul.list-title a[href^=#tab-]").each(function(){
-		tabs.push($(this).attr("href"));
+	$("ul.list-title a[href^=#tab-]").quickEach(function(){
+		tabs.push(this.attr("href"));
 	});
 
-console.log(tabs);
 
-	/**
-	 *  jQuery quick Each
-	 *
-	 *  Example:
-	 *  a.quickEach(function() {
- *      this; // jQuery object
- *  });
-	 */
-	jQuery.fn.quickEach = (function() {
-		var jq = jQuery([1]);
-		return function(c) {
-			var i = -1, el, len = this.length;
-			try {
-				while (++i < len && (el = jq[0] = this[i]) && c.call(jq, i, el) !== false);
-			} catch (e) {
-				delete jq[0];
-				throw e;
-			}
-			delete jq[0];
-			return this;
-		};
-	}());
+log(tabs);
+
 
 	// смена таба
 	function changeTab(tabId){
@@ -64,69 +47,32 @@ console.log(tabs);
 			window.location.hash = tabId = tabs[0];
 		}
 		tabList.each(function(){
+
 			var	a_tabId = $("a[href ="+tabId+"]");
 			$(this).find(".selected").removeClass("selected");
 			a_tabId.parent().addClass("selected"); // активной вкладке добавляем класс чтобы придать нужный вид
 			$(this).find(".tab-content").hide(); // скрыть вкладки
 			$(a_tabId.attr('href')).fadeIn(300); // запустить активную вкладку
+
 		});
 
-		/*
-		 определив id вкладки можно выполнить какие-то дополнительные действия,
-		 например, выполнить ajax запрос
-		 */
-
-			var targetURL = "/classes/ajaxSite/ajax_loader.php"; // адрес скрипта";
-
-
-
-//		alert (window.location.hash);
-//		alert (window.location.pathname );
 
      // если информация загружена она просто выводится иначе подгружается
 
 		if(!$(tabId).length) {
 
-			// Загружаем страницу
-			var link = this;
 
-			/*$.ajax({
-			 context:$('#pageContent'),
-			 url:targetURL,
-			 dataType:'html',
-			 method:'GET',
-			 complete: function() {
-			 // Отмечаем активную ссылку.
-			 $(link).show();
-			 updateNavLinks();
-			 },
-			 success: function(data) {
-			 // Обновляем "динамическую" часть страницы.
-			 $('#pageContent').html(data);
-			 }
-			 });*/
 
-			/*$(this).ajax_load('load', {
-			 'url'    : '/classes/ajaxSite/ajax_loader.php', // адрес скрипта
-			 'id_load': '#pageContent', // id для загрузки ответа сервера (контента)
-			 'type'   : 'GET', // тип вызова
-			 'header' : 'Content-Type: application/json; charset=utf-8;', // посылаемый заголовок
-			 'data'   : {'location': window.location.pathname, 'id': tabId}  // массив посылаемого к серверу запроса
-			 	});
-*/
+
+			$('ul.list-title').ajax_load('load', {
+				'url'    : '/classes/ajaxSite/ajax_load.php', // адрес скрипта
+				'id_load': '#pageContent', // id для загрузки ответа сервера (контента)
+				'type'   : 'GET', // тип вызова
+				'header' : 'Content-Type: application/json; charset=utf-8;', // посылаемый заголовок
+				'data'   : {'location': window.location.pathname, id: window.location.hash}  // массив посылаемого к серверу запроса
+			});
 
 		}
-
-		/*switch (tabId)
-		{
-			case tabs[0]: 	$("#tab-1").find("p").html("<p>динамически добавленный код</p>");
-				break;
-			case tabs[1]: 	$("#tab-2").find("p").html("<p>динамически добавленный код</p>");
-				break;
-			case tabs[2]: 	$("#tab-3").find("p").html("<p>динамически добавленный код</p>");
-				break;
-			default: 		break;
-		}*/
 
 	}
 
@@ -180,9 +126,9 @@ console.log(tabs);
 
 // Bind an event handler.
 	$(window).hashchange( function(e) {
+
 		var tabId = window.location.hash,
 		    result = false;
-	//		console.log("new: " +  tabId);
 
 		// при загрузке страницы проверяем какую вкладку следует открыть
 		$.each(tabs, function(){
@@ -209,9 +155,7 @@ console.log(tabs);
 
 
 
-
 	var currentState = '';
-
 
 	function clickNavLink() {
 		// Уже там?
@@ -228,7 +172,7 @@ console.log(tabs);
 		// Показываем индикатор загрузки
 		$(this).parent().find('.busy').show();
 		$(this).hide();
-		var targetURL = "/classes/ajaxSite/ajax_loader.php"; // адрес скрипта";
+		var targetURL = "/classes/ajaxSite/ajax_load.php"; // адрес скрипта";
 		currentState = href;  // сразу поменяем состояние, чтобы избежать повторных кликов
 
 		/*$.ajax({

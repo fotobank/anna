@@ -15,9 +15,9 @@ if(!empty($_POST['value'])) {
 //$text = cp1251(preg_replace('/[\n\t]{1,}/i', '', strip_tags( nl2br($_POST['value']), '<br>')));
 	$text = cp1251(preg_replace('/[\n\t]{1,}/i', '', nl2br(cleanInput($_POST['value']))));
 //	$text = preg_replace('/[tm:]*/i', '', $text);
-	$value = array(
+	$value = [
 		'text' => $text,
-	);
+	];
 	 $db->update("index_body", $value);
 
 //	$db->rawQuery("UPDATE index_body SET text = ".stripslashes($_POST['value'])." WHERE id=". $_POST['pk']['id']);

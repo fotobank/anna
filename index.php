@@ -64,7 +64,7 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 				<div class="h-mod">
 				<h3 class="bb1">Коротко о разделе:</h3>
 				</div>
-				<div id="pageContent">
+				<div id="pageContent" class="block_wrapper_body">
 
 				<!--<div class="block_wrapper_body">
 					<div class="block_wrap block_rounded">
@@ -84,7 +84,7 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 				<?
 
 				?>
-				<div class="block_wrapper_body">
+
 					<ul>
 						<li class="block_body">
 
@@ -120,6 +120,8 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 										<div><img src="files/slides/slide-2.jpg" alt=""></div>
 									</div>
 								</li>
+
+
 								<li>
 									<div class="focal-point border">
 										<?= if_admin( '<div class="actions">
@@ -129,6 +131,8 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 										<div><img src="files/portfolio/06_Портреты/002.jpg" alt=""></div>
 									</div>
 								</li>
+
+
 								<li>
 									<div class="focal-point border">
 										<div><img src="files/slides/slide-3.jpg" alt=""></div>
@@ -162,7 +166,7 @@ $categorii = $db->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 							</ul>
 						</li>
 					</ul>
-				</div>
+
 
 
 				<div id="tab-1" class="tab-content">

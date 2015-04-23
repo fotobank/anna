@@ -8,7 +8,7 @@ Debug_HackerConsole_Js.prototype = {
 	speedOn: 0.3,
 	speedOff: 10,
 	dt: 50,
-	fontsize: 15,
+	fontsize: 14,
 	groups: null,
 	scrollTimeout: null,
 

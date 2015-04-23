@@ -1,4 +1,5 @@
 <?php
+require( __DIR__ . '/../../inc/config.php' ); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 
 if(session_id() == '')
 	session_start();
@@ -12,6 +13,9 @@ class ajaxSite_EditBody{
 	private $data;
 	protected $admin = false;
 
+	/**
+	 * @param $par
+	 */
 	public function __construct($par){
 
 		$this->admin = if_admin(true);
@@ -32,8 +36,6 @@ class ajaxSite_EditBody{
 	}
 
 	protected function add_block() {
-
-
 
 	$block = '<ul class="block_wrap block_rounded">
 							<li>
@@ -118,10 +120,7 @@ class ajaxSite_EditBody{
 
 	}
 
-	/**
-		Нижеприведенные статические методы доступны
-        непосредственно, без необходимости создания объекта.
-	*/
+
 
 	/**
 	 * @param $id
@@ -134,10 +133,10 @@ class ajaxSite_EditBody{
 		$text = self::esc($text);
 		if(!$text) throw new Exception("Неправильный обновляемый текст!");
 
-		$value = array(
+		$value = [
 			'name_head' => $text,
 			'edit_id' => isset($_SESSION['id'])?$_SESSION['id']:0
-		);
+		];
 		self::db()->where("id", $id);
 		self::db()->update("index_menu", $value);
 

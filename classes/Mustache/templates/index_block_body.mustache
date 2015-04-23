@@ -1,0 +1,46 @@
+{{#block}}
+
+    <li {{teg_id}} class="block_body">
+        <section>
+            <ul class="block_wrap block_rounded">
+
+
+							{{#title__section}}
+                  <li><h4>{{title}}</h4></li>
+							{{/title__section}}
+
+
+							{{#img_section}}
+                  <li>
+                      <div class="focal-point border">
+												{{#if_admin}}
+                            <div class="actions">
+                                <a href="#" title="»зменить или добавить текст меню." class="edit">Edit</a>
+                                <a href="#" title="”далить раздел из базы данных без возможности восстановлени€." class="delete">Delete</a>
+                            </div>
+												{{/if_admin}}
+                          <div>
+                              <img src="{{img_src}}" alt="{{img_alt}}">
+                          </div>
+                      </div>
+                  </li>
+							{{/img_section}}
+
+
+							{{#txt_section}}
+                  <li>
+                      <p {{id_p}} {{class_p}}>{{text_p}}</p>
+                  </li>
+							{{/txt_section}}
+
+
+							{{#link_section}}
+                  <li class="bb1 mbm"></li>
+                  <li>{{{footer}}}</li>
+							{{/link_section}}
+
+            </ul>
+        </section>
+    </li>
+
+{{/block}}

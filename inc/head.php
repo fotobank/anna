@@ -16,7 +16,7 @@ if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {
 /**==================================================================*/
 include( SITE_PATH . 'inc/title.php' ); // титры в разделах для СЕО
 list( $razdel, $title ) = title();
-debugHC( SITE_PATH . 'title.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="ru" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -75,7 +75,7 @@ debugHC( SITE_PATH . 'title.php');
 
 	} else if ($_SERVER['PHP_SELF'] == '/services.php') {
     ?>
-		<script type='text/javascript' src='/js/ajax.tabs.js'></script>
+		<script type='text/javascript' src='/js/jquery.jurii.ajax-load.js'></script>
 		<script type='text/javascript' src='/js/web/tabs.js'></script>
      <?
 
@@ -87,7 +87,7 @@ debugHC( SITE_PATH . 'title.php');
 		<script type="text/javascript" src="/js/jquery.mousewheel.js"></script>
 		<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 
-		<script type='text/javascript' src='/js/ajax.tabs.js'></script>
+		<script type='text/javascript' src='/js/jquery.jurii.ajax-load.js'></script>
 		<script type='text/javascript' src='/js/web/tabs.js'></script>
 		<script type="text/javascript" src="/js/jquery-contained-sticky-scroll.js"></script>
 		<script type='text/javascript' src='/js/index.slider.js'></script>

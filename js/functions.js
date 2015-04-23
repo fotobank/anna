@@ -65,24 +65,6 @@ function HomePage(page) {
 	}
 }
 
-
-//Activate LightBox
-//$(function(){$("a[rel^='lightbox']").prettyPhoto({theme: 'dark_rounded'});});
-//Activate jCarousel AND slider
-$(document).ready(
-
-		function () {
-			//Init carousel
-
-			myclock();
-
-// $('#mycarousel').jcarousel();
-
-// disableRightClick(document);
-
-
-		});
-
 var CanSlide = false;
 function SetNew() {
 	if (CanSlide == true) $.prettyPhoto.changePage('next');

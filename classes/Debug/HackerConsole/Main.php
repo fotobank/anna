@@ -11,7 +11,7 @@ require_once (__DIR__.'/../config.php');
  */
 class Debug_HackerConsole_Main
 {
-    var $_hc_height = "400"; // height of the console (pixels)
+    var $_hc_height = "300"; // height of the console (pixels)
     static private $_hc_entries = [ ];
     var $TAB_SIZE = 4;
     static private $instance = NULL;
@@ -43,7 +43,7 @@ class Debug_HackerConsole_Main
 	 */
   function __construct($autoAttach=false)
     {
-        if ($autoAttach) ob_start(array(&$this, '_obHandler'));
+        if ($autoAttach) ob_start( [ &$this, '_obHandler' ] );
         $GLOBALS['Debug_HackerConsole_Main_LAST'] =& $this;
     }
 
@@ -88,7 +88,7 @@ class Debug_HackerConsole_Main
         // Dirty close opened tags. This is bad, but better than nothing...
         $lower = strtolower($page);
         if (strpos($lower, '</body>') === false) {
-            foreach (array('script', 'xmp', 'pre') as $tag) {
+            foreach ( [ 'script', 'xmp', 'pre' ] as $tag) {
                 if (substr_count($lower, "<$tag") > substr_count($lower, "</$tag")) {
                     $html .= "</$tag>";
                 }
@@ -240,12 +240,17 @@ class Debug_HackerConsole_Main
         while (1) {
             $old = $text;
 			// $text = preg_replace_callback('/^([^\t\r\n]*)\t(\t*)/m', array(&$this, 'expandTabs_callback'), $text);
-            $text = preg_replace_callback('/^([^\t\r\n]*)\t(\t*)/m', array('Debug_HackerConsole_Main', 'expandTabs_callback'), $text);
+            $text = preg_replace_callback('/^([^\t\r\n]*)\t(\t*)/m', [ 'Debug_HackerConsole_Main', 'expandTabs_callback' ], $text);
             if ($old === $text) return $text;
         }
     }
-    
-    function expandTabs_callback($m)
+
+	/**
+	 * @param $m
+	 *
+	 * @return string
+	 */
+	function expandTabs_callback($m)
     {
         $tabSize = $GLOBALS['expandTabs_tabSize'];
         $n = 
@@ -265,11 +270,16 @@ class Debug_HackerConsole_Main
         return $this->attachToHtml($s);
     }
 
-    
-    function _toJs($a)
+
+	/**
+	 * @param $a
+	 *
+	 * @return string
+	 */
+	function _toJs($a)
     {
         $a = addslashes($a);
-        $a = str_replace(array("\n", "\r", ">", "<"), array('\n', '\r', "'+'>", "<'+'"), $a);
+        $a = str_replace( [ "\n", "\r", ">", "<" ], [ '\n', '\r', "'+'>", "<'+'" ], $a);
         return "'$a'";                   
     }
     
@@ -286,11 +296,11 @@ class Debug_HackerConsole_Main
      */
     function debug_backtrace_smart($ignoresRe=NULL, $returnCaller=false)
     {
-        if (!is_callable($tracer='debug_backtrace')) return array();
+        if (!is_callable($tracer='debug_backtrace')) return [ ];
         $trace = $tracer();
         
         if ($ignoresRe !== NULL) $ignoresRe = "/^(?>{$ignoresRe})$/six";
-        $smart = array();
+        $smart = [ ];
         $framesSeen = 0;
         for ($i=0, $n=count($trace); $i<$n; $i++) {
             $t = $trace[$i];
@@ -335,9 +345,13 @@ $GLOBALS['Debug_HackerConsole_Main_LAST'] = NULL;
 
 
 if (!function_exists('debugHC')) {
+	/**
+	 * @param        $v
+	 * @param string $group
+	 */
 	function debugHC($v, $group="message")
 	{
-		if (DEBUG_MODE && is_callable($f=array('Debug_HackerConsole_Main', 'out')))
+		if (DEBUG_MODE && is_callable($f= [ 'Debug_HackerConsole_Main', 'out' ] ))
 		{
 			call_user_func($f, $v, $group);
 		}

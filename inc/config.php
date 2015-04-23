@@ -83,6 +83,7 @@ if ( ! function_exists( 'debugHC' ) ) {
 	}
 }
 
+
 // демо debug:
 // debugHC(SITE_PATH.'classes/Mustache/templates', 'test');
 // debugHC( CODE_PAGE, 'CODE_PAGE' );
@@ -100,6 +101,7 @@ if ( ! function_exists( 'v_dump' ) ) {
 		}
 	}
 }
+
 /** Test Begins **/
 // echo $test_test; // Notice
 // trigger_error('Это тест' , E_USER_ERROR ); // User_Error

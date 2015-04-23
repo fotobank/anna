@@ -13,13 +13,13 @@ $(function(){
 
 
 	// инициализация tooltip подсказок
-	$(this).on('hover', 'a, input, ul li div.text', $(this).tooltip({
+	/*$(this).on('hover', 'a, input, ul li div.text', $(this).tooltip({
 			      track: true,
 				    delay: 100,
 				    showBody: "::",
 		//disabled: true,
 				    opacity: 0.85
-		  }));
+		  }));*/
 
 	//var disabled = $( "a, input, ul li div.text" ).tooltip( "option", "disabled" );
 

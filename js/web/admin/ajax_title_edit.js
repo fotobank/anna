@@ -2,8 +2,9 @@
 
 	var blockList = $('.list-title');
 
+	// ui sortable
 	blockList.sortable({
-		axis  : 'y',				// Разрешено только вертикальное перемещение
+		axis: 'y',				// Разрешено только вертикальное перемещение
 		update: function () {		// Вызываемая после перестройки функция
 
 			// Метод toArray возвращает массив с перемещаемыми элементами
@@ -18,10 +19,11 @@
 			$.get('/classes/ajaxSite/ajax_title_edit.php', {action: 'rearrange', positions: arr});
 		},
 
-		/* Opera fix: */
-		stop  : function (e, ui) {
-			ui.item.css({'top': '0', 'left': '0'});
+		/* fix: */
+		stop: function (e, ui) {
+			ui.item.removeAttr("style");
 		}
+
 	});
 
 
@@ -37,11 +39,15 @@
 		buttons  : {
 			'Удалить': function () {
 
-				$.get("/classes/ajaxSite/ajax_title_edit.php", {"action": "delete", "id": currentBlock.data('id')}, function (msg) {
+				$.get("/classes/ajaxSite/ajax_title_edit.php", {
+					"action": "delete",
+					"id"    : currentBlock.data('id')
+				}, function (msg) {
 					if (1 == msg) {
-						console.log('Запись успешно удалена.');
+						log('Запись успешно удалена.');
+
 					} else {
-						console.log('Ошибка удаления записи.');
+						log('Ошибка удаления записи.');
 					}
 
 					currentBlock.fadeOut('fast');
@@ -55,18 +61,39 @@
 		}
 	});
 
+
+	// альтернативное управление меню и alax в админке:
+
+	blockList.on("click", "a.navlink" , function(e){
+		$(".tabs").find('.tab-content').hide();
+		$($(this).attr('href')).fadeIn(300);
+		$(this).parent().addClass('selected').siblings().removeClass('selected');
+
+		$('ul.list-title').ajax_load('load', {
+			'url'    : '/classes/ajaxSite/ajax_load.php', // адрес скрипта
+			'id_load': '#pageContent', // id для загрузки ответа сервера (контента)
+			'type'   : 'GET', // тип вызова
+			'header' : 'Content-Type: application/json; charset=utf-8;', // посылаемый заголовок
+			'data'   : {'location': window.location.pathname, id: this.hash}  // массив посылаемого к серверу запроса
+		});
+   // log("this.hash = " + this.hash);
+	 e.preventDefault();
+	});
+
+
 	// При возникновении двойной щелчок, просто имитировать нажатие на кнопку редактирования:
 	blockList.on('dblclick', 'li', function () {
-		$(this).find('a.navlink').click();
+		$(this).find('a.edit').click();
 	});
 
 
 	blockList.on('click', 'a', function (e) {
 
-		currentBlock = $(this).closest('li');
-
+		currentBlock = $(e.target).closest('li');
+		// для корректного удаления блока из бызы
 		currentBlock.data('id', currentBlock.attr('id').replace('head-', ''));
 
+    // отключить действие по умолчанию тега a
 		e.preventDefault();
 	});
 
@@ -77,12 +104,13 @@
 		e.preventDefault();
 	});
 
+
 	// переключает видимость блока actions при входе в редактор
-	blockList.find('li').on_off('init', '.actions');
+	blockList.find('li').on_off('init', 'div.actions');
 
 
 	//Прослушивание за клик по кнопке редактирования
-	blockList.on('click', 'a.navlink', function () {
+	blockList.on('click', 'a.edit', function () {
 
 		var container = currentBlock.find('.navlink');
 
@@ -101,12 +129,12 @@
 		// Добавление параметров сохранения и отмены ссылки:
 		currentBlock.append(
 				'<div class="ok-cancel">' +
-						'<a title="Сохранить." class="saveChanges"><img class="ok" src="/images/ok.png" /></a>' +
-						'<a title="Отменить редактирование." class="discardChanges"><img class="return" src="/images/return.png" /></a>' +
-						'</div>'
+				'<a title="Сохранить." class="saveChanges"><img class="ok" src="/images/ok.png" /></a>' +
+				'<a title="Отменить редактирование." class="discardChanges"><img class="return" src="/images/return.png" /></a>' +
+				'</div>'
 		);
-		//Блокирование кнопок редактирования, если поле ввода уже открыто:
-		 currentBlock.on_off('block');
+		//Блокирование кнопок редактирования и удаления, если поле ввода уже открыто:
+		currentBlock.on_off('block');
 
 	});
 
@@ -117,7 +145,7 @@
 				.end()
 				.removeData('origText');
 		e.preventDefault();
-		currentBlock.on_off('on', '.actions').find( 'div.ok-cancel' ).remove();
+		currentBlock.on_off('on', '.actions').find('div.ok-cancel').remove();
 	});
 
 	// Сохранить:
@@ -130,7 +158,7 @@
 				.find(".navlink")
 				.text(text);
 		e.preventDefault();
-		currentBlock.on_off('on', '.actions').find( 'div.ok-cancel' ).remove();
+		currentBlock.on_off('on', '.actions').find('div.ok-cancel').remove();
 	});
 
 	// Добавить новое
@@ -140,20 +168,20 @@
 		// Добавление не чаще 1 раза в секунду
 		if ((new Date()).getTime() - timestamp < 1000) return false;
 
-		$.get("/classes/ajaxSite/ajax_title_edit.php", {'action': 'new', 'text': 'Новый раздел.', 'rand': Math.random()}, function (msg) {
+		$.get("/classes/ajaxSite/ajax_title_edit.php", {
+			'action': 'new',
+			'text'  : 'Новый раздел',
+			'rand'  : Math.random()
+		}, function (msg) {
 
-			// Добавление нового блока и вывод его на экран:
-			$(msg).hide().appendTo('.list-title').fadeIn();
+			// Добавление нового блока , вывод его на экран и инициализация кнопок редактирования и удаления:
+			$(msg).hide().appendTo('.list-title').fadeIn().on_off('init', 'div.actions');
 		});
-
 		timestamp = (new Date()).getTime();
-
 		e.preventDefault();
 	});
 
 });
-
-
 
 
 (function ($) {
@@ -197,7 +225,7 @@
 	$.fn.on_off = function (method) {
 
 		if (methods[method]) {
-			return methods[ method ].apply(this, Array.prototype.slice.call(arguments, 1));
+			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 		} else if (typeof method === 'object' || !method) {
 			return methods.init.apply(this, arguments);
 		} else {
