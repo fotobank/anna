@@ -116,12 +116,70 @@ $(document).ready(function () {
 			});
 
 	// запуск скролла
-	jQuery('.col-1').containedStickyScroll({
+	/*jQuery('.col-1').containedStickyScroll({
 		hightTop      : 470
 	});
 	jQuery('.col-3').containedStickyScroll({
 				hightTop : 570
 			}
-	);
+	);*/
+
+
+
+		$(function(){
+			var win = $(window);
+			var nav = $('.col-1');
+			var navTop = nav.length && nav.offset().top;
+			var isFixed=0;
+
+			processScroll();
+			win.on('scroll', processScroll);
+
+			function processScroll() {
+			var i, scrollTop = win.scrollTop();
+
+			if (scrollTop >= navTop && !isFixed) {
+			isFixed = 1;
+			nav.addClass('subnav-fixed')
+			} else if (scrollTop <= navTop && isFixed) {
+			isFixed = 0;
+			nav.removeClass('subnav-fixed')
+			}
+			}
+
+
+			});
+
+
+
+
+
+// плавная прокрутка к анкору
+	/*$(document).ready(function(){
+		$('a[href*=#]').bind("click", function(e){
+			var anchor = $(this);
+			$('html, body').stop().animate({
+				scrollTop: $(anchor.attr('href')).offset().top
+			}, 1000);
+			e.preventDefault();
+		});
+		return false;
+	});*/
+
+	// = Вешаем событие прокрутки к нужному месту
+	//	 на все ссылки якорь которых начинается на #
+	/*$('a[href^="#"]').bind('click.smoothscroll',function (e) {
+		e.preventDefault();
+
+		var target = this.hash,
+				$target = $(target);
+
+		$('html, body').stop().animate({
+			'scrollTop': $target.offset().top
+		}, 900, 'swing', function () {
+			window.location.hash = target;
+		});
+	});*/
+
 
 });

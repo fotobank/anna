@@ -39,19 +39,28 @@ include_once( __DIR__ . '/inc/head.php' );
 	 'data' => true,
 	 'link' => [
 			 [
+				 'li_id' => 'head-151',
 				 'li_class' => '',
 				 'tab' => '#tab-1',
-				 'name' => 'Ôîòîãğàô íà ñâàäüáó:'
+				 'name' => 'Ôîòîãğàô:'
 			 ],
 			 [
+				 'li_id' => 'head-152',
 				 'li_class' => '',
 				 'tab' => '#tab-2',
 				 'name' => 'Èçãîòîâëåíèå ôîòîêíèã:'
 			 ],
 		 [
+			 'li_id' => 'head-153',
 			 'li_class' => '',
 			 'tab' => '#tab-3',
 			 'name' => 'Áàíêåòû:'
+		 ],
+		 [
+			 'li_id' => 'head-154',
+			 'li_class' => '',
+			 'tab' => '#tab-15',
+			 'name' => 'Test:'
 		 ]
 	 ]
  ];
