@@ -15,8 +15,7 @@ if ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (isset( $_SESSION['logged'] ) &&
 	error_reporting( - 1 ); //обычно должно хватить только этой строки E_ALL
 	define( 'DEBUG_MODE', true ); // показ ошибок на монитор
 	require_once( __DIR__ . '/../classes/Ubench/Test.php' );  // профилирование
-	$bench = new Ubench_Test;
-	$bench->start();
+	$bench = Ubench_Test::getInstance();
 } else {
 
 	ini_set( 'display_errors', 0 );
@@ -54,6 +53,7 @@ autoload::getInstance();
 // mustache
 /** @noinspection PhpIncludeInspection */
 include (SITE_PATH.'vendor/autoload.php');
+Mustache_Autoloader::register();
 // инициализация шаблонизатора Mustache
 $mustache = new Mustache_Engine( [
 	// 'template_class_prefix' => '__MyTemplates_',
@@ -67,7 +67,7 @@ $mustache = new Mustache_Engine( [
 	'charset' => 'windows-1251',
 	'logger' => new Mustache_Logger_StreamLogger(SITE_PATH .'log'),
 	'strict_callables' => true,
-	'pragmas' => [Mustache_Engine::PRAGMA_FILTERS],
+	'pragmas' => [Mustache_Engine::PRAGMA_FILTERS]
 ] );
 
 

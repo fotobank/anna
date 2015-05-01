@@ -2,7 +2,7 @@
 require_once( __DIR__ . '/../Mysqli/Db.php' );
 error_reporting( E_ALL );
 $action = 'adddb';
-$data = array();
+$data = [ ];
 
 function printUsers() {
 	global $db;
@@ -28,15 +28,15 @@ function printUsers() {
 function action_adddb() {
 	global $db;
 
-	$data = Array(
+	$data = [
 			'login'      => $_POST['login'],
 			'customerId' => 1,
 			'firstName'  => $_POST['firstName'],
 			'lastName'   => $_POST['lastName'],
-			'password'   => $db->func( 'SHA1(?)', Array( $_POST['password'] . 'salt123' ) ),
+			'password'   => $db->func( 'SHA1(?)', [ $_POST['password'] . 'salt123' ] ),
 			'createdAt'  => $db->now(),
 			'expires'    => $db->now( '+1Y' )
-	);
+	];
 	$db->insert( 'users', $data );
 	header( "Location: index.php" );
 	exit;
@@ -45,12 +45,12 @@ function action_adddb() {
 function action_moddb() {
 	global $db;
 
-	$data = Array(
+	$data = [
 			'login'      => $_POST['login'],
 			'customerId' => 1,
 			'firstName'  => $_POST['firstName'],
 			'lastName'   => $_POST['lastName'],
-	);
+	];
 	$id   = (int) $_POST['id'];
 	$db->where( "customerId", 1 );
 	$db->where( "id", $id );

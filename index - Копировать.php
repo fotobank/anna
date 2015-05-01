@@ -145,43 +145,7 @@ require( __DIR__ . '/inc/carosel.php');
 			?>
 		</div>
 	</div>
-	<!--==============================соцсети================================-->
-	<div class="page1-row1 pad-1">
-		<div class="col-1">
-			<h3 class="p2"></h3>
-		</div>
-		<div class="col-2">
-			<div class="bot-1 clear"></div>
-			<h3 class="bb1">Поделиться с друзьями:</h3>
 
-			<div class="soc-icons">
-				<a onclick="window.open('http://vk.com/share.php?url=http://www.annafoto.in.ua//index.php','mywindow','width=500,height=500')"
-				   title="Сохранить Вконтакте" rel="nofollow" style="cursor: pointer;">
-					<img src="images/icon-1.png" alt="">
-					<span></span>
-				</a>
-				<a onclick="window.open('http://www.odnoklassniki.ru/dk?st.cmd=addShare&st._surl=http://www.annafoto.in.ua/index.php','mywindow','width=500,height=500')"
-				   title="Класс" rel="nofollow" style="cursor: pointer;">
-					<img src="images/icon-2.png" alt="">
-					<span></span>
-				</a>
-				<a onclick="window.open('http://www.facebook.com/sharer.php?u=http://www.annafoto.in.ua/index.php','mywindow','width=500,height=500')"
-				   title="Поделиться на Facebook" rel="nofollow" style="cursor: pointer;">
-					<span></span>
-					<img src="images/icon-3.png" alt="">
-				</a>
-			</div>
-			<!-- widget -->
-			<div class="onlineWidget">
-				<div class="panel"><img class="preloader" src="inc/who_is_online/img/preloader.gif" alt="Loading.." width="22" height="22" /></div>
-				<div class="count"></div>
-				<div class="label">online</div>
-
-				<div class="arrow"></div>
-			</div>
-
-		</div>
-	</div>
 	</section>
 
 <?

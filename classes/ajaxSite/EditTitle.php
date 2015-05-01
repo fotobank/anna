@@ -10,21 +10,25 @@ header( 'Content-type: text/html; charset=windows-1251' );
 class ajaxSite_EditTitle {
 
 	private $data;
+	public $li_title;
 
 	/**
 	 * @param $par
 	 */
 	public function __construct( $par ) {
 
-		if ( is_array( $par ) )
+		if ( is_array( $par ) ) {
 			$this->data = $par;
+			$this->li_title = $this->_li_title();
+		}
+
 	}
 
 
 	/**
 	 * @return string
 	 */
-	public function __toString() {
+	/*public function __toString() {
 
 		$ul = '<ul class="list-title">';
 		foreach ( $this->data as $row ) {
@@ -38,7 +42,20 @@ class ajaxSite_EditTitle {
 		);
 
 		return $ul;
+	}*/
+
+	/**
+	 * @return array
+	 */
+	private function _li_title() {
+
+		$li_title = [];
+		foreach ( $this->data as $row ) {
+			$li_title[] = [ 'id_title' => $row['id'], 'name_title' => $row['name_head'] ];
+		}
+		return $li_title;
 	}
+
 
 	/**
 	 * @param $li_data
@@ -54,8 +71,7 @@ class ajaxSite_EditTitle {
 		if_admin( '<div class="actions">
 							<a href="#" title="»зменить или добавить текст меню." class="edit">Edit</a>
 							<a href="#" title="”далить раздел из базы данных без возможности восстановлени€." class="delete">Delete</a>
-						</div>' ) .
-		'</li>';
+						</div>' ) . '</li>';
 	}
 
 

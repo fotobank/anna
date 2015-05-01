@@ -17,7 +17,7 @@
 		</a>
 
 		<?
-		if ( $razdel ) {
+		if ( $current_razdel ) {
 			?>
 			<header>
 			<ul class="centered-navigation-menu"
@@ -27,22 +27,22 @@
 							<h1>Алексеева Анна<span id="profession">фотограф в Одессе</span></h1>
 				</li
 					>
-				<li <?= ( $razdel == '/index.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
+				<li <?= ( $current_razdel == '/index.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
 					<a href="/index">Главная</a></li
 					>
-				<li <?= ( $razdel == '/about.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
+				<li <?= ( $current_razdel == '/about.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
 					<a href="/about">Об&nbsp;&nbsp;авторе</a></li
 					>
-				<li <?= ( $razdel == '/portfolio.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
+				<li <?= ( $current_razdel == '/portfolio.php' ) ? 'class="nav-link current"' : 'class="nav-link"' ?>>
 					<a href="/portfolio">Портфолио</a></li
 					>
-				<li <?= ( $razdel == '/news.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
+				<li <?= ( $current_razdel == '/news.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
 					<a href="/news">Новости</a></li
 					>
-				<li <?= ( $razdel == '/services.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
+				<li <?= ( $current_razdel == '/services.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
 					<a href="/services">Услуги</a></li
 					>
-				<li <?= ( $razdel == '/comments.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
+				<li <?= ( $current_razdel == '/comments.php' ) ? 'class="nav-link current"' : 'class="nav-link"'; ?>>
 					<a href="/comments">Гостевая</a></li
 					>
 			</ul>

@@ -15,7 +15,7 @@ if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {
 }
 /**==================================================================*/
 include( SITE_PATH . 'inc/title.php' ); // титры в разделах для СЕО
-list( $razdel, $title ) = title();
+list( $current_razdel, $title, $keywords, $description ) = title();
 
 ?>
 <!DOCTYPE html>
@@ -28,9 +28,9 @@ list( $razdel, $title ) = title();
 	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="yes" name="apple-mobile-web-app-capable">
-	<meta content="<?= $title ?>" name="author">
-	<meta content="<?= $title ?>" name="keywords">
-	<meta content="<?= $title ?>" name="description">
+	<meta name="author" lang="ru" content="Алексеева Анна | фотограф в Одессе">
+	<meta name="keywords" content="<?= $keywords ?>">
+	<meta name="description" content="<?= $description ?>">
 	<link rel="shortcut icon" href="/images/favicon.png" type="image/png">
 
 

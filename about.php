@@ -5,6 +5,8 @@
  * Date: 07.07.14
  * Time: 11:23
  */
+ 
+// The location latitude is 46.476027203072 and the longitude is 30.747888871724
 
 include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 include_once( __DIR__ . '/inc/head.php' );

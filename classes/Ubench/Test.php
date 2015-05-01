@@ -33,6 +33,28 @@ class Ubench_Test
 
     protected $memory_usage;
 
+	static private $instance = NULL;
+
+	/**
+	 *
+	 */
+	static function getInstance()
+	{
+		if (self::$instance == NULL)
+		{
+			self::$instance = new Ubench_Test();
+		}
+		return self::$instance;
+	}
+
+	/**
+	 *
+	 */
+	function __construct()
+	{
+		$this->start();
+	}
+
     /**
      * Sets start microtime
      *

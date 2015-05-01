@@ -1,0 +1,286 @@
+{{%BLOCKS}}
+{{<base}}
+
+{{$content}}
+
+<section>
+    <div class="tabs clearfix">
+        <table class="text-head-laitbox">
+            <tbody>
+            <tr>
+                <td class="header" style="text-align: right;">
+                    <span class="phone"><a onclick="goog_report_conversion('tel: 067-76-84-086')" href="#">(067)-76-84-086</a></span><br>
+                    <a href="http://{{HTTP_HOST}}/portfolio.php#tab-1">свадебная фотосъёмка</a>,
+                    <a href="http://{{HTTP_HOST}}/portfolio.php#tab-3">студийные фотосессии</a>, Одесса, Алексеева Анна
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="slide">
+                        <div id="owl-head" class="owl-carousel owl-theme">
+													{{#items}}
+                              <div class='item'>
+                                  <img src='/{{{img_src_head_index_slide}}}' alt='свадебный фотограф Алексеева Анна, свадебные фотосессии в Одессе'>
+                              </div>
+													{{/items}}
+                        </div>
+
+                        <div class='owl-head-pags-hide'>
+                            <div class='owl-head-pags'>
+															{{#pags}}
+                                  <div class='owl-dot'><strong>0</strong>{{i}}</div>
+															{{/pags}}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <section>
+            <div class="col-1">
+
+                <div class="h-mod">
+                    <h2 class="bb1">Главная:</h2>
+                </div>
+
+                <ul class="list-title">
+                    {{#li_title}}
+                    <li id="head-{{id_title}}">
+                        <a href="#tab-{{id_title}}" class="navlink"
+													{{#if_admin}} title="Двойной щелчок для редактирования"{{/if_admin}}>{{name_title}}</a>
+											{{#if_admin}}
+                          <div class="actions">
+                              <a href="#" title="Изменить или добавить текст меню." class="edit">Edit</a>
+                              <a href="#" title="Удалить раздел из базы данных без возможности восстановления." class="delete">Delete</a>
+                          </div>
+											{{/if_admin}}
+                    </li>
+										{{/li_title}}
+                </ul>
+							{{#if_admin}}
+                  <a id="addButton" class="support-hover" tabindex="1" title="Добавить раздел"><em>+</em></a>
+
+                  <div id="dialog-confirm" title="Удалить запись?">
+                      <span>Запись будет удалена из базы данных!</span>
+                  </div>
+                  '
+							{{/if_admin}}
+							{{{ajaxSite_EditTitle}}}
+
+            </div>
+        </section>
+
+        <div class="col-2">
+            <div class="h-mod">
+                <h3 class="bb1">Коротко о разделе:</h3>
+            </div>
+            <div id="pageContent" class="block_wrapper_body">
+
+
+                <ul>
+                    <li class="block_body">
+
+                        <ul class="block_wrap block_rounded">
+                            <li>
+                                <h4>О свадьбах</h4>
+                            </li>
+                            <li>
+                                <div class="focal-point border">
+                                    <div><img src="/files/slides/slide-3.jpg" alt=""></div>
+                                </div>
+                            </li>
+                            <li>
+                                <p id="tab-1-1" class="edit-txt">Меня зовут Алексеева Анна, я профессиональный фотограф, живу и работаю в Одессе. Я специализируюсь на проведении свадебных фотосъёмок в Одессе, а в качестве свадебного фотографа работаю уже более 10 лет. Провожу также уличные и студийные персональные, семейные, детские фотосессии, рекламные и интерьерные фотосъёмки. Преимущественно снимаю в Одессе, но выезжаю и по Украине.
+                                    Для уточнения стоимости фотосессий и заказа фотосъёмки звоните 067-76-84-086. С радостью отвечу на все ваши вопросы, проконсультирую по планированию и организации фотосъёмок, местам для проведения уличных и свадебных фотосессий, планированию свадебного дня и свадебной фотосессии, выбору фотостудии для студийных фотосессий.
+                                </p>
+                            </li>
+                            <li class="bb1 mbm">
+                            </li>
+                            <li>
+                                <a href="http://www.aleks.od.ua">aleks.od.ua</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="block_body">
+                        <ul>
+                            <li>
+                                <div class="focal-point border">
+																	{{#if_admin}}
+                                      <div class="actions">
+                                          <a href="#" title="Изменить или добавить текст меню." class="edit">Edit</a>
+                                          <a href="#" title="Удалить раздел из базы данных без возможности восстановления." class="delete">Delete</a>
+                                      </div>
+																	{{/if_admin}}
+                                    <div><img src="/files/slides/slide-2.jpg" alt=""></div>
+                                </div>
+                            </li>
+
+
+                            <li>
+                                <div class="focal-point border">
+																	{{#if_admin}}
+                                      <div class="actions">
+                                          <a href="#" title="Изменить или добавить текст меню." class="edit">Edit</a>
+                                          <a href="#" title="Удалить раздел из базы данных без возможности восстановления." class="delete">Delete</a>
+                                      </div>
+																	{{/if_admin}}
+                                    <div><img src="/files/portfolio/06_Портреты/002.jpg" alt=""></div>
+                                </div>
+                            </li>
+
+
+                            <li>
+                                <div class="focal-point border">
+                                    <div><img src="files/slides/slide-3.jpg" alt=""></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="focal-point border">
+                                    <div><img src="files/slides/slide-3.jpg" alt=""></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="focal-point border">
+                                    <div><img src="files/slides/slide-2.jpg" alt=""></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="block_body">
+                        <ul class="block_wrap block_rounded">
+                            <li><h4>О свадьбах</h4></li>
+                            <li>
+                                <div class="focal-point border">
+                                    <div><img src="files/slides/slide-1.jpg" alt=""></div>
+                                </div>
+                            </li>
+                            <li>
+                                <p id="tab-1-2" class="edit-txt">Уникальность свадьбы в том, что это самый первый памятный и волнующий праздник новой молодой семьи. Незабываемое событие для возлюбленной пары. Которое в полном смысле этого слова старается сделать незабываемым свадебный фотограф, чтобы сохранить воспоминания об этом празднике на живых и ярких фотографиях, снятых профессионально и с любовью к своему делу.
+
+                                    Для меня, как свадебного фотографа, снимать свадьбу – это большая ответственность, которую мне доверили молодожены. Во время фотосессии свадьбы я использую как постановочную так и репортажную съемку.</p>
+                                <br /></li>
+                            <li><a href="http://www.aleks.od.ua">aleks.od.ua</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <div id="tab-1" class="tab-content">
+
+                    <p id="tab-1-1" class="edit-txt bb1">Уникальность свадьбы в том, что это самый первый памятный и волнующий праздник
+                        новой молодой семьи. Незабываемое событие для возлюбленной пары. Которое в полном смысле
+                        этого слова старается сделать незабываемым свадебный фотограф, чтобы сохранить воспоминания
+                        об этом празднике на живых и ярких фотографиях, снятых профессионально и с любовью к своему
+                        делу. Для меня, как свадебного фотографа, снимать свадьбу – это большая ответственность,
+                        которую мне доверили молодожены. Во время фотосессии свадьбы я использую как постановочную
+                        так и репортажную съемку.</p>
+
+                </div>
+                <div id="tab-2" class="tab-content">
+
+                    <p id="tab-2-1" class="edit-txt bb1">Фотокниги это современное, новое и интересное направление в оформлении альбомов. Я делаю
+                        дизайн и осуществляю печать различных форматов фотокниг: cвадебные, школьные (выпускники),
+                        детские(роддом, крестины, дни рождения), семейные(отдых,путешествия) и др. В отличие от
+                        обычного фотоальбома, фотокнига выглядит более привлекательно и при надлежашем хранении
+                        намного больше сохраняется и будет еще долгие годы радовать Вас и Ваших друзей приятными
+                        воспоминаниями, запечатленными на её страницах. Вы можете заказать у меня изготовление
+                        фотокниги и из своих домашних фотографий. Вам для этого необходимо лишь предоставить мне их
+                        в цифровом виде или в виде фотографий. </p>
+
+                </div>
+                <div id="tab-3" class="tab-content">
+
+                    <p id="tab-3-1" class="edit-txt bb1">Репортажная съемка с банкетов, свадеб и корпоративов. Обработанные фотографии обычно выдаются
+                        на DVD.
+                        Также возможно изготовление слайд - шоу из выбранных заказчиком фотографий. Для заказа
+                        данной услуги Вы можете воспользоваться подарочным сертификатом.</p>
+
+                </div>
+                <div id="tab-4" class="tab-content">
+
+                    <p id="tab-4-1" class="edit-txt bb1">В разделе представленнные фотографии в основном с соревнований по художественной гимнастике,
+                        проводимых в разных городах Украины и за рубежом. Условия проведения фотосессии обсуждаются
+                        при личной встрече или по телефону.</p>
+
+                </div>
+                <div id="tab-5" class="tab-content">
+
+                    <p id="tab-5-1" class="edit-txt bb1">Почасовая выездная съемка деток. В парке, на море или просто у Вас дома. Отличная память на
+                        долгие годы, ведь наши детки подрастают очень быстро и этих милых мгновений уже не вернешь.
+                        Звоните и записывайтесь на фотосессию. :) Так же я снимаю утренники в детских садах и делаю
+                        виньетки для выпускников детского сада.</p>
+
+                </div>
+                <div id="tab-6" class="tab-content">
+
+                    <p id="tab-6-1" class="edit-txt bb1">Фотографии снятые на прогулке, банкете или в студии. Это наиболее мой любимый и не простой
+                        жанр в фотографии. Портретная съемка разносторонняя и увлекательная, передающая чувства,
+                        характер и эмоции модели, а так же выражающая сюжет фотографии и показывающая индивидуальную
+                        личность модели. Лучше всего получаются портреты, когда человек не подозревает о присутствии
+                        фотокамеры. Если у Вас не индивидуальная фотосессия и Вы заметили что Вас снимает фотограф,
+                        старайтесь не позировать и не "делать лицо". В этом случае снимки получаются наиболее
+                        выразительными, естественными и живыми. Наоборот на прогулке, когда Вы с фотографом
+                        тет-а-тет старайтесь расслабиться и думайте о чем-то радостном и приятном, о том что
+                        возможно уже произошло или должно произойти в Вашей жизни.</p>
+
+                </div>
+                <div id="tab-7" class="tab-content">
+
+                    <p id="tab-7-1" class="edit-txt bb1">Съемка с выпускных вечеров и образцы школьных виньеток, снятых при помощи выездной фотостудии
+                        прямо в школе, что безусловно очень удобно как школьникам так и их родителям. </p>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--==============================новости================================-->
+        <div class="col-3">
+
+            <div class="h-mod">
+                <h3 class="bb1">Акции и новости:</h3>
+            </div>
+            <div class="clock-container">
+                <div class="clock">
+                    <div id="Date"></div>
+                    <ul>
+                        <li id="hours"></li>
+                        <li id="point">:</li>
+                        <li id="min"></li>
+                        <li id="point">:</li>
+                        <li id="sec"></li>
+                    </ul>
+
+                </div>
+            </div>
+					{{{filenews}}}
+
+        </div>
+
+        <div class="clear"></div>
+        <div id='new-gal'>
+					{{{carousel}}}
+        </div>
+
+
+    </div>
+</section>
+
+{{/content}}
+
+{{$scripts_footer }}
+<script type='text/javascript' src='/js/owl.carousel/owl.carousel.min.js'></script>
+<script type="text/javascript" src="/js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
+
+<script type='text/javascript' src='/js/jquery.jurii.ajax-load.js'></script>
+<script type='text/javascript' src='/js/web/jquery.jurii.ajax.hash.control.js'></script>
+<script type="text/javascript" src="/js/jquery-contained-sticky-scroll.js"></script>
+<script type='text/javascript' src='/js/index.slider.js'></script>
+<script type='text/javascript' src='/js/clock.js'></script>
+{{/scripts_footer }}
+
+{{/base }}

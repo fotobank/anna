@@ -12,27 +12,6 @@ include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение
 include_once( __DIR__ . '/inc/head.php' );
 
 
-
-/*$services =
-	['content' =>
-				 ['tabs' =>
-					  [ 'names_li' =>
-							[
-								[
-								'li_name_class' => 'class="selected"',
-								'tab' => '#tab-1',
-								'name' => 'Фотограф на свадьбу:'
-								],
-								[
-									'li_name_class' => 'class="selected"',
-									'tab' => '#tab-1',
-									'name' => 'Изготовление фотокниг:'
-								]
-							]
-					  ]
-				 ], 'data' => true
-			];*/
-
  $services = [
 	 'content' => true,
 	 'tabs' => true,
