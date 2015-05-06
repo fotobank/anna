@@ -48,14 +48,14 @@ $.fn.editable.defaults.url = '/inc/jeditable/save.php';
 	//---------------------------------------------------------
 
 // остановка выполнения функций по умолчанию тега "li a"
-$(function() {
+/*$(function() {
 
  $( "ul.nav" ).on( "click", "li a",  function(e) {
 	 e.preventDefault();
  log( "Тест" );
  return false;
  });
- });
+ });*/
 
 
 // редактор заголовков
@@ -96,9 +96,9 @@ $('#firstname').editable({
 	//$.fn.editable.defaults.mode = 'inline'; // popup или inline
 
 	// инициализация кнопки редактора
-	$("#enable").click(function(){
-		$(this).triggerEdit('newsEditOn');
-	}).triggerEdit();
+	$("#enable-edit").click(function(){
+		$(this).editOnOff('newsEditOn');
+	}).editOnOff();
 
 });
 
@@ -110,28 +110,28 @@ $('#firstname').editable({
 		init: function () {
 
 			$('.editable').editable('disable');
-			return this.removeClass('btn-success').addClass('btn-primary');
+			return this.removeClass('button_img_on').addClass('button_img_off');
 		},
 		newsEditOn: function () {
 
-			if ($(this).hasClass("btn-success")) {
+			if ($(this).hasClass("button_img_on")) {
 				$('.editable').editable('disable');
-				return this.removeClass('btn-success').addClass('btn-primary');
+				return this.removeClass('button_img_on').addClass('button_img_off');
 
 			} else {
 				$('.editable').editable('enable');
-				return this.removeClass('btn-primary').addClass('btn-success');
+				return this.removeClass('button_img_off').addClass('button_img_on');
 			}
 			}};
 
-		$.fn.triggerEdit = function (method) {
+		$.fn.editOnOff = function (method) {
 
 		if (methods[method]) {
 			return methods[ method ].apply(this, Array.prototype.slice.call(arguments, 1));
 		} else if (typeof method === 'object' || !method) {
 			return methods.init.apply(this, arguments);
 		} else {
-			$.error('Метод "' + method + '" не найден в плагине jQuery.triggerEdit');
+			$.error('Метод "' + method + '" не найден в плагине jQuery.editOnOff');
 			return false;
 		}
 	};

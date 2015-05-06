@@ -107,17 +107,17 @@
 				data      : options.data,
 
 				error: function (XHR) {
-					log('Ответ функции: "Ошибка: ' + XHR.status + '  ' + XHR.statusText + ': ' + options.url + 'in jQuery.ajax_load".');
+					log('Ответ функции: "Ошибка: ' + XHR.status + '  ' + XHR.statusText + ': ' + options.url + 'in jquery.jurii.ajax-load".');
 				},
 
 				statusCode: {
 					404: function () {
-						log('Ошибка задания параметров вызова функции "jQuery.ajax_load". Страница: "', options.url, '" не найдена.');
+						log('Ошибка задания параметров вызова функции "jquery.jurii.ajax-load". Страница: "', options.url, '" не найдена.');
 					}
 				},
 				success   : function (html) {
 
-					$(options.id_load).empty().after(html);
+					$(options.id_load).after(html);
 
 				}
 			});

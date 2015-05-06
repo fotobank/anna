@@ -12,7 +12,7 @@ if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {
 }
 /**==================================================================*/
 
-$data = new ajaxSite_web_index();
+$data = new ajaxSite_web_indexPage();
 
 echo $mustache->render( 'index', $data );
 

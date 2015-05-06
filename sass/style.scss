@@ -858,7 +858,7 @@ select:focus {
 }
 
 .floating-admin {
-	  z-index: 1;
+	  z-index: 9999;
 	  background: #1c1c1c;
 	  color: #fff;
 	  font-weight: normal;
@@ -866,56 +866,42 @@ select:focus {
 	  font-style: normal;
 	  font-family: Tahoma, sans-serif;
 	  @include font-size(14);
-	  padding: 10px 10px 20px 10px;
-	  margin: 5px;
-	  width: 300px;
+	  margin: 10px;
+	  width: 280px;
 	  position: absolute;
 	  border: 1px solid #b9b9b9;
-	  right: 10px;
-	  div {
-			position: relative;
-			clear: both;
-			padding-top: 10px;
+	  right: 0;
+	  td {
+			padding: 2px 0;
+			text-align: center;
+	  }
+	  td:nth-last-child(1) {
+			padding-bottom: 5px;
 	  }
 	  span {
 			float: left;
+			padding-left: 10px;
 	  }
-	  button {
-			float: right;
+	  #enable, #help {
+			float: left;
+			text-align: left;
 	  }
 	  h4 {
 			padding-bottom: 10px;
-			text-align: center;
 	  }
 }
 
 .container-admin {
 	  position: absolute;
-	  right: 10px;
+	  right: 0;
 }
 
 .fixed-admin {
 	  position: fixed;
-	  top: 10px;
 	  z-index: 9999;
-	  right: 20px;
+	  right: 0;
 }
-// для кнопок админки
-#enable, #help {
-	  position: relative;
-	  width: 32px;
-	  height: 18px;
-}
-.btn-on, .btn-off {
-	  width: 32px;
-	  height: 10px;
-}
-.btn-on{
-	  background: transparent image-url('lock-open.png') no-repeat center;
-}
-.btn-off {
-	  background: transparent image-url('lock.png') no-repeat center;
-}
+
 .support,
 .support-two {
 	  display: inline-block;
@@ -1052,35 +1038,6 @@ a.support-two:focus em,
 	  padding: 0 4px;
 }
 
-.support-hover,
-.support-hover-two {
-	  display: inline-block;
-	  position: relative;
-	  color: #06C;
-	  text-decoration: none;
-	  cursor: pointer;
-}
-
-.support-hover em,
-.support-hover-two em {
-	  background: #FF6600;
-	  border-radius: 20px;
-	  border: 1px solid $border_color;
-	  text-align: center;
-	  color: #FFF;
-	  font-weight: bold;
-	  font-variant: normal;
-	  font-style: normal;
-	  font-family: Arial, sans-serif;
-	  @include font-size(16);
-	  padding: 0 4px;
-}
-
-a.support-hover:hover em,
-a.support-hover-two:hover em {
-	  background: #6699FF;
-}
-
 .btn {
 	  &:hover {
 			cursor: pointer;
@@ -1168,4 +1125,36 @@ div.google-stats {
 	  top:-1000px;
 	  visibility:hidden;
 	  width:0
+}
+
+// button добавить раздел в админ режиме
+// On_Off button
+.button_img, .button_img_on, .button_img_off {
+	  margin: 0;
+	  padding: 0;
+	  line-height: 0;
+	  font-size: 0;
+	  display: inline-block;
+	  height: 24px;
+	  background-position: 0 0;
+
+}
+.button_img_on, .button_img_off {
+	  width: 55px;
+}
+.button_img {
+	  width: 134px;
+	  background: image_url('add_title.png');
+}
+.button_img_on {
+	  background: image_url('mb_on.png');
+}
+.button_img_off {
+	  background: image_url('mb_off.png');
+}
+.button_img:hover, .button_img_on:hover, div.button_img_off:hover {
+	  background-position: 0 -24px;
+}
+.button_img:active, .button_img_on:active, .button_img_off:active {
+	  background-position: 0 -48px;
 }

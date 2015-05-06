@@ -27,32 +27,55 @@
  */
 class Ubench_Test
 {
-    protected $start_time;
+    protected static $start_time;
 
-    protected $end_time;
+    protected static $end_time;
 
-    protected $memory_usage;
+    protected static $memory_usage;
 
-	static private $instance = NULL;
+	private static $instance;
 
 	/**
+	 * Возвращает экземпляр себя
 	 *
+	 * @return self
 	 */
-	static function getInstance()
+	public static function getInstance()
 	{
-		if (self::$instance == NULL)
-		{
-			self::$instance = new Ubench_Test();
+		if (!(self::$instance instanceof self)) {
+
+			self::$instance = new self();
+			self::start();
 		}
 		return self::$instance;
 	}
 
 	/**
-	 *
+	 * Конструктор закрыт
 	 */
-	function __construct()
+	private function __construct()
 	{
-		$this->start();
+	}
+
+	/**
+	 * Клонирование запрещено
+	 */
+	private function __clone()
+	{
+	}
+
+	/**
+	 * Сериализация запрещена
+	 */
+	private function __sleep()
+	{
+	}
+
+	/**
+	 * Десериализация запрещена
+	 */
+	private function __wakeup()
+	{
 	}
 
     /**
@@ -60,9 +83,9 @@ class Ubench_Test
      *
      * @return void
      */
-    public function start()
+	private static function start()
     {
-        $this->start_time = microtime(true);
+		self::$start_time = microtime(true);
     }
 
     /**
@@ -70,10 +93,10 @@ class Ubench_Test
      *
      * @return void
      */
-    public function end()
+    public static function end()
     {
-        $this->end_time = microtime(true);
-        $this->memory_usage = memory_get_usage(true);
+		self::$end_time = microtime(true);
+		self::$memory_usage = memory_get_usage(true);
     }
 
     /**
@@ -83,9 +106,9 @@ class Ubench_Test
      * @param  string  $format   The format to display (printf format)
      * @return string|float
      */
-    public function getTime($raw = false, $format = null)
+    public static function getTime($raw = false, $format = null)
     {
-        $elapsed = $this->end_time - $this->start_time;
+        $elapsed = self::$end_time - self::$start_time;
 
         return $raw ? $elapsed : self::readableElapsedTime($elapsed, $format);
     }
@@ -99,7 +122,7 @@ class Ubench_Test
      */
     public function getMemoryUsage($raw = false, $format = null)
     {
-        return $raw ? $this->memory_usage : self::readableSize($this->memory_usage, $format);
+        return $raw ? self::$memory_usage : self::readableSize(self::$memory_usage, $format);
     }
 
     /**
@@ -109,7 +132,7 @@ class Ubench_Test
      * @param  string  $format   The format to display (printf format)
      * @return string|float
      */
-    public function getMemoryPeak($raw = false, $format = null)
+    public static function getMemoryPeak($raw = false, $format = null)
     {
         $memory = memory_get_peak_usage(true);
 

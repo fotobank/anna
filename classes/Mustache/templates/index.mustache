@@ -50,24 +50,24 @@
                     {{#li_title}}
                     <li id="head-{{id_title}}">
                         <a href="#tab-{{id_title}}" class="navlink"
-													{{#if_admin}} title="Двойной щелчок для редактирования"{{/if_admin}}>{{name_title}}</a>
-											{{#if_admin}}
+													{{#admin_mode}} title="Двойной щелчок для редактирования"{{/admin_mode}}>{{name_title}}</a>
+											{{#admin_mode}}
                           <div class="actions">
                               <a href="#" title="Изменить или добавить текст меню." class="edit">Edit</a>
                               <a href="#" title="Удалить раздел из базы данных без возможности восстановления." class="delete">Delete</a>
                           </div>
-											{{/if_admin}}
+											{{/admin_mode}}
                     </li>
 										{{/li_title}}
                 </ul>
-							{{#if_admin}}
-                  <a id="addButton" class="support-hover" tabindex="1" title="Добавить раздел"><em>+</em></a>
+							{{#admin_mode}}
 
+									<div id="addButton" class="button_img"><span>Добавить раздел</span></div>
                   <div id="dialog-confirm" title="Удалить запись?">
                       <span>Запись будет удалена из базы данных!</span>
                   </div>
-                  '
-							{{/if_admin}}
+
+							{{/admin_mode}}
 							{{{ajaxSite_EditTitle}}}
 
             </div>
@@ -108,12 +108,12 @@
                         <ul>
                             <li>
                                 <div class="focal-point border">
-																	{{#if_admin}}
+																	{{#admin_mode}}
                                       <div class="actions">
                                           <a href="#" title="Изменить или добавить текст меню." class="edit">Edit</a>
                                           <a href="#" title="Удалить раздел из базы данных без возможности восстановления." class="delete">Delete</a>
                                       </div>
-																	{{/if_admin}}
+																	{{/admin_mode}}
                                     <div><img src="/files/slides/slide-2.jpg" alt=""></div>
                                 </div>
                             </li>
@@ -121,12 +121,12 @@
 
                             <li>
                                 <div class="focal-point border">
-																	{{#if_admin}}
+																	{{#admin_mode}}
                                       <div class="actions">
                                           <a href="#" title="Изменить или добавить текст меню." class="edit">Edit</a>
                                           <a href="#" title="Удалить раздел из базы данных без возможности восстановления." class="delete">Delete</a>
                                       </div>
-																	{{/if_admin}}
+																	{{/admin_mode}}
                                     <div><img src="/files/portfolio/06_Портреты/002.jpg" alt=""></div>
                                 </div>
                             </li>

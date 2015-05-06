@@ -37,7 +37,7 @@ $(document).ready(function(){
 	});
 
 
-log(tabs);
+// log(tabs);
 
 
 	// смена таба

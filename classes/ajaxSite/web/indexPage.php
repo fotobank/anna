@@ -13,7 +13,7 @@ header( 'Content-type: text/html; charset=windows-1251' );
 /**
  * Class ajaxSite_web_index
  */
-class ajaxSite_web_index {
+class ajaxSite_web_indexPage {
 
 	public $categorii;
 	public $admin_mode;

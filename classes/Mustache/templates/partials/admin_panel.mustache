@@ -1,19 +1,32 @@
 {{#admin_mode}}
 <div class="container-admin">
-    <div class="floating-admin">
-
-        <h4>ѕанель админа:</h4>
-        <div>
-            <span>¬ключить редактирование:</span>
-            <button id="enable" class="btn-xs" type="button"><div class="btn-off"></div></button>
-        </div>
-        <div>
-            <span>¬ключить подсказки:</span>
-            <button id="help" class="btn-xs" type="button"><div class="btn-off"></div></button>
-        </div>
-        <div>
-            <a href="/admin.php?adm_out=1" style="padding-right: 20px;">выход</a>
-        </div>
-    </div>
+    <table class="floating-admin">
+        <tr>
+            <td colspan="4">
+                <h4>ѕанель админа:</h4>
+						</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <span>¬ключить редактирование:</span>
+            </td>
+            <td>
+                <div id="enable-edit" class="button_img_off"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <span>¬ключить подсказки:</span>
+            </td>
+            <td>
+                <div id="enable-help" class="button_img_off"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a href="/admin.php?adm_out=1">выход</a>
+            </td>
+        </tr>
+    </table>
 </div>
 {{/admin_mode}}

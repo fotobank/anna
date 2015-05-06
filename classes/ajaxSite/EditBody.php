@@ -75,7 +75,7 @@ class ajaxSite_EditBody{
 				$ul .= self::new_li_body($row);
 			}
 				$ul .= '</ul>';
-			    $ul .=if_admin('<a id="addButton" class="support-hover" tabindex="1" title="Добавить раздел"><em>+</em></a>
+			    $ul .=if_admin('<div id="addButton" class="button_img"><span>Добавить раздел</span></div>
 								<div id="dialog-confirm" title="Удалить запись?"><span>Запись будет удалена из базы данных!</span></div>
 							   ');
 
