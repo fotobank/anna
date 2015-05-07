@@ -76,11 +76,21 @@ a.editable-click.editable-disabled:hover {
 	  background: image_url("line-title-bottom.png") no-repeat bottom;
 	  @include background-size(100%);
 }
+.col-8 .bb-img-red,.col-9 .bb-img-red {
+	  height: 26px;
+}
 .col-11 h3 {
 	  margin-top: 10px;
 }
 .col-11 .h-mod {
 	  height: auto;
+}
+
+.col-12 .bb-img-red,.col-14 .bb-img-red {
+	  height: 27px;
+}
+.col-13 .bb-img-red,.col-15 .bb-img-red {
+	  height: 25px;
 }
 .ic {
 	  border: 0;
