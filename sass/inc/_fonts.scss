@@ -202,6 +202,7 @@ $base-font-size:   14px;
 	  font-family: $bad;
 	  @include font-size(24);
 	  line-height: 24px;
+	  line-height: px-to-rem(24);
 	  color: $h3_color;
 	  font-weight: bold;
 	  font-style: italic;

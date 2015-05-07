@@ -41,7 +41,11 @@ defined( '_SECUR' ) or die( 'Доступ запрещен' );
 
 <div class="page6-row1 pad-1">
 	<div class="col-14">
-		<h3 class="bb1">Для связи:</h3>
+		<div class="h-mod">
+			<div class="bb-img-red">
+				<h3>Для связи:</h3>
+			</div>
+		</div>
 		<dl>
 			<dd>Удобное для меня место для встреч:</dd>
 			<dd class="clr-1"><p>г.Одесса ул.Троицкая <br>угол ул. Канатной, кафе "Cхiд".</p></dd>
@@ -64,33 +68,42 @@ defined( '_SECUR' ) or die( 'Доступ запрещен' );
 			<dd>Или пишите:</dd>
 			<dd class="clr-1">
 				<p><span>E-mail:</span>
-				<a href="#" class="link e-mail">
-					<script type="text/javascript">
-						var xv1 = 'ailt';
-						var xv2 = 'hre';
-						var xv3 = 'f="m';
-						var xv4 = 'o:';
-						var xv5 = 'bestfoto';
-						var xv6 = 'i.ua';
-						document.write('<a ' + xv2 + xv3 + xv1 + xv4 + xv5 + '@' + xv6 + '">' + 'bestfoto' + '@' + xv6 + '</a>');
-					</script>
-				</a>
+					<a href="#" class="link e-mail">
+						<script type="text/javascript">
+							var xv1 = 'ailt';
+							var xv2 = 'hre';
+							var xv3 = 'f="m';
+							var xv4 = 'o:';
+							var xv5 = 'bestfoto';
+							var xv6 = 'i.ua';
+							document.write('<a ' + xv2 + xv3 + xv1 + xv4 + xv5 + '@' + xv6 + '">' + 'bestfoto' + '@' + xv6 + '</a>');
+						</script>
+					</a>
 				</p>
 			</dd>
 		</dl>
 		<div class="add-share">
-		<a href="#" onclick="return add_favorite(this);">Добавить в Избранное</a>
+			<a href="#" onclick="return add_favorite(this);">Добавить в Избранное</a>
 		</div>
 	</div>
-	<div class="col-15">
-		<h3 class="bb1 p2">Карта:</h3>
 
+	<div class="col-15">
+		<div class="h-mod">
+			<div class="bb-img-red">
+				<h3 class="p2">Карта:</h3>
+			</div>
+		</div>
 		<div>
 			<img src="/images/map.png" alt="" class="img-border img-indent-2">
 		</div>
 	</div>
+
 	<div class="col-16">
-		<h3 class="bb1 p2">Жду Ваших писем:</h3>
+		<div class="h-mod">
+			<div class="bb-img-red">
+				<h3 class="p2">Жду Ваших писем:</h3>
+			</div>
+		</div>
 
 		<form id="form" method="post" action="/about.php">
 			<fieldset>

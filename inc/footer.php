@@ -11,8 +11,11 @@ require( __DIR__ . '/online_widget.php' );
 <footer>
 <!--==============================соцсети================================-->
 <div class='social'>
-				<div class="h-mod w100">
-				<h3 class="bb1 fleft w100">Поделиться с друзьями:</h3>
+				<div class="h-mod">
+					<div class="h-mod">
+						<div class="bb-img-red">
+				<h3>Поделиться с друзьями:</h3>
+							</div></div>
 					<?
 if ( DEBUG_MODE == true ) {
 	$bench->end();

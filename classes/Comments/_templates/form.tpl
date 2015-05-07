@@ -14,7 +14,12 @@
 											 title="Допустимы любые латинские и русские буквы, цифры, подчеркивание и тире.">
 		</label>
 	</td>
-	<td class="w270" rowspan='3'>	<h3 class="bb1">Отзывы и рекомендации:</h3></td>
+	<td class="w270" rowspan='3'>
+		<div class="h-mod">
+			<div class="bb-img-red">
+		<h3>Отзывы и рекомендации:</h3>
+				</div></div>
+	</td>
 </tr>
 	<tr id="bot">
 		<td>Фамилия:</td>

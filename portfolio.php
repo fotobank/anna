@@ -21,7 +21,10 @@ include_once( __DIR__ . '/inc/head.php' );
 			if ( count( $thumbdir ) ) {
 				?>
 				<div class="col-8">
-					<h3 class="bb1 p2">Категории:</h3>
+					<div class="h-mod">
+						<div class="bb-img-red">
+					<h3 class="p2">Категории:</h3>
+							</div></div>
 					<ul class="nav list-title">
 
 						<?
@@ -36,7 +39,9 @@ include_once( __DIR__ . '/inc/head.php' );
 							<?
 							}
 							$portfolio .= '<div id="tab-' . $i . '" class="tab-content gallery-photo">
-                   							<h3 class="h3-2">' . $name . ':</h3> <div class="inner">
+							<div class="h-mod">
+						<div class="bb-img-red">
+                   							<h3 class="h3-2">' . $name . ':</h3></div></div> <div class="inner">
                        						<ul id="mycarousel-' . $i . '" class="jcarousel-skin-tango">';
 							for ( $n = 0; $n < ceil( count( $val ) / 4 ); $n ++ ) {
 								$portfolio .= '<li>';

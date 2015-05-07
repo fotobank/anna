@@ -30,7 +30,7 @@ require( __DIR__ . '/inc/carosel.php');
 			<h3 class="p2"></h3>
 		</div>
 		<div class="col-2">
-			<h3 class="bb2 p2">Новинки в галереях:</h3>
+			<h3 class="p2">Новинки в галереях:</h3>
 		</div>
 	</div>
 		<?
