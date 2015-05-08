@@ -9418,7 +9418,7 @@ a.editable-click.editable-disabled:hover {
 }
 
 @media only screen and (max-width: 930px) {
-  /* line 182, ../sass/_site.menu.scss */
+  /* line 185, ../sass/_site.menu.scss */
   .centered-navigation {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
     border-bottom: 1px solid #afafaf;
@@ -9427,19 +9427,19 @@ a.editable-click.editable-disabled:hover {
     z-index: 9999;
     height: 2.125em;
   }
-  /* line 190, ../sass/_site.menu.scss */
+  /* line 193, ../sass/_site.menu.scss */
   .centered-navigation .mobile-logo {
     display: inline;
     float: right;
     max-height: 2.125em;
     padding-right: 1em;
   }
-  /* line 195, ../sass/_site.menu.scss */
+  /* line 198, ../sass/_site.menu.scss */
   .centered-navigation .mobile-logo img {
     max-height: 2.125em;
     opacity: 1;
   }
-  /* line 200, ../sass/_site.menu.scss */
+  /* line 203, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button {
     color: #ffffff;
     display: block;
@@ -9452,16 +9452,16 @@ a.editable-click.editable-disabled:hover {
     background-position: left;
     margin-left: 20px;
   }
-  /* line 211, ../sass/_site.menu.scss */
+  /* line 214, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button:hover {
     color: #fc0;
   }
-  /* line 214, ../sass/_site.menu.scss */
+  /* line 217, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button .mobile-menu {
     padding-left: 5px;
     line-height: 32px;
   }
-  /* line 220, ../sass/_site.menu.scss */
+  /* line 223, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-wrapper {
     max-width: 100%;
     margin-left: auto;
@@ -9478,11 +9478,11 @@ a.editable-click.editable-disabled:hover {
   .centered-navigation .centered-navigation-wrapper:after {
     clear: both;
   }
-  /* line 229, ../sass/_site.menu.scss */
+  /* line 232, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-wrapper a {
     text-decoration: none;
   }
-  /* line 234, ../sass/_site.menu.scss */
+  /* line 237, ../sass/_site.menu.scss */
   .centered-navigation ul.centered-navigation-menu {
     -webkit-transform-style: preserve-3d;
     clear: both;
@@ -9494,7 +9494,7 @@ a.editable-click.editable-disabled:hover {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
     border-bottom: 1px solid #afafaf;
   }
-  /* line 246, ../sass/_site.menu.scss */
+  /* line 249, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link {
     background: #494949;
     background: transparent;
@@ -9508,7 +9508,7 @@ a.editable-click.editable-disabled:hover {
     vertical-align: middle;
     zoom: 1;
   }
-  /* line 259, ../sass/_site.menu.scss */
+  /* line 262, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:hover {
     -webkit-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
     box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
@@ -9520,16 +9520,16 @@ a.editable-click.editable-disabled:hover {
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-  /* line 266, ../sass/_site.menu.scss */
+  /* line 269, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:active {
     color: #fff5cc;
     text-decoration: none;
   }
-  /* line 270, ../sass/_site.menu.scss */
+  /* line 273, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:visited {
     text-decoration: none;
   }
-  /* line 273, ../sass/_site.menu.scss */
+  /* line 276, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a {
     padding-left: 1.25em;
     height: 2.7625em;
@@ -9545,7 +9545,7 @@ a.editable-click.editable-disabled:hover {
     *display: inline;
     text-decoration: none;
   }
-  /* line 285, ../sass/_site.menu.scss */
+  /* line 288, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:first-letter {
     color: #FF0000;
     font-family: "Marck Script", "Georgia", cursive;
@@ -9555,15 +9555,15 @@ a.editable-click.editable-disabled:hover {
     line-height: 2.4rem;
     text-shadow: #191919 2px 2px 5px;
   }
-  /* line 293, ../sass/_site.menu.scss */
+  /* line 296, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:first-child {
     display: none;
   }
-  /* line 296, ../sass/_site.menu.scss */
+  /* line 299, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:nth-child(2) {
     padding-top: 10px;
   }
-  /* line 299, ../sass/_site.menu.scss */
+  /* line 302, ../sass/_site.menu.scss */
   .centered-navigation ul li.current {
     background: url('/images/line-title-mobile.png?1430945845') no-repeat bottom;
     -moz-background-size: 100%;
@@ -9571,16 +9571,16 @@ a.editable-click.editable-disabled:hover {
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-  /* line 300, ../sass/_site.menu.scss */
+  /* line 303, ../sass/_site.menu.scss */
   .centered-navigation ul li.current a {
     color: #fc0;
   }
-  /* line 306, ../sass/_site.menu.scss */
+  /* line 309, ../sass/_site.menu.scss */
   .centered-navigation li.logo.nav-link {
     display: none;
     line-height: 0;
   }
-  /* line 310, ../sass/_site.menu.scss */
+  /* line 313, ../sass/_site.menu.scss */
   .centered-navigation .logo img {
     margin-top: -1.875em;
     max-height: 7.777em;
@@ -9593,7 +9593,7 @@ a.editable-click.editable-disabled:hover {
   /* Smartphones (landscape) ----------- */
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (min-width: 320px) {
-  /* line 182, ../sass/_site.menu.scss */
+  /* line 185, ../sass/_site.menu.scss */
   .centered-navigation {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
     border-bottom: 1px solid #afafaf;
@@ -9602,19 +9602,19 @@ a.editable-click.editable-disabled:hover {
     z-index: 9999;
     height: 2.125em;
   }
-  /* line 190, ../sass/_site.menu.scss */
+  /* line 193, ../sass/_site.menu.scss */
   .centered-navigation .mobile-logo {
     display: inline;
     float: right;
     max-height: 2.125em;
     padding-right: 1em;
   }
-  /* line 195, ../sass/_site.menu.scss */
+  /* line 198, ../sass/_site.menu.scss */
   .centered-navigation .mobile-logo img {
     max-height: 2.125em;
     opacity: 1;
   }
-  /* line 200, ../sass/_site.menu.scss */
+  /* line 203, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button {
     color: #ffffff;
     display: block;
@@ -9627,16 +9627,16 @@ a.editable-click.editable-disabled:hover {
     background-position: left;
     margin-left: 20px;
   }
-  /* line 211, ../sass/_site.menu.scss */
+  /* line 214, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button:hover {
     color: #fc0;
   }
-  /* line 214, ../sass/_site.menu.scss */
+  /* line 217, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button .mobile-menu {
     padding-left: 5px;
     line-height: 32px;
   }
-  /* line 220, ../sass/_site.menu.scss */
+  /* line 223, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-wrapper {
     max-width: 100%;
     margin-left: auto;
@@ -9653,11 +9653,11 @@ a.editable-click.editable-disabled:hover {
   .centered-navigation .centered-navigation-wrapper:after {
     clear: both;
   }
-  /* line 229, ../sass/_site.menu.scss */
+  /* line 232, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-wrapper a {
     text-decoration: none;
   }
-  /* line 234, ../sass/_site.menu.scss */
+  /* line 237, ../sass/_site.menu.scss */
   .centered-navigation ul.centered-navigation-menu {
     -webkit-transform-style: preserve-3d;
     clear: both;
@@ -9669,7 +9669,7 @@ a.editable-click.editable-disabled:hover {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
     border-bottom: 1px solid #afafaf;
   }
-  /* line 246, ../sass/_site.menu.scss */
+  /* line 249, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link {
     background: #494949;
     background: transparent;
@@ -9683,7 +9683,7 @@ a.editable-click.editable-disabled:hover {
     vertical-align: middle;
     zoom: 1;
   }
-  /* line 259, ../sass/_site.menu.scss */
+  /* line 262, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:hover {
     -webkit-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
     box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
@@ -9695,16 +9695,16 @@ a.editable-click.editable-disabled:hover {
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-  /* line 266, ../sass/_site.menu.scss */
+  /* line 269, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:active {
     color: #fff5cc;
     text-decoration: none;
   }
-  /* line 270, ../sass/_site.menu.scss */
+  /* line 273, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:visited {
     text-decoration: none;
   }
-  /* line 273, ../sass/_site.menu.scss */
+  /* line 276, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a {
     padding-left: 1.25em;
     height: 2.7625em;
@@ -9720,7 +9720,7 @@ a.editable-click.editable-disabled:hover {
     *display: inline;
     text-decoration: none;
   }
-  /* line 285, ../sass/_site.menu.scss */
+  /* line 288, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:first-letter {
     color: #FF0000;
     font-family: "Marck Script", "Georgia", cursive;
@@ -9730,15 +9730,15 @@ a.editable-click.editable-disabled:hover {
     line-height: 2.4rem;
     text-shadow: #191919 2px 2px 5px;
   }
-  /* line 293, ../sass/_site.menu.scss */
+  /* line 296, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:first-child {
     display: none;
   }
-  /* line 296, ../sass/_site.menu.scss */
+  /* line 299, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:nth-child(2) {
     padding-top: 10px;
   }
-  /* line 299, ../sass/_site.menu.scss */
+  /* line 302, ../sass/_site.menu.scss */
   .centered-navigation ul li.current {
     background: url('/images/line-title-mobile.png?1430945845') no-repeat bottom;
     -moz-background-size: 100%;
@@ -9746,16 +9746,16 @@ a.editable-click.editable-disabled:hover {
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-  /* line 300, ../sass/_site.menu.scss */
+  /* line 303, ../sass/_site.menu.scss */
   .centered-navigation ul li.current a {
     color: #fc0;
   }
-  /* line 306, ../sass/_site.menu.scss */
+  /* line 309, ../sass/_site.menu.scss */
   .centered-navigation li.logo.nav-link {
     display: none;
     line-height: 0;
   }
-  /* line 310, ../sass/_site.menu.scss */
+  /* line 313, ../sass/_site.menu.scss */
   .centered-navigation .logo img {
     margin-top: -1.875em;
     max-height: 7.777em;
@@ -9767,7 +9767,7 @@ a.editable-click.editable-disabled:hover {
   /* Smartphones (portrait) ----------- */
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (max-width: 320px) {
-  /* line 182, ../sass/_site.menu.scss */
+  /* line 185, ../sass/_site.menu.scss */
   .centered-navigation {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
     border-bottom: 1px solid #afafaf;
@@ -9776,19 +9776,19 @@ a.editable-click.editable-disabled:hover {
     z-index: 9999;
     height: 2.125em;
   }
-  /* line 190, ../sass/_site.menu.scss */
+  /* line 193, ../sass/_site.menu.scss */
   .centered-navigation .mobile-logo {
     display: inline;
     float: right;
     max-height: 2.125em;
     padding-right: 1em;
   }
-  /* line 195, ../sass/_site.menu.scss */
+  /* line 198, ../sass/_site.menu.scss */
   .centered-navigation .mobile-logo img {
     max-height: 2.125em;
     opacity: 1;
   }
-  /* line 200, ../sass/_site.menu.scss */
+  /* line 203, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button {
     color: #ffffff;
     display: block;
@@ -9801,16 +9801,16 @@ a.editable-click.editable-disabled:hover {
     background-position: left;
     margin-left: 20px;
   }
-  /* line 211, ../sass/_site.menu.scss */
+  /* line 214, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button:hover {
     color: #fc0;
   }
-  /* line 214, ../sass/_site.menu.scss */
+  /* line 217, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button .mobile-menu {
     padding-left: 5px;
     line-height: 32px;
   }
-  /* line 220, ../sass/_site.menu.scss */
+  /* line 223, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-wrapper {
     max-width: 100%;
     margin-left: auto;
@@ -9827,11 +9827,11 @@ a.editable-click.editable-disabled:hover {
   .centered-navigation .centered-navigation-wrapper:after {
     clear: both;
   }
-  /* line 229, ../sass/_site.menu.scss */
+  /* line 232, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-wrapper a {
     text-decoration: none;
   }
-  /* line 234, ../sass/_site.menu.scss */
+  /* line 237, ../sass/_site.menu.scss */
   .centered-navigation ul.centered-navigation-menu {
     -webkit-transform-style: preserve-3d;
     clear: both;
@@ -9843,7 +9843,7 @@ a.editable-click.editable-disabled:hover {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
     border-bottom: 1px solid #afafaf;
   }
-  /* line 246, ../sass/_site.menu.scss */
+  /* line 249, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link {
     background: #494949;
     background: transparent;
@@ -9857,7 +9857,7 @@ a.editable-click.editable-disabled:hover {
     vertical-align: middle;
     zoom: 1;
   }
-  /* line 259, ../sass/_site.menu.scss */
+  /* line 262, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:hover {
     -webkit-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
     box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
@@ -9869,16 +9869,16 @@ a.editable-click.editable-disabled:hover {
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-  /* line 266, ../sass/_site.menu.scss */
+  /* line 269, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:active {
     color: #fff5cc;
     text-decoration: none;
   }
-  /* line 270, ../sass/_site.menu.scss */
+  /* line 273, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:visited {
     text-decoration: none;
   }
-  /* line 273, ../sass/_site.menu.scss */
+  /* line 276, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a {
     padding-left: 1.25em;
     height: 2.7625em;
@@ -9894,7 +9894,7 @@ a.editable-click.editable-disabled:hover {
     *display: inline;
     text-decoration: none;
   }
-  /* line 285, ../sass/_site.menu.scss */
+  /* line 288, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:first-letter {
     color: #FF0000;
     font-family: "Marck Script", "Georgia", cursive;
@@ -9904,15 +9904,15 @@ a.editable-click.editable-disabled:hover {
     line-height: 2.4rem;
     text-shadow: #191919 2px 2px 5px;
   }
-  /* line 293, ../sass/_site.menu.scss */
+  /* line 296, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:first-child {
     display: none;
   }
-  /* line 296, ../sass/_site.menu.scss */
+  /* line 299, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:nth-child(2) {
     padding-top: 10px;
   }
-  /* line 299, ../sass/_site.menu.scss */
+  /* line 302, ../sass/_site.menu.scss */
   .centered-navigation ul li.current {
     background: url('/images/line-title-mobile.png?1430945845') no-repeat bottom;
     -moz-background-size: 100%;
@@ -9920,16 +9920,16 @@ a.editable-click.editable-disabled:hover {
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-  /* line 300, ../sass/_site.menu.scss */
+  /* line 303, ../sass/_site.menu.scss */
   .centered-navigation ul li.current a {
     color: #fc0;
   }
-  /* line 306, ../sass/_site.menu.scss */
+  /* line 309, ../sass/_site.menu.scss */
   .centered-navigation li.logo.nav-link {
     display: none;
     line-height: 0;
   }
-  /* line 310, ../sass/_site.menu.scss */
+  /* line 313, ../sass/_site.menu.scss */
   .centered-navigation .logo img {
     margin-top: -1.875em;
     max-height: 7.777em;
@@ -9993,7 +9993,7 @@ a.editable-click.editable-disabled:hover {
     display: inline-block;
     overflow: hidden;
     text-align: right;
-    padding-right: 0;
+    padding: 0 1.5em;
     z-index: 9999;
     vertical-align: middle;
     zoom: 1;
@@ -10001,6 +10001,19 @@ a.editable-click.editable-disabled:hover {
     margin: 0 -3px;
   }
   /* line 78, ../sass/_site.menu.scss */
+  .centered-navigation ul li.nav-link:hover {
+    background: url('/images/line-title.png?1431071906') no-repeat bottom;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+  }
+  /* line 81, ../sass/_site.menu.scss */
+  .centered-navigation ul li.nav-link:hover a {
+    color: #fc0;
+    text-decoration: none;
+  }
+  /* line 86, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link #profession {
     font-family: "Verdana", "Geneva", sans-serif;
     font-size: 10px;
@@ -10010,7 +10023,7 @@ a.editable-click.editable-disabled:hover {
     display: block;
     font-style: normal;
   }
-  /* line 87, ../sass/_site.menu.scss */
+  /* line 95, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a {
     font-size: 16px;
     font-size: 1rem;
@@ -10024,32 +10037,18 @@ a.editable-click.editable-disabled:hover {
     zoom: 1;
     *display: inline;
     text-decoration: none;
-    padding: 50px 1.5em 0;
+    padding: 50px 0 0;
   }
-  /* line 99, ../sass/_site.menu.scss */
-  .centered-navigation ul li.nav-link a:hover {
-    -webkit-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
-    box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
-    color: #fc0;
-    text-decoration: none;
-    background: rgba(71, 28, 77, 0.67);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
-    background: url('/images/line-title.png?1431006379') no-repeat bottom;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    -webkit-background-size: 100%;
-    background-size: 100%;
-  }
-  /* line 108, ../sass/_site.menu.scss */
+  /* line 107, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:active {
     color: #fff5cc;
     text-decoration: none;
   }
-  /* line 112, ../sass/_site.menu.scss */
+  /* line 111, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:visited {
     text-decoration: none;
   }
-  /* line 115, ../sass/_site.menu.scss */
+  /* line 114, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:first-letter {
     color: #FF0000;
     font-family: "Marck Script", "Georgia", cursive;
@@ -10059,24 +10058,24 @@ a.editable-click.editable-disabled:hover {
     line-height: 2.4rem;
     text-shadow: #191919 2px 2px 5px;
   }
-  /* line 123, ../sass/_site.menu.scss */
+  /* line 122, ../sass/_site.menu.scss */
   .centered-navigation ul li.current {
-    background: url('/images/line-title.png?1431006379') no-repeat bottom;
+    background: url('/images/line-title.png?1431071906') no-repeat bottom;
     -moz-background-size: 100%;
     -o-background-size: 100%;
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-  /* line 124, ../sass/_site.menu.scss */
+  /* line 123, ../sass/_site.menu.scss */
   .centered-navigation ul li.current a {
     color: #fc0;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
   }
-  /* line 132, ../sass/_site.menu.scss */
+  /* line 131, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:first-child {
     margin-top: -10px;
   }
-  /* line 134, ../sass/_site.menu.scss */
+  /* line 133, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:first-child .line-head {
     background: url('/images/line-head.png?1431006487') no-repeat 0 0;
     -moz-background-size: 100%;
@@ -10089,31 +10088,36 @@ a.editable-click.editable-disabled:hover {
     height: 14px;
     z-index: 1;
   }
-  /* line 144, ../sass/_site.menu.scss */
-  .centered-navigation .nav-link:nth-child(2) {
-    margin-left: 50px;
+  /* line 142, ../sass/_site.menu.scss */
+  .centered-navigation .nav-link:first-child:hover {
+    background: none;
   }
-  /* line 145, ../sass/_site.menu.scss */
+  /* line 146, ../sass/_site.menu.scss */
+  .centered-navigation .nav-link:nth-child(2) {
+    margin-left: 3.125em;
+    padding-left: 0.75em;
+  }
+  /* line 147, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(2) a {
     width: 5.125em;
   }
-  /* line 151, ../sass/_site.menu.scss */
+  /* line 154, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(3) a {
     width: 5.625em;
   }
-  /* line 156, ../sass/_site.menu.scss */
+  /* line 159, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(4) a {
     width: 5.625em;
   }
-  /* line 161, ../sass/_site.menu.scss */
+  /* line 164, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(5) a {
     width: 4.5em;
   }
-  /* line 166, ../sass/_site.menu.scss */
+  /* line 169, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(6) a {
     width: 3.688em;
   }
-  /* line 171, ../sass/_site.menu.scss */
+  /* line 174, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(7) a {
     width: 4.375em;
   }
@@ -10122,7 +10126,7 @@ a.editable-click.editable-disabled:hover {
   /* iPads (portrait) ----------- */
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
-  /* line 182, ../sass/_site.menu.scss */
+  /* line 185, ../sass/_site.menu.scss */
   .centered-navigation {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
     border-bottom: 1px solid #afafaf;
@@ -10131,19 +10135,19 @@ a.editable-click.editable-disabled:hover {
     z-index: 9999;
     height: 2.125em;
   }
-  /* line 190, ../sass/_site.menu.scss */
+  /* line 193, ../sass/_site.menu.scss */
   .centered-navigation .mobile-logo {
     display: inline;
     float: right;
     max-height: 2.125em;
     padding-right: 1em;
   }
-  /* line 195, ../sass/_site.menu.scss */
+  /* line 198, ../sass/_site.menu.scss */
   .centered-navigation .mobile-logo img {
     max-height: 2.125em;
     opacity: 1;
   }
-  /* line 200, ../sass/_site.menu.scss */
+  /* line 203, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button {
     color: #ffffff;
     display: block;
@@ -10156,16 +10160,16 @@ a.editable-click.editable-disabled:hover {
     background-position: left;
     margin-left: 20px;
   }
-  /* line 211, ../sass/_site.menu.scss */
+  /* line 214, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button:hover {
     color: #fc0;
   }
-  /* line 214, ../sass/_site.menu.scss */
+  /* line 217, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-menu-button .mobile-menu {
     padding-left: 5px;
     line-height: 32px;
   }
-  /* line 220, ../sass/_site.menu.scss */
+  /* line 223, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-wrapper {
     max-width: 100%;
     margin-left: auto;
@@ -10182,11 +10186,11 @@ a.editable-click.editable-disabled:hover {
   .centered-navigation .centered-navigation-wrapper:after {
     clear: both;
   }
-  /* line 229, ../sass/_site.menu.scss */
+  /* line 232, ../sass/_site.menu.scss */
   .centered-navigation .centered-navigation-wrapper a {
     text-decoration: none;
   }
-  /* line 234, ../sass/_site.menu.scss */
+  /* line 237, ../sass/_site.menu.scss */
   .centered-navigation ul.centered-navigation-menu {
     -webkit-transform-style: preserve-3d;
     clear: both;
@@ -10198,7 +10202,7 @@ a.editable-click.editable-disabled:hover {
     background: url('/images/nav.png?1405111182') 0 0 repeat;
     border-bottom: 1px solid #afafaf;
   }
-  /* line 246, ../sass/_site.menu.scss */
+  /* line 249, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link {
     background: #494949;
     background: transparent;
@@ -10212,7 +10216,7 @@ a.editable-click.editable-disabled:hover {
     vertical-align: middle;
     zoom: 1;
   }
-  /* line 259, ../sass/_site.menu.scss */
+  /* line 262, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:hover {
     -webkit-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
     box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
@@ -10224,16 +10228,16 @@ a.editable-click.editable-disabled:hover {
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-  /* line 266, ../sass/_site.menu.scss */
+  /* line 269, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:active {
     color: #fff5cc;
     text-decoration: none;
   }
-  /* line 270, ../sass/_site.menu.scss */
+  /* line 273, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:visited {
     text-decoration: none;
   }
-  /* line 273, ../sass/_site.menu.scss */
+  /* line 276, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a {
     padding-left: 1.25em;
     height: 2.7625em;
@@ -10249,7 +10253,7 @@ a.editable-click.editable-disabled:hover {
     *display: inline;
     text-decoration: none;
   }
-  /* line 285, ../sass/_site.menu.scss */
+  /* line 288, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:first-letter {
     color: #FF0000;
     font-family: "Marck Script", "Georgia", cursive;
@@ -10259,15 +10263,15 @@ a.editable-click.editable-disabled:hover {
     line-height: 2.4rem;
     text-shadow: #191919 2px 2px 5px;
   }
-  /* line 293, ../sass/_site.menu.scss */
+  /* line 296, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:first-child {
     display: none;
   }
-  /* line 296, ../sass/_site.menu.scss */
+  /* line 299, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link:nth-child(2) {
     padding-top: 10px;
   }
-  /* line 299, ../sass/_site.menu.scss */
+  /* line 302, ../sass/_site.menu.scss */
   .centered-navigation ul li.current {
     background: url('/images/line-title-mobile.png?1430945845') no-repeat bottom;
     -moz-background-size: 100%;
@@ -10275,16 +10279,16 @@ a.editable-click.editable-disabled:hover {
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-  /* line 300, ../sass/_site.menu.scss */
+  /* line 303, ../sass/_site.menu.scss */
   .centered-navigation ul li.current a {
     color: #fc0;
   }
-  /* line 306, ../sass/_site.menu.scss */
+  /* line 309, ../sass/_site.menu.scss */
   .centered-navigation li.logo.nav-link {
     display: none;
     line-height: 0;
   }
-  /* line 310, ../sass/_site.menu.scss */
+  /* line 313, ../sass/_site.menu.scss */
   .centered-navigation .logo img {
     margin-top: -1.875em;
     max-height: 7.777em;
@@ -10345,7 +10349,7 @@ a.editable-click.editable-disabled:hover {
     display: inline-block;
     overflow: hidden;
     text-align: right;
-    padding-right: 0;
+    padding: 0 1.5em;
     z-index: 9999;
     vertical-align: middle;
     zoom: 1;
@@ -10353,6 +10357,19 @@ a.editable-click.editable-disabled:hover {
     margin: 0 -3px;
   }
   /* line 78, ../sass/_site.menu.scss */
+  .centered-navigation ul li.nav-link:hover {
+    background: url('/images/line-title.png?1431071906') no-repeat bottom;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+  }
+  /* line 81, ../sass/_site.menu.scss */
+  .centered-navigation ul li.nav-link:hover a {
+    color: #fc0;
+    text-decoration: none;
+  }
+  /* line 86, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link #profession {
     font-family: "Verdana", "Geneva", sans-serif;
     font-size: 10px;
@@ -10362,7 +10379,7 @@ a.editable-click.editable-disabled:hover {
     display: block;
     font-style: normal;
   }
-  /* line 87, ../sass/_site.menu.scss */
+  /* line 95, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a {
     font-size: 16px;
     font-size: 1rem;
@@ -10376,32 +10393,18 @@ a.editable-click.editable-disabled:hover {
     zoom: 1;
     *display: inline;
     text-decoration: none;
-    padding: 50px 1.5em 0;
+    padding: 50px 0 0;
   }
-  /* line 99, ../sass/_site.menu.scss */
-  .centered-navigation ul li.nav-link a:hover {
-    -webkit-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
-    box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
-    color: #fc0;
-    text-decoration: none;
-    background: rgba(71, 28, 77, 0.67);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
-    background: url('/images/line-title.png?1431006379') no-repeat bottom;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    -webkit-background-size: 100%;
-    background-size: 100%;
-  }
-  /* line 108, ../sass/_site.menu.scss */
+  /* line 107, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:active {
     color: #fff5cc;
     text-decoration: none;
   }
-  /* line 112, ../sass/_site.menu.scss */
+  /* line 111, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:visited {
     text-decoration: none;
   }
-  /* line 115, ../sass/_site.menu.scss */
+  /* line 114, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:first-letter {
     color: #FF0000;
     font-family: "Marck Script", "Georgia", cursive;
@@ -10411,24 +10414,24 @@ a.editable-click.editable-disabled:hover {
     line-height: 2.4rem;
     text-shadow: #191919 2px 2px 5px;
   }
-  /* line 123, ../sass/_site.menu.scss */
+  /* line 122, ../sass/_site.menu.scss */
   .centered-navigation ul li.current {
-    background: url('/images/line-title.png?1431006379') no-repeat bottom;
+    background: url('/images/line-title.png?1431071906') no-repeat bottom;
     -moz-background-size: 100%;
     -o-background-size: 100%;
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-  /* line 124, ../sass/_site.menu.scss */
+  /* line 123, ../sass/_site.menu.scss */
   .centered-navigation ul li.current a {
     color: #fc0;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
   }
-  /* line 132, ../sass/_site.menu.scss */
+  /* line 131, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:first-child {
     margin-top: -10px;
   }
-  /* line 134, ../sass/_site.menu.scss */
+  /* line 133, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:first-child .line-head {
     background: url('/images/line-head.png?1431006487') no-repeat 0 0;
     -moz-background-size: 100%;
@@ -10441,31 +10444,36 @@ a.editable-click.editable-disabled:hover {
     height: 14px;
     z-index: 1;
   }
-  /* line 144, ../sass/_site.menu.scss */
-  .centered-navigation .nav-link:nth-child(2) {
-    margin-left: 50px;
+  /* line 142, ../sass/_site.menu.scss */
+  .centered-navigation .nav-link:first-child:hover {
+    background: none;
   }
-  /* line 145, ../sass/_site.menu.scss */
+  /* line 146, ../sass/_site.menu.scss */
+  .centered-navigation .nav-link:nth-child(2) {
+    margin-left: 3.125em;
+    padding-left: 0.75em;
+  }
+  /* line 147, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(2) a {
     width: 5.125em;
   }
-  /* line 151, ../sass/_site.menu.scss */
+  /* line 154, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(3) a {
     width: 5.625em;
   }
-  /* line 156, ../sass/_site.menu.scss */
+  /* line 159, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(4) a {
     width: 5.625em;
   }
-  /* line 161, ../sass/_site.menu.scss */
+  /* line 164, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(5) a {
     width: 4.5em;
   }
-  /* line 166, ../sass/_site.menu.scss */
+  /* line 169, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(6) a {
     width: 3.688em;
   }
-  /* line 171, ../sass/_site.menu.scss */
+  /* line 174, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(7) a {
     width: 4.375em;
   }
@@ -10523,7 +10531,7 @@ a.editable-click.editable-disabled:hover {
     display: inline-block;
     overflow: hidden;
     text-align: right;
-    padding-right: 0;
+    padding: 0 1.5em;
     z-index: 9999;
     vertical-align: middle;
     zoom: 1;
@@ -10531,6 +10539,19 @@ a.editable-click.editable-disabled:hover {
     margin: 0 -3px;
   }
   /* line 78, ../sass/_site.menu.scss */
+  .centered-navigation ul li.nav-link:hover {
+    background: url('/images/line-title.png?1431071906') no-repeat bottom;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+  }
+  /* line 81, ../sass/_site.menu.scss */
+  .centered-navigation ul li.nav-link:hover a {
+    color: #fc0;
+    text-decoration: none;
+  }
+  /* line 86, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link #profession {
     font-family: "Verdana", "Geneva", sans-serif;
     font-size: 10px;
@@ -10540,7 +10561,7 @@ a.editable-click.editable-disabled:hover {
     display: block;
     font-style: normal;
   }
-  /* line 87, ../sass/_site.menu.scss */
+  /* line 95, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a {
     font-size: 16px;
     font-size: 1rem;
@@ -10554,32 +10575,18 @@ a.editable-click.editable-disabled:hover {
     zoom: 1;
     *display: inline;
     text-decoration: none;
-    padding: 50px 1.5em 0;
+    padding: 50px 0 0;
   }
-  /* line 99, ../sass/_site.menu.scss */
-  .centered-navigation ul li.nav-link a:hover {
-    -webkit-box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
-    box-shadow: inset 0 0 0 60px rgba(42, 42, 42, 0.24);
-    color: #fc0;
-    text-decoration: none;
-    background: rgba(71, 28, 77, 0.67);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
-    background: url('/images/line-title.png?1431006379') no-repeat bottom;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    -webkit-background-size: 100%;
-    background-size: 100%;
-  }
-  /* line 108, ../sass/_site.menu.scss */
+  /* line 107, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:active {
     color: #fff5cc;
     text-decoration: none;
   }
-  /* line 112, ../sass/_site.menu.scss */
+  /* line 111, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:visited {
     text-decoration: none;
   }
-  /* line 115, ../sass/_site.menu.scss */
+  /* line 114, ../sass/_site.menu.scss */
   .centered-navigation ul li.nav-link a:first-letter {
     color: #FF0000;
     font-family: "Marck Script", "Georgia", cursive;
@@ -10589,24 +10596,24 @@ a.editable-click.editable-disabled:hover {
     line-height: 2.4rem;
     text-shadow: #191919 2px 2px 5px;
   }
-  /* line 123, ../sass/_site.menu.scss */
+  /* line 122, ../sass/_site.menu.scss */
   .centered-navigation ul li.current {
-    background: url('/images/line-title.png?1431006379') no-repeat bottom;
+    background: url('/images/line-title.png?1431071906') no-repeat bottom;
     -moz-background-size: 100%;
     -o-background-size: 100%;
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-  /* line 124, ../sass/_site.menu.scss */
+  /* line 123, ../sass/_site.menu.scss */
   .centered-navigation ul li.current a {
     color: #fc0;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
   }
-  /* line 132, ../sass/_site.menu.scss */
+  /* line 131, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:first-child {
     margin-top: -10px;
   }
-  /* line 134, ../sass/_site.menu.scss */
+  /* line 133, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:first-child .line-head {
     background: url('/images/line-head.png?1431006487') no-repeat 0 0;
     -moz-background-size: 100%;
@@ -10619,31 +10626,36 @@ a.editable-click.editable-disabled:hover {
     height: 14px;
     z-index: 1;
   }
-  /* line 144, ../sass/_site.menu.scss */
-  .centered-navigation .nav-link:nth-child(2) {
-    margin-left: 50px;
+  /* line 142, ../sass/_site.menu.scss */
+  .centered-navigation .nav-link:first-child:hover {
+    background: none;
   }
-  /* line 145, ../sass/_site.menu.scss */
+  /* line 146, ../sass/_site.menu.scss */
+  .centered-navigation .nav-link:nth-child(2) {
+    margin-left: 3.125em;
+    padding-left: 0.75em;
+  }
+  /* line 147, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(2) a {
     width: 5.125em;
   }
-  /* line 151, ../sass/_site.menu.scss */
+  /* line 154, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(3) a {
     width: 5.625em;
   }
-  /* line 156, ../sass/_site.menu.scss */
+  /* line 159, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(4) a {
     width: 5.625em;
   }
-  /* line 161, ../sass/_site.menu.scss */
+  /* line 164, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(5) a {
     width: 4.5em;
   }
-  /* line 166, ../sass/_site.menu.scss */
+  /* line 169, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(6) a {
     width: 3.688em;
   }
-  /* line 171, ../sass/_site.menu.scss */
+  /* line 174, ../sass/_site.menu.scss */
   .centered-navigation .nav-link:nth-child(7) a {
     width: 4.375em;
   }
