@@ -8,7 +8,7 @@ if(is_bot()) die();
 
 // Selecting the top 15 countries with the most visitors:
 
-$result = $db->rawQuery("SELECT countryCode,country, COUNT(*) AS total
+$result = db()->rawQuery("SELECT countryCode,country, COUNT(*) AS total
 						FROM tz_who_is_online
 						GROUP BY countryCode
 						ORDER BY total DESC

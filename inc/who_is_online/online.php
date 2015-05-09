@@ -9,8 +9,8 @@ $stringIp = ip();
 $intIp = ip2long($stringIp);
 
 // Checking wheter the visitor is already marked as being online:
-$db->where("ip", $intIp);
-$inDB = $db->getOne("tz_who_is_online", '1');
+db()->where("ip", $intIp);
+$inDB = db()->getOne("tz_who_is_online", '1');
 
 
 if(!count($inDB))
@@ -74,20 +74,20 @@ if(!count($inDB))
 		'countrycode' => $countryAbbrev,
 		'city' => $city
 	];
-	$db->insert("tz_who_is_online", $values);
+	db()->insert("tz_who_is_online", $values);
 }
 else
 {
 	// If the visitor is already online, just update the dt value of the row:
-	$db->rawQuery("UPDATE tz_who_is_online SET dt=NOW() WHERE ip=".$intIp);
+	db()->rawQuery("UPDATE tz_who_is_online SET dt=NOW() WHERE ip=".$intIp);
 
 }
 
 // Removing entries not updated in the last 10 minutes:  Now()
-$db->where("Unix_timestamp(dt)", (time() - 600), "<");
-$db->delete("tz_who_is_online");
+db()->where("Unix_timestamp(dt)", (time() - 600), "<");
+db()->delete("tz_who_is_online");
 
 // Counting all the online visitors:
-$number = $db->getOne ("tz_who_is_online", "count(*) as online");
+$number = db()->getOne ("tz_who_is_online", "count(*) as online");
 
 echo ('<span id="online">'. $number["online"] . '</span>');

@@ -17,8 +17,8 @@ if(isset($_GET['id'])) {
 	$token = NULL;
 }
 
-$db->where("teg_id", $token);
-$query = $db->getOne("spec_category", 'text');
+db()->where("teg_id", $token);
+$query = db()->getOne("spec_category", 'text');
 
 
 

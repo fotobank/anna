@@ -55,8 +55,8 @@ if(isset($_GET['location'])) {
 
 if($id && $table) {
 
-$db->where("id", $id);
-$query = $db->getOne($table, 'text');
+	db()->where("id", $id);
+$query = db()->getOne($table, 'text');
 
 
 
