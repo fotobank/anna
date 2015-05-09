@@ -10,7 +10,7 @@
 
 class autoload {
 
-	 static private $instance = NULL;
+	// static private $instance = NULL;
 
 	/**
 	 * function Singleton
@@ -20,14 +20,14 @@ class autoload {
 	 *
 	 */
 
-	static function getInstance() {
+	/*static function getInstance() {
 		if ( self::$instance == NULL ) {
 			self::$instance = new autoload();
 		}
 		return self::$instance;
-	}
+	}*/
 
-//	use Singleton;
+	use Singleton;
 
 	/**
 	 *
@@ -35,7 +35,7 @@ class autoload {
 	public function init() {
 
 		if ( version_compare( phpversion(), '5.3.0', '<' ) == true ) {
-			die ( 'PHP5.3 Only' );
+			die ( 'autoload::init -> PHP5.3 Only' );
 		}
 		// Константы:
 		define ( 'DIRSEP', DIRECTORY_SEPARATOR );
