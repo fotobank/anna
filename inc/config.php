@@ -9,14 +9,18 @@ ob_start();
  */
 include( __DIR__ . '/func.php' );
 include (__DIR__ . "/../classes/traites/Singleton.php");
+
+/** @noinspection PhpIncludeInspection */
+include (__DIR__.'/../classes/autoload.php');
+autoload::getInstance()->init();
+
 if ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" )) {
 
 	ini_set( 'display_errors', 1 );
 	ini_set( 'display_startup_errors', 1 );
 	error_reporting( - 1 ); //обычно должно хватить только этой строки E_ALL
 	define( 'DEBUG_MODE', true ); // показ ошибок на монитор
-	include( __DIR__ . '/../classes/Ubench/Test.php' );  // профилирование
-	Ubench_Test::getInstance()->start();
+	Registry::factory("Ubench_Test")->start(); // профилирование
 } else {
 
 	ini_set( 'display_errors', 0 );
@@ -40,16 +44,11 @@ if ( ! defined( 'SITE_PATH' ) ) {
 	define( 'SITE_PATH', realpath( __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR );
 }
 
-/** @noinspection PhpIncludeInspection */
-include( SITE_PATH . 'classes/Alex/Security.php' );
+new Alex_Security(); // защита
 
 if ( ! defined( 'CODE_PAGE' ) ) {
 	define( 'CODE_PAGE', detect_encoding(implode(glob(SITE_PATH . 'inc/кодировка файловой системы.codepage'))));
 }
-
-/** @noinspection PhpIncludeInspection */
-include (SITE_PATH .'classes/autoload.php');
-autoload::getInstance()->init();
 
 // mustache
 /** @noinspection PhpIncludeInspection */
@@ -110,7 +109,7 @@ if ( ! function_exists( 'v_dump' ) ) {
 // echo fatal(); // Fatal Error.
 /** -------------------------------------------------------------------------------------------*/
 
-// эти значения рекомендуется не изменять
+// эти значения рекомендуется не изменять - для гостевой
 $GLOBALS['tbl_posts']	=	"gb_posts";		// имя таблицы с сообщениями
 $GLOBALS['tbl_replies']	=	"gb_replies";	// имя таблицы с ответами
 $GLOBALS['tbl_users']	=	"gb_users";		// имя таблицы с модераторами

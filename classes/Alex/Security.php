@@ -1011,7 +1011,6 @@ class Alex_Security {
 
 } // end of class
 
-$AlexSecurity = new Alex_Security();
 
 /**
  * Alex_selfchk()

@@ -75,14 +75,7 @@ header( 'Content-type: text/html; charset=windows-1251' );
 			$this->debug_mode     = DEBUG_MODE;
 			$this->auto_copyright = auto_copyright( '2011' );
 			$this->PHP_SESSID     = isset( $_COOKIE['PHPSESSID'] ) ? $_COOKIE['PHPSESSID'] : ip();
-			// профилирование
-			if ( DEBUG_MODE ) {
-				$bench = Ubench_Test::getInstance();
-				$bench->end();
-				$this->getTime        = $bench->getTime();
-				$this->getMemoryPeak  = $bench->getMemoryPeak();
-				$this->getMemoryUsage = $bench->getMemoryUsage();
-			}
+
 		}
 
 		private function _lite_box() {

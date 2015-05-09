@@ -11662,13 +11662,7 @@ footer .social {
   z-index: 1;
   position: relative;
 }
-/* line 216, ../sass/inc/_core.scss */
-footer .social .texno {
-  position: absolute;
-  bottom: 30px;
-  right: 0;
-}
-/* line 222, ../sass/inc/_core.scss */
+/* line 217, ../sass/inc/_core.scss */
 footer .container {
   width: 100%;
   z-index: 0;
@@ -11681,23 +11675,23 @@ footer .container {
   footer {
     height: 17.5em;
   }
-  /* line 234, ../sass/inc/_core.scss */
+  /* line 229, ../sass/inc/_core.scss */
   footer .social {
     padding: 50px 5px 0;
   }
-  /* line 237, ../sass/inc/_core.scss */
+  /* line 232, ../sass/inc/_core.scss */
   footer .container {
     clear: both;
   }
 }
 
-/* line 243, ../sass/inc/_core.scss */
+/* line 238, ../sass/inc/_core.scss */
 * html footer {
   bottomy: expression(parentNode.offsetHeight % 2 ? style.bottom="-1px" : style.bottom="0px");
   /* хак для ие6, у которого есть косяк со смещением на 1px */
 }
 
-/* line 247, ../sass/inc/_core.scss */
+/* line 242, ../sass/inc/_core.scss */
 .header {
   border-color: #E3E2E0;
   background: #E3C37F none repeat scroll 0 0;
@@ -11709,11 +11703,11 @@ footer .container {
   font-size: 13px;
 }
 
-/* line 260, ../sass/inc/_core.scss */
+/* line 255, ../sass/inc/_core.scss */
 td.header span {
   text-decoration: underline;
 }
-/* line 263, ../sass/inc/_core.scss */
+/* line 258, ../sass/inc/_core.scss */
 td.header a {
   color: #202021;
   outline: medium none;
@@ -19960,4 +19954,11 @@ div.google-stats {
   position: relative;
   margin-top: 15px;
   float: right;
+}
+
+/* line 1285, ../sass/style.scss */
+.texno {
+  position: absolute;
+  z-index: 9999;
+  margin: -110px 0 0 -50px;
 }

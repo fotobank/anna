@@ -10,27 +10,10 @@
 
 class autoload {
 
-	// static private $instance = NULL;
-
-	/**
-	 * function Singleton
-	 * Создание объекта в единственном экземпляре
-	 *
-	 * @return  autoload|null
-	 *
-	 */
-
-	/*static function getInstance() {
-		if ( self::$instance == NULL ) {
-			self::$instance = new autoload();
-		}
-		return self::$instance;
-	}*/
-
 	use Singleton;
 
 	/**
-	 *
+	 *  инициализация
 	 */
 	public function init() {
 
@@ -123,21 +106,6 @@ class autoload {
 			}
 		}
 		return true;
-	}
-
-	function __destruct() {
-	}
-
-	/**
-	 *  __clone()
-	 */
-	protected function __clone() {
-	}
-
-	/**
-	 *  __wakeup()
-	 */
-	protected function __wakeup() {
 	}
 
 }

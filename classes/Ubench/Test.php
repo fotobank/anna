@@ -34,7 +34,6 @@ class Ubench_Test
 
     protected static $memory_usage;
 
-	use Singleton;
 
     /**
      * Sets start microtime
@@ -53,7 +52,6 @@ class Ubench_Test
     {
 		self::$end_time = microtime(true);
 		self::$memory_usage = memory_get_usage(true);
-		return Ubench_Test::getInstance();
     }
 
     /**
@@ -148,4 +146,14 @@ class Ubench_Test
 
         return sprintf($format,$time, " ".$unit);
     }
+
+	public function __destruct() {
+
+		self::end();
+		$ret = "<span class='texno'>Время: " . self::getTime() . " / ";
+		$ret .= "Память пиковая: " . self::getMemoryPeak() . " / ";
+		$ret .= "Память конечная: " . self::getMemoryUsage() . "</span>";
+
+		echo $ret;
+	}
 }

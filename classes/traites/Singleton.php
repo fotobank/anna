@@ -47,4 +47,29 @@ trait Singleton
 		}
 		return $instance;
 	}
+
+	/**
+	 *  __construct()
+	 */
+	private function __construct() {
+
+}
+
+	/**
+	 *  __destruct()
+	 */
+	function __destruct() {
+	}
+
+	/**
+	 *  __clone()
+	 */
+	protected function __clone() {
+	}
+
+	/**
+	 *  __wakeup()
+	 */
+	protected function __wakeup() {
+	}
 }
