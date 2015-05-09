@@ -60,7 +60,7 @@
 	<td>
 	</td>
 	<td>
-		<div class="link-3 fright">{REFRESH_LINK} {ADMIN_LINK}</div>
+		<div class="fright">{REFRESH_LINK} {ADMIN_LINK}</div>
 	</td>
 	<td>
 		<label class="label-submit" >

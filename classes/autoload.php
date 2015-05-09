@@ -6,12 +6,11 @@
  * Time: 13:52
  * To change this template use File | Settings | File Templates.
  */
-//    require_once (__DIR__.'/../classes/go/DB/autoload.php');
-// автозагрузка классов
+
 
 class autoload {
 
-	static private $instance = NULL;
+	 static private $instance = NULL;
 
 	/**
 	 * function Singleton
@@ -28,11 +27,12 @@ class autoload {
 		return self::$instance;
 	}
 
+//	use Singleton;
 
 	/**
 	 *
 	 */
-	protected function __construct() {
+	public function init() {
 
 		if ( version_compare( phpversion(), '5.3.0', '<' ) == true ) {
 			die ( 'PHP5.3 Only' );
@@ -42,16 +42,18 @@ class autoload {
 		if(!defined('SITE_PATH')) {
 			define ( 'SITE_PATH',  realpath( __DIR__ . DIRSEP . '..' . DIRSEP ) . DIRSEP );
 		}
-		// Узнаём путь до файлов сайта
-
-
 
 		spl_autoload_extensions( ".php" );
-		spl_autoload_register( [ "autoload", "autoload_class" ] );
-	//	spl_autoload_register(array("autoload", "autoloadController"));
-	//	spl_autoload_register(array("autoload", "__autoload")); // новый автолоад
+	//	spl_autoload_register( [ "autoload", "autoload_class" ] );
+	//	spl_autoload_register( [ "autoload", "autoloadController" ] );
+		spl_autoload_register( [ "autoload", "__autoload" ] ); // новый автолоад
 	}
 
+	/**
+	 * @param $className
+	 *
+	 * @return bool
+	 */
 	protected function autoload_class($className) {
 		$className = ltrim( $className, '\\' );
 		$fileName  = '';
@@ -79,6 +81,9 @@ class autoload {
 		return true;
 	}
 
+	/**
+	 * @param $className
+	 */
 	protected function autoloadController($className) {
 		$filename = "controllers/" . $className . ".php";
 		if (is_readable($filename)) {
@@ -86,9 +91,14 @@ class autoload {
 		}
 	}
 
+	/**
+	 * @param $className
+	 *
+	 * @return bool
+	 */
 	function __autoload($className) {
-		$extensions = array(".php", ".class.php");
-		$paths = array("classes", "inc");
+		$extensions = [ ".php", ".class.php" ];
+		$paths = [ "classes", "inc", "classes/traites" ];
 
 		if ( $lastNsPos = strrpos( $className, '\\' ) ) {
 			$namespace = substr( $className, 0, $lastNsPos );

@@ -1,4 +1,5 @@
 <?php
+
 require( __DIR__ . '/inc/config.php' ); // ñòàğò ñåññèè, àâòîëîàäåğ, ïîäêëş÷åíèå áàçû, îáğàáîò÷èê îøèáîê, ôàéë ôóíêöèé
 require( __DIR__ . '/inc/carosel.php' );
 require( __DIR__ . '/inc/file_news.php' );
@@ -12,7 +13,7 @@ if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {
 }
 /**==================================================================*/
 
-$data = new ajaxSite_web_indexPage();
+$data = new core_index_page();
 
 echo $mustache->render( 'index', $data );
 

@@ -76,6 +76,9 @@ a.editable-click.editable-disabled:hover {
 	  background: image_url("line-title-bottom.png") no-repeat bottom;
 	  @include background-size(100%);
 }
+.col-5 .bb-img-red {
+	  height: 2.4em;
+}
 .col-8 .bb-img-red,.col-9 .bb-img-red {
 	  height: 26px;
 }
@@ -91,6 +94,9 @@ a.editable-click.editable-disabled:hover {
 }
 .col-13 .bb-img-red,.col-15 .bb-img-red {
 	  height: 25px;
+}
+.social .bb-img-red {
+	  height: 2.4em;
 }
 .ic {
 	  border: 0;
@@ -118,24 +124,111 @@ a.editable-click.editable-disabled:hover {
 	  @include font-size(11);
 	  line-height: 20px;
 	  font-style: italic;
-	  &:hover {
-			color: #f7e35c;
-			text-decoration: underline;
-	  }
 }
 
-.link-2 {
-	  color: $text_color;
-	  text-decoration: underline;
-	  &:hover {
-			color: $text_color;
-			text-decoration: underline;
-	  }
+a.link-1:before {
+	  color: transparent;
+	  content: "Х";
+	  font-size: 1.2em;
+	  left: 50%;
+	  pointer-events: none;
+	  position: absolute;
+	  text-shadow: 0 0 transparent;
+	  top: 50%;
+	  transform: translateX(-50%);
+	  transition: text-shadow 0.3s ease 0s, color 0.3s ease 0s;
+}
+a.link-1:hover:before , a.link-1:focus:before {
+	  color: #fff;
+	  text-shadow: 10px 0 #fff, -10px 0 #fff;
 }
 
-.link-3 {
+a.link-2 {
+	  padding: 0 0 10px;
+}
+
+a.link-3 {
 	  font-family: "Times New Roman", Times, serif;
-	  @include font-size(16);
+	  @include font-size(11);
+	  color: $link3-color-normal;
+	  text-shadow: 0 0 1px rgba(111, 134, 134, 0.3);
+	  text-decoration: none;
+	  text-transform: uppercase;
+
+	  padding: 0 0 10px;
+}
+
+a.link-3:hover, a.link-3:focus {
+	  color: $link-color-hover;
+}
+a.link-2:after, a.link-3:after {
+	  background: none repeat scroll 0 0 #fff;
+	  content: "";
+	  height: 1px;
+	  left: 0;
+	  opacity: 0;
+	  position: absolute;
+	  top: 60%;
+	  transform: translateY(-10px);
+	  transition: height 0.3s ease 0s, opacity 0.3s ease 0s, transform 0.3s ease 0s;
+	  width: 100%;
+}
+a.link-2:hover:after, a.link-2:focus:after, a.link-3:hover:after, a.link-3:focus:after {
+	  height: 1px;
+	  opacity: 1;
+	  transform: translateY(0px);
+}
+a.link-4 {
+	  color: $link4-color-normal;
+	  text-shadow: 0 0 1px rgba(111, 134, 134, 0.3);
+}
+a.link-4:before {
+	  color: $link-color-hover;
+	  content: attr(data-hover);
+	  opacity: 0;
+	  pointer-events: none;
+	  position: absolute;
+	  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+	  transform: scale(1.1) translateX(10px) translateY(-10px) rotate(4deg);
+	  transition: transform 0.3s ease 0s, opacity 0.3s ease 0s;
+}
+a.link-4:hover:before, a.link-4:focus:before {
+	  opacity: 1;
+	  transform: scale(1) translateX(0px) translateY(0px) rotate(0deg);
+}
+
+a.link-5 {
+	  color: $link5-color-normal;
+	  font-weight: 700;
+	  padding: 5px;
+	  text-shadow: none;
+	  transition: color 0.3s ease 0s;
+}
+a.link-5:before, a.link-5:after {
+	  background: none repeat scroll 0 0 #ccc;
+	  content: "";
+	  height: 2px;
+	  left: 0;
+	  opacity: 0;
+	  position: absolute;
+	  transform: translateY(-5px);
+	  transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
+	  width: 100%;
+}
+a.link-5:before {
+	  top: 0;
+	  transform: translateY(-5px);
+}
+a.link-5:after {
+	  bottom: 0;
+	  transform: translateY(5px);
+}
+a.link-5:hover, a.link-5:focus {
+	  color: #ccc;
+}
+a.link-5:hover:before, a.link-5:focus:before, a.link-5:hover:after, a.link-5:focus:after {
+	  opacity: 1;
+	  transform: translateY(0px);
 }
 
 .komment {
@@ -1137,11 +1230,7 @@ li h4 {
 .editable-pre-wrapped {
 	  white-space: pre-line;
 }
-.add-share {
-	  position: relative;
-	  margin-top: 15px;
-	  float: right;
-}
+
 // спр€тать точку от google
 div.google-stats {
 	  display:inline;
@@ -1185,4 +1274,10 @@ div.google-stats {
 }
 .button_img:active, .button_img_on:active, .button_img_off:active {
 	  background-position: 0 -48px;
+}
+
+.add-share {
+	  position: relative;
+	  margin-top: 15px;
+	  float: right;
 }

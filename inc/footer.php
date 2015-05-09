@@ -12,13 +12,12 @@ require( __DIR__ . '/online_widget.php' );
 <!--==============================соцсети================================-->
 <div class='social'>
 				<div class="h-mod">
-					<div class="h-mod">
 						<div class="bb-img-red">
 				<h3>Поделиться с друзьями:</h3>
-							</div></div>
+							</div>
 					<?
 if ( DEBUG_MODE == true ) {
-	$bench->end();
+	$bench = Ubench_Test::getInstance()->end();
 	echo "<span class='texno'>Время: " . $bench->getTime() . " / ";
 	echo "Память пиковая: " . $bench->getMemoryPeak() . " / ";
 	echo "Память конечная: " . $bench->getMemoryUsage() . "</span>";

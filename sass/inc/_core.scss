@@ -69,17 +69,21 @@ a {
 	  text-decoration: none;
 	  outline: none;
 	  cursor: pointer;
-	  // 1. normal
-	  // 2. hover
-	  // 3. active
-	  // 4. visited
-	  // 5. focus
-	  @include link-colors(#7DADE0, #d7a100, #ffcb00, #7dade0, #7dade0);
+	  display: inline-block;
+	  position: relative;
+
+	  @include link-colors(
+			  $link-color-normal,
+			  $link-color-hover,
+			  $link-color-active,
+			  $link-color-visited,
+			  $link-color-focus
+	  );
 	  @include a-clear();
 	  img {
 			border: none;
 	  }
-	  &.clr-1{
+	  &.clr-1 {
 			color: #e7b400;
 			font-family: $georgia;
 	  }
@@ -122,6 +126,7 @@ a {
 			}
 	  }
 }
+
 h1 {
 	  @include font-stack-headers-h1;
 	  float: left;
@@ -172,11 +177,13 @@ h4 {
 	  height: 100%;
 	  margin: 0 auto;
 }
+
 #top-inset {
 	  min-height: 100px;
-	  background:transparent;
+	  background: transparent;
 	  float: none;
 }
+
 #main {
 	  margin: 30px auto 0;
 	  //noinspection CssInvalidPropertyValue
@@ -187,7 +194,7 @@ h4 {
 
 #bottom-inset {
 	  min-height: 200px;
-	  background:transparent;
+	  background: transparent;
 	  float: none;
 }
 
@@ -228,13 +235,15 @@ footer {
 				  padding: 50px 5px 0;
 			}
 			.container {
-clear: both;
+				  clear: both;
 			}
 	  }
 }
+
 * html footer {
-	  bottomy:expression(parentNode.offsetHeight % 2 ? style.bottom="-1px" : style.bottom="0px"); /* хак для ие6, у которого есть косяк со смещением на 1px */
+	  bottomy: expression(parentNode.offsetHeight % 2 ? style.bottom="-1px" : style.bottom="0px"); /* хак для ие6, у которого есть косяк со смещением на 1px */
 }
+
 .header {
 	  border-color: #E3E2E0;
 	  background: #E3C37F none repeat scroll 0 0;
@@ -246,6 +255,7 @@ clear: both;
 	  font-size: 13px;
 
 }
+
 td.header {
 	  span {
 			text-decoration: underline;

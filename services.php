@@ -48,7 +48,7 @@ $tpl = $mustache->loadTemplate('services');
 
 
 
-/*$services = new init\classServices([
+/*$services = new init\servicesPage([
 	'edit' => false,
     'names' => true,
 	'data' => true,

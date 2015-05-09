@@ -7,15 +7,16 @@ ob_start();
  * Date: 12.07.14
  * Time: 7:18
  */
-require_once( __DIR__ . '/func.php' );
+include( __DIR__ . '/func.php' );
+include (__DIR__ . "/../classes/traites/Singleton.php");
 if ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" )) {
 
 	ini_set( 'display_errors', 1 );
 	ini_set( 'display_startup_errors', 1 );
 	error_reporting( - 1 ); //обычно должно хватить только этой строки E_ALL
 	define( 'DEBUG_MODE', true ); // показ ошибок на монитор
-	require_once( __DIR__ . '/../classes/Ubench/Test.php' );  // профилирование
-	$bench = Ubench_Test::getInstance();
+	include( __DIR__ . '/../classes/Ubench/Test.php' );  // профилирование
+	Ubench_Test::getInstance()->start();
 } else {
 
 	ini_set( 'display_errors', 0 );
@@ -40,7 +41,7 @@ if ( ! defined( 'SITE_PATH' ) ) {
 }
 
 /** @noinspection PhpIncludeInspection */
-require_once( SITE_PATH . 'classes/Alex/Security.php' );
+include( SITE_PATH . 'classes/Alex/Security.php' );
 
 if ( ! defined( 'CODE_PAGE' ) ) {
 	define( 'CODE_PAGE', detect_encoding(implode(glob(SITE_PATH . 'inc/кодировка файловой системы.codepage'))));
@@ -48,7 +49,7 @@ if ( ! defined( 'CODE_PAGE' ) ) {
 
 /** @noinspection PhpIncludeInspection */
 include (SITE_PATH .'classes/autoload.php');
-autoload::getInstance();
+autoload::getInstance()->init();
 
 // mustache
 /** @noinspection PhpIncludeInspection */

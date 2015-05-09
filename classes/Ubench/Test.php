@@ -22,6 +22,7 @@
  * THE SOFTWARE.
  */
 
+
 /**
  * Class Ubench_Test
  */
@@ -33,70 +34,26 @@ class Ubench_Test
 
     protected static $memory_usage;
 
-	private static $instance;
-
-	/**
-	 * Возвращает экземпляр себя
-	 *
-	 * @return self
-	 */
-	public static function getInstance()
-	{
-		if (!(self::$instance instanceof self)) {
-
-			self::$instance = new self();
-			self::start();
-		}
-		return self::$instance;
-	}
-
-	/**
-	 * Конструктор закрыт
-	 */
-	private function __construct()
-	{
-	}
-
-	/**
-	 * Клонирование запрещено
-	 */
-	private function __clone()
-	{
-	}
-
-	/**
-	 * Сериализация запрещена
-	 */
-	private function __sleep()
-	{
-	}
-
-	/**
-	 * Десериализация запрещена
-	 */
-	private function __wakeup()
-	{
-	}
+	use Singleton;
 
     /**
      * Sets start microtime
      *
      * @return void
      */
-	private static function start()
+	public static function start()
     {
 		self::$start_time = microtime(true);
     }
 
-    /**
-     * Sets end microtime
-     *
-     * @return void
-     */
+	/**
+	 * @return mixed
+	 */
     public static function end()
     {
 		self::$end_time = microtime(true);
 		self::$memory_usage = memory_get_usage(true);
+		return Ubench_Test::getInstance();
     }
 
     /**
