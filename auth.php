@@ -1,5 +1,5 @@
 <?
-include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
+require(__DIR__ .'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 $db = Mysqli_Db::getInstance(Mysqli_Db::get_param());
 
 $tpl = new Comments_Template("classes/Comments/_templates/");

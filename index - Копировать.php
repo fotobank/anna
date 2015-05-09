@@ -1,5 +1,5 @@
 <?php
-require( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
+require(__DIR__ .'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 require( __DIR__ . '/inc/head.php' );
 require( __DIR__ . '/inc/carosel.php');
 

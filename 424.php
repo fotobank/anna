@@ -5,7 +5,7 @@
  * Date: 16.07.14
  * Time: 0:26
  */
-include( __DIR__ . '/inc/config.php' ); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
+require (__DIR__ .'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 include_once( __DIR__ . '/inc/head.php' );
 ?>
 	<link rel="stylesheet" href="/css/404.css" media="screen" type="text/css" />

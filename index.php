@@ -1,9 +1,12 @@
 <?php
 
-require( __DIR__ . '/inc/config.php' ); // ñòàğò ñåññèè, àâòîëîàäåğ, ïîäêëş÷åíèå áàçû, îáğàáîò÷èê îøèáîê, ôàéë ôóíêöèé
-require( __DIR__ . '/inc/carosel.php' );
-require( __DIR__ . '/inc/file_news.php' );
-require( __DIR__ . '/inc/title.php' ); // òèòğû â ğàçäåëàõ äëÿ ÑÅÎ
+require( __DIR__ . '/system/config/config.php'); // ñòàğò ñåññèè, àâòîëîàäåğ, ïîäêëş÷åíèå áàçû, îáğàáîò÷èê îøèáîê, ôàéë ôóíêöèé
+/** @noinspection PhpIncludeInspection */
+require( SITE_PATH . 'inc/carosel.php' );
+/** @noinspection PhpIncludeInspection */
+require( SITE_PATH . 'inc/file_news.php' );
+/** @noinspection PhpIncludeInspection */
+require( SITE_PATH . 'inc/title.php' ); // òèòğû â ğàçäåëàõ äëÿ ÑÅÎ
 
 header( 'Content-type: text/html; charset=windows-1251' );
 /**==========================äëÿ ğàçäåëà "îòçûâû"====================*/
@@ -13,7 +16,8 @@ if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {
 }
 /**==================================================================*/
 
-$data = new core_index_page();
+
+$data = new index\IndexPage();
 
 echo $mustache->render( 'index', $data );
 

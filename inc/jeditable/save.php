@@ -1,6 +1,6 @@
 <?php
 
-require_once (__DIR__ .'/../../inc/config.php');
+require (__DIR__ .'/../../system/config/config.php');
 
 /*
  Check submitted value

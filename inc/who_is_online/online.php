@@ -1,5 +1,5 @@
 <?php
-require( __DIR__ . '/../../inc/config.php' );
+require (__DIR__ .'/../../system/config/config.php');
 require "functions.php";
 
 // We don't want web bots scewing our stats:

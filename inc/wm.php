@@ -11,7 +11,7 @@ $path = isset( $_GET['img'] ) ? $_GET['img'] : FALSE;
 
 if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)$#i', $path ) ) {
 
-	require_once ( __DIR__ .'/config.php');
+	require ( __DIR__ .'/../system/config/config.php');
 	if ( CODE_PAGE == 'utf-8' ) $path = iconv( 'windows-1251', 'utf-8', $path );
 
 	$dirname = $basename = '';

@@ -112,11 +112,10 @@ a.editable-click.editable-disabled:hover {
 }
 
 .link {
-	  color: $text_color;
 	  text-decoration: underline;
 	  &:hover {
 			color: #fff;
-			text-decoration: underline;
+			text-decoration: none;
 	  }
 }
 
@@ -532,7 +531,8 @@ dl {
 }
 .e-mail {
 	  background: image-url('email.png') no-repeat left;
-	  padding-left: 16px;
+	  padding-left: 8px;
+	  margin-left: 8px;
 }
 .clr-1 {
 	  color: #dddddd;

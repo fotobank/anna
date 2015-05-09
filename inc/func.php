@@ -1441,12 +1441,3 @@ function is_ajax() {
 	return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 
 }
-
-/**
- * @return bool
- */
-function ajax_test()
-{
-	$rq = filter_input(5, 'HTTP_X_REQUESTED_WITH');
-	return $rq === 'xmlhttprequest';
-}

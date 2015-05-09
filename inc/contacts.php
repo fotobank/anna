@@ -53,14 +53,14 @@ defined( '_SECUR' ) or die( 'Доступ запрещен' );
 			<dd class="clr-1">
 				<p>
 					<span>Рабочий:</span>
-					<a onclick="goog_report_conversion('tel: 094-95-53-167');return false;" href="#">
+					<a class="link" onclick="goog_report_conversion('tel: 094-95-53-167');return false;" href="#">
 						<span class="phone">(094)95-53-167</span></a>
 				</p>
 			</dd>
 			<dd class="clr-1">
 				<p>
 					<span>Мобильный:</span>
-					<a onclick="goog_report_conversion('tel: 067-76-84-086');return false;" href="#">
+					<a class="link" onclick="goog_report_conversion('tel: 067-76-84-086');return false;" href="#">
 						<span class="phone">(067)76-84-086</span>
 					</a>
 				</p>
@@ -68,22 +68,23 @@ defined( '_SECUR' ) or die( 'Доступ запрещен' );
 			<dd>Или пишите:</dd>
 			<dd class="clr-1">
 				<p><span>E-mail:</span>
-					<a href="#" class="link e-mail">
+					<span>
 						<script type="text/javascript">
+							var cl = 'class="link e-mail"';
 							var xv1 = 'ailt';
 							var xv2 = 'hre';
 							var xv3 = 'f="m';
 							var xv4 = 'o:';
 							var xv5 = 'bestfoto';
 							var xv6 = 'i.ua';
-							document.write('<a ' + xv2 + xv3 + xv1 + xv4 + xv5 + '@' + xv6 + '">' + 'bestfoto' + '@' + xv6 + '</a>');
+							document.write('<a ' + cl + xv2 + xv3 + xv1 + xv4 + xv5 + '@' + xv6 + '">' + 'bestfoto' + '@' + xv6 + '</a>');
 						</script>
-					</a>
+					</span>
 				</p>
 			</dd>
 		</dl>
 		<div class="add-share">
-			<a href="#" onclick="return add_favorite(this);">Добавить в Избранное</a>
+			<a class="link-5" href="#" onclick="return add_favorite(this);">Добавить в Избранное</a>
 		</div>
 	</div>
 

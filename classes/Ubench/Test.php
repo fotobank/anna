@@ -35,6 +35,13 @@ class Ubench_Test
     protected static $memory_usage;
 
 
+	/**
+	 * старт
+	 */
+	function __construct() {
+		self::start();
+	}
+
     /**
      * Sets start microtime
      *
