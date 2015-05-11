@@ -58,6 +58,7 @@ class Registry {
 	 * @return object
 	 */
 	public static function factory( $class_name, $data = false ) {
+
 		if ( class_exists( $class_name ) ) {
 
 			if ( empty( self::getInstance()->_registry[$class_name] ) ) {
