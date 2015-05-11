@@ -6,9 +6,9 @@ if(session_id() == '')
 header( 'Content-type: text/html; charset=windows-1251' );
 
 /**
- * Class ajaxSite_EditBody
+ * Class EditBody
  */
-class ajaxSite_EditBody{
+class EditBody{
 
 	private $data;
 	protected $admin = false;
@@ -104,7 +104,7 @@ class ajaxSite_EditBody{
 	 * @return object
 	 */
 	protected static function db() {
-		return Mysqli_Db::getInstance( Mysqli_Db::get_param());
+		return Db::getInstance( Db::get_param());
 	}
 
 	/**

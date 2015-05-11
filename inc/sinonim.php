@@ -34,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	   }
 	}
 	$row=preg_replace("/[\r\n\s]+/"," ",$row);
-	Inter_Error::var_dump('row');
+	Error::var_dump('row');
 }
 ?>
 <BR>

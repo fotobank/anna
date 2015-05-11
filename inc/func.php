@@ -51,14 +51,14 @@ function sklon( $num, $p ) {
 	$numret = (int) $num;
 	$num    = (int) abs( $num );
 
-	$name = array(
-		'y' => array( 'год', 'года', 'лет' ),
-		'm' => array( 'мес€ц', 'мес€ца', 'мес€цев' ),
-		'd' => array( 'день', 'дн€', 'дней' ),
-		'h' => array( 'час', 'часа', 'часов' ),
-		'i' => array( 'минута', 'минуты', 'минут' ),
-		's' => array( 'секунда', 'секунды', 'секунд' )
-	);
+	$name = [
+		'y' => [ 'год', 'года', 'лет' ],
+		'm' => [ 'мес€ц', 'мес€ца', 'мес€цев' ],
+		'd' => [ 'день', 'дн€', 'дней' ],
+		'h' => [ 'час', 'часа', 'часов' ],
+		'i' => [ 'минута', 'минуты', 'минут' ],
+		's' => [ 'секунда', 'секунды', 'секунд' ]
+	];
 
 	if ( !array_key_exists( $p, $name ) ) return $num;
 
@@ -99,7 +99,7 @@ function pluralForm( $n, $form1, $form2, $form5 ) {
  * @return mixed
  */
 function sklonenie_slov( $chislo, $slova ) {
-	$keisi = array( 2, 0, 1, 1, 1, 2 );
+	$keisi = [ 2, 0, 1, 1, 1, 2 ];
 	return $slova[( $chislo % 100 > 4 && $chislo % 100 < 20 ) ? 2 : $keisi[min( $chislo % 10, 5 )]];
 }
 
@@ -427,7 +427,7 @@ function getImageinfo( $file, $query ) {
  * @return object
  */
 function db() {
-	return Mysqli_Db::getInstance( Mysqli_Db::get_param() );
+	return Db::getInstance( Db::get_param() );
 }
 
 /**
@@ -592,24 +592,29 @@ function clean_file( $content ) {
 
 	$content = preg_replace( '/^\s+|\n|\r|\s+$/m', '', $content );
 	$content = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content );
-	$content = str_replace( array( "\r\n", "\r", "\n", "\t", '  ', '    ', '    ' ), '', $content );
-	$content = preg_replace( array( '(( )+{)', '({( )+)' ), '{', $content );
-	$content = preg_replace( array( '(( )+})', '(}( )+)', '(;( )*})' ), '}', $content );
-	$content = preg_replace( array( '(;( )+)', '(( )+;)' ), ';', $content );
-	$content = preg_replace( array( '(:( )+)', '(( )+:)' ), ':', $content );
+	$content = str_replace( [ "\r\n", "\r", "\n", "\t", '  ', '    ', '    ' ], '', $content );
+	$content = preg_replace( [ '(( )+{)', '({( )+)' ], '{', $content );
+	$content = preg_replace( [ '(( )+})', '(}( )+)', '(;( )*})' ], '}', $content );
+	$content = preg_replace( [ '(;( )+)', '(( )+;)' ], ';', $content );
+	$content = preg_replace( [ '(:( )+)', '(( )+:)' ], ':', $content );
 	$content = preg_replace( '/(\s|)\,(\s|)/', ',', $content );
 
 	return $content;
 
 }
 
+/**
+ * @param $input
+ *
+ * @return mixed
+ */
 function cleanInput( $input ) {
-	$search = array(
+	$search = [
 		'@<script[^>]*?>.*?</script>@si', // javascript
 		'@<[\/\!]*?[^<>]*?>@si', // HTML теги
 		'@<style[^>]*?>.*?</style>@siU', // теги style
 		'@<![\s\S]*?--[ \t\n\r]*>@' // многоуровневые комментарии
-	);
+	];
 	$output = preg_replace( $search, '', $input );
 	return $output;
 }
@@ -878,7 +883,7 @@ function flat_array( $multiarray ) {
  * $thumb = recursive_dir( $dir, $mask, $ok_subdir );
  *
  * @param        $dir         - папка поиска
- * @param string $mask        - маска дозволенных папок
+ * @param string $mask        - маска дозволенных файлов
  * @param array  $no_subdir   - какие папки вывода исключить
  * @param bool   $multi_arrau - переключатель вывода в одномерный массив
  * @param array  $ok_subdir   - в каких субдирректори€х искать

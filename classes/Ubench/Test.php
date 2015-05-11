@@ -24,9 +24,9 @@
 
 
 /**
- * Class Ubench_Test
+ * Class Test
  */
-class Ubench_Test
+class Test
 {
     protected static $start_time;
 

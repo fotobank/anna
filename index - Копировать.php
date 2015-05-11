@@ -6,13 +6,13 @@ require( __DIR__ . '/inc/carosel.php');
 /* Для теста - вывод файлов в каталоге /files */
 // showTree("./files", "");
 // debugHC(SITE_PATH, 'test');
-// Inter_Error::var_dump('Test'); // вывод дампа переменных
+// Error::var_dump('Test'); // вывод дампа переменных
 
 
 // preg_match('/\[(?P<err_num>[\d]+)\]\s*(?P<date>[\d-]+)\s(?P<time>[\d:]+)/', $str, $matches);
 
 
-// Inter_Error::var_dump('str','matches');
+// Error::var_dump('str','matches');
 
 // include __DIR__ . "/inc/sinonim.php";
 

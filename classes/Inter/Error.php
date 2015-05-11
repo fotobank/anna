@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class Inter_Error
+ * Class Error
  */
-class Inter_Error
+class Error
 {
 
     /**
@@ -71,12 +71,12 @@ class Inter_Error
 	public static function init(){
 		if( self::$_registered  == false){
 			date_default_timezone_set ("Europe/Moscow");
-			set_exception_handler( [ 'Inter_Error', 'exception_handler' ] );
-			set_error_handler( [ 'Inter_Error', 'error_handler' ], E_ALL);
-			self::$_registered = new Inter_Error();
+			set_exception_handler( [ 'Error', 'exception_handler' ] );
+			set_error_handler( [ 'Error', 'error_handler' ], E_ALL);
+			self::$_registered = new Error();
 			self::$conf['debugMode'] = DEBUG_MODE;
 			if(version_compare(PHP_VERSION, '5.2', '>=')){
-				register_shutdown_function( [ 'Inter_Error', 'detect_fatal_error' ] );
+				register_shutdown_function( [ 'Error', 'detect_fatal_error' ] );
 			}
 			self::$_request_uri = self::_get_request_uri();
 			self::$_registered = true;

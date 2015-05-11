@@ -1,0 +1,122 @@
+<html><head><title>DiskSpace</title>
+<style type=text/css><!--
+body {background:navy; color:white; font-family:helvetica}
+a:link {color:yellow}
+a:active {color:yellow}
+a:visited {color:silver}
+--></style>
+</head>
+
+
+
+<body>
+
+<h2>DiskSpace</h2><br>
+<a href=#about>About the script</a><br>
+<a href=#changes>Changes</a><br>
+<a href=#requirements>Requirements</a><br>
+<a href=#install>Installing the script</a><br>
+<a href=#faq>FAQ</a><br>
+<a href=#support>Support</a><br>
+<a href=#copyright>Copyright, etc.</a><br>
+
+<hr>
+
+
+
+<a name=about><h3>About the script</h3>
+This script shows the number of megabytes used on your web site account and the number of megabytes left. This
+is quite a useful thing to know, but most FTP clients are not able to show it -- and that's where this script comes in.
+DiskSpace outputs a graph showing the percentage of the disk space used, the actual number of megabytes used, etc. The page containing this information
+is of course password protected.
+<br><br><br><br>
+
+
+
+<a name=changes><h3>Changes</h3>
+
+<b>0,21 -&gt; 0,22</b><br>
+Italian translation -- thanks to <a href='http://www.agatello.com'>Silvia Agatello</a>.
+<p>
+
+<b>0,2 -&gt; 0,21</b><br>
+Russian translation. Thanks to <a href='mailto:museum@irk.ru'>Yurik_A</a>.
+<p>
+
+<b>0.1.1 -&gt; 0,2</b><br>
+
+<ul>
+
+<li>DiskSpace now also works in <i>safe mode</i> if certain requirements are met (see elsewhere in this README file).<p>
+
+<li>Added language files.
+
+</ul>
+
+<br><br><br><br>
+
+
+
+<a name=requirements><h3>Requirements</h3>
+<ul>
+<li><b><a href=http://php.net>PHP</a></b> (version 3 or later). Ask your web hosting company if you don't know if they offer PHP.
+<li><b>UNIX server</b>. Your web site account needs to be on a UNIX server. There are a lot of different UNIX type operating systems, including
+Linux, FreeBSD, and Sun Solaris. Basically, if your web site account is not on a Windows or Mac server, it is on a UNIX server.
+<li><b>If your server runs PHP in <i>safe mode</i></b>, this script requires that the UNIX command line program <i>du</i> is installed in <i>safe_mode_exec_dir</i>. Ask your system administrator about this.
+</ul>
+<br><br><br><br>
+
+
+
+<a name=install><h3>Installing the script</h3>
+<ol>
+<li>Load the script (<i>diskspace.php</i>) into a plain text editor such as KEdit (Linux) or Notepad (Windows). Edit the variables at the top of the page.
+$languageFile is the path to the language file of your choice. If in doubt, don't change this. $user_home should be set to the home directory of your user on the server. This could be something like "/home/myuser". If you don't
+know the home directory, do the following: Go online, open a command line window, and write <i>telnet yourdomain.com</i> (replace <i>yourdomain.com</i> with the domain name of your server). When you've entered
+your user name and password, a command promt will appear. Now just type <i>pwd</i>. This will output your home directory. The next variable is $available_space. Write the number of megabytes available on your web site account, i.e. "10" or "50".
+The last variable is $password. Just choose a password.
+<li>Upload this directory (the <i>diskspace</i> directory) to your server.
+<li>That's it! All you need to do now is to open your browser and go to <i>http://yourdomain.com/somedir/diskspace/diskspace.php</i>. If it doesn't work, check the <a href=#faq>FAQ</a>.
+</ol>
+<br><br><br><br>
+
+
+
+<a name=faq><a name=faq><h3>FAQ</h3>
+<b>When I run the script, the browser shows a white page with a lot of PHP code.</b><br>
+You need to add the following lines to the .htaccess file:<p>
+
+<i>AddType application/x-httpd-php .php<br>
+AddType application/x-httpd-php3 .php</i><p>
+See the .htaccess question in this FAQ if you don't know how to do this.<p>
+
+<b>How do I edit the .htaccess file?</b><br>
+Well, first of all you need to establish whether there's a .htaccess file in your document root or not. This can be
+done be performing the following test: Point your browser to <b>http://yoursite.com/.htaccess</b> (note the dot before "htaccess"). If you get
+a 404 error (File Not Found), there's no .htaccess file in your document root. However, if you get a 403 error ("Forbidden"), there's a .htaccess in your document root.
+If you don't have a .htaccess file, you will need to make one. Open a text editor, click "New" and write the necessary lines (the lines are shown elsewhere in this FAQ). You should not write anything else besides these lines -- no HTML tags, no PHP tags, etc.
+When you're done writing the file, upload it to the server and place it in the document root. Perform the test above to make sure the file has been placed in the right location.
+If there's already a .htaccess file in your document root, all you need to do is load this file into a text editor and add the appropiate lines at the bottom of the file (the lines you need to write are shown elsewhere in this FAQ).
+<p>
+
+<b>DiskSpace says that I have used 0 disk space on my web site account even though I know that I have used a lot more.</b><br>
+This can be caused by two things:<p>
+
+<ol>
+
+<li>The <i>$user_home</i> variable has not been set correctly.
+
+<li>Your server runs PHP in safe mode and <i>du</i> is not installed in <i>safe_mode_exec_dir</i>. Check the <a href=#requirements>requirements</a> section.
+
+</ol>
+
+<br><br><br><br>
+
+
+
+<a name=copyright><h3>Copyright, etc.</h3>
+This script is released under the terms of <a href=http://www.gnu.org/copyleft/gpl.html>the GNU General Public License</a> (also known as "GPL").
+
+
+
+</body></html>

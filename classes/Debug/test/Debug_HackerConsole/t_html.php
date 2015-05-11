@@ -4,21 +4,21 @@ require_once (__DIR__.'/../../lib/config.php');
 require_once (__DIR__.'/../../lib/Debug/HackerConsole/Main.php');
 
 // Create & attach hacker conole to HTML output.
-new Debug_HackerConsole_Main(true);
+new Main(true);
 
 // Dump string values.
 for ($i=0; $i<10; $i++) {
 	$sp = str_repeat(' ', $i);
-	Debug_HackerConsole_Main::out(
+	Main::out(
 		"$sp\ti=$i", "Counting", "#008800"
 	);
 }
 
 // Output to default group.
-Debug_HackerConsole_Main::out("Usual message");
+Main::out("Usual message");
 
 // Dump random structure.
-Debug_HackerConsole_Main::out($_SERVER, "Input");
+Main::out($_SERVER, "Input");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>

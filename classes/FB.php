@@ -66,6 +66,9 @@ function fb() {
 }
 
 
+/**
+ * Class FB
+ */
 class FB {
 	/**
 	 * Enable and disable logging to Firebug

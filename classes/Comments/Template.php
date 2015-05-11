@@ -5,9 +5,9 @@
 */
 
 /**
- * Class Comments_Template
+ * Class Template
  */
-class Comments_Template {
+class Template {
 
 	protected $FILELIST = [ ]; //	Holds the array of filehandles
 	//	FILELIST[HANDLE] == "fileName"
@@ -491,7 +491,7 @@ class Comments_Template {
 			$this->FILELIST = $fileList;
 			return true;
 		} else {
-			trigger_error( "[Comments_Template->define] Данные должны бать в виде массива", E_USER_NOTICE );
+			trigger_error( "[Template->define] Данные должны бать в виде массива", E_USER_NOTICE );
 			return false;
 		}
 		/*while ( list ($FileTag,$FileName) = each ($fileList) )

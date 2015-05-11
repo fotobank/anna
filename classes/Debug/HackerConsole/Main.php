@@ -7,9 +7,9 @@ require_once (__DIR__.'/../config.php');
 
 
 /**
- * Class Debug_HackerConsole_Main
+ * Class Main
  */
-class Debug_HackerConsole_Main
+class Main
 {
     var $_hc_height = "300"; // height of the console (pixels)
     static private $_hc_entries = [ ];
@@ -21,13 +21,13 @@ class Debug_HackerConsole_Main
   /**
 	* @param bool $autoAttach
 	*
-	* @return Debug_HackerConsole_Main|null
+	* @return Main|null
 	*/
   static function getInstance($autoAttach=false)
   {
 	 if (self::$instance == NULL)
 		{
-		  self::$instance = new Debug_HackerConsole_Main($autoAttach);
+		  self::$instance = new Main($autoAttach);
 		}
 	 return self::$instance;
   }
@@ -115,7 +115,7 @@ class Debug_HackerConsole_Main
 	 */
   public static function out($v, $group="message", $color=NULL, $tip=NULL)
     {
-	   	$debug = Debug_HackerConsole_Main::getInstance(true);
+	   	$debug = Main::getInstance(true);
         // Have to work only with $obj, NOT $this!
         if (empty($debug) || strtolower(get_class($debug)) != 'debug_hackerconsole_main')
 
@@ -187,7 +187,7 @@ class Debug_HackerConsole_Main
             else 
                 $tabSize = 4;
         }
-        $text = Debug_HackerConsole_Main::expandTabs($text, $tabSize);
+        $text = Main::expandTabs($text, $tabSize);
         $text = str_replace(' ', '&nbsp;', $text);
         $text = nl2br($text);
         return $text;
@@ -240,7 +240,7 @@ class Debug_HackerConsole_Main
         while (1) {
             $old = $text;
 			// $text = preg_replace_callback('/^([^\t\r\n]*)\t(\t*)/m', array(&$this, 'expandTabs_callback'), $text);
-            $text = preg_replace_callback('/^([^\t\r\n]*)\t(\t*)/m', [ 'Debug_HackerConsole_Main', 'expandTabs_callback' ], $text);
+            $text = preg_replace_callback('/^([^\t\r\n]*)\t(\t*)/m', [ 'Main', 'expandTabs_callback' ], $text);
             if ($old === $text) return $text;
         }
     }
@@ -351,7 +351,7 @@ if (!function_exists('debugHC')) {
 	 */
 	function debugHC($v, $group="message")
 	{
-		if (DEBUG_MODE && is_callable($f= [ 'Debug_HackerConsole_Main', 'out' ] ))
+		if (DEBUG_MODE && is_callable($f= [ 'Main', 'out' ] ))
 		{
 			call_user_func($f, $v, $group);
 		}

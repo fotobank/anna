@@ -65,7 +65,7 @@ $(document).ready(function(){
 
 
 			$('ul.list-title').ajax_load('load', {
-				'url'    : '/classes/ajaxSite/ajax_load.php', // адрес скрипта
+				'url'    : '/classes/ajaxSite/ajaxLoad.php', // адрес скрипта
 				'id_load': '#pageContent', // id для загрузки ответа сервера (контента)
 				'type'   : 'GET', // тип вызова
 				'header' : 'Content-Type: application/json; charset=utf-8;', // посылаемый заголовок
@@ -172,7 +172,7 @@ $(document).ready(function(){
 		// Показываем индикатор загрузки
 		$(this).parent().find('.busy').show();
 		$(this).hide();
-		var targetURL = "/classes/ajaxSite/ajax_load.php"; // адрес скрипта";
+		var targetURL = "/classes/ajaxSite/ajaxLoad.php"; // адрес скрипта";
 		currentState = href;  // сразу поменяем состояние, чтобы избежать повторных кликов
 
 		/*$.ajax({

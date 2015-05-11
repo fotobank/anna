@@ -2,7 +2,7 @@
 // Include library code.
   require_once (__DIR__.'/../../lib/config.php');
   require_once (__DIR__.'/../../lib/Debug/HackerConsole/Main.php');
-new Debug_HackerConsole_Main(true);
+new Main(true);
 
 // Dump random structure.
 debug($_SERVER);
@@ -11,7 +11,7 @@ debug($_SERVER);
 function debug($msg)
 {
 	// Use call_user_func_array() to save caller context.
-	call_user_func(array('Debug_HackerConsole_Main', 'out'), $msg);
+	call_user_func(array( 'Main', 'out'), $msg);
 }
 ?>
 Press Ctrl+~ (tilde) to toggle the console.<br>

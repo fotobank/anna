@@ -1,11 +1,11 @@
 <?php
- # prevent direct viewing of Alex_Security.php
+ # prevent direct viewing of Security.php
  if ( false !== strpos( $_SERVER[ 'SCRIPT_NAME' ] , Alex_selfchk() ) ) send404();
 
 /**
- * Class Alex_Security
+ * Class Security
  */
-class Alex_Security {
+class Security {
 
    # protect from non-standard request types
    protected $_nonGETPOSTReqs = 1;

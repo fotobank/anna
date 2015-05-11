@@ -1,8 +1,8 @@
 <?
 require(__DIR__ .'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
-$db = Mysqli_Db::getInstance(Mysqli_Db::get_param());
+$db = Db::getInstance(Db::get_param());
 
-$tpl = new Comments_Template("classes/Comments/_templates/");
+$tpl = new Template("classes/Comments/_templates/");
 $tpl->define( [
 	"head"  => "head.tpl",
 	"index" => "adm_auth.tpl",

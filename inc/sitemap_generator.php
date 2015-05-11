@@ -7,7 +7,7 @@
  */
 defined('_SECUR') or die('Доступ запрещен');
 
-$sitemap = new Sitemap_generator( "http://" . $_SERVER['HTTP_HOST'] . "/" );
+$sitemap = new MapGenerator( "http://" . $_SERVER['HTTP_HOST'] . "/" );
 
 // add urls
 $sitemap->addUrl( "http://" . $_SERVER['HTTP_HOST'], date( 'c' ), 'daily', '1' );
@@ -33,5 +33,5 @@ $sitemap->updateRobots();
 if(!DEBUG_MODE) {
 // submit sitemaps to search engines
 $submit = $sitemap->submitSitemap();
-// Inter_Error::var_dump('submit');
+// Error::var_dump('submit');
 }

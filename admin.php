@@ -10,9 +10,9 @@ IF ( isset( $_GET['adm_out'] ) || !isset( $_SESSION['logged'] ) || $_SESSION['lo
 	header( 'Location: ' . "/auth.php", true, 303 );
 }
 
-$db = Mysqli_Db::getInstance( Mysqli_Db::get_param() );
+$db = Db::getInstance( Db::get_param() );
 
-$tpl = new Comments_Template( "classes/Comments/_templates/" );
+$tpl = new Template( "classes/Comments/_templates/" );
 $tpl->define( [
 	"head"        => "head.tpl",
 	"index"       => "adm_index.tpl",

@@ -10,9 +10,9 @@
         $time = $time[1];
 
         // include class
-   //     include 'Sitemap_generator.php';
+   //     include 'MapGenerator.php';
         // create object
-        $sitemap = new Sitemap_generator("http://your.app.com/", "../");
+        $sitemap = new MapGenerator("http://your.app.com/", "../");
 
         // will create also compressed (gzipped) sitemap
         $sitemap->createGZipFile = true;

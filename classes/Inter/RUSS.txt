@@ -6,15 +6,15 @@ PHP версия должна быть> = 5.0.0.
 date_default_timezone_set ("PRC '); // (PHP> = 5.1.0 необходимость, чтобы сделать ТАК) Устанавливает часовой пояс по умолчанию, используемый всеми даты / времени функций в скрипте. Это демо устанавливает часовой пояс КНР
 require_once("Error.php"); // требует / require_once error.php в нужном месте, как вы хотите
 // Устанавливает пользовательскую функцию (error_handler &-исключения) для обработки ошибок в сценарии
-set_exception_handler(array('Inter_Error', 'exception_handler'));
-set_error_handler(array('Inter_Error', 'error_handler'), E_ALL);
+set_exception_handler(array('Error', 'exception_handler'));
+set_error_handler(array('Error', 'error_handler'), E_ALL);
 if(version_compare(PHP_VERSION, '5.2', '>=')){
-    register_shutdown_function(array('Inter_Error', 'detect_fatal_error'));
+    register_shutdown_function(array('Error', 'detect_fatal_error'));
 }
 }
-// Настройка Inter_Error::$conf :
+// Настройка Error::$conf :
 / **
-* Ключи и значение по умолчанию в статическое свойство Inter_Error::$conf :
+* Ключи и значение по умолчанию в статическое свойство Error::$conf :
 * DebugMode:
 * Открыть режим отладки? Если это так, он будет показывать в конце веб-страницы в веб-браузере
 * Опция: ложь (по умолчанию) / правда
@@ -57,16 +57,16 @@ if(version_compare(PHP_VERSION, '5.2', '>=')){
 * По умолчанию, он не будет войти E_STRICT. Но вы должны быть осторожны, чтобы не перезаписать настройки по умолчанию.
 * Вот пример:
 * <pre>
-* Inter_Error::$conf['ignoreERROR'] = array(E_NOTICE, E_STRICT); / / перепишет настройки ignoreERROR умолчанию, но остаются не войти E_STRICT
+* Error::$conf['ignoreERROR'] = array(E_NOTICE, E_STRICT); / / перепишет настройки ignoreERROR умолчанию, но остаются не войти E_STRICT
 * </pre>
 * option: array(E_STRICT)(default)
 * var type: array
 * /
-Inter_Error::$conf['debugMode'] = true;
-//Inter_Error::$conf['friendlyExceptionPage']='1234.htm';
-//Inter_Error::$conf['logType'] = 'simple';
-//Inter_Error::$conf['logDir'] = dirname(__FILE__).'/Log';
-//Inter_Error::$conf['ignoreERROR'] = array(E_NOTICE, E_STRICT);
+Error::$conf['debugMode'] = true;
+//Error::$conf['friendlyExceptionPage']='1234.htm';
+//Error::$conf['logType'] = 'simple';
+//Error::$conf['logDir'] = dirname(__FILE__).'/Log';
+//Error::$conf['ignoreERROR'] = array(E_NOTICE, E_STRICT);
 
 // демо код, который может генерировать ошибку
 $variable1 = '1111 ';
@@ -91,15 +91,15 @@ a();
 
 
 // Если вы хотите экспортировать и показать некоторые переменные в $GLOBALS,
-// Вы можете использовать: Inter_Error :: Inter_Error::$conf['variables'] = array(xxxxxxxxxx, xxxxxx, ...);
-// Затем: Inter_Error::show_variables();
-// Внимание: Inter_Error::show_variables() будет вызван автоматически при возникновении любой PHP ошибки и если 'debugMode' = true.
+// Вы можете использовать: Error :: Error::$conf['variables'] = array(xxxxxxxxxx, xxxxxx, ...);
+// Затем: Error::show_variables();
+// Внимание: Error::show_variables() будет вызван автоматически при возникновении любой PHP ошибки и если 'debugMode' = true.
 /*
 
 /*
-Inter_Error::$conf['variables'] = array("_GET", "_POST", "_SESSION", "_COOKIE", "variable1", "variable2");
+Error::$conf['variables'] = array("_GET", "_POST", "_SESSION", "_COOKIE", "variable1", "variable2");
 echo '<hr />';
-Inter_Error::show_variables();
+Error::show_variables();
 echo '<hr />';
 */
 
