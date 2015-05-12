@@ -116,8 +116,7 @@ class Autoloader {
 		$flag = true;
 		foreach (self::$arrauFilesExtensions as $ext) {
 			foreach (self::$paths as $path) {
-				$full_path = SITE_PATH. $path;
-			//	$full_path = SITE_PATH.str_replace(['\\', '/'], DIRSEP, $path);
+				$full_path = SITE_PATH.str_replace(['\\', '/'], DIRSEP, $path);
 				$flag      = self::checkClassNameInCash($className, $ext); // проверка нахождения класса в кэш
 				if (false === $flag) {
 					break;
