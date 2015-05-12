@@ -14,7 +14,6 @@
 
 namespace core;
 
-require(SITE_PATH . "system/classes/traites/Singleton.php");
 
 /**
  * Class Autoloader
