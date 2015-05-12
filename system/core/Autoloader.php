@@ -7,8 +7,8 @@
  *
  * Кэшируемый автозагрузчик классов
  * Имена классов должны совпадать с именами файлов
- * Файлы классов могут распологаться в произвольных папках без привязки к директориям и namespace
- * Конфликт одинаковых имен разных классов необходимо решать с помощью задания namespace для классов
+ * Файлы классов могут распологаться в произвольных папках без привязки имени к директориям и namespace
+ * Конфликт одинаковых имен разных классов необходимо решать с помощью задания разных namespace для классов
  *
  */
 
@@ -73,7 +73,7 @@ class Autoloader {
 		// Set some flags about this file
 		self::$isDirWritable = is_writable(self::$dirCashe);
 		if (!self::$isDirWritable) {
-			chmod(self::$dirCashe, 0777);
+			chmod(self::$dirCashe, 0755);
 			self::$isDirWritable = is_writable(self::$dirCashe);
 		};
 		self::$exists = file_exists(self::$fileMap);
@@ -81,7 +81,7 @@ class Autoloader {
 		if (!self::$exists) {
 			if (self::$isDirWritable) {
 				file_put_contents(self::$fileMap, "", LOCK_EX);
-				chmod(self::$fileMap, 0666);
+				chmod(self::$fileMap, 0644);
 			} else {
 				trigger_error("Can not write contents to an unwritable dir".self::$dirCashe);
 			}
@@ -102,9 +102,8 @@ class Autoloader {
 		$namespace = '';
 		$lastNsPos = strrpos($className, '\\');
 		if ($lastNsPos) {
-			$namespace = str_replace(['\\', '/'], DIRSEP,substr($className, 0, $lastNsPos));
+			$namespace = str_replace(['\\', '/'], DIRSEP, substr($className, 0, $lastNsPos));
 			$className = substr($className, $lastNsPos + 1);
-			//	$file_name = str_replace( '\\', DIRSEP, $namespace ) . DIRSEP;
 			$namespace = DIRSEP.$namespace;
 		}
 		if (self::$isReadable) {
@@ -117,7 +116,7 @@ class Autoloader {
 		foreach (self::$arrauFilesExtensions as $ext) {
 			foreach (self::$paths as $path) {
 
-			    $full_path = SITE_PATH. $path;
+			    $full_path = SITE_PATH. str_replace(['\\', '/'], DIRSEP, $path);
 				$flag      = self::checkClassNameInCash($className, $ext); // проверка нахождения класса в кэш
 				if (false === $flag) {
 					break;
