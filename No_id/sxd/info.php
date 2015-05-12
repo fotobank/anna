@@ -31,7 +31,7 @@ if(!empty($_POST['ajax']['job']) && preg_match("/^[\w-]+$/", $_POST['ajax']['job
 			if(empty($f[0])) $f[0] = $time;
 			$pt = !empty($f[2]) ? round(100 * $f[10] / $f[2], 2) : 100;
 			$pc = !empty($f[8]) ? round(100 * $f[7] / $f[8], 2) : 100;
-			$lh = fopen($JOB['file_log'], 'rb');
+			$lh = fopen($JOB['fileLog'], 'rb');
 			fseek($lh, $log_seek);
 			$rawlog = fread($lh, 8192);
 			$log = '';
@@ -66,7 +66,7 @@ if(!empty($_POST['ajax']['job']) && preg_match("/^[\w-]+$/", $_POST['ajax']['job
 				if($JOB['act'] == 'backup') print "sxd.actions.filelist(); z('btn_down').file = '{$JOB['file']}'; z('btn_down').style.display = '';";
 				echo "sxd.timer.set({$f[0]},{$f[1]},{$pt});sxd.progress.current.set({$pc}, 0, {$f[8]}, {$f[8]});sxd.progress.total.set({$pt},{$f[3]});";
 				echo "sxd.log.add({$d},['{$LNG['job_done']}', '{$LNG['js']['records']}: {$f[10]}', '{$LNG['file_size']}: ' + sxd.formatSize({$f[3]},2), '{$LNG['job_time']}: {$f[5]} {$LNG['seconds']}']);sxd.hideLoading();";
-				unlink($JOB['file_log']);
+				unlink($JOB['fileLog']);
 				unlink($JOB['file_rtl']);
 				unlink($job_file);
 			}

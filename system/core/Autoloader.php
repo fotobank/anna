@@ -4,7 +4,12 @@
  * User: Jurii
  * Date: 05.09.13
  * Time: 13:52
- * To change this template use File | Settings | File Templates.
+ *
+ * Кэшируемый автозагрузчик классов
+ * Имена классов должны совпадать с именами файлов
+ * Файлы классов могут распологаться в произвольных папках без привязки к директориям и namespace
+ * Конфликт одинаковых имен разных классов необходимо решать с помощью задания namespace для классов
+ *
  */
 
 namespace core;
@@ -15,51 +20,236 @@ namespace core;
  */
 class Autoloader {
 
-	protected static $namespacesMap = [ ]; // кэш соответствия неймспейса пути в файловой системе
-	protected static $exists = false;    // файл существует и успешно создан
-	protected static $is_dir_writable = false; // флаг проверки чтения папки кэша
-	protected static $is_writable = false; // флаг проверки на запись
-	protected static $is_readable = false; // флаг на чтение
-
-	public static $dir_cashe = "cache/classes/"; // папка кэша и лога
-	public static $fileMap = "classLog.php"; // полный путь и имя файла кеша
-	public static $file_log = "log.html"; // файл лога создается при новом рекурсивном сканировании классов или если класс не найден
-	public static $extensions = [ ".php", "class.php" ]; // расширение файла класса
+	public static $dirCashe = "cache/classes/"; // кэш соответствия неймспейса пути в файловой системе
+	public static $fileMap = "classLog.php";    // файл существует и успешно создан
+	public static $fileLog = "log.html"; // флаг проверки чтения папки кэша
+	public static $arrauFilesExtensions = [
+		".php",
+		".class.php"
+	]; // флаг проверки на запись
 	public static $paths = [
-		"system/web",
-		"system/classes/pattern",
-		"system/classes",
-		"system/core",
-		"system",
-		"classes"
-	];
+		"classes/Ubench",
+		"classes/Alex",
+		"classes/Inter",
+		"system/core/Mysqli",
+		"classes",
+		"system"
+
+	]; // флаг на чтение
+	protected static $nameSpacesMap = []; // папка кэша и лога
+	protected static $exists = false; // имя файла кеша без слэша
+	protected static $isDirWritable = false; // файл лога создается при новом рекурсивном сканировании классов или если класс не найден
+	protected static $isWritable = false; // расширение файла класса
+	protected static $isReadable = false;
 
 	/**
-	 *
+	 * конструктор класса
 	 */
 	public function __construct() {
 
-		self::$dir_cashe = SITE_PATH . self::$dir_cashe;
-		self::$fileMap   = self::$dir_cashe . self::$fileMap;
+		self::$dirCashe = SITE_PATH.self::$dirCashe;
+		self::$fileMap  = self::$dirCashe.self::$fileMap;
 
 		// Set some flags about this file
-		self::$is_dir_writable = is_writable( self::$dir_cashe );
-		if ( !self::$is_dir_writable ) {
-			chmod( self::$dir_cashe, 0777 );
-			self::$is_dir_writable = is_writable( self::$dir_cashe );
+		self::$isDirWritable = is_writable(self::$dirCashe);
+		if (!self::$isDirWritable) {
+			chmod(self::$dirCashe, 0777);
+			self::$isDirWritable = is_writable(self::$dirCashe);
 		};
-		self::$exists = file_exists( self::$fileMap );
+		self::$exists = file_exists(self::$fileMap);
 		// если файла нет - создать
-		if ( !self::$exists ) {
-			if ( self::$is_dir_writable ) {
-				file_put_contents( self::$fileMap, "", LOCK_EX );
-				chmod( self::$fileMap, 0666 );
+		if (!self::$exists) {
+			if (self::$isDirWritable) {
+				file_put_contents(self::$fileMap, "", LOCK_EX);
+				chmod(self::$fileMap, 0666);
 			} else {
-				trigger_error( "Can not write contents to an unwritable dir" . self::$dir_cashe );
+				trigger_error("Can not write contents to an unwritable dir".self::$dirCashe);
 			}
 		}
-		self::$is_writable = is_writable( self::$fileMap );
-		self::$is_readable = is_readable( self::$fileMap );
+		self::$isWritable = is_writable(self::$fileMap);
+		self::$isReadable = is_readable(self::$fileMap);
+
+	}
+
+	/**
+	 * @param $className
+	 *
+	 * @return bool
+	 *
+	 * автозагрузчик файлов классов
+	 */
+	public static function autoload($className) {
+		$namespace = '';
+		$lastNsPos = strrpos($className, '\\');
+		if ($lastNsPos) {
+			$namespace = substr($className, 0, $lastNsPos);
+			$className = substr($className, $lastNsPos + 1);
+			//	$file_name = str_replace( '\\', DIRSEP, $namespace ) . DIRSEP;
+			$namespace = DIRSEP.$namespace;
+		}
+		if (self::$isReadable) {
+			self::$nameSpacesMap = self::getFileMap(); //читаем кэш в массив
+		} else {
+			trigger_error("Can not read contents to an readable file".self::$fileMap);
+		}
+
+		$flag = true;
+		foreach (self::$arrauFilesExtensions as $ext) {
+			foreach (self::$paths as $path) {
+				$full_path = SITE_PATH.str_replace(['\\', '/'], DIRSEP, $path);
+				$flag      = self::checkClassNameInCash($className, $ext); // проверка нахождения класса в кэш
+				if (false === $flag) {
+					break;
+				}
+				$flag = self::checkClass($full_path.$namespace, $className, $ext); // проверка пути класса
+				if (false === $flag) {
+					break;
+				}
+				self::logFindStart(); // лог - начало сканировния
+				self::recursiveClassAutoload($full_path, $namespace, $className, $ext, $flag); // рекурсивное сканирование папок
+				if (false === $flag) {
+					break;
+				}
+			}
+			if (false === $flag) {
+				break;
+			}
+		}
+		self::logLoadError($flag, $className); // сообщение loga класс не найден
+	}
+
+	/**
+	 * чтение файла кэша в массив
+	 * @return array|bool|null
+	 */
+	private static function getFileMap() {
+
+		if (self::$isReadable) {
+			$file_string = file_get_contents(self::$fileMap);
+			$file_array  = parse_ini_string($file_string);
+			if ($file_array === []) {
+				return null;
+			}
+
+			return $file_array;
+		} else {
+			trigger_error("Can not read the file.");
+		}
+
+		return false;
+
+	}
+
+	/**
+	 * @param $className
+	 * @param $ext
+	 *
+	 * проверка нахождения класса в кэш
+	 *
+	 * @return bool
+	 */
+	protected static function checkClassNameInCash($className, $ext) {
+
+		if (!empty(self::$nameSpacesMap[$className])) {
+			$filePath = self::$nameSpacesMap[$className].DIRSEP.$className.$ext;
+			if (file_exists($filePath)) {
+				/** @noinspection PhpIncludeInspection */
+				require_once $filePath;
+
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param $full_path
+	 * @param $file_name
+	 * @param $ext
+	 *
+	 * @return bool
+	 *
+	 * проверка наличия файла класса в директории
+	 *
+	 */
+	private static function checkClass($full_path, $file_name, $ext) {
+		try {
+			$file = $full_path.DIRSEP.$file_name.$ext;
+			self::logFindClass($full_path, $file_name.$ext);
+			if (file_exists($file)) {
+
+				/** @noinspection PhpIncludeInspection */
+				require_once($file);
+				self::logLoadOk($full_path.DIRSEP, $file_name.$ext);
+				self::addNamespace($file_name, $full_path);
+				self::putFileMap($file_name." = ".$full_path."\n");
+
+				return false;
+
+			}
+		}
+		catch (\Exception $e) {
+			if (DEBUG_MODE) {
+				trigger_error($e->getMessage(), E_USER_ERROR);
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param $file_path
+	 * @param $file
+	 *
+	 * запись в лог начала поиска файла
+	 */
+	private static function logFindClass($file_path, $file) {
+		if (DEBUG_MODE) {
+			self::putLog(('ищем файл <b>'.$file.'</b> in '.$file_path));
+		}
+	}
+
+	/**
+	 * @param $data
+	 *
+	 * запись лога в файл
+	 */
+	private static function putLog($data) {
+
+		$file_path = self::$dirCashe.self::$fileLog;
+		$data      = ('[ '.$data.'=>'.date('d.m.Y H:i:s').' ]'.PHP_EOL);
+		self::putFile($file_path, $data);
+	}
+
+	/**
+	 * @param $file_path
+	 * @param $data
+	 *
+	 * служебная функция
+	 * запись файла на диск
+	 */
+	private static function putFile($file_path, $data) {
+
+		$file = fopen($file_path, 'a');
+		flock($file, LOCK_EX);
+		fwrite($file, ($data));
+		flock($file, LOCK_UN);
+		fclose($file);
+
+	}
+
+	/**
+	 * @param $full_path
+	 * @param $file
+	 *
+	 * запись успешного подключения класса в лог
+	 */
+	private static function logLoadOk($full_path, $file) {
+
+		if (DEBUG_MODE) {
+			self::putLog(('<br><b style="color: #23a126;">подключили</b> '.'<b style="color: #3a46e1;">'.$full_path.'</b>'.'<b style="color: #ff0000;">'.$file.'</b><br>'));
+		}
 
 	}
 
@@ -68,73 +258,64 @@ class Autoloader {
 	 * @param $full_path
 	 *
 	 * @return bool
+	 *
+	 * добавление найденного пути класса в массив
 	 */
-	public static function addNamespace( $name_space, $full_path ) {
-		if ( is_dir( $full_path ) ) {
-			self::$namespacesMap[$name_space] = $full_path;
+	public static function addNamespace($name_space, $full_path) {
+		if (is_dir($full_path)) {
+			self::$nameSpacesMap[$name_space] = $full_path;
+
 			return true;
 		}
+
 		return false;
 	}
 
 	/**
-	 * @param $className
-	 * @param $ext
+	 * @param $file_patch
 	 *
-	 * @return bool
+	 * запись кэша в файл
 	 */
-	protected static function check_className_in_cash( $className, $ext ) {
-		$pathParts = explode( '\\', $className );
-		if ( is_array( $pathParts ) ) {
-			$baseName = array_pop( $pathParts );
-			if ( !empty( self::$namespacesMap[$baseName] ) ) {
-				$filePath = self::$namespacesMap[$baseName] . DIRSEP . $baseName . $ext;
-				/** @noinspection PhpIncludeInspection */
-				require_once $filePath;
-				return false;
+	private static function putFileMap($file_patch) {
+
+		if (self::$isWritable) {
+			// если запись не существует - записать в файл
+			if (self::checkFileMap($file_patch)) {
+				self::putFile(self::$fileMap, $file_patch);
 			}
+
+		} else {
+			trigger_error("Can not write contents to an unwritable file".self::$fileMap);
 		}
-		return true;
 	}
 
 	/**
-	 * @param $className
+	 * @param $data
 	 *
 	 * @return bool
+	 * проверка существования записи в файле кэша
 	 */
-	public static function autoload( $className ) {
-		$namespace      = '';
-		$file_name      = $className;
-		$namespaceClass = $className;
+	private static function checkFileMap($data) {
 
-		$lastNsPos = strrpos( $className, '\\' );
-		if ( $lastNsPos ) {
-			$namespace = substr( $className, 0, $lastNsPos );
-			$className = substr( $className, $lastNsPos + 1 );
-			$file_name = str_replace( '\\', DIRSEP, $namespace ) . DIRSEP;
+		$fileMap = self::getFileMap();
+		list($file_name, $file_patch) = explode("=", $data);
+		$file_patch = trim($file_patch);
+		$file_name  = trim($file_name);
+		if ($fileMap && isset($fileMap[$file_name]) == $file_patch) {
+			return false;
 		}
 
-		if ( self::$is_readable ) {
-			self::$namespacesMap = self::get_file_map(); //читаем кэш в массив
-		} else {
-			trigger_error( "Can not read contents to an readable file" . self::$fileMap );
-		}
+		return true;
 
-		$flag = TRUE;
-		foreach ( self::$paths as $path ) {
-			if ( false === $flag ) break;
-			$path      = str_replace( [ '\\', '/' ], DIRSEP, $path );
-			$full_path = SITE_PATH . $path;
-			foreach ( self::$extensions as $ext ) {
-				if ( false === $flag ) break;
-				$flag = self::check_className_in_cash( $namespaceClass, $ext ); // проверка нахождения класса в кэш
-				if ( false === $flag ) break;
-				self::check_class( $className, $ext, $flag, $full_path . DIRSEP . $namespace ); // проверка пути класса
-				self::put_finf_start(); // лог - начало сканировния
-				self::recursive_autoload( $full_path, $file_name, $ext, $flag ); // рекурсивное сканирование папок
-			}
+	}
+
+	/**
+	 * запись в лог техничесского сообщения
+	 */
+	private static function logFindStart() {
+		if (DEBUG_MODE) {
+			self::putLog(('<br><b style="background-color: #ffffaa;">начинаем рекурсивный поиск</b>'));
 		}
-		self::put_load_error( $flag, $file_name ); // сообщение loga класс не найден
 	}
 
 	/**
@@ -142,147 +323,40 @@ class Autoloader {
 	 * @param $file_name
 	 * @param $ext
 	 * @param $flag
+	 * @param $namespace
+	 *
+	 * рекурсивное сканирование заданных директорий
+	 *
 	 */
-	public static function recursive_autoload( $file_path, $file_name, $ext, &$flag ) {
-		if ( is_dir( $file_path ) && false !== ( $handle = opendir( $file_path ) ) && $flag ) {
-			while ( false !== ( $dir = readdir( $handle ) ) && $flag ) {
+	public static function recursiveClassAutoload($file_path, $namespace, $file_name, $ext, &$flag) {
+		if (is_dir($file_path) && false !== ($handle = opendir($file_path)) && $flag) {
+			while (false !== ($dir = readdir($handle)) && $flag) {
 
-				if ( strpos( $dir, '.' ) === false ) {
-					$full_path = $file_path . DIRSEP . $dir;
-					self::check_class( $file_name, $ext, $flag, $full_path );
-					if ( !$flag ) break;
-					self::recursive_autoload( $full_path, $file_name, $ext, $flag );
+				if (strpos($dir, '.') === false) {
+					$full_path = $file_path.DIRSEP.$dir;
+					$flag      = self::checkClass($full_path.$namespace, $file_name, $ext);
+					if (false === $flag) {
+						break;
+					}
+					self::recursiveClassAutoload($full_path, $namespace, $file_name, $ext, $flag);
 				}
 			}
-			closedir( $handle );
+			closedir($handle);
 		}
-	}
-
-	/**
-	 * @param $file_name
-	 * @param $ext
-	 * @param $flag
-	 * @param $full_path
-	 */
-	private static function check_class( $file_name, $ext, &$flag, $full_path ) {
-		try {
-			$file = $full_path . DIRSEP . $file_name . $ext;
-			self::put_find_class( $full_path, $file_name . $ext );
-			if ( file_exists( $file ) ) {
-
-				/** @noinspection PhpIncludeInspection */
-				require_once( $file );
-				self::put_load_ok( $full_path . DIRSEP, $file_name . $ext );
-				self::addNamespace( $file_name, $full_path . DIRSEP );
-				self::put_file_map( $file_name . " = " . $full_path );
-				$flag = false;
-
-			}
-		} catch ( \Exception $e ) {
-			if ( DEBUG_MODE ) {
-				trigger_error( $e->getMessage(), E_USER_ERROR );
-			}
-		}
-	}
-
-	/**
-	 * чтение айла в массив
-	 * @return array|bool|null
-	 */
-	private static function get_file_map() {
-
-		if ( self::$is_readable ) {
-			$file_string = file_get_contents( self::$fileMap );
-			$file_array  = parse_ini_string( $file_string );
-			if ( $file_array === [ ] ) return NULL;
-			return $file_array;
-		} else {
-			trigger_error( "Can not read the file." );
-		}
-		return false;
-
-	}
-
-	/**
-	 * @param $data
-	 */
-	private static function put_file_map( $data ) {
-
-		if ( self::$is_writable ) {
-			$data = $data . "\n";
-			self::put_file( self::$fileMap, $data );
-		} else {
-			trigger_error( "Can not write contents to an unwritable file" . self::$fileMap );
-		}
-	}
-
-	/**
-	 * @param $data
-	 */
-	private static function put_file_log( $data ) {
-
-		$file_path = self::$dir_cashe . self::$file_log;
-		$data      = ( '[ ' . $data . '=>' . date( 'd.m.Y H:i:s' ) . ' ]' . PHP_EOL );
-		self::put_file( $file_path, $data );
-	}
-
-	/**
-	 * @param $file_path
-	 * @param $data
-	 */
-	private static function put_file( $file_path, $data ) {
-
-		$file = fopen( $file_path, 'a' );
-		flock( $file, LOCK_EX );
-		fwrite( $file, ( $data ) );
-		flock( $file, LOCK_UN );
-		fclose( $file );
-
 	}
 
 	/**
 	 * @param $flag
 	 * @param $file_name
+	 *
+	 * запись ошибки в лог
 	 */
-	private static function put_load_error( $flag, $file_name ) {
-		if ( DEBUG_MODE && $flag ) {
-			self::put_file_log(
-				(
-					'<br><b style="color: #ff0000;">файл ' . $file_name . ' не найден</b><br>'
-				)
-			);
+	private static function logLoadError($flag, $file_name) {
+		if (DEBUG_MODE && $flag) {
+			self::putLog(('<br><b style="color: #ff0000;">файл '.$file_name.' не найден</b><br>'));
 		}
-	}
-
-	/**
-	 * @param $full_path
-	 * @param $file
-	 */
-	private static function put_load_ok( $full_path, $file ) {
-
-		if ( DEBUG_MODE ) {
-			self::put_file_log(
-				(
-					'<br><b style="color: #3ebd45;">подключили</b> ' .
-					$full_path . DIRSEP . '<b style="color: #3ebd45;">' . $file . '</b><br>'
-				)
-			);
-		}
-
-	}
-
-	private static function put_finf_start() {
-		if ( DEBUG_MODE ) self::put_file_log( ( '<br><b style="background-color: #ffffaa;">начинаем рекурсивный поиск</b>' ) );
-	}
-
-	/**
-	 * @param $file_path
-	 * @param $file
-	 */
-	private static function put_find_class( $file_path, $file ) {
-		if ( DEBUG_MODE ) self::put_file_log( ( 'ищем файл <b>' . $file . '</b> in ' . $file_path ) );
 	}
 
 }
 
-\spl_autoload_register( 'core\Autoloader::autoload' );
+\spl_autoload_register('core\Autoloader::autoload');

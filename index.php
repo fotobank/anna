@@ -16,6 +16,7 @@ if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {
 }
 /**==================================================================*/
 
+use web\index as index;
 
 $data = new index\IndexPage();
 
