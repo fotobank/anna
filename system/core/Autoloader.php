@@ -14,6 +14,8 @@
 
 namespace core;
 
+require(SITE_PATH . "system/classes/traites/Singleton.php");
+
 /**
  * Class Autoloader
  * @package yourNameSpace
@@ -62,10 +64,12 @@ class Autoloader {
 	protected static $isReadable = false;
 
 
+	use \Singleton;
+
 	/**
 	 * конструктор класса
 	 */
-	public function __construct() {
+	protected function __construct() {
 
 		self::$dirCashe = SITE_PATH.self::$dirCashe;
 		self::$fileMap  = self::$dirCashe.self::$fileMap;
@@ -87,6 +91,13 @@ class Autoloader {
 		self::$isWritable = is_writable(self::$fileMap);
 		self::$isReadable = is_readable(self::$fileMap);
 
+		/** читаем кэш в массив из файла */
+		if (self::$isReadable) {
+			self::$nameSpacesMap = self::getFileMap();
+		} else {
+			trigger_error("Can not read contents to an readable file".self::$fileMap);
+		}
+
 	}
 
 	/**
@@ -103,11 +114,6 @@ class Autoloader {
 			$namespace = str_replace(['\\', '/'], DIRSEP, substr($className, 0, $lastNsPos));
 			$className = substr($className, $lastNsPos + 1);
 			$namespace = DIRSEP.$namespace;
-		}
-		if (self::$isReadable) {
-			self::$nameSpacesMap = self::getFileMap(); //читаем кэш в массив
-		} else {
-			trigger_error("Can not read contents to an readable file".self::$fileMap);
 		}
 
 		$flag = true;
