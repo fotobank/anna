@@ -91,7 +91,6 @@ if ( ! function_exists( 'debugHC' ) ) {
 	}
 }
 
-
 // демо debug:
 // debugHC(SITE_PATH.'classes/Mustache/templates', 'test');
 // debugHC( CODE_PAGE, 'CODE_PAGE' );
