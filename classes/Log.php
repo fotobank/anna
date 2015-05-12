@@ -7,12 +7,12 @@
  * 
  * EXAMPLES
  * 
- * $log = new log();
+ * $log = new Log();
  * $log->write("Log Entry");
  * $log->get_log();
  * 
  * 
- * $log = new log("Path/to/file.log");
+ * $log = new Log("Path/to/file.log");
  * $log->write("log Entry");
  * $log->load();
  * $log->get_log();

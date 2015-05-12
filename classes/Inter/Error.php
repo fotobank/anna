@@ -323,7 +323,7 @@ class Error
     public static function write_errorlog(){
         if( (false != (bool)self::$conf['logType']) && !empty(self::$_allError)){
 			try {
-				$log = new log();
+				$log = new Log();
 				$log->setTime_log(5)
 					->setMax_dir(10000)
 					->setEmail('aleksjurii@gmail.com');
@@ -371,11 +371,11 @@ class Error
             foreach (self::$_allError as $key => $errorInfo){
 				if( !in_array($errorInfo['hash'], self::$hash_d) ){
 					self::$hash_d[] = $errorInfo['hash'];
-                $htmlText .= '<div class="intererrorblock">
-    							<div class="intererrortitle">['.$errorInfo['name'].'][Code '.$errorInfo['code'].'] '.$errorInfo['message'].'</div>
-    							<div class="intererrorsubtitle">Line '.$errorInfo['line'].' On <a href="'.$errorInfo['file'].'">'.$errorInfo['file'].'</a></div>
-    							<div class="intererrorcontent">
-							';
+                $htmlText .= "<div class=\"intererrorblock\"><div class=\"intererrortitle\">[".
+					$errorInfo['name']."][Code ".$errorInfo['code'].'] '.$errorInfo['message'].
+					"</div><div class=\"intererrorsubtitle\">Line ".
+					$errorInfo['line'].' On <a href="'.$errorInfo['file'].'">'.
+					$errorInfo['file']."</a></div><div class=\"intererrorcontent\">";
 
                 if(empty($errorInfo['trace'])){
                     $htmlText .= 'No Traceable Information.';
