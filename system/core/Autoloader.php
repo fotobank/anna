@@ -70,18 +70,16 @@ class Autoloader {
 		self::$dirCashe = SITE_PATH.self::$dirCashe;
 		self::$fileMap  = self::$dirCashe.self::$fileMap;
 
+		chmod(self::$dirCashe, 0711);
 		// Set some flags about this file
 		self::$isDirWritable = is_writable(self::$dirCashe);
-		if (!self::$isDirWritable) {
-			chmod(self::$dirCashe, 0755);
-			self::$isDirWritable = is_writable(self::$dirCashe);
-		};
+
 		self::$exists = file_exists(self::$fileMap);
 		// если файла нет - создать
 		if (!self::$exists) {
 			if (self::$isDirWritable) {
 				file_put_contents(self::$fileMap, "", LOCK_EX);
-				chmod(self::$fileMap, 0644);
+				chmod(self::$fileMap, 0600);
 			} else {
 				trigger_error("Can not write contents to an unwritable dir".self::$dirCashe);
 			}
