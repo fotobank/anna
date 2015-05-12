@@ -322,6 +322,7 @@ class Error
      */
     public static function write_errorlog(){
         if( (false != (bool)self::$conf['logType']) && !empty(self::$_allError)){
+			$log = null;
 			try {
 				$log = new Log();
 				$log->setTime_log(5)

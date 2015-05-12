@@ -310,7 +310,7 @@ class Autoloader {
 	private static function putLog($data) {
 
 		$file_path = self::$dirCashe.self::$fileLog;
-		$data      = ("[ ".$data." => ".date('d.m.Y H:i:s')." ]".PHP_EOL);
+		$data      = ("[ ".$data." => ".date('d.m.Y H:i:s')." ]<br>".PHP_EOL);
 		self::putFile($file_path, $data);
 	}
 
@@ -340,7 +340,8 @@ class Autoloader {
 	private static function logLoadOk($full_path, $file) {
 
 		if (DEBUG_MODE) {
-			self::putLog(('<br><b style="color: #23a126;">подключили </b> '.'<b style="color: #3a46e1;"> "'.$full_path.'" </b>'.'<b style="color: #ff0000;">'.$file.'</b><br>'));
+			self::putLog(('<br><b style="color: #23a126;">подключили </b> '.'<b style="color: #3a46e1;"> "'.
+				$full_path.'" </b>'.'<b style="color: #ff0000;">'.$file.'</b><br>'));
 		}
 
 	}
