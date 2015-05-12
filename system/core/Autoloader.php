@@ -20,7 +20,7 @@ namespace core;
  */
 class Autoloader {
 
-	public static $dirCashe = "cache/classes/"; // кэш соответствия неймспейса пути в файловой системе
+	public static $dirCashe = "cache/autoload/"; // кэш соответствия неймспейса пути в файловой системе
 	public static $fileMap = "classLog.php";    // файл существует и успешно создан
 	public static $fileLog = "log.html"; // флаг проверки чтения папки кэша
 	public static $arrauFilesExtensions = [
