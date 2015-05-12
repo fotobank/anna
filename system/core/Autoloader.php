@@ -118,26 +118,32 @@ class Autoloader {
 		self::logLoadError($flag, $className); // сообщение loga класс не найден
 	}
 
+
 	/**
-	 * чтение файла кэша в массив
-	 * @return array|bool|null
+	 * @param $file_path
+	 * @param $file_name
+	 * @param $ext
+	 * @param $flag
+	 * @param $namespace
+	 *
+	 * рекурсивное сканирование заданных директорий
+	 *
 	 */
-	private static function getFileMap() {
+	public static function recursiveClassAutoload($file_path, $namespace, $file_name, $ext, &$flag) {
+		if (is_dir($file_path) && false !== ($handle = opendir($file_path)) && $flag) {
+			while (false !== ($dir = readdir($handle)) && $flag) {
 
-		if (self::$isReadable) {
-			$file_string = file_get_contents(self::$fileMap);
-			$file_array  = parse_ini_string($file_string);
-			if ($file_array === []) {
-				return null;
+				if (strpos($dir, '.') === false) {
+					$full_path = $file_path.DIRSEP.$dir;
+					$flag      = self::checkClass($full_path.$namespace, $file_name, $ext);
+					if (false === $flag) {
+						break;
+					}
+					self::recursiveClassAutoload($full_path, $namespace, $file_name, $ext, $flag);
+				}
 			}
-
-			return $file_array;
-		} else {
-			trigger_error("Can not read the file.");
+			closedir($handle);
 		}
-
-		return false;
-
 	}
 
 	/**
@@ -161,6 +167,28 @@ class Autoloader {
 		}
 
 		return true;
+	}
+
+	/**
+	 * чтение файла кэша в массив
+	 * @return array|bool|null
+	 */
+	private static function getFileMap() {
+
+		if (self::$isReadable) {
+			$file_string = file_get_contents(self::$fileMap);
+			$file_array  = parse_ini_string($file_string);
+			if ($file_array === []) {
+				return null;
+			}
+
+			return $file_array;
+		} else {
+			trigger_error("Can not read the file.");
+		}
+
+		return false;
+
 	}
 
 	/**
@@ -199,57 +227,22 @@ class Autoloader {
 	}
 
 	/**
-	 * @param $file_path
-	 * @param $file
-	 *
-	 * запись в лог начала поиска файла
-	 */
-	private static function logFindClass($file_path, $file) {
-		if (DEBUG_MODE) {
-			self::putLog(('ищем файл <b>'.$file.'</b> in '.$file_path));
-		}
-	}
-
-	/**
 	 * @param $data
 	 *
-	 * запись лога в файл
+	 * @return bool
+	 * проверка существования записи в файле кэша
 	 */
-	private static function putLog($data) {
+	private static function checkFileMap($data) {
 
-		$file_path = self::$dirCashe.self::$fileLog;
-		$data      = ('[ '.$data.'=>'.date('d.m.Y H:i:s').' ]'.PHP_EOL);
-		self::putFile($file_path, $data);
-	}
-
-	/**
-	 * @param $file_path
-	 * @param $data
-	 *
-	 * служебная функция
-	 * запись файла на диск
-	 */
-	private static function putFile($file_path, $data) {
-
-		$file = fopen($file_path, 'a');
-		flock($file, LOCK_EX);
-		fwrite($file, ($data));
-		flock($file, LOCK_UN);
-		fclose($file);
-
-	}
-
-	/**
-	 * @param $full_path
-	 * @param $file
-	 *
-	 * запись успешного подключения класса в лог
-	 */
-	private static function logLoadOk($full_path, $file) {
-
-		if (DEBUG_MODE) {
-			self::putLog(('<br><b style="color: #23a126;">подключили</b> '.'<b style="color: #3a46e1;">'.$full_path.'</b>'.'<b style="color: #ff0000;">'.$file.'</b><br>'));
+		$fileMap = self::getFileMap();
+		list($file_name, $file_patch) = explode("=", $data);
+		$file_patch = trim($file_patch);
+		$file_name  = trim($file_name);
+		if ($fileMap && isset($fileMap[$file_name]) == $file_patch) {
+			return false;
 		}
+
+		return true;
 
 	}
 
@@ -292,21 +285,56 @@ class Autoloader {
 	/**
 	 * @param $data
 	 *
-	 * @return bool
-	 * проверка существования записи в файле кэша
+	 * запись лога в файл
 	 */
-	private static function checkFileMap($data) {
+	private static function putLog($data) {
 
-		$fileMap = self::getFileMap();
-		list($file_name, $file_patch) = explode("=", $data);
-		$file_patch = trim($file_patch);
-		$file_name  = trim($file_name);
-		if ($fileMap && isset($fileMap[$file_name]) == $file_patch) {
-			return false;
+		$file_path = self::$dirCashe.self::$fileLog;
+		$data      = ("[ ".$data." => ".date('d.m.Y H:i:s')." ]".PHP_EOL);
+		self::putFile($file_path, $data);
+	}
+
+	/**
+	 * @param $file_path
+	 * @param $data
+	 *
+	 * служебная функция
+	 * запись файла на диск
+	 */
+	private static function putFile($file_path, $data) {
+
+		$file = fopen($file_path, 'a');
+		flock($file, LOCK_EX);
+		fwrite($file, ($data));
+		flock($file, LOCK_UN);
+		fclose($file);
+
+	}
+
+	/**
+	 * @param $full_path
+	 * @param $file
+	 *
+	 * запись успешного подключения класса в лог
+	 */
+	private static function logLoadOk($full_path, $file) {
+
+		if (DEBUG_MODE) {
+			self::putLog(('<br><b style="color: #23a126;">подключили </b> '.'<b style="color: #3a46e1;"> "'.$full_path.'" </b>'.'<b style="color: #ff0000;">'.$file.'</b><br>'));
 		}
 
-		return true;
+	}
 
+	/**
+	 * @param $file_path
+	 * @param $file
+	 *
+	 * запись в лог начала поиска файла
+	 */
+	private static function logFindClass($file_path, $file) {
+		if (DEBUG_MODE) {
+			self::putLog(('ищем файл <b>"'.$file.'"</b> in '.$file_path));
+		}
 	}
 
 	/**
@@ -319,33 +347,6 @@ class Autoloader {
 	}
 
 	/**
-	 * @param $file_path
-	 * @param $file_name
-	 * @param $ext
-	 * @param $flag
-	 * @param $namespace
-	 *
-	 * рекурсивное сканирование заданных директорий
-	 *
-	 */
-	public static function recursiveClassAutoload($file_path, $namespace, $file_name, $ext, &$flag) {
-		if (is_dir($file_path) && false !== ($handle = opendir($file_path)) && $flag) {
-			while (false !== ($dir = readdir($handle)) && $flag) {
-
-				if (strpos($dir, '.') === false) {
-					$full_path = $file_path.DIRSEP.$dir;
-					$flag      = self::checkClass($full_path.$namespace, $file_name, $ext);
-					if (false === $flag) {
-						break;
-					}
-					self::recursiveClassAutoload($full_path, $namespace, $file_name, $ext, $flag);
-				}
-			}
-			closedir($handle);
-		}
-	}
-
-	/**
 	 * @param $flag
 	 * @param $file_name
 	 *
@@ -353,7 +354,7 @@ class Autoloader {
 	 */
 	private static function logLoadError($flag, $file_name) {
 		if (DEBUG_MODE && $flag) {
-			self::putLog(('<br><b style="color: #ff0000;">файл '.$file_name.' не найден</b><br>'));
+			self::putLog(('<br><b style="color: #ff0000;">Класс "'.$file_name.'" не найден</b><br>'));
 		}
 	}
 
