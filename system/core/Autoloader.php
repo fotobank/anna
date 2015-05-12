@@ -102,7 +102,8 @@ class Autoloader {
 		$namespace = '';
 		$lastNsPos = strrpos($className, '\\');
 		if ($lastNsPos) {
-			$namespace = substr($className, 0, $lastNsPos);
+			$namespace = str_replace(['\\', '/'], DIRSEP,substr($className, 0, $lastNsPos));
+			var_dump($namespace. "<br>");
 			$className = substr($className, $lastNsPos + 1);
 			//	$file_name = str_replace( '\\', DIRSEP, $namespace ) . DIRSEP;
 			$namespace = DIRSEP.$namespace;
@@ -116,8 +117,8 @@ class Autoloader {
 		$flag = true;
 		foreach (self::$arrauFilesExtensions as $ext) {
 			foreach (self::$paths as $path) {
-			    	$full_path = SITE_PATH.str_replace('\\', DIRSEP, $path);
-		var_dump($full_path.$namespace. "<br>");
+
+			    $full_path = SITE_PATH.str_replace(['\\', '/'], DIRSEP, $path);
 				$flag      = self::checkClassNameInCash($className, $ext); // проверка нахождения класса в кэш
 				if (false === $flag) {
 					break;
