@@ -20,13 +20,22 @@ namespace core;
  */
 class Autoloader {
 
-	public static $dirCashe = "cache/autoload/"; // кэш соответствия неймспейса пути в файловой системе
-	public static $fileMap = "classLog.php";    // файл существует и успешно создан
-	public static $fileLog = "log.html"; // флаг проверки чтения папки кэша
+	// папка кэша и лога
+	public static $dirCashe = "cache/autoload/";
+
+	// имя файла кеша без слэша
+	public static $fileMap = "classLog.php";
+
+	// файл лога создается при новом рекурсивном сканировании классов или если класс не найден
+	public static $fileLog = "log.html";
+
+	// расширение файла класса
 	public static $arrauFilesExtensions = [
 		".php",
 		".class.php"
-	]; // флаг проверки на запись
+	];
+
+	// массив путей поиска файлов классов
 	public static $paths = [
 		"classes/Ubench",
 		"classes/Alex",
@@ -35,12 +44,23 @@ class Autoloader {
 		"classes",
 		"system"
 
-	]; // флаг на чтение
-	protected static $nameSpacesMap = []; // папка кэша и лога
-	protected static $exists = false; // имя файла кеша без слэша
-	protected static $isDirWritable = false; // файл лога создается при новом рекурсивном сканировании классов или если класс не найден
-	protected static $isWritable = false; // расширение файла класса
+	];
+
+	// кэш соответствия неймспейса пути в файловой системе
+	protected static $nameSpacesMap = [];
+
+	// файл существует и успешно создан
+	protected static $exists = false;
+
+	// флаг проверки чтения папки кэша
+	protected static $isDirWritable = false;
+
+	// флаг проверки на запись
+	protected static $isWritable = false;
+
+	// флаг на чтение
 	protected static $isReadable = false;
+
 
 	/**
 	 * конструктор класса
