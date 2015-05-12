@@ -27,7 +27,7 @@ if(session_id() == '')
 	session_start();
 else session_regenerate_id(true);
 
-if ( $_SERVER['REMOTE_ADDR'] !== '127.0.0.1' || (isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" )) {
+if ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" )) {
 
 	ini_set( 'display_errors', 1 );
 	ini_set( 'display_startup_errors', 1 );
