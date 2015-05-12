@@ -47,7 +47,7 @@ ini_set( 'log_errors', 1 );
 include( SITE_PATH . 'inc/func.php' );
 /** @noinspection PhpIncludeInspection */
 include (SITE_PATH .'system/core/Autoloader.php');
-core\Autoloader::getInstance();
+new core\Autoloader();
 
 if(!is_ajax() && DEBUG_MODE) $test = new Test();  // профилирование
 

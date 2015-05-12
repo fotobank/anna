@@ -64,12 +64,10 @@ class Autoloader {
 	protected static $isReadable = false;
 
 
-	use \Singleton;
-
 	/**
 	 * конструктор класса
 	 */
-	protected function __construct() {
+	public function __construct() {
 
 		self::$dirCashe = SITE_PATH.self::$dirCashe;
 		self::$fileMap  = self::$dirCashe.self::$fileMap;

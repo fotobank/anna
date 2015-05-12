@@ -34,7 +34,12 @@ trait Singleton
 	 */
 	/*final public static function getInstance()
 	{
-		return isset(static::$instance) ? static::$instance : static::$instance = new static;
+		if(isset(static::$instance)) {
+			return static::$instance;
+		} else {
+			static::$instance = new static;
+			return static::$instance;
+		}
 	}*/
 
 // -------------- 2 ----------------------
@@ -51,9 +56,7 @@ trait Singleton
 	/**
 	 *  __construct()
 	 */
-	private function __construct() {
-
-}
+	private function __construct() { }
 
 	/**
 	 *  __destruct()
