@@ -43,7 +43,6 @@ if ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (isset( $_SESSION['logged'] ) &&
 }
 ini_set( 'log_errors', 1 );
 
-
 /** @noinspection PhpIncludeInspection */
 include( SITE_PATH . 'inc/func.php' );
 /** @noinspection PhpIncludeInspection */
