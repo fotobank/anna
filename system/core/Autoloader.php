@@ -122,7 +122,7 @@ class Autoloader {
 				if (false === $flag) {
 					break;
 				}
-				$flag = self::checkClass($full_path.$namespace, $className, $ext); // проверка пути класса
+				$flag = self::checkClass($full_path.$namespace, $className, $ext); // проверка класса в текущей директории
 				if (false === $flag) {
 					break;
 				}
