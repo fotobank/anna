@@ -45,6 +45,7 @@ ini_set( 'log_errors', 1 );
 
 include (SITE_PATH . "classes/Debug/HackerConsole/Main.php");
 
+
 /** @noinspection PhpIncludeInspection */
 include( SITE_PATH . 'inc/func.php' );
 /** @noinspection PhpIncludeInspection */
