@@ -831,6 +831,7 @@ function basename_utf8( $path ) {
  * @return string $string
  */
 function detect_encoding( $string ) {
+	return 'utf-8';
 	static $list = [ 'utf-8', 'windows-1251' ];
 
 	foreach ( $list as $item ) {
