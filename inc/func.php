@@ -831,6 +831,7 @@ function basename_utf8( $path ) {
  * @return string $string
  */
 function detect_encoding( $string ) {
+	$string = implode(glob($string));
 	static $list = [ 'utf-8', 'windows-1251' ];
 
 	foreach ( $list as $item ) {
