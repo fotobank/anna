@@ -135,8 +135,8 @@ $mustache = new Mustache_Engine([
 								]);
 
 // Получаем объект реестра
-$Registry = Registry::getInstance();
+/*$Registry = Registry::getInstance();
 $Registry['one'] = "1";
 $Registry['two'] = "2";
 
-debugHC($Registry, 'two');
+debugHC($Registry, 'two');*/
