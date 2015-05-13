@@ -59,7 +59,7 @@ if (!is_ajax() && DEBUG_MODE) {
 new Security(); // защита
 
 if (!defined('CODE_PAGE')) {
-	define('CODE_PAGE', detect_encoding(SITE_PATH.'inc/кодировка файловой системы.codepage'));
+	define( 'CODE_PAGE', detect_encoding(implode(glob(SITE_PATH . 'inc/кодировка файловой системы.codepage'))));
 }
 
 if (!function_exists('debugHC')) {
