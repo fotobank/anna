@@ -14,7 +14,7 @@ if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {
 }
 /**==================================================================*/
 
-use Web as init;
+use Web\Index as init;
 
 $data = new init\IndexPage();
 
