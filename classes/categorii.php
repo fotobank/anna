@@ -16,7 +16,7 @@ class Categorii {
 	 *
 	 */
 	public function __construct() {
-		$this->db = Db::getInstance(Db::get_param());
+		$this->db = Db::getInstance(Db::getParam());
 		$this->categorii = $this->db->get("index_menu", NULL, [ "id", "name_head" ] );
 	}
 

@@ -2,7 +2,7 @@
 error_reporting( E_ALL );
 include(__DIR__ . "/Db.php");
 
-$db = new Db( Db::get_param() );
+$db = new Db( Db::getParam() );
 if ( ! $db ) die( "Database error" );
 
 $prefix = 't_';

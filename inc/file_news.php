@@ -4,12 +4,16 @@
  * User: Jurii
  * Date: 05.08.14
  * Time: 22:36
+ *
+ * @param $fileNewsPatch
+ *
+ * @return string
  */
 
-function get_filenews($file_news) {
-	$print = '';
-	$news = ( file_exists( $file_news ) ) ? file_get_contents( $file_news ) : $print = 'Файл новостей не найден!';
-	if ( $news ) {
+function getFileNews($fileNewsPatch) {
+	$print = "Файл новостей не найден";
+	$news = ( file_exists( $fileNewsPatch ) ) ? file_get_contents( $fileNewsPatch ) : $print;
+	if ( $news != $print) {
 		$news = explode( "||", replaceBBCode( $news ) );
 		if ( count( ( $news ) ) ) {
 			for ( $i = 0; $i < count( $news ); $i ++ ) {

@@ -8,7 +8,7 @@
 
 require(__DIR__ .'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 include_once( __DIR__ . '/inc/head.php' );
-$db = Db::getInstance( Db::get_param() );
+$db = Db::getInstance( Db::getParam() );
 ?>
 	<!--==============================content================================-->
 <?

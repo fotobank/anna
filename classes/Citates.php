@@ -31,7 +31,7 @@ class Citates {
 
 		$this->SITE_PATH = realpath( __DIR__ . DIRSEP . '..' . DIRSEP ) . DIRSEP;
 		$this->_get_var( $tune ); // обновление исходных данных
-		$this->db = Db::getInstance(Db::get_param());
+		$this->db = Db::getInstance(Db::getParam());
 
 		if ( $this->db ) {
 			require_once( $this->SITE_PATH . 'classes/SimpleHtmlDomNode.php' ); // подключение парсера

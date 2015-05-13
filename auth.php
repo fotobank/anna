@@ -1,6 +1,6 @@
 <?
 require(__DIR__ .'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
-$db = Db::getInstance(Db::get_param());
+$db = Db::getInstance(Db::getParam());
 
 $tpl = new Template("classes/Comments/_templates/");
 $tpl->define( [

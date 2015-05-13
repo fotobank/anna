@@ -104,7 +104,7 @@ class EditBody{
 	 * @return object
 	 */
 	protected static function db() {
-		return Db::getInstance( Db::get_param());
+		return Db::getInstance( Db::getParam());
 	}
 
 	/**

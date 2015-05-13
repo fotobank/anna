@@ -10,7 +10,7 @@ IF ( isset( $_GET['adm_out'] ) || !isset( $_SESSION['logged'] ) || $_SESSION['lo
 	header( 'Location: ' . "/auth.php", true, 303 );
 }
 
-$db = Db::getInstance( Db::get_param() );
+$db = Db::getInstance( Db::getParam() );
 
 $tpl = new Template( "classes/Comments/_templates/" );
 $tpl->define( [

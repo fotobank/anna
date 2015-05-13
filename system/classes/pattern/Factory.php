@@ -12,44 +12,50 @@
 class Factory
 {
 
-	/**
-	 * @var $products[]
-	 */
-	protected static $products = [ ];
-
+	private $registryClass = [ ];
 
 	/**
-	 * Добавляет продукт в пул
+	 * Фабрика
+	 * добавляет новый объект в пул
+	 * @param $className
+	 * @param $data
 	 *
-	 * @param $product
-	 * @return void
+	 * @return object
 	 */
-	public static function push($product)
-	{
-		self::$products[$product->get()] = $product;
+	public function push( $className, $data = false ) {
+
+		if ( class_exists( $className ) ) {
+
+			if ( empty( $this->registryClass[$className] ) ) {
+				$this->registryClass[$className] = new $className($data);
+			}
+
+			return $this->registryClass[$className];
+		}
+		return false;
 	}
 
 	/**
 	 * Возвращает продукт из пула
 	 *
-	 * @param integer|string $id - идентификатор продукта
-	 * @return $product
+	 * @param integer|string $className - идентификатор продукта
+	 * @return $className
 	 */
-	public static function get($id)
+	public function get($className)
 	{
-		return isset(self::$products[$id]) ? self::$products[$id] : null;
+		return isset($this->registryClass[$className]) ? $this->registryClass[$className] : null;
 	}
 
 	/**
 	 * Удаляет продукт из пула
 	 *
-	 * @param integer|string $id - идентификатор продукта
+	 * @param integer|string $className - идентификатор продукта
 	 * @return void
 	 */
-	public static function remove($id)
+	public function remove($className)
 	{
-		if (array_key_exists($id, self::$products)) {
-			unset(self::$products[$id]);
+		if (array_key_exists($className, $this->registryClass)) {
+			unset($this->registryClass[$className]);
 		}
 	}
 }

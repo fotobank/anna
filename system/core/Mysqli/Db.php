@@ -155,7 +155,7 @@ class Db {
 	 *
 	 * @return array|bool
 	 */
-	public static function get_param($file = ''){
+	public static function getParam($file = ''){
 
     if(strlen($file) > 0) {
 		self::$_file_pass = $file;
@@ -1034,7 +1034,7 @@ class Db {
 	 * Method creates new Db object for a subquery generation
 	 */
 	public static function subQuery() {
-		return new Db(Db::get_param());
+		return new Db(Db::getParam());
 	}
 
 	/**

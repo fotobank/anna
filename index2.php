@@ -257,7 +257,7 @@ $categorii = db()->get( 'index_menu', Null, [ 'id', 'name_head' ] );
 
 					</div>
 				</div>
-				<?= get_filenews( "news.txt" ) ?>
+				<?= getFileNews( "news.txt" ) ?>
 
 			</div>
 

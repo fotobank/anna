@@ -3,97 +3,181 @@
 /**
  * Created by PhpStorm.
  * User: Jurii
- * Date: 09.05.2015
- * Time: 10:45
+ *
+ * Получаем объект реестра
+ * $Registry = Registry::getInstance();
+ *
+ * Записываем значения в реестр
+ * $Registry['one'] = "1";
+ * $Registry['two'] = "2";
+ * $Registry['three'] = "3";
+ * А можно так
+ * $Registry->four = "4";
+ *
+ * Выводим значения
+ * echo $Registry['two'];
+ * Выведет 2
+ *
+ * echo $Registry->three;
+ * Выведет 3
+ *
+ * echo count($Registry);
+ * Выведет 4
+ *
+ * foreach ($Registry as $Key => $Value)
+ * {
+ * echo $Key."|".$Value."\r\n";
+ * }
+ * Выведет:
+ * one|1
+ * two|2
+ * three|3
+ * four|4
+ *
  */
-class Registry {
+class Registry implements ArrayAccess, Iterator, Countable {
 
-	private static $_instance = null;
+	//Здесь хранятся переменные
+	private $_Vars;
+	//Внутренний счетчик
+	private $_Counter = 0;
 
-	private $_registry = [ ];
+	use Singleton;
 
 
 	/**
-	 * @return null|Registry
+	 * Устанавливает значение переменной
+	 *
+	 * @param $Name
+	 * @param $Value
 	 */
-	public static function getInstance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self;
+	function set($Name, $Value) {
+		if (empty($Name)) {
+			$this->_Vars[] = $Value;
+		} else {
+			$this->_Vars[$Name] = $Value;
+		}
+	}
+
+	/**
+	 * Возвращает значение переменной
+	 *
+	 * @param $Name
+	 *
+	 * @return null
+	 */
+	function get($Name) {
+		if (isset($this->_Vars[$Name])) {
+			return $this->_Vars[$Name];
 		}
 
-		return self::$_instance;
+		return null;
 	}
 
 	/**
-	 * @param $key
-	 * @param $object
+	 * @param $Name
+	 * @param $Value
 	 */
-	public static function set( $key, $object ) {
-
-		self::getInstance()->_registry[$key] = $object;
-
+	function __set($Name, $Value) {
+		$this->set($Name, $Value);
 	}
 
 	/**
-	 * @param $key
+	 * @param $Name
 	 *
+	 * @return null
+	 */
+	function __get($Name) {
+		return $this->get($Name);
+	}
+
+
+	/**
+	 * Возвращает кол-во хранимых переменных
+	 *
+	 * @return int
+	 */
+	function count() {
+		return count($this->_Vars);
+	}
+
+	/**
+	 * @param mixed $Name
+	 *
+	 * @return bool
+	 */
+	function offsetExists($Name) {
+		return isset($this->_Vars[$Name]);
+	}
+
+	/**
+	 * @param mixed $Name
+	 * @param mixed $Value
+	 */
+	function offsetSet($Name, $Value) {
+		$this->set($Name, $Value);
+	}
+
+	/**
+	 * @param mixed $Name
+	 *
+	 * @return null
+	 */
+	function offsetGet($Name) {
+		return $this->get($Name);
+	}
+
+	/**
+	 * @param mixed $Name
+	 */
+	function offsetUnset($Name) {
+		if (isset($this->_Vars[$Name])) {
+			unset($this->_Vars[$Name]);
+		}
+	}
+
+	/**
+	 * @return null
+	 */
+	function current() {
+		$Key = $this->key();
+
+		return $this->get($Key);
+	}
+
+	/**
+	 *
+	 */
+	function next() {
+		$this->_Counter ++;
+	}
+
+	/**
+	 *
+	 */
+	function rewind() {
+		$this->_Counter = 0;
+	}
+
+	/**
 	 * @return mixed
 	 */
-	public static function get( $key ) {
-
-		self::getInstance();
-
-		if ( !empty( self::getInstance()->_registry[$key] ) ) {
-			return self::getInstance()->_registry[$key];
+	function key() {
+		reset($this->_Vars);
+		for ($i = 0; $i < $this->_Counter; $i ++) {
+			next($this->_Vars);
 		}
-		return false;
+
+		return key($this->_Vars);
 	}
 
 	/**
-	 * Фабрика
-	 *
-	 * @param $class_name
-	 * @param $data
-	 *
-	 * @return object
+	 * @return bool
 	 */
-	public static function factory( $class_name, $data = false ) {
+	function valid() {
+		$Key = $this->key();
 
-		if ( class_exists( $class_name ) ) {
-
-			if ( empty( self::getInstance()->_registry[$class_name] ) ) {
-				self::getInstance()->_registry[$class_name] = new $class_name($data);
-			}
-
-			return self::getInstance()->_registry[$class_name];
-		}
-		return false;
+		return isset($this->_Vars[$Key]);
 	}
 
-	public static function clear() {
-		self::$_instance = null;
-	}
-
-	/**
-	 * __construct
-	 *
-	 */
-	private function __construct() {
-	}
-
-	/**
-	 * Защищаем от создания через клонирование
-	 *
-	 * @return Singleton
-	 */
-	private function __clone() {
-	}
-
-	/**
-	 * Защищаем от создания через unserialize
-	 *
-	 * @return Singleton
-	 */
-	private function __wakeup() {
-	}
 }

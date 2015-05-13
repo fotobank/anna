@@ -4,8 +4,6 @@ require( __DIR__ . '/system/config/config.php'); // ñòàğò ñåññèè, àâòîëîàäåğ, ïî
 /** @noinspection PhpIncludeInspection */
 require( SITE_PATH . 'inc/carosel.php' );
 /** @noinspection PhpIncludeInspection */
-require( SITE_PATH . 'inc/file_news.php' );
-/** @noinspection PhpIncludeInspection */
 require( SITE_PATH . 'inc/title.php' ); // òèòğû â ğàçäåëàõ äëÿ ÑÅÎ
 
 header( 'Content-type: text/html; charset=windows-1251' );
@@ -16,9 +14,9 @@ if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {
 }
 /**==================================================================*/
 
-use web\index as index;
+use Web as init;
 
-$data = new index\IndexPage();
+$data = new init\IndexPage();
 
 echo $mustache->render( 'index', $data );
 
