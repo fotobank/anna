@@ -121,9 +121,9 @@ $mustache = new Mustache_Engine([
 									// Please, configure your umask instead of doing this :)
 									'cache_lambda_templates' => true,
 									'loader'                 => new Mustache_Loader_FilesystemLoader(SITE_PATH.
-																									 'system/views/Mustache/templates'),
+																									 'system/Views/Mustache/templates'),
 									'partials_loader'        => new Mustache_Loader_FilesystemLoader(SITE_PATH.
-																									 'system/views/Mustache/templates/partials'),
+																									 'system/Views/Mustache/templates/partials'),
 									// 'helpers' => [ 'i18n' => function($text) {  } ],
 									'escape'                 => function ($value) {
 										return htmlspecialchars($value, ENT_COMPAT, 'windows-1251');
