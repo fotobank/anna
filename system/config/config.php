@@ -1,13 +1,14 @@
 <?php
-define('_SECUR', 1);
-ob_start();
-header( 'Content-type: text/html; charset=windows-1251' );
 /**
  * Created by PhpStorm.
  * User: Jurii
  * Date: 12.07.14
  * Time: 7:18
  */
+
+define('_SECUR', 1);
+ob_start();
+header( 'Content-type: text/html; charset=windows-1251' );
 
 
 if (version_compare(phpversion(), '5.4.0', '<') == true) {
