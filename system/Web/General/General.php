@@ -126,6 +126,7 @@ class General
 			return Db::getInstance(Db::getParam());
 		}
 
+
 	/**
 	 * @param $txt_err
 	 *
