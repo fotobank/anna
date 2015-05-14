@@ -140,3 +140,4 @@ $Registry['one'] = "1";
 $Registry['two'] = "2";
 
 debugHC($Registry, 'two');
+
