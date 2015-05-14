@@ -1447,3 +1447,100 @@ function is_ajax() {
 	return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 
 }
+
+/**
+ * @param $filename
+ *
+ * @return mixed
+ */
+function readIniFile($filename) {
+	if (!file_exists($filename)) die('File '.$filename.' not found');
+	if (!is_readable($filename)) die('File read error. Check the access');
+	$str=file_get_contents($filename);
+	$arr=explode("\n",$str);
+	$res="";
+	unset($lastsection);
+	foreach($arr as $s) {
+		$s=preg_replace('/^\s+/','',$s);
+		$s=preg_replace('/\s+$/','',$s);
+		if (empty($s)) continue;
+		if (preg_match('/\[(.+)\]/',$s,$m)) {
+			$sec=strtolower($m[1]);
+			$res[$sec]= [];
+			$lastsection=$sec;
+
+		}
+		else {
+			if (!isset($lastsection)) die('Error fromat of ini file');
+			list($f,$v)=explode('=',$s);
+			$res[$lastsection][strtolower($f)]=$v;
+		}
+	}
+	return $res;
+}
+
+/**
+ * @param $filename
+ * @param $section
+ * @param $field
+ *
+ * @return bool
+ */
+function readIniData($filename,$section,$field) {
+	$arr=readIniFile($filename);
+	$section=strtolower($section);
+	$field=strtolower($field);
+	if (!isset($arr[$section][$field])) return false;
+	return $arr[$section][$field];
+}
+
+/**
+ * @param $filename
+ * @param $section
+ *
+ * @return bool
+ */
+function readIniSection($filename,$section) {
+	$arr=readIniFile($filename);
+	$section=strtolower($section);
+	if (!isset($arr[$section])) return false;
+	return $arr[$section];
+}
+
+/**
+ * @param $filename
+ * @param $arr
+ *
+ * @return bool
+ */
+function writeIniFile($filename,$arr) {
+	if (count($arr)===0) return false;
+	$f = fopen($filename, "w");
+	if ($f===false) return false;
+	foreach($arr as $key=>$sec) {
+		fwrite($f,"[$key]\n");
+		foreach($sec as $field=>$val) {
+			fwrite($f,"$field=$val\n");
+		}
+		fwrite($f,"\n");
+	}
+	fclose($f);
+	return true;
+}
+
+/**
+ * @param $filename
+ * @param $section
+ * @param $field
+ * @param $value
+ *
+ * @return bool
+ */
+function writeIniData($filename,$section,$field,$value) {
+	if (empty($section) or empty($field) or empty($value))
+		return false;
+	$arr=readIniFile($filename);
+	$arr[strtolower($section)][strtolower($field)]=$value;
+	if (!writeIniFile($filename,$arr)) return false;
+	return true;
+}

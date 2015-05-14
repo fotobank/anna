@@ -12,7 +12,7 @@ header( 'Content-type: text/html; charset=windows-1251' );
 
 
 if (version_compare(phpversion(), '5.4.0', '<') == true) {
-	die ('PHP5.3 Only');
+	die ('PHP5.4 Only');
 }
 // Константы:
 if (!defined("PATH_SEPARATOR")) {
@@ -135,10 +135,3 @@ $mustache = new Mustache_Engine([
 									'strict_callables'       => true,
 									'pragmas'                => [Mustache_Engine::PRAGMA_FILTERS]
 								]);
-
-// Получаем объект реестра
-$Registry = Registry::getInstance();
-$Registry['one'] = "1";
-$Registry['two'] = "2";
-
-debugHC($Registry, '$Registry');

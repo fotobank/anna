@@ -17,7 +17,8 @@ use Db as Db;
  * Class General
  * @package Web\General
  */
-class General {
+class General
+{
 
 
 	public $categorii;
@@ -26,7 +27,10 @@ class General {
 	public $keywords;
 	public $description;
 	public $admin_mode;
-// footer
+	public $fileMetaTitle;
+	// показывать только заглавную страницу
+	public $onluIndex = false;
+	// footer
 	public $debug_mode;
 	public $auto_copyright;
 	public $PHP_SESSID;
@@ -46,14 +50,42 @@ class General {
 	 */
 	public function __construct()
 		{
+			$this->fileMetaTitle = SITE_PATH."system/config/meta_title.ini";
 			$this->categorii = $this->getDbTitleName();
 			$this->admin_mode = if_admin(true);
-			list($this->current_razdel, $this->title, $this->keywords, $this->description) = title();
+
+			$this->getMetaTitle();
 
 			// footer
 			$this->debug_mode = DEBUG_MODE;
 			$this->auto_copyright = auto_copyright('2011');
 			$this->PHP_SESSID = isset($_COOKIE['PHPSESSID']) ? $_COOKIE['PHPSESSID'] : ip();
+		}
+
+
+	/**
+	 * присвоение значений переменным metetitle в шапке
+	 */
+	protected function getMetaTitle()
+		{
+			if (is_file($this->fileMetaTitle)) {
+				$arrayMetaTitle = parse_ini_file($this->fileMetaTitle, true);
+				$this->current_razdel = isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : "/index.php";
+				foreach ($arrayMetaTitle as $title => $metaData) {
+
+					if ("/".$title.".php" == $this->current_razdel) {
+						$this->title = $metaData["title"];
+						$this->keywords = $metaData["keywords"];
+						$this->description = $metaData["description"];
+					}
+				}
+				if ($this->onluIndex) {
+					$this->current_razdel = false;
+				}
+
+				return true;
+			}
+			throw new \Exception('не найден ini файл => '.$this->fileMetaTitle);
 		}
 
 	/**
@@ -82,6 +114,7 @@ class General {
 	protected function getDbTitleName()
 		{
 			self::db()->orderBy('position', 'ASC');
+
 			return self::db()->get('index_menu', null, ['id', 'name_head']);
 		}
 
@@ -121,4 +154,15 @@ class General {
 
 			return $text;
 		}
+
+	/**
+	 * показывать только заглавную страницу
+	 *
+	 * @param boolean $onluIndex
+	 */
+	public function setOnluIndex($onluIndex)
+		{
+			$this->onluIndex = $onluIndex;
+		}
+
 }
