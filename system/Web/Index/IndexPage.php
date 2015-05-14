@@ -42,7 +42,7 @@ class IndexPage extends General
 	public function __construct()
 		{
 			// инициализация переменных родительского класса
-			$this->init();
+			parent::__construct();
 			// телефон в слайдере
 			$this->HTTP_HOST = $_SERVER['HTTP_HOST'];
 			// лайтбокс в шапке

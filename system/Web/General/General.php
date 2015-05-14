@@ -44,7 +44,7 @@ class General {
 	/**
 	 *
 	 */
-	protected function init()
+	public function __construct()
 		{
 			$this->categorii = $this->getDbTitleName();
 			$this->admin_mode = if_admin(true);
