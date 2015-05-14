@@ -18,6 +18,6 @@ use Web\Index as init;
 
 $data = new init\IndexPage();
 
-echo $mustache->render( 'index', $data );
+ echo $mustache->render( 'index', $data );
 
 ob_end_flush();

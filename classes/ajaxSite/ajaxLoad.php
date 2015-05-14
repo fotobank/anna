@@ -8,7 +8,7 @@
 
 
 require (__DIR__ .'/../../system/config/config.php');
-header( 'Content-type: text/html; charset=windows-1251' );
+
 
 if(isset($_GET['id'])) {
 	$id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);

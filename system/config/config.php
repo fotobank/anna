@@ -1,6 +1,7 @@
 <?php
 define('_SECUR', 1);
 ob_start();
+header( 'Content-type: text/html; charset=windows-1251' );
 /**
  * Created by PhpStorm.
  * User: Jurii
@@ -139,4 +140,4 @@ $Registry = Registry::getInstance();
 $Registry['one'] = "1";
 $Registry['two'] = "2";
 
-debugHC($Registry, 'two');
+debugHC($Registry, '$Registry');
