@@ -44,7 +44,7 @@ class IndexPage extends General
 			// инициализация переменных родительского класса
 			parent::__construct();
 			// телефон в слайдере
-			$this->HTTP_HOST = $_SERVER['HTTP_HOST'];
+			$this->HTTP_HOST = getenv('HTTP_HOST');
 			// лайтбокс в шапке
 			$this->liteBox();
 			//карусель

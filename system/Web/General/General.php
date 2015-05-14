@@ -26,12 +26,12 @@ class General
 	public $title;
 	public $keywords;
 	public $description;
-	public $admin_mode;
+	public $admin_mode = false;
 	public $fileMetaTitle;
 	// показывать только заглавную страницу
 	public $onluIndex = false;
 	// footer
-	public $debug_mode;
+	public $debug_mode = false;
 	public $auto_copyright;
 	public $PHP_SESSID;
 
