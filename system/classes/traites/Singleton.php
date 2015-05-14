@@ -1,78 +1,56 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Jurii
- * Date: 08.05.2015
- * Time: 23:39
+ * Bluz Framework Component
+ *
+ * @copyright Bluz PHP Team
+ * @link https://github.com/bluzphp/framework
  */
 
+/**
+ * @namespace
+ */
+namespace Bluz\Common;
+
+/**
+ * Singleton
+ *
+ * @package  Bluz\Common
+ * @link     https://github.com/bluzphp/framework/wiki/Trait-Singleton
+ *
+ * @author   Anton Shevchuk
+ * @created  16.05.12 14:26
+ */
 trait Singleton
 {
-	// protected static $instance;
+    /**
+     * @var static Singleton instance
+     */
+    protected static $instance;
 
-	/**
-	 *
-	 */
-	/*protected function __construct()
-	{
-		static::setInstance($this);
-	}*/
+    /**
+     * Get instance
+     * @return static::$instance
+     */
+    final public static function getInstance()
+    {
+        return isset(static::$instance)
+            ? static::$instance
+            : static::$instance = new static;
+    }
 
-	/**
-	 * @param $instance
-	 *
-	 * @return mixed
-	 */
-	/*final public static function setInstance($instance)
-	{
-		static::$instance = $instance;
-		return static::$instance;
-	}*/
+    /**
+     * Disabled by access level
+     */
+    protected function __construct()
+    {
 
-	/**
-	 * @return static
-	 */
-	/*final public static function getInstance()
-	{
-		if(isset(static::$instance)) {
-			return static::$instance;
-		} else {
-			static::$instance = new static;
-			return static::$instance;
-		}
-	}*/
+    }
 
-// -------------- 2 ----------------------
+    /**
+     * Disabled by access level
+     */
+    protected function __clone()
+    {
 
-	static public function getInstance()
-	{
-		static $instance = null;
-		if ($instance === null) {
-			$instance = new static();
-		}
-		return $instance;
-	}
-
-	/**
-	 *  __construct()
-	 */
-	private function __construct() { }
-
-	/**
-	 *  __destruct()
-	 */
-	function __destruct() {
-	}
-
-	/**
-	 *  __clone()
-	 */
-	protected function __clone() {
-	}
-
-	/**
-	 *  __wakeup()
-	 */
-	protected function __wakeup() {
-	}
+    }
 }
