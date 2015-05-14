@@ -47,22 +47,22 @@
                 </div>
 
                 <ul class="list-title">
-                    {{#li_title}}
-                    <li id="head-{{id_title}}">
-                        <a href="#tab-{{id_title}}" class="navlink"
-													{{#admin_mode}} title="Двойной щелчок для редактирования"{{/admin_mode}}>{{name_title}}</a>
-											{{#admin_mode}}
-                          <div class="actions">
-                              <a href="#" title="Изменить или добавить текст меню." class="edit">Edit</a>
-                              <a href="#" title="Удалить раздел из базы данных без возможности восстановления." class="delete">Delete</a>
-                          </div>
-											{{/admin_mode}}
-                    </li>
-										{{/li_title}}
+									{{#getLiTitleName}}
+                      <li id="head-{{id_title}}">
+                          <a href="#tab-{{id_title}}" class="navlink"
+														{{#admin_mode}} title="Двойной щелчок для редактирования"{{/admin_mode}}>{{name_title}}</a>
+												{{#admin_mode}}
+                            <div class="actions">
+                                <a href="#" title="Изменить или добавить текст меню." class="edit">Edit</a>
+                                <a href="#" title="Удалить раздел из базы данных без возможности восстановления." class="delete">Delete</a>
+                            </div>
+												{{/admin_mode}}
+                      </li>
+									{{/getLiTitleName}}
                 </ul>
 							{{#admin_mode}}
 
-									<div id="addButton" class="button_img"><span>Добавить раздел</span></div>
+                  <div id="addButton" class="button_img"><span>Добавить раздел</span></div>
                   <div id="dialog-confirm" title="Удалить запись?">
                       <span>Запись будет удалена из базы данных!</span>
                   </div>
@@ -76,8 +76,8 @@
         <div class="col-2">
             <div class="h-mod">
                 <div class="bb-img-red">
-                <h3>Коротко о разделе:</h3>
-                    </div>
+                    <h3>Коротко о разделе:</h3>
+                </div>
             </div>
             <div id="pageContent" class="block_wrapper_body">
 
@@ -164,7 +164,8 @@
 
                                     Для меня, как свадебного фотографа, снимать свадьбу – это большая ответственность, которую мне доверили молодожены. Во время фотосессии свадьбы я использую как постановочную так и репортажную съемку.</p>
                                 <br /></li>
-                            <li><a data-hover="aleks.od.ua"  class="link-2" href="http://www.aleks.od.ua">aleks.od.ua</a></li>
+                            <li><a data-hover="aleks.od.ua" class="link-2" href="http://www.aleks.od.ua">aleks.od.ua</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -244,8 +245,8 @@
 
             <div class="h-mod">
                 <div class="bb-img-red">
-                <h3>Акции и новости:</h3>
-										</div>
+                    <h3>Акции и новости:</h3>
+                </div>
             </div>
             <div class="clock-container">
                 <div class="clock">
@@ -260,8 +261,7 @@
 
                 </div>
             </div>
-					{{{filenews}}}
-
+					{{>index/small_news}}
         </div>
 
         <div class="clear"></div>
