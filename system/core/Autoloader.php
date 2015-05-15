@@ -250,7 +250,7 @@ class Autoloader
 	 * @param $data
 	 *
 	 * @return bool
-	 * проверка существования записи в файле кэша
+	 * проверка существования записи в файле кэша и, если надо, изменение строк
 	 */
 	private static function checkFileMap($data)
 		{
@@ -269,6 +269,7 @@ class Autoloader
 					foreach($fileMap as $class => $file) {
 						$fileMapWrite .= $class." = ".$file."\n";
 					}
+					// перезаписываем файл
 					file_put_contents(self::$fileMap, $fileMapWrite, LOCK_EX);
 					unset($fileMap);
 				}
