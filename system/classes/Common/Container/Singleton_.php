@@ -6,7 +6,13 @@
  * Time: 23:39
  */
 
-trait Singleton
+namespace Common\Container;
+
+/**
+ * Class Singleton_
+ * @package Common
+ */
+trait Singleton_
 {
 	// protected static $instance;
 

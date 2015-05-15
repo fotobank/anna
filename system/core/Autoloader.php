@@ -99,30 +99,41 @@ class Autoloader
 
 		}
 
+
 	/**
 	 * @param $className
-	 *
-	 * @return bool
-	 *
 	 * автозагрузчик файлов классов
+	 *
+	 * @throws \Exception
 	 */
 	public static function autoload($className)
 		{
-			$flag = true;
-			$lastNsPos = strrpos($className, '\\');
-			if ($lastNsPos) {
-				$namespace = str_replace(['\\', '/'], DIRSEP, substr($className, 0, $lastNsPos));
-				$className = substr($className, $lastNsPos + 1);
-				$namespace = DIRSEP.$namespace;
+			try {
+				$flag = true;
+				$lastNsPos = strrpos($className, '\\');
+				if ($lastNsPos) {
+					$namespace = str_replace(['\\', '/'], DIRSEP, substr($className, 0, $lastNsPos));
+					$className = substr($className, $lastNsPos + 1);
+					$namespace = DIRSEP.$namespace;
 
-				self::findClass($className, $namespace, $flag);
+					self::findClass($className, $namespace, $flag);
+				}
+
+				// попытка поиска без namespace ( если namespace отличается от вложенности директорий )
+				if ($flag) {
+					self::findClass($className, "", $flag);
+				}
+
+				// сообщение log класс не найден
+				if ($flag) {
+					self::logLoadError($flag, $className);
+					throw new \Exception("Error in ". __METHOD__ ." сlass ".$className." not found");
+				}
+			} catch (\Exception $e) {
+				if (DEBUG_MODE) {
+					throw new \Exception($e->getMessage(), E_USER_ERROR);
+				}
 			}
-
-			// попытка поиска без namespace ( если namespace отличается от вложенности директорий )
-			if($flag) self::findClass($className, "", $flag);
-
-			// сообщение log класс не найден
-			if($flag) self::logLoadError($flag, $className);
 		}
 
 
@@ -174,7 +185,6 @@ class Autoloader
 					return false;
 				}
 			}
-
 			return true;
 		}
 
@@ -225,7 +235,6 @@ class Autoloader
 					self::putFileMap($file_name." = ".$full_path."\n");
 
 					return false;
-
 				}
 			}
 			catch (\Exception $e) {
@@ -245,17 +254,29 @@ class Autoloader
 	 */
 	private static function checkFileMap($data)
 		{
-
+			$data = trim($data);
 			$fileMap = self::getFileMap();
 			list($file_name, $file_patch) = explode("=", $data);
 			$file_patch = trim($file_patch);
 			$file_name = trim($file_name);
-			if ($fileMap && isset($fileMap[$file_name]) == $file_patch) {
+			$fullNameMap = $file_name." = ".$fileMap[$file_name];
+			if ($fileMap && isset($fileMap[$file_name])) {
+				// если пути не равны
+				if($fullNameMap != $data) {
+					// изменить строку в массиве и записать изменения в файл
+					$fileMap[$file_name] = $file_patch;
+					$fileMapWrite = "";
+					foreach($fileMap as $class => $file) {
+						$fileMapWrite .= $class." = ".$file."\n";
+					}
+					file_put_contents(self::$fileMap, $fileMapWrite, LOCK_EX);
+					unset($fileMap);
+				}
+
 				return false;
 			}
-
+			// разрешить запись
 			return true;
-
 		}
 
 	/**
@@ -277,22 +298,24 @@ class Autoloader
 			return false;
 		}
 
+
 	/**
-	 * @param $file_patch
-	 *
+	 * @param $class
 	 * запись кэша в файл
+	 *
+	 * @throws \Exception
 	 */
-	private static function putFileMap($file_patch)
+	private static function putFileMap($class)
 		{
 
 			if (self::$isWritable) {
-				// если запись не существует - записать в файл
-				if (self::checkFileMap($file_patch)) {
-					self::putFile(self::$fileMap, $file_patch);
+				// если строки в записи не не равны - изменить запись в файле
+				if (self::checkFileMap($class)) {
+					file_put_contents(self::$fileMap, $class, FILE_APPEND | LOCK_EX);
 				}
 
 			} else {
-				trigger_error("Can not write contents to an unwritable file".self::$fileMap);
+				throw new \Exception("Can not write contents to an unwritable file".self::$fileMap);
 			}
 		}
 
@@ -306,25 +329,7 @@ class Autoloader
 
 			$file_path = self::$dirCashe.self::$fileLog;
 			$data = ("[ ".$data." => ".date('d.m.Y H:i:s')." ]<br>".PHP_EOL);
-			self::putFile($file_path, $data);
-		}
-
-	/**
-	 * @param $file_path
-	 * @param $data
-	 *
-	 * служебная функция
-	 * запись файла на диск
-	 */
-	private static function putFile($file_path, $data)
-		{
-
-			$file = fopen($file_path, 'a');
-			flock($file, LOCK_EX);
-			fwrite($file, ($data));
-			flock($file, LOCK_UN);
-			fclose($file);
-
+			file_put_contents($file_path, $data, FILE_APPEND | LOCK_EX);
 		}
 
 	/**

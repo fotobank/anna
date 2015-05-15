@@ -157,7 +157,7 @@ class Test
 	public function __destruct() {
 
 		self::end();
-		$ret = "<span class='texno'>Время: " . self::getTime() . " / ";
+		$ret = "<span class='texno'> Время: " . self::getTime() . " / ";
 		$ret .= "Память пиковая: " . self::getMemoryPeak() . " / ";
 		$ret .= "Память конечная: " . self::getMemoryUsage() . "</span>";
 

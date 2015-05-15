@@ -9,16 +9,12 @@
 /**
  * @namespace
  */
-namespace Bluz\Common;
+namespace Common\Container;
 
 /**
  * Singleton
  *
- * @package  Bluz\Common
- * @link     https://github.com/bluzphp/framework/wiki/Trait-Singleton
- *
- * @author   Anton Shevchuk
- * @created  16.05.12 14:26
+ * @package  Common
  */
 trait Singleton
 {

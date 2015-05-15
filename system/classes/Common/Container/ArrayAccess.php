@@ -1,21 +1,9 @@
 <?php
-/**
- * Bluz Framework Component
- *
- * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/framework
- */
+namespace Common\Container;
 
-/**
- * @namespace
- */
-namespace Bluz\Common\Container;
-
-/**
+/**;
  * Container implements ArrayAccess
  * @see ArrayAccess
- *
- * @package  Bluz\Common
  *
  * @method void doSetContainer($key, $value)
  * @method mixed doGetContainer($key)
@@ -23,21 +11,21 @@ namespace Bluz\Common\Container;
  * @method void doDeleteContainer($key)
  *
  *
- * @author   Anton Shevchuk
- * @created  14.10.2014 10:11
  */
 trait ArrayAccess
 {
-    /**
-     * Offset to set
-     * @param mixed $offset
-     * @param mixed $value
-     * @throws \InvalidArgumentException
-     */
+	/**
+	 * Offset to set
+	 *
+	 * @param mixed $offset
+	 * @param mixed $value
+	 *
+	 * @throws \Exception
+	 */
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
-            throw new \InvalidArgumentException('Class `Common\Container\ArrayAccess` support only associative arrays');
+            throw new \Exception('Class `ArrayAccess` support only associative arrays');
         } else {
             $this->doSetContainer($offset, $value);
         }

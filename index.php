@@ -13,8 +13,17 @@ if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {
 
 use Web\Index as init;
 
-$data = new init\IndexPage();
+try {
+	$data = new init\IndexPage([
+								   'carousel' => carousel()
+							   ]
+							   );
+	echo $mustache->render( 'index', $data );
 
- echo $mustache->render( 'index', $data );
+} catch (Exception $e) {
+	echo "Îøèáêà: " . $e->getMessage();
+}
+
+
 
 ob_end_flush();

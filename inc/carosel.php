@@ -50,5 +50,7 @@ function carousel() {
 	}
 
 	$carousel .= "</div>";
+
+
 	return $carousel;
 }

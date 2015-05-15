@@ -10,7 +10,8 @@
 namespace Web\Index;
 
 
-use Web\General\General;
+use Common\Container\Options;
+use Web\Base\Base;
 
 if (session_id() == '') {
 	session_start();
@@ -21,11 +22,13 @@ header('Content-type: text/html; charset=windows-1251');
 /**
  * Class ajaxSite_web_index
  */
-class IndexPage extends General
+class IndexPage extends Base
 {
 
+	use Options;
+
 	// телефон в слайдере
-	public $HTTP_HOST;
+	public $HTTP_HOST = "";
 	// лайтбокс в шапке
 	public $items = [];
 	public $pags = [];
@@ -37,18 +40,21 @@ class IndexPage extends General
 
 
 	/**
-	 *
+	 * @param $options
 	 */
-	public function __construct()
+	public function __construct($options)
 		{
 			// инициализация переменных родительского класса
 			parent::__construct();
+
+			$this->setOptions($options);
+
 			// телефон в слайдере
 			$this->HTTP_HOST = getenv('HTTP_HOST');
 			// лайтбокс в шапке
 			$this->liteBox();
 			//карусель
-			$this->carousel = carousel();
+		//	$this->carousel = carousel();
 
 		}
 

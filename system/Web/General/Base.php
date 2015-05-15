@@ -7,7 +7,7 @@
  */
 
 
-namespace Web\General;
+namespace Web\Base;
 
 
 use Db as Db;
@@ -17,7 +17,7 @@ use Db as Db;
  * Class General
  * @package Web\General
  */
-class General
+class Base
 {
 
 
@@ -66,7 +66,7 @@ class General
 	/**
 	 * присвоение значений переменным metetitle в шапке
 	 */
-	protected function getMetaTitle()
+	public function getMetaTitle()
 		{
 			if (is_file($this->fileMetaTitle)) {
 				$arrayMetaTitle = parse_ini_file($this->fileMetaTitle, true);
@@ -111,7 +111,7 @@ class General
 	/**
 	 * @return mixed
 	 */
-	protected function getDbTitleName()
+	public function getDbTitleName()
 		{
 			self::db()->orderBy('position', 'ASC');
 
@@ -121,7 +121,7 @@ class General
 	/**
 	 * @return object
 	 */
-	protected function db()
+	public function db()
 		{
 			return Db::getInstance(Db::getParam());
 		}
@@ -131,7 +131,7 @@ class General
 	 *
 	 * @throws \Exception
 	 */
-	protected static function ifError($txt_err)
+	public function ifError($txt_err)
 		{
 
 			if (self::db()->getLastError() != '&nbsp;&nbsp;') {
@@ -147,7 +147,7 @@ class General
 	 *
 	 * @return mixed|string
 	 */
-	protected static function esc($text)
+	public function esc($text)
 		{
 
 			$text = cp1251(preg_replace('/[\n\t]{1,}/i', '', nl2br(cleanInput($text))));

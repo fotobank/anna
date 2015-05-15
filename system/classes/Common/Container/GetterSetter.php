@@ -6,13 +6,19 @@
  * Time: 1:04
  */
 
+namespace Common\Container;
+
+/**
+ * Class GetterSetter
+ * @package Common\Container
+ */
 trait GetterSetter
 {
 	/**
 	 * @param $name
 	 *
 	 * @return mixed
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function __get($name)
 	{
@@ -29,7 +35,7 @@ trait GetterSetter
 	 * @param $value
 	 *
 	 * @return $this
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function __set($name, $value)
 	{

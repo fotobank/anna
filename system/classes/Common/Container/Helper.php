@@ -1,38 +1,25 @@
 <?php
 /**
- * Bluz Framework Component
- *
- * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/framework
- */
-
-/**
  * @namespace
  */
-namespace Bluz\Common;
-
-use Bluz\Common\Exception\CommonException;
+namespace Common\Container;
 
 /**
  * Helper trait
  *
- * @package  Bluz\Common
- * @link     https://github.com/bluzphp/framework/wiki/Trait-Helper
- *
- * @author   Anton Shevchuk
- * @created  18.07.12 14:46
+ * @package  Common
  */
 trait Helper
 {
     /**
      * @var array of helpers
      */
-    protected $helpers = array();
+    protected $helpers = [];
 
     /**
      * @var array of helpers paths
      */
-    protected $helpersPath = array();
+    protected $helpersPath = [];
 
     /**
      * Add helper path
@@ -66,13 +53,15 @@ trait Helper
         return $this;
     }
 
-    /**
-     * Call magic helper
-     * @param string $method
-     * @param array $args
-     * @throws CommonException
-     * @return mixed
-     */
+	/**
+	 * Call magic helper
+	 *
+	 * @param string $method
+	 * @param array  $args
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 */
     public function __call($method, $args)
     {
         // Setup key
@@ -92,10 +81,10 @@ trait Helper
                     $this->helpers[$key] = $helperInclude;
                     return call_user_func_array($this->helpers[$key], $args);
                 } else {
-                    throw new CommonException("Helper '$method' not found in file '$helperPath'");
+                    throw new \Exception("Helper '$method' not found in file '$helperPath'");
                 }
             }
         }
-        throw new CommonException("Helper '$method' not found for '" . __CLASS__ . "'");
+        throw new \Exception("Helper '$method' not found for '" . __CLASS__ . "'");
     }
 }
