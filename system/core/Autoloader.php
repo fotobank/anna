@@ -84,7 +84,7 @@ class Autoloader
 					file_put_contents(self::$fileMap, "", LOCK_EX);
 					chmod(self::$fileMap, 0600);
 				} else {
-					trigger_error("Can not write contents to an unwritable dir".self::$dirCashe);
+					throw new \Exception("Can not write contents to an unwritable dir".self::$dirCashe);
 				}
 			}
 			self::$isWritable = is_writable(self::$fileMap);
@@ -94,7 +94,7 @@ class Autoloader
 			if (self::$isReadable) {
 				self::$nameSpacesMap = self::getFileMap();
 			} else {
-				trigger_error("Can not read contents to an readable file".self::$fileMap);
+				throw new \Exception("Can not read contents to an readable file".self::$fileMap);
 			}
 
 		}
@@ -127,9 +127,10 @@ class Autoloader
 				// сообщение log класс не найден
 				if ($flag) {
 					self::logLoadError($flag, $className);
-					throw new \Exception("Error in ". __METHOD__ ." сlass ".$className." not found");
+					throw new \Exception("Error in ".__METHOD__." сlass ".$className." not found");
 				}
-			} catch (\Exception $e) {
+			}
+			catch (\Exception $e) {
 				if (DEBUG_MODE) {
 					throw new \Exception($e->getMessage(), E_USER_ERROR);
 				}
@@ -139,29 +140,37 @@ class Autoloader
 
 	/**
 	 * @param $file_path
-	 * @param $file_name
-	 * @param $ext
-	 * @param $flag
 	 * @param $namespace
 	 *
 	 * рекурсивное сканирование заданных директорий
+	 * @param $file_name
+	 * @param $ext
+	 * @param $flag
 	 *
+	 * @throws \Exception
 	 */
 	public static function recursiveClassAutoload($file_path, $namespace, $file_name, $ext, &$flag)
 		{
-			if (is_dir($file_path) && false !== ($handle = opendir($file_path)) && $flag) {
-				while (false !== ($dir = readdir($handle)) && $flag) {
+			try {
+				if (is_dir($file_path) && false !== ($handle = opendir($file_path)) && $flag) {
+					while (false !== ($dir = readdir($handle)) && $flag) {
 
-					if (strpos($dir, '.') === false) {
-						$full_path = $file_path.DIRSEP.$dir;
-						$flag = self::checkClass($full_path.$namespace, $file_name, $ext);
-						if (false === $flag) {
-							break;
+						if (strpos($dir, '.') === false) {
+							$full_path = $file_path.DIRSEP.$dir;
+							$flag = self::checkClass($full_path.$namespace, $file_name, $ext);
+							if (false === $flag) {
+								break;
+							}
+							self::recursiveClassAutoload($full_path, $namespace, $file_name, $ext, $flag);
 						}
-						self::recursiveClassAutoload($full_path, $namespace, $file_name, $ext, $flag);
 					}
+					closedir($handle);
 				}
-				closedir($handle);
+			}
+			catch (\Exception $e) {
+				if (DEBUG_MODE) {
+					throw new \Exception("Ошибка: ".$e->getMessage(), E_USER_ERROR);
+				}
 			}
 		}
 
@@ -172,29 +181,37 @@ class Autoloader
 	 * проверка нахождения класса в кэш
 	 *
 	 * @return bool
+	 * @throws \Exception
 	 */
 	protected static function checkClassNameInCash($className, $ext)
 		{
+			try {
+				if (!empty(self::$nameSpacesMap[$className])) {
+					$filePath = self::$nameSpacesMap[$className].DIRSEP.$className.$ext;
+					if (file_exists($filePath)) {
+						/** @noinspection PhpIncludeInspection */
+						require_once $filePath;
 
-			if (!empty(self::$nameSpacesMap[$className])) {
-				$filePath = self::$nameSpacesMap[$className].DIRSEP.$className.$ext;
-				if (file_exists($filePath)) {
-					/** @noinspection PhpIncludeInspection */
-					require_once $filePath;
-
-					return false;
+						return false;
+					}
 				}
 			}
+			catch (\Exception $e) {
+				if (DEBUG_MODE) {
+					throw new \Exception("Ошибка: ".$e->getMessage(), E_USER_ERROR);
+				}
+			}
+
 			return true;
 		}
 
 	/**
 	 * чтение файла кэша в массив
 	 * @return array|bool|null
+	 * @throws \Exception
 	 */
 	private static function getFileMap()
 		{
-
 			if (self::$isReadable) {
 				$file_string = file_get_contents(self::$fileMap);
 				$file_array = parse_ini_string($file_string);
@@ -204,11 +221,8 @@ class Autoloader
 
 				return $file_array;
 			} else {
-				trigger_error("Can not read the file.");
+				throw new \Exception("Can not read the file ", E_USER_ERROR);
 			}
-
-			return false;
-
 		}
 
 	/**
@@ -216,10 +230,10 @@ class Autoloader
 	 * @param $file_name
 	 * @param $ext
 	 *
-	 * @return bool
+	 * @return bool проверка наличия файла класса в директории
 	 *
 	 * проверка наличия файла класса в директории
-	 *
+	 * @throws \Exception
 	 */
 	private static function checkClass($full_path, $file_name, $ext)
 		{
@@ -239,7 +253,7 @@ class Autoloader
 			}
 			catch (\Exception $e) {
 				if (DEBUG_MODE) {
-					trigger_error($e->getMessage(), E_USER_ERROR);
+					throw new \Exception("Ошибка: ".$e->getMessage(), E_USER_ERROR);
 				}
 			}
 
@@ -249,33 +263,43 @@ class Autoloader
 	/**
 	 * @param $data
 	 *
-	 * @return bool
+	 * @return bool проверка существования записи в файле кэша и, если надо, изменение строк
 	 * проверка существования записи в файле кэша и, если надо, изменение строк
+	 * @throws \Exception
 	 */
 	private static function checkFileMap($data)
 		{
-			$data = trim($data);
-			$fileMap = self::getFileMap();
-			list($file_name, $file_patch) = explode("=", $data);
-			$file_patch = trim($file_patch);
-			$file_name = trim($file_name);
-			$fullNameMap = $file_name." = ".$fileMap[$file_name];
-			if ($fileMap && isset($fileMap[$file_name])) {
-				// если пути не равны
-				if($fullNameMap != $data) {
-					// изменить строку в массиве и записать изменения в файл
-					$fileMap[$file_name] = $file_patch;
-					$fileMapWrite = "";
-					foreach($fileMap as $class => $file) {
-						$fileMapWrite .= $class." = ".$file."\n";
-					}
-					// перезаписываем файл
-					file_put_contents(self::$fileMap, $fileMapWrite, LOCK_EX);
-					unset($fileMap);
-				}
+			try {
+				$data = trim($data);
+				$fileMap = self::getFileMap();
+				list($file_name, $file_patch) = explode("=", $data);
+				$file_patch = trim($file_patch);
+				$file_name = trim($file_name);
 
-				return false;
+				if ($fileMap && isset($fileMap[$file_name])) {
+					$fullNameMap = $file_name." = ".$fileMap[$file_name];
+					// если пути не равны
+					if ($fullNameMap != $data) {
+						// изменить строку в массиве и записать изменения в файл
+						$fileMap[$file_name] = $file_patch;
+						$fileMapWrite = "";
+						foreach ($fileMap as $class => $file) {
+							$fileMapWrite .= $class." = ".$file."\n";
+						}
+						// перезаписываем файл
+						file_put_contents(self::$fileMap, $fileMapWrite, LOCK_EX);
+						unset($fileMap);
+					}
+
+					return false;
+				}
 			}
+			catch (\Exception $e) {
+				if (DEBUG_MODE) {
+					throw new \Exception("Ошибка: ".$e->getMessage(), E_USER_ERROR);
+				}
+			}
+
 			// разрешить запись
 			return true;
 		}
@@ -308,15 +332,21 @@ class Autoloader
 	 */
 	private static function putFileMap($class)
 		{
-
-			if (self::$isWritable) {
-				// если строки в записи не не равны - изменить запись в файле
-				if (self::checkFileMap($class)) {
-					file_put_contents(self::$fileMap, $class, FILE_APPEND | LOCK_EX);
+			try {
+				if (self::$isWritable) {
+					// если строки в записи не не равны - изменить запись в файле
+					if (self::checkFileMap($class)) {
+						// а если не существуют - добавить
+						file_put_contents(self::$fileMap, $class, FILE_APPEND | LOCK_EX);
+					}
+				} else {
+					throw new \Exception("Can not write contents to an unwritable file".self::$fileMap);
 				}
-
-			} else {
-				throw new \Exception("Can not write contents to an unwritable file".self::$fileMap);
+			}
+			catch (\Exception $e) {
+				if (DEBUG_MODE) {
+					throw new \Exception("Ошибка: ".$e->getMessage(), E_USER_ERROR);
+				}
 			}
 		}
 
@@ -324,13 +354,21 @@ class Autoloader
 	 * @param $data
 	 *
 	 * запись лога в файл
+	 *
+	 * @throws \Exception
 	 */
 	private static function putLog($data)
 		{
-
-			$file_path = self::$dirCashe.self::$fileLog;
-			$data = ("[ ".$data." => ".date('d.m.Y H:i:s')." ]<br>".PHP_EOL);
-			file_put_contents($file_path, $data, FILE_APPEND | LOCK_EX);
+			try {
+				$file_path = self::$dirCashe.self::$fileLog;
+				$data = ("[ ".$data." => ".date('d.m.Y H:i:s')." ]<br>".PHP_EOL);
+				file_put_contents($file_path, $data, FILE_APPEND | LOCK_EX);
+			}
+			catch (\Exception $e) {
+				if (DEBUG_MODE) {
+					throw new \Exception("Ошибка: ".$e->getMessage(), E_USER_ERROR);
+				}
+			}
 		}
 
 	/**
