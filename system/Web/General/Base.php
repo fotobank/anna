@@ -10,6 +10,7 @@
 namespace Web\Base;
 
 
+use Common\Container\Options;
 use Db as Db;
 
 
@@ -20,6 +21,7 @@ use Db as Db;
 class Base
 {
 
+	use Options;
 
 	public $categorii;
 	public $current_razdel;
@@ -27,13 +29,13 @@ class Base
 	public $keywords;
 	public $description;
 	public $admin_mode = false;
-	public $fileMetaTitle;
+	public $file_meta_title;
 	// показывать только заглавную страницу
 	public $onluIndex = false;
 	// footer
 	public $debug_mode = false;
 	public $auto_copyright;
-	public $PHP_SESSID;
+	public $php_sessid;
 
 	public $section_title = [
 		"Главная"              => "/index",
@@ -50,26 +52,17 @@ class Base
 	 */
 	public function __construct()
 		{
-			$this->fileMetaTitle = SITE_PATH."system/config/meta_title.ini";
 			$this->categorii = $this->getDbTitleName();
-			$this->admin_mode = if_admin(true);
-
 			$this->getMetaTitle();
-
-			// footer
-			$this->debug_mode = DEBUG_MODE;
-			$this->auto_copyright = auto_copyright('2011');
-			$this->PHP_SESSID = isset($_COOKIE['PHPSESSID']) ? $_COOKIE['PHPSESSID'] : ip();
 		}
 
-
 	/**
-	 * присвоение значений переменным metetitle в шапке
+	 * присвоение значений переменным metatitle в шапке
 	 */
 	public function getMetaTitle()
 		{
-			if (is_file($this->fileMetaTitle)) {
-				$arrayMetaTitle = parse_ini_file($this->fileMetaTitle, true);
+			if (is_file($this->file_meta_title)) {
+				$arrayMetaTitle = parse_ini_file($this->file_meta_title, true);
 				$this->current_razdel = isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : "/index.php";
 				foreach ($arrayMetaTitle as $title => $metaData) {
 
@@ -85,7 +78,7 @@ class Base
 
 				return true;
 			}
-			throw new \Exception('не найден ini файл => '.$this->fileMetaTitle);
+			throw new \Exception('не найден ini файл => '.$this->file_meta_title);
 		}
 
 	/**

@@ -9,8 +9,6 @@
 
 namespace Web\Index;
 
-
-use Common\Container\Options;
 use Web\Base\Base;
 
 if (session_id() == '') {
@@ -25,18 +23,16 @@ header('Content-type: text/html; charset=windows-1251');
 class IndexPage extends Base
 {
 
-	use Options;
-
 	// телефон в слайдере
-	public $HTTP_HOST = "";
+	public $http_host = "";
 	// лайтбокс в шапке
 	public $items = [];
 	public $pags = [];
 	// колонка новостей
-	public $filenews = "news.txt";
+	public $filenews = "";
 	//карусель
 	public $carousel;
-	public $lite_box_path = "files/slides/*.jpg";
+	public $lite_box_path = "";
 
 
 	/**
@@ -44,18 +40,12 @@ class IndexPage extends Base
 	 */
 	public function __construct($options)
 		{
-			// инициализация переменных родительского класса
-			parent::__construct();
-
+			// настройка свойств класса
 			$this->setOptions($options);
-
-			// телефон в слайдере
-			$this->HTTP_HOST = getenv('HTTP_HOST');
+			// инициализация конструктора родительского класса
+			parent::__construct();
 			// лайтбокс в шапке
 			$this->liteBox();
-			//карусель
-		//	$this->carousel = carousel();
-
 		}
 
 	/**

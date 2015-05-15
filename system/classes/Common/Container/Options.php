@@ -1,11 +1,25 @@
 <?php
+/**
+ * 1. Свойства класса должны быть заданны
+ * 2. Имена свойств должны быть вида: properti_name - с маленькой буквы
+ * слова разделяются полочкой
+ * 3. При задании свойств через неопределенный в классе метод
+ * имя метода долно быть в верблюжьем стиле: (get|set)PropertyName($prop)
+ */
+
 
 namespace Common\Container;
+
+use Exception;
 
 /**
  * Options Trait
  *
  * Example of usage
+ * 1)
+ *    $obj = new Class();
+ *    $obj->(get|set)PropertyName($prop); - запись в верблюжьем стиле
+ * 2)
  *     class Foo
  *     {
  *       use Options;
@@ -28,14 +42,12 @@ namespace Common\Container;
  *
  * @created  12.07.11 16:15
  */
-
 trait Options
 {
 	/**
 	 * @var array Options store
 	 */
 	protected $options;
-
 
 	/**
 	 * Получение и установка свойств объекта через вызов магического метода вида:
@@ -47,33 +59,37 @@ trait Options
 	 * @param $argument
 	 *
 	 * @return mixed
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function __call($method_name, $argument)
 		{
-			$args = preg_split('/(?<=\w)(?=[A-Z])/', $method_name);
-			$action = array_shift($args);
-			$property_name = strtolower(implode('_', $args));
+			try {
+				$args = preg_split('/(?<=\w)(?=[A-Z])/', $method_name);
+				$action = array_shift($args);
+				$property_name = strtolower(implode('_', $args));
+				switch ($action) {
+					case 'get':
+						return isset($this->$property_name) ? $this->$property_name : null;
 
-			switch ($action)
-			{
-				case 'get':
-					return isset($this->$property_name) ? $this->$property_name : null;
+					case 'set':
+						if (property_exists($this, $property_name)) {
+							$this->$property_name = $argument[0];
 
-				case 'set':
-				//	if(property_exists(__CLASS__, $this->$property_name)) {
-
-						$this->$property_name = $argument[0];
-						return $this;
-				//	} else {
-				//		throw new \Exception("не найдено свойство класса {$this->$property_name} в классе ". __CLASS__ );
-				//	}
-
+							return $this;
+						} else {
+							throw new Exception("не найдено свойство класса '{$property_name}' в классе '".__CLASS__.
+												"'<br>");
+						}
+				}
+				throw new Exception("неправильно заданно имя аргумента. Необходимо: (get|set)PropertyName, имеем: '{$method_name}'<br>");
 			}
-
-			throw new \Exception("неправильно заданно имя аргумента. Необходимо: (get|set)PropertyName, имеем: {$method_name}");
+			catch (Exception $e) {
+				if (DEBUG_MODE) {
+					throw new Exception($e->getMessage(), E_USER_ERROR);
+				}
+			}
+			return $this;
 		}
-
 
 
 	/**

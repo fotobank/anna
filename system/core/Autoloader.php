@@ -9,6 +9,7 @@
  * Имена классов должны совпадать с именами файлов
  * Файлы классов могут распологаться в произвольных папках без привязки имени к директориям и namespace
  * Конфликт одинаковых имен разных классов необходимо решать с помощью задания разных namespace для классов
+ * Класс следит за перемещением файлов и корректирует кэш
  *
  */
 
@@ -84,7 +85,7 @@ class Autoloader
 					file_put_contents(self::$fileMap, "", LOCK_EX);
 					chmod(self::$fileMap, 0600);
 				} else {
-					throw new \Exception("Can not write contents to an unwritable dir".self::$dirCashe);
+					throw new \Exception("Can not write contents to an unwritable dir '". self::$dirCashe."'<br>");
 				}
 			}
 			self::$isWritable = is_writable(self::$fileMap);
@@ -94,7 +95,7 @@ class Autoloader
 			if (self::$isReadable) {
 				self::$nameSpacesMap = self::getFileMap();
 			} else {
-				throw new \Exception("Can not read contents to an readable file".self::$fileMap);
+				throw new \Exception("Can not read contents to an readable file '".self::$fileMap."'<br>");
 			}
 
 		}
@@ -127,7 +128,7 @@ class Autoloader
 				// сообщение log класс не найден
 				if ($flag) {
 					self::logLoadError($flag, $className);
-					throw new \Exception("Error in ".__METHOD__." сlass ".$className." not found");
+					throw new \Exception("Error in ".__METHOD__." сlass ".$className." not found <br>");
 				}
 			}
 			catch (\Exception $e) {
@@ -221,7 +222,7 @@ class Autoloader
 
 				return $file_array;
 			} else {
-				throw new \Exception("Can not read the file ", E_USER_ERROR);
+				throw new \Exception("Can not read the file <br>", E_USER_ERROR);
 			}
 		}
 
@@ -246,14 +247,14 @@ class Autoloader
 					require_once($file);
 					self::logLoadOk($full_path.DIRSEP, $file_name.$ext);
 					self::addNamespace($file_name, $full_path);
-					self::putFileMap($file_name." = ".$full_path."\n");
+					self::putFileMap($file_name." = ".$full_path.PHP_EOL);
 
 					return false;
 				}
 			}
 			catch (\Exception $e) {
 				if (DEBUG_MODE) {
-					throw new \Exception("Ошибка: ".$e->getMessage(), E_USER_ERROR);
+					throw new \Exception("Ошибка: ".$e->getMessage()."<br>", E_USER_ERROR);
 				}
 			}
 
@@ -263,7 +264,7 @@ class Autoloader
 	/**
 	 * @param $data
 	 *
-	 * @return bool проверка существования записи в файле кэша и, если надо, изменение строк
+	 * @return bool
 	 * проверка существования записи в файле кэша и, если надо, изменение строк
 	 * @throws \Exception
 	 */
@@ -284,7 +285,7 @@ class Autoloader
 						$fileMap[$file_name] = $file_patch;
 						$fileMapWrite = "";
 						foreach ($fileMap as $class => $file) {
-							$fileMapWrite .= $class." = ".$file."\n";
+							$fileMapWrite .= $class." = ".$file.PHP_EOL;
 						}
 						// перезаписываем файл
 						file_put_contents(self::$fileMap, $fileMapWrite, LOCK_EX);
@@ -296,7 +297,7 @@ class Autoloader
 			}
 			catch (\Exception $e) {
 				if (DEBUG_MODE) {
-					throw new \Exception("Ошибка: ".$e->getMessage(), E_USER_ERROR);
+					throw new \Exception("Ошибка: ".$e->getMessage()."<br>", E_USER_ERROR);
 				}
 			}
 
@@ -340,12 +341,12 @@ class Autoloader
 						file_put_contents(self::$fileMap, $class, FILE_APPEND | LOCK_EX);
 					}
 				} else {
-					throw new \Exception("Can not write contents to an unwritable file".self::$fileMap);
+					throw new \Exception("Can not write contents to an unwritable file '".self::$fileMap."'<br>");
 				}
 			}
 			catch (\Exception $e) {
 				if (DEBUG_MODE) {
-					throw new \Exception("Ошибка: ".$e->getMessage(), E_USER_ERROR);
+					throw new \Exception("Ошибка: ".$e->getMessage()."<br>", E_USER_ERROR);
 				}
 			}
 		}
@@ -366,7 +367,7 @@ class Autoloader
 			}
 			catch (\Exception $e) {
 				if (DEBUG_MODE) {
-					throw new \Exception("Ошибка: ".$e->getMessage(), E_USER_ERROR);
+					throw new \Exception("Ошибка: ".$e->getMessage()."<br>", E_USER_ERROR);
 				}
 			}
 		}
