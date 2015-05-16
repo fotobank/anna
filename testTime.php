@@ -9,7 +9,7 @@
 include __DIR__ . "/inc/func.php";
 include __DIR__ .'/classes/testTime.php';
 
-/**==========================================1======================================= */
+/**==========================================0======================================= */
 
 /*$timer = new cTimer();
 for ($i=0; $i<1000; $i++) {
@@ -18,61 +18,46 @@ for ($i=0; $i<1000; $i++) {
 
 }
 echo "Тест 1 пройден за  ".$timer->finish()." секунд <br>";*/
+
+define('ITERATION', 100); // колличество иттераций
 /**==========================================1======================================= */
 $timer1 = new TestTime();
 $test1 = 0;
-for ($i=0; $i<10000; $i++) {
+for ($i=0; $i<ITERATION; $i++) {
 
 
-	$str = strip_tags((file_get_contents('inc/passwords.php')));
-	preg_match("/\w*\d*\s+=>\s+(?P<host>[\w\d]*)\s+
-\w*\d*\s+=>\s+(?P<login>[\w\d]*)\s+
-\w*\d*\s+=>\s+(?P<password>[\w\d]*)\s+
-\w*\d*\s+=>\s+(?P<db>[\w\d]*)\s+
-\w*\d*\s+=>\s+(?P<type>[\w\d]*)/i",
-		$str, $matches);
 
-	$n = 0;
-	while($n < 6) {
-		unset($matches[0]);
-		$n++;
-	}
+	rscandir(__DIR__.'/classes/');
 
 
 
 }
-echo "Тест 1 пройден за  ".$timer1->finish()." секунд <br>";
 $test1 = $timer1->finish();
+echo 'Колличесство итерации:', ITERATION, 'шт.<br>';
+echo 'Тест 1 пройден за  ', $test1, ' секунд; ';
+echo 'Время, затраченное на одну иттерацию:  ', $test1/ITERATION, ' секунд <br>';
 /**==========================================2======================================= */
 $timer2 = new TestTime();
 $test2 = 0;
-for ($i=0; $i<10000; $i++) {
+for ($i=0; $i<ITERATION; $i++) {
 
-	$t3 = getConfig();
+
 
 }
-echo "Тест 2 пройден за ".$timer2->finish()." секунд <br>";
 $test2 = $timer2->finish();
+echo 'Тест 2 пройден за ', $test2, ' секунд; ';
+echo 'Время, затраченное на одну иттерацию:  ', $test2/ITERATION, ' секунд <br>';
 /**===========================================3====================================== */
 $timer3 = new TestTime();
 $test3 = 0;
-for ($i=0; $i<10000; $i++) {
+for ($i=0; $i<ITERATION; $i++) {
 
-	$str = strip_tags((file_get_contents('inc/passwords.php')));
-	preg_match("/\w*\d*\s+=>\s+(?P<host>[\w\d]*)\s+
-\w*\d*\s+=>\s+(?P<login>[\w\d]*)\s+
-\w*\d*\s+=>\s+(?P<password>[\w\d]*)\s+
-\w*\d*\s+=>\s+(?P<db>[\w\d]*)\s+
-\w*\d*\s+=>\s+(?P<type>[\w\d]*)/i",
-		$str, $matches);
 
-	krsort($matches);
-	array_splice($matches, 0 ,5);
-	unset($matches[0]);
 
 }
-echo "Тест 3 пройден за ".$timer3->finish()." секунд <br>";
 $test3 = $timer3->finish();
+echo 'Тест 3 пройден за ',$test3, ' секунд; ';
+echo 'Время, затраченное на одну иттерацию:  ', $test3/ITERATION, ' секунд <br>';
 /**===========================================3====================================== */
 
 

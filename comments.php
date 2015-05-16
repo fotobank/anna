@@ -14,7 +14,7 @@ $db = Db::getInstance( Db::getParam() );
 <?
 $perpage = 10; //сообщений на страницу
 
-$tpl = new Template( "classes/Comments/_templates/" );
+$tpl = new Comments\Template( "classes/Comments/_templates/" );
 $tpl->define( [
 	"head"     => "head.tpl",
 	"error"    => "error.tpl",

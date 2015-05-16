@@ -32,11 +32,11 @@ class TestTime {
 	 */
 	public function rezult($test1, $test2, $test3 = 0){
 
-		if ($test1 < $test2) {
+		if ($test1 > 0 && $test2 > 0 && $test1 < $test2) {
 			$rez_test = ($test2 - $test1)/$test1 * 100;
 			echo('<br>Test №1 быстрее Тест №2 на '.round($rez_test,2).'%<br>');
 			$this->rezult2($test1, $test3);
-		} else {
+		} elseif($test1 > 0 && $test2 > 0) {
 			$rez_test = ($test1 - $test2)/$test2 * 100;
 			echo('<br>Test №2 быстрее Теста №1 на '.round($rez_test,2).'%<br>');
 			$this->rezult3($test2, $test3);
@@ -49,10 +49,10 @@ class TestTime {
 	 */
 	public function rezult2($test1, $test3){
 
-		if ($test1 < $test3) {
+		if ($test1 > 0 && $test1 < $test3) {
 			$rez_test = ($test3 - $test1)/$test1 * 100;
 			echo('Test №1 быстрее Тест №3 на '.round($rez_test,2).'%');
-		} else {
+		} elseif($test3 > 0) {
 			$rez_test = ($test1 - $test3)/$test3 * 100;
 			echo('Test №3 быстрее Теста №1 на '.round($rez_test,2).'%');
 		}
@@ -64,10 +64,10 @@ class TestTime {
 	 */
 	public function rezult3($test2, $test3){
 
-		if ($test2 < $test3) {
+		if ($test2 > 0 && $test2 < $test3) {
 			$rez_test = ($test3 - $test2)/$test2 * 100;
 			echo('Test №2 быстрее Тест №3 на '.round($rez_test,2).'%');
-		} else {
+		} elseif($test3 > 0) {
 			$rez_test = ($test2 - $test3)/$test3 * 100;
 			echo('Test №3 быстрее Теста №2 на '.round($rez_test,2).'%');
 		}

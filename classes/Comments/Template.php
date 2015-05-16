@@ -4,6 +4,8 @@
 	CVS Revision. 1.1.0
 */
 
+namespace Comments;
+
 /**
  * Class Template
  */

@@ -1449,98 +1449,40 @@ function is_ajax() {
 }
 
 /**
- * @param $filename
+ * @param string $base
+ * @param array  $data
+ * Функция позволяет получить ассоциированный массив всех файлов в заданной директории и поддиректориях
+ * example: echo '<pre>'; var_export(rscandir(dirname(__FILE__).'/')); echo '</pre>';
+ * @param        $masks
  *
- * @return mixed
+ * @return array
  */
-function readIniFile($filename) {
-	if (!file_exists($filename)) die('File '.$filename.' not found');
-	if (!is_readable($filename)) die('File read error. Check the access');
-	$str=file_get_contents($filename);
-	$arr=explode("\n",$str);
-	$res="";
-	unset($lastsection);
-	foreach($arr as $s) {
-		$s=preg_replace('/^\s+/','',$s);
-		$s=preg_replace('/\s+$/','',$s);
-		if (empty($s)) continue;
-		if (preg_match('/\[(.+)\]/',$s,$m)) {
-			$sec=strtolower($m[1]);
-			$res[$sec]= [];
-			$lastsection=$sec;
+function rscandir($base='', &$data= [], $masks = ["php"]) {
 
-		}
-		else {
-			if (!isset($lastsection)) die('Error fromat of ini file');
-			list($f,$v)=explode('=',$s);
-			$res[$lastsection][strtolower($f)]=$v;
-		}
+	$base = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $base);
+	if(is_dir($base)) {
+
+		$array = array_diff(scandir($base), ['.', '..']);
+
+		foreach ($array as $value) :
+
+			if (is_dir($base.$value)) :
+				$data = rscandir($base.$value.DIRECTORY_SEPARATOR, $data, $masks);
+
+			elseif (is_file($base.$value)) :
+				foreach ($masks as $mask) {
+					$path_parts = pathinfo($value);
+					$extension = isset($path_parts['extension']) ? $path_parts['extension'] : false;
+					if ($mask == $extension) {
+						$data[$path_parts['filename']][] = rtrim($base, DIRECTORY_SEPARATOR);
+					}
+				}
+			endif;
+		endforeach;
+
+		return $data; // return the $data array
 	}
-	return $res;
+	return null;
 }
 
-/**
- * @param $filename
- * @param $section
- * @param $field
- *
- * @return bool
- */
-function readIniData($filename,$section,$field) {
-	$arr=readIniFile($filename);
-	$section=strtolower($section);
-	$field=strtolower($field);
-	if (!isset($arr[$section][$field])) return false;
-	return $arr[$section][$field];
-}
-
-/**
- * @param $filename
- * @param $section
- *
- * @return bool
- */
-function readIniSection($filename,$section) {
-	$arr=readIniFile($filename);
-	$section=strtolower($section);
-	if (!isset($arr[$section])) return false;
-	return $arr[$section];
-}
-
-/**
- * @param $filename
- * @param $arr
- *
- * @return bool
- */
-function writeIniFile($filename,$arr) {
-	if (count($arr)===0) return false;
-	$f = fopen($filename, "w");
-	if ($f===false) return false;
-	foreach($arr as $key=>$sec) {
-		fwrite($f,"[$key]\n");
-		foreach($sec as $field=>$val) {
-			fwrite($f,"$field=$val\n");
-		}
-		fwrite($f,"\n");
-	}
-	fclose($f);
-	return true;
-}
-
-/**
- * @param $filename
- * @param $section
- * @param $field
- * @param $value
- *
- * @return bool
- */
-function writeIniData($filename,$section,$field,$value) {
-	if (empty($section) or empty($field) or empty($value))
-		return false;
-	$arr=readIniFile($filename);
-	$arr[strtolower($section)][strtolower($field)]=$value;
-	if (!writeIniFile($filename,$arr)) return false;
-	return true;
-}
+// var_dump(rscandir(SITE_PATH.'classes/'));

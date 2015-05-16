@@ -1,7 +1,7 @@
 <?php
 
-require(__DIR__.
-		'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
+// старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
+require(__DIR__.'/system/config/config.php');
 /** @noinspection PhpIncludeInspection */
 require(SITE_PATH.'inc/carosel.php');
 

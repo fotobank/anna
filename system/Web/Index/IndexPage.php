@@ -24,15 +24,15 @@ class IndexPage extends Base
 {
 
 	// телефон в слайдере
-	public $http_host = "";
+	public $http_host;
 	// лайтбокс в шапке
 	public $items = [];
 	public $pags = [];
 	// колонка новостей
-	public $filenews = "";
+	public $filenews;
 	//карусель
 	public $carousel;
-	public $lite_box_path = "";
+	public $lite_box_path;
 
 
 	/**

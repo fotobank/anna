@@ -22,24 +22,25 @@ class Citates {
 	private $error = ''; // ошибки скрипта
 	private $id_pick = false; // идентификатор записи
 	private $tabl = false; // текущая таблица
-	private $SITE_PATH = '';
+
 
 	/**
 	 * @param $tune
+	 *
+	 * @throws Exception
 	 */
 	function __construct( $tune ) {
 
-		$this->SITE_PATH = realpath( __DIR__ . DIRSEP . '..' . DIRSEP ) . DIRSEP;
 		$this->_get_var( $tune ); // обновление исходных данных
 		$this->db = Db::getInstance(Db::getParam());
 
 		if ( $this->db ) {
-			require_once( $this->SITE_PATH . 'classes/SimpleHtmlDomNode.php' ); // подключение парсера
+			require_once( SITE_PATH . 'system/classes/SimpleHtmlDomNode.php' ); // подключение парсера
 			$this->checkUpd();
 			$this->randCitata();
 		} else {
 			$this->error .= "не подключенна база данных \n". $this->db->getLastError();
-			trigger_error("не подключенна база данных \n" . $this->db->getLastError(), E_USER_ERROR );
+			throw new Exception("не подключенна база данных \n" . $this->db->getLastError(), E_USER_ERROR );
 		}
 	}
 
