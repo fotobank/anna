@@ -195,7 +195,7 @@ class Autoloader
 						}
 					}
 				}
-				// пробуем найти класс без namespase
+				// ищем класс с незаданным namespase
 				if($flag) {
 					foreach (self::$array_scan_files[$className] as $path_class) {
 						self::checkClass($path_class, $className, $ext, $flag);
@@ -271,7 +271,6 @@ class Autoloader
 	protected static function arrToFile($value, $filename)
 		{
 			$str_value = serialize($value);
-
 			$f = fopen($filename, 'w');
 			fwrite($f, $str_value);
 			fclose($f);
@@ -298,7 +297,6 @@ class Autoloader
 					throw new Exception("не найден путь файла '{$filename}' <br>");
 				}
 			}
-
 			return null;
 		}
 
@@ -328,7 +326,6 @@ class Autoloader
 					}
 				}
 			}
-
 			return false;
 		}
 
@@ -353,7 +350,6 @@ class Autoloader
 					throw new Exception("Can not read the file <br>", E_USER_ERROR);
 				}
 			}
-
 			return null;
 		}
 
