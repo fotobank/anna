@@ -12,7 +12,7 @@ IF ( isset( $_GET['adm_out'] ) || !isset( $_SESSION['logged'] ) || $_SESSION['lo
 
 $db = Db::getInstance( Db::getParam() );
 
-$tpl = new Template( "classes/Comments/_templates/" );
+$tpl = new Comments\Template( "classes/Comments/_templates/" );
 $tpl->define( [
 	"head"        => "head.tpl",
 	"index"       => "adm_index.tpl",

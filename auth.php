@@ -2,7 +2,7 @@
 require(__DIR__ .'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 $db = Db::getInstance(Db::getParam());
 
-$tpl = new Template("classes/Comments/_templates/");
+$tpl = new Comments\Template("classes/Comments/_templates/");
 $tpl->define( [
 	"head"  => "head.tpl",
 	"index" => "adm_auth.tpl",
