@@ -2,14 +2,21 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: Jurii
- * Date: 05.09.13
- * Time: 13:52
+ * Date: 16.05.15
  *
- * Кэшируемый автозагрузчик классов
- * Имена классов должны совпадать с именами файлов
- * Файлы классов могут распологаться в произвольных папках без привязки имени к директориям и namespace
- * Конфликт одинаковых имен разных классов необходимо решать с помощью задания разных namespace для классов
- * Класс следит за перемещением файлов и корректирует кэш
+ * Кэшируемый автозагрузчик классов.
+ * Имена классов должны совпадать с именами файлов.
+ * Файлы классов могут распологаться в произвольных папках без привязки имени к директориям и namespace.
+ * Конфликт одинаковых имен разных классов необходимо решать с помощью задания разных namespace для классов.
+ * Класс следит за перемещением файлов и корректирует кэш.
+ *
+ * Перед началом поиска создается база данных $file_array_scan_files всех
+ * файлов в заданных в $paths путях, попадающих под маску в $files_ext.
+ * При первой загрузке создается кэш удачных подключений в файле $file_array_class_cache.
+ * Автозагрузчик сначала ищет классы в кэше, затем перебирает с путем в namespace,
+ * если не находит - ищет рекуксивным сканированием.
+ * Если и в этом случае не находит файл класса - обновляет базу $file_array_scan_files и пробует все сначала.
+ * При неудаче - выбрасывает ошибку.
  *
  */
 
@@ -19,7 +26,6 @@ use Exception;
 
 /**
  * Class Autoloader
- * @package yourNameSpace
  */
 class Autoloader
 {
@@ -215,9 +221,9 @@ class Autoloader
 		{
 			foreach (self::$paths as $path) {
 				self::$array_scan_files = self::rScanDir(SITE_PATH.$path.DIRSEP);
-				self::arrToFile(self::$array_scan_files, self::$file_array_scan_files);
-				self::updateScanFilesLog();
 			}
+			self::arrToFile(self::$array_scan_files, self::$file_array_scan_files);
+			self::updateScanFilesLog();
 		}
 
 	/**
@@ -238,7 +244,7 @@ class Autoloader
 				foreach ($array as $value) :
 
 					if (is_dir($base.$value)) :
-						$data = rscandir($base.$value.DIRSEP, $data);
+						$data = self::rScanDir($base.$value.DIRSEP, $data);
 
 					elseif (is_file($base.$value)) :
 						foreach (self::$files_ext as $mask) {
@@ -493,8 +499,8 @@ class Autoloader
 	private static function logLoadOk($full_path, $file)
 		{
 			if (DEBUG_MODE) {
-				self::putLog(('<br><b style="color: #23a126;">подключили </b> '.'<b style="color: #3a46e1;"> "'.
-							  $full_path.'" </b>'.'<b style="color: #ff0000;">'.$file.'</b><br>'));
+				self::putLog(('<br><b style="color: #23a126;">подключили </b> '.'<b style="color: #3a46e1;"> '.
+							  $full_path.' </b>'.'<b style="color: #ff0000;">'.$file.'</b><br>'));
 			}
 		}
 
