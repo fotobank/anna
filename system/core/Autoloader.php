@@ -80,9 +80,7 @@ class Autoloader
 
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					throw new Exception('Ошибка: '.$e->getMessage());
-				}
+				self::echoErr($e);
 			}
 		}
 
@@ -95,6 +93,7 @@ class Autoloader
 	public static function autoload($className)
 		{
 			try {
+				// флаг нахождения файла если false - файл найден
 				$flag = true;
 				// подготовка имени в классах с namespace
 				$lastNsPos = strrpos($className, '\\');
@@ -126,7 +125,7 @@ class Autoloader
 		{
 			foreach (self::$files_ext as $ext) {
 				// проверка нахождения класса в кэш
-				$flag = self::checkClassNameInCash($className, $ext);
+				self::checkClassNameInCash($className, $ext, $flag);
 				if (false === $flag) {
 					break;
 				}
@@ -152,10 +151,12 @@ class Autoloader
 	 *
 	 * проверка нахождения класса в кэш
 	 *
+	 * @param $flag
+	 *
 	 * @return bool
 	 * @throws Exception
 	 */
-	protected static function checkClassNameInCash($className, $ext)
+	protected static function checkClassNameInCash($className, $ext, &$flag)
 		{
 			try {
 				if (!empty(self::$array_class_cache[$className])) {
@@ -164,17 +165,13 @@ class Autoloader
 						/** @noinspection PhpIncludeInspection */
 						require_once $filePath;
 
-						return false;
+						$flag = false;
 					}
 				}
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					throw new Exception("Ошибка: ".$e->getMessage(), E_USER_ERROR);
-				}
+				self::echoErr($e);
 			}
-
-			return true;
 		}
 
 	/**
@@ -388,9 +385,46 @@ class Autoloader
 				}
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					throw new Exception("Ошибка: ".$e->getMessage()."<br>", E_USER_ERROR);
+				self::echoErr($e);
+			}
+		}
+
+	/**
+	 * @param $name_space
+	 * @param $full_path
+	 *
+	 * @return bool
+	 *
+	 * добавление найденного пути класса в массив
+	 */
+	public static function addNamespace($name_space, $full_path)
+		{
+			if (is_dir($full_path)) {
+				self::$array_class_cache[$name_space] = $full_path;
+
+				return true;
+			}
+
+			return false;
+		}
+
+	/**
+	 * @param $class
+	 * запись кэша в файл
+	 *
+	 * @throws Exception
+	 */
+	private static function putFileMap($class)
+		{
+			try {
+				// если строки в записи не не равны - изменить запись в файле
+				if (self::checkFileMap($class)) {
+					// а если не существуют - добавить
+					file_put_contents(self::$file_array_class_cache, $class, FILE_APPEND | LOCK_EX);
 				}
+			}
+			catch (Exception $e) {
+				self::echoErr($e);
 			}
 		}
 
@@ -429,57 +463,12 @@ class Autoloader
 				}
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					throw new Exception("Ошибка: ".$e->getMessage()."<br>", E_USER_ERROR);
-				}
+				self::echoErr($e);
 			}
 
 			// разрешить запись
 			return true;
 		}
-
-	/**
-	 * @param $name_space
-	 * @param $full_path
-	 *
-	 * @return bool
-	 *
-	 * добавление найденного пути класса в массив
-	 */
-	public static function addNamespace($name_space, $full_path)
-		{
-			if (is_dir($full_path)) {
-				self::$array_class_cache[$name_space] = $full_path;
-
-				return true;
-			}
-
-			return false;
-		}
-
-
-	/**
-	 * @param $class
-	 * запись кэша в файл
-	 *
-	 * @throws Exception
-	 */
-	private static function putFileMap($class)
-		{
-			try {
-				// если строки в записи не не равны - изменить запись в файле
-				if (self::checkFileMap($class)) {
-					// а если не существуют - добавить
-					file_put_contents(self::$file_array_class_cache, $class, FILE_APPEND | LOCK_EX);
-				}
-			}
-			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					throw new Exception($e->getMessage());
-				}
-			}
-		}
-
 
 	/**
 	 * @param $data
@@ -495,9 +484,7 @@ class Autoloader
 				file_put_contents(self::$fileLog, $data, FILE_APPEND | LOCK_EX);
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					throw new Exception("Ошибка: ".$e->getMessage()."<br>");
-				}
+				self::echoErr($e);
 			}
 		}
 
@@ -553,6 +540,8 @@ class Autoloader
 
 
 	/**
+	 * вывод ошибок на экран
+	 *
 	 * @param $e
 	 */
 	private static function echoErr($e)
