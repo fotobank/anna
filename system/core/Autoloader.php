@@ -158,7 +158,7 @@ END;
 	private function findClass($class_name, $name_space = false, &$flag)
 		{
 			foreach ($this->files_ext as $ext) {
-				// проверка нахождения класса в кэш
+				/** проверка нахождения класса в кэш */
 				$this->checkClassNameInCash($class_name, $ext, $flag);
 				if (false === $flag) {
 					break;
@@ -169,7 +169,7 @@ END;
 					$this->checkClassNameInBaseScanFiles($class_name, $name_space, $ext, $flag);
 				}
 				if ($flag) {
-					// сообщение log класс не найден
+					/** сообщение log класс не найден */
 					$this->logLoadError($class_name);
 					throw new Exception("класс <b>'".$class_name."'</b> не найден");
 				}
@@ -219,7 +219,7 @@ END;
 	private function checkClassNameInBaseScanFiles($class_name, $name_space, $ext, &$flag)
 		{
 			if ($this->array_scan_files[$class_name]) {
-				// проверка с namespase
+				/** проверка с namespase */
 				if ($name_space) {
 					foreach ($this->paths as $path) {
 						$path_class = SITE_PATH.$path.$name_space;
@@ -229,7 +229,7 @@ END;
 						}
 					}
 				}
-				// ищем класс с незаданным namespase
+				/** ищем класс с незаданным namespase */
 				if ($flag) {
 					foreach ($this->array_scan_files[$class_name] as $path_class) {
 						$this->checkClass($path_class, $class_name, $ext, $flag);
@@ -364,13 +364,13 @@ END;
 		{
 			try {
 				if (!file_exists($this->htaccess)) {
-
 					file_put_contents($this->htaccess, $this->htaccess_data, LOCK_EX);
 				}
 			}
 			catch (Exception $e) {
 				if (DEBUG_MODE) {
-					throw new Exception("can not create '{$this->htaccess}' an unwritable dir '".$this->dir_cashe."'<br>");
+					throw new Exception("can not create '{$this->htaccess}' an unwritable dir '".$this->dir_cashe.
+										"'<br>");
 				}
 			}
 		}
@@ -471,10 +471,8 @@ END;
 		{
 			if (is_dir($full_path)) {
 				$this->array_class_cache[$name_space] = $full_path;
-
 				return true;
 			}
-
 			return false;
 		}
 
@@ -487,9 +485,9 @@ END;
 	private function putFileMap($class)
 		{
 			try {
-				// если строки в записи не не равны - изменить запись в файле
+				/** если строки в записи не не равны - изменить запись в файле */
 				if ($this->checkFileMap($class)) {
-					// а если не существуют - добавить
+					/** а если не существуют - добавить */
 					file_put_contents($this->file_array_class_cache, $class, FILE_APPEND | LOCK_EX);
 				}
 			}
@@ -516,15 +514,15 @@ END;
 
 				if ($file_map && isset($file_map[$file_name])) {
 					$full_name_map = $file_name." = ".$file_map[$file_name];
-					// если пути не равны
+					/** если пути не равны */
 					if ($full_name_map != $data) {
-						// изменить строку в массиве и записать изменения в файл
+						/** изменить строку в массиве и записать изменения в файл */
 						$file_map[$file_name] = $file_patch;
 						$file_map_write = "";
 						foreach ($file_map as $class => $file) {
 							$file_map_write .= $class." = ".$file.PHP_EOL;
 						}
-						// перезаписываем файл
+						/** перезаписываем файл */
 						file_put_contents($this->file_array_class_cache, $file_map_write, LOCK_EX);
 						unset($file_map);
 					}
@@ -536,7 +534,7 @@ END;
 				$this->echoErr($e);
 			}
 
-			// разрешить запись
+			/** разрешить запись */
 			return true;
 		}
 
