@@ -9,6 +9,8 @@
 class TestTime {
 	// Создаем два свойства нашего класса
 	private $start;
+
+	private $time = false;
 	// Создаем метод, который ставит начальную точку и переводит ее к виду "сек.микросек"
 	/**
 	 *
@@ -72,4 +74,21 @@ class TestTime {
 			echo('Test №3 быстрее Теста №2 на '.round($rez_test,2).'%');
 		}
 	}
+
+	/**
+	 * @return mixed
+	 */
+	function timer()
+		{
+			if($this->time === false)
+			{
+				$this->time = microtime(true);
+				return 'Start';
+			}
+			else
+			{
+				$newTime = microtime(true);
+				return $newTime - $this->time;
+			}
+		}
 }

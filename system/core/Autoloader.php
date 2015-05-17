@@ -77,14 +77,16 @@ class Autoloader
 
 			try {
 				spl_autoload_extensions(".php");
+				/** назначаем метод автозагрузки */
 				spl_autoload_register(["Core\\Autoloader", "autoload"]);
 
-				$this->dir_cashe = SITE_PATH.$this->dir_cashe.DIRSEP;
+				/** переопределение свойств  */
+				$this->dir_cashe = SITE_PATH.str_replace(['\\', '/'], DIRSEP,$this->dir_cashe).DIRSEP;
 				$this->fileLog = $this->dir_cashe.$this->fileLog;
 				$this->file_array_class_cache = $this->dir_cashe.$this->file_array_class_cache;
 				$this->file_array_scan_files = $this->dir_cashe.$this->file_array_scan_files;
 
-				// если файла нет - создать
+				/** если файла нет - создать */
 				$this->checkExistsFile($this->file_array_class_cache);
 				/** читаем кэш в массив из файла */
 				$this->array_class_cache = $this->getFileMap();
@@ -231,6 +233,7 @@ class Autoloader
 	protected function updateScanFiles()
 		{
 			foreach ($this->paths as $path) {
+				$path = str_replace(['\\', '/'], DIRSEP, $path);
 				$this->array_scan_files = $this->rScanDir(SITE_PATH.$path.DIRSEP);
 			}
 			$this->arrToFile($this->array_scan_files, $this->file_array_scan_files);
@@ -249,7 +252,6 @@ class Autoloader
 	private function rScanDir($base = '', &$data = [])
 		{
 			static $data;
-			$base = str_replace(['\\', '/'], DIRSEP, $base);
 			try {
 				$array = array_diff(scandir($base), ['.', '..']);
 				foreach ($array as $value) :
@@ -330,10 +332,23 @@ class Autoloader
 	 */
 	protected function checkExistsFile($file)
 		{
-			if (!is_writable($this->dir_cashe)) {
+			if(!is_dir($this->dir_cashe)) {
+				mkdir($this->dir_cashe,0711,TRUE);
+			}
+			if(!is_writable($this->dir_cashe)) {
 				chmod($this->dir_cashe, 0711);
 			}
-			if (!file_exists($file)) {
+			$htaccess = $this->dir_cashe.'.htaccess';
+			if(!file_exists($htaccess)) {
+				$htaccess_data = <<<END
+<Files *.html, *.php>
+Order deny,allow
+Deny from all
+</Files>
+END;
+				file_put_contents($htaccess, $htaccess_data, LOCK_EX);
+			}
+			if(!file_exists($file)) {
 				try {
 					file_put_contents($file, "", LOCK_EX);
 					chmod($file, 0600);
@@ -476,12 +491,14 @@ class Autoloader
 						file_put_contents($this->file_array_class_cache, $file_map_write, LOCK_EX);
 						unset($file_map);
 					}
+
 					return false;
 				}
 			}
 			catch (Exception $e) {
 				$this->echoErr($e);
 			}
+
 			// разрешить запись
 			return true;
 		}
