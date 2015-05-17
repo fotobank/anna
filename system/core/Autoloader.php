@@ -4,7 +4,7 @@
  *
  * @created   by PhpStorm
  * @package   https://github.com/fotobank/anna.od.ua/blob/master/system/core/Autoloader.php
- * @version   1.1
+ * @version   1.11
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
@@ -62,6 +62,17 @@ class Autoloader
 		'system'
 	];
 
+	// файл настройки
+	public $htaccess = '.htaccess';
+
+	// данные файла настройки
+	public $htaccess_data = <<<END
+<Files *.html, *.php>
+Order deny,allow
+Deny from all
+</Files>
+END;
+
 	// кэш соответствия неймспейса пути в файловой системе
 	protected $array_class_cache = [];
 
@@ -81,12 +92,16 @@ class Autoloader
 				spl_autoload_register(["Core\\Autoloader", "autoload"]);
 
 				/** переопределение свойств  */
-				$this->dir_cashe = SITE_PATH.str_replace(['\\', '/'], DIRSEP,$this->dir_cashe).DIRSEP;
+				$this->dir_cashe = SITE_PATH.str_replace(['\\', '/'], DIRSEP, $this->dir_cashe).DIRSEP;
 				$this->fileLog = $this->dir_cashe.$this->fileLog;
 				$this->file_array_class_cache = $this->dir_cashe.$this->file_array_class_cache;
 				$this->file_array_scan_files = $this->dir_cashe.$this->file_array_scan_files;
-
-				/** если файла нет - создать */
+				$this->htaccess = $this->dir_cashe.$this->htaccess;
+				/** проверить директории кэша и задать права */
+				$this->checkDir();
+				/** проверка и создание .htaccess */
+				$this->checkHtaccess();
+				/** если файла кэша нет - создать */
 				$this->checkExistsFile($this->file_array_class_cache);
 				/** читаем кэш в массив из файла */
 				$this->array_class_cache = $this->getFileMap();
@@ -112,9 +127,9 @@ class Autoloader
 	public function autoload($class_name)
 		{
 			try {
-				// флаг нахождения файла если false - файл найден
+				/** флаг нахождения файла если false - файл найден */
 				$flag = true;
-				// подготовка имени в классах с namespace
+				/** подготовка имени в классах с namespace */
 				$lastNsPos = strrpos($class_name, '\\');
 				if ($lastNsPos) {
 					$name_space = str_replace(['\\', '/'], DIRSEP, substr($class_name, 0, $lastNsPos));
@@ -122,7 +137,7 @@ class Autoloader
 					$name_space = DIRSEP.$name_space;
 					$this->findClass($class_name, $name_space, $flag);
 				}
-				// попытка поиска без namespace ( если namespace отличается от вложенности директорий )
+				/** попытка поиска без namespace ( если namespace отличается от вложенности директорий ) */
 				if ($flag) {
 					$this->findClass($class_name, "", $flag);
 				}
@@ -323,6 +338,44 @@ class Autoloader
 		}
 
 	/**
+	 * проверить директории и установить права
+	 */
+	protected function checkDir()
+		{
+			try {
+				if (!is_dir($this->dir_cashe)) {
+					mkdir($this->dir_cashe, 0711, true);
+				}
+				if (!is_writable($this->dir_cashe)) {
+					chmod($this->dir_cashe, 0711);
+				}
+			}
+			catch (Exception $e) {
+				if (DEBUG_MODE) {
+					throw new Exception("can not create '{$this->dir_cashe}' an unwritable dir <br>");
+				}
+			}
+		}
+
+	/**
+	 * создать .htaccess
+	 */
+	private function checkHtaccess()
+		{
+			try {
+				if (!file_exists($this->htaccess)) {
+
+					file_put_contents($this->htaccess, $this->htaccess_data, LOCK_EX);
+				}
+			}
+			catch (Exception $e) {
+				if (DEBUG_MODE) {
+					throw new Exception("can not create '{$this->htaccess}' an unwritable dir '".$this->dir_cashe."'<br>");
+				}
+			}
+		}
+
+	/**
 	 * @param $file
 	 * установка прав на директорию и файлы
 	 * если файла нет - создать
@@ -332,23 +385,7 @@ class Autoloader
 	 */
 	protected function checkExistsFile($file)
 		{
-			if(!is_dir($this->dir_cashe)) {
-				mkdir($this->dir_cashe,0711,TRUE);
-			}
-			if(!is_writable($this->dir_cashe)) {
-				chmod($this->dir_cashe, 0711);
-			}
-			$htaccess = $this->dir_cashe.'.htaccess';
-			if(!file_exists($htaccess)) {
-				$htaccess_data = <<<END
-<Files *.html, *.php>
-Order deny,allow
-Deny from all
-</Files>
-END;
-				file_put_contents($htaccess, $htaccess_data, LOCK_EX);
-			}
-			if(!file_exists($file)) {
+			if (!file_exists($file)) {
 				try {
 					file_put_contents($file, "", LOCK_EX);
 					chmod($file, 0600);
