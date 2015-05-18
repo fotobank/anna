@@ -121,7 +121,7 @@ END;
 	 */
 	public function autoload($class_name)
 		{
-			$this->tryCatch(function () use ($class_name) {
+			$this->wrapperTryCatch(function () use ($class_name) {
 
 				/** подготовка имени в классах с namespace */
 				$lastNsPos = strrpos($class_name, '\\');
@@ -180,7 +180,7 @@ END;
 	 */
 	protected function checkClassNameInCash($class_name, $ext)
 		{
-			return $this->tryCatch(function () use ($class_name, $ext) {
+			return $this->wrapperTryCatch(function () use ($class_name, $ext) {
 				if (!empty($this->array_class_cache[$class_name])) {
 					$filePath = $this->array_class_cache[$class_name] . DIRSEP . $class_name . $ext;
 					if (file_exists($filePath)) {
@@ -209,7 +209,7 @@ END;
 	 */
 	private function checkScanFiles($class_name, $name_space, $ext)
 		{
-			return $this->tryCatch(function () use ($class_name, $name_space, $ext) {
+			return $this->wrapperTryCatch(function () use ($class_name, $name_space, $ext) {
 
 				if (isset($this->array_scan_files[$class_name])) {
 
@@ -289,7 +289,7 @@ END;
 	private function rScanDir($base = '', &$data = [])
 		{
 			static $data;
-			$this->tryCatch(function () use ($base, &$data) {
+			$this->wrapperTryCatch(function () use ($base, &$data) {
 				if (is_dir($base)) {
 					$array = array_diff(scandir($base), ['.', '..']);
 					foreach ($array as $value) {
@@ -340,7 +340,7 @@ END;
 	 */
 	protected function arrFromFile($filename)
 		{
-			return $this->tryCatch(function () use ($filename) {
+			return $this->wrapperTryCatch(function () use ($filename) {
 				if (file_exists($filename)) {
 
 					$file = file_get_contents($filename);
@@ -363,7 +363,7 @@ END;
 	 */
 	protected function checkDir()
 		{
-			$this->tryCatch(function () {
+			$this->wrapperTryCatch(function () {
 				if (!is_dir($this->dir_cashe)) {
 					mkdir($this->dir_cashe, 0711, true);
 				}
@@ -387,7 +387,7 @@ END;
 	 */
 	protected function createFile($file, $data)
 		{
-			return $this->tryCatch(function () use ($file, $data) {
+			return $this->wrapperTryCatch(function () use ($file, $data) {
 				if (!file_exists($file)) {
 					file_put_contents($file, $data, LOCK_EX);
 					if (!file_exists($file)) {
@@ -410,7 +410,7 @@ END;
 	 */
 	private function getFileMap()
 		{
-			return $this->tryCatch(function () {
+			return $this->wrapperTryCatch(function () {
 
 				$file_string = file_get_contents($this->file_array_class_cache);
 				if ($file_string === false) {
@@ -436,7 +436,7 @@ END;
 	 */
 	private function checkClass($full_path, $file_name, $ext)
 		{
-			return $this->tryCatch(function () use ($full_path, $file_name, $ext) {
+			return $this->wrapperTryCatch(function () use ($full_path, $file_name, $ext) {
 				$file = $full_path . DIRSEP . $file_name . $ext;
 				$this->logFindClass($full_path, $file_name . $ext);
 				if (file_exists($file)) {
@@ -479,7 +479,7 @@ END;
 	 */
 	private function putFileMap($class)
 		{
-			$this->tryCatch(function () use ($class) {
+			$this->wrapperTryCatch(function () use ($class) {
 				$class = trim($class);
 				$file_map = $this->getFileMap();
 				list($file_name, $file_patch) = explode("=", $class);
@@ -516,7 +516,7 @@ END;
 	 */
 	private function putLog($data)
 		{
-			$this->tryCatch(function () use ($data) {
+			$this->wrapperTryCatch(function () use ($data) {
 				$data = ("[ " . $data . " => " . date('d.m.Y H:i:s') . " ]<br>" . PHP_EOL);
 				file_put_contents($this->fileLog, $data, FILE_APPEND | LOCK_EX);
 			});
@@ -578,7 +578,7 @@ END;
 	 *
 	 * @return bool
 	 */
-	protected function tryCatch($closure)
+	protected function wrapperTryCatch($closure)
 		{
 			try {
 				return $closure();
