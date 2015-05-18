@@ -334,6 +334,11 @@ END;
 					$file = file_get_contents($filename);
 					$value = unserialize($file);
 
+					if($value === false) {
+						$this->updateScanFiles();
+						$file = file_get_contents($filename);
+						$value = unserialize($file);
+					}
 					return $value;
 				}
 				throw new Exception("не найден путь файла '{$filename}' <br>");
