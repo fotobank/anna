@@ -4,7 +4,7 @@
  *
  * @created   by PhpStorm
  * @package   https://github.com/fotobank/anna.od.ua/blob/master/system/core/Autoloader.php
- * @version   1.11
+ * @version   1.12
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
@@ -219,29 +219,29 @@ END;
 	private function checkClassNameInBaseScanFiles($class_name, $name_space, $ext, &$flag)
 		{
 			try {
-			if (isset($this->array_scan_files[$class_name])) {
-				/** проверка с namespase */
-				if ($name_space) {
-					foreach ($this->paths as $path) {
-						$path_class = SITE_PATH.$path.$name_space;
-						$this->checkClass($path_class, $class_name, $ext, $flag);
-						if (false === $flag) {
-							break;
+				if (isset($this->array_scan_files[$class_name])) {
+					/** проверка с namespase */
+					if ($name_space) {
+						foreach ($this->paths as $path) {
+							$path_class = SITE_PATH.$path.$name_space;
+							$this->checkClass($path_class, $class_name, $ext, $flag);
+							if (false === $flag) {
+								break;
+							}
 						}
 					}
-				}
-				/** ищем класс с незаданным namespase */
-				if ($flag) {
-					foreach ($this->array_scan_files[$class_name] as $path_class) {
-						$this->checkClass($path_class, $class_name, $ext, $flag);
-						if (false === $flag) {
-							break;
+					/** ищем класс с незаданным namespase */
+					if ($flag) {
+						foreach ($this->array_scan_files[$class_name] as $path_class) {
+							$this->checkClass($path_class, $class_name, $ext, $flag);
+							if (false === $flag) {
+								break;
+							}
 						}
 					}
+				} else {
+					throw new Exception('класс <b>"'.$class_name.'"</b> не найден ');
 				}
-			} else {
-				throw new Exception('класс <b>"'.$class_name.'"</b> не найден ');
-			}
 			}
 			catch (Exception $e) {
 				$this->echoErr($e);
@@ -275,7 +275,7 @@ END;
 		{
 			static $data;
 			try {
-				if(is_dir($base)) {
+				if (is_dir($base)) {
 					$array = array_diff(scandir($base), ['.', '..']);
 					foreach ($array as $value) {
 
@@ -297,9 +297,7 @@ END;
 				}
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					$this->echoErr($e);
-				}
+				$this->echoErr($e);
 			}
 
 			return $data;
@@ -333,7 +331,7 @@ END;
 	protected function arrFromFile($filename)
 		{
 			try {
-				if(file_exists($filename)) {
+				if (file_exists($filename)) {
 					$file = file_get_contents($filename);
 					$value = unserialize($file);
 
@@ -342,9 +340,7 @@ END;
 				throw new Exception("не найден путь файла '{$filename}' <br>");
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					$this->echoErr($e);
-				}
+				$this->echoErr($e);
 			}
 
 			return null;
@@ -362,14 +358,12 @@ END;
 				if (!is_writable($this->dir_cashe)) {
 					chmod($this->dir_cashe, 0711);
 				}
-				if(!is_dir($this->dir_cashe) || !is_writable($this->dir_cashe)) {
+				if (!is_dir($this->dir_cashe) || !is_writable($this->dir_cashe)) {
 					throw new Exception('can not create "'.$this->dir_cashe.'" an unwritable dir <br>');
-			}
+				}
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					$this->echoErr($e);
-				}
+				$this->echoErr($e);
 			}
 		}
 
@@ -385,19 +379,21 @@ END;
 	 */
 	protected function putFile($file, $data, $flag)
 		{
-				try {
+			try {
+				if (!file_exists($file)) {
+					file_put_contents($file, $data, $flag);
 					if (!file_exists($file)) {
-						file_put_contents($file, $data, $flag);
-						if (!file_exists($file)) {
-							throw new Exception("can not create '{$file}' an unwritable dir '".$this->dir_cashe."'<br>");
-						}
-						chmod($file, 0600);
-						return true;
+						throw new Exception("can not create '{$file}' an unwritable dir '".$this->dir_cashe."'<br>");
 					}
+					chmod($file, 0600);
+
+					return true;
 				}
-				catch (Exception $e) {
-						$this->echoErr($e);
-				}
+			}
+			catch (Exception $e) {
+				$this->echoErr($e);
+			}
+
 			return false;
 		}
 
@@ -411,7 +407,7 @@ END;
 			$file_array = [];
 			try {
 				$file_string = file_get_contents($this->file_array_class_cache);
-				if($file_string === false) {
+				if ($file_string === false) {
 					throw new Exception('Can not read the file <b>"'.$this->file_array_class_cache.'"</b>');
 				}
 				$file_array = parse_ini_string($file_string);
@@ -419,6 +415,7 @@ END;
 			catch (Exception $e) {
 				$this->echoErr($e);
 			}
+
 			return $file_array;
 		}
 
@@ -487,24 +484,24 @@ END;
 				$file_patch = trim($file_patch);
 				$file_name = trim($file_name);
 
-					if( isset($file_map[$file_name])) {
-						$full_name_map = $file_name." = ".$file_map[$file_name];
-						/** если пути не равны */
-						if ($full_name_map != $class) {
-							/** изменить строку в массиве и записать изменения в файл */
-							$file_map[$file_name] = $file_patch;
-							$file_map_write = "";
-							foreach ($file_map as $drop_name_class => $file) {
-								$file_map_write .= $drop_name_class." = ".$file.PHP_EOL;
-							}
-							/** перезаписываем файл */
-							file_put_contents($this->file_array_class_cache, $file_map_write, LOCK_EX);
-							unset($file_map);
+				if (isset($file_map[$file_name])) {
+					$full_name_map = $file_name." = ".$file_map[$file_name];
+					/** если пути не равны */
+					if ($full_name_map != $class) {
+						/** изменить строку в массиве и записать изменения в файл */
+						$file_map[$file_name] = $file_patch;
+						$file_map_write = "";
+						foreach ($file_map as $drop_name_class => $file) {
+							$file_map_write .= $drop_name_class." = ".$file.PHP_EOL;
 						}
-					} else {
-						/** или добавить запись */
-						file_put_contents($this->file_array_class_cache, $class.PHP_EOL, FILE_APPEND | LOCK_EX);
+						/** перезаписываем файл */
+						file_put_contents($this->file_array_class_cache, $file_map_write, LOCK_EX);
+						unset($file_map);
 					}
+				} else {
+					/** или добавить запись */
+					file_put_contents($this->file_array_class_cache, $class.PHP_EOL, FILE_APPEND | LOCK_EX);
+				}
 			}
 			catch (Exception $e) {
 				$this->echoErr($e);
