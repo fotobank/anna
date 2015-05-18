@@ -5,6 +5,7 @@
  * Date: 08.07.14
  * Time: 4:36
  */
+use phpbrowscap\Exception;
 
 
 /**
@@ -386,11 +387,11 @@ function mime_header_encode($str, $data_charset, $send_charset)
 		return '=?'.$send_charset.'?B?'.base64_encode($str).'?=';
 	}
 
-
 /**
  * @param string $year
  *
  * @return bool|int|string
+ * @throws Exception
  */
 function auto_copyright($year = 'auto')
 	{
@@ -406,6 +407,7 @@ function auto_copyright($year = 'auto')
 		if (intval($year) > date('Y')) {
 			return date('Y');
 		}
+		throw new Exception('error in "function auto_copyright" - not recognized "$year"');
 	}
 
 /**
@@ -1161,6 +1163,11 @@ function showTree($folder, $space)
 		}
 	}
 
+/**
+ * @param $text_post
+ *
+ * @return mixed
+ */
 function replaceBBCode($text_post)
 	{
 		$str_search = [
@@ -1184,9 +1191,9 @@ function replaceBBCode($text_post)
 		];
 		$str_replace = [
 			"",
-			"<p class=\"komment\">\\1</p>",
-			"<span class=\"date\">\\1</span>",
-			//        "<br />",
+			"<p class='komment'>\\1</p>",
+			"<span class='date'>\\1</span>",
+			// "<br />",
 			"<b>\\1</b>",
 			"<i>\\1</i>",
 			"<span style='text-decoration:underline'>\\1</span>",
@@ -1418,20 +1425,21 @@ function my_md5($pass, $salt)
 /**
  * Функция удаления файлов из директории через определенное время их хранения
  *
- * @param $papka
+ * @param $dir_path
  * @param $times
  */
-function old($papka, $times)
+function old($dir_path, $times)
 	{
 		$old_time = time() - 60 * $times;
-		$dir = opendir($papka);
+		$dir = opendir($dir_path);
 		$files = [];
 		$time = [];
-		while ($file = readdir($dir)) {
+		$file = readdir($dir);
+		while ($file) {
 			if (($file != ".") && ($file != "..")) {
-				$files[] = "$papka/$file";
+				$files[] = $dir_path/$file;
 			}
-			$time[] = filemtime("$papka/$file");
+			$time[] = filemtime($dir_path/$file);
 		}
 		closedir($dir);
 		$count_files = count($files);
