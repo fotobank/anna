@@ -104,11 +104,12 @@ END;
 			$this->createFile($this->file_array_class_cache, '');
 			/** читаем кэш в массив из файла */
 			$this->array_class_cache = $this->getFileMap();
-
-			if ($this->createFile($this->file_array_scan_files, '') != false) {
-				$this->updateScanFiles();
-			} else {
+			/** если файл скана директорий существует - загрузить его в память
+			  иначе - отсканировать папка, создать файл и загрузить в память  */
+			if (false === $this->createFile($this->file_array_scan_files, '')) {
 				$this->array_scan_files = $this->arrFromFile($this->file_array_scan_files);
+			} else {
+				$this->updateScanFiles();
 			}
 		}
 
