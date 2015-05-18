@@ -580,7 +580,7 @@ END;
 	 *
 	 * @param $e
 	 */
-	private function echoErr($e)
+	private function echoErr(Exception $e)
 		{
 			if (DEBUG_MODE) {
 				$trace = str_replace("#1", "<br>1 [ошибка вызвана в файле]: ", $e->getTraceAsString());
