@@ -1,27 +1,24 @@
 {{#carousel}}
 
     <div class="page1-row1 pad-1">
-				<div class="h-mod"><div class="bb-img-red">
-						<h3>Новинки в галереях:</h3>
-				</div>
-				</div>
-		</div>
+        <div class="h-mod">
+            <div class="bb-img-red">
+                <h3>Новинки в галереях:</h3>
+            </div>
+        </div>
+    </div>
     <div id="owl-index" class="owl-carousel">
 
+			{{#carousel_link}}
+          <div>
+						{{#carousel_block}}
+                <a class="plus" href="{{{href_img_path}}}">
+                    <img class="thumb" src="{{{src_img_path}}}" alt="Фотография из раздела '{{name_dir}}' - '{{patcUtf8}}'">
+                </a>
+						{{/carousel_block}}
+          </div>
+			{{/carousel_link}}
 
-
-{{#carousel_link}}
-<div>
-	{{#carousel_block}}
-            <a class="plus" href="{{{href_img_path}}}">
-                <img class="thumb" src="{{{src_img_path}}}" alt="Фотография из раздела '{{name_dir}}' - '{{patcUtf8}}'">
-            </a>
-	{{/carousel_block}}
-
-</div>
-{{/carousel_link}}
-
-
-        </div>
+    </div>
 
 {{/carousel}}

@@ -36,8 +36,6 @@ class IndexPage extends Base
 	//карусель
 	public $carousel = true;
 	public $carousel_link;
-	public $carousel_block_1;
-	public $carousel_block_2;
 
 
 	/**
