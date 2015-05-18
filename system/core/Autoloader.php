@@ -4,7 +4,7 @@
  *
  * @created   by PhpStorm
  * @package   https://github.com/fotobank/anna.od.ua/blob/master/system/core/Autoloader.php
- * @version   1.12
+ * @version   1.2
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
@@ -121,49 +121,51 @@ END;
 	public function autoload($class_name)
 		{
 			$this->tryCatch(function () use ($class_name) {
-				/** флаг нахождения файла если false - файл найден */
-				$flag = true;
+
 				/** подготовка имени в классах с namespace */
 				$lastNsPos = strrpos($class_name, '\\');
 				if ($lastNsPos) {
 					$name_space = str_replace(['\\', '/'], DIRSEP, substr($class_name, 0, $lastNsPos));
 					$class_name = substr($class_name, $lastNsPos + 1);
 					$name_space = DIRSEP . $name_space;
-					$this->findClass($class_name, $name_space, $flag);
+					$this->findClass($class_name, $name_space);
+
+					return;
 				}
 
 				/** попытка поиска без namespace ( если namespace отличается от вложенности директорий ) */
-				if ($flag) {
-					$this->findClass($class_name, "", $flag);
-				}
+				$this->findClass($class_name, "");
+
 			});
 		}
 
 	/**
 	 * @param      $class_name
 	 * @param bool $name_space
-	 * @param      $flag
 	 *
+	 * @return bool
 	 * @throws Exception
 	 */
-	private function findClass($class_name, $name_space = false, &$flag)
+	private function findClass($class_name, $name_space = false)
 		{
 			foreach ($this->files_ext as $ext) {
+
 				/** проверка нахождения класса в кэш */
-				$this->checkClassNameInCash($class_name, $ext, $flag);
-				if (false === $flag) {
-					break;
+				if (false === $this->checkClassNameInCash($class_name, $ext)) {
+					return false;
 				}
-				$this->checkScanFiles($class_name, $name_space, $ext, $flag);
-				if ($flag) {
-					/** сообщение log класс не найден */
-					$this->logLoadError($class_name);
-					throw new Exception("класс <b>'" . $class_name . "'</b> не найден");
+
+				if (false === $this->checkScanFiles($class_name, $name_space, $ext)) {
+					return false;
 				}
-				if (false === $flag) {
-					break;
-				}
+
+				/** сообщение log класс не найден */
+				$this->logLoadError($class_name);
+				throw new Exception("класс <b>'" . $class_name . "'</b> не найден");
+
 			}
+
+			return true;
 		}
 
 	/**
@@ -172,49 +174,54 @@ END;
 	 *
 	 * проверка нахождения класса в кэш
 	 *
-	 * @param $flag
-	 *
 	 * @return bool
 	 * @throws Exception
 	 */
-	protected function checkClassNameInCash($class_name, $ext, &$flag)
+	protected function checkClassNameInCash($class_name, $ext)
 		{
-			$this->tryCatch(function () use ($class_name, $ext, &$flag) {
+			return $this->tryCatch(function () use ($class_name, $ext) {
 				if (!empty($this->array_class_cache[$class_name])) {
 					$filePath = $this->array_class_cache[$class_name] . DIRSEP . $class_name . $ext;
 					if (file_exists($filePath)) {
+
 						/** @noinspection PhpIncludeInspection */
 						require_once $filePath;
-						$flag = false;
+
+						return false;
 					}
 				}
+
+				return true;
 			});
 		}
 
 	/**
 	 * @param $class_name
 	 * @param $name_space
-	 * @param $flag
 	 * @param $ext
 	 *
 	 * проверка наличия $class_name в $array_scan_files
 	 * если класс не найден - обновить кэш и проверить еще раз
 	 *
+	 * @return bool
 	 * @throws Exception
 	 */
-	private function checkScanFiles($class_name, $name_space, $ext, &$flag)
+	private function checkScanFiles($class_name, $name_space, $ext)
 		{
-			$this->tryCatch(function () use ($class_name, $name_space, $ext, &$flag) {
+			return $this->tryCatch(function () use ($class_name, $name_space, $ext) {
 
 				if (isset($this->array_scan_files[$class_name])) {
-					$this->checkClassNameInBaseScanFiles($name_space, $class_name, $ext, $flag);
+
+					return $this->checkClassNameInBaseScanFiles($name_space, $class_name, $ext);
 
 				} else {
 					/** обновить информацию в кэше рекурсивного сканирования */
 					$this->updateScanFiles();
 					/** проверить еще раз */
 					if (isset($this->array_scan_files[$class_name])) {
-						$this->checkClassNameInBaseScanFiles($name_space, $class_name, $ext, $flag);
+
+						return $this->checkClassNameInBaseScanFiles($name_space, $class_name, $ext);
+
 					} else {
 						throw new Exception('класс <b>"' . $class_name . '"</b> не найден ');
 					}
@@ -226,29 +233,32 @@ END;
 	 * @param $name_space
 	 * @param $class_name
 	 * @param $ext
-	 * @param $flag
+	 *
+	 * @return bool
 	 */
-	function checkClassNameInBaseScanFiles($name_space, $class_name, $ext, &$flag)
+	function checkClassNameInBaseScanFiles($name_space, $class_name, $ext)
 		{
 			/** проверка с namespase */
+
 			if ($name_space) {
 				foreach ($this->paths as $path) {
 					$path_class = SITE_PATH . $path . $name_space;
-					$this->checkClass($path_class, $class_name, $ext, $flag);
-					if (false === $flag) {
-						break;
+
+					if (false === $this->checkClass($path_class, $class_name, $ext)) {
+						return false;
 					}
 				}
 			}
 			/** ищем класс с незаданным namespase */
-			if ($flag) {
-				foreach ($this->array_scan_files[$class_name] as $path_class) {
-					$this->checkClass($path_class, $class_name, $ext, $flag);
-					if (false === $flag) {
-						break;
-					}
+
+			foreach ($this->array_scan_files[$class_name] as $path_class) {
+
+				if (false === $this->checkClass($path_class, $class_name, $ext)) {
+					return false;
 				}
 			}
+
+			return true;
 		}
 
 	/**
@@ -335,11 +345,12 @@ END;
 					$file = file_get_contents($filename);
 					$value = unserialize($file);
 
-					if($value === false) {
+					if ($value === false) {
 						$this->updateScanFiles();
 						$file = file_get_contents($filename);
 						$value = unserialize($file);
 					}
+
 					return $value;
 				}
 				throw new Exception("не найден путь файла '{$filename}' <br>");
@@ -415,7 +426,6 @@ END;
 	 * @param $file_name
 	 * @param $ext
 	 *
-	 * @param $flag
 	 *
 	 * @return bool
 	 *
@@ -423,9 +433,9 @@ END;
 	 * и запись кэша
 	 * @throws Exception
 	 */
-	private function checkClass($full_path, $file_name, $ext, &$flag)
+	private function checkClass($full_path, $file_name, $ext)
 		{
-			$this->tryCatch(function () use ($full_path, $file_name, $ext, &$flag) {
+			return $this->tryCatch(function () use ($full_path, $file_name, $ext) {
 				$file = $full_path . DIRSEP . $file_name . $ext;
 				$this->logFindClass($full_path, $file_name . $ext);
 				if (file_exists($file)) {
@@ -435,8 +445,11 @@ END;
 					$this->logLoadOk($full_path . DIRSEP, $file_name . $ext);
 					$this->addNamespace($file_name, $full_path);
 					$this->putFileMap($file_name . " = " . $full_path . PHP_EOL);
-					$flag = false;
+
+					return false;
 				}
+
+				return true;
 			});
 		}
 
@@ -570,7 +583,9 @@ END;
 				return $closure();
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) $this->echoErr($e);
+				if (DEBUG_MODE) {
+					$this->echoErr($e);
+				}
 
 				return false;
 			}
@@ -583,11 +598,11 @@ END;
 	 */
 	private function echoErr(Exception $e)
 		{
-				$trace = str_replace("#1", "<br>1 [ошибка вызвана в файле]: ", $e->getTraceAsString());
-				$trace = str_replace("#", "<br>", $trace);
-				$trace = str_replace("(", "(<b>", $trace);
-				$trace = str_replace(")", "</b>)", $trace);
-				die ("<b>Ошибка:</b> " . $e->getMessage() . " Исключение вызванно в файле '" . $e->getFile() .
-					 "' на линии <b>'" . $e->getLine() . "'</b>" . "<br><b>Trace:</b>" . $trace);
+			$trace = str_replace("#1", "<br>1 [ошибка вызвана в файле]: ", $e->getTraceAsString());
+			$trace = str_replace("#", "<br>", $trace);
+			$trace = str_replace("(", "(<b>", $trace);
+			$trace = str_replace(")", "</b>)", $trace);
+			die ("<b>Ошибка:</b> " . $e->getMessage() . " Исключение вызванно в файле '" . $e->getFile() .
+				 "' на линии <b>'" . $e->getLine() . "'</b>" . "<br><b>Trace:</b>" . $trace);
 		}
 }

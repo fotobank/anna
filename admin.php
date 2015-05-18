@@ -528,7 +528,7 @@ SWITCH ( $mode ) {
 				$tpl->assign( "{TITLE}", "- admin section - Users" );
 				$tpl->parse( "HEAD", "head" );
 				$tpl->FastPrint( "HEAD" );
-				$db->check_connect();
+			//	$db->check_connect();
 				$db->orderBy( 'id', 'ASC' );
 				$q = $db->get( $GLOBALS['tbl_users'], NULL, [ 'id', 'login', 'email' ] );
 
