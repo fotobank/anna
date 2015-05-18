@@ -562,9 +562,7 @@ function admin_only()
 function if_admin($str)
 	{
 		if (isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
-			if (isset($_SESSION['admnews']) && $_SESSION['admnews'] == md5(login().'///'.pass())) {
-				;
-			}
+			if (isset($_SESSION['admnews']) && $_SESSION['admnews'] == md5(login().'///'.pass()))
 			{
 				return $str;
 			}

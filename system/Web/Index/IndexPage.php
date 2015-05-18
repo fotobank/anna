@@ -46,7 +46,60 @@ class IndexPage extends Base
 			parent::__construct();
 			// лайтбокс в шапке
 			$this->liteBox();
+			$this->carousel = carousel();
 		}
+
+
+
+	/**
+	 * @param $thumb_link
+	 *
+	 * @return string
+	 */
+	protected function photo_link($thumb_link) {
+
+		list($name_dir, $path_thumb) = $thumb_link;
+		$name_dir = substr( $name_dir, 3 );
+		$name_dir = WinUtf( $name_dir, 'w' );
+		$patcUtf8 = WinUtf( $path_thumb, 'w' );
+		$img_path = str_replace("/thumb", "", $patcUtf8);
+		$img_path = str_replace("files/portfolio/", "", $img_path);
+		$link  = "<a class='plus' href='/inc/wm.php?img={$img_path}'>";
+		$link .= "<img class='thumb' src='/inc/th.php?img={$img_path}' alt='Фотография из раздела \"{$name_dir}\" - \"";
+		$link .= basename($patcUtf8, '.jpg')."\"'></a>";
+
+		return $link;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function carousel() {
+
+		/** сканирование в субдеррикториях 'thumb' */
+		$thumb = get_random_elements( recursive_dir( "files/portfolio", ".jpg", [ 'thumb' ], [ ], false ), 16 );
+
+		$carousel = '<div class="page1-row1 pad-1">';
+		$carousel .= '<div class="h-mod"><div class="bb-img-red"><h3>Новинки в галереях:</h3></div></div></div>';
+		$carousel .= '<div id="owl-index" class="owl-carousel">';
+		for ( $i = 0; $i < count( $thumb ); $i = $i + 2 ) {
+
+			$carousel .= "<div>" . photo_link($thumb[$i]);
+
+			if ( isset( $thumb[$i + 1] ) ) {
+
+				$carousel .= photo_link($thumb[$i + 1]);
+
+			}
+			$carousel .= "</div>";
+		}
+
+		$carousel .= "</div>";
+
+
+		return $carousel;
+	}
 
 	/**
 	 * меню статей
@@ -90,7 +143,7 @@ class IndexPage extends Base
 		{
 			$print = "";
 			$news = (file_exists($this->filenews)) ? file_get_contents($this->filenews) : $print;
-			if ($news != $print) {
+			if ($news != "") {
 				$news = explode("||", $this->replaceBBCode($news));
 				if (count(($news))) {
 					for ($i = 0; $i < count($news); $i ++) {
@@ -120,9 +173,11 @@ class IndexPage extends Base
 		}
 
 	/**
-	 * @param $text_post
+	 * @param $news
 	 *
 	 * @return mixed
+	 * @internal param $text_post
+	 *
 	 */
 	protected function replaceBBCode($news)
 		{
@@ -146,23 +201,22 @@ class IndexPage extends Base
 				"#\[\*\](.+?)\[\/\*\]#"
 			];
 			$str_replace = [
-				"",
-				"<p class=\"komment\">\\1</p>",
-				"<span class=\"date\">\\1</span>",
-				//        "<br />",
-				"<b>\\1</b>",
-				"<i>\\1</i>",
-				"<span style='text-decoration:underline'>\\1</span>",
-				"<code class='code'>\\1</code>",
-				"<table width = '95%'><tr><td>Цитата</td></tr><tr><td class='quote'>\\1</td></tr></table>",
-				"<a href='\\1'>\\2</a>",
-				"<a href='\\1'>\\1</a>",
-				"<img src='\\1' alt = 'Изображение' />",
-				"<span style='font-size:\\1%'>\\2</span>",
-				"<span style='color:\\1'>\\2</span>",
-				"<ul>\\1</ul>",
-				"<ol>\\1</ol>",
-				"<li>\\1</li>"
+				'',
+				'<p class="komment">\\1</p>',
+				'<span class="date">\\1</span>',
+				'<b>\\1</b>',
+				'<i>\\1</i>',
+				'<span style="text-decoration: underline;">\\1</span>',
+				'<code class="code">\\1</code>',
+				'<table width = "95%"><tr><td>Цитата</td></tr><tr><td class="quote">\\1</td></tr></table>',
+				'<a href="\\1">\\2</a>',
+				'<a href="\\1">\\1</a>',
+				'<img src="\\1" alt = "Изображение" />',
+				'<span style="font-size: \\1%;">\\2</span>',
+				'<span style="color: \\1;">\\2</span>',
+				'<ul>\\1</ul>',
+				'<ol>\\1</ol>',
+				'<li>\\1</li>'
 			];
 
 			return preg_replace($str_search, $str_replace, $news);

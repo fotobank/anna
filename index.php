@@ -24,7 +24,7 @@ try {
 								   'auto_copyright'  => auto_copyright('2011'),
 								   'php_sessid'      => isset($_COOKIE['PHPSESSID']) ? $_COOKIE['PHPSESSID'] : ip(),
 								   // свойства IndexPage
-								   'carousel'        => carousel(), //карусель
+								//   'carousel'        => carousel(), //карусель
 								   'http_host'       => getenv('HTTP_HOST'),  // телефон в слайдере
 								   'filenews'        => 'news.txt', // файл новостей
 								   'lite_box_path'   => 'files/slides/*.jpg' // маска и путь сканирования лайтбокса
