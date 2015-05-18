@@ -66,6 +66,23 @@ class IndexPage extends Base
 		}
 
 	/**
+	 *лайтбокс на главной в шапке
+	 */
+	protected function liteBox()
+		{
+			// сканирование без субдиректорий
+			$index_slide = glob($this->lite_box_path);
+			if (is_array($index_slide)) {
+				foreach ($index_slide as $key => $slide) {
+
+					$this->items[]['img_src_head_index_slide'] = $slide;
+					$this->pags[]['i'] = $key + 1;
+				}
+			}
+		}
+
+
+	/**
 	 *
 	 * @return string
 	 */
@@ -103,27 +120,11 @@ class IndexPage extends Base
 		}
 
 	/**
-	 *лайтбокс на главной в шапке
-	 */
-	protected function liteBox()
-		{
-			// сканирование без субдиректорий
-			$index_slide = glob($this->lite_box_path);
-			if (is_array($index_slide)) {
-				foreach ($index_slide as $key => $slide) {
-
-					$this->items[]['img_src_head_index_slide'] = $slide;
-					$this->pags[]['i'] = $key + 1;
-				}
-			}
-		}
-
-	/**
 	 * @param $text_post
 	 *
 	 * @return mixed
 	 */
-	protected function replaceBBCode($text_post)
+	protected function replaceBBCode($news)
 		{
 			$str_search = [
 				"#\[del\](.+?)\[\/del\]#is",
@@ -164,6 +165,6 @@ class IndexPage extends Base
 				"<li>\\1</li>"
 			];
 
-			return preg_replace($str_search, $str_replace, $text_post);
+			return preg_replace($str_search, $str_replace, $news);
 		}
 }

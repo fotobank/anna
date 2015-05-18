@@ -100,13 +100,13 @@ END;
 				/** проверить директории кэша и задать права */
 				$this->checkDir();
 				/** проверка и создание .htaccess */
-				$this->checkHtaccess();
+				$this->putFile($this->htaccess, $this->htaccess_data, LOCK_EX);
 				/** если файла кэша нет - создать */
-				$this->checkExistsFile($this->file_array_class_cache);
+				$this->putFile($this->file_array_class_cache, '', LOCK_EX);
 				/** читаем кэш в массив из файла */
 				$this->array_class_cache = $this->getFileMap();
 
-				if ($this->checkExistsFile($this->file_array_scan_files)) {
+				if ($this->putFile($this->file_array_scan_files, '', LOCK_EX)) {
 					$this->updateScanFiles();
 				} else {
 					$this->array_scan_files = $this->arrFromFile($this->file_array_scan_files);
@@ -218,7 +218,8 @@ END;
 	 */
 	private function checkClassNameInBaseScanFiles($class_name, $name_space, $ext, &$flag)
 		{
-			if ($this->array_scan_files[$class_name]) {
+			try {
+			if (isset($this->array_scan_files[$class_name])) {
 				/** проверка с namespase */
 				if ($name_space) {
 					foreach ($this->paths as $path) {
@@ -238,6 +239,12 @@ END;
 						}
 					}
 				}
+			} else {
+				throw new Exception('класс <b>"'.$class_name.'"</b> не найден ');
+			}
+			}
+			catch (Exception $e) {
+				$this->echoErr($e);
 			}
 		}
 
@@ -257,38 +264,41 @@ END;
 
 	/**
 	 * @param string $base
-	 * @param array  $data
 	 * Функция позволяет получить ассоциированный массив всех файлов в заданной директории и поддиректориях
 	 * example: echo '<pre>'; var_export(rScanDir(dirname(__FILE__).'/')); echo '</pre>';
 	 *
+	 * @param array  $data
+	 *
 	 * @return array
-	 * @throws Exception
 	 */
 	private function rScanDir($base = '', &$data = [])
 		{
 			static $data;
 			try {
-				$array = array_diff(scandir($base), ['.', '..']);
-				foreach ($array as $value) :
+				if(is_dir($base)) {
+					$array = array_diff(scandir($base), ['.', '..']);
+					foreach ($array as $value) {
 
-					if (is_dir($base.$value)) :
-						$data = $this->rScanDir($base.$value.DIRSEP, $data);
+						if (is_dir($base.$value)) {
+							$data = $this->rScanDir($base.$value.DIRSEP, $data);
 
-					elseif (is_file($base.$value)) :
-						foreach ($this->files_ext as $mask) {
-							$path_parts = pathinfo($value);
-							$extension = isset($path_parts['extension']) ? $path_parts['extension'] : false;
-							if ($mask == '.'.$extension) {
-								$data[$path_parts['filename']][] = rtrim($base, DIRSEP);
+						} elseif (is_file($base.$value)) {
+							foreach ($this->files_ext as $mask) {
+								$path_parts = pathinfo($value);
+								$extension = isset($path_parts['extension']) ? $path_parts['extension'] : false;
+								if ($mask == '.'.$extension) {
+									$data[$path_parts['filename']][] = rtrim($base, DIRSEP);
+								}
 							}
 						}
-					endif;
-				endforeach;
+					}
+				} else {
+					throw new Exception("не найдена директория сканирования файлов <br>");
+				}
 			}
 			catch (Exception $e) {
 				if (DEBUG_MODE) {
-					throw new Exception("не найдена директория сканирования файлов ".$e->getMessage()."<br>",
-										E_USER_ERROR);
+					$this->echoErr($e);
 				}
 			}
 
@@ -323,14 +333,17 @@ END;
 	protected function arrFromFile($filename)
 		{
 			try {
-				$file = file_get_contents($filename);
-				$value = unserialize($file);
+				if(file_exists($filename)) {
+					$file = file_get_contents($filename);
+					$value = unserialize($file);
 
-				return $value;
+					return $value;
+				}
+				throw new Exception("не найден путь файла '{$filename}' <br>");
 			}
 			catch (Exception $e) {
 				if (DEBUG_MODE) {
-					throw new Exception("не найден путь файла '{$filename}' <br>");
+					$this->echoErr($e);
 				}
 			}
 
@@ -349,56 +362,42 @@ END;
 				if (!is_writable($this->dir_cashe)) {
 					chmod($this->dir_cashe, 0711);
 				}
+				if(!is_dir($this->dir_cashe) || !is_writable($this->dir_cashe)) {
+					throw new Exception('can not create "'.$this->dir_cashe.'" an unwritable dir <br>');
+			}
 			}
 			catch (Exception $e) {
 				if (DEBUG_MODE) {
-					throw new Exception("can not create '{$this->dir_cashe}' an unwritable dir <br>");
-				}
-			}
-		}
-
-	/**
-	 * создать .htaccess
-	 */
-	private function checkHtaccess()
-		{
-			try {
-				if (!file_exists($this->htaccess)) {
-					file_put_contents($this->htaccess, $this->htaccess_data, LOCK_EX);
-				}
-			}
-			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					throw new Exception("can not create '{$this->htaccess}' an unwritable dir '".$this->dir_cashe.
-										"'<br>");
+					$this->echoErr($e);
 				}
 			}
 		}
 
 	/**
 	 * @param $file
-	 * установка прав на директорию и файлы
-	 * если файла нет - создать
+	 *
+	 * если файла нет - создать и установить права
+	 *
+	 * @param $data
+	 * @param $flag
 	 *
 	 * @return bool
-	 * @throws Exception
 	 */
-	protected function checkExistsFile($file)
+	protected function putFile($file, $data, $flag)
 		{
-			if (!file_exists($file)) {
 				try {
-					file_put_contents($file, "", LOCK_EX);
-					chmod($file, 0600);
-
-					return true;
-				}
-				catch (Exception $e) {
-					if (DEBUG_MODE) {
-						throw new Exception("can not create '{$file}' an unwritable dir '".$this->dir_cashe."'<br>");
+					if (!file_exists($file)) {
+						file_put_contents($file, $data, $flag);
+						if (!file_exists($file)) {
+							throw new Exception("can not create '{$file}' an unwritable dir '".$this->dir_cashe."'<br>");
+						}
+						chmod($file, 0600);
+						return true;
 					}
 				}
-			}
-
+				catch (Exception $e) {
+						$this->echoErr($e);
+				}
 			return false;
 		}
 
@@ -409,22 +408,18 @@ END;
 	 */
 	private function getFileMap()
 		{
+			$file_array = [];
 			try {
 				$file_string = file_get_contents($this->file_array_class_cache);
-				$file_array = parse_ini_string($file_string);
-				if ($file_array === []) {
-					return null;
+				if($file_string === false) {
+					throw new Exception('Can not read the file <b>"'.$this->file_array_class_cache.'"</b>');
 				}
-
-				return $file_array;
+				$file_array = parse_ini_string($file_string);
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					throw new Exception("Can not read the file <br>", E_USER_ERROR);
-				}
+				$this->echoErr($e);
 			}
-
-			return null;
+			return $file_array;
 		}
 
 	/**
@@ -434,9 +429,10 @@ END;
 	 *
 	 * @param $flag
 	 *
-	 * @return bool проверка наличия файла класса в директории
+	 * @return bool
 	 *
 	 * проверка физичесского наличия файла класса в директории
+	 * и запись кэша
 	 * @throws Exception
 	 */
 	private function checkClass($full_path, $file_name, $ext, &$flag)
@@ -471,71 +467,48 @@ END;
 		{
 			if (is_dir($full_path)) {
 				$this->array_class_cache[$name_space] = $full_path;
-				return true;
 			}
-			return false;
 		}
 
 	/**
 	 * @param $class
-	 * запись кэша в файл
 	 *
-	 * @throws Exception
+	 * @return bool проверка существования записи в файле кэша классов и, если надо, изменение строк
+	 * проверка существования записи в файле кэша классов и, если надо, изменение строк
+	 * @internal param $data
+	 *
 	 */
 	private function putFileMap($class)
 		{
 			try {
-				/** если строки в записи не не равны - изменить запись в файле */
-				if ($this->checkFileMap($class)) {
-					/** а если не существуют - добавить */
-					file_put_contents($this->file_array_class_cache, $class, FILE_APPEND | LOCK_EX);
-				}
-			}
-			catch (Exception $e) {
-				$this->echoErr($e);
-			}
-		}
-
-	/**
-	 * @param $data
-	 *
-	 * @return bool
-	 * проверка существования записи в файле кэша классов и, если надо, изменение строк
-	 * @throws Exception
-	 */
-	private function checkFileMap($data)
-		{
-			try {
-				$data = trim($data);
+				$class = trim($class);
 				$file_map = $this->getFileMap();
-				list($file_name, $file_patch) = explode("=", $data);
+				list($file_name, $file_patch) = explode("=", $class);
 				$file_patch = trim($file_patch);
 				$file_name = trim($file_name);
 
-				if ($file_map && isset($file_map[$file_name])) {
-					$full_name_map = $file_name." = ".$file_map[$file_name];
-					/** если пути не равны */
-					if ($full_name_map != $data) {
-						/** изменить строку в массиве и записать изменения в файл */
-						$file_map[$file_name] = $file_patch;
-						$file_map_write = "";
-						foreach ($file_map as $class => $file) {
-							$file_map_write .= $class." = ".$file.PHP_EOL;
+					if( isset($file_map[$file_name])) {
+						$full_name_map = $file_name." = ".$file_map[$file_name];
+						/** если пути не равны */
+						if ($full_name_map != $class) {
+							/** изменить строку в массиве и записать изменения в файл */
+							$file_map[$file_name] = $file_patch;
+							$file_map_write = "";
+							foreach ($file_map as $drop_name_class => $file) {
+								$file_map_write .= $drop_name_class." = ".$file.PHP_EOL;
+							}
+							/** перезаписываем файл */
+							file_put_contents($this->file_array_class_cache, $file_map_write, LOCK_EX);
+							unset($file_map);
 						}
-						/** перезаписываем файл */
-						file_put_contents($this->file_array_class_cache, $file_map_write, LOCK_EX);
-						unset($file_map);
+					} else {
+						/** или добавить запись */
+						file_put_contents($this->file_array_class_cache, $class.PHP_EOL, FILE_APPEND | LOCK_EX);
 					}
-
-					return false;
-				}
 			}
 			catch (Exception $e) {
 				$this->echoErr($e);
 			}
-
-			/** разрешить запись */
-			return true;
 		}
 
 	/**

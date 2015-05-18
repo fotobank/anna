@@ -53,14 +53,14 @@ defined( '_SECUR' ) or die( 'Доступ запрещен' );
 			<dd class="clr-1">
 				<p>
 					<span>Рабочий:</span>
-					<a class="link" onclick="goog_report_conversion('tel: 094-95-53-167');return false;" href="#">
+					<a class="link" onclick="goog_report_conversion('tel: 094-95-53-167');return false;" href="tel: 094-95-53-167">
 						<span class="phone">(094)95-53-167</span></a>
 				</p>
 			</dd>
 			<dd class="clr-1">
 				<p>
 					<span>Мобильный:</span>
-					<a class="link" onclick="goog_report_conversion('tel: 067-76-84-086');return false;" href="#">
+					<a class="link" onclick="goog_report_conversion('tel: 067-76-84-086');return false;" href="tel: 067-76-84-086">
 						<span class="phone">(067)76-84-086</span>
 					</a>
 				</p>
