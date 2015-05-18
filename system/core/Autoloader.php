@@ -100,13 +100,13 @@ END;
 				/** проверить директории кэша и задать права */
 				$this->checkDir();
 				/** проверка и создание .htaccess */
-				$this->putFile($this->htaccess, $this->htaccess_data, LOCK_EX);
+				$this->createFile($this->htaccess, $this->htaccess_data);
 				/** если файла кэша нет - создать */
-				$this->putFile($this->file_array_class_cache, '', LOCK_EX);
+				$this->createFile($this->file_array_class_cache, '');
 				/** читаем кэш в массив из файла */
 				$this->array_class_cache = $this->getFileMap();
 
-				if ($this->putFile($this->file_array_scan_files, '', LOCK_EX)) {
+				if ($this->createFile($this->file_array_scan_files, '')) {
 					$this->updateScanFiles();
 				} else {
 					$this->array_scan_files = $this->arrFromFile($this->file_array_scan_files);
@@ -373,15 +373,14 @@ END;
 	 * если файла нет - создать и установить права
 	 *
 	 * @param $data
-	 * @param $flag
 	 *
 	 * @return bool
 	 */
-	protected function putFile($file, $data, $flag)
+	protected function createFile($file, $data)
 		{
 			try {
 				if (!file_exists($file)) {
-					file_put_contents($file, $data, $flag);
+					file_put_contents($file, $data, LOCK_EX);
 					if (!file_exists($file)) {
 						throw new Exception("can not create '{$file}' an unwritable dir '".$this->dir_cashe."'<br>");
 					}
