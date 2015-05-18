@@ -131,6 +131,7 @@ END;
 					$name_space = DIRSEP . $name_space;
 					$this->findClass($class_name, $name_space, $flag);
 				}
+
 				/** попытка поиска без namespace ( если namespace отличается от вложенности директорий ) */
 				if ($flag) {
 					$this->findClass($class_name, "", $flag);
