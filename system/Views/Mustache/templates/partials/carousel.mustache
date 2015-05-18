@@ -7,17 +7,21 @@
 				</div>
 		</div>
     <div id="owl-index" class="owl-carousel">
-        <div>
 
-{{#corousel_link}}
-	{{#corousel_block}}
-            <a class="plus" href="{{img_path}}">
-                <img class="thumb" src="{{img_path}}" alt="Фотография из раздела '{{name_dir}}' - '{{patcUtf8}}'">
+
+
+{{#carousel_link}}
+<div>
+	{{#carousel_block}}
+            <a class="plus" href="{{{href_img_path}}}">
+                <img class="thumb" src="{{{src_img_path}}}" alt="Фотография из раздела '{{name_dir}}' - '{{patcUtf8}}'">
             </a>
-	{{/corousel_block}}
-{{/corousel_link}}
+	{{/carousel_block}}
 
-            </div>
+</div>
+{{/carousel_link}}
+
+
         </div>
 
 {{/carousel}}

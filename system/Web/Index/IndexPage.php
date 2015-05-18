@@ -30,9 +30,14 @@ class IndexPage extends Base
 	public $pags = [];
 	// колонка новостей
 	public $filenews;
-	//карусель
-	public $carousel;
+
 	public $lite_box_path;
+
+	//карусель
+	public $carousel = true;
+	public $carousel_link;
+	public $carousel_block_1;
+	public $carousel_block_2;
 
 
 	/**
@@ -46,60 +51,56 @@ class IndexPage extends Base
 			parent::__construct();
 			// лайтбокс в шапке
 			$this->liteBox();
-			$this->carousel = carousel();
+			$this->_carousel();
 		}
-
 
 
 	/**
 	 * @param $thumb_link
 	 *
 	 * @return string
+	 * @internal param $num
+	 *
 	 */
-	protected function photo_link($thumb_link) {
+	protected function photo_link($thumb_link)
+		{
 
-		list($name_dir, $path_thumb) = $thumb_link;
-		$name_dir = substr( $name_dir, 3 );
-		$name_dir = WinUtf( $name_dir, 'w' );
-		$patcUtf8 = WinUtf( $path_thumb, 'w' );
-		$img_path = str_replace("/thumb", "", $patcUtf8);
-		$img_path = str_replace("files/portfolio/", "", $img_path);
-		$link  = "<a class='plus' href='/inc/wm.php?img={$img_path}'>";
-		$link .= "<img class='thumb' src='/inc/th.php?img={$img_path}' alt='Фотография из раздела \"{$name_dir}\" - \"";
-		$link .= basename($patcUtf8, '.jpg')."\"'></a>";
+			list($name_dir, $path_thumb) = $thumb_link;
+			$name_dir = substr($name_dir, 3);
+			$name_dir = WinUtf($name_dir, 'w');
+			$patcUtf8 = WinUtf($path_thumb, 'w');
 
-		return $link;
-	}
+			$img_path = str_replace("/thumb", "", $patcUtf8);
+			$img_path = str_replace("files/portfolio/", "", $img_path);
+			$patcUtf8 = basename($patcUtf8, '.jpg');
+			$href_img_path = "/inc/wm.php?img={$img_path}";
+			$src_img_path = "/inc/th.php?img={$img_path}";
 
+			return [
+				'href_img_path' => $href_img_path,
+				'src_img_path'  => $src_img_path,
+				'name_dir'      => $name_dir,
+				'patcUtf8'      => $patcUtf8
+			];
+		}
 
 	/**
 	 * @return string
 	 */
-	public function carousel() {
+	public function _carousel()
+		{
+			/** сканирование в субдеррикториях 'thumb' */
+			$thumb = get_random_elements(recursive_dir("files/portfolio", ".jpg", ['thumb'], [], false), 26);
 
-		/** сканирование в субдеррикториях 'thumb' */
-		$thumb = get_random_elements( recursive_dir( "files/portfolio", ".jpg", [ 'thumb' ], [ ], false ), 16 );
+			$thumb = array_chunk($thumb, 2);
 
-		$carousel = '<div class="page1-row1 pad-1">';
-		$carousel .= '<div class="h-mod"><div class="bb-img-red"><h3>Новинки в галереях:</h3></div></div></div>';
-		$carousel .= '<div id="owl-index" class="owl-carousel">';
-		for ( $i = 0; $i < count( $thumb ); $i = $i + 2 ) {
+			foreach ($thumb as $key => $value) {
 
-			$carousel .= "<div>" . photo_link($thumb[$i]);
-
-			if ( isset( $thumb[$i + 1] ) ) {
-
-				$carousel .= photo_link($thumb[$i + 1]);
+				$this->carousel_link[$key]['carousel_block'][] = $this->photo_link($value['0']);
+				$this->carousel_link[$key]['carousel_block'][] = $this->photo_link($value['1']);
 
 			}
-			$carousel .= "</div>";
 		}
-
-		$carousel .= "</div>";
-
-
-		return $carousel;
-	}
 
 	/**
 	 * меню статей
