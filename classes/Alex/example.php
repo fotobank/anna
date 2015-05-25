@@ -101,4 +101,4 @@
 			    <li><a href=./example.php?id=23%3B%20www.select+%2A+from+OPENRoWSeT%28'SQLOLEDB'%2C'Network=DBMSSOCN%3BAddress=%3Buid=sa%3Bpwd=MyTestPass'%2C'waitfor+delay+''0%3A0%3A20''%3Bselect+1%3B'%29%3B-><b>Esculate Privaleges Attack</a></li></b>
 			    <li><a href=./example.php?id=\\x6A\\x61\\x76\\x61\\x73\\x63\\x72\\x69\\x70\\x74\\x3A\\x61\\x6C\\x65\\x72\\x74\\x28\\x30\\x29\\x3B><b>Hex/Octal string obfuscation attack</b></a></li>
 		     </div>
-<div class="footer">Te Taipo - Hokioi-IT</div>
+<div class="footer">Protection Alex-Security</div>

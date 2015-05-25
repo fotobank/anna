@@ -1868,7 +1868,7 @@ function rotatePhotoMobile($img, $degree){
  *
  */
 function getPoweredBy($url){
-	$tmp = parse_url($url);
+//	$tmp = parse_url($url);
 	$stream = @fopen($url, 'rb'); // открываем сайт
 	if(!$stream){
 		return "Сайт не отвечает!";
