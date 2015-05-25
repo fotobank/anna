@@ -1890,6 +1890,6 @@ function getPoweredBy($url){
 	}
 }
 
-$url = 'http://vk-book.ru';
+$url = 'http://annafoto.in.ua';
 $result = getPoweredBy($url);
 print_r ($result);
