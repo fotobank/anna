@@ -1889,7 +1889,3 @@ function getPoweredBy($url){
 		return "Не известно!";
 	}
 }
-
-$url = 'http://annafoto.in.ua';
-$result = getPoweredBy($url);
-print_r ($result);
