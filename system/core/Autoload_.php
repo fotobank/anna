@@ -40,10 +40,10 @@ class Autoload {
 		if ( $lastNsPos ) {
 			$namespace = substr( $className, 0, $lastNsPos );
 			$className = substr( $className, $lastNsPos + 1 );
-			$fileName  = str_replace( '\\', DIRSEP, $namespace ) . DIRSEP;
+			$fileName  = str_replace( '\\', DS, $namespace ) . DS;
 		}
-		$fileName .= str_replace( '_', DIRSEP, $className ) . '.php';
-		$file = SITE_PATH . 'classes' . DIRSEP . $fileName;
+		$fileName .= str_replace( '_', DS, $className ) . '.php';
+		$file = SITE_PATH . 'classes' . DS . $fileName;
 
 		try {
 			require_once  $file;
@@ -79,16 +79,16 @@ class Autoload {
 		if ( $lastNsPos ) {
 			$namespace = substr( $className, 0, $lastNsPos );
 			$className = substr( $className, $lastNsPos + 1 );
-			$fileName  = str_replace( '\\', DIRSEP, $namespace ) . DIRSEP;
+			$fileName  = str_replace( '\\', DS, $namespace ) . DS;
 		}
-			$fileName .= str_replace("_" , DIRSEP, $className);
+			$fileName .= str_replace("_" , DS, $className);
 
 
 		$load_ok = 0;
 		foreach ($paths as $path) {
-			$path  = str_replace( ['\\','/'], DIRSEP, $path );
+			$path  = str_replace( ['\\','/'], DS, $path );
 			if(1 === $load_ok ) break;
-			$file = SITE_PATH. $path . DIRSEP . $fileName;
+			$file = SITE_PATH. $path . DS . $fileName;
 			foreach ($extensions as $ext) {
 				try {
 					if (is_readable($file . $ext)) {

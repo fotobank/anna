@@ -38,11 +38,11 @@
 class Registry implements ArrayAccess, Iterator, Countable {
 
 	//Здесь хранятся переменные
-	private $_Vars;
+	private $vars;
 	//Внутренний счетчик
-	private $_Counter = 0;
+	private $counter = 0;
 
-	use Singleton;
+	use Common\Container\Singleton;
 
 
 	/**
@@ -50,12 +50,16 @@ class Registry implements ArrayAccess, Iterator, Countable {
 	 *
 	 * @param $Name
 	 * @param $Value
+	 *
+	 * @throws Exception
 	 */
 	function set($Name, $Value) {
-		if (empty($Name)) {
-			$this->_Vars[] = $Value;
+		if (isset($this->vars[$Name]) == true) {
+			throw new Exception('unable to set var `' . $Name . '` - already set');
+		} elseif (empty($Name)) {
+			$this->vars[] = $Value;
 		} else {
-			$this->_Vars[$Name] = $Value;
+			$this->vars[$Name] = $Value;
 		}
 	}
 
@@ -67,8 +71,8 @@ class Registry implements ArrayAccess, Iterator, Countable {
 	 * @return null
 	 */
 	function get($Name) {
-		if (isset($this->_Vars[$Name])) {
-			return $this->_Vars[$Name];
+		if (isset($this->vars[$Name])) {
+			return $this->vars[$Name];
 		}
 
 		return null;
@@ -98,7 +102,7 @@ class Registry implements ArrayAccess, Iterator, Countable {
 	 * @return int
 	 */
 	function count() {
-		return count($this->_Vars);
+		return count($this->vars);
 	}
 
 	/**
@@ -107,7 +111,7 @@ class Registry implements ArrayAccess, Iterator, Countable {
 	 * @return bool
 	 */
 	function offsetExists($Name) {
-		return isset($this->_Vars[$Name]);
+		return isset($this->vars[$Name]);
 	}
 
 	/**
@@ -131,8 +135,8 @@ class Registry implements ArrayAccess, Iterator, Countable {
 	 * @param mixed $Name
 	 */
 	function offsetUnset($Name) {
-		if (isset($this->_Vars[$Name])) {
-			unset($this->_Vars[$Name]);
+		if (isset($this->vars[$Name])) {
+			unset($this->vars[$Name]);
 		}
 	}
 
@@ -149,26 +153,26 @@ class Registry implements ArrayAccess, Iterator, Countable {
 	 *
 	 */
 	function next() {
-		$this->_Counter ++;
+		$this->counter ++;
 	}
 
 	/**
 	 *
 	 */
 	function rewind() {
-		$this->_Counter = 0;
+		$this->counter = 0;
 	}
 
 	/**
 	 * @return mixed
 	 */
 	function key() {
-		reset($this->_Vars);
-		for ($i = 0; $i < $this->_Counter; $i ++) {
-			next($this->_Vars);
+		reset($this->vars);
+		for ($i = 0; $i < $this->counter; $i ++) {
+			next($this->vars);
 		}
 
-		return key($this->_Vars);
+		return key($this->vars);
 	}
 
 	/**
@@ -177,7 +181,7 @@ class Registry implements ArrayAccess, Iterator, Countable {
 	function valid() {
 		$Key = $this->key();
 
-		return isset($this->_Vars[$Key]);
+		return isset($this->vars[$Key]);
 	}
 
 }

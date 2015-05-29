@@ -7,9 +7,11 @@
  */
 
 
-namespace Web\Index;
+namespace models\Index;
 
-use Web\Base\Base;
+// include(__DIR__.'/../../models/Base/Base.php');
+
+use models\Base as model;
 
 if (session_id() == '') {
 	session_start();
@@ -20,7 +22,7 @@ header('Content-type: text/html; charset=windows-1251');
 /**
  * Class ajaxSite_web_index
  */
-class IndexPage extends Base
+class Index extends model\Base
 {
 
 	// телефон в слайдере

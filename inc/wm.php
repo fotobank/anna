@@ -16,7 +16,7 @@ if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)$#i', $path ) ) {
 
 	$dirname = $basename = '';
 	extract(path_info( $path, EXTR_OVERWRITE )); // если переменная существует она будет переписана
-	$realpath = SITE_PATH . 'files/portfolio/' . $dirname . DIRSEP . $basename;
+	$realpath = SITE_PATH . 'files/portfolio/' . $dirname . DS . $basename;
 
 	$image    = @imagecreatefromstring( @file_get_contents( $realpath ) );
 	if ( ! $image ) {
