@@ -30,6 +30,13 @@ class Base
 	function init()
 		{
 
+			/**==========================для раздела "отзывы"====================*/
+			if (isset($_POST['nick']) && isset($_POST['email'])) {
+				setcookie("nick", $_POST['nick'], time() + 300);
+				setcookie("email", $_POST['email'], time() + 300);
+			}
+			/**==================================================================*/
+
 			// mustache
 			/** @noinspection PhpIncludeInspection */
 			include(SITE_PATH . 'vendor/autoload.php');

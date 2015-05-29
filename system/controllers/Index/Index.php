@@ -31,6 +31,7 @@ class Index extends controller\Base
 	function __construct()
 		{
 			parent::init();
+
 		}
 
 

@@ -6,8 +6,13 @@
  * Time: 2:11
  */
 
+/** @noinspection PhpIncludeInspection */
+include(__DIR__ .  DIRECTORY_SEPARATOR . '..'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR.'system'.
+									   DIRECTORY_SEPARATOR.'config'. DIRECTORY_SEPARATOR . 'config.php');
 
-require (__DIR__ .'/../../system/config/config.php');
+// подключаем ядро сайта
+/** @noinspection PhpIncludeInspection */
+include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
 
 if(isset($_GET['id'])) {

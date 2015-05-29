@@ -6,6 +6,8 @@
  * Time: 11:54
  */
 
+include(__DIR__ .'/../system/config/config.php');
+include(__DIR__.'/func.php');
 
 $path = isset( $_GET['img'] ) ? $_GET['img'] : FALSE;
 

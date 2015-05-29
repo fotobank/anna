@@ -1,6 +1,12 @@
 <?php
-require (__DIR__ .'/../../system/config/config.php');
-require "functions.php";
+/** @noinspection PhpIncludeInspection */
+include(__DIR__ .  DIRECTORY_SEPARATOR . '..'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR.'system'.
+		DIRECTORY_SEPARATOR.'config'. DIRECTORY_SEPARATOR . 'config.php');
+
+// подключаем ядро сайта
+/** @noinspection PhpIncludeInspection */
+include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
+include("functions.php");
 
 // We don't want web bots scewing our stats:
 if(is_bot()) die();
