@@ -65,7 +65,7 @@ Class Router
 			// Находим контроллер
 			$cmd_path = $this->path;
 			foreach ($parts as $part) {
-				$part = ucfirst($part);
+
 				$fullpath = $cmd_path . $part;
 
 				// Проверка существования папки
