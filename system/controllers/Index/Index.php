@@ -14,9 +14,6 @@
 
 namespace controllers\Index;
 
-include(__DIR__.'/../../models/Index/Index.php');
-// include(__DIR__.'/../../controllers/Base/Base.php');
-
 use controllers\Base as controller;
 use models\Index as model;
 
