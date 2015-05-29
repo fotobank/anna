@@ -90,7 +90,7 @@ Class Router
 			// Получаем экшен
 			$action = array_shift($parts);
 			if (empty($action)) {
-				$action = 'index';
+				$action = 'Index';
 			}
 
 			$file = $cmd_path . $controller . '.php';
