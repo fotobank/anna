@@ -107,7 +107,7 @@ Class Router
 
 			// Проверка существования файла, иначе 404
 			if (is_readable($file) === false) {
-				die ('file class '.$file.' not found');
+				throw new Exception('file class '.$file.' not found');
 			}
 
 			// Подключаем файл
@@ -121,7 +121,7 @@ Class Router
 
 			// Если экшен не существует - 404
 			if (is_callable([$controller, $action]) === false) {
-				die ('action not found');
+				throw new Exception ('action: `' . $action . '` not found');
 			}
 
 			// Выполняем экшен
