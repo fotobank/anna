@@ -84,13 +84,13 @@ Class Router
 
 			// если урле не указан контролер, то испольлзуем поумолчанию index
 			if (empty($controller)) {
-				$controller = 'index';
+				$controller = 'Index';
 			}
 
 			// Получаем экшен
 			$action = array_shift($parts);
 			if (empty($action)) {
-				$action = 'Index';
+				$action = 'index';
 			}
 
 			$file = $cmd_path . $controller . '.php';
