@@ -19,7 +19,7 @@ namespace controllers\Base;
  * Class controller_Base
  * @package controllers
  */
-class Base
+abstract class Base
 {
 
 	public $mustache;

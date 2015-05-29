@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Класс предназначен для
+ * Класс Router
  * @created   by PhpStorm
  * @package   Router.php
  * @version   1.0
@@ -35,10 +35,9 @@ Class Router
 	 */
 	function setPath($path)
 		{
-			$path = rtrim($path, '/\\');
 			$path .= DS;
 			// если путь не существует, сигнализируем об этом
-			if (is_dir($path) == false) {
+			if (is_dir($path) === false) {
 				throw new Exception ('Invalid controller path: `' . $path . '`');
 			}
 			$this->path = $path;
@@ -56,7 +55,7 @@ Class Router
 			$route = (empty($_GET['route'])) ? '' : $_GET['route'];
 			unset($_GET['route']);
 			if (empty($route)) {
-				$route = 'index';
+				$route = 'Index';
 			}
 
 			// Получаем части урла
@@ -107,8 +106,8 @@ Class Router
 			$this->getController($file, $controller, $action, $args);
 
 			// Проверка существования файла, иначе 404
-			if (is_readable($file) == false) {
-				die ('404 Not Found');
+			if (is_readable($file) === false) {
+				die ('file class not found');
 			}
 
 			// Подключаем файл
@@ -121,8 +120,8 @@ Class Router
 			$controller = new $class();
 
 			// Если экшен не существует - 404
-			if (is_callable([$controller, $action]) == false) {
-				die ('404 Not Found');
+			if (is_callable([$controller, $action]) === false) {
+				die ('action not found');
 			}
 
 			// Выполняем экшен

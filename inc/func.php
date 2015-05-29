@@ -37,6 +37,7 @@ function cutString($string, $minlength, $maxlen)
  */
 function _include($path)
 	{
+		/** @noinspection PhpIncludeInspection */
 		return include preg_replace('/[/]+/', DIRECTORY_SEPARATOR, $path);
 	}
 
@@ -1270,7 +1271,7 @@ function detect_proxy($myIP)
 			}
 		}
 
-		if (in_array($_SERVER['REMOTE_PORT'], array(8080, 80, 6588, 8000, 3128, 553, 554)) ||
+		if (in_array($_SERVER['REMOTE_PORT'], [8080, 80, 6588, 8000, 3128, 553, 554]) ||
 			@fsockopen($_SERVER['REMOTE_ADDR'], 80, $errno, $errstr, 30)
 		) {
 			$flagProxy = true;
@@ -1357,7 +1358,7 @@ function resize($newWidth, $targetFile, $originalFile)
 				$new_image_ext = 'gif';
 				break;
 			default:
-				throw Exception('Unknown image type.');
+				throw new Exception('Unknown image type.');
 		}
 		$img = $image_create_func($originalFile);
 		list($width, $height) = getimagesize($originalFile);
@@ -1403,7 +1404,7 @@ function resize($newWidth, $targetFile, $originalFile)
  */
 function my_md5($pass, $salt)
 	{
-		$spec = array('~', '!', '@', '#', '$', '%', '^', '&', '*', '?');
+		$spec = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '?'];
 		$crypted = md5(md5($salt).md5($pass));
 		$c_text = md5($pass);
 		$temp = '';

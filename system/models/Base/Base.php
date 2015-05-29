@@ -18,7 +18,7 @@ use Db as Db;
  * Class General
  * @package models\Base
  */
-class Base
+abstract class Base
 {
 
 	use Options;

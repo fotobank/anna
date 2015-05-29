@@ -3,10 +3,10 @@ Allow from all
 Satisfy any
 AddDefaultCharset WINDOWS-1251
 
-#RewriteEngine on
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]
 
 AddEncoding gzip .gz
 
