@@ -9,8 +9,6 @@
 
 namespace models\Index;
 
-// include(__DIR__.'/../../models/Base/Base.php');
-
 use models\Base as model;
 
 if (session_id() == '') {
