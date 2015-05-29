@@ -107,7 +107,7 @@ Class Router
 
 			// Проверка существования файла, иначе 404
 			if (is_readable($file) === false) {
-				die ('file class not found');
+				die ('file class '.$file.' not found');
 			}
 
 			// Подключаем файл
