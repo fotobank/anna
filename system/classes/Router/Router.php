@@ -12,120 +12,131 @@
  * @time      :     1:15
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
-Class Router
-{
 
-	private $path;
+class Router {
 
-	/**
-	 *
-	 */
-	function __construct()
-		{
+  /**
+   * @var $param string Param that sets after request url checked.
+   */
+	private $param;
+  /**
+   * @var $id
+   *  that sets after request url checked.
+   */
+	private $id;
 
+
+  /**
+   * Mapping requested URL with specified routes in routing list.
+   *
+   * @param $leo_routes array Array list of routes from routes config file.
+   */
+  public function start($leo_routes) {
+    $step = explode('?', $_SERVER['REQUEST_URI']);
+    $routes = explode('/', $step[0]);
+	  $routes_1 = isset($routes[1])?$routes[1]:'';
+	  $routes_2 = isset($routes[2])?$routes[2]:'';
+		if ($routes_1 != '' && $routes_2 == '') {
+			$request = $routes_1;
+		} else {
+			$request = $routes_1. '/' .$routes_2;
 		}
 
+    if (array_key_exists($request, $leo_routes)) {
+      foreach($leo_routes as $key=>$value) {
+        if ($key == $request) {
+          $controller = $value['controller'];
+          $method = $value['method'];
+			$this->_prepareParams($routes);
+			$this->_prepareRoute($controller, $method);
+        }
+      }
+    } else {
+      $controller = 'error';
+      $method = 'error404';
+		$this->_prepareRoute($controller, $method);
+    }
+	}
 
-	/**
-	 * @param $path
-	 *
-	 * @throws Exception
-	 *
-	 * задаем путь до папки с контроллерами
-	 */
-	function setPath($path)
-		{
-			$path .= DS;
-			// если путь не существует, сигнализируем об этом
-			if (is_dir($path) === false) {
-				throw new Exception ('Invalid controller path: `' . $path . '`');
-			}
-			$this->path = $path;
-		}
 
-	/**
-	 * @param $file
-	 * @param $controller
-	 * @param $action
-	 * @param $args
-	 * определение контроллера и экшена из урла
-	 */
-	private function getController(&$file, &$controller, &$action, &$args)
-		{
-			$route = (empty($_GET['route'])) ? '' : $_GET['route'];
-			unset($_GET['route']);
-			if (empty($route)) {
-				$route = 'Index';
-			}
+  /**
+   * Preparing controllerto be included. Checking is controller exists.
+   * Creating new specific model instance. Creating controller instance.
+   *
+   * @param $controller string Controller name.
+   * @param $method string Method name.
+   */
+  protected function _prepareRoute($controller, $method) {
+		$controller_path = SITE_PATH .'system'.DS.'controllers'.DS. $controller . DS . $controller . '.php';
+	  $this->_checkControllerExists($controller_path);
+	  $this->_createModelInstance($controller);
+	  $this->_createInstance($controller, $method);
+	}
 
-			// Получаем части урла
-			$route = trim($route, '/\\');
-			$parts = explode('/', $route);
+  /**
+   * Checks requested URL on params and id and if exists sets to the private vars.
+   *
+   * @param $routes array Requested URL.
+   */
+  protected function _prepareParams($routes) {
+    if ((!empty($routes[3]) && !empty($routes[4])) || !empty($routes[3]) || !empty($routes[4])) {
+		$this->id = $routes[4];
+		$this->param = $routes[3];
+    }
+  }
 
-			// Находим контроллер
-			$cmd_path = $this->path;
-			foreach ($parts as $part) {
+  /**
+   * Checks is controller exists and inlcude it.
+   *
+   * @param $controller_path string Controller path. Used to include and controller.
+   * @throws Exception
+   */
+  protected function _checkControllerExists($controller_path) {
+    try {
+      if (file_exists($controller_path)) {
+		  /** @noinspection PhpIncludeInspection */
+		  require_once $controller_path;
+      } else {
+        throw new Exception;
+      }
+    } catch (Exception $e) {
+      echo $e->getMessage();
+    }
+  }
 
-				$fullpath = $cmd_path . $part;
+  /**
+   * Creating new instance that required by URL.
+   *
+   * @param $controller string Controller name.
+   * @param $method string Method name.
+   */
+  protected function _createInstance($controller, $method) {
+      $instance = new $controller;
 
-				// Проверка существования папки
-				if (is_dir($fullpath)) {
-					$cmd_path .= $part . DS;
-					array_shift($parts);
-					continue;
-				}
+    if (method_exists($instance, $method)) {
+      $reflection = new ReflectionMethod($instance, $method);
+      if ($reflection->isPublic()) {
+		  $instance->$method($this->param, $this->id);
+      } else {
+		  header('Location: error404');
+	  }
+    } else {
+      header('Location: error404');
+    }
+  }
 
-				// Находим файл
-				if (is_file($fullpath)) {
-					$controller = $part;
-					array_shift($parts);
-					break;
-				}
-			}
+  /**
+   * Creates instance of model by requested controller.
+   *
+   * @param $controller string Controller name.
+   */
+  protected function _createModelInstance($controller) {
 
-			// если урле не указан контролер, то испольлзуем поумолчанию index
-			if (empty($controller)) {
-				$controller = 'Index';
-			}
+	  $model = SITE_PATH .'system'.DS.'models'.DS. $controller . DS . $controller . '.php';
 
-			// Получаем экшен
-			$action = array_shift($parts);
-			if (empty($action)) {
-				$action = 'index';
-			}
-
-			$file = $cmd_path . $controller . '.php';
-			$args = $parts;
-		}
-
-	/**
-	 *
-	 */
-	function start()
-		{
-			// Анализируем путь
-			$this->getController($file, $controller, $action, $args);
-
-			// Проверка существования файла, иначе 404
-			if (is_readable($file) === false) {
-				throw new Exception('file class '.$file.' not found');
-			}
-
-			// Подключаем файл
-			/** @noinspection PhpIncludeInspection */
-			include($file);
-
-			// Создаём экземпляр контроллера
-			$className = ucfirst($controller);
-			$class = 'controllers' . '\\' .  $className . '\\' .  $className;
-			$controller = new $class();
-
-			// Если экшен не существует - 404
-			if (is_callable([$controller, $action]) === false) {
-				throw new Exception ('action: `' . $action . '` not found');
-			}
-
-			// Выполняем экшен
-			$controller->$action();
-		}
+    if(file_exists($model)) {
+		/** @noinspection PhpIncludeInspection */
+		require_once ($model);
+    }
+  }
 }

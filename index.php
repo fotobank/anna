@@ -21,11 +21,13 @@ include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
+/** @noinspection PhpIncludeInspection */
+$site_routes = include(SITE_PATH.'system/classes/Router/routes.php');
 // Загружаем router
 $router = new Router();
 // задаем путь до папки контроллеров.
-$router->setPath(SITE_PATH . 'system' . DS . 'controllers');
+//$router->setPath(SITE_PATH . 'system' . DS . 'controllers');
 // запускаем маршрутизатор
-$router->start();
+$router->start($site_routes);
 
 ob_end_flush();
