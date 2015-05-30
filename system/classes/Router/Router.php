@@ -66,11 +66,11 @@ Class Router
 			$cmd_path = $this->path;
 			foreach ($parts as $part) {
 
-				$fullpath = $cmd_path . $part;
+				$fullpath = $cmd_path . ucfirst($part);
 
 				// Проверка существования папки
 				if (is_dir($fullpath)) {
-					$cmd_path .= $part . DS;
+					$cmd_path .= ucfirst($part) . DS;
 					array_shift($parts);
 					continue;
 				}
@@ -83,7 +83,7 @@ Class Router
 				}
 			}
 
-			// если урле не указан контролер, то испольлзуем поумолчанию index
+			// если урле не указан контроллер, то используем поумолчанию index
 			if (empty($controller)) {
 				$controller = 'Index';
 			}
@@ -103,29 +103,39 @@ Class Router
 	 */
 	function start()
 		{
-			// Анализируем путь
-			$this->getController($file, $controller, $action, $args);
+			try {
+				// Анализируем путь
+				$this->getController($file, $controller, $action, $args);
 
-			// Проверка существования файла, иначе 404
-			if (is_readable($file) === false) {
-				throw new Exception('file class '.$file.' not found');
+				// Проверка существования файла, иначе 404
+				if (is_readable($file) === false) {
+					throw new Exception('file class ' . $file . ' not found');
+				}
+
+				// Подключаем файл
+				/** @noinspection PhpIncludeInspection */
+				require_once($file);
+
+				// Создаём экземпляр контроллера
+				$class = 'controllers' . '\\' . $controller . '\\' . $controller;
+				$controller = new $class();
+
+				// Если экшен не существует - 404
+				if (is_callable([$controller, $action]) === false) {
+					throw new Exception ('action: `' . $action . '` not found');
+				}
+
+				// Выполняем экшен
+				$controller->$action();
 			}
-
-			// Подключаем файл
-			/** @noinspection PhpIncludeInspection */
-			require_once($file);
-
-			// Создаём экземпляр контроллера
-			$className = ucfirst($controller);
-			$class = 'controllers' . '\\' .  $className . '\\' .  $className;
-			$controller = new $class();
-
-			// Если экшен не существует - 404
-			if (is_callable([$controller, $action]) === false) {
-				throw new Exception ('action: `' . $action . '` not found');
-			}
-
-			// Выполняем экшен
-			$controller->$action();
+			catch (Exception $e) {
+					if (DEBUG_MODE) {
+						$trace = str_replace("#1", "<br>1 [ошибка вызвана в файле]: ", $e->getTraceAsString());
+						$trace = str_replace("#", "<br>", $trace);
+						$trace = str_replace("(", "(<b>", $trace);
+						$trace = str_replace(")", "</b>)", $trace);
+						die ("<b>Ошибка:</b> " . $e->getMessage() . " Исключение вызванно в файле '" . $e->getFile() .
+							 "' на линии <b>'" . $e->getLine() . "'</b>" . "<br><b>Trace:</b>" . $trace);
+					}
 		}
 }

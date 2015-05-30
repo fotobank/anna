@@ -30,4 +30,3 @@ foreach($result as $row) {
 	</div>';
 }
 echo '</div>';
-?>
