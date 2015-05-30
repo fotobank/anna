@@ -109,7 +109,7 @@ Class Router
 
 				// Проверка существования файла, иначе 404
 				if (is_readable($file) === false) {
-					throw new Exception('file class ' . $file . ' not found');
+					throw new Exception('file class "' . $file . '" not found');
 				}
 
 				// Подключаем файл
@@ -129,13 +129,10 @@ Class Router
 				$controller->$action();
 			}
 			catch (Exception $e) {
-					if (DEBUG_MODE) {
-						$trace = str_replace("#1", "<br>1 [ошибка вызвана в файле]: ", $e->getTraceAsString());
-						$trace = str_replace("#", "<br>", $trace);
-						$trace = str_replace("(", "(<b>", $trace);
-						$trace = str_replace(")", "</b>)", $trace);
-						die ("<b>Ошибка:</b> " . $e->getMessage() . " Исключение вызванно в файле '" . $e->getFile() .
-							 "' на линии <b>'" . $e->getLine() . "'</b>" . "<br><b>Trace:</b>" . $trace);
-					}
+				if (DEBUG_MODE) {
+					echo ("<b>Ошибка:</b> " . $e->getMessage() . "<br>Исключение вызванно в файле '" . $e->getFile() .
+						 "' на линии <b>'" . $e->getLine() . "'</b><br>");
+				}
+			}
 		}
 }
