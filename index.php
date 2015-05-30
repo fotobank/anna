@@ -26,7 +26,7 @@ $site_routes = include(SITE_PATH.'system/classes/Router/routes.php');
 // Загружаем router
 $router = new Router();
 // задаем путь до папки контроллеров.
-$router->setPath(SITE_PATH . 'system' . DS . 'controllers');
+//$router->setPath(SITE_PATH . 'system' . DS . 'controllers');
 // запускаем маршрутизатор
 $router->start($site_routes);
 

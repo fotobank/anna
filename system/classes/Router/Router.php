@@ -12,127 +12,139 @@
  * @time      :     1:15
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
-Class Router
+class Router
 {
 
-	private $path;
+	/**
+	 * @var $param string Param that sets after request url checked.
+	 */
+	private $param;
+	/**
+	 * @var $id
+	 *  that sets after request url checked.
+	 */
+	private $id;
+
 
 	/**
+	 * Mapping requested URL with specified routes in routing list.
 	 *
+	 * @param $leo_routes array Array list of routes from routes config file.
 	 */
-	function __construct()
+	public function start($leo_routes)
 		{
+			$step = explode('?', $_SERVER['REQUEST_URI']);
+			$routes = explode('/', $step[0]);
+			$routes_1 = isset($routes[1]) ? $routes[1] : '';
+			$routes_2 = isset($routes[2]) ? $routes[2] : '';
+			if ($routes_1 != '' && $routes_2 == '') {
+				$request = $routes_1;
+			} else {
+				$request = $routes_1 . '/' . $routes_2;
+			}
 
+			if (array_key_exists($request, $leo_routes)) {
+				foreach ($leo_routes as $key => $value) {
+					if ($key == $request) {
+						$controller = $value['controller'];
+						$method = $value['method'];
+						$this->prepareParams($routes);
+						$this->prepareRoute($controller, $method);
+					}
+				}
+			} else {
+				$controller = 'error';
+				$method = 'error404';
+				$this->prepareRoute($controller, $method);
+			}
 		}
 
 
 	/**
-	 * @param $path
+	 * Preparing controllerto be included. Checking is controller exists.
+	 * Creating new specific model instance. Creating controller instance.
+	 *
+	 * @param $controller string Controller name.
+	 * @param $method     string Method name.
+	 */
+	protected function prepareRoute($controller, $method)
+		{
+			$controller_path = SITE_PATH . 'system' . DS . 'controllers' . DS . $controller . DS . $controller . '.php';
+			$this->checkControllerExists($controller_path);
+			$this->createModelInstance($controller);
+			$this->createInstance($controller, $method);
+		}
+
+	/**
+	 * Checks requested URL on params and id and if exists sets to the private vars.
+	 *
+	 * @param $routes array Requested URL.
+	 */
+	protected function prepareParams($routes)
+		{
+			if ((!empty($routes[3]) && !empty($routes[4])) || !empty($routes[3]) || !empty($routes[4])) {
+				$this->id = $routes[4];
+				$this->param = $routes[3];
+			}
+		}
+
+	/**
+	 * Checks is controller exists and inlcude it.
+	 *
+	 * @param $controller_path string Controller path. Used to include and controller.
 	 *
 	 * @throws Exception
-	 *
-	 * задаем путь до папки с контроллерами
 	 */
-	function setPath($path)
-		{
-			$path .= DS;
-			// если путь не существует, сигнализируем об этом
-			if (is_dir($path) === false) {
-				throw new Exception ('Invalid controller path: `' . $path . '`');
-			}
-			$this->path = $path;
-		}
-
-	/**
-	 * @param $file
-	 * @param $controller
-	 * @param $action
-	 * @param $args
-	 * определение контроллера и экшена из урла
-	 */
-	private function getController(&$file, &$controller, &$action, &$args)
-		{
-			$route = (empty($_GET['route'])) ? '' : $_GET['route'];
-			unset($_GET['route']);
-			if (empty($route)) {
-				$route = 'Index';
-			}
-
-			// Получаем части урла
-			$route = trim($route, '/\\');
-			$parts = explode('/', $route);
-
-			// Находим контроллер
-			$cmd_path = $this->path;
-			foreach ($parts as $part) {
-
-				$fullpath = $cmd_path . ucfirst($part);
-
-				// Проверка существования папки
-				if (is_dir($fullpath)) {
-					$cmd_path .= ucfirst($part) . DS;
-					array_shift($parts);
-					continue;
-				}
-
-				// Находим файл
-				if (is_file($fullpath)) {
-					$controller = $part;
-					array_shift($parts);
-					break;
-				}
-			}
-
-			// если урле не указан контроллер, то используем поумолчанию index
-			if (empty($controller)) {
-				$controller = 'Index';
-			}
-
-			// Получаем экшен
-			$action = array_shift($parts);
-			if (empty($action)) {
-				$action = 'index';
-			}
-
-			$file = $cmd_path . $controller . '.php';
-			$args = $parts;
-		}
-
-	/**
-	 *
-	 */
-	function start()
+	protected function checkControllerExists($controller_path)
 		{
 			try {
-				// Анализируем путь
-				$this->getController($file, $controller, $action, $args);
-
-				// Проверка существования файла, иначе 404
-				if (is_readable($file) === false) {
-					throw new Exception('file class "' . $file . '" not found');
+				if (file_exists($controller_path)) {
+					/** @noinspection PhpIncludeInspection */
+					require_once $controller_path;
+				} else {
+					throw new Exception;
 				}
-
-				// Подключаем файл
-				/** @noinspection PhpIncludeInspection */
-				require_once($file);
-
-				// Создаём экземпляр контроллера
-				$class = 'controllers' . '\\' . $controller . '\\' . $controller;
-				$controller = new $class();
-
-				// Если экшен не существует - 404
-				if (is_callable([$controller, $action]) === false) {
-					throw new Exception ('action: `' . $action . '` not found');
-				}
-
-				// Выполняем экшен
-				$controller->$action();
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					echo ("<b>Ошибка:</b> " . $e->getMessage() . "<br>Исключение вызванно в файле '" . $e->getFile() .
-						 "' на линии <b>'" . $e->getLine() . "'</b><br>");
+				echo $e->getMessage();
+			}
+		}
+
+	/**
+	 * Creating new instance that required by URL.
+	 *
+	 * @param $controller string Controller name.
+	 * @param $method     string Method name.
+	 */
+	protected function createInstance($controller, $method)
+		{
+			$instance = new $controller;
+
+			if (method_exists($instance, $method)) {
+				$reflection = new ReflectionMethod($instance, $method);
+				if ($reflection->isPublic()) {
+					$instance->$method($this->param, $this->id);
+				} else {
+					header('Location: error404');
 				}
+			} else {
+				header('Location: error404');
+			}
+		}
+
+	/**
+	 * Creates instance of model by requested controller.
+	 *
+	 * @param $controller string Controller name.
+	 */
+	protected function createModelInstance($controller)
+		{
+
+			$model = SITE_PATH . 'system' . DS . 'models' . DS . $controller . DS . $controller . '.php';
+
+			if (file_exists($model)) {
+				/** @noinspection PhpIncludeInspection */
+				require_once($model);
 			}
 		}
 }
