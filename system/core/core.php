@@ -1,6 +1,5 @@
 <?php
 /**
- * Класс предназначен для 
  * @created   by PhpStorm
  * @package   core.php
  * @version   1.0

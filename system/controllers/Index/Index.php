@@ -14,7 +14,7 @@
 
 namespace controllers\Index;
 
-use controllers\Base as controller;
+use controllers\Controller as controller;
 use models\Index as model;
 
 
@@ -22,9 +22,8 @@ use models\Index as model;
  * Class controller_Index
  * @package controllers\Index
  */
-class Index extends controller\Base
+class Index extends controller\Controller
 {
-
 	/**
 	 * инициализация вьювера Mustache
 	 */

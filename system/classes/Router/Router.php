@@ -29,31 +29,41 @@ class Router
 	/**
 	 * Mapping requested URL with specified routes in routing list.
 	 *
-	 * @param $leo_routes array Array list of routes from routes config file.
+	 * @param $site_routes array Array list of routes from routes config file.
 	 */
-	public function start($leo_routes)
+	public function start($site_routes)
 		{
-			$step = explode('?', $_SERVER['REQUEST_URI']);
-			$routes = explode('/', $step[0]);
-			$routes_1 = isset($routes[1]) ? $routes[1] : '';
-			$routes_2 = isset($routes[2]) ? $routes[2] : '';
-			if ($routes_1 != '' && $routes_2 == '') {
-				$request = $routes_1;
-			} else {
-				$request = $routes_1 . '/' . $routes_2;
-			}
+//			$http_url = isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'/';
+//			$url = cp1251(urldecode(parse_url($http_url, PHP_URL_PATH)));
+			$url = isset($_GET['url'])?$_GET['url']:'/';
+			$routes = array_values(array_filter(explode('/', $url)));
+//			$request = implode('/', $routes);
 
-			if (array_key_exists($request, $leo_routes)) {
-				foreach ($leo_routes as $key => $value) {
-					if ($key == $request) {
+			if (array_key_exists($url, $site_routes)) {
+				foreach ($site_routes as $key => $value) {
+					if ($key == $url) {
 						$controller = $value['controller'];
 						$method = $value['method'];
 						$this->prepareParams($routes);
 						$this->prepareRoute($controller, $method);
 					}
 				}
+			} elseif (is_file(SITE_PATH . $url)) {
+
+				// если изображение - отдать
+				$ext = pathinfo($url, PATHINFO_EXTENSION);
+				if(in_array($ext, ['jpg', 'png', 'gif'])) {
+
+					echo $url;
+
+				} else {
+					$controller = 'controllers' . DS . 'Error' . DS . 'Error';
+					$method = 'error404';
+					$this->prepareRoute($controller, $method);
+				}
+
 			} else {
-				$controller = 'error';
+				$controller = 'controllers' . DS . 'Error' . DS . 'Error';
 				$method = 'error404';
 				$this->prepareRoute($controller, $method);
 			}
@@ -69,7 +79,7 @@ class Router
 	 */
 	protected function prepareRoute($controller, $method)
 		{
-			$controller_path = SITE_PATH . 'system' . DS . 'controllers' . DS . $controller . DS . $controller . '.php';
+			$controller_path = SITE_PATH . 'system' . DS . $controller . '.php';
 			$this->checkControllerExists($controller_path);
 			$this->createModelInstance($controller);
 			$this->createInstance($controller, $method);
@@ -102,11 +112,14 @@ class Router
 					/** @noinspection PhpIncludeInspection */
 					require_once $controller_path;
 				} else {
-					throw new Exception;
+					throw new Exception('контроллер "' . $controller_path . '" не найден');
 				}
 			}
 			catch (Exception $e) {
-				echo $e->getMessage();
+				if (DEBUG_MODE) {
+					die('Ошибка: ' . $e->getMessage() . '<br>');
+				}
+				header('Location: /404.php', '', 404);;
 			}
 		}
 
@@ -125,10 +138,10 @@ class Router
 				if ($reflection->isPublic()) {
 					$instance->$method($this->param, $this->id);
 				} else {
-					header('Location: error404');
+					header('Location: /404.php', '', 404);
 				}
 			} else {
-				header('Location: error404');
+				header('Location: /404.php', '', 404);
 			}
 		}
 

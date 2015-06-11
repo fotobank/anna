@@ -12,8 +12,8 @@ return [
 		'number' => 'id',
 		'param' => 'opt_param'
 	],
-	'admin/page' => [
-		'controller' => 'Admin',
+	'index/files' => [
+		'controller' => 'files/slides',
 		'method' => 'page',
 		'number' => 'id',
 		'param' => 'opt_param'

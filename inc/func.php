@@ -835,7 +835,6 @@ function WinUtf($str, $type) // $type: 'w' - encodes from UTF to win 'u' - encod
  */
 function path_info($path)
 	{
-
 		if (strpos($path, '/') !== false) {
 			$basename = explode('/', $path);
 			$basename = end($basename);
@@ -847,9 +846,7 @@ function path_info($path)
 		if (!$basename) {
 			return false;
 		}
-
 		$dirname = substr($path, 0, strlen($path) - strlen($basename) - 1);
-
 		if (strpos($basename, '.') !== false) {
 			$extension = explode('.', $path);
 			$extension = end($extension);
@@ -858,7 +855,6 @@ function path_info($path)
 			$extension = '';
 			$filename = $basename;
 		}
-
 		return [
 			'dirname'   => $dirname,
 			'basename'  => $basename,

@@ -6,15 +6,18 @@
  * Time: 11:54
  */
 
-include(__DIR__ .'/../system/config/config.php');
 include(__DIR__.'/func.php');
+include(__DIR__ .'/../system/config/config.php');
+
+
+if (!defined('CODE_PAGE')) {
+	define( 'CODE_PAGE', detect_encoding(SITE_PATH . 'inc/кодировка файловой системы.codepage'));
+}
 
 $path = isset( $_GET['img'] ) ? $_GET['img'] : FALSE;
+if ( CODE_PAGE == 'utf-8' ) $path = iconv( 'windows-1251', 'utf-8', $path );
 
-if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)$#i', $path ) ) {
-
-	require ( __DIR__ .'/../system/config/config.php');
-	if ( CODE_PAGE == 'utf-8' ) $path = iconv( 'windows-1251', 'utf-8', $path );
+if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)#i', $path ) ) {
 
 	$dirname = $basename = '';
 	extract(path_info( $path, EXTR_OVERWRITE )); // если переменная существует она будет переписана

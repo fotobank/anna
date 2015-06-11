@@ -2,7 +2,7 @@
 /**
  * Класс
  * @created   by PhpStorm
- * @package   Base.php
+ * @package   Controller.php
  * @version   1.0
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
@@ -12,14 +12,14 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace controllers\Base;
+namespace controllers\Controller;
 
 
 /**
  * Class controller_Base
  * @package controllers
  */
-abstract class Base
+abstract class Controller
 {
 
 	public $mustache;
