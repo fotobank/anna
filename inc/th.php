@@ -15,6 +15,7 @@ if (!defined('CODE_PAGE')) {
 
 $path = isset( $_GET['img'] ) ? parse_url($_GET['img'], PHP_URL_PATH) : false;
 $realpath = SITE_PATH . 'files/portfolio/';
+$image = false;
 
 if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)#i', $path ) ) {
 
@@ -27,8 +28,9 @@ if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)#i', $path ) ) {
 	$dirname = $basename = '';
 	extract(path_info($path, EXTR_OVERWRITE));
 	$realpath .= $dirname . "/thumb/" . $basename;
+	$image = @imagecreatefromstring( @file_get_contents( $realpath ) );
 }
-	$image    = @imagecreatefromstring( @file_get_contents( $realpath ) );
+
 	if ( ! $image ) {
 		error_log( "\$realpath = " . $realpath . " \$image = " . $image, 0 );
 		$image = imagecreatefromstring( file_get_contents( "../images/not_foto.png" ) );
