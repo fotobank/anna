@@ -17,7 +17,7 @@ $path = isset( $_GET['img'] ) ? parse_url($_GET['img'], PHP_URL_PATH) : false;
 $realpath = SITE_PATH . 'files/portfolio/';
 $image = false;
 
-if ( $path && preg_match( '#\.(gif|jpeg|jpg|png)#i', $path ) ) {
+if ( $path && preg_match( '/\.(gif|jpeg|jpg|png)/i', $path ) ) {
 
 	if (CODE_PAGE == 'utf-8') {
 		$path = cp1251_utf8($path);

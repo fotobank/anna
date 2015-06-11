@@ -17,10 +17,16 @@ $path = isset($_GET['img']) ? parse_url($_GET['img'], PHP_URL_PATH) : false;
 $realpath = SITE_PATH . 'files/portfolio/';
 $image = false;
 
-if ($path && preg_match('#\.(gif|jpeg|jpg|png)#i', $path)) {
+if ($path && preg_match('/\.(gif|jpeg|jpg|png)/i', $path)) {
+
+	if (CODE_PAGE == 'utf-8') {
+		$path = cp1251_utf8($path);
+	} elseif (CODE_PAGE == 'windows-1251') {
+		$path = utf8_cp1251($path);
+	}
 
 	$dirname = $basename = '';
-	extract(path_info($path, EXTR_OVERWRITE)); // если переменная существует она будет переписана
+	extract(path_info($path, EXTR_OVERWRITE));
 	$realpath = SITE_PATH . 'files/portfolio/' . $dirname . DS . $basename;
 
 	$image = @imagecreatefromstring(@file_get_contents($realpath));
