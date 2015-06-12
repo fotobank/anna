@@ -54,11 +54,8 @@ class Router
 	 */
 	public function start()
 		{
-//			$http_url = isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'/';
-//			$url = cp1251(urldecode(parse_url($http_url, PHP_URL_PATH)));
 			$url = isset($_GET['url'])?$_GET['url']:'/';
 			$routes = array_values(array_filter(explode('/', $url)));
-//			$request = implode('/', $routes);
 
 			if (array_key_exists($url, $this->site_routes)) {
 				foreach ($this->site_routes as $key => $value) {
