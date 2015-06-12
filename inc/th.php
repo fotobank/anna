@@ -21,8 +21,6 @@ if ( $path && preg_match( '/\.(gif|jpeg|jpg|png)/i', $path ) ) {
 
 	if (CODE_PAGE == 'utf-8') {
 		$path = cp1251_utf8($path);
-	} elseif (CODE_PAGE == 'windows-1251') {
-		$path = utf8_cp1251($path);
 	}
 
 	$dirname = $basename = '';

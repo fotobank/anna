@@ -24,14 +24,35 @@ class Router
 	 *  that sets after request url checked.
 	 */
 	private $id;
+	/** @var mixed  */
+	protected $site_routes;
 
+	/**
+	 *
+	 */
+	public function __construct() {
+		/** @noinspection PhpIncludeInspection */
+		$this->site_routes = include(SITE_PATH.'system/classes/Router/routes.php');
+	}
 
+	/**
+	 * @param $route
+	 *
+	 * @throws Exception
+	 */
+	public function set_route($route) {
+		if(is_array($route)) {
+			$this->site_routes += $route;
+		} else {
+			throw new Exception('$route is not array');
+		}
+	}
 	/**
 	 * Mapping requested URL with specified routes in routing list.
 	 *
-	 * @param $site_routes array Array list of routes from routes config file.
+	 * @internal param array $site_routes Array list of routes from routes config file.
 	 */
-	public function start($site_routes)
+	public function start()
 		{
 //			$http_url = isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'/';
 //			$url = cp1251(urldecode(parse_url($http_url, PHP_URL_PATH)));
@@ -39,8 +60,8 @@ class Router
 			$routes = array_values(array_filter(explode('/', $url)));
 //			$request = implode('/', $routes);
 
-			if (array_key_exists($url, $site_routes)) {
-				foreach ($site_routes as $key => $value) {
+			if (array_key_exists($url, $this->site_routes)) {
+				foreach ($this->site_routes as $key => $value) {
 					if ($key == $url) {
 						$controller = $value['controller'];
 						$method = $value['method'];

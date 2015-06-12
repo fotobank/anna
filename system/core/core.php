@@ -28,6 +28,8 @@ if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (isset($_SESSION['logged']) && $_
 
 ini_set('log_errors', 1);
 
+header('Content-type: text/html; charset=windows-1251');
+
 if (session_id() == '') {
 	session_start();
 } else {

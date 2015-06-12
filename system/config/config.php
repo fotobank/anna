@@ -32,6 +32,10 @@ define ('SITE_PATH', realpath(__DIR__.DS.'..'.DS.'..'.DS).DS);
 set_include_path(ini_get("include_path").PATH_SEPARATOR.__DIR__);
 ini_set('session.auto_start', 1);
 
+/** @noinspection PhpIncludeInspection */
+//$site_routes = include(SITE_PATH.'system/classes/Router/routes.php');
+//define('SITE_ROUTES', $site_routes);
+
 // инициализация базы
 // эти значения рекомендуется не изменять - для гостевой
 $GLOBALS['tbl_posts'] = "gb_posts";        // имя таблицы с сообщениями

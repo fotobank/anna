@@ -11,11 +11,6 @@ namespace models\Index;
 
 use models\Base as model;
 
-if (session_id() == '') {
-	session_start();
-}
-header('Content-type: text/html; charset=windows-1251');
-
 
 /**
  * Class ajaxSite_web_index

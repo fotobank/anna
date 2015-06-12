@@ -1,37 +1,33 @@
 <?php
 return [
-	'/' => [ // Default controller
-		'controller' => 'controllers\Index\Index',
-		'method' => 'index',
-		'number' => 'id',
-		'param' => 'opt_param'
+	'/'                 => [ // Default controller
+							 'controller' => 'controllers\Index\Index',
+							 'method'     => 'index'
 	],
-	'index' => [
+	'index'             => [
 		'controller' => 'controllers\Index\Index',
-		'method' => 'index',
-		'number' => 'id',
-		'param' => 'opt_param'
+		'method'     => 'index'
 	],
-	'index/files' => [
+	'index/files'       => [
 		'controller' => 'files/slides',
-		'method' => 'page',
-		'number' => 'id',
-		'param' => 'opt_param'
+		'method'     => 'page',
+		'number'     => 'id',
+		'param'      => 'opt_param'
 	],
 	'admin/authService' => [
 		'controller' => 'Admin',
-		'method' => 'authService',
-		'number' => 'id',
-		'param' => 'opt_param'
+		'method'     => 'authService',
+		'number'     => 'id',
+		'param'      => 'opt_param'
 	],
-	'admin' => [
+	'admin'             => [
 		'controller' => 'Admin',
-		'method' => 'index',
-		'number' => 'id',
-		'param' => 'opt_param'
+		'method'     => 'index',
+		'number'     => 'id',
+		'param'      => 'opt_param'
 	],
-  'error404' => [
-    'controller' => 'errors',
-    'method' => 'error404'
-  ]
+	'error404'          => [
+		'controller' => 'errors',
+		'method'     => 'error404'
+	]
 ];
