@@ -1,6 +1,6 @@
 <?php
 /**
- * Класс предназначен для 
+ *
  * @created   by PhpStorm
  * @package   config.php
  * @version   1.0
@@ -11,7 +11,6 @@
  * @time:     0:25
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
-
 
 define('_SECUR', 1);
 header( 'Content-type: text/html; charset=windows-1251' );
@@ -31,10 +30,6 @@ define ('SITE_PATH', realpath(__DIR__.DS.'..'.DS.'..'.DS).DS);
 
 set_include_path(ini_get("include_path").PATH_SEPARATOR.__DIR__);
 ini_set('session.auto_start', 1);
-
-/** @noinspection PhpIncludeInspection */
-//$site_routes = include(SITE_PATH.'system/classes/Router/routes.php');
-//define('SITE_ROUTES', $site_routes);
 
 // инициализация базы
 // эти значения рекомендуется не изменять - для гостевой

@@ -27,7 +27,7 @@ class Index extends controller\Controller
 	/**
 	 * инициализация вьювера Mustache
 	 */
-	function __construct()
+	public function __construct()
 		{
 			parent::init();
 		}

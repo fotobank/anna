@@ -11,7 +11,7 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (isset($_SESSION['logged']) && $_SESSION['logged'] == '1')) {
+if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (array_key_exists('logged', $_SESSION) && $_SESSION['logged'] === '1')) {
 
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
@@ -30,7 +30,7 @@ ini_set('log_errors', 1);
 
 header('Content-type: text/html; charset=windows-1251');
 
-if (session_id() == '') {
+if (session_id() === '') {
 	session_start();
 } else {
 	session_regenerate_id(true);
@@ -42,7 +42,7 @@ new core\Autoloader();
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH.'inc/func.php');
 // профилирование
-if (!is_ajax() && DEBUG_MODE) {
+if (DEBUG_MODE && !is_ajax()) {
 	$test = new Test();
 }
 // защита
@@ -57,7 +57,7 @@ if (!function_exists('debugHC')) {
 	 * @param        $variables
 	 * @param string $group
 	 */
-	function debugHC($variables, $group = "message")
+	function debugHC($variables, $group = 'message')
 		{
 			if (DEBUG_MODE && is_callable($func = ['Main', 'out'])) {
 				call_user_func($func, $variables, $group);

@@ -7,7 +7,6 @@ php_value mbstring.internal_encoding WINDOWS-1251
 
 AddEncoding gzip .gz
 
-
 <FilesMatch "\\.(css.gz)$">
     ForceType text/css
 </FilesMatch>
@@ -158,10 +157,6 @@ ExpiresDefault "access plus 2 days"
 #</IfModule>
 
 RewriteEngine On
-#убираем расширение .php
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteCond %{REQUEST_FILENAME}\.php -f
-#RewriteRule ^(.*)$ $1.php
 
 #убрать слэш в конце строки запроса
 RewriteBase /
@@ -174,19 +169,6 @@ RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 
 ErrorDocument 404 /404.php
-
-#переадресация на index.php
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule ^(.*)$ index.php?q=/$1
-
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule (.*)$  index.php/$1 [QSA]
-
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

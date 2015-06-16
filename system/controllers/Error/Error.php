@@ -34,8 +34,7 @@ class Error extends controller\Controller {
 	}
 
 	public function error404() {
-		/** @noinspection PhpIncludeInspection */
-		include (SITE_PATH.'404.php');
+		header('Location: /404.php', '', 404);
 	}
 
 }

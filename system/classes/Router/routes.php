@@ -8,23 +8,9 @@ return [
 		'controller' => 'controllers\Index\Index',
 		'method'     => 'index'
 	],
-	'index/files'       => [
-		'controller' => 'files/slides',
-		'method'     => 'page',
-		'number'     => 'id',
-		'param'      => 'opt_param'
-	],
-	'admin/authService' => [
-		'controller' => 'Admin',
-		'method'     => 'authService',
-		'number'     => 'id',
-		'param'      => 'opt_param'
-	],
-	'admin'             => [
-		'controller' => 'Admin',
-		'method'     => 'index',
-		'number'     => 'id',
-		'param'      => 'opt_param'
+	'about'             => [
+		'controller' => 'controllers\About\About',
+		'method'     => 'about'
 	],
 	'error404'          => [
 		'controller' => 'errors',
