@@ -12,8 +12,12 @@ return [
 		'controller' => 'controllers\About\About',
 		'method'     => 'about'
 	],
+	'portfolio'             => [
+		'controller' => 'controllers\Portfolio\Portfolio',
+		'method'     => 'portfolio'
+	],
 	'error404'          => [
-		'controller' => 'errors',
+		'controller' => 'controllers\Error\Error',
 		'method'     => 'error404'
 	]
 ];

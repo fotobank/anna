@@ -73,31 +73,32 @@ class Router
 						}
 					}
 				} else {
-					$this->get404();
+
+					throw new routeException('controller "' . $array_key . '" не задан в массиве routes', 404);
 				}
-			} catch(Exception $e) {
-				if (DEBUG_MODE) {
-					die('Ошибка: ' . $e->getMessage() . '<br>');
-				}
-				$this->get404();
+			}
+			catch (Exception $e) {
+				throw $e;
 			}
 		}
 
 	/**
 	 * err 404
+	 *
+	 * @internal param $err
 	 */
 	protected function get404()
 		{
 			try {
-				$controller = 'controllers' . DS . 'Error' . DS . 'Error';
-				$method = 'error404';
-				$this->prepareRoute($controller, $method);
-
-			} catch(Exception $e) {
-				if (DEBUG_MODE) {
-					die('Ошибка: ' . $e->getMessage() . '<br>');
+				if (!DEBUG_MODE) {
+					$controller = $this->site_routes['error404']['controller'];
+					$method = $this->site_routes['error404']['method'];
+					$this->prepareRoute($controller, $method);
 				}
-				header('Location: /404.php', '', 404);
+
+			}
+			catch (Exception $e) {
+				throw $e;
 			}
 		}
 
@@ -109,7 +110,7 @@ class Router
 	 * @param $controller string Controller name.
 	 * @param $method     string Method name.
 	 *
-	 * @throws routeException
+	 * @throws Exception
 	 */
 	protected function prepareRoute($controller, $method)
 		{
@@ -120,10 +121,7 @@ class Router
 				$this->createInstance($controller, $method);
 			}
 			catch (Exception $e) {
-				if (DEBUG_MODE) {
-					throw new routeException($e->getMessage(), 0, $e);
-				}
-				$this->get404();
+				throw $e;
 			}
 		}
 
@@ -155,7 +153,7 @@ class Router
 				/** @noinspection PhpIncludeInspection */
 				require_once $controller_path;
 			} else {
-				throw new routeException('контроллер "' . $controller_path . '" не найден');
+				throw new routeException('файл контроллера: "' . $controller_path . '" не найден', 404);
 			}
 		}
 
@@ -174,15 +172,12 @@ class Router
 			if (method_exists($instance, $method)) {
 				$reflection = new ReflectionMethod($instance, $method);
 				if ($reflection->isPublic()) {
-					$instance->$method($this->param, $this->id);
+					$instance->$method($this->id, $this->param);
 				} else {
-					$this->get404();
+					throw new routeException('метод "' . $method . '" не является публичным');
 				}
 			} else {
-				if (DEBUG_MODE) {
-					throw new routeException('метод "' . $method . '" не найден');
-				}
-				$this->get404();
+				throw new routeException('метод "' . $method . '" не найден в контроллере "' . $controller . '"', 404);
 			}
 		}
 
@@ -190,6 +185,8 @@ class Router
 	 * Creates instance of model by requested controller.
 	 *
 	 * @param $controller string Controller name.
+	 *
+	 * @throws routeException
 	 */
 	protected function createModelInstance($controller)
 		{
@@ -199,6 +196,8 @@ class Router
 			if (file_exists($model)) {
 				/** @noinspection PhpIncludeInspection */
 				require_once($model);
+			} else {
+				throw new routeException('файл модели: "' . $model . '" не найден', 404);
 			}
 		}
 }
@@ -215,7 +214,13 @@ class routeException extends Exception
 	 */
 	public function __construct($message = '', $code = 0)
 		{
-			parent::__construct($message, 0);
+			parent::__construct($message, $code);
+
+			if (DEBUG_MODE) {
+				die('<b>Ошибка ' . $code . ':</b> ' . $message . '<br>');
+			}
+			log($message);
+			header('Location: /404.php', '', 404);
 		}
 
 }

@@ -33,7 +33,12 @@ class Error extends controller\Controller {
 		}
 	}
 
+	/**
+	 * @internal param string $info
+	 * @internal param int|string $err
+	 */
 	public function error404() {
+
 		header('Location: /404.php', '', 404);
 	}
 
