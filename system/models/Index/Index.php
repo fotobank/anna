@@ -63,8 +63,8 @@ class Index extends model\Base
 			$name_dir = WinUtf($name_dir, 'w');
 			$patcUtf8 = WinUtf($path_thumb, 'w');
 
-			$img_path = str_replace("/thumb", "", $patcUtf8);
-			$img_path = str_replace("files/portfolio/", "", $img_path);
+			$img_path = str_replace('/thumb'&&'files/portfolio/', '', $patcUtf8);
+	//		$img_path = str_replace('files/portfolio/', '', $img_path);
 			$patcUtf8 = basename($patcUtf8, '.jpg');
 			$href_img_path = "/inc/wm.php?img={$img_path}";
 			$src_img_path = "/inc/th.php?img={$img_path}";
@@ -83,7 +83,7 @@ class Index extends model\Base
 	public function _carousel()
 		{
 			/** сканирование в субдеррикториях 'thumb' */
-			$thumb = get_random_elements(recursive_dir("files/portfolio", ".jpg", ['thumb'], [], false), 26);
+			$thumb = get_random_elements(recursive_dir('files/portfolio', '.jpg', ['thumb'], [], false), 26);
 
 			$thumb = array_chunk($thumb, 2);
 
@@ -135,32 +135,33 @@ class Index extends model\Base
 	 */
 	public function getNews()
 		{
-			$print = "";
+			$print = '';
 			$news = (file_exists($this->filenews)) ? file_get_contents($this->filenews) : $print;
-			if ($news != "") {
-				$news = explode("||", $this->replaceBBCode($news));
+			if ($news !== '') {
+				$news = explode('||', $this->replaceBBCode($news));
 				if (count(($news))) {
-					for ($i = 0; $i < count($news); $i ++) {
-						$new = explode("[]", $news[$i]);
+					$count_news = count($news);
+					for ($i = 0; $i < $count_news; $i ++) {
+						$new = explode('[]', $news[$i]);
 						if (count($new) > 0) {
 
-							$print[$i]["titleNews"] = trim($new[0]);
-							$print[$i]["bodyNews"] = isset($new[1]) ? $new[1] : false;
-							if (isset($new[1])) {
-								$print[$i]["body"] = true;
-								$print[$i]["bodyNews"] = $new[1];
+							$print[$i]['titleNews'] = trim($new[0]);
+							$print[$i]['bodyNews'] = array_key_exists(1, $new) ? $new[1] : false;
+							if (array_key_exists(1, $new)) {
+								$print[$i]['body'] = true;
+								$print[$i]['bodyNews'] = $new[1];
 							}
-							if (isset($new[2])) {
-								$print[$i]["link"] = true;
-								$print[$i]["linkNewsDetail"] = "/news.php";
+							if (array_key_exists(2, $new)) {
+								$print[$i]['link'] = true;
+								$print[$i]['linkNewsDetail'] = '/news.php';
 							} else {
-								$print[$i]["link"] = false;
+								$print[$i]['link'] = false;
 							}
 						}
 					}
 				}
 			} else {
-				$print["titleNews"] = "Файл новостей не найден";
+				$print['titleNews'] = 'Файл новостей не найден';
 			}
 
 			return $print;
@@ -203,11 +204,14 @@ class Index extends model\Base
 				'<span style="text-decoration: underline;">\\1</span>',
 				'<code class="code">\\1</code>',
 				'<table width = "95%"><tr><td>Цитата</td></tr><tr><td class="quote">\\1</td></tr></table>',
-				'<a href="\\1">\\2</a>',
-				'<a href="\\1">\\1</a>',
-				'<img src="\\1" alt = "Изображение" />',
+				'<!--suppress HtmlUnknownTarget -->
+				<a href="\\1">\\2</a>',
+				'<!--suppress HtmlUnknownTarget -->
+				<a href="\\1">\\1</a>',
+				'<!--suppress HtmlUnknownTarget -->
+				<img src="\\1" alt = "Изображение" />',
 				'<span style="font-size: \\1%;">\\2</span>',
-				'<span style="color: \\1;">\\2</span>',
+				'<span style="/*noinspection CssInvalidPropertyValue*/color: \\1;">\\2</span>',
 				'<ul>\\1</ul>',
 				'<ol>\\1</ol>',
 				'<li>\\1</li>'

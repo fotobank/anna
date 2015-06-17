@@ -73,8 +73,11 @@ class Router
 						}
 					}
 				} else {
-
-					throw new routeException('controller "' . $array_key . '" не задан в массиве routes', 404);
+					if (DEBUG_MODE) {
+						throw new routeException('controller "' . $array_key . '" не задан в массиве routes', 404);
+					} else {
+						$this->get404();
+					}
 				}
 			}
 			catch (Exception $e) {
@@ -115,8 +118,7 @@ class Router
 	protected function prepareRoute($controller, $method)
 		{
 			try {
-				$controller_path = SITE_PATH . 'system' . DS . $controller . '.php';
-				$this->checkControllerExists($controller_path);
+				$this->checkControllerExists($controller);
 				$this->createModelInstance($controller);
 				$this->createInstance($controller, $method);
 			}
@@ -143,12 +145,18 @@ class Router
 	/**
 	 * Checks is controller exists and inlcude it.
 	 *
-	 * @param $controller_path string Controller path. Used to include and controller.
+	 * @param $controller
 	 *
-	 * @throws Exception
+	 * @throws routeException
+	 * @internal param $controller_path
+	 *
+	 * @internal param $controller
+	 *
+	 * @internal param string $controller_path Controller path. Used to include and controller.
 	 */
-	protected function checkControllerExists($controller_path)
+	protected function checkControllerExists($controller)
 		{
+			$controller_path = SITE_PATH . 'system' . DS . 'controllers' . DS . $controller . DS . $controller . '.php';
 			if (file_exists($controller_path)) {
 				/** @noinspection PhpIncludeInspection */
 				require_once $controller_path;
@@ -167,6 +175,7 @@ class Router
 	 */
 	protected function createInstance($controller, $method)
 		{
+			$controller = 'controllers\\' . $controller . '\\' . $controller;
 			$instance = new $controller;
 
 			if (method_exists($instance, $method)) {
@@ -191,13 +200,13 @@ class Router
 	protected function createModelInstance($controller)
 		{
 
-			$model = SITE_PATH . 'system' . DS . 'models' . DS . $controller . DS . $controller . '.php';
+			$model_path = SITE_PATH . 'system' . DS . 'models' . DS . $controller . DS . $controller . '.php';
 
-			if (file_exists($model)) {
+			if (file_exists($model_path)) {
 				/** @noinspection PhpIncludeInspection */
-				require_once($model);
+				require_once($model_path);
 			} else {
-				throw new routeException('файл модели: "' . $model . '" не найден', 404);
+				throw new routeException('файл модели: "' . $model_path . '" не найден', 404);
 			}
 		}
 }
@@ -219,8 +228,7 @@ class routeException extends Exception
 			if (DEBUG_MODE) {
 				die('<b>Ошибка ' . $code . ':</b> ' . $message . '<br>');
 			}
-			log($message);
+			error_log($message);
 			header('Location: /404.php', '', 404);
 		}
-
 }

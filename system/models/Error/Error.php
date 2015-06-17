@@ -7,37 +7,37 @@
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
- * @date:     05.06.2015
- * @time:     0:53
+ * @date:     17.06.2015
+ * @time:     16:21
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace controllers\Error;
+namespace models\Error;
 
-use controllers\Controller as controller;
-use models\Index as model;
-
+use models\Base as model;
 
 /**
  * Class Error
- * @package controllers\Error
+ * @package models\Error
  */
-class Error extends controller\Controller {
+class Error extends model\Base {
 
 	/**
-	 *
+	 * @param $options
 	 */
-	public function __construct() {
+	public function __construct($options)
 		{
-			parent::init();
+			// инициализация конструктора родительского класса
+			parent::__construct();
+
 		}
-	}
 
 	/**
-	 * @internal param string $info
-	 * @internal param int|string $err
+	 * экшен
+	 *
+	 * @throws \phpbrowscap\Exception
 	 */
-	public function error404() {
+	public function error() {
 
 		header('HTTP/1.1 404 Not Found');
 		header('Location: /404.php');

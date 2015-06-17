@@ -1,23 +1,23 @@
 <?php
 return [
 	'/'                 => [ // Default controller
-							 'controller' => 'controllers\Index\Index',
+							 'controller' => 'Index',
 							 'method'     => 'index'
 	],
 	'index'             => [
-		'controller' => 'controllers\Index\Index',
+		'controller' => 'Index',
 		'method'     => 'index'
 	],
 	'about'             => [
-		'controller' => 'controllers\About\About',
+		'controller' => 'About',
 		'method'     => 'about'
 	],
 	'portfolio'             => [
-		'controller' => 'controllers\Portfolio\Portfolio',
+		'controller' => 'Portfolio',
 		'method'     => 'portfolio'
 	],
 	'error404'          => [
-		'controller' => 'controllers\Error\Error',
+		'controller' => 'Error',
 		'method'     => 'error404'
 	]
 ];
