@@ -28,14 +28,6 @@ return [
 		'controller' => 'Comments',
 		'method'     => 'comments'
 	],
-	/*'carousel/thumb'     => [
-		'controller' => 'Carousel',
-		'method'     => 'thumb'
-	],
-	'carousel/view'      => [
-		'controller' => 'Carousel',
-		'method'     => 'view'
-	],*/
 	'carousel'      => [
 		'controller' => 'Carousel'
 	],

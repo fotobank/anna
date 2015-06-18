@@ -12,6 +12,8 @@
  * @time      :     1:15
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
+
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class Router
 {
 
@@ -234,6 +236,8 @@ class Router
 /**
  * Class routeException
  */
+
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class routeException extends Exception
 {
 

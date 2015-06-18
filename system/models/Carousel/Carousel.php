@@ -15,7 +15,6 @@
 namespace models\Carousel;
 
 
-
 /**
  * Class Litebox
  * @package models\Litebox

@@ -65,8 +65,6 @@ class Index extends model\Base
 
 			$img_path = str_replace(['/thumb','files/portfolio/'], '', $patcUtf8);
 			$patcUtf8 = basename($patcUtf8, '.jpg');
-			/*$href_img_path = "/inc/wm.php?img={$img_path}";
-			$src_img_path = "/inc/th.php?img={$img_path}";*/
 			$href_img_path = "carousel/view/{$img_path}";
 			$src_img_path = "carousel/thumb/{$img_path}";
 

@@ -40,6 +40,7 @@ class Carousel
 	 */
 	public function thumb($dir, $img)
 		{
+			// если задан 'thumb' - вывод€тс€ превьюшки без вод€ного знака
 			$this->model->view( $dir . DS . $img, 'thumb' );
 		}
 
