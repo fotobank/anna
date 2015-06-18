@@ -39,8 +39,9 @@ class Error extends controller\Controller {
 	 */
 	public function error404() {
 
-		header('HTTP/1.1 404 Not Found');
-		header('Location: /404.php');
+		header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
+		/** @noinspection PhpIncludeInspection */
+		include(SITE_PATH.'404.php');
 		exit();
 	}
 

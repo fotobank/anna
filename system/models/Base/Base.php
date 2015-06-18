@@ -38,12 +38,12 @@ abstract class Base
 	public $php_sessid;
 
 	public $section_title = [
-		"Главная"              => "/index",
-		"Об&nbsp;&nbsp;авторе" => "/about",
-		"Портфолио"            => "/portfolio",
-		"Новости"              => "/news",
-		"Услуги"               => "/services",
-		"Гостевая"             => "/comments"
+		'Главная'              => '/index',
+		'Об&nbsp;&nbsp;авторе' => '/about',
+		'Портфолио'            => '/portfolio',
+		'Новости'              => '/news',
+		'Услуги'               => '/services',
+		'Гостевая'             => '/comments'
 	];
 
 
@@ -63,13 +63,13 @@ abstract class Base
 		{
 			if (is_file($this->file_meta_title)) {
 				$arrayMetaTitle = parse_ini_file($this->file_meta_title, true);
-				$this->current_razdel = isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : "/index.php";
+				$this->current_razdel = !empty($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : '/index.php';
 				foreach ($arrayMetaTitle as $title => $metaData) {
 
-					if ("/".$title.".php" == $this->current_razdel) {
-						$this->title = $metaData["title"];
-						$this->keywords = $metaData["keywords"];
-						$this->description = $metaData["description"];
+					if ('/'.$title.'.php' === $this->current_razdel) {
+						$this->title = $metaData['title'];
+						$this->keywords = $metaData['keywords'];
+						$this->description = $metaData['description'];
 					}
 				}
 				if ($this->onluIndex) {
@@ -91,9 +91,9 @@ abstract class Base
 			if ($this->current_razdel) {
 				foreach ($this->section_title as $key => $value) {
 					$razdel[] = [
-						"global_menu_name" => $key,
-						"global_menu_href" => $value,
-						"current"          => ($this->current_razdel == $value.".php") ? "current" : ""
+						'global_menu_name' => $key,
+						'global_menu_href' => $value,
+						'current'          => ($this->current_razdel === $value.'.php') ? 'current' : ''
 					];
 				}
 			}
@@ -127,8 +127,8 @@ abstract class Base
 	public function ifError($txt_err)
 		{
 
-			if (self::db()->getLastError() != '&nbsp;&nbsp;') {
-				throw new \Exception($txt_err." ".self::db()->getLastError());
+			if (self::db()->getLastError() !== '&nbsp;&nbsp;') {
+				throw new \Exception($txt_err.' '.self::db()->getLastError());
 			}
 
 		}

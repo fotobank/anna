@@ -60,21 +60,21 @@ class Router
 			try {
 				$url = array_key_exists('url', $_GET) ? $_GET['url'] : '/';
 				$routes = array_values(array_filter(explode('/', $url)));
-				$array_key = array_key_exists(0, $routes) ? $routes[0] : '/';
+				$url_controller = array_key_exists(0, $routes) ? $routes[0] : '/';
+				$url_metod = array_key_exists(1, $routes) ? $routes[1] : false;
 
-				if (array_key_exists($array_key, $this->site_routes)) {
+				if (array_key_exists($url_controller, $this->site_routes)) {
 
-					foreach ($this->site_routes as $key => $value) {
-						if ($key === $array_key) {
-							$controller = $value['controller'];
-							$method = !empty($routes[1]) ? $routes[1] : $value['method'];
-							$this->prepareParams($routes);
-							$this->prepareRoute($controller, $method);
-						}
-					}
+					$this->requestOptions($url_controller, $routes);
+
+				} elseif (array_key_exists($url_controller . '/' . $url_metod, $this->site_routes)) {
+
+					$url_controller = $url_controller . '/' . $url_metod;
+					$this->requestOptions($url_controller, $routes);
+
 				} else {
-					if (DEBUG_MODE) {
-						throw new routeException('controller "' . $array_key . '" не задан в массиве routes', 404);
+					if (!DEBUG_MODE) {
+						throw new routeException('controller "' . $url_controller . '" не задан в массиве routes', 404);
 					} else {
 						$this->get404();
 					}
@@ -93,7 +93,7 @@ class Router
 	protected function get404()
 		{
 			try {
-				if (!DEBUG_MODE) {
+				if (DEBUG_MODE) {
 					$controller = $this->site_routes['error404']['controller'];
 					$method = $this->site_routes['error404']['method'];
 					$this->prepareRoute($controller, $method);
@@ -209,6 +209,26 @@ class Router
 				throw new routeException('файл модели: "' . $model_path . '" не найден', 404);
 			}
 		}
+
+	/**
+	 * @param $url_controller
+	 * @param $routes
+	 *
+	 * @throws Exception
+	 */
+	private function requestOptions($url_controller, $routes)
+		{
+			$controller = $this->site_routes[$url_controller]['controller'];
+			$method = '';
+
+			if (!empty($this->site_routes[$url_controller]['method'])) {
+				$method = $this->site_routes[$url_controller]['method'];
+			} elseif (!empty($routes[1])) {
+				$method = $routes[1];
+			}
+			$this->prepareParams($routes);
+			$this->prepareRoute($controller, $method);
+		}
 }
 
 /**
@@ -229,6 +249,9 @@ class routeException extends Exception
 				die('<b>Ошибка ' . $code . ':</b> ' . $message . '<br>');
 			}
 			error_log($message);
-			header('Location: /404.php', '', 404);
+			header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
+			/** @noinspection PhpIncludeInspection */
+			include(SITE_PATH . '404.php');
+			exit();
 		}
 }

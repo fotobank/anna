@@ -1,22 +1,45 @@
 <?php
 return [
-	'/'                 => [ // Default controller
-							 'controller' => 'Index',
-							 'method'     => 'index'
-	],
-	'index'             => [
+	'/'         => [
 		'controller' => 'Index',
 		'method'     => 'index'
 	],
-	'about'             => [
+	'index'     => [
+		'controller' => 'Index',
+		'method'     => 'index'
+	],
+	'about'     => [
 		'controller' => 'About',
 		'method'     => 'about'
 	],
-	'portfolio'             => [
+	'portfolio' => [
 		'controller' => 'Portfolio',
 		'method'     => 'portfolio'
 	],
-	'error404'          => [
+	'news'      => [
+		'controller' => 'News',
+		'method'     => 'news'
+	],
+	'services'  => [
+		'controller' => 'Services',
+		'method'     => 'services'
+	],
+	'comments'  => [
+		'controller' => 'Comments',
+		'method'     => 'comments'
+	],
+	/*'carousel/thumb'     => [
+		'controller' => 'Carousel',
+		'method'     => 'thumb'
+	],
+	'carousel/view'      => [
+		'controller' => 'Carousel',
+		'method'     => 'view'
+	],*/
+	'carousel'      => [
+		'controller' => 'Carousel'
+	],
+	'error404'  => [
 		'controller' => 'Error',
 		'method'     => 'error404'
 	]

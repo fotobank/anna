@@ -77,8 +77,7 @@ trait Options
 
 							return $this;
 						} else {
-							throw new Exception("не найдено свойство класса '{$property_name}' в классе '".__CLASS__.
-												"'<br>");
+				throw new Exception("не найдено свойство класса '{$property_name}' в классе '".__CLASS__. "'<br>");
 						}
 				}
 				throw new Exception("неправильно заданно имя аргумента. Необходимо: (get|set)PropertyName, имеем: '{$method_name}'<br>");

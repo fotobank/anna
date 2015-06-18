@@ -356,7 +356,7 @@ function send_mime_mail($name_from, // имя отправителя
 		$to = mime_header_encode($name_to, $data_charset, $send_charset).' <'.$email_to.'>';
 		$subject = mime_header_encode($subject, $data_charset, $send_charset);
 		$from = mime_header_encode($name_from, $data_charset, $send_charset).' <'.$email_from.'>';
-		if ($data_charset != $send_charset) {
+		if ($data_charset !== $send_charset) {
 			$body = iconv($data_charset, $send_charset, $body);
 		}
 		$headers = "From: $from\r\n";
@@ -381,7 +381,7 @@ function send_mime_mail($name_from, // имя отправителя
  */
 function mime_header_encode($str, $data_charset, $send_charset)
 	{
-		if ($data_charset != $send_charset) {
+		if ($data_charset !== $send_charset) {
 			$str = iconv($data_charset, $send_charset, $str);
 		}
 
@@ -396,16 +396,16 @@ function mime_header_encode($str, $data_charset, $send_charset)
  */
 function auto_copyright($year = 'auto')
 	{
-		if (intval($year) == 'auto') {
+		if ((int)$year === 'auto') {
 			$year = date('Y');
 		}
-		if (intval($year) == date('Y')) {
-			return intval($year);
+		if ((int)$year === date('Y')) {
+			return (int)$year;
 		}
-		if (intval($year) < date('Y')) {
-			return intval($year).' - '.date('Y');
+		if ((int)$year < date('Y')) {
+			return (int)$year.' - '.date('Y');
 		}
-		if (intval($year) > date('Y')) {
+		if ((int)$year > date('Y')) {
 			return date('Y');
 		}
 		throw new Exception('error in "function auto_copyright" - not recognized "$year"');
@@ -424,7 +424,7 @@ function getFiledate($file, $format)
 		if (is_file($file)) {
 			$filePath = $file;
 			if (!realpath($filePath)) {
-				$filePath = $_SERVER["DOCUMENT_ROOT"].$filePath;
+				$filePath = $_SERVER['DOCUMENT_ROOT'].$filePath;
 			}
 			$fileDate = filemtime($filePath);
 			if ($fileDate) {
@@ -748,11 +748,9 @@ function sanitize($input)
  */
 function cp1251_utf8($str)
 	{
-
 		if (mb_check_encoding($str, 'Windows-1251') && !mb_check_encoding($str, 'UTF-8')) {
 			$str = mb_convert_encoding($str, 'UTF-8', 'Windows-1251'); // из Windows-1251 в UTF-8
 		}
-
 		return $str;
 	}
 
@@ -763,7 +761,6 @@ function cp1251_utf8($str)
  */
 function utf8_cp1251($str)
 	{
-
 		if (!mb_check_encoding($str, 'Windows-1251') && mb_check_encoding($str, 'UTF-8')) {
 			$str = mb_convert_encoding($str, 'Windows-1251', 'UTF-8'); // из UTF-8 в Windows-1251
 		}

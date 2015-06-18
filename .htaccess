@@ -1,6 +1,7 @@
 Order deny,allow
 Allow from all
 Satisfy any
+
 AddDefaultCharset WINDOWS-1251
 #кодировка mb-библиотеки
 php_value mbstring.internal_encoding WINDOWS-1251

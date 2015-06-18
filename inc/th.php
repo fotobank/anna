@@ -13,25 +13,25 @@ if (!defined('CODE_PAGE')) {
 	define( 'CODE_PAGE', detect_encoding(SITE_PATH . 'inc/кодировка файловой системы.codepage'));
 }
 
-$path = isset( $_GET['img'] ) ? parse_url($_GET['img'], PHP_URL_PATH) : false;
+$path = array_key_exists( 'img', $_GET ) ? parse_url($_GET['img'], PHP_URL_PATH) : false;
 $realpath = SITE_PATH . 'files/portfolio/';
 $image = false;
 
 if ( $path && preg_match( '/\.(gif|jpeg|jpg|png)/i', $path ) ) {
 
-	if (CODE_PAGE == 'utf-8') {
+	if (CODE_PAGE === 'utf-8') {
 		$path = cp1251_utf8($path);
 	}
 
 	$dirname = $basename = '';
 	extract(path_info($path, EXTR_OVERWRITE));
-	$realpath .= $dirname . "/thumb/" . $basename;
+	$realpath .= $dirname . '/thumb/' . $basename;
 	$image = @imagecreatefromstring( @file_get_contents( $realpath ) );
 }
 
-	if ( ! $image ) {
+	if ( !$image ) {
 		error_log( "\$realpath = " . $realpath . " \$image = " . $image, 0 );
-		$image = imagecreatefromstring( file_get_contents( "../images/not_foto.png" ) );
+		$image = imagecreatefromstring( file_get_contents( '../images/not_foto.png' ) );
 	}
 
 	header( 'Content-type: image/jpeg' );
