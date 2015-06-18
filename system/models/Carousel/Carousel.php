@@ -49,11 +49,7 @@ class Carousel
 
 			if ($this->path && preg_match('/\.(gif|jpeg|jpg|png)/i', $this->path)) {
 
-				if (CODE_PAGE === 'utf-8') {
-
-					$this->path = mb_convert_encoding($this->path, 'UTF-8', 'Windows-1251');
-
-				} else {
+				if (CODE_PAGE === 'windows-1251') {
 
 					$this->path = mb_convert_encoding($this->path, 'Windows-1251', 'UTF-8');
 
@@ -90,5 +86,4 @@ class Carousel
 			imagejpeg($image, null, 95);
 
 		}
-
 }

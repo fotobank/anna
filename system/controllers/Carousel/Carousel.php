@@ -3,7 +3,7 @@
  * Класс предназначен для
  * @created   by PhpStorm
  * @package   Litebox.php
- * @version   1.0
+ * @version   1.1
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
@@ -23,6 +23,7 @@ use models\Carousel as model;
  */
 class Carousel
 {
+	protected $model;
 
 	/**
 	 *
@@ -30,6 +31,9 @@ class Carousel
 	public function __construct()
 		{
 
+			$this->model = new model\Carousel([
+											'real_path' => SITE_PATH . 'files' . DS . 'portfolio' . DS
+										]);
 		}
 
 	/**
@@ -39,11 +43,9 @@ class Carousel
 	public function thumb($dir, $img)
 		{
 
-			$model = new model\Carousel([
-											'path' => $dir . DS . $img,
-											'real_path' => SITE_PATH . 'files' . DS . 'portfolio' . DS
-										]);
-			$model->view( true );
+			$this->model->setPath($dir . DS . $img);
+
+			$this->model->view( true );
 
 		}
 
@@ -55,12 +57,9 @@ class Carousel
 	public function view($dir, $img)
 		{
 
-			$model = new model\Carousel([
-											'path' =>  $dir . DS . $img,
-											'real_path' => SITE_PATH . 'files' . DS . 'portfolio' . DS
+			$this->model->setPath($dir . DS . $img);
 
-										]);
-			$model->view();
+			$this->model->view();
 
 
 		}
