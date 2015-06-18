@@ -1,6 +1,6 @@
 <?php
 /**
- * Класс предназначен для
+ *
  * @created   by PhpStorm
  * @package   Litebox.php
  * @version   1.1
@@ -31,9 +31,7 @@ class Carousel
 	public function __construct()
 		{
 
-			$this->model = new model\Carousel([
-											'real_path' => SITE_PATH . 'files' . DS . 'portfolio' . DS
-										]);
+			$this->model = new model\Carousel();
 		}
 
 	/**
@@ -42,11 +40,7 @@ class Carousel
 	 */
 	public function thumb($dir, $img)
 		{
-
-			$this->model->setPath($dir . DS . $img);
-
-			$this->model->view( true );
-
+			$this->model->view( $dir . DS . $img, 'thumb' );
 		}
 
 
@@ -56,12 +50,7 @@ class Carousel
 	 */
 	public function view($dir, $img)
 		{
-
-			$this->model->setPath($dir . DS . $img);
-
-			$this->model->view();
-
-
+			$this->model->view( $dir . DS . $img );
 		}
 
 }

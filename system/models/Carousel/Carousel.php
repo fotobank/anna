@@ -1,9 +1,9 @@
 <?php
 /**
- * Класс предназначен для
+ *
  * @created   by PhpStorm
  * @package   Litebox.php
- * @version   1.0
+ * @version   1.1
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
@@ -14,7 +14,6 @@
 
 namespace models\Carousel;
 
-use Common\Container\Options;
 
 
 /**
@@ -24,54 +23,59 @@ use Common\Container\Options;
 class Carousel
 {
 
-	protected $path;
+	// путь до папки портфолио
 	protected $real_path;
+	// изображение картинки - заглушки
+	protected $not_foto;
+	// изображение водяного знака
+	protected $watermark;
 
-	use Options;
 
 	/**
-	 * @param $options
+	 *
 	 */
-	public function __construct($options)
+	public function __construct()
 		{
-			// настройка свойств класса
-			$this->setOptions($options);
+			$this->real_path = SITE_PATH . 'files' . DS . 'portfolio' . DS;
+			$this->not_foto = SITE_PATH . 'images/not_foto.png';
+			$this->watermark = SITE_PATH . 'images/watermark.png';
 		}
 
 
 	/**
-	 * @param bool $thumb
+	 * @param             $path
+	 * @param bool|string $thumb
 	 */
-	public function view($thumb = false)
+	public function view($path, $thumb = '')
 		{
 
 			$image = false;
 
-			if ($this->path && preg_match('/\.(gif|jpeg|jpg|png)/i', $this->path)) {
+			if ($path && preg_match('/\.(gif|jpeg|jpg|png)/i', $path)) {
 
 				if (CODE_PAGE === 'windows-1251') {
 
-					$this->path = mb_convert_encoding($this->path, 'Windows-1251', 'UTF-8');
+					$path = mb_convert_encoding($path, 'Windows-1251', 'UTF-8');
 
 				}
 
 				$dirname = $basename = '';
-				extract(path_info($this->path, EXTR_OVERWRITE));
-				$this->real_path .= ($thumb) ? $dirname . '/thumb/' . $basename : $dirname . DS . $basename;
+				extract(path_info($path, EXTR_OVERWRITE));
+				$this->real_path .= ($thumb === 'thumb') ? $dirname . '/thumb/' . $basename : $dirname . DS . $basename;
 				$image = @imagecreatefromstring(@file_get_contents($this->real_path));
 			}
 
 			if (!$image) {
 
 				error_log("\$realpath = " . $this->real_path . " \$image = " . $image, 0);
-				$image = imagecreatefromstring(file_get_contents('../images/not_foto.png'));
+				$image = imagecreatefromstring(file_get_contents($this->not_foto));
 
 			} elseif (!$thumb) {
 
 				$w = imagesx($image);
 				$h = imagesy($image);
 
-				$watermark = imagecreatefrompng('../images/watermark.png');
+				$watermark = imagecreatefrompng($this->watermark);
 				$ww = imagesx($watermark);
 				$wh = imagesy($watermark);
 
