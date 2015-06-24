@@ -77,7 +77,7 @@ trait Options
 
 							return $this;
 						} else {
-				throw new Exception("не найдено свойство класса '{$property_name}' в классе '".__CLASS__. "'<br>");
+				throw new Exception('не найдено свойство класса "' .$property_name . '" в классе "' .__CLASS__. '"<br>');
 						}
 				}
 				throw new Exception("неправильно заданно имя аргумента. Необходимо: (get|set)PropertyName, имеем: '{$method_name}'<br>");
@@ -101,8 +101,8 @@ trait Options
 	 */
 	public function getOption($key, $subKey = null)
 		{
-			if (isset($this->options[$key])) {
-				if (!is_null($subKey)) {
+			if (array_key_exists($key, $this->options)) {
+				if (0 !== $subKey) {
 					return isset($this->options[$key][$subKey]) ? $this->options[$key][$subKey] : null;
 				} else {
 					return $this->options[$key];

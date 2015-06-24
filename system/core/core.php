@@ -70,8 +70,8 @@ if (!function_exists('debugHC')) {
 // debugHC( CODE_PAGE, 'CODE_PAGE' );
 // debugHC( SITE_PATH, 'SITE_PATH' );
 
-Error::init();
-Error::$conf['logDir'] = SITE_PATH.'log';
+$err = new Error();
+$err->conf['logDir'] = SITE_PATH.'log';
 // Error::$conf['otl'] = true; // включить запись лога на 127.0.0.1
 // Error::var_dump('Test'); // вывод дампа переменных
 if (!function_exists('v_dump')) {
@@ -84,8 +84,9 @@ if (!function_exists('v_dump')) {
 		}
 }
 
+
 /** Test Begins **/
 // echo $test_test; // Notice
-// trigger_error('Это тест' , E_USER_ERROR ); // User_Error
+ trigger_error('Это тест' , E_USER_ERROR ); // User_Error
 // throw new Exception('this is a test'); // Uncaught Exception
-// echo fatal(); // Fatal Error.
+// echo fatal(); // Fatal Error

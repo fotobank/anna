@@ -81,7 +81,7 @@ include_once( __DIR__ . '/inc/head.php' );
 
 
 		<?
-		include (__DIR__ . "/inc/contacts.php");
+		include (__DIR__ . '/inc/contacts.php');
 		?>
 		</section>
 	<!--==============================footer================================-->

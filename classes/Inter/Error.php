@@ -1,137 +1,199 @@
 <?php
 
+
 /**
  * Class Error
  */
+
+/** @noinspection PropertyCanBeStaticInspection */
 class Error
 {
 
-    /**
+	/**
 	 * @var array
 	 */
-    public static $conf = [
-                                'debugMode' => false,
-                                'friendlyExceptionPage' => 'stop.php',
-                                'logType' => 'detail', // false / simple / detail
-                                'logDir' => '',
-                                'suffix' => '-Inter-ErrorLog.log',
-                                'variables' => [ "_GET", "_POST", "_SESSION", "_COOKIE" ],
-                                'ignoreERROR' => [ ],
-								 'email' => 'aleksjurii@gmail.com', //  email РґР»СЏ РѕС‚РїСЂР°РІРєРё РѕС€РёР±РѕРє
-								 'time_log' => 5, // РІСЂРµРјСЏ РІ РјРёРЅСѓС‚Р°С… РјРµР¶РґСѓ РѕР±РЅРѕРІР»РµРЅРёСЏРјРё Р»РѕРіР°
-								 'otl' => false,  // РІСЂРµРјРµРЅРЅРѕ РІРєР»СЋС‡РёС‚СЊ Р»РѕРі РґР»СЏ РѕС‚Р»Р°РґРєРё СЌС‚РѕРіРѕ СЃРєСЂРёРїС‚Р° ( С‚.Рє. РЅР° '127.0.0.1' Р»РѕРі РѕС‚РєР»СЋС‡РµРЅ )
-								 'max_dir' => 1000 // РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ Р»РѕРі РїР°РїРєРё РІ РєРёР»РѕР±Р°Р№С‚Р°С…, РїРѕСЃР»Рµ РєРѕС‚РѕСЂРѕРіРѕ РїР°РїРєР° СЃР°РјРѕРѕС‡РёСЃС‚РёС‚СЃСЏ
+	public $conf = [
+		'debugMode'             => false,
+		'friendlyExceptionPage' => 'stop.php',
+		'logType'               => 'detail',
+		// false / simple / detail
+		'logDir'                => '',
+		'suffix'                => '-Inter-ErrorLog.log',
+		'variables'             => ['_GET', '_POST', '_SESSION', '_COOKIE'],
+		'ignoreERROR'           => [],
+		'email'                 => 'aleksjurii@gmail.com',
+		//  email для отправки ошибок
+		'time_log'              => 5,
+		// время в минутах между обновлениями лога
+		'otl'                   => false,
+		// временно включить лог для отладки этого скрипта ( т.к. на '127.0.0.1' лог отключен )
+		'max_dir'               => 1000
+		// максимальный размер лог папки в килобайтах, после которого папка самоочистится
 	];
 
-    /**
+	/**
 	 * @var array
 	 */
-    private static $_allError = [ ];
+	private $_allError = [];
 
-    /**
+	/**
+	 * @var string
+	 */
+	private $_request_uri;
+
+	/**
+	 * @link http://docs.php.net/manual/zh/errorfunc.constants.php
+	 * @var array
+	 */
+	protected $_errorText = [
+		'1'     => 'E_ERROR',
+		'2'     => 'E_WARNING',
+		'4'     => 'E_PARSE',
+		'8'     => 'E_NOTICE',
+		'16'    => 'E_CORE_ERROR',
+		'32'    => 'E_CORE_WARNING',
+		'64'    => 'E_COMPILE_ERROR',
+		'128'   => 'E_COMPILE_WARNING',
+		'256'   => 'E_USER_ERROR',
+		'512'   => 'E_USER_WARNING',
+		'1024'  => 'E_USER_NOTICE',
+		'2048'  => 'E_STRICT',
+		'4096'  => 'E_RECOVERABLE_ERROR',
+		'8192'  => 'E_DEPRECATED',
+		'16384' => 'E_USER_DEPRECATED'
+	];
+
+	private $hash_w = [];  // проверка ошибок на повторение
+	private $hash_d = [];
+	private $key_fatal_error = false;
+	/**
+	 * @var Exception $e
+	 */
+	protected $e;
+	/**
+	 * @var int
+	 * количество отображаемых линий дебага
+	 */
+	private $line_limit = 15;
+
+	/**
+	 * Путь к файлу с сообщением об ошибке
+	 *
+	 * @var null|string
+	 */
+	private $messageFile;
+
+	/**
+	 * Битовая маска, определяющая какие ошибки, будут превращены в исключения
+	 *
+	 * @var int
+	 */
+	private $errorConversionMask;
+
+
+	/**
+	 * инициализация
+	 */
+	public function __construct()
+		{
+			date_default_timezone_set('Europe/Moscow');
+			set_exception_handler([$this, 'exception_handler']);
+
+			$mask = E_ALL ^ (E_NOTICE | E_USER_NOTICE);
+			if (version_compare(PHP_VERSION, '5.4', '>=')) {
+				$mask = $mask ^ E_STRICT;
+			}
+			$this->errorConversionMask = $mask;
+
+			set_error_handler([$this, 'error_handler']);
+			$this->conf['debugMode'] = DEBUG_MODE;
+			if (version_compare(PHP_VERSION, '5.4', '>=')) {
+				register_shutdown_function([$this, 'detect_fatal_error']);
+			}
+			$this->_request_uri = $this->_get_request_uri();
+		}
+
+	/**
 	 *
 	 */
-    private static $_registered = false;
-    
-    /**
-     * @var string
-     */
-    private static $_request_uri = null;
-    
-    /**
-     * @link http://docs.php.net/manual/zh/errorfunc.constants.php
-     * @var array
-     */
-    private static $_errorText = [
-    						'1'=>'E_ERROR',
-                            '2'=>'E_WARNING',
-                            '4'=>'E_PARSE',
-                            '8'=>'E_NOTICE',
-                            '16'=>'E_CORE_ERROR',
-                            '32'=>'E_CORE_WARNING',
-                            '64'=>'E_COMPILE_ERROR',
-                            '128'=>'E_COMPILE_WARNING',
-                            '256'=>'E_USER_ERROR',
-                            '512'=>'E_USER_WARNING',
-                            '1024'=>'E_USER_NOTICE',
-                            '2048'=>'E_STRICT',
-                            '4096'=>'E_RECOVERABLE_ERROR',
-                            '8192'=>'E_DEPRECATED',
-                            '16384'=>'E_USER_DEPRECATED',
-	];
-
-	private static $hash_w =  [ ];  // РїСЂРѕРІРµСЂРєР° РѕС€РёР±РѕРє РЅР° РїРѕРІС‚РѕСЂРµРЅРёРµ
-	private static $hash_d =  [ ];
-	private static $key_fatal_error = false;
-
+	public function print_err()
+		{
+			if ($this->key_fatal_error) {
+				if (DEBUG_MODE) {
+					$this->error_display();
+					if ($this->conf['otl']) {
+						$this->write_errorlog();
+					}
+				} else {
+					$this->write_errorlog();
+					die($this->getUserNotification());
+				}
+			}
+		}
 
 	/**
-	 * @return bool
+	 * Возвращает сообщение об ошибке для пользователя
+	 *
+	 * @return bool|string
+	 *
+	 * @since 1
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameters)
 	 */
-	public static function init(){
-		if( self::$_registered  == false){
-			date_default_timezone_set ("Europe/Moscow");
-			set_exception_handler( [ 'Error', 'exception_handler' ] );
-			set_error_handler( [ 'Error', 'error_handler' ], E_ALL);
-			self::$_registered = new Error();
-			self::$conf['debugMode'] = DEBUG_MODE;
-			if(version_compare(PHP_VERSION, '5.2', '>=')){
-				register_shutdown_function( [ 'Error', 'detect_fatal_error' ] );
-			}
-			self::$_request_uri = self::_get_request_uri();
-			self::$_registered = true;
-		}
-		return self::$_registered;
-	}
+	private function getUserNotification()
+		{
 
-	public static function print_err(){
-		if(self::$key_fatal_error) {
-		if(DEBUG_MODE) {
-		    self::error_display();
-			if(self::$conf['otl']) {self::write_errorlog();}
-		} else {
-		    self::write_errorlog();
+			$message = '';
+
+			$messageFile = $this->messageFile ?: __DIR__ . '/Resources/FatalError.html';
+			if (@file_exists($messageFile) && @is_readable($messageFile)) {
+				@$message = file_get_contents($messageFile);
+			}
+
+			if (!$message) {
+				$message = '<!doctype html>\n<html><head><title>Internal Server Error</title></head>\n' .
+						   '<body><h1>Internal Server Error</h1></body></html>';
+			}
+
+			return $message;
 		}
-		}
-	}
 
 	/**
-     *
-     * @param Exception $e
-     */
-    public static function exception_handler(Exception $e){
+	 *
+	 * @param Exception $e
+	 */
+	public function exception_handler(Exception $e)
+		{
 
-        $errorInfo = [ ];
-        $errorInfo['time'] = time();
-        $errorInfo['type'] = 'EXCEPTION';
-        $errorInfo['name'] = get_class($e);
-        $errorInfo['code'] = $e->getCode();
-        $errorInfo['message'] = $e->getMessage();
-        $errorInfo['file'] = $e->getFile();
-        $errorInfo['line'] = $e->getLine();
-        $errorInfo['trace'] = self::_format_trace($e->getTrace());
-		$errorInfo['hash'] = md5($errorInfo['code']. $errorInfo['line']. $errorInfo['message']);
-        self::$_allError[] = $errorInfo;
-		self::print_err();
-    }
-
-	public static function printExceptionPage(){
-		if(self::$conf['debugMode'] == false) {
-			if(is_file(SITE_PATH . self::$conf['friendlyExceptionPage'])){
-				require(SITE_PATH . self::$conf['friendlyExceptionPage']);
-			}
-		} else {
-			self::print_err();
+			$errorInfo = [];
+			$errorInfo['time'] = time();
+			$errorInfo['type'] = 'EXCEPTION';
+			$errorInfo['name'] = get_class($e);
+			$errorInfo['code'] = $e->getCode();
+			$errorInfo['message'] = $e->getMessage();
+			$errorInfo['file'] = $e->getFile();
+			$errorInfo['line'] = $e->getLine();
+			$errorInfo['trace'] = $this->_format_trace($e->getTrace());
+			$errorInfo['hash'] = md5($errorInfo['code'] . $errorInfo['line'] . $errorInfo['message']);
+			$this->_allError[] = $errorInfo;
+			$this->e = $e;
+			$this->print_err();
 		}
-	}
 
-    /**
-     *
-     * @param integer $errno
-     * @param string $errstr
-     * @param string $errfile
-     * @param string $errline
-     */
+	public function printExceptionPage()
+		{
+			if ($this->conf['debugMode'] === false) {
+				$exception_page = SITE_PATH . $this->conf['friendlyExceptionPage'];
+				if (is_file($exception_page)) {
+					/** @noinspection PhpIncludeInspection */
+					require($exception_page);
+				}
+			} else {
+				$this->print_err();
+			}
+		}
+
+
 	/**
 	 * @param $errno
 	 * @param $errstr
@@ -139,289 +201,353 @@ class Error
 	 * @param $errline
 	 *
 	 * @return bool
+	 * @throws ErrorException
 	 */
-	public static function error_handler($errno, $errstr, $errfile, $errline) {
-        
-        if( empty(self::$conf['ignoreERROR']) || !in_array($errno, self::$conf['ignoreERROR']) ){
-            $errorInfo = [ ];
-            $errorInfo['time'] = time();
-            $errorInfo['type'] = 'ERROR';
-            
-            if(!empty(self::$_errorText[$errno])){
-                $errorInfo['name'] = self::$_errorText[$errno];
-            }else{
-                $errorInfo['name'] = '_UNKNOWN_';
-            }
-            $errorInfo['code'] = $errno;
-            $errorInfo['message'] = $errstr;
-            $errorInfo['file'] = $errfile;
-            $errorInfo['line'] = $errline;
-            $trace = debug_backtrace();
-            unset($trace[0]);
-            $errorInfo['trace'] = self::_format_trace($trace);
-				$errorInfo['hash'] = md5($errno.$errline.$errstr);
-				self::$_allError[] = $errorInfo;
+	public function error_handler($errno, $errstr, $errfile, $errline)
+		{
+
+			/* Нулевое значение 'error_reporting' означает что был использован оператор "@" */
+			$t = $errno & $this->errorConversionMask;
+			$l = error_reporting();
+			if (error_reporting() === 0 || ($errno & $this->errorConversionMask) === 0) {
+			//	return true;
 			}
 
-		if( in_array($errno, [ 1, 4, 16, 64, 4096 ] ) ){
-			self::print_err();
+			$this->e = new ErrorException($errstr, 0, $errno, $errfile, $errline);
+			throw $this->e;
+
+
+			if (empty($this->conf['ignoreERROR']) || !in_array($errno, $this->conf['ignoreERROR'], true)) {
+				$errorInfo = [];
+				$errorInfo['time'] = time();
+				$errorInfo['type'] = 'ERROR';
+
+				if (!empty($this->_errorText[$errno])) {
+					$errorInfo['name'] = $this->_errorText[$errno];
+				} else {
+					$errorInfo['name'] = '_UNKNOWN_';
+				}
+				$errorInfo['code'] = $errno;
+				$errorInfo['message'] = $errstr;
+				$errorInfo['file'] = $errfile;
+				$errorInfo['line'] = $errline;
+				$trace = debug_backtrace();
+				unset($trace[0]);
+				$errorInfo['trace'] = $this->_format_trace($trace);
+				$errorInfo['hash'] = md5($errno . $errline . $errstr);
+				$this->_allError[] = $errorInfo;
+			}
+
+			if (in_array($errno, [1, 4, 16, 64, 4096], true)) {
+				$this->print_err();
 				die();
-		}
-		self::print_err();
-    return true;
- }
-    
-    /**
-     * PHP >= 5.2
-     */
-    public static function detect_fatal_error(){
-		self::$key_fatal_error = true;
-        $last_error = error_get_last();
-        if(empty($last_error)){
-			if(isset(self::$_allError[0]['code']) && self::$_allError[0]['code'] == 0){
-				self:: printExceptionPage();
 			}
-			self::print_err();
-            return false;
-        }
+			$this->print_err();
 
-		if ($last_error && ($last_error['type'] == E_ERROR || $last_error['type'] == E_PARSE || $last_error['type'] == E_COMPILE_ERROR)) {
-			if (strpos($last_error['message'], 'Allowed memory size') === 0) { // РµСЃР»Рё РєРѕРЅС‡РёР»Р°СЃСЊ РїР°РјСЏС‚СЊ
-				ini_set('memory_limit', (intval(ini_get('memory_limit'))+64)."M"); // РІС‹РґРµР»СЏРµРј РЅРµРјРЅРѕР¶РєРѕ, С‡С‚Рѕ Р±С‹ РґРѕСЂР°Р±РѕС‚Р°С‚СЊ РєРѕСЂСЂРµРєС‚РЅРѕ
-				self::write_errorlog("PHP Fatal: not enough memory in ".$last_error['file'].":".$last_error['line']);
-			}
+			return true;
 		}
 
-        if(!empty(self::$_allError)){
-            $log_last_error = end(self::$_allError);
-            //reset(self::$_allError);
-            if($log_last_error['code'] == $last_error['type'] && $log_last_error['file'] == $last_error['file'] && $log_last_error['line'] == $last_error['line']){
-                return false;
-            }
-        }
+	/**
+	 * PHP >= 5.4
+	 */
+	public function detect_fatal_error()
+		{
+			$this->key_fatal_error = true;
+			$last_error = error_get_last();
+			if (0 === count($last_error)) {
+				/** @noinspection UnSafeIsSetOverArrayInspection */
+				if (isset($this->_allError[0]['code']) && $this->_allError[0]['code'] === 0) {
+					$this->printExceptionPage();
+				}
+				$this->print_err();
 
-        if( empty(self::$conf['ignoreERROR']) || !in_array($last_error['type'], self::$conf['ignoreERROR']) ){
-            $errorInfo = [ ];
-            $errorInfo['time'] = time();
-            $errorInfo['type'] = 'ERROR_GET_LAST';
-            
-            if(!empty(self::$_errorText[$last_error['type']])){
-                $errorInfo['name'] = self::$_errorText[$last_error['type']];
-            }else{
-                $errorInfo['name'] = '_UNKNOWN_';
-            }
-            
-            $errorInfo['code'] = $last_error['type'];
-            $errorInfo['message'] = $last_error['message'];
-            $errorInfo['file'] = $last_error['file'];
-            $errorInfo['line'] = $last_error['line'];
-         //   $errorInfo['trace'] = array();
-			$trace = debug_backtrace();
-		//	unset($trace[0]);
-			$errorInfo['trace'] = self::_format_trace($trace);
-			$errorInfo['hash'] = md5($errorInfo['code'].$errorInfo['line'].$errorInfo['message']);
-            self::$_allError[] = $errorInfo;
-			if( in_array($errorInfo['code'], [ 1, 4, 16, 64, 4096 ] ) ){
-
-				self:: printExceptionPage();
-			    return false;
+				return false;
 			}
-        //    echo 'ERROR_GET_LAST INFO: '. var_export($errorInfo);
-        }
-		self::print_err();
-	}
 
-    /**
-     * request_uri
-     * @return string
-     */
-    protected static function _get_request_uri(){
+			if (($last_error && ($last_error['type'] === E_ERROR || $last_error['type'] === E_PARSE ||
+								 $last_error['type'] === E_COMPILE_ERROR) && // если кончилась память
+				 0 === strpos($last_error['message'], 'Allowed memory size'))
+			) {
+				// выделяем немножко, что бы доработать корректно
+				ini_set('memory_limit', ((int) (ini_get('memory_limit')) + 64) . 'M');
+				$this->write_errorlog('PHP Fatal: not enough memory in ' . $last_error['file'] . ':' .
+									  $last_error['line']);
+			}
 
-        if(isset($_SERVER['PHP_SELF'])){
-	        if(isset($_SERVER['argv'][0])){
-                return $_SERVER['PHP_SELF']. '?'. $_SERVER['argv'][0];
-	        }elseif(isset($_SERVER['QUERY_STRING'])){
-		        return $_SERVER['PHP_SELF']. '?'. $_SERVER['QUERY_STRING'];
-	        }else{
-		        return $_SERVER['PHP_SELF'];
-	        }
+			if (0 !== count($this->_allError)) {
+				$log_last_error = end($this->_allError);
+				//reset($this->_allError);
+				if ($log_last_error['code'] === $last_error['type'] &&
+					$log_last_error['file'] === $last_error['file'] && $log_last_error['line'] === $last_error['line']
+				) {
+					return false;
+				}
+			}
+
+			if (empty($this->conf['ignoreERROR']) || !in_array($last_error['type'], $this->conf['ignoreERROR'], true)) {
+				$errorInfo = [];
+				$errorInfo['time'] = time();
+				$errorInfo['type'] = 'ERROR_GET_LAST';
+
+				if (!empty($this->_errorText[$last_error['type']])) {
+					$errorInfo['name'] = $this->_errorText[$last_error['type']];
+				} else {
+					$errorInfo['name'] = '_UNKNOWN_';
+				}
+
+				$errorInfo['code'] = $last_error['type'];
+				$errorInfo['message'] = $last_error['message'];
+				$errorInfo['file'] = $last_error['file'];
+				$errorInfo['line'] = $last_error['line'];
+				//   $errorInfo['trace'] = array();
+				$trace = debug_backtrace();
+				//	unset($trace[0]);
+				$errorInfo['trace'] = $this->_format_trace($trace);
+				$errorInfo['hash'] = md5($errorInfo['code'] . $errorInfo['line'] . $errorInfo['message']);
+				$this->_allError[] = $errorInfo;
+				if (in_array($errorInfo['code'], [1, 4, 16, 64, 4096], true)) {
+
+					$this->printExceptionPage();
+
+					return false;
+				}
+				//    echo 'ERROR_GET_LAST INFO: '. var_export($errorInfo);
+			}
+			$this->print_err();
+
+			return true;
 		}
-			if(isset($_SERVER['REQUEST_URI'])){
+
+	/**
+	 * request_uri
+	 * @return string
+	 */
+	protected function _get_request_uri()
+		{
+
+			if (array_key_exists('PHP_SELF', $_SERVER)) {
+				if (array_key_exists(0, $_SERVER['argv'])) {
+					return $_SERVER['PHP_SELF'] . '?' . $_SERVER['argv'][0];
+				} elseif (array_key_exists('QUERY_STRING', $_SERVER)) {
+					return $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
+				} else {
+					return $_SERVER['PHP_SELF'];
+				}
+			}
+			if (array_key_exists('REQUEST_URI', $_SERVER)) {
 				return $_SERVER['REQUEST_URI'];
 			}
-	        return '_UNKNOWN_URI_';
-    }
 
-
-    /**
-     *
-     * @param array $trace
-     * @return array $trace
-     */
-    private static function _format_trace($trace){
-        $return = [ ];
-        foreach ($trace as $stack => $detail){
-            if(!empty($detail['args'])){
-                $args_string = self::_args_to_string($detail['args']);
-            }else{
-                $args_string = '';
-            }
-            $return[$stack]['class'] = isset($trace[$stack]['class']) ? $trace[$stack]['class'] : '';
-            $return[$stack]['type'] = isset($trace[$stack]['type']) ? $trace[$stack]['type'] : '';
-            $return[$stack]['function'] = isset($trace[$stack]['function']) ? $trace[$stack]['function'].'('.$args_string.')' : '';
-            $return[$stack]['file']=isset($trace[$stack]['file']) ? $trace[$stack]['file'] :'' ;
-            $return[$stack]['line']=isset($trace[$stack]['line']) ? $trace[$stack]['line'] :'' ;
-        }
-        return $return;
-    }
-
-
-    /**
-     *
-     * @param array $args
-     * @return string
-     */
-    private static function _args_to_string($args){
-    //    $string = '';
-        $argsAll = [ ];
-        foreach ($args as $key => $value){
-            if(true == is_object($value)){
-                $argsAll[$key] = 'Object('.get_class($value).')';
-            }elseif(true == is_numeric($value)){
-                $argsAll[$key] = $value;
-            }elseif(true == is_string($value)){
-                $temp = $value;
-                if(!extension_loaded('mbstring')){
-                    if(strlen($temp) > 300){
-                        $temp = substr($temp, 0 ,300).'...';
-                    }
-                }else{
-                    if(mb_strlen($temp) > 300){
-                        $temp = mb_substr($temp, 0 ,300).'...';
-                    }
-                }
-                $argsAll[$key] = "'{$temp}'";
-                $temp = null;
-            }elseif(true == is_bool($value)){
-                if(true == $value){
-                    $argsAll[$key] = 'true';
-                }else{
-                    $argsAll[$key] = 'false';
-                }
-            }else{
-                $argsAll[$key] = gettype($value);
-            }
-        }
-        $string = implode(',', $argsAll);
-        return $string;
-    }
+			return '_UNKNOWN_URI_';
+		}
 
 
 	/**
-     *
-     */
-    public static function write_errorlog(){
-        if( (false != (bool)self::$conf['logType']) && !empty(self::$_allError)){
-			$log = null;
-			try {
-				$log = new Log();
-				$log->setTime_log(5)
-					->setMax_dir(10000)
-					->setEmail('aleksjurii@gmail.com');
-			} catch (Exception $e) {
-				trigger_error("РћС€РёР±РєР° РїСЂРёСЃРІРѕРµРЅРёСЏ РґР°РЅРЅС‹С…: " . $e->getMessage(), E_USER_ERROR );
+	 *
+	 * @param array $trace
+	 *
+	 * @return array $trace
+	 */
+	private function _format_trace($trace)
+		{
+			$return = [];
+			foreach ($trace as $stack => $detail) {
+				$args_string = (!empty($detail['args'])) ? $this->_args_to_string($detail['args']) : $args_string = '';
+
+				$return[$stack]['class'] = !empty($trace[$stack]['class']) ? $trace[$stack]['class'] : '';
+				$return[$stack]['type'] = !empty($trace[$stack]['type']) ? $trace[$stack]['type'] : '';
+				$return[$stack]['function'] =
+					!empty($trace[$stack]['function']) ? $trace[$stack]['function'] . '(' . $args_string . ')' : '';
+				$return[$stack]['file'] = !empty($trace[$stack]['file']) ? $trace[$stack]['file'] : '';
+				$return[$stack]['line'] = !empty($trace[$stack]['line']) ? $trace[$stack]['line'] : '';
 			}
-            foreach (self::$_allError as $errorInfo) {
-				if( !in_array($errorInfo['hash'], self::$hash_w) ) {
-					self::$hash_w[] = $errorInfo['hash'];
-				$logText = '';
-                $logText .= date("d-m-Y H:i:s", $errorInfo['time']). "\t".
-                self::$_request_uri."\t".
-                $errorInfo['type']. "\t".
-                $errorInfo['name']. "\t".
-                'Code '. $errorInfo['code']. "\t".
-                $errorInfo['message']. "\t".
-                $errorInfo['file']. "\t".
-                'Line '. $errorInfo['line'];
 
-                if('detail' == self::$conf['logType'] && !empty($errorInfo['trace'])) {
-                    $prefix = "\n[TRACE]\t#";
-                    foreach ( $errorInfo['trace'] as $stack => $trace ) {
-                        $logText .= $prefix. $stack. "\t". $trace['file']. "\t". $trace['line']. "\t". $trace['class']. $trace['type']. $trace['function'];
-                    }
-                }
-			  } else { continue ;}
-
-					$logFilename = self::$conf['logDir'] . DIRECTORY_SEPARATOR . date("d-m-Y", time()).'_'.$errorInfo['name'].'_';
-				    $logFilename .= md5($errorInfo['code'].$errorInfo['line'].$errorInfo['message']). '.log';
-				    $log->put_log($logFilename, $logText);
-				    $logText = '';
-				    if(!$log->exists()) error_log($logText);
-
-            }
-        }
-    }
+			return $return;
+		}
 
 
 	/**
+	 *
+	 * @param array $args
+	 *
+	 * @return string
+	 */
+	private function _args_to_string($args)
+		{
+			//    $string = '';
+			$argsAll = [];
+			foreach ($args as $key => $value) {
+				if (true === is_object($value)) {
+					$argsAll[$key] = 'Object(' . get_class($value) . ')';
+				} elseif (true === is_numeric($value)) {
+					$argsAll[$key] = $value;
+				} elseif (true === is_string($value)) {
+					$temp = $value;
+					if (!extension_loaded('mbstring')) {
+						if (strlen($temp) > 300) {
+							$temp = substr($temp, 0, 300) . '...';
+						}
+					} else {
+						if (mb_strlen($temp) > 300) {
+							$temp = mb_substr($temp, 0, 300) . '...';
+						}
+					}
+					$argsAll[$key] = "'{$temp}'";
+					$temp = null;
+				} elseif (true === is_bool($value)) {
+					if (true === $value) {
+						$argsAll[$key] = 'true';
+					} else {
+						$argsAll[$key] = 'false';
+					}
+				} else {
+					$argsAll[$key] = gettype($value);
+				}
+			}
+			$string = implode(',', $argsAll);
+
+			return $string;
+		}
+
+
+	/**
+	 *
+	 */
+	public function write_errorlog()
+		{
+			if ((false !== (bool) $this->conf['logType']) && (0 !== count($this->_allError))) {
+				$log = null;
+				try {
+					$log = new Log();
+					$log->setTime_log(5)->setMax_dir(10000)->setEmail('aleksjurii@gmail.com');
+				}
+				catch (Exception $e) {
+					trigger_error('Ошибка присвоения данных: ' . $e->getMessage(), E_USER_ERROR);
+				}
+				foreach ($this->_allError as $errorInfo) {
+					if (!in_array($errorInfo['hash'], $this->hash_w, true)) {
+						$this->hash_w[] = $errorInfo['hash'];
+						$logText = '';
+						$logText .= date('d-m-Y H:i:s', $errorInfo['time']) . "\t" . $this->_request_uri . "\t" .
+									$errorInfo['type'] . "\t" . $errorInfo['name'] . "\t" . 'Code ' .
+									$errorInfo['code'] . "\t" . $errorInfo['message'] . "\t" . $errorInfo['file'] .
+									"\t" . 'Line ' . $errorInfo['line'];
+
+						if ('detail' === $this->conf['logType'] && !empty($errorInfo['trace'])) {
+							$prefix = "\n[TRACE]\t#";
+							foreach ($errorInfo['trace'] as $stack => $trace) {
+								$logText .= $prefix . $stack . "\t" . $trace['file'] . "\t" . $trace['line'] . "\t" .
+											$trace['class'] . $trace['type'] . $trace['function'];
+							}
+						}
+					} else {
+						continue;
+					}
+
+					$logFilename =
+						$this->conf['logDir'] . DIRECTORY_SEPARATOR . date('d-m-Y', time()) . '_' . $errorInfo['name'] .
+						'_';
+					$logFilename .= md5($errorInfo['code'] . $errorInfo['line'] . $errorInfo['message']) . '.log';
+					$log->put_log($logFilename, $logText);
+					$logText = '';
+					if (!$log->exists()) {
+						error_log($logText);
+					}
+
+				}
+			}
+		}
+
+
+	/**
+	 *
 	 * @return bool
 	 */
-	public static function error_display(){
-        if(false != self::$conf['debugMode'] && !empty(self::$_allError)){
-            $htmlText = '';
-            foreach (self::$_allError as $key => $errorInfo){
-				if( !in_array($errorInfo['hash'], self::$hash_d) ){
-					self::$hash_d[] = $errorInfo['hash'];
-                $htmlText .= "<div class=\"intererrorblock\"><div class=\"intererrortitle\">[".
-					$errorInfo['name']."][Code ".$errorInfo['code'].'] '.$errorInfo['message'].
-					"</div><div class=\"intererrorsubtitle\">Line ".
-					$errorInfo['line'].' On <a href="'.$errorInfo['file'].'">'.
-					$errorInfo['file']."</a></div><div class=\"intererrorcontent\">";
+	public function error_display()
+		{
 
-                if(empty($errorInfo['trace'])){
-                    $htmlText .= 'No Traceable Information.';
-                }else{
-                    $htmlText .= '<table width="100%" border="1" cellpadding="1" cellspacing="1" rules="rows">
+			if (false !== $this->conf['debugMode'] && (0 !== count($this->_allError))) {
+				$htmlText = '';
+				$message = '';
+				foreach ($this->_allError as $key => $errorInfo) {
+					if (!in_array($errorInfo['hash'], $this->hash_d, true)) {
+						$this->hash_d[] = $errorInfo['hash'];
+						$htmlText .=
+							'<div class="intererrorblock"><div class="intererrortitle"><strong>[' . $errorInfo['name'] .
+							'][Code ' . $errorInfo['code'] . ']</strong>  ' . $errorInfo['message'] .
+							'</div><div class="intererrorsubtitle">Line ' . $errorInfo['line'] . ' On <a href="' .
+							$errorInfo['file'] . '">' . $errorInfo['file'] .
+							'</a></div><div class="intererrorcontent">';
+
+						if (empty($errorInfo['trace'])) {
+							$htmlText .= 'No Traceable Information.';
+						} else {
+							$htmlText .= '<table width="100%" border="1" cellpadding="1" cellspacing="1" rules="rows">
 									<tr>
 										<th scope="col">#</th>
 										<th scope="col" style="width: 300px;">File</th>
 										<th scope="col" style="width: 35px;">Line</th>
 										<th scope="col">Class::Method(Args)</th>
 									</tr>';
-                    foreach ($errorInfo['trace'] as $stack => $trace){
-                        $htmlText .= '<tr>
-										<td>'.$stack.'</td>
-										<td><a href="'.$trace['file'].'">'.$trace['file'].'</a></td>
-										<td>'.$trace['line'].'</td>
-										<td>'.$trace['class']. $trace['type']. htmlspecialchars($trace['function']) .'</td>
+							foreach ($errorInfo['trace'] as $stack => $trace) {
+								$htmlText .= '<tr>
+										<td>' . $stack . '</td>
+										<td><a href="' . $trace['file'] . '">' . $trace['file'] . '</a></td>
+										<td>' . $trace['line'] . '</td>
+										<td>' . $trace['class'] . $trace['type'] .
+											 htmlspecialchars($trace['function']) . '</td>
 									</tr>';
-                    }
-                    $htmlText .= '</table>';
-                }
+							}
+							$htmlText .= '</table>';
+						}
 
-                $htmlText .= '	</div>
-    						</div>
-							';
-            } else { continue; }
-		}
-            echo <<<END
+						$htmlText .= '</div></div>';
+
+						$message = ($this->e) ? $this->getUserErrNotification() : false;
+					} else {
+						continue;
+					}
+				}
+
+				echo <<<END
 <style type="text/css">
 <!--
+        .code,
+        .trace
+        {
+          //  overflow-x: scroll !important;
+            padding: .5em !important;
+        }
+
+        .code code
+        {
+            display: block !important;
+        }
+
+        .code .error-line
+        {
+            background-color: #faa !important;
+        }
+
+        .trace
+        {
+            padding: .5em 1em !important;
+        }
+
 .intererrorblock table {
 color: #000;
 }
 .intererrorblock {
-	font-size: 12pt;
-	background-color: #FFC;
+    border: solid 1px #888 !important;
+	font-size: 1em;
+	background-color: #F0F0F0;
 	text-align: left;
 	vertical-align: middle;
 	display: inline-block;
 	border-collapse: collapse;
 	word-break: break-all;
-	padding: 3px;
 	z-index: 10000;
 	overflow: visible;
-	margin-bottom:3px;
 	width: 1000px;
 	position: relative;
 }
@@ -431,10 +557,11 @@ DIV.container {
     width: 1000px;
     height: auto;
     position: relative;
-    font-size: .8em;
-    text-align: center;
+    font-size: 1em;
+    color: #000 !important;
     margin: 5px auto;
     overflow: visible;
+    display: none;
 }
 
 .intererrorblock a:link {
@@ -458,7 +585,13 @@ DIV.container {
 	color: #FFF;
 	background-color: #963;
 	padding: 3px;
-	font-weight: bold;
+}
+
+.intererrorTime {
+	color: #FFF;
+	background-color: #8D6292;
+	padding: 2px 2px 2px 5px;
+	text-aglin: center;
 }
 
 .intererrorsubtitle {
@@ -502,56 +635,124 @@ DIV.container {
 </style>
 <div class="container">
 {$htmlText}
+{$message}
 </div>
+
+<script type="text/javascript">
+window.onload = function () {
+	var texno = document.getElementsByClassName('texno');
+	var container = document.getElementsByClassName('container');
+	var wrap = "<div class='intererrorblock'><div class='intererrorTime'>" + texno[0].outerHTML + "</div></div>";
+	texno[0].outerHTML = null;
+    container[0].innerHTML += wrap;
+    container[0].style.display = 'block'; // покуазать блок ошибок
+
+  return false;
+}
+</script>
+
 END;
 
-       self::show_variables(self::$conf['variables']);
-        }
-		return true;
-    }
+				//	включить показ системных переменных
+				//	$this->show_variables($this->conf['variables']);
+			}
 
-	function addElements()
-	{
-		$num = func_num_args();
-		$args = func_get_args();
-		for($i=0; $i<$num; $i++)
-		{
-			array_push($masiv,$args[$i]);
+			return true;
 		}
-	}
 
-	public static function var_dump(){
+	/**
+	 *
+	 */
+	protected function addElements()
+		{
+			$num = func_num_args();
+			$args = func_get_args();
+			for ($i = 0; $i < $num; $i ++) {
+				$masiv[] = $args[$i];
+			}
+		}
 
-		$oldVar = self::$conf['variables'];
-		self::$conf['variables'] = func_get_args();
-		self::show_variables(self::$conf['variables']);
-		self::$conf['variables'] = $oldVar;
+	public function var_dump()
+		{
+			$oldVar = $this->conf['variables'];
+			$this->conf['variables'] = func_get_args();
+			$this->show_variables($this->conf['variables']);
+			$this->conf['variables'] = $oldVar;
+		}
 
-	}
+	/**
+	 * Возвращает строку ошибки
+	 *
+	 *
+	 * @return bool|string
+	 *
+	 * @since 1
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameters)
+	 */
+	private function getUserErrNotification()
+		{
+
+			$lines = file($this->e->getFile());
+			$firstLine = $this->e->getLine() < $this->line_limit ? 0 : $this->e->getLine() - $this->line_limit;
+			$lastLine = $firstLine + $this->line_limit < count($lines) ? $firstLine + $this->line_limit : count($lines);
+			$code = '';
+
+			$isNormalMode = current(current($this->e->getTrace())) !== 'fatalErrorHandler';
+
+			for ($i = $firstLine; $i < $lastLine; $i ++) {
+				$s = ($i + 1) . '  ' . $lines[$i];
+				if ($isNormalMode) {
+					$s = highlight_string('<?php' . $s, true);
+					$s = preg_replace('/&lt;\?php/', '', $s, 1);
+				} else {
+					$s = '<pre>' . htmlspecialchars($s) . '</pre>';
+				}
+				if ($i === $this->e->getLine() - 1) {
+					$s = preg_replace('/(<\w+)/', '$1 class="error-line"', $s);
+				}
+				$code .= $s;
+			}
+
+			return '
+    <article>
+        <section>
+        <div class="intererrorblock">
+            <div class="intererrortitle"><span>[Маршрут]</span></div>
+            <div class="code">
+            ' . $code . '
+            </div></div>
+        </section>
+
+    </article>';
+
+		}
 
 	/**
 	 * @param $variables
 	 */
-	public static function show_variables($variables){
-		$variables_link = '';
-		$variables_content = '';
-		foreach( $variables as $key ){
+	public function show_variables($variables)
+		{
+			$variables_link = '';
+			$variables_content = '';
+			foreach ($variables as $key) {
 
-				$variables_link .= '<a href="#variables'.$key.'" style="color: #A0A">$'.$key.'<strong style="color: #000">;</strong></a>&nbsp;';
-				$variables_content .= '<div class="variablessubtitle"><a name="variables'.$key.'" id="variables'.$key.'"></a>
-                                       <strong style="color: #00A">$'.$key.':</strong></div>
+				$variables_link .= '<a href="#variables' . $key . '" style="color: #A0A">$' . $key .
+								   '<strong style="color: #000">;</strong></a>&nbsp;';
+				$variables_content .=
+					'<div class="variablessubtitle"><a name="variables' . $key . '" id="variables' . $key . '"></a>
+                                       <strong style="color: #0000aa;">$' . $key . ':</strong></div>
 						               <div class="variablescontent">';
 
-				if(!isset($GLOBALS[$key])){
-					$variables_content .= '$'. $key .' IS NOT SET.';
-				}else{
-					$variables_content .= "<pre>".htmlspecialchars(print_r($GLOBALS[$key],1))."<pre>";
+				if (!array_key_exists($key, $GLOBALS)) {
+					$variables_content .= '$' . $key . ' IS NOT SET.';
+				} else {
+					$variables_content .= '<pre>' . htmlspecialchars(print_r($GLOBALS[$key], 1)) . '<pre>';
 				}
 				$variables_content .= '</div>';
-		}
+			}
 
-
-		echo <<<END
+			echo <<<END
 <style type="text/css">
 <!--
 .variablesblock {
@@ -571,10 +772,11 @@ position: relative;
 DIV.container {
     width: 100%;
     position: relative;
-    font-size: .8em;
-    text-align: center;
-    margin: 5px auto;
-    	overflow: visible;
+    color: #000 !important;
+    font-family: monospace !important;
+    font-size: 1em !important;
+    margin: 0 auto;
+    overflow: visible;
 }
 
 .variablesblock a:link {
@@ -594,6 +796,13 @@ DIV.container {
 	color: #000;
 }
 
+.intererrorTime {
+	color: #FFF;
+	background-color: #8D6292;
+	padding: 2px 2px 2px 5px;
+	text-aglin: center;
+}
+
 .variablessubtitle {
 	padding: 3px;
 	font-weight: bold;
@@ -611,9 +820,22 @@ DIV.container {
 <div class="container">
 <div class="variablesblock">
     <div class="variablessubtitle">Variables: {$variables_link}</div>
-    {$variables_content}
+    {$variables_link}
 </div></div>
+
+<script type="text/javascript">
+window.onload = function () {
+	var texno = document.getElementsByClassName('texno');
+	var container = document.getElementsByClassName('container');
+	var wrap = "<div class='intererrorblock'><div class='intererrorTime'>" + texno[0].outerHTML + "</div></div>";
+	texno[0].outerHTML = null;
+    container[0].innerHTML += wrap;
+    container[0].style.display = 'block'; // покуазать блок ошибок
+
+  return false;
+}
+</script>
 END;
 
-	}
+		}
 }

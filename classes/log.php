@@ -69,7 +69,7 @@ class Log extends File {
 	/**
 	 * @param null $filepath
 	 */
-	public function __construct( $filepath = NULL ) {
+	public function __construct( $filepath = null ) {
 		if ( isset( $filepath ) ) {
 			 $this->is_file( $filepath );
 		}
@@ -86,6 +86,8 @@ class Log extends File {
 	/**
 	 * Добавить запись в журнал
 	 * void write ( string $entry )
+	 *
+	 * @param $entry
 	 */
 	public function write( $entry ) {
 		$this->log[] = $entry;
@@ -98,12 +100,15 @@ class Log extends File {
 	 * Пишет строку в файл
 	 * Если filename не существует, файл будет создан. Иначе, существующий файл будет перезаписан.
 	 * int putlog( string $contents )
+	 *
+	 * @param $filepath
+	 * @param $contents
 	 */
 	public function put_log( $filepath, $contents ) {
 		$this->contents = $contents;
 		$this->is_file( $filepath );
 		$this->get_file_log();
-		if ( $this->checkInterval()) $this->put_contents( $this->contents );
+		if ( $this->checkInterval()) {$this->put_contents( $this->contents );}
 	}
 
 	/**
@@ -179,6 +184,10 @@ class Log extends File {
 	 * Get any information contained in the current log
 	 * Получить любую информацию, содержащуюся в текущем журнале
 	 * array get_log( void )
+	 *
+	 * @param $logFilename
+	 *
+	 * @return array
 	 */
 	public function get_log( $logFilename ) {
 		$this->is_file( $logFilename, false );
@@ -204,16 +213,18 @@ class Log extends File {
 	 */
 	public function checkInterval() {
 
-		if ( strlen( $this->str_log ) ) {
-			preg_match('/\[(?P<err_num>[\d]+)\]\s*(?P<date_old>[\d-]+)\s(?P<time_old>[\d:]+)/', $this->str_log, $matches);
-				if ( strtotime( $matches['date_old'].' '.$matches['time_old'] ) + $this->interval * 60 - strtotime( date( 'd-m-Y H:i:s', time() ) ) < 0 ) {
-					$this->contents = "[".($matches['err_num']+1)."] ".$this->contents;
+		if ( '' !== $this->str_log ) {
+			preg_match('/\[(?P<err_num>[\d]+)\]\s*(?P<date_old>[\d-]+)\s(?P<time_old>[\d:]+)/',
+					   $this->str_log, $matches);
+				if ( strtotime( $matches['date_old'].' '.$matches['time_old'] ) + $this->interval * 60 -
+					 strtotime( date( 'd-m-Y H:i:s', time() ) ) < 0 ) {
+					$this->contents = '['.($matches['err_num']+1).'] '.$this->contents;
 					return true; // прибавление к ошибке единицу
 				} else {
 					return false; // интервал еще не закончился
 				}
 		} else {
-			$this->contents = "[1] ".$this->contents; // первая запись
+			$this->contents = '[1] '.$this->contents; // первая запись
 			return true;
 		}
 	}
@@ -221,6 +232,8 @@ class Log extends File {
 	/**
 	 * Set the Glue
 	 * void setglue( string $glue )
+	 *
+	 * @param $glue
 	 */
 	public function setglue( $glue ) {
 		$this->glue = $glue;

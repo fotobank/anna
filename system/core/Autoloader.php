@@ -90,9 +90,9 @@ END;
 	 */
 	public function __construct()
 		{
-			spl_autoload_extensions(".php");
+			spl_autoload_extensions('.php');
 			/** назначаем метод автозагрузки */
-			spl_autoload_register(["Core\\Autoloader", "autoload"]);
+			spl_autoload_register(['Core\\Autoloader', 'autoload']);
 
 			/** переопределение свойств  */
 			$this->dir_cashe = SITE_PATH . str_replace(['\\', '/'], DS, $this->dir_cashe) . DS;

@@ -1,6 +1,5 @@
 <?php
 /**
- * Класс предназначен для
  * @created   by PhpStorm
  * @package   index.php
  * @version   1.0
@@ -12,7 +11,7 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-ob_start();
+//ob_start();
 
 /** @noinspection PhpIncludeInspection */
 include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php');
@@ -33,4 +32,4 @@ $router->set_route($routers);
 // запускаем маршрутизатор
 $router->start();
 
-ob_end_flush();
+//ob_end_flush();
