@@ -13,7 +13,6 @@ class Error
 	 * @var array
 	 */
 	public $conf = [
-		'debugMode'             => false,
 		'friendlyExceptionPage' => 'stop.php',
 		'logType'               => 'detail',
 		// false / simple / detail
@@ -99,14 +98,20 @@ class Error
 			date_default_timezone_set('Europe/Moscow');
 			set_exception_handler([$this, 'exception_handler']);
 
-			$mask = E_ALL ^ (E_NOTICE | E_USER_NOTICE);
-			if (version_compare(PHP_VERSION, '5.4', '>=')) {
-				$mask = $mask ^ E_STRICT;
+
+//			$this->errorConversionMask = E_ALL ^ (E_NOTICE | E_USER_NOTICE);
+			/*if (version_compare(PHP_VERSION, '5.4', '>=')) {
+				$this->errorConversionMask = $this->errorConversionMask ^ E_STRICT;
+			}*/
+			$this->errorConversionMask = E_ALL;
+
+			if(DEBUG_MODE) {
+				error_reporting($this->errorConversionMask);
+			} else {
+				error_reporting(0);
 			}
-			$this->errorConversionMask = $mask;
 
 			set_error_handler([$this, 'error_handler']);
-			$this->conf['debugMode'] = DEBUG_MODE;
 			if (version_compare(PHP_VERSION, '5.4', '>=')) {
 				register_shutdown_function([$this, 'detect_fatal_error']);
 			}
@@ -142,10 +147,8 @@ class Error
 	 */
 	private function getUserNotification()
 		{
-
 			$message = '';
-
-			$messageFile = $this->messageFile ?: __DIR__ . '/Resources/FatalError.html';
+			$messageFile = $this->messageFile ? : __DIR__ . '/Resources/FatalError.html';
 			if (@file_exists($messageFile) && @is_readable($messageFile)) {
 				@$message = file_get_contents($messageFile);
 			}
@@ -182,7 +185,7 @@ class Error
 
 	public function printExceptionPage()
 		{
-			if ($this->conf['debugMode'] === false) {
+			if (DEBUG_MODE === false) {
 				$exception_page = SITE_PATH . $this->conf['friendlyExceptionPage'];
 				if (is_file($exception_page)) {
 					/** @noinspection PhpIncludeInspection */
@@ -205,46 +208,14 @@ class Error
 	 */
 	public function error_handler($errno, $errstr, $errfile, $errline)
 		{
-
 			/* Нулевое значение 'error_reporting' означает что был использован оператор "@" */
-			$t = $errno & $this->errorConversionMask;
-			$l = error_reporting();
-			if (error_reporting() === 0 || ($errno & $this->errorConversionMask) === 0) {
-			//	return true;
+			$err_res = error_reporting();
+			$mask = $errno & $this->errorConversionMask;
+			if ($err_res === 0 or $mask === 0) {
+				return true;
 			}
-
 			$this->e = new ErrorException($errstr, 0, $errno, $errfile, $errline);
 			throw $this->e;
-
-
-			if (empty($this->conf['ignoreERROR']) || !in_array($errno, $this->conf['ignoreERROR'], true)) {
-				$errorInfo = [];
-				$errorInfo['time'] = time();
-				$errorInfo['type'] = 'ERROR';
-
-				if (!empty($this->_errorText[$errno])) {
-					$errorInfo['name'] = $this->_errorText[$errno];
-				} else {
-					$errorInfo['name'] = '_UNKNOWN_';
-				}
-				$errorInfo['code'] = $errno;
-				$errorInfo['message'] = $errstr;
-				$errorInfo['file'] = $errfile;
-				$errorInfo['line'] = $errline;
-				$trace = debug_backtrace();
-				unset($trace[0]);
-				$errorInfo['trace'] = $this->_format_trace($trace);
-				$errorInfo['hash'] = md5($errno . $errline . $errstr);
-				$this->_allError[] = $errorInfo;
-			}
-
-			if (in_array($errno, [1, 4, 16, 64, 4096], true)) {
-				$this->print_err();
-				die();
-			}
-			$this->print_err();
-
-			return true;
 		}
 
 	/**
@@ -410,12 +381,10 @@ class Error
 		}
 
 
-	/**
-	 *
-	 */
+
 	public function write_errorlog()
 		{
-			if ((false !== (bool) $this->conf['logType']) && (0 !== count($this->_allError))) {
+			if ((false != (bool) $this->conf['logType']) && (0 != count($this->_allError))) {
 				$log = null;
 				try {
 					$log = new Log();
@@ -466,7 +435,7 @@ class Error
 	public function error_display()
 		{
 
-			if (false !== $this->conf['debugMode'] && (0 !== count($this->_allError))) {
+			if (false !== DEBUG_MODE && (0 !== count($this->_allError))) {
 				$htmlText = '';
 				$message = '';
 				foreach ($this->_allError as $key => $errorInfo) {
@@ -640,12 +609,17 @@ DIV.container {
 
 <script type="text/javascript">
 window.onload = function () {
+
 	var texno = document.getElementsByClassName('texno');
 	var container = document.getElementsByClassName('container');
+
+	if(texno.length) {
 	var wrap = "<div class='intererrorblock'><div class='intererrorTime'>" + texno[0].outerHTML + "</div></div>";
 	texno[0].outerHTML = null;
     container[0].innerHTML += wrap;
-    container[0].style.display = 'block'; // покуазать блок ошибок
+	}
+
+    container[0].style.display = 'block'; // показать блок ошибок
 
   return false;
 }
@@ -694,21 +668,23 @@ END;
 		{
 
 			$lines = file($this->e->getFile());
-			$firstLine = $this->e->getLine() < $this->line_limit ? 0 : $this->e->getLine() - $this->line_limit;
-			$lastLine = $firstLine + $this->line_limit < count($lines) ? $firstLine + $this->line_limit : count($lines);
+			$firstLine = $this->e->getLine() < $this->line_limit ? 0 : $this->e->getLine() - ceil($this->line_limit * 0.7);
+			$lastLine = $firstLine + $this->line_limit < count($lines) ?
+				$firstLine + $this->line_limit : count($lines);
 			$code = '';
 
 			$isNormalMode = current(current($this->e->getTrace())) !== 'fatalErrorHandler';
 
-			for ($i = $firstLine; $i < $lastLine; $i ++) {
-				$s = ($i + 1) . '  ' . $lines[$i];
+			for ($i = $firstLine - 1; $i < $lastLine; $i ++) {
+				$s = ($i+1) . '  ' . $lines[$i];
 				if ($isNormalMode) {
 					$s = highlight_string('<?php' . $s, true);
 					$s = preg_replace('/&lt;\?php/', '', $s, 1);
 				} else {
 					$s = '<pre>' . htmlspecialchars($s) . '</pre>';
 				}
-				if ($i === $this->e->getLine() - 1) {
+
+				if ($i == $this->e->getLine() - 1) {
 					$s = preg_replace('/(<\w+)/', '$1 class="error-line"', $s);
 				}
 				$code .= $s;
@@ -825,12 +801,17 @@ DIV.container {
 
 <script type="text/javascript">
 window.onload = function () {
+
 	var texno = document.getElementsByClassName('texno');
 	var container = document.getElementsByClassName('container');
+
+	if(texno.length) {
 	var wrap = "<div class='intererrorblock'><div class='intererrorTime'>" + texno[0].outerHTML + "</div></div>";
 	texno[0].outerHTML = null;
     container[0].innerHTML += wrap;
-    container[0].style.display = 'block'; // покуазать блок ошибок
+	}
+
+    container[0].style.display = 'block'; // показать блок ошибок
 
   return false;
 }

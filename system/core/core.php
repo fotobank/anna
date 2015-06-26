@@ -15,14 +15,12 @@ if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (array_key_exists('logged', $_SES
 
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
-	error_reporting(- 1); //обычно должно хватить только этой строки E_ALL
 	define('DEBUG_MODE', true); // показ ошибок на монитор
 
 } else {
 
 	ini_set('display_errors', 0);
 	ini_set('display_startup_errors', 0);
-	error_reporting(E_ALL);
 	define('DEBUG_MODE', false);
 }
 
@@ -72,8 +70,8 @@ if (!function_exists('debugHC')) {
 
 $err = new Error();
 $err->conf['logDir'] = SITE_PATH.'log';
-// Error::$conf['otl'] = true; // включить запись лога на 127.0.0.1
-// Error::var_dump('Test'); // вывод дампа переменных
+// $err->conf['otl'] = true; // включить запись лога на 127.0.0.1
+//$err->var_dump('SITE_PATH'); // вывод дампа переменных
 if (!function_exists('v_dump')) {
 	function v_dump()
 		{
@@ -86,7 +84,7 @@ if (!function_exists('v_dump')) {
 
 
 /** Test Begins **/
-// echo $test_test; // Notice
- trigger_error('Это тест' , E_USER_ERROR ); // User_Error
+ echo $test_test; // Notice
+// trigger_error('Это тест' , E_USER_ERROR ); // User_Error
 // throw new Exception('this is a test'); // Uncaught Exception
 // echo fatal(); // Fatal Error

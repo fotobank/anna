@@ -836,7 +836,8 @@ function path_info($path)
 			$basename = explode('/', $path);
 			$basename = end($basename);
 		} else if (strpos($path, '\\') !== false) {
-			$basename = end(explode('\\', $path));
+			$basename = explode('\\', $path);
+			$basename = end($basename);
 		} else {
 			return false;
 		}
@@ -880,7 +881,7 @@ function __basename($param, $suffix = null)
 
 		if ($suffix) {
 
-			if ((strpos($param, $suffix) + strlen($suffix)) == strlen($param)) {
+			if ((strpos($param, $suffix) + strlen($suffix)) === strlen($param)) {
 				return str_ireplace($suffix, '', $basename);
 			} else {
 				return $basename;
@@ -983,12 +984,12 @@ function flat_array($multiarray)
 function recursive_dir($dir, $mask = '.jpg', $ok_subdir = [], $no_subdir = [], $multi_arrau = true)
 	{
 		static $arr = [];
-		$cont = glob($dir."/*");
+		$cont = glob($dir.'/*');
 		if (count($cont)) {
 			$name_subdir = basename($dir);
 			foreach ($cont as $file) {
-				if (in_array($name_subdir, $ok_subdir) || !count($ok_subdir)) {
-					if (!in_array($name_subdir, $no_subdir)) {
+				if (in_array($name_subdir, $ok_subdir, true) || !count($ok_subdir)) {
+					if (!in_array($name_subdir, $no_subdir, true)) {
 						if (is_dir($file)) {
 							recursive_dir($file, $mask, $ok_subdir, $no_subdir, $multi_arrau);
 						} else {
