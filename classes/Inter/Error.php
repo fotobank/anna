@@ -171,8 +171,12 @@ class Error
 			$errorInfo = [];
 			$errorInfo['time'] = time();
 			$errorInfo['type'] = 'EXCEPTION';
-			$errorInfo['name'] = get_class($e);
 			$errorInfo['code'] = $e->getCode();
+			if (array_key_exists($errorInfo['code'], $this->_errorText)) {
+				$errorInfo['name'] = $this->_errorText[$errorInfo['code']];
+			} else {
+				$errorInfo['name'] = get_class($e);
+			}
 			$errorInfo['message'] = $e->getMessage();
 			$errorInfo['file'] = $e->getFile();
 			$errorInfo['line'] = $e->getLine();
@@ -185,7 +189,7 @@ class Error
 
 	public function printExceptionPage()
 		{
-			if (DEBUG_MODE === false) {
+			if (DEBUG_MODE == false) {
 				$exception_page = SITE_PATH . $this->conf['friendlyExceptionPage'];
 				if (is_file($exception_page)) {
 					/** @noinspection PhpIncludeInspection */
@@ -211,11 +215,10 @@ class Error
 			/* Ќулевое значение 'error_reporting' означает что был использован оператор "@" */
 			$err_res = error_reporting();
 			$mask = $errno & $this->errorConversionMask;
-			if ($err_res === 0 or $mask === 0) {
+			if ($err_res == 0 or $mask == 0) {
 				return true;
 			}
-			$this->e = new ErrorException($errstr, 0, $errno, $errfile, $errline);
-			throw $this->e;
+			throw new ErrorException($errstr, $errno, $errno, $errfile, $errline);
 		}
 
 	/**
@@ -225,9 +228,9 @@ class Error
 		{
 			$this->key_fatal_error = true;
 			$last_error = error_get_last();
-			if (0 === count($last_error)) {
+			if (0 == count($last_error)) {
 				/** @noinspection UnSafeIsSetOverArrayInspection */
-				if (isset($this->_allError[0]['code']) && $this->_allError[0]['code'] === 0) {
+				if (isset($this->_allError[0]['code']) && $this->_allError[0]['code'] == 0) {
 					$this->printExceptionPage();
 				}
 				$this->print_err();
@@ -235,9 +238,9 @@ class Error
 				return false;
 			}
 
-			if (($last_error && ($last_error['type'] === E_ERROR || $last_error['type'] === E_PARSE ||
-								 $last_error['type'] === E_COMPILE_ERROR) && // если кончилась пам€ть
-				 0 === strpos($last_error['message'], 'Allowed memory size'))
+			if (($last_error && ($last_error['type'] == E_ERROR || $last_error['type'] == E_PARSE ||
+								 $last_error['type'] == E_COMPILE_ERROR) && // если кончилась пам€ть
+				 0 == strpos($last_error['message'], 'Allowed memory size'))
 			) {
 				// выдел€ем немножко, что бы доработать корректно
 				ini_set('memory_limit', ((int) (ini_get('memory_limit')) + 64) . 'M');
@@ -248,8 +251,8 @@ class Error
 			if (0 !== count($this->_allError)) {
 				$log_last_error = end($this->_allError);
 				//reset($this->_allError);
-				if ($log_last_error['code'] === $last_error['type'] &&
-					$log_last_error['file'] === $last_error['file'] && $log_last_error['line'] === $last_error['line']
+				if ($log_last_error['code'] == $last_error['type'] &&
+					$log_last_error['file'] == $last_error['file'] && $log_last_error['line'] == $last_error['line']
 				) {
 					return false;
 				}
@@ -348,11 +351,11 @@ class Error
 			//    $string = '';
 			$argsAll = [];
 			foreach ($args as $key => $value) {
-				if (true === is_object($value)) {
+				if (true == is_object($value)) {
 					$argsAll[$key] = 'Object(' . get_class($value) . ')';
-				} elseif (true === is_numeric($value)) {
+				} elseif (true == is_numeric($value)) {
 					$argsAll[$key] = $value;
-				} elseif (true === is_string($value)) {
+				} elseif (true == is_string($value)) {
 					$temp = $value;
 					if (!extension_loaded('mbstring')) {
 						if (strlen($temp) > 300) {
@@ -365,8 +368,8 @@ class Error
 					}
 					$argsAll[$key] = "'{$temp}'";
 					$temp = null;
-				} elseif (true === is_bool($value)) {
-					if (true === $value) {
+				} elseif (true == is_bool($value)) {
+					if (true == $value) {
 						$argsAll[$key] = 'true';
 					} else {
 						$argsAll[$key] = 'false';
@@ -398,11 +401,11 @@ class Error
 						$this->hash_w[] = $errorInfo['hash'];
 						$logText = '';
 						$logText .= date('d-m-Y H:i:s', $errorInfo['time']) . "\t" . $this->_request_uri . "\t" .
-									$errorInfo['type'] . "\t" . $errorInfo['name'] . "\t" . 'Code ' .
+									$errorInfo['type'] . "\t" . $errorInfo['name'] . "\t" . 'Code: ' .
 									$errorInfo['code'] . "\t" . $errorInfo['message'] . "\t" . $errorInfo['file'] .
 									"\t" . 'Line ' . $errorInfo['line'];
 
-						if ('detail' === $this->conf['logType'] && !empty($errorInfo['trace'])) {
+						if ('detail' == $this->conf['logType'] && !empty($errorInfo['trace'])) {
 							$prefix = "\n[TRACE]\t#";
 							foreach ($errorInfo['trace'] as $stack => $trace) {
 								$logText .= $prefix . $stack . "\t" . $trace['file'] . "\t" . $trace['line'] . "\t" .
@@ -443,7 +446,7 @@ class Error
 						$this->hash_d[] = $errorInfo['hash'];
 						$htmlText .=
 							'<div class="intererrorblock"><div class="intererrortitle"><strong>[' . $errorInfo['name'] .
-							'][Code ' . $errorInfo['code'] . ']</strong>  ' . $errorInfo['message'] .
+							'][Code: ' . $errorInfo['code'] . ']</strong>  ' . $errorInfo['message'] .
 							'</div><div class="intererrorsubtitle">Line ' . $errorInfo['line'] . ' On <a href="' .
 							$errorInfo['file'] . '">' . $errorInfo['file'] .
 							'</a></div><div class="intererrorcontent">';
@@ -472,7 +475,7 @@ class Error
 
 						$htmlText .= '</div></div>';
 
-						$message = ($this->e) ? $this->getUserErrNotification() : false;
+						$message = $this->getUserErrNotification();
 					} else {
 						continue;
 					}
@@ -666,31 +669,38 @@ END;
 	 */
 	private function getUserErrNotification()
 		{
-
-			$lines = file($this->e->getFile());
-			$firstLine = $this->e->getLine() < $this->line_limit ? 0 : $this->e->getLine() - ceil($this->line_limit * 0.7);
-			$lastLine = $firstLine + $this->line_limit < count($lines) ?
-				$firstLine + $this->line_limit : count($lines);
-			$code = '';
-
-			$isNormalMode = current(current($this->e->getTrace())) !== 'fatalErrorHandler';
-
-			for ($i = $firstLine - 1; $i < $lastLine; $i ++) {
-				$s = ($i+1) . '  ' . $lines[$i];
-				if ($isNormalMode) {
-					$s = highlight_string('<?php' . $s, true);
-					$s = preg_replace('/&lt;\?php/', '', $s, 1);
-				} else {
-					$s = '<pre>' . htmlspecialchars($s) . '</pre>';
-				}
-
-				if ($i == $this->e->getLine() - 1) {
-					$s = preg_replace('/(<\w+)/', '$1 class="error-line"', $s);
-				}
-				$code .= $s;
+			if ($this->e) {
+				$err_line = $this->e->getLine();
+				$lines = file($this->e->getFile());
+				$isNormalMode = current(current($this->e->getTrace())) != 'fatalErrorHandler';
+			} else {
+				$err_line = $this->_allError[0]['line'];
+				$lines = file($this->_allError[0]['file']);
+				$isNormalMode = true;
 			}
 
-			return '
+				$firstLine = $err_line < $this->line_limit ? 0 : $err_line - ceil($this->line_limit * 0.7);
+				$lastLine = $firstLine + $this->line_limit < count($lines) ?
+					$firstLine + $this->line_limit : count($lines);
+				$code = '';
+
+
+				for ($i = $firstLine - 1; $i < $lastLine; $i ++) {
+					$s = ($i + 1) . '  ' . $lines[$i];
+					if ($isNormalMode) {
+						$s = highlight_string('<?php' . $s, true);
+						$s = preg_replace('/&lt;\?php/', '', $s, 1);
+					} else {
+						$s = '<pre>' . htmlspecialchars($s) . '</pre>';
+					}
+
+					if ($i == $err_line - 1) {
+						$s = preg_replace('/(<\w+)/', '$1 class="error-line"', $s);
+					}
+					$code .= $s;
+				}
+
+				return '
     <article>
         <section>
         <div class="intererrorblock">
@@ -699,7 +709,6 @@ END;
             ' . $code . '
             </div></div>
         </section>
-
     </article>';
 
 		}
