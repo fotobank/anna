@@ -11,7 +11,7 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-//ob_start();
+ob_start();
 
 /** @noinspection PhpIncludeInspection */
 include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php');
@@ -22,14 +22,7 @@ include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
 // Загружаем router
 $router = new Router();
-$routers = [
-	'error' => [
-		'controller' => 'errors',
-		'method'     => 'error404'
-	]
-];
-$router->set_route($routers);
 // запускаем маршрутизатор
 $router->start();
 
-//ob_end_flush();
+ob_end_flush();

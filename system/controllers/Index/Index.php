@@ -46,7 +46,7 @@ class Index extends controller\Controller
 								// footer
 								'debug_mode'      => DEBUG_MODE,
 								'auto_copyright'  => auto_copyright('2011'),
-								'php_sessid'      => isset($_COOKIE['PHPSESSID']) ? $_COOKIE['PHPSESSID'] : ip(),
+								'php_sessid'      => array_key_exists('PHPSESSID', $_COOKIE) ? $_COOKIE['PHPSESSID'] : ip(),
 								// свойства IndexPage
 								// 'carousel'     => carousel(), //карусель
 								'http_host'       => getenv('HTTP_HOST'),  // телефон в слайдере

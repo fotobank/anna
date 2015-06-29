@@ -22,6 +22,9 @@ namespace controllers\Controller;
 abstract class Controller
 {
 
+	/**
+	 * @var \Mustache_Engine
+	 */
 	public $mustache;
 
 	/**
@@ -31,9 +34,9 @@ abstract class Controller
 		{
 
 			/**==========================для раздела "отзывы"====================*/
-			if (isset($_POST['nick']) && isset($_POST['email'])) {
-				setcookie("nick", $_POST['nick'], time() + 300);
-				setcookie("email", $_POST['email'], time() + 300);
+			if (isset($_POST['nick'], $_POST['email'])) {
+				setcookie('nick', $_POST['nick'], time() + 300);
+				setcookie('email', $_POST['email'], time() + 300);
 			}
 			/**==================================================================*/
 
