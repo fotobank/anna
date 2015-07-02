@@ -14,6 +14,8 @@
 
 namespace controllers\Controller;
 
+use Mustache_Engine;
+use Mustache_Autoloader;
 
 /**
  * Class controller_Base
@@ -30,7 +32,7 @@ abstract class Controller
 	/**
 	 *
 	 */
-	function init()
+	public function init()
 		{
 
 			/**==========================для раздела "отзывы"====================*/
@@ -43,9 +45,9 @@ abstract class Controller
 			// mustache
 			/** @noinspection PhpIncludeInspection */
 			include(SITE_PATH . 'vendor/autoload.php');
-			\Mustache_Autoloader::register();
+			Mustache_Autoloader::register();
 			// инициализация шаблонизатора Mustache
-			$this->mustache = new \Mustache_Engine([
+			$this->mustache = new Mustache_Engine([
 					   // 'template_class_prefix' => '__MyTemplates_',
 					   'cache'                  => (SITE_PATH . 'cache/mustache'),
 					   'cache_file_mode'        => 0666,
@@ -63,9 +65,8 @@ abstract class Controller
 					   'logger'                 => new \Mustache_Logger_StreamLogger(SITE_PATH .
 																					 'log'),
 					   'strict_callables'       => true,
-					   'pragmas'                => [\Mustache_Engine::PRAGMA_FILTERS]
+					   'pragmas'                => [Mustache_Engine::PRAGMA_FILTERS]
 												   ]);
 
 		}
-
 }

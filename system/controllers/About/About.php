@@ -15,8 +15,12 @@
 namespace controllers\About;
 
 use controllers\Controller as controller;
-use models\Index as model;
+use models\About as model;
 
+/**
+ * Class About
+ * @package controllers\About
+ */
 class About extends controller\Controller {
 
 
@@ -34,8 +38,8 @@ class About extends controller\Controller {
 	 *
 	 * @throws \phpbrowscap\Exception
 	 */
-	public function index() {
-		$model = new model\Index([
+	public function about() {
+		$model = new model\About([
 									 // свойства Base
 									 'file_meta_title' => SITE_PATH.'system/config/meta_title.ini',
 									 'admin_mode'      => if_admin(true),
@@ -49,7 +53,7 @@ class About extends controller\Controller {
 									 'filenews'        => 'news.txt', // файл новостей
 									 'lite_box_path'   => 'files/slides/*.jpg' // маска и путь сканирования лайтбокса
 								 ]);
-		echo $this->mustache->render('index', $model);
+		echo $this->mustache->render('about', $model);
 	}
 
 
