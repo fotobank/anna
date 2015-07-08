@@ -1,31 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="PublishConfigData" serverName="annafoto.in.ua" deleteMissingItems="true" createEmptyFolders="true" uploadOnCheckin="afc41fa9-bbc3-4b39-9b98-3958ae7f4667" showNewOnTargetInSync="false">
-    <serverData>
-      <paths name="annafoto.in.ua">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/cache" />
-            <excludedPath local="true" path="$PROJECT_DIR$/No_id" />
-            <excludedPath local="true" path="$PROJECT_DIR$/abrowser" />
-            <excludedPath local="true" path="$PROJECT_DIR$/ai-cache" />
-            <excludedPath local="true" path="$PROJECT_DIR$/class_protect_pictur" />
-            <excludedPath local="true" path="$PROJECT_DIR$/image-crop" />
-            <excludedPath local="true" path="$PROJECT_DIR$/Form" />
-            <excludedPath local="true" path="$PROJECT_DIR$/ImageFileBrowser" />
-            <excludedPath path="/sitemap.xml" />
-            <excludedPath path="/robots.txt" />
-            <excludedPath local="true" path="$PROJECT_DIR$/sitemap.xml" />
-            <excludedPath local="true" path="$PROJECT_DIR$/robots.txt" />
-            <excludedPath local="true" path="$PROJECT_DIR$/.idea" />
-            <excludedPath local="true" path="$PROJECT_DIR$/1" />
-          </excludedPaths>
-        </serverdata>
-      </paths>
-    </serverData>
     <option name="myUploadOnCheckinName" value="annafoto.in.ua" />
   </component>
 </project>
