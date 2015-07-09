@@ -52,6 +52,13 @@ abstract class Base
 	 */
 	public function __construct()
 		{
+			$this->file_meta_title = SITE_PATH.'system/config/meta_title.ini';
+			$this->admin_mode      = if_admin(true);
+			// footer
+			$this->debug_mode      = DEBUG_MODE;
+			$this->auto_copyright  = auto_copyright('2011');
+			$this->php_sessid      = array_key_exists('PHPSESSID', $_COOKIE) ? $_COOKIE['PHPSESSID'] : ip();
+
 			$this->categorii = $this->getDbTitleName();
 			$this->getMetaTitle();
 		}

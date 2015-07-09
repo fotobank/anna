@@ -14,15 +14,24 @@
 
 namespace models\About;
 
+use models\Base as model;
 
 /**
  * Class About
  * @package models\About
  */
-class About {
+class About extends model\Base
+{
 
-
-	public function about(){
+	/**
+	 * @param $options
+	 */
+	public function __construct($options = [])
+	{
+		// настройка свойств класса
+		$this->setOptions($options);
+		// инициализация конструктора родительского класса
+		parent::__construct();
 
 	}
 

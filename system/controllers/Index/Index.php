@@ -40,13 +40,6 @@ class Index extends controller\Controller
 	 */
 	public function index() {
 		$model = new model\Index([
-								// свойства Base
-								'file_meta_title' => SITE_PATH.'system/config/meta_title.ini',
-								'admin_mode'      => if_admin(true),
-								// footer
-								'debug_mode'      => DEBUG_MODE,
-								'auto_copyright'  => auto_copyright('2011'),
-								'php_sessid'      => array_key_exists('PHPSESSID', $_COOKIE) ? $_COOKIE['PHPSESSID'] : ip(),
 								// свойства IndexPage
 								// 'carousel'     => carousel(), //карусель
 								'http_host'       => getenv('HTTP_HOST'),  // телефон в слайдере

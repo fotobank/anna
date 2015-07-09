@@ -27,7 +27,7 @@ namespace Mustache\Core\Services {
 		/**
 		 * @param $dates
 		 */
-		function __construct($dates) {
+		public function __construct($dates) {
 			$this->set_var( $dates ); // установка исходных данных
 		}
 

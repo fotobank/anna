@@ -1,6 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
   <data-source name="MySQL - annafoto@localhost" uuid="5da65ac9-2d00-478a-8626-f824fbf6d469">
-    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+    <database-info product="MySQL" version="5.1.73-community-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.31 ( Revision: alexander.soklakov@oracle.com-20140520065950-groqzzbvxprqdmnz )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="annafoto"/>
+    <table name="citata" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0LjQvdC00LXQutGB" autoIncrement="true"/>
+      <column name="cit" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="0YbQuNGC0LDRgtCw"/>
+      <column name="avtor" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="0LDQstGC0L7RgA=="/>
+      <column name="id_pick" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="aWQg0YLQsNCx0LvQuNGG0Ysg0L3QsNGB0YLRgNC+0LXQug=="/>
+      <column name="hash" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="JzAn" remarks="0YXQtdGIINGG0LjRgtCw0YLRiw=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="hash" unique="true" columns="hash"/>
+    </table>
+    <table name="gb_posts" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="MEDIUMINT UNSIGNED" precision="8" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="poster" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="text" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="ip" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="create_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="flag" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="flag" unique="false" columns="flag"/>
+    </table>
+    <table name="gb_replies" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5" autoIncrement="true"/>
+      <column name="parent" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="poster" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="reply" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="create_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="parent" unique="false" columns="parent"/>
+    </table>
+    <table name="gb_users" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="MEDIUMINT" precision="7" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="login" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="pass" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="id" unique="false" columns="id"/>
+    </table>
+    <table name="index_body" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="position" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="0L/QvtC30LjRhtC40Y8g0Y3Qu9C10LzQtdC90YLQsA=="/>
+      <column name="title" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="0LfQsNCz0L7Qu9C+0LLQvtC6INCx0LvQvtC60LA="/>
+      <column name="id_head" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0Jog0LrQsNC60L7QvNGDINC+0LPQu9Cw0LLQu9C10L3QuNGOINC+0YLQvdC+0YHQuNGC0YHRjw=="/>
+      <column name="teg_id" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" remarks="0LjQtNC10L3RgtC40YTQuNC60LDRgtC+0YAg0LjQu9C4INC60LvQsNGB0YEg0LHQu9C+0LrQsA=="/>
+      <column name="text" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="0KHQvtC00LXRgNC20LDQvdC40LUg0LHQu9C+0LrQsA=="/>
+      <column name="edit_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0LrRgtC+INGA0LXQtNCw0LrRgtC40YDQvtCy0LDQuw=="/>
+      <column name="img_src" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="img_alt" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="0L7Qv9C40YHQsNC90LjQtSBpbWc="/>
+      <column name="footer" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="0YHRgdGL0LvQutCwLCBpbWcg0YHQvdC40LfRgyDQsdC70L7QutCw"/>
+      <column name="time" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" remarks="0LrQvtCz0LTQsCDQsdGL0LvQviDQv9C+0YHQu9C10LTQvdC10LUg0LjQt9C80LXQvdC10L3QuNC1" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="index_menu" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="position" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="name_head" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12" remarks="0J3QsNC30LLQsNC90LjQtSDRgNCw0LfQtNC10LvQsA=="/>
+      <column name="edit_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0LrRgtC+INGA0LXQtNCw0LrRgtC40YDQvtCy0LDQuw=="/>
+      <column name="time" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" remarks="0LrQvtCz0LTQsCDQsdGL0LvQviDQv9C+0YHQu9C10LTQvdC10LUg0LjQt9C80LXQvdC10L3QuNC1" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="position" unique="false" columns="position"/>
+    </table>
+    <table name="item" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0LjQvdC00LXQutGB" autoIncrement="true"/>
+      <column name="title" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="0LfQsNCz0L7Qu9C+0LLQvtC6"/>
+      <column name="mini" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="0LrRgNCw0YLQutCw0Y8g0L3QvtCy0L7RgdGC0Yw="/>
+      <column name="full" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="0L/RgNC+0LTQvtC70LbQtdC90LjQtSDQvdC+0LLQvtGB0YLQuA=="/>
+      <column name="id_pick" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="aWQg0YLQsNCx0LvQuNGG0Ysg0L3QsNGB0YLRgNC+0LXQug=="/>
+      <column name="hash" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="JzAn" remarks="0YXQtdGI"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="hash" unique="true" columns="hash"/>
+    </table>
+    <table name="news" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0LjQvdC00LXQutGB" autoIncrement="true"/>
+      <column name="title" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="0LfQsNCz0L7Qu9C+0LLQvtC6"/>
+      <column name="mini" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="0LrRgNCw0YLQutCw0Y8g0L3QvtCy0L7RgdGC0Yw="/>
+      <column name="full" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="0L/RgNC+0LTQvtC70LbQtdC90LjQtSDQvdC+0LLQvtGB0YLQuA=="/>
+      <column name="id_pick" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="aWQg0YLQsNCx0LvQuNGG0Ysg0L3QsNGB0YLRgNC+0LXQug=="/>
+      <column name="hash" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="JzAn" remarks="0YXQtdGI"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="hash" unique="true" columns="hash"/>
+    </table>
+    <table name="pick" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0LjQvdC00LXQutGB" autoIncrement="true"/>
+      <column name="quote" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12" remarks="0LHQu9C+0Log0LrQu9Cw0YHRgdCwINGB0L7RgdGC0L7Rj9GI0LjQuSDQuNC3INCx0LvQvtC60LAg0YbQuNGC0LDRgtGLINC4INCx0LvQvtC60LAg0LDQstGC0L7RgNCw"/>
+      <column name="q_citata" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12" remarks="0LrQu9Cw0YHRgSDQsdC70L7QutCwINGG0LjRgtCw0YLRiw=="/>
+      <column name="q_avtor" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12" remarks="0LrQu9Cw0YHRgSDQtNC70Y8g0LLRi9Cx0L7RgNCwINCx0LvQvtC60LAg0LDQstGC0L7RgNCw"/>
+      <column name="url" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12" remarks="dXJs"/>
+      <column name="tabl" sqlType="SET" precision="16" scale="0" nullable="false" jdbcType="1" remarks="0Log0LrQsNC60L7QuSDRgtCw0LHQu9C40YbQtSDQvtGC0L3QvtGB0LjRgtC40YLRgdGPINC30LDQv9C40YHRjA=="/>
+      <column name="date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" remarks="0LLRgNC10LzRjyDQvtCx0L3QvtCy0LvQtdC90LjRjyA=" version="true"/>
+      <column name="time" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" remarks="0LjQvdGC0LXRgNCy0LDQuyDQvtC/0YDQvtGB0LAg0YHQsNC50YLQvtCyINC00L7QvdC+0YDQvtCyINCyINC00L3Rj9GF"/>
+      <column name="suss" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="0YDQtdC30YPQu9GM0YLQsNGCINC+0L/RgNC+0YHQsCAxIC0g0YPRgdC/0LXRiNC90L4="/>
+      <column name="err" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" remarks="0L7RiNC40LHQutC4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="services_body" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="position" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="0L/QvtC30LjRhtC40Y8g0Y3Qu9C10LzQtdC90YLQsA=="/>
+      <column name="title" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="0LfQsNCz0L7Qu9C+0LLQvtC6INCx0LvQvtC60LA="/>
+      <column name="id_head" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0Jog0LrQsNC60L7QvNGDINC+0LPQu9Cw0LLQu9C10L3QuNGOINC+0YLQvdC+0YHQuNGC0YHRjw=="/>
+      <column name="teg_id" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" remarks="0LjQtNC10L3RgtC40YTQuNC60LDRgtC+0YAg0LjQu9C4INC60LvQsNGB0YEg0LHQu9C+0LrQsA=="/>
+      <column name="text" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="0KHQvtC00LXRgNC20LDQvdC40LUg0LHQu9C+0LrQsA=="/>
+      <column name="edit_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0LrRgtC+INGA0LXQtNCw0LrRgtC40YDQvtCy0LDQuw=="/>
+      <column name="img_src" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="img_alt" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="0L7Qv9C40YHQsNC90LjQtSBpbWc="/>
+      <column name="footer" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="0YHRgdGL0LvQutCwLCBpbWcg0YHQvdC40LfRgyDQsdC70L7QutCw"/>
+      <column name="time" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" remarks="0LrQvtCz0LTQsCDQsdGL0LvQviDQv9C+0YHQu9C10LTQvdC10LUg0LjQt9C80LXQvdC10L3QuNC1" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="services_menu" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="position" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="name_head" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12" remarks="0J3QsNC30LLQsNC90LjQtSDRgNCw0LfQtNC10LvQsA=="/>
+      <column name="edit_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0LrRgtC+INGA0LXQtNCw0LrRgtC40YDQvtCy0LDQuw=="/>
+      <column name="time" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" remarks="0LrQvtCz0LTQsCDQsdGL0LvQviDQv9C+0YHQu9C10LTQvdC10LUg0LjQt9C80LXQvdC10L3QuNC1" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="position" unique="false" columns="position"/>
+    </table>
+    <table name="tz_who_is_online" schema="" catalog="annafoto" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="ip" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="country" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="countrycode" sqlType="VARCHAR" precision="2" scale="0" nullable="false" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="dt" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="ip" unique="true" columns="ip"/>
+      <index name="countrycode" unique="false" columns="countrycode"/>
+    </table>
   </data-source>
 </component>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Класс предназначен для 
+ * Класс Error
  * @created   by PhpStorm
  * @package   Error.php
  * @version   1.0
