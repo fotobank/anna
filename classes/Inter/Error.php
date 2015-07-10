@@ -292,6 +292,7 @@ class Error
 			return true;
 		}
 
+
 	/**
 	 * request_uri
 	 * @return string
