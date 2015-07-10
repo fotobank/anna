@@ -19,7 +19,7 @@ if (session_id() === '') {
 
 // включить админа для отладки
 if ($_SERVER['REMOTE_ADDR'] === '176.119.96.114') {
-	$_SESSION['logged'] = '0';
+	$_SESSION['logged'] = '1';
 }
 
 if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (array_key_exists('logged', $_SESSION) && $_SESSION['logged'] === '1')) {
