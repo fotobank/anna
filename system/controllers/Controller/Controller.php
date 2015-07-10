@@ -54,9 +54,9 @@ abstract class Controller
 					   // Please, configure your umask instead of doing this :)
 					   'cache_lambda_templates' => true,
 					   'loader'                 => new \Mustache_Loader_FilesystemLoader(SITE_PATH .
-																						 'system/Views/Mustache/templates'),
+																						 'system/views/Mustache/templates'),
 					  'partials_loader'         => new \Mustache_Loader_FilesystemLoader(SITE_PATH .
-																						 'system/Views/Mustache/templates/partials'),
+																						 'system/views/Mustache/templates/partials'),
 					  // 'helpers' => [ 'i18n'  => function($text) {  } ],
 					   'escape'                 => function ($value) {
 						   return htmlspecialchars($value, ENT_COMPAT, 'windows-1251');

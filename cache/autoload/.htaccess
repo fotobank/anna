@@ -1,4 +1,0 @@
-<Files *.html, *.php>
-Order deny,allow
-Deny from all
-</Files>
