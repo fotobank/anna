@@ -301,7 +301,7 @@ class Error
 		{
 
 			if (array_key_exists('PHP_SELF', $_SERVER)) {
-				if (array_key_exists('argv', $_SERVER) && array_key_exists(0, $_SERVER['argv'])) {
+				if (!empty($_SERVER['argv']) && array_key_exists(0, $_SERVER['argv'])) {
 					return $_SERVER['PHP_SELF'] . '?' . $_SERVER['argv'][0];
 				} elseif (array_key_exists('QUERY_STRING', $_SERVER)) {
 					return $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
