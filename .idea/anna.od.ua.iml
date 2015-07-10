@@ -37,16 +37,32 @@
       <library name="PHP">
         <CLASSES>
           <root url="file://C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass" />
-          <root url="file://$MODULE_DIR$/vendor/composer" />
           <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
+          <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://O:/modules/php/PHP-5.4" />
         </CLASSES>
         <SOURCES>
           <root url="file://C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass" />
-          <root url="file://$MODULE_DIR$/vendor/composer" />
           <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
+          <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://O:/modules/php/PHP-5.4" />
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="library" name="compass-library" level="project" />
+    <orderEntry type="module-library">
+      <library name="PHARS">
+        <CLASSES>
+          <root url="phar://O:/modules/php/PHP-5.4/PEAR/go-pear.phar" />
+          <root url="phar://O:/modules/php/PHP-5.4/pharcommand.phar" />
+          <root url="phar://O:/modules/php/PHP-5.4/composer.phar" />
+        </CLASSES>
+        <SOURCES>
+          <root url="phar://O:/modules/php/PHP-5.4/PEAR/go-pear.phar" />
+          <root url="phar://O:/modules/php/PHP-5.4/pharcommand.phar" />
+          <root url="phar://O:/modules/php/PHP-5.4/composer.phar" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -38,7 +38,7 @@ class Test
 	/**
 	 * старт
 	 */
-	function __construct() {
+	public function __construct() {
 		self::start();
 	}
 
@@ -127,7 +127,7 @@ class Test
             $format = preg_replace('/(%.[\d]+f)/', '%d', $format);
         }
 
-        return sprintf($format, round($size, $round), " ".$units[$i]);
+        return sprintf($format, round($size, $round), ' '.$units[$i]);
     }
 
     /**
@@ -151,15 +151,15 @@ class Test
             $time = $microtime*1000;
         }
 
-        return sprintf($format,$time, " ".$unit);
+        return sprintf($format,$time, ' '.$unit);
     }
 
 	public function __destruct() {
 
 		self::end();
-		$ret = "<span class='texno'> Время: " . self::getTime() . " / ";
-		$ret .= "Память пиковая: " . self::getMemoryPeak() . " / ";
-		$ret .= "Память конечная: " . self::getMemoryUsage() . "</span>";
+		$ret = '<span class="texno"> Время: ' . self::getTime() . ' / ';
+		$ret .= 'Память пиковая: ' . self::getMemoryPeak() . ' / ';
+		$ret .= 'Память конечная: ' . self::getMemoryUsage() . '</span>';
 
 		echo $ret;
 	}
