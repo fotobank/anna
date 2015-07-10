@@ -14,8 +14,10 @@
 
 namespace controllers\Controller;
 
-use Mustache_Engine;
+use Mustache_Engine as Mustache;
 use Mustache_Autoloader;
+use Mustache_Loader_FilesystemLoader as Loader;
+use Mustache_Logger_StreamLogger as Logger;
 
 /**
  * Class controller_Base
@@ -47,25 +49,22 @@ abstract class Controller
 			include(SITE_PATH . 'vendor/autoload.php');
 			Mustache_Autoloader::register();
 			// инициализация шаблонизатора Mustache
-			$this->mustache = new Mustache_Engine([
+			$this->mustache = new Mustache([
 					   // 'template_class_prefix' => '__MyTemplates_',
 					   'cache'                  => (SITE_PATH . 'cache/mustache'),
 					   'cache_file_mode'        => 0666,
 					   // Please, configure your umask instead of doing this :)
 					   'cache_lambda_templates' => true,
-					   'loader'                 => new \Mustache_Loader_FilesystemLoader(SITE_PATH .
-																						 'system/views/Mustache/templates'),
-					  'partials_loader'         => new \Mustache_Loader_FilesystemLoader(SITE_PATH .
-																						 'system/views/Mustache/templates/partials'),
+					   'loader'                 => new Loader(SITE_PATH .'system/views/Mustache/templates'),
+					  'partials_loader'         => new Loader(SITE_PATH .'system/views/Mustache/templates/partials'),
 					  // 'helpers' => [ 'i18n'  => function($text) {  } ],
 					   'escape'                 => function ($value) {
 						   return htmlspecialchars($value, ENT_COMPAT, 'windows-1251');
 					   },
 					   'charset'                => 'windows-1251',
-					   'logger'                 => new \Mustache_Logger_StreamLogger(SITE_PATH .
-																					 'log'),
+					   'logger'                 => new Logger(SITE_PATH . 'log'),
 					   'strict_callables'       => true,
-					   'pragmas'                => [Mustache_Engine::PRAGMA_FILTERS]
+					   'pragmas'                => [Mustache::PRAGMA_FILTERS]
 												   ]);
 
 		}
