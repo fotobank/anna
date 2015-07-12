@@ -87,6 +87,7 @@ if (!function_exists('v_dump')) {
 		}
 }
 
+
 /** Test Begins **/
 // echo $test_test; // Notice
 // trigger_error('Это тест' , E_USER_ERROR ); // User_Error
