@@ -70,7 +70,7 @@ abstract class Base
 		{
 			if (is_file($this->file_meta_title)) {
 				$arrayMetaTitle = parse_ini_file($this->file_meta_title, true);
-				$this->current_razdel = !empty($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : '/index.php';
+				$this->current_razdel = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/index';
 				foreach ($arrayMetaTitle as $title => $metaData) {
 
 					if ('/'.$title.'.php' === $this->current_razdel) {
@@ -100,7 +100,7 @@ abstract class Base
 					$razdel[] = [
 						'global_menu_name' => $key,
 						'global_menu_href' => $value,
-						'current'          => ($this->current_razdel === $value.'.php') ? 'current' : ''
+						'current'          => ($this->current_razdel === $value) ? 'current' : ''
 					];
 				}
 			}

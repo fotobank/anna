@@ -75,7 +75,7 @@ class Router
 					$this->requestOptions($url_controller, $routes);
 
 				} else {
-					if (!DEBUG_MODE) {
+					if (DEBUG_MODE) {
 						throw new routeException('controller "' . $url_controller . '" не задан в массиве routes', 404);
 					} else {
 						$this->get404();
