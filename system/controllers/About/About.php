@@ -32,8 +32,6 @@ class About extends controller\Controller {
 			parent::init();
 		}
 
-
-
 	/**
 	 * ύκψεν
 	 *
