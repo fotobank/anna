@@ -11,6 +11,8 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
+use classes\pattern\Registry;
+
 ob_start();
 
 /** @noinspection PhpIncludeInspection */
@@ -21,8 +23,6 @@ include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config
 include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
 // Загружаем router
-$router = new Router();
-// запускаем маршрутизатор
-$router->start();
+Registry::build('Router')->start();
 
 ob_end_flush();

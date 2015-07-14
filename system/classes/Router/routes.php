@@ -1,9 +1,5 @@
 <?php
 return [
-	'/'         => [
-		'controller' => 'Index',
-		'method'     => 'index'
-	],
 	'index'     => [
 		'controller' => 'Index',
 		'method'     => 'index'
@@ -30,6 +26,7 @@ return [
 	],
 	'carousel'      => [
 		'controller' => 'Carousel'
+
 	],
 	'error404'  => [
 		'controller' => 'Error',

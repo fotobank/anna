@@ -1,187 +1,103 @@
 <?php
+/**
+ * Класс Registry
+ * @created   by PhpStorm
+ * @package   Reg.php
+ * @version   1.0
+ * @author    Alex Jurii <jurii@mail.ru>
+ * @link      http://alex.od.ua
+ * @copyright Авторские права (C) 2000-2015, Alex Jurii
+ * @date:     13.07.2015
+ * @time:     23:11
+ * @license   MIT License: http://opensource.org/licenses/MIT
+ */
+
+namespace classes\pattern;
+
 
 /**
- * Created by PhpStorm.
- * User: Jurii
+ * //создать экземпляр класса db(если он уже существует, то перезаписать) и вызвать функцию action<br>
+ * Registry::build('db')->action();
  *
- * Получаем объект реестра
- * $Registry = Registry::getInstance();
+ * удалить экземпляр класса db
+ * Registry::del('db');
  *
- * Записываем значения в реестр
- * $Registry['one'] = "1";
- * $Registry['two'] = "2";
- * $Registry['three'] = "3";
- * А можно так
- * $Registry->four = "4";
+ * обратиться к экземпляру класса db(если он не существует, то создать) и вызвать функцию action
+ * можно обращаться из любого места в приложении, вызываться будет один и тот же экземпляр
+ * Registry::call('db')->action();
  *
- * Выводим значения
- * echo $Registry['two'];
- * Выведет 2
+ * аналогично предыдущему, но с одной разницей: экземпляр класса db будет записан в переменную $vars с индексом db:site
+ * можно создавать сколь угодно много экземпляров одного и того же класса с разными индексами
+ * Registry::call('db:site')->action();
  *
- * echo $Registry->three;
- * Выведет 3
+ * удалить экземпляр класса db с индексом site
+ * Registry::del('db:site');
  *
- * echo count($Registry);
- * Выведет 4
+ * и еще пара примеров:
+ * Registry::build('db:site')->connect($login,$pass,$host);
+ * Registry::build('db:forum')->connect($login2,$pass2,$host2);
  *
- * foreach ($Registry as $Key => $Value)
- * {
- * echo $Key."|".$Value."\r\n";
- * }
- * Выведет:
- * one|1
- * two|2
- * three|3
- * four|4
+ * $row1 = Registry::call('db:site')->query("query to site database...");
+ * $row2 = Registry::call('db:forum')->query("query to forum database...");
  *
+ * Registry::call('tpl:style1')->setStyle('style2');
+ *
+ * $template1 = Registry::call('tpl:style1')->load('index')->compile(); //получить шаблон index из стиля style1
+ * $template2 = Registry::call('tpl:style2')->load('index')->compile(); //получить шаблон index из стиля style2
+ *
+ * Class Registry
+ * @package classes\pattern
  */
-class Registry implements ArrayAccess, Iterator, Countable {
+class Registry
+{
 
-	//Здесь хранятся переменные
-	private $vars;
-	//Внутренний счетчик
-	private $counter = 0;
+    private static $vars = [];
 
-	use Common\Container\Singleton;
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public static function build($id)
+    {
+        //создание класса
+        $arr = explode(':', $id);
+        $class = reset($arr);
+        self::$vars[$id] = new $class();
+        return self::$vars[$id];
 
+    }
 
-	/**
-	 * Устанавливает значение переменной
-	 *
-	 * @param $Name
-	 * @param $Value
-	 *
-	 * @throws Exception
-	 */
-	function set($Name, $Value) {
-		if (isset($this->vars[$Name]) == true) {
-			throw new Exception('unable to set var `' . $Name . '` - already set');
-		} elseif (empty($Name)) {
-			$this->vars[] = $Value;
-		} else {
-			$this->vars[$Name] = $Value;
-		}
-	}
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public static function call($id)
+    {
+        //вызов класса(при отсутствии готового экземпляра - создание нового и вызов)
+        if (!array_key_exists($id, self::$vars)) {
 
-	/**
-	 * Возвращает значение переменной
-	 *
-	 * @param $Name
-	 *
-	 * @return null
-	 */
-	function get($Name) {
-		if (isset($this->vars[$Name])) {
-			return $this->vars[$Name];
-		}
+            return self::build($id);
 
-		return null;
-	}
+        } else {
 
-	/**
-	 * @param $Name
-	 * @param $Value
-	 */
-	function __set($Name, $Value) {
-		$this->set($Name, $Value);
-	}
+            return self::$vars[$id];
 
-	/**
-	 * @param $Name
-	 *
-	 * @return null
-	 */
-	function __get($Name) {
-		return $this->get($Name);
-	}
+        }
+    }
 
 
-	/**
-	 * Возвращает кол-во хранимых переменных
-	 *
-	 * @return int
-	 */
-	function count() {
-		return count($this->vars);
-	}
+    /**
+     * @param $id
+     * @return bool
+     */
+    public static function del($id)
+    {
+        //удаление значения(любого типа, в т.ч. класса)
+        if (array_key_exists($id, self::$vars)) {
 
-	/**
-	 * @param mixed $Name
-	 *
-	 * @return bool
-	 */
-	function offsetExists($Name) {
-		return isset($this->vars[$Name]);
-	}
+            unset(self::$vars[$id]);
 
-	/**
-	 * @param mixed $Name
-	 * @param mixed $Value
-	 */
-	function offsetSet($Name, $Value) {
-		$this->set($Name, $Value);
-	}
-
-	/**
-	 * @param mixed $Name
-	 *
-	 * @return null
-	 */
-	function offsetGet($Name) {
-		return $this->get($Name);
-	}
-
-	/**
-	 * @param mixed $Name
-	 */
-	function offsetUnset($Name) {
-		if (isset($this->vars[$Name])) {
-			unset($this->vars[$Name]);
-		}
-	}
-
-	/**
-	 * @return null
-	 */
-	function current() {
-		$Key = $this->key();
-
-		return $this->get($Key);
-	}
-
-	/**
-	 *
-	 */
-	function next() {
-		$this->counter ++;
-	}
-
-	/**
-	 *
-	 */
-	function rewind() {
-		$this->counter = 0;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	function key() {
-		reset($this->vars);
-		for ($i = 0; $i < $this->counter; $i ++) {
-			next($this->vars);
-		}
-
-		return key($this->vars);
-	}
-
-	/**
-	 * @return bool
-	 */
-	function valid() {
-		$Key = $this->key();
-
-		return isset($this->vars[$Key]);
-	}
-
+        }
+        return true;
+    }
 }
