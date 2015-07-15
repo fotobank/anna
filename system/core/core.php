@@ -21,7 +21,6 @@ if (session_id() === '') {
 $_SESSION['logged'] = ($_SERVER['REMOTE_ADDR'] === '130.0.47.88') ? 1 : 0;
 
 
-
 if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SESSION['logged'] === 1) {
 
 	ini_set('display_errors', 1);
