@@ -18,7 +18,7 @@ if (session_id() === '') {
 }
 
 // включить админа для отладки
-$_SESSION['logged'] = ($_SERVER['REMOTE_ADDR'] === '176.119.96.114') ? 1 : 0;
+$_SESSION['logged'] = ($_SERVER['REMOTE_ADDR'] === '130.0.47.88') ? 1 : 0;
 
 
 
