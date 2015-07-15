@@ -81,13 +81,6 @@ class Error
 	private $line_limit = 15;
 
 	/**
-	 * Путь к файлу с сообщением об ошибке
-	 * для пользователя
-	 * @var null|string
-	 */
-	private $messageFile;
-
-	/**
 	 * Битовая маска, определяющая какие ошибки, будут превращены в исключения
 	 *
 	 * @var int
@@ -141,35 +134,11 @@ class Error
 					if (0 != count($this->_allError)) {
 						$this->write_errorlog();
 					}
-					die($this->getUserNotification());
+					$this->printExceptionPage();
 				}
 			}
 		}
 
-	/**
-	 * Возвращает сообщение об ошибке для пользователя
-	 *
-	 * @return bool|string
-	 *
-	 * @since 1
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameters)
-	 */
-	private function getUserNotification()
-		{
-			$message = '';
-			$messageFile = $this->messageFile ? : __DIR__ . '/Resources/FatalError.html';
-			if (@file_exists($messageFile) && @is_readable($messageFile)) {
-				@$message = file_get_contents($messageFile);
-			}
-
-			if (!$message) {
-				$message = '<!doctype html>\n<html><head><title>Internal Server Error</title></head>\n' .
-						   '<body><h1>Internal Server Error</h1></body></html>';
-			}
-
-			return $message;
-		}
 
 	/**
 	 *
@@ -199,15 +168,16 @@ class Error
 
 	public function printExceptionPage()
 		{
-			if (DEBUG_MODE == false) {
 				$exception_page = SITE_PATH . $this->conf['friendlyExceptionPage'];
 				if (is_file($exception_page)) {
+
+					if (!headers_sent()) {
+						header($_SERVER['SERVER_PROTOCOL'] . ' 307 temporary redirect');
+					}
 					/** @noinspection PhpIncludeInspection */
 					require($exception_page);
+					exit();
 				}
-			} else {
-				$this->print_err();
-			}
 		}
 
 
@@ -241,7 +211,6 @@ class Error
 
 				if (isset($this->_allError[0]['code']) && $this->_allError[0]['code'] == 0) {
 					$this->key_fatal_error = true;
-					$this->printExceptionPage();
 					$this->print_err();
 				}
 
@@ -290,12 +259,13 @@ class Error
 				$errorInfo['trace'] = $this->_format_trace($trace);
 				$errorInfo['hash'] = md5($errorInfo['code'] . $errorInfo['line'] . $errorInfo['message']);
 				$this->_allError[] = $errorInfo;
-				if (in_array($errorInfo['code'], [1, 4, 16, 64, 4096], true)) {
+				/*if (in_array($errorInfo['code'], [1, 4, 16, 64, 4096], true)) {
 
 					$this->printExceptionPage();
 
 					return false;
-				}
+				}*/
+
 				//    echo 'ERROR_GET_LAST INFO: '. var_export($errorInfo);
 			}
 			$this->print_err();
