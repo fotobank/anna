@@ -31,7 +31,8 @@ list( $current_razdel, $title, $keywords, $description ) = title();
 	<meta name="author" lang="ru" content="Алексеева Анна | фотограф в Одессе">
 	<meta name="keywords" content="<?= $keywords ?>">
 	<meta name="description" content="<?= $description ?>">
-	<link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+	<link rel="icon" href="/images/favicon.png"  type="image/png" />
+	<link rel="shortcut icon" href="/images/favicon.png" />
 
 
 	<link rel="stylesheet" type="text/css" media="screen" href="/css/style.css">

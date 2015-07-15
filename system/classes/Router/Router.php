@@ -12,6 +12,7 @@
  * @time      :     1:15
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
+use classes\Inter\Error;
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class Router
@@ -252,7 +253,7 @@ class Router
  */
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
-class routeException extends Exception
+class routeException extends InvalidArgumentException
 {
 
     /**
@@ -264,7 +265,7 @@ class routeException extends Exception
         parent::__construct($message, $code);
 
         if (DEBUG_MODE) {
-            die('<b>Ошибка ' . $code . ':</b> ' . $message . '<br>');
+            throw new Exception('<b>Ошибка ' . $code . ':</b> ' . $message . '<br>');
         }
         error_log($message);
         header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');

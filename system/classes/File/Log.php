@@ -18,6 +18,7 @@
  * $log->get_log();
  * 
  */
+namespace classes\File;
 
 /**
  * Class log
@@ -66,12 +67,33 @@ class Log extends File {
 	// 1048576 bytes
 	protected $max_file_size = 1;
 
+
 	/**
-	 * @param null $filepath
+	 * нужен для отмены инициализации класса File
+     */
+	/** @noinspection PhpMissingParentConstructorInspection */
+	/** @noinspection MagicMethodsValidityInspection */
+	public function __construct() {}
+
+	/**
+	 * Создание файла, если его нет и проверка размера файла
+	 * если он больше установленного размера - очистка
+	 * проверка и очистка директории, если размер превышает установленный
+	 * void filename( string $filename )
+	 *
+	 * @param      $filepath
+	 * @param bool $create
 	 */
-	public function __construct( $filepath = null ) {
-		if ( isset( $filepath ) ) {
-			 $this->is_file( $filepath );
+	public function is_file( $filepath, $create = true ) {
+		if ( (int) ( $this->total_size ) > (int) ( $this->max_dir ) ) {
+			$this->clesr_dir();
+		}
+		if ( $this->size > ( 1048576 * $this->max_file_size ) ) {
+			$this->truncate();
+		}
+		parent::__construct( $filepath, $create );
+		if ( ! $this->exists ) {
+			$this->put_email();
 		}
 	}
 
@@ -79,7 +101,7 @@ class Log extends File {
 	 * вывод переменной о существовании файла
 	 * @return bool
 	 */
-	public function exists() {
+	public function isExists() {
 		return $this->exists;
 	}
 
@@ -108,28 +130,8 @@ class Log extends File {
 		$this->contents = $contents;
 		$this->is_file( $filepath );
 		$this->get_file_log();
-		if ( $this->checkInterval()) {$this->put_contents( $this->contents );}
-	}
-
-	/**
-	 * Создание файла, если его нет и проверка размера файла
-	 * если он больше установленного размера - очистка
-	 * проверка и очистка директории, если размер превышает установленный
-	 * void filename( string $filename )
-	 *
-	 * @param      $filepath
-	 * @param bool $create
-	 */
-	public function is_file( $filepath, $create = TRUE ) {
-		if ( (int) ( $this->total_size ) > (int) ( $this->max_dir ) ) {
-			$this->clesr_dir();
-		}
-		if ( $this->size > ( 1048576 * $this->max_file_size ) ) {
-			$this->truncate();
-		}
-		parent::__construct( $filepath, $create );
-		if ( ! $this->exists ) {
-			$this->put_email();
+		if ( $this->checkInterval()) {
+			$this->put_contents( $this->contents );
 		}
 	}
 
@@ -214,16 +216,23 @@ class Log extends File {
 	public function checkInterval() {
 
 		if ( '' !== $this->str_log ) {
-			preg_match('/\[(?P<err_num>[\d]+)\]\s*(?P<date_old>[\d-]+)\s(?P<time_old>[\d:]+)/',
-					   $this->str_log, $matches);
-				if ( strtotime( $matches['date_old'].' '.$matches['time_old'] ) + $this->interval * 60 -
-					 strtotime( date( 'd-m-Y H:i:s', time() ) ) < 0 ) {
-					$this->contents = '['.($matches['err_num']+1).'] '.$this->contents;
-					return true; // прибавление к ошибке единицу
+
+			preg_match('/\[(?P<err_num>[\d]+)\]\s*(?P<date_old>[\d-]+)\s(?P<time_old>[\d:]+)/', $this->str_log, $matches);
+
+			$time_interval = strtotime( $matches['date_old'].' '.$matches['time_old'] ) + $this->interval * 60;
+			$time_new = strtotime( date( 'd-m-Y H:i:s', time() ) );
+
+				if ( $time_interval < $time_new ) {
+					$this->contents = '['.($matches['err_num']+1).'] ' . $this->contents;
+					// прибавление к ошибке единицу
+					return true;
 				} else {
-					return false; // интервал еще не закончился
+					// интервал еще не закончился
+					return false;
 				}
+
 		} else {
+
 			$this->contents = '[1] '.$this->contents; // первая запись
 			return true;
 		}

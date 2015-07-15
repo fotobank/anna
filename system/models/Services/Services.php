@@ -14,7 +14,7 @@ namespace Mustache\Core\Services {
 	 * Class classServices
 	 * @package mySpace
 	 */
-	class servicesPage {
+	class Services {
 		private $edit = false;
 		public $tabs = false;
 		public $names = false;

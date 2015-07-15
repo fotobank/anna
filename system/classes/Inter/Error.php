@@ -1,11 +1,18 @@
 <?php
 
-
+namespace classes\Inter;
 /**
  * Class Error
  */
+use classes\pattern\Registry;
+use Exception;
+use ErrorException;
+use classes\File;
 
-/** @noinspection PropertyCanBeStaticInspection */
+/**
+ * Class Error
+ * @package classes\Inter
+ */
 class Error
 {
 
@@ -13,21 +20,19 @@ class Error
 	 * @var array
 	 */
 	public $conf = [
+
+		// страница - заглушка
 		'friendlyExceptionPage' => 'stop.php',
+		// уровень детализации лога
 		'logType'               => 'detail',
 		// false / simple / detail
 		'logDir'                => '',
-		'suffix'                => '-Inter-ErrorLog.log',
+		// переменные показывамые автоматичесски
 		'variables'             => ['_GET', '_POST', '_SESSION', '_COOKIE'],
+		// типы игнорируемых ошибок
 		'ignoreERROR'           => [],
-		'email'                 => 'aleksjurii@gmail.com',
-		//  email для отправки ошибок
-		'time_log'              => 5,
-		// время в минутах между обновлениями лога
-		'otl'                   => false,
 		// временно включить лог для отладки этого скрипта ( т.к. на '127.0.0.1' лог отключен )
-		'max_dir'               => 1000
-		// максимальный размер лог папки в килобайтах, после которого папка самоочистится
+		'log_on'                => true
 	];
 
 	/**
@@ -77,7 +82,7 @@ class Error
 
 	/**
 	 * Путь к файлу с сообщением об ошибке
-	 *
+	 * для пользователя
 	 * @var null|string
 	 */
 	private $messageFile;
@@ -125,12 +130,17 @@ class Error
 		{
 			if ($this->key_fatal_error) {
 				if (DEBUG_MODE) {
-					$this->error_display();
-					if ($this->conf['otl']) {
+					if (0 != count($this->_allError)) {
+						$this->error_display();
+						if ($this->conf['log_on'] ) {
+							$this->write_errorlog();
+						}
+					}
+
+				} else {
+					if (0 != count($this->_allError)) {
 						$this->write_errorlog();
 					}
-				} else {
-					$this->write_errorlog();
 					die($this->getUserNotification());
 				}
 			}
@@ -226,26 +236,27 @@ class Error
 	 */
 	public function detect_fatal_error()
 		{
-			$this->key_fatal_error = true;
 			$last_error = error_get_last();
-			if (0 == count($last_error)) {
-				/** @noinspection UnSafeIsSetOverArrayInspection */
+			if (0 === count($last_error)) {
+
 				if (isset($this->_allError[0]['code']) && $this->_allError[0]['code'] == 0) {
+					$this->key_fatal_error = true;
 					$this->printExceptionPage();
+					$this->print_err();
 				}
-				$this->print_err();
 
 				return false;
 			}
 
+			$this->key_fatal_error = true;
 			if (($last_error && ($last_error['type'] == E_ERROR || $last_error['type'] == E_PARSE ||
 								 $last_error['type'] == E_COMPILE_ERROR) && // если кончилась память
 				 0 == strpos($last_error['message'], 'Allowed memory size'))
 			) {
 				// выделяем немножко, что бы доработать корректно
 				ini_set('memory_limit', ((int) (ini_get('memory_limit')) + 64) . 'M');
-				$this->write_errorlog('PHP Fatal: not enough memory in ' . $last_error['file'] . ':' .
-									  $last_error['line']);
+				$this->_allError['fatal'] = 'PHP Fatal: not enough memory in '.$last_error['file'].':'.$last_error['line'];
+				$this->write_errorlog();
 			}
 
 			if (0 !== count($this->_allError)) {
@@ -388,15 +399,8 @@ class Error
 
 	public function write_errorlog()
 		{
-			if ((false != (bool) $this->conf['logType']) && (0 != count($this->_allError))) {
-				$log = null;
-				try {
-					$log = new Log();
-					$log->setTime_log(5)->setMax_dir(10000)->setEmail('aleksjurii@gmail.com');
-				}
-				catch (Exception $e) {
-					trigger_error('Ошибка присвоения данных: ' . $e->getMessage(), E_USER_ERROR);
-				}
+			if ((false != (bool) $this->conf['logType'])) {
+
 				foreach ($this->_allError as $errorInfo) {
 					if (!in_array($errorInfo['hash'], $this->hash_w, true)) {
 						$this->hash_w[] = $errorInfo['hash'];
@@ -417,14 +421,23 @@ class Error
 						continue;
 					}
 
-					$logFilename =
-						$this->conf['logDir'] . DIRECTORY_SEPARATOR . date('d-m-Y', time()) . '_' . $errorInfo['name'] .
-						'_';
+					$logFilename = $this->conf['logDir'] . DIRECTORY_SEPARATOR . date('d-m-Y', time());
+					$logFilename .=	'_' . $errorInfo['name'] . '_';
 					$logFilename .= md5($errorInfo['code'] . $errorInfo['line'] . $errorInfo['message']) . '.log';
-					$log->put_log($logFilename, $logText);
-					$logText = '';
-					if (!$log->exists()) {
-						error_log($logText);
+
+					try {
+
+						$log = Registry::call('classes\File\Log');
+
+						$log->put_log($logFilename, $logText);
+
+						if (!$log->isExists()) {
+							error_log($logText);
+						}
+						unset($logText);
+					}
+					catch (Exception $e) {
+						throw new Exception ('Ошибка записи лога: ' . $e->getMessage(), E_USER_ERROR);
 					}
 
 				}
@@ -439,7 +452,7 @@ class Error
 	public function error_display()
 		{
 
-			if (false !== DEBUG_MODE && (0 !== count($this->_allError))) {
+			if (false !== DEBUG_MODE) {
 				$htmlText = '';
 				$message = '';
 				foreach ($this->_allError as $key => $errorInfo) {
@@ -483,6 +496,10 @@ class Error
 				}
 
 				echo <<<END
+<HTML>
+  <head>
+  <link rel="icon" href="/images/favicon.png"  type="image/png" />
+  <link rel="shortcut icon" href="/images/favicon.png" />
 <style type="text/css">
 <!--
         .code,
@@ -606,6 +623,8 @@ DIV.container {
 
 -->
 </style>
+</head>
+<body>
 <div class="container">
 {$htmlText}
 {$message}
@@ -628,7 +647,8 @@ window.onload = function () {
   return false;
 }
 </script>
-
+</body>
+</html>
 END;
 
 				//	включить показ системных переменных
@@ -681,8 +701,8 @@ END;
 			}
 
 				$firstLine = $err_line < $this->line_limit ? 0 : $err_line - ceil($this->line_limit * 0.7);
-				$lastLine = $firstLine + $this->line_limit < count($lines) ?
-					$firstLine + $this->line_limit : count($lines);
+				$lastLine = $firstLine + $this->line_limit < count((array)$lines) ?
+					$firstLine + $this->line_limit : count((array)$lines);
 				$code = '';
 
 
@@ -739,6 +759,10 @@ END;
 			}
 
 			echo <<<END
+<HTML>
+<head>
+<link rel="icon" href="/images/favicon.png"  type="image/png" />
+<link rel="shortcut icon" href="/images/favicon.png" />
 <style type="text/css">
 <!--
 .variablesblock {
@@ -803,6 +827,8 @@ DIV.container {
 }
 -->
 </style>
+</head>
+<body>
 <div class="container">
 <div class="variablesblock">
     <div class="variablessubtitle">Variables: {$variables_link}</div>
@@ -826,6 +852,8 @@ window.onload = function () {
   return false;
 }
 </script>
+</body>
+</html>
 END;
 
 		}

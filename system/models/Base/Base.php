@@ -71,7 +71,6 @@ abstract class Base
 		{
 			if (is_file($this->file_meta_title)) {
 				$arrayMetaTitle = parse_ini_file($this->file_meta_title, true);
-			//	$this->current_razdel = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/index';
 				$this->current_razdel = Registry::call('Router')->url_controller;
 				foreach ($arrayMetaTitle as $title => $metaData) {
 

@@ -73,7 +73,7 @@ if (!function_exists('debugHC')) {
 // debugHC( CODE_PAGE, 'CODE_PAGE' );
 // debugHC( SITE_PATH, 'SITE_PATH' );
 
-$err = new Error();
+$err = new classes\Inter\Error();
 $err->conf['logDir'] = SITE_PATH.'log';
 // $err->conf['otl'] = true; // включить запись лога на 127.0.0.1
 //$err->var_dump('SITE_PATH'); // вывод дампа переменных

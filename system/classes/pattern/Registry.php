@@ -55,28 +55,30 @@ class Registry
 
     /**
      * @param $id
+     * @param bool $data
      * @return mixed
      */
-    public static function build($id)
+    public static function build($id, $data = false)
     {
         //создание класса
         $arr = explode(':', $id);
         $class = reset($arr);
-        self::$vars[$id] = new $class();
+        self::$vars[$id] = new $class($data);
         return self::$vars[$id];
 
     }
 
     /**
      * @param $id
+     * @param bool $data
      * @return mixed
      */
-    public static function call($id)
+    public static function call($id, $data = false)
     {
         //вызов класса(при отсутствии готового экземпл€ра - создание нового и вызов)
         if (!array_key_exists($id, self::$vars)) {
 
-            return self::build($id);
+            return self::build($id, $data);
 
         } else {
 
