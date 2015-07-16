@@ -15,7 +15,7 @@
 namespace controllers\Comments;
 
 
-use controllers\Controller as controller;
+use controllers\Controller\Controller;
 use models\Comments as model;
 
 
@@ -23,7 +23,7 @@ use models\Comments as model;
  * Class Comments
  * @package controllers\Comments
  */
-class Comments  extends controller\Controller
+class Comments  extends Controller
 {
 
     /**

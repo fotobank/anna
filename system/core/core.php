@@ -11,6 +11,8 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
+use classes\pattern\Registry;
+
 if (session_id() === '') {
 	session_start();
 } else {
@@ -45,7 +47,8 @@ new core\Autoloader();
 include(SITE_PATH.'inc/func.php');
 // профилирование
 if (DEBUG_MODE && !is_ajax()) {
-	$test = new Test();
+    Registry::build('Test');
+//	$test = new Test();
 }
 // защита
 new Security();

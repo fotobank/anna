@@ -2,27 +2,27 @@
 /**
  * Класс предназначен для
  * @created   by PhpStorm
- * @package   Portfolio.php
+ * @package   Services.php
  * @version   1.0
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
- * @date:     14.07.2015
- * @time:     12:59
+ * @date:     16.07.2015
+ * @time:     1:21
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace controllers\Portfolio;
+namespace controllers\Services;
 
 use controllers\Controller\Controller;
-use models\Portfolio as model;
+use models\Services as model;
 
 
 /**
- * Class Portfolio
- * @package controllers\Portfolio
+ * Class Services
+ * @package controllers\Services
  */
-class Portfolio  extends Controller
+class Services extends Controller
 {
 
     /**
@@ -38,9 +38,12 @@ class Portfolio  extends Controller
      *
      * @throws \phpbrowscap\Exception
      */
-    public function portfolio() {
-        $model = new model\Portfolio();
-        echo $this->mustache->render('portfolio', $model);
+    public function services($dates) {
+
+        $model = new model\Services($dates);
+        echo $this->mustache->render('services', $model);
+
     }
+
 
 }

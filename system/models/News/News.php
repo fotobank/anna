@@ -14,8 +14,25 @@
 
 namespace models\News;
 
+use models\Base\Base;
 
-class News
+/**
+ * Class News
+ * @package models\News
+ */
+class News extends Base
 {
+
+    /**
+     * @param $options
+     */
+    public function __construct($options = [])
+    {
+        // настройка свойств класса
+        $this->setOptions($options);
+        // инициализация конструктора родительского класса
+        parent::__construct();
+
+    }
 
 }

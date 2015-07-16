@@ -14,8 +14,21 @@
 
 namespace models\Portfolio;
 
+use models\Base as model;
 
-class Portfolio
+class Portfolio  extends model\Base
 {
+
+    /**
+     * @param $options
+     */
+    public function __construct($options = [])
+    {
+        // настройка свойств класса
+        $this->setOptions($options);
+        // инициализация конструктора родительского класса
+        parent::__construct();
+
+    }
 
 }

@@ -14,7 +14,7 @@
 
 namespace controllers\News;
 
-use controllers\Controller as controller;
+use controllers\Controller\Controller;
 use models\News as model;
 
 
@@ -22,7 +22,7 @@ use models\News as model;
  * Class News
  * @package controllers\News
  */
-class News  extends controller\Controller
+class News  extends Controller
 {
 
     /**

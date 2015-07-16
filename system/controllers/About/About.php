@@ -14,15 +14,16 @@
 
 namespace controllers\About;
 
-use controllers\Controller as controller;
+use controllers\Controller\Controller;
 use models\About as model;
+
 
 /**
  * Class About
  * @package controllers\About
  */
-class About extends controller\Controller {
-
+class About extends Controller
+{
 
 	/**
 	 * инициализация вьювера Mustache

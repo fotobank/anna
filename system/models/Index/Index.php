@@ -9,13 +9,13 @@
 
 namespace models\Index;
 
-use models\Base as model;
+use models\Base\Base;
 
 
 /**
  * Class ajaxSite_web_index
  */
-class Index extends model\Base
+class Index extends Base
 {
 
 	// телефон в слайдере

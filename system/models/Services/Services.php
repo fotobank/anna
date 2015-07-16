@@ -9,26 +9,39 @@
 /**
  * Class Chris
  */
-namespace Mustache\Core\Services {
+namespace models\Services;
+
+use models\Base\Base;
+
 	/**
 	 * Class classServices
 	 * @package mySpace
 	 */
-	class Services {
-		private $edit = false;
-		public $tabs = false;
-		public $names = false;
-		public $data = false;
-		public $li_name_class = false;
-		public $tab = false;
-		public $name = false;
+	class Services extends Base
+	{
+		private $edit;
+		public $tabs;
+		public $names;
+		public $data;
+		public $li_name_class;
+		public $tab;
+		public $name;
 
 
 		/**
-		 * @param $dates
+		 * @param $options
+		 * param $dates
 		 */
-		public function __construct($dates) {
-			$this->set_var( $dates ); // установка исходных данных
+		public function __construct($options) {
+
+			// настройка свойств класса
+			$this->setOptions($options);
+			// инициализация конструктора родительского класса
+			parent::__construct();
+			// лайтбокс в шапке
+
+			// установка исходных данных
+//			$this->set_var( $options );
 		}
 
 		/**
@@ -60,6 +73,4 @@ namespace Mustache\Core\Services {
 				return true;
 			}
 		}
-
-	}
 }

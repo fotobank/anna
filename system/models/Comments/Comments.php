@@ -14,8 +14,25 @@
 
 namespace models\Comments;
 
+use models\Base\Base;
 
-class Comments
+/**
+ * Class Comments
+ * @package models\Comments
+ */
+class Comments  extends Base
 {
+
+    /**
+     * @param $options
+     */
+    public function __construct($options = [])
+    {
+        // настройка свойств класса
+        $this->setOptions($options);
+        // инициализация конструктора родительского класса
+        parent::__construct();
+
+    }
 
 }

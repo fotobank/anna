@@ -1,6 +1,6 @@
 <?php
 /**
- * Класс предназначен для 
+ * Класс controllers\Error
  * @created   by PhpStorm
  * @package   Error.php
  * @version   1.0
@@ -14,15 +14,14 @@
 
 namespace controllers\Error;
 
-use controllers\Controller as controller;
-use models\Index as model;
+use controllers\Controller\Controller;
 
 
 /**
  * Class Error
  * @package controllers\Error
  */
-class Error extends controller\Controller {
+class Error extends Controller {
 
 	/**
 	 *

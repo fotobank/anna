@@ -14,13 +14,13 @@
 
 namespace models\About;
 
-use models\Base as model;
+use models\Base\Base;
 
 /**
  * Class About
  * @package models\About
  */
-class About extends model\Base
+class About extends Base
 {
 
 	/**
