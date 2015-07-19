@@ -40,6 +40,8 @@ class StubPage extends Base
     public $info = '';
     // ответ сервера на запрос о подписке в страницы заглушке
     protected $reply_mess = [];
+    // адрес страницы подписки
+    protected $str_url;
 
     // время отсчета таймера
     public $target_day = 30;
@@ -65,7 +67,7 @@ class StubPage extends Base
     public $digit_secs0 = 0;
     public $digit_secs1 = 0;
 
-    // системные сообщения
+    // заданные системные сообщения
     protected $messages;
 
     /**
@@ -82,6 +84,8 @@ class StubPage extends Base
 
             $this->messages = $this->getMessages();
             $this->processDate();
+
+            $this->str_url = $_SERVER['HTTP_REFERER'];
 
         } catch (\Exception $e) {
 
@@ -232,15 +236,16 @@ class StubPage extends Base
                 return false;
 
             } elseif (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i",
-                $this->email_abonent)
-            ) {
+                $this->email_abonent)) {
 
                 $this->error = $this->messages['email_invalid'];
                 return false;
 
             } elseif($this->checkEmailInDb()) {
+
                 return false;
             } else {
+
                 return true;
             }
 
@@ -253,12 +258,15 @@ class StubPage extends Base
 
 
     /**
-     * Проверка на наличие такого email уже в БД
+     * Проверка на наличие такого email и страницы подписи в БД
      * @return bool
      */
     public function checkEmailInDb()
     {
+
+
         self::db()->where ('email', $this->email_abonent);
+        self::db()->where ('url', $this->str_url );
         $user = self::db()->getOne ('subscribers');
 
         if ($user) {
@@ -278,19 +286,20 @@ class StubPage extends Base
     protected function addUserToBase()
     {
         $db = self::db();
-        $url = $_SERVER['HTTP_REFERER'];
         $data = [
             'email' => $this->email_abonent,
             'subscribed_at' => $db->now(),
-            'url' => $url,
+            'url' => $this->str_url,
             'ip' => ip()
         ];
 
         if ($db->insert('subscribers', $data)) {
+
             return true;
         } else {
             $this->error = $this->messages['technical_base'];
             if (DEBUG) {
+
                 throw new \Exception('Ошибка при передаче данных в базу: ' . $db->getLastError());
             }
             return false;
@@ -310,8 +319,7 @@ class StubPage extends Base
         $headers = 'MIME-Version: 1.0' . '\r\n';
         $headers .= 'Content-type: text/html; charset=windows-1251' . '\r\n';
 
-        return true;
-//        return mail($to, $subject, $body, $headers);
+        return mail($to, $subject, $body, $headers);
 
     }
 
