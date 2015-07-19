@@ -430,8 +430,9 @@ class Error
 						$this->hash_d[] = $errorInfo['hash'];
 						$htmlText .=
 							'<div class="intererrorblock"><div class="intererrortitle"><strong>[' . $errorInfo['name'] .
-							'][Code: ' . $errorInfo['code'] . ']</strong>  ' . $errorInfo['message'] .
-							'</div><div class="intererrorsubtitle">Line ' . $errorInfo['line'] . ' On <a href="' .
+							'][Code: ' . $errorInfo['code'] . ']</strong>  ' .
+							'<div class="intererrormessage">'.$errorInfo['message'] . '</div></div>' .
+							'<div class="intererrorsubtitle">Line ' . $errorInfo['line'] . ' On <a href="' .
 							$errorInfo['file'] . '">' . $errorInfo['file'] .
 							'</a></div><div class="intererrorcontent">';
 
@@ -545,6 +546,11 @@ DIV.container {
 	color: #FFF;
 	background-color: #963;
 	padding: 3px;
+}
+
+.intererrormessage {
+    font-size: 16px;
+
 }
 
 .intererrorTime {

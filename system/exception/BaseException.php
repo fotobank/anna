@@ -16,7 +16,7 @@ namespace exception;
 
 use Exception;
     /**
-     * Class routeException
+     * Class RouteException
      */
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
@@ -47,9 +47,9 @@ abstract class BaseException extends Exception implements IException
      */
     public function __toString()
     {
-        return '<br><b>' . get_class($this) . ":</b> '{$this->message}'<br>" .
-        "<b>in File: </b>'{$this->file}'<br>" .
-        "<b>Line: </b>'{$this->line}'<br>" .
-        "{$this->getTraceAsString()}";
+        return "<b>Message: </b><span style='text-decoration: underline; font-size: 18px;'> '{$this->message}'</span><br>" .
+        "<b>File: </b>'{$this->file}'<br>" .
+        "<b>Line: </b>'{$this->line}'<br>";
+//        "{$this->getTraceAsString()}";
     }
 }

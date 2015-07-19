@@ -14,9 +14,9 @@
 use classes\pattern\Registry;
 
 if (session_id() === '') {
-	session_start();
+    session_start();
 } else {
-	session_regenerate_id(true);
+    session_regenerate_id(true);
 }
 
 // включить админа для отладки
@@ -25,15 +25,15 @@ $_SESSION['logged'] = ($_SERVER['REMOTE_ADDR'] === '130.0.47.88') ? 1 : 0;
 
 if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SESSION['logged'] === 1) {
 
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	define('DEBUG_MODE', true); // показ ошибок на монитор
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    define('DEBUG_MODE', true); // показ ошибок на монитор
 
 } else {
 
-	ini_set('display_errors', 0);
-	ini_set('display_startup_errors', 0);
-	define('DEBUG_MODE', false);
+    ini_set('display_errors', 0);
+    ini_set('display_startup_errors', 0);
+    define('DEBUG_MODE', false);
 }
 
 ini_set('log_errors', 1);
@@ -41,10 +41,10 @@ ini_set('log_errors', 1);
 header('Content-type: text/html; charset=windows-1251');
 
 /** @noinspection PhpIncludeInspection */
-include(SITE_PATH.'system/core/Autoloader.php');
+include(SITE_PATH . 'system/core/Autoloader.php');
 new core\Autoloader();
 /** @noinspection PhpIncludeInspection */
-include(SITE_PATH.'inc/func.php');
+include(SITE_PATH . 'inc/func.php');
 // профилирование
 if (DEBUG_MODE && !is_ajax()) {
     Registry::build('Test');
@@ -54,20 +54,20 @@ if (DEBUG_MODE && !is_ajax()) {
 new Security();
 
 if (!defined('CODE_PAGE')) {
-	define( 'CODE_PAGE', detect_encoding(SITE_PATH . 'inc/кодировка файловой системы.codepage'));
+    define('CODE_PAGE', detect_encoding(SITE_PATH . 'inc/кодировка файловой системы.codepage'));
 }
 
 if (!function_exists('debugHC')) {
-	/**
-	 * @param        $variables
-	 * @param string $group
-	 */
-	function debugHC($variables, $group = 'message')
-		{
-			if (DEBUG_MODE && is_callable($func = ['Main', 'out'])) {
-				call_user_func($func, $variables, $group);
-			}
-		}
+    /**
+     * @param        $variables
+     * @param string $group
+     */
+    function debugHC($variables, $group = 'message')
+    {
+        if (DEBUG_MODE && is_callable($func = ['Main', 'out'])) {
+            call_user_func($func, $variables, $group);
+        }
+    }
 }
 
 // демо debug:
@@ -76,17 +76,17 @@ if (!function_exists('debugHC')) {
 // debugHC( SITE_PATH, 'SITE_PATH' );
 
 $err = new classes\Inter\Error();
-$err->conf['logDir'] = SITE_PATH.'log';
+$err->conf['logDir'] = SITE_PATH . 'log';
 // $err->conf['otl'] = true; // включить запись лога на 127.0.0.1
 //$err->var_dump('SITE_PATH'); // вывод дампа переменных
 if (!function_exists('v_dump')) {
-	function v_dump()
-		{
-			if (DEBUG_MODE && is_callable($func = ['Error', 'var_dump'])) {
-				$variables = func_get_args();
-				call_user_func($func, $variables);
-			}
-		}
+    function v_dump()
+    {
+        if (DEBUG_MODE && is_callable($func = ['Error', 'var_dump'])) {
+            $variables = func_get_args();
+            call_user_func($func, $variables);
+        }
+    }
 }
 
 
