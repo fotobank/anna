@@ -265,6 +265,7 @@ $results = $db->get("users");
 ```
 
 Also you can use raw where conditions:
+Также вы можете использовать в raw where условия:
 ```php
 $db->where ("id != companyId");
 $db->where ("DATE(createdAt) = DATE(lastLogin)");

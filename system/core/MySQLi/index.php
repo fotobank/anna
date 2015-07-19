@@ -1,13 +1,13 @@
 <?php
-require_once('MysqliDb.php');
+require_once('Db.php');
 error_reporting(E_ALL);
 $action = 'adddb';
-$data = array();
+$data = [];
 
 function printUsers () {
     global $db;
 
-    $users = $db->get ("users");
+    $users = $db->get ('users');
     if ($db->count == 0) {
         echo "<td align=center colspan=4>No users found</td>";
         return;

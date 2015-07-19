@@ -1792,11 +1792,11 @@ function getSizePhotoMobile($file_name){
 	$degree = 0;
 	// если заголовки получили, и среди них нашлось упоминание об ориентации
 	if($exif_read_data){
-		if(isset($exif_read_data["Orientation"]) AND $exif_read_data["Orientation"] > 4){
+		if(isset($exif_read_data['Orientation']) AND $exif_read_data['Orientation'] > 4){
 			$size = getimagesize($file_name, $info);
 			$width = $size[1];
 			$height = $size[0];
-			switch ($exif_read_data["Orientation"]){
+			switch ($exif_read_data['Orientation']){
 				case 5:
 					$degree = 270;
 					break;
@@ -1840,7 +1840,7 @@ function rotatePhotoMobile($img, $degree){
 	$size = getimagesize($img);
 	//определяем тип (расширение) картинки
 	$format = strtolower(substr($size['mime'], strpos($size['mime'], '/')+1));
-	$icfunc = "imagecreatefrom" . $format;   //определение функции для расширения файла
+	$icfunc = 'imagecreatefrom' . $format;   //определение функции для расширения файла
 	//если нет такой функции, то прекращаем работу скрипта
 	if (!function_exists($icfunc)) return false;
 	// Загрузка изображения
@@ -1866,12 +1866,12 @@ function getPoweredBy($url){
 //	$tmp = parse_url($url);
 	$stream = @fopen($url, 'rb'); // открываем сайт
 	if(!$stream){
-		return "Сайт не отвечает!";
+		return 'Сайт не отвечает!';
 	}
 	$array = stream_get_meta_data($stream); // получаем заголовки
 	$info = false;
 	// находим информацию о X-Powered-By
-	foreach($array["wrapper_data"] as $k=>$v){
+	foreach($array['wrapper_data'] as $k=>$v){
 		if(strpos($v, 'X-Powered-By:') !== false){
 			$info = explode('X-Powered-By:', $v);
 		}
@@ -1881,6 +1881,105 @@ function getPoweredBy($url){
 		$powered_by = trim($info[1]);
 		return $powered_by;
 	}else{
-		return "Не известно!";
+		return 'Не известно!';
 	}
+}
+
+/**
+ * Враппер для удобного использования ob_* функций
+ *
+ * @param $fn
+ * @return string
+ *
+ * $v = ob(function(){
+ * echo "Hello, world!";
+ * });
+ *
+ * echo ">$v<";
+ * >Hello, world!<
+ *
+ */
+function ob($fn){
+	ob_start();
+	$fn();
+	return ob_get_clean();
+}
+
+/**
+ *  Простая функция для замера скорости выполнения участков кода.
+ *  Для использования - написать tick_time("Операция такая-то") до начала измеряемого куска кода
+ *  и tick_time("Следующая операция") или tick_time() после конца участка кода. В результате будет выведено
+ *  количество секунд выполнения с точностью до 4-го знака.
+ *  Пример:
+ *  tick_time("Сканируем данные");
+ *  scan_data();
+ *  tick_time("Загружаем файл");
+ *  load_file();
+ *  tick_time("Анализируем информацию");
+ *  $analyzer->dataAnalyze();
+ *  tick_time();
+ *  Выдаст в консоль (или в браузер)
+ *  @param string $message - название операций которую мы измеряем. Используется просто для того чтобы знать.
+ */
+function tick_time($message = ''){
+	static $lastMessage;
+	static $startTime;
+	if ($startTime){
+		echo '\n ' . $lastMessage . ': ' . ((int)((microtime(true) - $startTime)*10000))/10000 . '\n';
+	}
+	$startTime = microtime(true);
+	$lastMessage = $message;
+}
+
+
+
+
+/**
+ * Замерить время выполнения участка кода
+ *
+ * @param $fn
+ * @return mixed
+ *
+ * echo bench(function(){ sleep(1); });
+ * 1.0001661777496
+ *
+ */
+function bench($fn){
+	$start = microtime(true);
+	$fn();
+	return microtime(true) - $start;
+}
+
+
+/**
+ *  Функция аналог print_r, за исключением того что выводит не всю глубину
+ *  массива или объекта, а только указанную, возвращая строку с выводом.
+ *
+ *  @param array $v переменная для вывода
+ *  @param integer $maxdepth максимальная глубина,
+ *     если $maxdepth < 0 - то глубина будет неограниченной
+ *  @param integer  $prepend_spaces количество пробелов перед строкой
+ *     с текстом. Как правило использовать не нужно, будет работать само.
+ *  @return string возвращает строку (в отличии от print_r не делает echo)
+ */
+function print_r_slice($v, $maxdepth = -1, $prepend_spaces = 0)
+{
+	$result = '';
+	if (is_array($v) || is_object($v))
+	{
+		if ($maxdepth!=0)
+		{
+			foreach($v as $key=>$val)
+			{
+				$result .=  '\n'.str_repeat(' ',$prepend_spaces) . ('[' . $key
+						. '] => ' . print_r_slice($val,$maxdepth - 1,
+							$prepend_spaces  +  strlen($key) + 6)  );
+			}
+		}
+		else
+		{	$result .=  ' Array() ';   }
+	}
+	else
+	{   $result .= $v; }
+	return $result;
 }

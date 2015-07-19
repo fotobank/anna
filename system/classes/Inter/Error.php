@@ -172,7 +172,7 @@ class Error
 				if (is_file($exception_page)) {
 
 					if (!headers_sent()) {
-						header($_SERVER['SERVER_PROTOCOL'] . ' 307 temporary redirect');
+						header($_SERVER['SERVER_PROTOCOL'] . ' 503 Retry-After');
 					}
 					/** @noinspection PhpIncludeInspection */
 					require($exception_page);

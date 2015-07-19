@@ -140,7 +140,7 @@ class Router
             $this->createModelInstance($controller);
             $this->createInstance($controller, $method);
         } catch (Exception $e) {
-            throw $e;
+            throw new Exception($e);
         }
     }
 

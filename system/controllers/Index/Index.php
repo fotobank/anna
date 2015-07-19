@@ -48,4 +48,28 @@ class Index extends Controller
 		echo $this->mustache->render('index', $model);
 	}
 
+	public function run() {
+		echo $this();
+	}
+	/**
+	 * Invoke method allows the application to be mounted as a closure.
+	 * @param mixed|bool $app parent application that can be referenced by $app->parent
+	 * @return mixed|string
+	 */
+	public function __invoke($app=False) {
+		$this->parent = $app;
+		return $this->_route($_SERVER['REQUEST_URI']);
+	}
+
+
+	/**
+	 * @param $obj
+	 * @param int $code
+     */
+	public function json($obj, $code = 200) {
+		header('Content-type: application/json', true, $code);
+		echo json_encode($obj);
+		exit;
+	}
+
 }

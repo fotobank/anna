@@ -11651,7 +11651,7 @@ footer {
   width: 100%;
   left: 0;
   z-index: 0;
-  padding: 5px 0;
+  padding: 1px 0 0;
   margin: -200px auto 0;
 }
 /* line 210, ../sass/inc/_core.scss */
