@@ -201,13 +201,6 @@ img {
 	color: #999;
 }
 
-.form_message {
-	width: 400px;
-	padding: 10px;
-	margin: 60px auto 0;
-    display: none;
-}
-
 #error_message {
 	background-color: #ffe;
 	border-left: 5px solid #bb3;
@@ -221,14 +214,28 @@ img {
 	color: #000000;
 }
 
-#loading {
-	text-align: center;
-	margin: 10px;
+.form_message {
+	width: 400px;
+	padding: 10px;
+	margin: 60px auto 0;
 	display: none;
 	position: relative;
+	z-index: 6;
+}
+
+#loading {
+	text-align: center;
+	display: none;
+	position: absolute;
+	margin: 0 auto;
 	width: 100%;
 	z-index: 5;
 }
+
+#loading img {
+	margin-top: 10px;
+}
+
 
 #img_door {
     position: absolute;

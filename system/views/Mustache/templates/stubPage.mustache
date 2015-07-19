@@ -14,97 +14,103 @@
 
 {{$content}}
 
-    <div id="main_stub_page">
+<div id="main_stub_page">
 
-        <h1 id="text3d">СТРАНИЦА В РАЗРАБОТКЕ</h1>
-        <div class="subtitle">следите за новостями и обновлениями</div>
+    <h1 id="text3d">СТРАНИЦА В РАЗРАБОТКЕ</h1>
 
-        <div class="timer_title">До открытия осталось:</div>
+    <div class="subtitle">следите за новостями и обновлениями</div>
 
-        <div id="countdown_dashboard">
-            <div class="dash weeks_dash">
-                <span class="dash_title">недель</span>
-                <div class="digit">{{digit_weeks0}}</div>
-                <div class="digit">{{digit_weeks1}}</div>
-            </div>
+    <div class="timer_title">До открытия осталось:</div>
 
-            <div class="dash days_dash">
-                <span class="dash_title">дней</span>
-                <div class="digit">{{digit_days0}}</div>
-                <div class="digit">{{digit_days1}}</div>
-            </div>
+    <div id="countdown_dashboard">
+        <div class="dash weeks_dash">
+            <span class="dash_title">недель</span>
 
-            <div class="dash hours_dash">
-                <span class="dash_title">часов</span>
-                <div class="digit">{{digit_hours0}}</div>
-                <div class="digit">{{digit_hours1}}</div>
-            </div>
-
-            <div class="dash minutes_dash">
-                <span class="dash_title">минут</span>
-                <div class="digit">{{digit_mins0}}</div>
-                <div class="digit">{{digit_mins1}}</div>
-            </div>
-
-            <div class="dash seconds_dash">
-                <span class="dash_title">секунд</span>
-                <div class="digit">{{digit_secs0}}</div>
-                <div class="digit">{{digit_secs1}}</div>
-            </div>
-
+            <div class="digit">{{digit_weeks0}}</div>
+            <div class="digit">{{digit_weeks1}}</div>
         </div>
 
+        <div class="dash days_dash">
+            <span class="dash_title">дней</span>
 
-        <img id="img_door" src="/images/stub_page/door.jpg" alt="door">
-
-        <div class="dev_comment">
-            Просто будьте первым из тех, кто узнает:<br/>
+            <div class="digit">{{digit_days0}}</div>
+            <div class="digit">{{digit_days1}}</div>
         </div>
 
+        <div class="dash hours_dash">
+            <span class="dash_title">часов</span>
 
-            <div class="bottom-text">
-                подпишитесь на обновления
-            </div>
+            <div class="digit">{{digit_hours0}}</div>
+            <div class="digit">{{digit_hours1}}</div>
+        </div>
 
-              <div class="subscribe">
-                <form action="" method="post" id="subscribe_form">
-                    <input type="text" size="30" value="Введите Ваш E-mail"
-                           id="email_field" class="faded" name="email"
-                           onfocus="if(this.value=='Введите Ваш E-mail'){this.value=''}"
-                           onblur="if(this.value==''){this.value='Введите Ваш E-mail'}" />
-                    <input type="image" src="/images/stub_page/notify.png"
-                           id="subscribe_button" value="Stay updated"/>
+        <div class="dash minutes_dash">
+            <span class="dash_title">минут</span>
 
-                    <div id="error_message" class="form_message" ></div>
+            <div class="digit">{{digit_mins0}}</div>
+            <div class="digit">{{digit_mins1}}</div>
+        </div>
 
-                    <div id="info_message" class="form_message" ></div>
+        <div class="dash seconds_dash">
+            <span class="dash_title">секунд</span>
 
-                    <div id="loading">
-                        <img src="/images/stub_page/loading.gif"/>
-                    </div>
-                </form>
-            </div>
+            <div class="digit">{{digit_secs0}}</div>
+            <div class="digit">{{digit_secs1}}</div>
+        </div>
+
     </div>
 
 
-    <script language="javascript" type="text/javascript">
-        jQuery(document).ready(function () {
-            $('#countdown_dashboard').countDown({
-                targetDate: {
-                    'day':      {{target_day}},
-                    'month':    {{target_month}},
-                    'year':     {{target_year}},
-                    'hour':     {{target_hour}},
-                    'min':      {{target_minute}},
-                    'sec':      {{target_second}}
-                }
-            });
+    <img id="img_door" src="/images/stub_page/door.jpg" alt="door">
 
-            // Subscription functions
-            $('#email_field').focus(email_focus).blur(email_blur);
-            $('#subscribe_form').bind('submit', subscribe_submit);
+    <div class="dev_comment">
+        Просто будьте первым из тех, кто узнает:<br/>
+    </div>
+
+
+    <div class="bottom-text">
+        подпишитесь на обновления
+    </div>
+
+    <div class="subscribe">
+        <form action="" method="post" id="subscribe_form">
+            <input type="text" size="30" value="Введите Ваш E-mail"
+                   id="email_field" class="faded" name="email"
+                   onfocus="if(this.value=='Введите Ваш E-mail'){this.value=''}"
+                   onblur="if(this.value==''){this.value='Введите Ваш E-mail'}"/>
+            <input type="image" src="/images/stub_page/notify.png"
+                   id="subscribe_button" value="Stay updated"/>
+        </form>
+    </div>
+
+
+</div>
+
+    <div id="loading">
+        <img src="/images/stub_page/loading.gif"/>
+    </div>
+    <div id="error_message" class="form_message"></div>
+    <div id="info_message" class="form_message"></div>
+
+
+<script language="javascript" type="text/javascript">
+    jQuery(document).ready(function () {
+        $('#countdown_dashboard').countDown({
+            targetDate: {
+                'day':      {{target_day}},
+                'month':    {{target_month}},
+                'year':     {{target_year}},
+                'hour':     {{target_hour}},
+                'min':      {{target_minute}},
+                'sec':      {{target_second}}
+            }
         });
-    </script>
+
+        // Subscription functions
+        $('#email_field').focus(email_focus).blur(email_blur);
+        $('#subscribe_form').bind('submit', subscribe_submit);
+    });
+</script>
 
 
 {{/content}}

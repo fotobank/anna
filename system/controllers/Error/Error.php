@@ -40,7 +40,7 @@ class Error extends Controller {
 
 		header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
 		/** @noinspection PhpIncludeInspection */
-		include(SITE_PATH.'404.php');
+		include('404.php');
 		exit();
 	}
 

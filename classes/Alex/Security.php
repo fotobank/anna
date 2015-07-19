@@ -72,7 +72,7 @@ class Security
 	function setVars()
 		{
 
-			$this->_file_stop = '/../../424.php';
+			$this->_file_stop = '424';
 			$this->_set_error_level();
 
 			# make sure $_SERVER[ 'REQUEST_URI' ] is set
@@ -592,7 +592,7 @@ class Security
 			$reqType = $_SERVER['REQUEST_METHOD'];
 			$req_whitelist = ['GET', 'OPTIONS', 'HEAD', 'POST'];
 			# first check for numbers in REQUEST_METHOD
-			if (false !== ( bool ) preg_match("/[0-9]+/", $reqType)) {
+			if (false !== ( bool ) preg_match('/[0-9]+/', $reqType)) {
 				$this->karo(true);
 
 				return;

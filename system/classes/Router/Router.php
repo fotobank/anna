@@ -12,7 +12,7 @@
  * @time      :     1:15
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
-use classes\Inter\Error;
+
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class Router
@@ -90,7 +90,6 @@ class Router
                 if (DEBUG_MODE) {
 
                     throw new routeException('controller "' . $this->url_controller . '" не задан в массиве routes', 404);
-
                 } else {
 
                     $this->get404();
@@ -98,9 +97,9 @@ class Router
                 }
             }
 
-        } catch (Exception $e) {
+        } catch (routeException $e) {
 
-            throw $e;
+            throw new routeException($e);
         }
     }
 
@@ -112,14 +111,15 @@ class Router
     protected function get404()
     {
         try {
-            if (DEBUG_MODE) {
+            if (!DEBUG_MODE) {
                 $controller = $this->site_routes['error404']['controller'];
                 $method = $this->site_routes['error404']['method'];
                 $this->prepareRoute($controller, $method);
             }
 
-        } catch (Exception $e) {
-            throw $e;
+        } catch (routeException $e) {
+
+            throw new routeException($e);
         }
     }
 
@@ -131,7 +131,7 @@ class Router
      * @param $controller string Controller name.
      * @param $method     string Method name.
      *
-     * @throws Exception
+     * @throws routeException
      */
     protected function prepareRoute($controller, $method)
     {
@@ -139,8 +139,10 @@ class Router
             $this->checkControllerExists($controller);
             $this->createModelInstance($controller);
             $this->createInstance($controller, $method);
-        } catch (Exception $e) {
-            throw new Exception($e);
+
+        } catch (routeException $e) {
+
+            throw new routeException($e);
         }
     }
 
@@ -228,10 +230,7 @@ class Router
     }
 
     /**
-     * @param $url_controller
-     * @param $routes
-     *
-     * @throws Exception
+     * @throws routeException
      */
     private function requestOptions()
     {
@@ -253,24 +252,29 @@ class Router
  */
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
-class routeException extends InvalidArgumentException
+class routeException extends Exception
 {
 
     /**
      * @param string $message
      * @param int $code
+     * @throws Exception
      */
     public function __construct($message = '', $code = 0)
     {
         parent::__construct($message, $code);
 
         if (DEBUG_MODE) {
-            throw new Exception('<b>Ошибка ' . $code . ':</b> ' . $message . '<br>');
+
+            /** @noinspection ThrowRawExceptionInspection */
+            throw new Exception('<br><b>Ошибка ' . $code . ':</b> ' . $message . '<br>' .
+            '<b>File: </b>' . $this->file . '<br>' .
+            '<b>Line: </b>' . $this->line . '<br>');
         }
         error_log($message);
         header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
         /** @noinspection PhpIncludeInspection */
-        include(SITE_PATH . '404.php');
+        include(SITE_PATH . 'system/controllers/Error/404.php');
         exit();
     }
 }

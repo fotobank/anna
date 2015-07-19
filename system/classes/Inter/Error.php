@@ -695,7 +695,7 @@ END;
     <article>
         <section>
         <div class="intererrorblock">
-            <div class="intererrortitle"><span>[Маршрут]</span></div>
+            <div class="intererrortitle"><b>[Trace]</b></div>
             <div class="code">
             ' . $code . '
             </div></div>

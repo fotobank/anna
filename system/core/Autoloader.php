@@ -619,7 +619,7 @@ END;
 			$trace = str_replace("#", "<br>", $trace);
 			$trace = str_replace("(", "(<b>", $trace);
 			$trace = str_replace(")", "</b>)", $trace);
-			die ("<b>Ошибка:</b> " . $e->getMessage() . " Исключение вызванно в файле '" . $e->getFile() .
+			echo ("<b>Ошибка:</b> " . $e->getMessage() . " Исключение вызванно в файле '" . $e->getFile() .
 				 "' на линии <b>'" . $e->getLine() . "'</b>" . "<br><b>Trace:</b>" . $trace);
 		}
 }

@@ -40,8 +40,6 @@ class StubPage extends Base
     public $info = '';
     // îòâåò ñåğâåğà íà çàïğîñ î ïîäïèñêå â ñòğàíèöû çàãëóøêå
     protected $reply_mess = [];
-    // àäğåñ ñòğàíèöû ïîäïèñêè
-    protected $str_url;
 
     // âğåìÿ îòñ÷åòà òàéìåğà
     public $target_day = 30;
@@ -85,7 +83,11 @@ class StubPage extends Base
             $this->messages = $this->getMessages();
             $this->processDate();
 
-            $this->str_url = $_SERVER['HTTP_REFERER'];
+            if (preg_match ('/[^.]+\.[^.]+$/i', 'anna.od.ua/portfolio?nnn',$h)) {
+            $newurl = $h;
+             }
+
+
 
         } catch (\Exception $e) {
 
@@ -227,7 +229,6 @@ class StubPage extends Base
 
         if (($_POST['email'])) {
 
-//            $this->email_abonent = utf8_cp1251($_POST['email']);
             $this->email_abonent = mb_convert_encoding($_POST['email'], 'Windows-1251', 'UTF-8');
 
             if ($this->email_abonent == 'Ââåäèòå Âàø E-mail') {
@@ -235,8 +236,7 @@ class StubPage extends Base
                 $this->error = $this->messages['no_email'];
                 return false;
 
-            } elseif (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i",
-                $this->email_abonent)) {
+            } elseif (!filter_var($this->email_abonent, FILTER_VALIDATE_EMAIL)) {
 
                 $this->error = $this->messages['email_invalid'];
                 return false;
@@ -263,10 +263,8 @@ class StubPage extends Base
      */
     public function checkEmailInDb()
     {
-
-
         self::db()->where ('email', $this->email_abonent);
-        self::db()->where ('url', $this->str_url );
+        self::db()->where ('url', $_SERVER['HTTP_REFERER'] );
         $user = self::db()->getOne ('subscribers');
 
         if ($user) {
@@ -289,7 +287,7 @@ class StubPage extends Base
         $data = [
             'email' => $this->email_abonent,
             'subscribed_at' => $db->now(),
-            'url' => $this->str_url,
+            'url' => $_SERVER['HTTP_REFERER'],
             'ip' => ip()
         ];
 
