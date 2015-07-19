@@ -14,6 +14,20 @@
  */
 
 
+use exception\BaseException;
+
+/**
+ * Class routeException
+ */
+
+
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
+class routeException extends BaseException {}
+
+/**
+ * Class Router
+ */
+
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class Router
 {
@@ -77,28 +91,18 @@ class Router
             $url_controller_metod = $this->url_controller . '/' . $this->url_metod;
 
             if (array_key_exists($this->url_controller, $this->site_routes)) {
-
                 $this->requestOptions();
-
             } elseif (array_key_exists($url_controller_metod, $this->site_routes)) {
-
                 $this->url_controller = $url_controller_metod;
                 $this->requestOptions();
-
             } else {
-
                 if (DEBUG_MODE) {
-
                     throw new routeException('controller "' . $this->url_controller . '" не задан в массиве routes', 404);
                 } else {
-
                     $this->get404();
-
                 }
             }
-
         } catch (routeException $e) {
-
             throw new routeException($e);
         }
     }
@@ -247,12 +251,9 @@ class Router
     }
 }
 
-/**
- * Class routeException
- */
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
-class routeException extends Exception
+class routeException1 extends Exception
 {
 
     /**
