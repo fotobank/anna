@@ -21,6 +21,7 @@ function subscribe_submit() {
     return false;
 }
 
+
 function subscribe_result(data) {
     $('#loading').hide();
     log(data);
