@@ -1,4 +1,4 @@
-Db -- Simple MySQLi wrapper with prepared statements
+MysqliDb -- Simple MySQLi wrapper with prepared statements
 <hr>
 ### Table of Contents
 **[Initialization](#initialization)**  
@@ -7,6 +7,7 @@ Db -- Simple MySQLi wrapper with prepared statements
 **[Select Query](#select-query)**  
 **[Delete Query](#delete-query)**  
 **[Generic Query](#generic-query-method)**  
+**[Query Keywords](#query-keywords)**  
 **[Raw Query](#raw-query-method)**  
 **[Where Conditions](#where-method)**  
 **[Order Conditions](#ordering-method)**  
@@ -14,20 +15,51 @@ Db -- Simple MySQLi wrapper with prepared statements
 **[Properties Sharing](#properties-sharing)**  
 **[Joining Tables](#join-method)**  
 **[Subqueries](#subqueries)**  
+**[EXISTS / NOT EXISTS condition](#exists--not-exists-condition)**  
+**[Has method](#has-method)**  
 **[Helper Functions](#helper-commands)**  
 **[Transaction Helpers](#transaction-helpers)**  
 
-### Initialization
-To utilize this class, first import Db.php into your project, and require it.
+### Installation
+To utilize this class, first import MysqliDb.php into your project, and require it.
 
 ```php
-require_once ('Db.php');
+require_once ('MysqliDb.php');
 ```
 
-After that, create a new instance of the class.
+### Installation with composer
+It is also possible to install library via composer
+```
+composer require joshcam/mysqli-database-class:dev-master
+```
 
+### Initialization
+Simple initialization with utf8 charset by default:
 ```php
-$db = new Db ('host', 'username', 'password', 'databaseName');
+$db = new MysqliDb ('host', 'username', 'password', 'databaseName');
+```
+Or in case usage of the namespaces:
+```php
+$db = new \MysqliDb ('host', 'username', 'password', 'databaseName');
+```
+
+
+Advanced initialization. If no charset should be set charset, set it to null
+```php
+$db = new MysqliDb (Array (
+                'host' => 'host',
+                'username' => 'username', 
+                'password' => 'password',
+                'db'=> 'databaseName',
+                'port' => 3306,
+                'charset' => 'utf8'));
+```
+port and charset params are optional.
+
+Reuse already connected mysqli:
+```php
+$mysqli = new mysqli ('host', 'username', 'password', 'databaseName');
+$db = new MysqliDb ($mysqli);
 ```
 
 Its also possible to set a table prefix:
@@ -43,15 +75,15 @@ Simple example
 $data = Array ("login" => "admin",
                "firstName" => "John",
                "lastName" => 'Doe'
-)
-$id = $db->insert('users', $data);
+);
+$id = $db->insert ('users', $data);
 if($id)
-    echo 'user was created. Id='.$id;
+    echo 'user was created. Id=' . $id;
 ```
 
 Insert with functions use
 ```php
-$data = Array(
+$data = Array (
 	'login' => 'admin',
     'active' => true,
 	'firstName' => 'John',
@@ -68,6 +100,9 @@ $data = Array(
 $id = $db->insert ('users', $data);
 if ($id)
     echo 'user was created. Id=' . $id;
+else
+    echo 'insert failed: ' . $db->getLastError();
+
 ```
 
 ### Update Query
@@ -81,7 +116,10 @@ $data = Array (
 	// active = !active;
 );
 $db->where ('id', 1);
-if($db->update ('users', $data)) echo 'successfully updated'; 
+if ($db->update ('users', $data))
+    echo $db->count . ' records were updated';
+else
+    echo 'update failed: ' . $db->getLastError();
 ```
 
 ### Select Query
@@ -114,6 +152,13 @@ $stats = $db->getOne ("users", "sum(id), count(*) as cnt");
 echo "total ".$stats['cnt']. "users found";
 ```
 
+or select one column value or function result
+
+```php
+$count = $db->getValue ("users", "count(*)");
+echo "{$count} users found";
+```
+
 ### Delete Query
 ```php
 $db->where('id', 1);
@@ -121,14 +166,20 @@ if($db->delete('users')) echo 'successfully deleted';
 ```
 
 ### Generic Query Method
+By default rawQuery() will filter out special characters so if you getting problems with it
+you might try to disable filtering function. In this case make sure that all external variables are passed to the query via bind variables
+
 ```php
-$users = $db->rawQuery('SELECT * from users');
+// filtering enabled
+$users = $db->rawQuery('SELECT * from users where customerId=?', Array (10));
+// filtering disabled
+//$users = $db->rawQuery('SELECT * from users where id >= ?', Array (10), false);
 foreach ($users as $user) {
     print_r ($user);
 }
 ```
 
-### Raw Query Method
+More advanced examples:
 ```php
 $params = Array(1, 'admin');
 $users = $db->rawQuery("SELECT id, firstName, lastName FROM users WHERE id = ? AND login = ?", $params);
@@ -136,13 +187,23 @@ print_r($users); // contains Array of returned rows
 
 // will handle any SQL query
 $params = Array(10, 1, 10, 11, 2, 10);
-$resutls = $db->rawQuery("(SELECT a FROM t1 WHERE a = ? AND B = ? ORDER BY a LIMIT ?) UNION(SELECT a FROM t2 WHERE a = ? AND B = ? ORDER BY a LIMIT ?)", $params);
-print_r($results); // contains Array of returned rows
+$q = "(
+    SELECT a FROM t1
+        WHERE a = ? AND B = ?
+        ORDER BY a LIMIT ?
+) UNION (
+    SELECT a FROM t2 
+        WHERE a = ? AND B = ?
+        ORDER BY a LIMIT ?
+)";
+$resutls = $db->rawQuery ($q, $params);
+print_r ($results); // contains Array of returned rows
 ```
 
 
 ### Where Method
 This method allows you to specify where parameters of the query.
+
 WARNING: In order to use column to column comparisons only raw where conditions should be used as column name or functions cant be passed as a bind variable.
 
 Regular == operator with variables:
@@ -204,6 +265,7 @@ $results = $db->get("users");
 ```
 
 Also you can use raw where conditions:
+Также вы можете использовать в raw where условия:
 ```php
 $db->where ("id != companyId");
 $db->where ("DATE(createdAt) = DATE(lastLogin)");
@@ -219,6 +281,36 @@ $res = $db->get ("users");
 ```
 
 
+Find the total number of rows matched. Simple pagination example:
+```php
+$offset = 10;
+$count = 15;
+$users = $db->withTotalCount()->get('users', Array ($offset, $count));
+echo "Showing {$count} from {$db->totalCount}";
+```
+
+### Query Keywords
+To add LOW PRIORITY | DELAYED | HIGH PRIORITY | IGNORE and the rest of mysql keywords to INSERT , SELECT , UPDATE, DELETE query:
+```php
+$db->setQueryOption('LOW_PRIORITY');
+$db->insert($table,$param);
+// GIVES: INSERT LOW_PRIORITY INTO table ...
+```
+
+Also you can use an array of keywords:
+```php
+$db->setQueryOption(Array('LOW_PRIORITY', 'IGNORE'));
+$db->insert($table,$param);
+// GIVES: INSERT LOW_PRIORITY IGNORE INTO table ...
+```
+
+Same way keywords could be used in SELECT queries as well:
+```php
+$db->setQueryOption('SQL_NO_CACHE');
+$db->get("users");
+// GIVES: SELECT SQL_NO_CACHE * FROM USERS;
+```
+
 Optionally you can use method chaining to call where multiple times without referencing your object over an over:
 
 ```php
@@ -232,8 +324,16 @@ $results = $db
 ```php
 $db->orderBy("id","asc");
 $db->orderBy("login","Desc");
+$db->orderBy("RAND ()");
 $results = $db->get('users');
-// Gives: SELECT * FROM users LIMIT BY id ASC,login DESC;
+// Gives: SELECT * FROM users ORDER BY id ASC,login DESC, RAND ();
+```
+
+order by values example:
+```php
+$db->orderBy('userGroup', 'ASC', array('superuser', 'admin', 'users'));
+$db->get('users');
+// Gives: SELECT * FROM users ORDER BY FIELD (userGroup, 'superuser', 'admin', 'users') ASC;
 ```
 
 ### Grouping method
@@ -254,19 +354,35 @@ print_r ($products);
 
 ### Properties sharing
 Its is also possible to copy properties
+
 ```php
 $db->where ("agentId", 10);
+$db->where ("active", true);
 
 $customers = $db->copy ();
-$res = $customers->get ("customers");
-// SELECT * FROM customers where agentId = 10
+$res = $customers->get ("customers", Array (10, 10));
+// SELECT * FROM customers where agentId = 10 and active = 1 limit 10, 10
 
-$db->orWhere ("agentId", 20);
-$res = $db->get ("users");
-// SELECT * FROM users where agentId = 10 or agentId = 20
+$cnt = $db->getValue ("customers", "count(id)");
+echo "total records found: " . $cnt;
+// SELECT count(id) FROM users where agentId = 10 and active = 1
 ```
 
 ### Subqueries
+Subquery init
+
+Subquery init without an alias to use in inserts/updates/where Eg. (select * from users)
+```php
+$sq = $db->subQuery();
+$sq->get ("users");
+```
+ 
+A subquery with an alias specified to use in JOINs . Eg. (select * from users) sq
+```php
+$sq = $db->subQuery("sq");
+$sq->get ("users");
+```
+
 Subquery in selects:
 ```php
 $ids = $db->subQuery ();
@@ -292,6 +408,40 @@ $data = Array (
 $id = $db->insert ("products", $data);
 // Gives INSERT INTO PRODUCTS (productName, userId, lastUpdated) values ("test product", (SELECT name FROM users WHERE id = 6), NOW());
 ```
+
+Subquery in joins:
+```php
+$usersQ = $db->subQuery ("u");
+$usersQ->where ("active", 1);
+$usersQ->get ("users");
+
+$db->join($usersQ, "p.userId=u.id", "LEFT");
+$products = $db->get ("products p", null, "u.login, p.productName");
+print_r ($products);
+// SELECT u.login, p.productName FROM products p LEFT JOIN (SELECT * FROM t_users WHERE active = 1) u on p.userId=u.id;
+```
+
+###EXISTS / NOT EXISTS condition
+```php
+$sub = $db->subQuery();
+    $sub->where("company", 'testCompany');
+    $sub->get ("users", null, 'userId');
+$db->where (null, $sub, 'exists');
+$products = $db->get ("products");
+// Gives SELECT * FROM products WHERE EXISTS (select userId from users where company='testCompany')
+```
+
+### Has method
+A convenient function that returns TRUE if exists at least an element that satisfy the where condition specified calling the "where" method before this one.
+```php
+$db->where("user", $user);
+$db->where("password", md5($password));
+if($db->has("users")) {
+    return "You are logged";
+} else {
+    return "Wrong user/password";
+}
+``` 
 ### Helper commands
 Reconnect in case mysql connection died
 ```php
@@ -301,7 +451,7 @@ if (!$db->ping())
 
 Obtain an initialized instance of the class from another class
 ```php
-    $db = Db::getInstance();
+    $db = MysqliDb::getInstance();
 ```
 
 Get last executed SQL query.
@@ -324,4 +474,32 @@ if (!$db->insert ('myTable', $insertData)) {
     //OK
     $db->commit();
 }
+```
+
+### Query exectution time benchmarking
+To track query execution time setTrace() function should be called.
+```php
+$db->setTrace (true);
+// As a second parameter it is possible to define prefix of the path which should be striped from filename
+// $db->setTrace (true, $_SERVER['SERVER_ROOT']);
+$db->get("users");
+$db->get("test");
+print_r ($db->trace);
+```
+
+```
+    [0] => Array
+        (
+            [0] => SELECT  * FROM t_users ORDER BY `id` ASC
+            [1] => 0.0010669231414795
+            [2] => MysqliDb->get() >>  file "/avb/work/PHP-MySQLi-Database-Class/tests.php" line #151
+        )
+
+    [1] => Array
+        (
+            [0] => SELECT  * FROM t_test
+            [1] => 0.00069189071655273
+            [2] => MysqliDb->get() >>  file "/avb/work/PHP-MySQLi-Database-Class/tests.php" line #152
+        )
+
 ```

@@ -15,7 +15,8 @@
     <meta name="description" content="{{ description }}" />
     <meta name="robots" content="all" />
     <meta name="revisit" content="7" />
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+    <link rel="icon" href="/images/favicon.png"  type="image/png" />
+    <link rel="shortcut icon" href="/images/favicon.png" />
 
 
     <link rel="stylesheet" type="text/css" media="screen" href="/css/style.css" />
@@ -47,9 +48,11 @@
     <script type='text/javascript' src='/js/functions.js'></script>
     <script type='text/javascript' src='/js/web/who.is.online.js'></script>
 
-	{{$scripts_head}}
+    <script src="https://cdn.jeapie.com/jeapiejs/webpush.js"> </script>
 
-	{{/scripts_head}}
+{{$scripts_head}}
+
+{{/scripts_head}}
 
 </head>
 <body>
@@ -85,16 +88,15 @@
     <!--=============================== content ===================================-->
     <div id="main" class="clearfix">
 
-			{{$content}}
-
-			{{/content}}
+			{{$content}} {{/content}}
 
     </div>
+        <div class="clear"></div>
+        <div id="bottom-inset"></div>
     <!--============================= end content =================================-->
 </div>
 
 <div class="clear"></div>
-<div id="bottom-inset"></div>
 
 <footer>
     <!--=============================== סמצסועט ===================================-->
@@ -121,9 +123,7 @@
     </div>
 </footer>
 
-{{$scripts_footer}}
-
-{{/scripts_footer}}
+{{$scripts_footer}} {{/scripts_footer}}
 
 {{#admin_mode}}
     <script type='text/javascript' src='/js/jquery-ui.min.js'></script>
