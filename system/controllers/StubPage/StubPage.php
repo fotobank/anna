@@ -53,6 +53,7 @@ class StubPage extends Controller
     public function toEmail() {
         $model = new model\StubPage();
         $mess = $model->toEmail();
+        header('Content-Type: application/json');
         echo $mess;
     }
 }

@@ -123,24 +123,24 @@ class StubPage extends Base
         return [
             // Сообщения об ошибках и информационные сообщения.
             // Всегда избегайте двойных кавычек. " => \"
-            'email_exists' => ['info_msg' => 'Ваш E-mail уже зарегистрирован.'],
-            'thank_you' => ['success_msg' => 'Спасибо за Ваш интерес к моему сайту!<br/>
+            'email_exists' => ['info_msg', 'Ваш E-mail уже зарегистрирован.'],
+            'thank_you' => ['success_msg', 'Спасибо за Ваш интерес к моему сайту!<br/>
                             Как только информация будет подготовленна,<br/>
                              Вы сразу же получите уведомление.'],
 
-            'no_email' => ['error_msg' => 'Пожалуйста, укажите действующий адрес <br/>электронной почты.'],
-            'email_invalid' => ['error_msg' => 'Введенный Вами E-mail недействителен. <br/>
+            'no_email' => ['error_msg', 'Пожалуйста, укажите действующий адрес <br/>электронной почты.'],
+            'email_invalid' => ['error_msg', 'Введенный Вами E-mail недействителен. <br/>
                                     Пожалуйста, будьте внимательны при наборе.'],
             'bot' => ['error_msg', 'Вотам и спамерам подписка запрещена.'],
 
-            'technical' => ['warning_msg' => 'Сервис отправки E-mail временно не работает. <br/>
+            'technical' => ['warning_msg', 'Сервис отправки E-mail временно не работает. <br/>
                             Пожалуйста, попробуйте еще раз позже.'],
-            'technical_base' => ['warning_msg' => 'Ошибка записи в базу данных. <br/>
+            'technical_base' => ['warning_msg', 'Ошибка записи в базу данных. <br/>
                                      Мы уже работаем над этой проблемой <br/>
                                      и в ближайшее время она будет устранена.<br/>
                                      Зайдите, пожалуйста, позже.'],
 
-            'no_info' => ['warning_msg' => 'Техничесский сбой. <br/>
+            'no_info' => ['warning_msg', 'Техничесский сбой. <br/>
                            Мы уже работаем над этой проблемой <br/>
                             и в ближайшее время она будет устранена.<br/>
                            Зайдите, пожалуйста, позже.']
@@ -169,9 +169,7 @@ class StubPage extends Base
         if(count($this->reply_mess) == 0) {
             $this->reply_mess = ('no_info');
         }
-        // преобразуем массив к utf8
-        foreach ($this->reply_mess as $name => &$info) $info = utf8($info);
-        return json_encode($this->reply_mess);
+        return json_encode(['type' => $this->reply_mess[0], 'msg' => utf8($this->reply_mess[1])]);
     }
 
 
