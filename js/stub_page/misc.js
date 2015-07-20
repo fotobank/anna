@@ -24,30 +24,22 @@ function subscribe_submit() {
 
 function subscribe_result(data) {
 	$('#loading').hide();
-	if (data.error) {
-		display_message(data.error);
-	} else {
-		display_message(data.info, 'info')
-	}
+	log (data);
+
+	var type;
+	var msg;
+	$.each( data, function(key, value){
+		type = key;
+		msg = value;
+	});
+	display_message(type, msg);
 	$('#subscribe_button').removeAttr("disabled");
 }
 
-function display_message(msg, type) {
+function display_message(type, msg) {
 
-	if (!type) type = 'error';
-
-	if (type == 'error') {
-
-		log (msg);
-
-		$('#error_message').html(msg).fadeIn('slow');
-		setTimeout('hide_error()', 4000);
-	} else {
-		$('#error_message').hide();
-		$('#info_message').html(msg).fadeIn('slow');
-	}
-}
-
-function hide_error() {
-	$('#error_message').fadeOut('slow');
+		$('#form_message').removeClass().addClass(type).html(msg).fadeIn('slow');
+	    setTimeout(function() {
+		$('#form_message').fadeOut('slow')
+			}, 6000);
 }

@@ -14,7 +14,6 @@
 
 namespace models\StubPage;
 
-use classes\pattern\Registry;
 use models\Base\Base;
 
 
@@ -24,49 +23,35 @@ use models\Base\Base;
  */
 class StubPage extends Base
 {
-
-    // сообщения и время таймера
-    protected $config;
-
-    // почта абонента
-    protected $email_abonent;
-
-    // адрес webmaster
-    protected $my_email = 'aleksjurii@gmail.com';
-
-    // ошибки для json
-    // сообщение абоненту
-    public $error = '';
-    public $info = '';
-    // ответ сервера на запрос о подписке в страницы заглушке
-    protected $reply_mess = [];
+    protected
+        $config,  // сообщения и время таймера
+        $email_abonent, // почта абонента
+        $my_email = 'aleksjurii@gmail.com',  // адрес webmaster
+        $reply_mess = [],  // ответ сервера на запрос о подписке в страницы заглушке
+        $messages = [];  // заданные системные сообщения
 
     // время отсчета таймера
-    public $target_day = 30;
-    public $target_month = 7;
-    public $target_year = 2015;
-    public $target_hour = 0;
-    public $target_minute = 0;
-    public $target_second = 0;
+    public
+        $target_day = 30,
+        $target_month = 7,
+        $target_year = 2015,
+        $target_hour = 0,
+        $target_minute = 0,
+        $target_second = 0;
 
     // часы
-    public $digit_weeks0 = 0;
-    public $digit_weeks1 = 0;
+    public
+        $digit_weeks0 = 0,
+        $digit_weeks1 = 0,
+        $digit_days0 = 0,
+        $digit_days1 = 0,
+        $digit_hours0 = 0,
+        $digit_hours1 = 0,
+        $digit_mins0 = 0,
+        $digit_mins1 = 0,
+        $digit_secs0 = 0,
+        $digit_secs1 = 0;
 
-    public $digit_days0 = 0;
-    public $digit_days1 = 0;
-
-    public $digit_hours0 = 0;
-    public $digit_hours1 = 0;
-
-    public $digit_mins0 = 0;
-    public $digit_mins1 = 0;
-
-    public $digit_secs0 = 0;
-    public $digit_secs1 = 0;
-
-    // заданные системные сообщения
-    protected $messages;
 
     /**
      * @param array $options
@@ -82,15 +67,7 @@ class StubPage extends Base
 
             $this->messages = $this->getMessages();
             $this->processDate();
-
-            if (preg_match ('/[^.]+\.[^.]+$/i', 'anna.od.ua/portfolio?nnn',$h)) {
-            $newurl = $h;
-             }
-
-
-
         } catch (\Exception $e) {
-
             throw new \Exception($e);
         }
     }
@@ -100,7 +77,6 @@ class StubPage extends Base
      */
     protected function processDate()
     {
-
         $now = time();
         $target = mktime(
             $this->target_hour,
@@ -110,9 +86,7 @@ class StubPage extends Base
             $this->target_day,
             $this->target_year
         );
-
         $diffSecs = $target - $now;
-
         $date = [];
         $date['secs'] = $diffSecs % 60;
         $date['mins'] = floor($diffSecs / 60) % 60;
@@ -129,19 +103,14 @@ class StubPage extends Base
                 (int)$d
             ];
         }
-
         $this->digit_weeks0 = $date['weeks'][0];
         $this->digit_weeks1 = $date['weeks'][1];
-
         $this->digit_days0 = $date['days'][0];
         $this->digit_days1 = $date['days'][1];
-
         $this->digit_hours0 = $date['hours'][0];
         $this->digit_hours1 = $date['hours'][1];
-
         $this->digit_mins0 = $date['mins'][0];
         $this->digit_mins1 = $date['mins'][1];
-
         $this->digit_secs0 = $date['secs'][0];
         $this->digit_secs1 = $date['secs'][1];
     }
@@ -154,24 +123,27 @@ class StubPage extends Base
         return [
             // Сообщения об ошибках и информационные сообщения.
             // Всегда избегайте двойных кавычек. " => \"
-            'email_exists' => 'Ваш E-mail уже зарегистрирован.',
-            'no_email' => 'Пожалуйста, <br/> укажите действующий адрес электронной почты.',
-            'email_invalid' => 'Введенный Вами E-mail недействителен. <br/>
-                                    Пожалуйста, будьте внимательны при наборе.',
-            'thank_you' => 'Спасибо за Ваш интерес к моему сайту!<br/>
+            'email_exists' => ['info_msg' => 'Ваш E-mail уже зарегистрирован.'],
+            'thank_you' => ['success_msg' => 'Спасибо за Ваш интерес к моему сайту!<br/>
                             Как только информация будет подготовленна,<br/>
-                             Вы сразу же получите уведомление.',
-            'technical' => 'Сервис отправки E-mail временно не работает. <br/>
-                            Пожалуйста, попробуйте еще раз позже.',
-            'technical_base' => 'Ошибка записи в базу данных. <br/>
+                             Вы сразу же получите уведомление.'],
+
+            'no_email' => ['error_msg' => 'Пожалуйста, укажите действующий адрес <br/>электронной почты.'],
+            'email_invalid' => ['error_msg' => 'Введенный Вами E-mail недействителен. <br/>
+                                    Пожалуйста, будьте внимательны при наборе.'],
+            'bot' => ['error_msg', 'Вотам и спамерам подписка запрещена.'],
+
+            'technical' => ['warning_msg' => 'Сервис отправки E-mail временно не работает. <br/>
+                            Пожалуйста, попробуйте еще раз позже.'],
+            'technical_base' => ['warning_msg' => 'Ошибка записи в базу данных. <br/>
                                      Мы уже работаем над этой проблемой <br/>
                                      и в ближайшее время она будет устранена.<br/>
-                                     Зайдите, пожалуйста, позже.',
-            'bot' => 'Вотам и спамерам подписка запрещена.',
-            'no_info' => 'Техничесский сбой. <br/>
+                                     Зайдите, пожалуйста, позже.'],
+
+            'no_info' => ['warning_msg' => 'Техничесский сбой. <br/>
                            Мы уже работаем над этой проблемой <br/>
                             и в ближайшее время она будет устранена.<br/>
-                           Зайдите, пожалуйста, позже.'
+                           Зайдите, пожалуйста, позже.']
         ];
 
     }
@@ -184,76 +156,49 @@ class StubPage extends Base
      */
     public function toEmail()
     {
-
         // json - защита от ботов
-        if ($_GET['json']) {
-
+        if(array_key_exists('json', $_GET)) {
             // проверка e-mail и добавить юзера в базу
-            if ($this->checkMail() && $this->addUserToBase()) {
-
+            if($this->checkMail() && $this->addUserToBase()) {
                 // отправить почту
-                if ($this->sendEmail()) {
-
-                    $this->reply_mess['info'] = $this->messages['thank_you'];
-
-                } else {
-                    $this->reply_mess['error'] = $this->messages['technical'];
-                }
-
-            } else {
-                $this->reply_mess['error'] = $this->error;
+                $this->sendEmail();
             }
-
         } else {
-
-            $this->reply_mess['error'] = $this->messages['bot'];
+            $this->reply_mess = $this->messages['bot'];
         }
-
         if(count($this->reply_mess) == 0) {
-
-            $this->reply_mess['error'] = ('no_info');
+            $this->reply_mess = ('no_info');
         }
-
         // преобразуем массив к utf8
         foreach ($this->reply_mess as $name => &$info) $info = utf8($info);
-
         return json_encode($this->reply_mess);
     }
 
 
     /**
-     * проверка введенного email на ошибки
+     * проверка введенного email на ошибки и наличия в базе
      */
     protected function checkMail()
     {
 
-        if (($_POST['email'])) {
-
-            $this->email_abonent = mb_convert_encoding($_POST['email'], 'Windows-1251', 'UTF-8');
-
-            if ($this->email_abonent == 'Введите Ваш E-mail') {
-
-                $this->error = $this->messages['no_email'];
-                return false;
-
-            } elseif (!filter_var($this->email_abonent, FILTER_VALIDATE_EMAIL)) {
-
-                $this->error = $this->messages['email_invalid'];
-                return false;
-
-            } elseif($this->checkEmailInDb()) {
-
-                return false;
-            } else {
-
-                return true;
-            }
-
-        } else {
-
-            $this->error = $this->messages['no_email'];
+        if((empty($_POST['email']))) {
+            $this->reply_mess = $this->messages['no_email'];
             return false;
         }
+        $this->email_abonent = mb_convert_encoding($_POST['email'], 'Windows-1251', 'UTF-8');
+        if($this->email_abonent == 'Введите Ваш E-mail') {
+            $this->reply_mess = $this->messages['no_email'];
+            return false;
+        }
+        if(!filter_var($this->email_abonent, FILTER_VALIDATE_EMAIL)) {
+            $this->reply_mess = $this->messages['email_invalid'];
+            return false;
+        }
+        if($this->checkEmailInDb()) {
+            return false;
+        }
+        return true;
+
     }
 
 
@@ -263,13 +208,13 @@ class StubPage extends Base
      */
     public function checkEmailInDb()
     {
-        self::db()->where ('email', $this->email_abonent);
-        self::db()->where ('url', $_SERVER['HTTP_REFERER'] );
-        $user = self::db()->getOne ('subscribers');
+        self::db()->where('email', $this->email_abonent);
+        self::db()->where('url', $_SERVER['HTTP_REFERER']);
+        $user = self::db()->getOne('subscribers');
 
-        if ($user) {
+        if($user) {
             // если есть такой email, то вернет true
-            $this->error = $this->messages['email_exists'];
+            $this->reply_mess = $this->messages['email_exists'];
             return true;
         } else {
             // если нету такого email в БД вернет false, значить можно регить новый
@@ -291,12 +236,12 @@ class StubPage extends Base
             'ip' => ip()
         ];
 
-        if ($db->insert('subscribers', $data)) {
+        if($db->insert('subscribers', $data)) {
 
             return true;
         } else {
-            $this->error = $this->messages['technical_base'];
-            if (DEBUG) {
+            $this->reply_mess = $this->messages['technical_base'];
+            if(DEBUG) {
 
                 throw new \Exception('Ошибка при передаче данных в базу: ' . $db->getLastError());
             }
@@ -317,7 +262,13 @@ class StubPage extends Base
         $headers = 'MIME-Version: 1.0' . '\r\n';
         $headers .= 'Content-type: text/html; charset=windows-1251' . '\r\n';
 
-        return mail($to, $subject, $body, $headers);
+        $ret = mail($to, $subject, $body, $headers);
+
+        if($ret) {
+            $this->reply_mess = $this->messages['thank_you'];
+        } else {
+            $this->reply_mess = $this->messages['technical'];
+        }
 
     }
 
