@@ -79,7 +79,6 @@ class Router
             $url = array_key_exists('url', $_GET) ? $_GET['url'] : '/index';
             $this->url_routes = array_values(array_filter(explode('/', $url)));
             $this->url_controller = $this->url_routes[0];
-
             $this->url_metod = array_key_exists(1, $this->url_routes) ? $this->url_routes[1] : false;
             $url_controller_metod = $this->url_controller . '/' . $this->url_metod;
             if (array_key_exists($this->url_controller, $this->site_routes)) {
@@ -88,15 +87,14 @@ class Router
                 $this->url_controller = $url_controller_metod;
                 $this->requestOptions();
             } else {
-                if (DEBUG_MODE) {
                     throw new RouteException('controller "' . $this->url_controller . '" не задан в массиве routes', 404);
-                } else {
-                    $this->get404();
-                }
             }
         } catch (RouteException $e) {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            throw new RouteException($e);
+            if (DEBUG_MODE) {
+                throw new RouteException($e);
+            } else {
+                $this->get404();
+            }
         }
     }
 
