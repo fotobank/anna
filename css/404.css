@@ -1,35 +1,22 @@
 html {
-  background: #000000 url(/images/404_header.jpg) no-repeat center top;
-  color: white;
-  overflow: hidden;
-  height: 100%;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-		  font-size: medium;
+    overflow:  hidden;
 }
 .info, .info:before, .info:after, .tehno-info, .tehno-info:before, .tehno-info:after, .error, .err-404:after,
 .err-404:before, .engineering:after, .engineering:before, .error-424:after, .error-424:before,
 .info-424:before, .info-424:after {
-	text-align: center;
+	/*text-align: center;*/
 	position: absolute;
-}
-
-.inner-424{
-	position: relative;
 }
 .err-404:after, .engineering:after, .err-404:before, .engineering:before, .error-424:before, .error-424:after {
 	font-size: 120px;
 	width: 750px;
 	margin: auto;
-	top: 20%;
+	top: 17%;  /*высота отступа Error 404 */
 	bottom: 0;
 	left: 0;
 	right: 35%;
 	color: white;
 }
-
 .engineering:after, .err-404:after, .error-424:after {
 	opacity: 0.1;
 	/*-webkit-animation: noise-1 7s linear infinite;*/
@@ -46,38 +33,40 @@ html {
 .err-404:after, .err-404:before {
 	 content: 'error 404';
 }
-.error-424:after, .error-424:before {
-	margin-top: 0;
-	content: 'error 424';
-}
-
 .error {
 	width: 100%;
-	height: 140px;
 	margin: auto;
-	top: 0;
+	/*отступ сверху кода*/
+	top: 220px;
 	bottom: 0;
-	left: -100px;
 	right: 0;
-	/*-webkit-animation: noise-3 15s linear infinite;*/
-	/*animation: noise-3 15s linear infinite;*/
-	/*overflow: visible;*/
+}
+.error pre {
+	display: block;
+	font-size: 14px;
+	line-height: 1.9;
+	word-break: break-all;
+	color: inherit;
+	background-color: transparent;
+	border: none;
+}
+pre code {
+	white-space: pre-wrap;
+	color: white;
 }
 
-.info,.tehno-info, .info-424 {
-	width: 200px;
-	height: 60px;
+.info,.tehno-info {
+	position: absolute;
 	margin: auto;
-	top: 300px;
-	bottom: 0;
-	left: 40px;
+	top: 320px;
+	/*отступ сверху file not found*/
+	left: 5%;
 	right: 0;
 	-webkit-animation: noise-3 10s linear infinite;
 	animation: noise-3 10s linear infinite;
 }
 .info:before, .info:after, .tehno-info:before, .tehno-info:after {
 	font-size: 100px;
-	width: 800px;
 	margin: auto;
 	top: 90px;
 	bottom: 0;
@@ -102,27 +91,8 @@ html {
 .tehno-info:before, .tehno-info:after {
 	content: 'works';
 }
-.info-424:before, .info-424:after {
-	content: 'protection from hackers';
-	font-size: 78px;
-	width: 1024px;
-	margin: auto;
-	top: 280px;
-	bottom: 0;
-	left: 40px;
-	right: 10px;
-}
 #main{
 	background: transparent;
-}
-div.wrap-424 pre, div.wrap-424 code {
-	color: white;
-	background: transparent;
-	border: none;
-	border-radius: 0;
-	min-height: 750px !important;
-	margin: 70px 0 -700px;
-	font-size: 16px;
 }
 @-webkit-keyframes noise-1 {
   0%, 20%, 40%, 60%, 70%, 90% {opacity: 0;}
@@ -180,16 +150,6 @@ div.wrap-424 pre, div.wrap-424 code {
   43% {opacity: 1; -webkit-transform: scaleX(10) rotate(60deg); transform: scaleX(10) rotate(60deg);}
 }
 
-.wrap {
-  top: 30%;
-  left: 25%;
-  height: 200px;
-  margin-top: -100px;
-  position: absolute;
-}
-code {
-  color: white;
-}
 span.white {
 	color: white;
 }
@@ -199,10 +159,11 @@ span.blue {
 a span.blue {
 	z-index: 10;
 	position: absolute;
-	right: 0;
-	font-size: 18px;
+	font-size: 16px;
+	width: 150px;
+	text-decoration: underline;
 }
-span.comment {
+.error .err_comment {
   color: #7f8c8d;
 }
 span.orange {
@@ -217,10 +178,55 @@ span.green {
   text-decoration:none;
 }
 
- @media only screen and (min-height: 500px) {
-
+@media only screen and (min-height: 500px) {
 .viewFull{
   display:none; 	
 	}
+}
 
+/*======================================= - 424 - =========================================*/
+
+.error-424:after, .error-424:before {
+    position: absolute;
+    top: 150px;
+	margin-top: 0;
+	content: 'error 424';
+}
+.inner-424{
+	min-width: 100%;
+	position: absolute;
+	margin-top: 80px;
+    white-space: pre-wrap;
+}
+div.wrap-424 pre, div.wrap-424 code {
+	position: relative;
+	width: 100%;
+    height: 700px;
+	color: white;
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	font-size: 16px;
+	display: block;
+	line-height: 1.9;
+	word-break: break-all;
+    overflow:  hidden;
+}
+/* надпись - protection from hackers */
+.info-424:before, .info-424:after {
+	content: 'protection from hackers';
+	font-size: 78px;
+	bottom: 0;
+	left: 40px;
+	right: 10px;
+    top: 80px;
+}
+/* /body и /html */
+.info-424 {
+	position: absolute;
+	top: 350px;
+	left: 0;
+	right: 0;
+	-webkit-animation: noise-3 10s linear infinite;
+	animation: noise-3 10s linear infinite;
 }

@@ -69,7 +69,7 @@ class Error
 
 	private $hash_w = [];  // проверка ошибок на повторение
 	private $hash_d = [];
-	private $key_fatal_error = false;
+//	private $key_fatal_error = false;
 	/**
 	 * @var Exception $e
 	 */
@@ -121,7 +121,7 @@ class Error
 	 */
 	public function print_err()
 		{
-			if ($this->key_fatal_error) {
+	//		if ($this->key_fatal_error) {
 				if (DEBUG_MODE) {
 					if (0 != count($this->_allError)) {
 						$this->error_display();
@@ -136,7 +136,7 @@ class Error
 					}
 					$this->printExceptionPage();
 				}
-			}
+	//		}
 		}
 
 
@@ -146,7 +146,6 @@ class Error
 	 */
 	public function exception_handler(Exception $e)
 		{
-
 			$errorInfo = [];
 			$errorInfo['time'] = time();
 			$errorInfo['type'] = 'EXCEPTION';
@@ -210,14 +209,14 @@ class Error
 			if (0 === count($last_error)) {
 
 				if (isset($this->_allError[0]['code']) && $this->_allError[0]['code'] == 0) {
-					$this->key_fatal_error = true;
+				//	$this->key_fatal_error = true;
 					$this->print_err();
 				}
 
 				return false;
 			}
 
-			$this->key_fatal_error = true;
+		//	$this->key_fatal_error = true;
 			if (($last_error && ($last_error['type'] == E_ERROR || $last_error['type'] == E_PARSE ||
 								 $last_error['type'] == E_COMPILE_ERROR) && // если кончилась память
 				 0 == strpos($last_error['message'], 'Allowed memory size'))

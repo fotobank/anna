@@ -15,6 +15,7 @@
 namespace controllers\Error;
 
 use controllers\Controller\Controller;
+use models\Error as model;
 
 
 /**
@@ -38,10 +39,18 @@ class Error extends Controller {
 	 */
 	public function error404() {
 
-		header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
-		/** @noinspection PhpIncludeInspection */
-		include('404.php');
-		exit();
+		$model = new model\Error();
+		echo $this->mustache->render('404', $model);
+	}
+
+	/**
+	 * @internal param string $info
+	 * @internal param int|string $err
+	 */
+	public function error424() {
+
+		$model = new model\Error();
+		echo $this->mustache->render('424', $model);
 	}
 
 }

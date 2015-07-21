@@ -25,12 +25,14 @@ class Error extends model\Base {
 	/**
 	 * @param $options
 	 */
-	public function __construct($options)
-		{
-			// инициализация конструктора родительского класса
-			parent::__construct();
+	public function __construct($options = [])
+	{
+		// настройка свойств класса
+		$this->setOptions($options);
+		// инициализация конструктора родительского класса
+		parent::__construct();
 
-		}
+	}
 
 	/**
 	 * экшен

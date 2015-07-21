@@ -87,11 +87,11 @@ class Router
                 $this->url_controller = $url_controller_metod;
                 $this->requestOptions();
             } else {
-                    throw new RouteException('controller "' . $this->url_controller . '" не задан в массиве routes', 404);
+                    throw new RouteException('controller "' . $this->url_controller . '" не задан в массиве routes');
             }
         } catch (RouteException $e) {
             if (DEBUG_MODE) {
-                throw new RouteException($e);
+                throw $e;
             } else {
                 $this->get404();
             }
@@ -106,14 +106,12 @@ class Router
     protected function get404()
     {
         try {
-            if (!DEBUG_MODE) {
-                $controller = $this->site_routes['error404']['controller'];
-                $method = $this->site_routes['error404']['method'];
-                $this->prepareRoute($controller, $method);
-            }
+            $controller = $this->site_routes['404']['controller'];
+            $method = $this->site_routes['404']['method'];
+            $this->prepareRoute($controller, $method);
 
         } catch (RouteException $e) {
-            throw new RouteException($e);
+            throw $e;
         }
     }
 
@@ -136,7 +134,7 @@ class Router
             $this->createInstance($controller, $method);
 
         } catch (RouteException $e) {
-            throw new RouteException($e);
+            throw $e;
         }
     }
 
@@ -174,7 +172,7 @@ class Router
             /** @noinspection PhpIncludeInspection */
             require_once $controller_path;
         } else {
-            throw new RouteException('файл контроллера: "' . $controller_path . '" не найден', 404);
+            throw new RouteException('файл контроллера: "' . $controller_path . '" не найден');
         }
     }
 
@@ -199,7 +197,7 @@ class Router
                 throw new RouteException('метод "' . $method . '" не является публичным');
             }
         } else {
-            throw new RouteException('метод "' . $method . '" не найден в контроллере "' . $controller . '"', 404);
+            throw new RouteException('метод "' . $method . '" не найден в контроллере "' . $controller . '"');
         }
     }
 
@@ -219,7 +217,7 @@ class Router
             /** @noinspection PhpIncludeInspection */
             require_once($model_path);
         } else {
-            throw new RouteException('файл модели: "' . $model_path . '" не найден', 404);
+            throw new RouteException('файл модели: "' . $model_path . '" не найден');
         }
     }
 
@@ -240,8 +238,3 @@ class Router
         $this->prepareRoute($controller, $method);
     }
 }
-
-        /*error_log($message);
-        header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
-        include(SITE_PATH . 'system/controllers/Error/404.php');
-        exit();*/

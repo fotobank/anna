@@ -35,9 +35,13 @@ return [
 		'controller' => 'Carousel'
 
 	],
-	'error404'  => [
+	'404'  => [
 		'controller' => 'Error',
 		'method'     => 'error404'
+	],
+	'424'  => [
+		'controller' => 'Error',
+		'method'     => 'error424'
 	],
 	'toEmail' => [
 		'controller' => 'StubPage',

@@ -29,7 +29,6 @@ include_once( __DIR__ . '/inc/head.php' );
 			Ваше действие заблокировано правилами безопасности сайта!
 			</span>
 <span class="info-424">
-<br/><br/>
 	                 <span class="orange">&nbsp;&lt;/body&gt;</span>
 	             <span class="orange">&lt;/html&gt;</span>
 </span>
