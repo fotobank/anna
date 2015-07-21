@@ -25,25 +25,22 @@ use exception\RouteException;
 class Router
 {
 
-    /**
-     * @var $param string Param that sets after request url checked.
-     */
-    private $param;
-    /**
-     * @var $id
-     *  that sets after request url checked.
-     */
-    private $id;
+    private
+        $param, /** string Param that sets after request url checked. */
+        $id, /** that sets after request url checked. */
+        $lock_page = []; // перенаправление на страницу - заглушку
+
     /** @var mixed
      * массив заданных роутов
      */
     protected $site_routes;
+
     /**
      * @var router взятый из url
      */
-    public $url_routes;
-    public $url_controller;
-    public $url_metod;
+    public   $url_routes = [];
+    public   $url_controller = '';
+    public   $url_metod = '';
 
     /**
      *
@@ -59,13 +56,21 @@ class Router
      *
      * @throws RouteException
      */
-    public function set_route($route)
+    public function setRoute($route)
     {
-        if (is_array($route)) {
+        if(is_array($route)) {
             $this->site_routes = array_merge($this->site_routes, $route);
         } else {
             throw new RouteException('$route is not array');
         }
+    }
+
+    /**
+     * @throws RouteException
+     */
+    protected function setLockPage()
+    {
+
     }
 
     /**
@@ -81,16 +86,16 @@ class Router
             $this->url_controller = $this->url_routes[0];
             $this->url_metod = array_key_exists(1, $this->url_routes) ? $this->url_routes[1] : false;
             $url_controller_metod = $this->url_controller . '/' . $this->url_metod;
-            if (array_key_exists($this->url_controller, $this->site_routes)) {
+            if(array_key_exists($this->url_controller, $this->site_routes)) {
                 $this->requestOptions();
-            } elseif (array_key_exists($url_controller_metod, $this->site_routes)) {
+            } elseif(array_key_exists($url_controller_metod, $this->site_routes)) {
                 $this->url_controller = $url_controller_metod;
                 $this->requestOptions();
             } else {
-                    throw new RouteException('controller "' . $this->url_controller . '" не задан в массиве routes');
+                throw new RouteException('controller "' . $this->url_controller . '" не задан в массиве routes');
             }
         } catch (RouteException $e) {
-            if (DEBUG_MODE) {
+            if(DEBUG_MODE) {
                 throw $e;
             } else {
                 $this->get404();
@@ -114,7 +119,6 @@ class Router
             throw $e;
         }
     }
-
 
 
     /**
@@ -145,10 +149,10 @@ class Router
      */
     protected function prepareParams()
     {
-        if (!empty($this->url_routes[2])) {
+        if(!empty($this->url_routes[2])) {
             $this->id = $this->url_routes[2];
         }
-        if ((!empty($this->url_routes[3]))) {
+        if((!empty($this->url_routes[3]))) {
             $this->param = $this->url_routes[3];
         }
     }
@@ -168,7 +172,7 @@ class Router
     protected function checkControllerExists($controller)
     {
         $controller_path = SITE_PATH . 'system' . DS . 'controllers' . DS . $controller . DS . $controller . '.php';
-        if (file_exists($controller_path)) {
+        if(file_exists($controller_path)) {
             /** @noinspection PhpIncludeInspection */
             require_once $controller_path;
         } else {
@@ -189,9 +193,9 @@ class Router
         $controller = 'controllers\\' . $controller . '\\' . $controller;
         $instance = new $controller;
 
-        if (method_exists($instance, $method)) {
+        if(method_exists($instance, $method)) {
             $reflection = new ReflectionMethod($instance, $method);
-            if ($reflection->isPublic()) {
+            if($reflection->isPublic()) {
                 $instance->$method($this->id, $this->param);
             } else {
                 throw new RouteException('метод "' . $method . '" не является публичным');
@@ -213,7 +217,7 @@ class Router
 
         $model_path = SITE_PATH . 'system' . DS . 'models' . DS . $controller . DS . $controller . '.php';
 
-        if (file_exists($model_path)) {
+        if(file_exists($model_path)) {
             /** @noinspection PhpIncludeInspection */
             require_once($model_path);
         } else {
@@ -229,9 +233,9 @@ class Router
         $controller = $this->site_routes[$this->url_controller]['controller'];
         $method = '';
 
-        if (!empty($this->site_routes[$this->url_controller]['method'])) {
+        if(!empty($this->site_routes[$this->url_controller]['method'])) {
             $method = $this->site_routes[$this->url_controller]['method'];
-        } elseif (!empty($this->url_routes[1])) {
+        } elseif(!empty($this->url_routes[1])) {
             $method = $this->url_routes[1];
         }
         $this->prepareParams();
