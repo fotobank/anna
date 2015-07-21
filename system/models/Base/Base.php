@@ -134,11 +134,9 @@ abstract class Base
 	 */
 	public function ifError($txt_err)
 		{
-
 			if (self::db()->getLastError() !== '&nbsp;&nbsp;') {
 				throw new \Exception($txt_err.' '.self::db()->getLastError());
 			}
-
 		}
 
 	/**

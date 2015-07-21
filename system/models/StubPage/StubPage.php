@@ -73,6 +73,19 @@ class StubPage extends Base
     }
 
     /**
+     */
+    protected function setLockPage()
+    {
+        $unixTime = $this->getLockTime();
+        $date_time = getdate($unixTime);
+    }
+
+    protected function getLockTime() {
+
+    }
+
+
+    /**
      * коррекция часов
      */
     protected function processDate()

@@ -146,7 +146,6 @@ function post_var()
  */
 function password_encrypt($password)
 {
-
     $hash_format = "$2y$10$";
     $salt_length = 22;
     $salt = generate_salt($salt_length);
@@ -163,10 +162,9 @@ function password_encrypt($password)
  */
 function generate_salt($length)
 {
-
     $unique_random_string = md5(uniqid(mt_rand(), true));
     $base64_string = base64_encode($unique_random_string);
-    $modified_base64_string = str_replace("+", ".", $base64_string);
+    $modified_base64_string = str_replace('+', '.', $base64_string);
     $salt = substr($modified_base64_string, 0, $length);
 
     return $salt;
@@ -233,21 +231,20 @@ function file_newname($path, $filename)
  */
 function Greeting()
 {
-    $hour = date("H");
+    $hour = date('H');
     if($hour < 6) {
-        return "Доброй ночи";
+        return 'Доброй ночи';
     }
     if($hour < 12) {
-        return "Доброе утро";
+        return 'Доброе утро';
     }
     if($hour < 18) {
-        return "Добрый день";
+        return 'Добрый день';
     }
     if($hour <= 23) {
-        return "Добрый вечер";
+        return 'Добрый вечер';
     }
-
-    return "Доброй ночи";
+    return 'Доброй ночи';
 }
 
 /**
@@ -458,7 +455,7 @@ function getFileextension($file)
  */
 function get_Fileextension($file)
 {
-    return end(explode(".", $file));
+    return end(explode('.', $file));
 }
 
 /**
@@ -470,7 +467,7 @@ function get_Fileextension($file)
 function getImageinfo($file, $query)
 {
     if(!realpath($file)) {
-        $file = $_SERVER["DOCUMENT_ROOT"] . $file;
+        $file = $_SERVER['DOCUMENT_ROOT'] . $file;
     }
     $image = getimagesize($file);
 
@@ -494,7 +491,7 @@ function db()
  *
  * @return string
  */
-function my_htmlspecialchars($str, $quote, $encoding = "cp1251")
+function my_htmlspecialchars($str, $quote, $encoding = 'cp1251')
 {
     return htmlspecialchars($str, $quote, $encoding);
 }
@@ -521,7 +518,7 @@ function sterilize($input, $is_sql = false)
     }
 
     $input = strip_tags($input);
-    $input = str_replace("  ", "\n", $input);
+    $input = str_replace('  ', "\n", $input);
 
     return $input;
 }
@@ -534,7 +531,7 @@ function main_redir($addr = '', $code = '303')
 {
     if(empty($addr)) {
         if(isset($_SERVER['HTTP_REFERER'])) {
-            header("location: " . $_SERVER['HTTP_REFERER'], true, $code);
+            header('location: ' . $_SERVER['HTTP_REFERER'], true, $code);
         } else {
             header('location: /index.php', true, $code);
         }
@@ -576,7 +573,7 @@ function if_admin($str)
  */
 function login()
 {
-    db()->where("id", 1);
+    db()->where('id', 1);
     $login = db()->getOne($GLOBALS['tbl_users'], 'login');
 
     return $login['login'];
@@ -588,7 +585,7 @@ function login()
  */
 function pass()
 {
-    db()->where("id", 1);
+    db()->where('id', 1);
     $login = db()->getOne($GLOBALS['tbl_users'], 'pass');
 
     return $login['pass'];
@@ -601,7 +598,7 @@ function pre($array)
 {
     echo '<pre style="background-color: #cccccc; color: #010C01;" > ';
     print_r($array);
-    echo "</pre>";
+    echo '</pre>';
 }
 
 /**
@@ -610,23 +607,23 @@ function pre($array)
 function getConfig()
 {
     $config = [];
-    if(is_readable(__DIR__ . "/passwords.php")) {
-        $handle = file(__DIR__ . "/passwords.php", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if(is_readable(__DIR__ . '/passwords.php')) {
+        $handle = file(__DIR__ . '/passwords.php', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         array_shift($handle);
         if($handle) {
             foreach ($handle as $data) {
-                $rec = explode("=>", $data);
+                $rec = explode('=>', $data);
                 if(count($rec) === 2) {
                     $config[trim($rec[0])] = trim($rec[1]);
                 }
             }
         } else {
-            trigger_error("Подключение невозможно - не удалось открыть файл!", E_USER_ERROR);
+            trigger_error('Подключение невозможно - не удалось открыть файл!', E_USER_ERROR);
 
             return false;
         }
     } else {
-        trigger_error("Подключение невозможно - не найден файл с паролем!", E_USER_ERROR);
+        trigger_error('Подключение невозможно - не найден файл с паролем!', E_USER_ERROR);
 
         return false;
     }
@@ -703,14 +700,8 @@ function cleanInput($input)
  */
 function sql_valid($data)
 {
-    $data = str_replace("\\", "\\\\", $data);
-    $data = str_replace("'", "\'", $data);
-    $data = str_replace('"', '\"', $data);
-    $data = str_replace("\x00", "\\x00", $data);
-    $data = str_replace("\x1a", "\\x1a", $data);
-    $data = str_replace("\r", "\\r", $data);
-    $data = str_replace("\n", "\\n", $data);
-
+    $data = str_replace(["\\", "'", '"', "\x00", "\x1a", "\r", "\n"],
+                        ["\\\\",  "\'",  '\"',  "\\x00", "\\x1a", "\\r", "\\n"], $data);
     return ($data);
 }
 
@@ -920,7 +911,7 @@ function detect_encoding($string)
     static $list = ['utf-8', 'windows-1251'];
 
     foreach ($list as $item) {
-        $sample = iconv($item, ($item . "//IGNORE"), $string);
+        $sample = iconv($item, ($item . '//IGNORE'), $string);
         if(md5($sample) == md5($string)) {
             return $item;
         }
@@ -1003,7 +994,7 @@ function recursive_dir($dir, $mask = '.jpg', $ok_subdir = [], $no_subdir = [], $
                     }
                 }
             } elseif(is_dir($file)) {
-                $cont_subdir = glob($file . "/*", GLOB_ONLYDIR);
+                $cont_subdir = glob($file . '/*', GLOB_ONLYDIR);
                 if(count($cont_subdir)) {
                     foreach ($cont_subdir as $file2) {
                         recursive_dir($file2, $mask, $ok_subdir, $no_subdir, $multi_arrau);

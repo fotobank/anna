@@ -11,7 +11,7 @@ return [
     ],
 	'about'     => [
 		'controller' => 'About',
-		'method'     => 'about'
+//		'method'     => 'about'
 	],
 	'portfolio' => [
 //		'controller' => 'Portfolio',

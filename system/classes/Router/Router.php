@@ -30,6 +30,7 @@ class Router
         $id, /** that sets after request url checked. */
         $lock_page = []; // перенаправление на страницу - заглушку
 
+
     /** @var mixed
      * массив заданных роутов
      */
@@ -38,9 +39,19 @@ class Router
     /**
      * @var router взятый из url
      */
-    public   $url_routes = [];
-    public   $url_controller = '';
-    public   $url_metod = '';
+    public $url_routes = [];
+
+    public $url;
+
+    public $url_controller = '';
+
+    public $url_metod = '';
+
+    /**
+     * непосредственный маршрут
+     * @var
+     */
+    public $current_roure = [];
 
     /**
      *
@@ -66,14 +77,6 @@ class Router
     }
 
     /**
-     * @throws RouteException
-     */
-    protected function setLockPage()
-    {
-
-    }
-
-    /**
      * Mapping requested URL with specified routes in routing list.
      *
      * param array $site_routes Array list of routes from routes config file.
@@ -81,15 +84,23 @@ class Router
     public function start()
     {
         try {
-            $url = array_key_exists('url', $_GET) ? $_GET['url'] : '/index';
-            $this->url_routes = array_values(array_filter(explode('/', $url)));
-            $this->url_controller = $this->url_routes[0];
+            $this->url = array_key_exists('url', $_GET) ? $_GET['url'] : '/index';
+            $this->url_routes = array_values(array_filter(explode('/', $this->url)));
+            $url_controller = $this->url_routes[0];
             $this->url_metod = array_key_exists(1, $this->url_routes) ? $this->url_routes[1] : false;
-            $url_controller_metod = $this->url_controller . '/' . $this->url_metod;
-            if(array_key_exists($this->url_controller, $this->site_routes)) {
-                $this->requestOptions();
-            } elseif(array_key_exists($url_controller_metod, $this->site_routes)) {
-                $this->url_controller = $url_controller_metod;
+            // проверяем присутствует ли в пути название метода
+            $url_controller_metod = ($this->url_metod) ? $url_controller . '/' . $this->url_metod : false;
+            // собираем возможые контроллеры в массив и чистим пустые значения
+            // затем подготавливаем для сравнения по ключам (меняем местами ключ => значение)
+            $controllers = array_flip(array_filter(compact('url_controller', 'url_controller_metod')));
+            // сравнение по ключам
+            $this->current_roure = array_intersect_key(($this->site_routes), $controllers);
+            // разбивка массива для более удобной работы с ним
+            $this->current_roure = each( $this->current_roure );
+            // найденный контроллер
+            $this->url_controller = $this->current_roure['key'];
+
+            if($this->url_controller) {
                 $this->requestOptions();
             } else {
                 throw new RouteException('controller "' . $this->url_controller . '" не задан в массиве routes');
@@ -214,9 +225,7 @@ class Router
      */
     protected function createModelInstance($controller)
     {
-
         $model_path = SITE_PATH . 'system' . DS . 'models' . DS . $controller . DS . $controller . '.php';
-
         if(file_exists($model_path)) {
             /** @noinspection PhpIncludeInspection */
             require_once($model_path);
@@ -226,19 +235,56 @@ class Router
     }
 
     /**
+     *
+     */
+    protected function checkLockPage()
+    {
+        self::db()->where('url', $this->url);
+        $url_data = self::db()->getOne('lock_page');
+
+        return true;
+    }
+
+    /**
      * @throws RouteException
      */
     private function requestOptions()
     {
-        $controller = $this->site_routes[$this->url_controller]['controller'];
-        $method = '';
-
-        if(!empty($this->site_routes[$this->url_controller]['method'])) {
-            $method = $this->site_routes[$this->url_controller]['method'];
-        } elseif(!empty($this->url_routes[1])) {
-            $method = $this->url_routes[1];
+        $param = $this->checkLockPage();
+        if(!$param) {
+            $controller = 'StubPage';
+            $method = 'stubPage';
+        } else {
+            $controller = $this->current_roure['value']['controller'];
+            if(!empty($this->current_roure['value']['method'])) {
+                $method = $this->current_roure['value']['method'];
+            } elseif(!empty($this->url_routes[1])) {
+                $method = $this->url_routes[1];
+            } else {
+                $method = '';
+            }
+            $this->prepareParams();
         }
-        $this->prepareParams();
         $this->prepareRoute($controller, $method);
+    }
+
+    /**
+     * @return object
+     */
+    protected static function db()
+    {
+        return Db::getInstance(Db::getParam());
+    }
+
+    /**
+     * @param $txt_err
+     *
+     * @throws \Exception
+     */
+    public function ifError($txt_err)
+    {
+        if(self::db()->getLastError() !== '&nbsp;&nbsp;') {
+            throw new \Exception($txt_err . ' ' . self::db()->getLastError());
+        }
     }
 }
