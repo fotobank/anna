@@ -141,7 +141,7 @@
 	$.fn.digitChangeTo = function (digit, n, duration) {
 		if (!duration)
 		{
-			duration = 800;
+			duration = 8000;
 		}
 		if ($(digit + ' div.top').html() != n + '')
 		{
@@ -153,8 +153,6 @@
 				$(digit + ' div.bottom').html($(digit + ' div.top').html());
 				$(digit + ' div.bottom').css({'display': 'block', 'height': ''});
 				$(digit + ' div.top').hide().slideUp(10);
-
-			
 			});
 		}
 	};

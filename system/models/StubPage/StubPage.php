@@ -53,6 +53,13 @@ class StubPage extends Base
         $digit_secs0 = 0,
         $digit_secs1 = 0;
 
+    // титры - название времени
+    public
+    $weeks = 'weeks',
+    $days = 'days',
+    $hours = 'hours',
+    $minutes = 'minutes',
+    $seconds = 'seconds';
 
     /**
      * @param array $options

@@ -30,20 +30,21 @@ class Router
     private
         $param, /** string Param that sets after request url checked. */
         $id, /** that sets after request url checked. */
-        $lock_page = []; // перенаправление на страницу - заглушку
+        $lock_page = []; // массив страниц с перенаправлением на страницу - заглушку
 
 
     /** @var mixed
      * массив заданных роутов
      */
     protected $site_routes;
-
-    /**
-     * @var router взятый из url
-     */
-    protected $url_routes = [];
-
+    // путь из url
     protected $url;
+    /* router определенный из url */
+    protected $url_routes = [];
+    // controller страницы - заглушки
+    protected $StubPage;
+    // method страницы - заглушки
+    protected $stubPage;
 
     /**
      * непосредственный маршрут
@@ -61,6 +62,8 @@ class Router
     {
         /** @noinspection PhpIncludeInspection */
         $this->site_routes = include(SITE_PATH . 'system/classes/Router/routes.php');
+        $this->StubPage = 'StubPage';
+        $this->stubPage = 'stubPage';
     }
 
     /**
@@ -91,11 +94,12 @@ class Router
             if(count($this->url_routes) > 4) {
                 array_shift($this->url_routes);
             }
-            // $this->url_routes[0] - url controller
-            // $this->url_routes[1] - url method
-            // если в пути присутствует метод то ищеим в роутах по данному методу
+            // $this->url_routes[0] - это url controller
+            // $this->url_routes[1] - это url method
+            // если в пути присутствует метод то ищеим в роутах по данному контроллеру и методу
             if(!empty($this->url_routes[1])) {
                 $search_route = $this->url_routes[0] . '/' . $this->url_routes[1];
+                // иначе просто по контроллеру
             } else {
                 $search_route = $this->url_routes[0];
             }
