@@ -51,6 +51,7 @@ trait Options
 
 	/**
 	 * Получение и установка свойств объекта через вызов магического метода вида:
+	 * $prop = 'ваши данные' // для get
 	 * $object->(get|set)PropertyName($prop);
 	 *
 	 * @see __call
@@ -84,7 +85,7 @@ trait Options
 			}
 			catch (Exception $e) {
 				if (DEBUG_MODE) {
-					throw new Exception($e->getMessage(), E_USER_ERROR);
+					throw $e;
 				}
 			}
 			return $this;
@@ -122,7 +123,6 @@ trait Options
 	 */
 	public function setOption($key, $value)
 		{
-
 			$method = 'set'.$this->normalizeKey($key);
 			$this->$method($value);
 			/*if (method_exists($this, $method)) {
@@ -155,7 +155,7 @@ trait Options
 	public function setOptions($options)
 		{
 			// store options by default
-			$this->options = (array) $options;
+			$this->options = (array)$options;
 
 			// apply options
 			foreach ($this->options as $key => $value) {

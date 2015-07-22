@@ -11,14 +11,28 @@ namespace models\Base;
 
 
 use classes\pattern\Registry;
+use classes\pattern\RegistryException;
 use Common\Container\Options;
 use Db as Db;
+use exception\BaseException;
 
+
+/**
+ * Class BaseModelsException
+ * @package models\Base
+ */
+
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
+class BaseModelsException extends BaseException
+{
+}
 
 /**
  * Class General
  * @package models\Base
  */
+
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 abstract class Base
 {
 
@@ -70,24 +84,32 @@ abstract class Base
 	 */
 	public function getMetaTitle()
 		{
-			if (is_file($this->file_meta_title)) {
-				$arrayMetaTitle = parse_ini_file($this->file_meta_title, true);
-				$this->current_razdel = Registry::call('Router')->url_controller;
-				foreach ($arrayMetaTitle as $title => $metaData) {
-
-					if ('/'.$title.'.php' === $this->current_razdel) {
-						$this->title = $metaData['title'];
-						$this->keywords = $metaData['keywords'];
-						$this->description = $metaData['description'];
+			try {
+				if(is_file($this->file_meta_title)) {
+					$arrayMetaTitle = parse_ini_file($this->file_meta_title, true);
+					try {
+						$url_routes = Registry::call('Router')->getUrlRoutes();
+					} catch(RegistryException $e) {
+						throw new BaseModelsException($e);
 					}
-				}
-				if ($this->onluIndex) {
-					$this->current_razdel = false;
-				}
+					$this->current_razdel = $url_routes[0];
+					foreach ($arrayMetaTitle as $title => $metaData) {
 
-				return true;
+						if('/' . $title . '.php' === $this->current_razdel) {
+							$this->title = $metaData['title'];
+							$this->keywords = $metaData['keywords'];
+							$this->description = $metaData['description'];
+						}
+					}
+					if($this->onluIndex) {
+						$this->current_razdel = false;
+					}
+					return true;
+				}
+			throw new BaseModelsException('не найден ini файл => '.$this->file_meta_title);
+			} catch(BaseModelsException $e) {
+				throw $e;
 			}
-			throw new \Exception('не найден ini файл => '.$this->file_meta_title);
 		}
 
 	/**
@@ -106,7 +128,6 @@ abstract class Base
 					];
 				}
 			}
-
 			return $razdel;
 		}
 
@@ -116,7 +137,6 @@ abstract class Base
 	public function getDbTitleName()
 		{
 			self::db()->orderBy('position', 'ASC');
-
 			return self::db()->get('index_menu', null, ['id', 'name_head']);
 		}
 
@@ -135,7 +155,7 @@ abstract class Base
 	public function ifError($txt_err)
 		{
 			if (self::db()->getLastError() !== '&nbsp;&nbsp;') {
-				throw new \Exception($txt_err.' '.self::db()->getLastError());
+				throw new BaseModelsException($txt_err.' '.self::db()->getLastError());
 			}
 		}
 

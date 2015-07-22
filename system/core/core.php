@@ -12,6 +12,7 @@
  */
 
 use classes\pattern\Registry;
+use core\Autoloader;
 
 if (session_id() === '') {
     session_start();
@@ -20,7 +21,7 @@ if (session_id() === '') {
 }
 
 // включить админа для отладки
-$_SESSION['logged'] = ($_SERVER['REMOTE_ADDR'] === '130.0.47.88') ? 1 : 0;
+$_SESSION['logged'] = ($_SERVER['REMOTE_ADDR'] === '62.16.6.254') ? 1 : 0;
 
 
 if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SESSION['logged'] === 1) {
@@ -42,7 +43,7 @@ header('Content-type: text/html; charset=windows-1251');
 
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'system/core/Autoloader.php');
-new core\Autoloader();
+new Autoloader();
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'inc/func.php');
 // профилирование

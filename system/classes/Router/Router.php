@@ -15,7 +15,7 @@
 
 
 use exception\RouteException;
-
+use Common\Container\Options;
 
 /**
  * Class Router
@@ -24,6 +24,8 @@ use exception\RouteException;
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class Router
 {
+
+    use Options;
 
     private
         $param, /** string Param that sets after request url checked. */
@@ -39,13 +41,9 @@ class Router
     /**
      * @var router взятый из url
      */
-    public $url_routes = [];
+    protected $url_routes = [];
 
-    public $url;
-
-    public $url_controller = '';
-
-    public $url_metod = '';
+    protected $url;
 
     /**
      * непосредственный маршрут
@@ -89,20 +87,18 @@ class Router
         try {
             $this->url = array_key_exists('url', $_GET) ? $_GET['url'] : '/index';
             $this->url_routes = array_values(array_filter(explode('/', $this->url)));
-            // обрезаем url до 4
+            // патаемся обрезать url до 4 или выбрасываем исключение
             if(count($this->url_routes) > 4) {
                 array_shift($this->url_routes);
             }
             $this->url_controller = $url_controller = $this->url_routes[0];
-            $this->url_metod = array_key_exists(1, $this->url_routes) ? $this->url_routes[1] : false;
 
-            // если в пути присутствует метод то ищеи в роутах по данному методу
+            // если в пути присутствует метод то ищеим в роутах по данному методу
             if(!empty($this->url_routes[1])) {
-                $search_controller = $url_controller . '/' . $this->url_metod;
+                $search_controller = $url_controller . '/' . $this->url_routes[1];
             } else {
                 $search_controller = $url_controller;
             }
-
             if(array_key_exists($search_controller, $this->site_routes)){
                 // предопределеннй контроллер
                 $predefined_roure = $this->site_routes[$search_controller];

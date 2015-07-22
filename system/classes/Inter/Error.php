@@ -121,7 +121,6 @@ class Error
 	 */
 	public function print_err()
 		{
-	//		if ($this->key_fatal_error) {
 				if (DEBUG_MODE) {
 					if (0 != count($this->_allError)) {
 						$this->error_display();
@@ -129,14 +128,12 @@ class Error
 							$this->write_errorlog();
 						}
 					}
-
 				} else {
 					if (0 != count($this->_allError)) {
 						$this->write_errorlog();
 					}
 					$this->printExceptionPage();
 				}
-	//		}
 		}
 
 
@@ -209,32 +206,16 @@ class Error
 			if (0 === count($last_error)) {
 
 				if (isset($this->_allError[0]['code']) && $this->_allError[0]['code'] == 0) {
-				//	$this->key_fatal_error = true;
 					$this->print_err();
 				}
-
 				return false;
 			}
-
-		//	$this->key_fatal_error = true;
 			if (($last_error && ($last_error['type'] == E_ERROR || $last_error['type'] == E_PARSE ||
 								 $last_error['type'] == E_COMPILE_ERROR) && // если кончилась память
 				 0 == strpos($last_error['message'], 'Allowed memory size'))
 			) {
 				// выделяем немножко, что бы доработать корректно
 				ini_set('memory_limit', ((int) (ini_get('memory_limit')) + 64) . 'M');
-				$this->_allError['fatal'] = 'PHP Fatal: not enough memory in '.$last_error['file'].':'.$last_error['line'];
-				$this->write_errorlog();
-			}
-
-			if (0 !== count($this->_allError)) {
-				$log_last_error = end($this->_allError);
-				//reset($this->_allError);
-				if ($log_last_error['code'] == $last_error['type'] &&
-					$log_last_error['file'] == $last_error['file'] && $log_last_error['line'] == $last_error['line']
-				) {
-					return false;
-				}
 			}
 
 			if (empty($this->conf['ignoreERROR']) || !in_array($last_error['type'], $this->conf['ignoreERROR'], true)) {
@@ -247,7 +228,6 @@ class Error
 				} else {
 					$errorInfo['name'] = '_UNKNOWN_';
 				}
-
 				$errorInfo['code'] = $last_error['type'];
 				$errorInfo['message'] = $last_error['message'];
 				$errorInfo['file'] = $last_error['file'];
@@ -258,14 +238,6 @@ class Error
 				$errorInfo['trace'] = $this->_format_trace($trace);
 				$errorInfo['hash'] = md5($errorInfo['code'] . $errorInfo['line'] . $errorInfo['message']);
 				$this->_allError[] = $errorInfo;
-				/*if (in_array($errorInfo['code'], [1, 4, 16, 64, 4096], true)) {
-
-					$this->printExceptionPage();
-
-					return false;
-				}*/
-
-				//    echo 'ERROR_GET_LAST INFO: '. var_export($errorInfo);
 			}
 			$this->print_err();
 

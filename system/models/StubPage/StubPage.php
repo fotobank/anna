@@ -15,6 +15,7 @@
 namespace models\StubPage;
 
 use models\Base\Base;
+use exception\ModelException;
 
 
 /**
@@ -55,7 +56,7 @@ class StubPage extends Base
 
     /**
      * @param array $options
-     * @throws \Exception
+     * @throws ModelException
      */
     public function __construct($options = [])
     {
@@ -67,21 +68,27 @@ class StubPage extends Base
 
             $this->messages = $this->getMessages();
             $this->processDate();
-        } catch (\Exception $e) {
-            throw new \Exception($e);
+        } catch (ModelException $e) {
+            throw $e;
         }
     }
 
     /**
+     *
      */
-    protected function setLockPage()
+    public function setLockPage()
     {
         $unixTime = $this->getLockTime();
         $date_time = getdate($unixTime);
     }
 
-    protected function getLockTime() {
+    /**
+     * @return int
+     */
+    public function getLockTime() {
 
+        $date_time = time();
+        return $date_time;
     }
 
 
@@ -253,8 +260,7 @@ class StubPage extends Base
         } else {
             $this->reply_mess = $this->messages['technical_base'];
             if(DEBUG) {
-
-                throw new \Exception('Ошибка при передаче данных в базу: ' . $db->getLastError());
+                throw new ModelException('Ошибка при передаче данных в базу: ' . $db->getLastError());
             }
             return false;
         }

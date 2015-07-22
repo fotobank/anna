@@ -14,6 +14,19 @@
 
 namespace classes\pattern;
 
+use Common\Container\Options;
+use exception\BaseException;
+
+
+/**
+ * Class RegException
+ * @package classes\pattern
+ */
+
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
+class RegistryException extends BaseException
+{
+}
 
 /**
  * //создать экземпл€р класса db(если он уже существует, то перезаписать) и вызвать функцию action<br>
@@ -48,6 +61,8 @@ namespace classes\pattern;
  * Class Registry
  * @package classes\pattern
  */
+
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class Registry
 {
 
@@ -57,14 +72,19 @@ class Registry
      * @param $id
      * @param bool $data
      * @return mixed
+     * @throws RegistryException
      */
     public static function build($id, $data = false)
     {
-        //создание класса
-        $arr = explode(':', $id);
-        $class = reset($arr);
-        self::$vars[$id] = new $class($data);
-        return self::$vars[$id];
+        try {
+            //создание класса
+            $arr = explode(':', $id);
+            $class = reset($arr);
+            self::$vars[$id] = new $class($data);
+            return self::$vars[$id];
+        } catch (RegistryException $e) {
+            throw new RegistryException($e);
+        }
 
     }
 
@@ -72,18 +92,19 @@ class Registry
      * @param $id
      * @param bool $data
      * @return mixed
+     * @throws RegistryException
      */
     public static function call($id, $data = false)
     {
-        //вызов класса(при отсутствии готового экземпл€ра - создание нового и вызов)
-        if (!array_key_exists($id, self::$vars)) {
-
-            return self::build($id, $data);
-
-        } else {
-
-            return self::$vars[$id];
-
+        try {
+            //вызов класса(при отсутствии готового экземпл€ра - создание нового и вызов)
+            if(!array_key_exists($id, self::$vars)) {
+                return self::build($id, $data);
+            } else {
+                return self::$vars[$id];
+            }
+        } catch (RegistryException $e) {
+            throw new RegistryException($e);
         }
     }
 
@@ -91,15 +112,18 @@ class Registry
     /**
      * @param $id
      * @return bool
+     * @throws RegistryException
      */
     public static function del($id)
     {
-        //удаление значени€(любого типа, в т.ч. класса)
-        if (array_key_exists($id, self::$vars)) {
-
-            unset(self::$vars[$id]);
-
+        try {
+            //удаление значени€(любого типа, в т.ч. класса)
+            if(array_key_exists($id, self::$vars)) {
+                unset(self::$vars[$id]);
+            }
+            return true;
+        } catch (RegistryException $e) {
+            throw new RegistryException($e);
         }
-        return true;
     }
 }
