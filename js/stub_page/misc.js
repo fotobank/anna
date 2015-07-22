@@ -36,20 +36,3 @@ function display_message(type, msg) {
         $('#form_message').fadeOut('slow')
     }, 8000);
 }
-
-//склонение времени
-function declOfNum(number, titles)
-{
-    var cases = [2, 0, 1, 1, 1, 2];
-    return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
-}
-
-function inducement_time()
-{
-    var sec_end = ['секунда', 'секунды', 'секунд'];
-    var minut_end = ['минута','минуты','минут'];
-    var hour_end = ['час','часа','часов'];
-    var days_end = ['день','деня','деней'];
-    var week_end = ['неделя','недели','недель'];
-
-}

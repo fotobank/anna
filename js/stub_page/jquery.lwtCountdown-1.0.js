@@ -113,6 +113,8 @@
 		$this.dashChangeTo(id, 'days_dash', days, duration ? duration : 1200);
 		$this.dashChangeTo(id, 'weeks_dash', weeks, duration ? duration : 1200);
 
+		$this.inducementTime(weeks, days, hours, mins, secs);
+
 		$.data($this[0], 'diffSecs', diffSecs);
 		if (diffSecs > 0)
 		{
@@ -124,6 +126,29 @@
 		{
 			$.data($this[0], 'callback')();
 		}
+
+	};
+
+	//склонение времени
+	$.fn.declOfNum = function (number, titles)
+	{
+		var cases = [2, 0, 1, 1, 1, 2];
+		return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
+	};
+
+	$.fn.inducementTime = function (weeks, days, hours, mins, secs)
+	{
+		var sec_end = ['секунда', 'секунды', 'секунд'];
+		var minut_end = ['минута','минуты','минут'];
+		var hour_end = ['час','часа','часов'];
+		var days_end = ['день','дня','дней'];
+		var week_end = ['неделя','недели','недель'];
+
+		$('#title_seconds').html($this.declOfNum(secs, sec_end));
+		$('#title_minutes').html($this.declOfNum(mins, minut_end));
+		$('#title_hours').html($this.declOfNum(hours, hour_end));
+		$('#title_days').html($this.declOfNum(days, days_end));
+		$('#title_weeks').html($this.declOfNum(weeks, week_end));
 
 	};
 

@@ -55,11 +55,11 @@ class StubPage extends Base
 
     // титры - название времени
     public
-    $weeks = 'weeks',
-    $days = 'days',
-    $hours = 'hours',
-    $minutes = 'minutes',
-    $seconds = 'seconds';
+    $weeks = 'недель',
+    $days = 'дней',
+    $hours = 'часов',
+    $minutes = 'минут',
+    $seconds = 'секунд';
 
     /**
      * @param array $options
