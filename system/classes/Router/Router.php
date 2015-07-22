@@ -89,6 +89,7 @@ class Router
         try {
             $this->url = array_key_exists('url', $_GET) ? $_GET['url'] : '/index';
             $this->url_routes = array_values(array_filter(explode('/', $this->url)));
+            // обрезаем url до 4
             if(count($this->url_routes) > 4) {
                 array_shift($this->url_routes);
             }
@@ -139,8 +140,8 @@ class Router
     protected function get404()
     {
         try {
-            $controller = $this->site_routes['404']['controller'];
-            $method = $this->site_routes['404']['method'];
+            $this->current_controller = $this->site_routes['404']['controller'];
+            $this->current_method = $this->site_routes['404']['method'];
             $this->prepareRoute();
 
         } catch (RouteException $e) {
