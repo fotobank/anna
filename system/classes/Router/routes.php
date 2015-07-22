@@ -4,6 +4,10 @@ return [
 		'controller' => 'Index',
 		'method'     => 'index'
 	],
+	'index/id'     => [
+		'controller' => 'Index',
+		'method'     => 'id'
+	],
     // заглушка
     'favicon.ico' => [
         'controller' => 'Index',
@@ -11,7 +15,7 @@ return [
     ],
 	'about'     => [
 		'controller' => 'About',
-//		'method'     => 'about'
+		'method'     => 'about'
 	],
 	'portfolio' => [
 //		'controller' => 'Portfolio',

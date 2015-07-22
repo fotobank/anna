@@ -51,7 +51,10 @@ class Router
      * непосредственный маршрут
      * @var
      */
-    public $current_roure = [];
+    public
+        $current_roure = [],
+        $current_controller = '',
+        $current_method = '';
 
     /**
      *
@@ -86,25 +89,39 @@ class Router
         try {
             $this->url = array_key_exists('url', $_GET) ? $_GET['url'] : '/index';
             $this->url_routes = array_values(array_filter(explode('/', $this->url)));
-            $url_controller = $this->url_routes[0];
-            $this->url_metod = array_key_exists(1, $this->url_routes) ? $this->url_routes[1] : false;
-            // проверяем присутствует ли в пути название метода
-            $url_controller_metod = ($this->url_metod) ? $url_controller . '/' . $this->url_metod : false;
-            // собираем возможые контроллеры в массив и чистим пустые значения
-            // затем подготавливаем для сравнения по ключам (меняем местами ключ => значение)
-            $controllers = array_flip(array_filter(compact('url_controller', 'url_controller_metod')));
-            // сравнение по ключам
-            $this->current_roure = array_intersect_key(($this->site_routes), $controllers);
-            // разбивка массива для более удобной работы с ним
-            $this->current_roure = each( $this->current_roure );
-            // найденный контроллер
-            $this->url_controller = $this->current_roure['key'];
-
-            if($this->url_controller) {
-                $this->requestOptions();
-            } else {
-                throw new RouteException('controller "' . $this->url_controller . '" не задан в массиве routes');
+            if(count($this->url_routes) > 4) {
+                array_shift($this->url_routes);
             }
+            $this->url_controller = $url_controller = $this->url_routes[0];
+            $this->url_metod = array_key_exists(1, $this->url_routes) ? $this->url_routes[1] : false;
+
+            // если в пути присутствует метод то ищеи в роутах по данному методу
+            if(!empty($this->url_routes[1])) {
+                $search_controller = $url_controller . '/' . $this->url_metod;
+            } else {
+                $search_controller = $url_controller;
+            }
+
+            if(array_key_exists($search_controller, $this->site_routes)){
+                // предопределеннй контроллер
+                $predefined_roure = $this->site_routes[$search_controller];
+                // найденный контроллер
+                $this->current_controller = $predefined_roure['controller'];
+            } else {
+                $this->current_controller = ucfirst($this->url_routes[0]);
+            }
+
+            // ищем метод
+            if(!empty($predefined_roure['method'])) {
+                $this->current_method = $predefined_roure['method'];
+            } elseif(!empty($this->url_routes[1])) {
+                $this->current_method = strtolower($this->url_routes[1]);
+            } else {
+                $this->current_method = '';
+            }
+
+                $this->requestOptions();
+
         } catch (RouteException $e) {
             if(DEBUG_MODE) {
                 throw $e;
@@ -124,7 +141,7 @@ class Router
         try {
             $controller = $this->site_routes['404']['controller'];
             $method = $this->site_routes['404']['method'];
-            $this->prepareRoute($controller, $method);
+            $this->prepareRoute();
 
         } catch (RouteException $e) {
             throw $e;
@@ -136,17 +153,14 @@ class Router
      * Preparing controllerto be included. Checking is controller exists.
      * Creating new specific model instance. Creating controller instance.
      *
-     * @param $controller string Controller name.
-     * @param $method     string Method name.
-     *
      * @throws RouteException
      */
-    protected function prepareRoute($controller, $method)
+    protected function prepareRoute()
     {
         try {
-            $this->checkControllerExists($controller);
-            $this->createModelInstance($controller);
-            $this->createInstance($controller, $method);
+            $this->checkControllerExists();
+            $this->createModelInstance();
+            $this->createInstance();
 
         } catch (RouteException $e) {
             throw $e;
@@ -171,18 +185,15 @@ class Router
     /**
      * Checks is controller exists and inlcude it.
      *
-     * @param $controller
-     *
      * @throws RouteException
      * @internal param $controller_path
      *
-     * @internal param $controller
-     *
      * @internal param string $controller_path Controller path. Used to include and controller.
      */
-    protected function checkControllerExists($controller)
+    protected function checkControllerExists()
     {
-        $controller_path = SITE_PATH . 'system' . DS . 'controllers' . DS . $controller . DS . $controller . '.php';
+        $controller_path = SITE_PATH . 'system' . DS . 'controllers' . DS . $this->current_controller .
+            DS . $this->current_controller . '.php';
         if(file_exists($controller_path)) {
             /** @noinspection PhpIncludeInspection */
             require_once $controller_path;
@@ -194,14 +205,12 @@ class Router
     /**
      * Creating new instance that required by URL.
      *
-     * @param $controller string Controller name.
-     * @param $method     string Method name.
-     *
      * @throws RouteException
      */
-    protected function createInstance($controller, $method)
+    protected function createInstance()
     {
-        $controller = 'controllers\\' . $controller . '\\' . $controller;
+        $controller = 'controllers\\' . $this->current_controller . '\\' . $this->current_controller;
+        $method = $this->current_method;
         $instance = new $controller;
 
         if(method_exists($instance, $method)) {
@@ -212,20 +221,20 @@ class Router
                 throw new RouteException('метод "' . $method . '" не является публичным');
             }
         } else {
-            throw new RouteException('метод "' . $method . '" не найден в контроллере "' . $controller . '"');
+            throw new RouteException('метод "' . $method . '" не найден в контроллере "' .
+                $controller . '"');
         }
     }
 
     /**
-     * Creates instance of model by requested controller.
-     *
-     * @param $controller string Controller name.
+     * Creates instance of model by requested controller
      *
      * @throws RouteException
      */
-    protected function createModelInstance($controller)
+    protected function createModelInstance()
     {
-        $model_path = SITE_PATH . 'system' . DS . 'models' . DS . $controller . DS . $controller . '.php';
+        $model_path = SITE_PATH . 'system' . DS . 'models' . DS . $this->current_controller . DS .
+            $this->current_controller . '.php';
         if(file_exists($model_path)) {
             /** @noinspection PhpIncludeInspection */
             require_once($model_path);
@@ -242,7 +251,7 @@ class Router
         self::db()->where('url', $this->url);
         $url_data = self::db()->getOne('lock_page');
 
-        return true;
+        return false;
     }
 
     /**
@@ -251,21 +260,13 @@ class Router
     private function requestOptions()
     {
         $param = $this->checkLockPage();
-        if(!$param) {
-            $controller = 'StubPage';
-            $method = 'stubPage';
+        if($param) {
+            $this->current_controller = 'StubPage';
+            $this->current_method = 'stubPage';
         } else {
-            $controller = $this->current_roure['value']['controller'];
-            if(!empty($this->current_roure['value']['method'])) {
-                $method = $this->current_roure['value']['method'];
-            } elseif(!empty($this->url_routes[1])) {
-                $method = $this->url_routes[1];
-            } else {
-                $method = '';
-            }
             $this->prepareParams();
         }
-        $this->prepareRoute($controller, $method);
+        $this->prepareRoute();
     }
 
     /**
@@ -284,7 +285,7 @@ class Router
     public function ifError($txt_err)
     {
         if(self::db()->getLastError() !== '&nbsp;&nbsp;') {
-            throw new \Exception($txt_err . ' ' . self::db()->getLastError());
+            throw new RouteException($txt_err . ' ' . self::db()->getLastError());
         }
     }
 }
