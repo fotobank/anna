@@ -107,7 +107,6 @@ class Router
             } else {
                 $this->current_controller = ucfirst($this->url_routes[0]);
             }
-
             // ищем метод
             if(!empty($predefined_roure['method'])) {
                 $this->current_method = $predefined_roure['method'];
