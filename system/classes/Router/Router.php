@@ -91,31 +91,32 @@ class Router
             if(count($this->url_routes) > 4) {
                 array_shift($this->url_routes);
             }
-            $this->url_controller = $url_controller = $this->url_routes[0];
-
+            // $this->url_routes[0] - url controller
+            // $this->url_routes[1] - url method
             // если в пути присутствует метод то ищеим в роутах по данному методу
             if(!empty($this->url_routes[1])) {
-                $search_controller = $url_controller . '/' . $this->url_routes[1];
+                $search_route = $this->url_routes[0] . '/' . $this->url_routes[1];
             } else {
-                $search_controller = $url_controller;
+                $search_route = $this->url_routes[0];
             }
-            if(array_key_exists($search_controller, $this->site_routes)){
-                // предопределеннй контроллер
-                $predefined_roure = $this->site_routes[$search_controller];
-                // найденный контроллер
+            if(array_key_exists($search_route, $this->site_routes)){
+                // предопределеннй маршрут
+                $predefined_roure = $this->site_routes[$search_route];
+                // найденный контроллер - если задан в файле routesпозволяет менять class контроллера
                 $this->current_controller = $predefined_roure['controller'];
             } else {
+                // или из url
                 $this->current_controller = ucfirst($this->url_routes[0]);
             }
             // ищем метод
             if(!empty($predefined_roure['method'])) {
                 $this->current_method = $predefined_roure['method'];
             } elseif(!empty($this->url_routes[1])) {
+                // аналогично с controller из url
                 $this->current_method = strtolower($this->url_routes[1]);
             } else {
                 $this->current_method = '';
             }
-
                 $this->requestOptions();
 
         } catch (RouteException $e) {

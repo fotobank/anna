@@ -86,14 +86,11 @@ color: #fb8e06;
 }
 
 /** Countdown */
-
 #countdown {
 	width: 770px;
 	height: 120px;
 	margin: 150px 0 0 45px;
 }
-
-
 
 #countdown_dashboard .dash .digit {
 	font-size: 70px;
@@ -226,7 +223,6 @@ color: #fb8e06;
 	margin-top: 10px;
 }
 
-
 #img_door {
     position: absolute;
     left: 165px;
@@ -234,4 +230,3 @@ color: #fb8e06;
     width: 91px;
     height: 184px;
 }
-
