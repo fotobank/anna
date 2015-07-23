@@ -14,6 +14,7 @@
  */
 
 
+use classes\Router\InterfaceRouter;
 use exception\RouteException;
 use Common\Container\Options;
 
@@ -22,7 +23,7 @@ use Common\Container\Options;
  */
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
-class Router
+class Router implements InterfaceRouter
 {
 
     use Options;
@@ -42,9 +43,9 @@ class Router
     /* router определенный из url */
     protected $url_routes = [];
     // controller страницы - заглушки
-    protected $StubPage;
+    protected $controller_stub_page = 'StubPage';
     // method страницы - заглушки
-    protected $stubPage;
+    protected $method_stub_page = 'stubPage';
 
     /**
      * непосредственный маршрут
@@ -62,13 +63,12 @@ class Router
     {
         /** @noinspection PhpIncludeInspection */
         $this->site_routes = include(SITE_PATH . 'system/classes/Router/routes.php');
-        $this->StubPage = 'StubPage';
-        $this->stubPage = 'stubPage';
     }
 
     /**
      * @param $route
      *
+     * @return mixed|void
      * @throws RouteException
      */
     public function setRoute($route)
@@ -84,44 +84,29 @@ class Router
      * Mapping requested URL with specified routes in routing list.
      *
      * param array $site_routes Array list of routes from routes config file.
+     *
+     * !!! название метода в url должно совпадать с именеи метода в модели
+     * или должно быть прописано в routes с указанием в ключе routes текущую controller/modelm
+     *
      */
     public function start()
     {
         try {
-            $this->url = array_key_exists('url', $_GET) ? $_GET['url'] : '/index';
-            $this->url_routes = array_values(array_filter(explode('/', $this->url)));
-            // патаемс€ обрезать url до 4 или выбрасываем исключение
-            if(count($this->url_routes) > 4) {
-                array_shift($this->url_routes);
+            $url = array_key_exists('url', $_GET) ? $_GET['url'] : 'index';
+            $this->url_routes = array_values(array_filter(explode('/', $url)));
+            // дл€ SEO защита от повтор€ющихс€ контроллеров /index/index/index
+            if( substr_count($url, $this->url_routes[0]) > 1) {
+                throw new RouteException('если название метода не отличаетс€ от имени контроллера то его указывать не надо');
             }
-            // $this->url_routes[0] - это url controller
-            // $this->url_routes[1] - это url method
-            // если в пути присутствует метод то ищеим в роутах по данному контроллеру и методу
-            if(!empty($this->url_routes[1])) {
-                $search_route = $this->url_routes[0] . '/' . $this->url_routes[1];
-                // иначе просто по контроллеру
-            } else {
-                $search_route = $this->url_routes[0];
+            // действительный крнтроллер и метод
+            $this->searchCurrentRoure();
+
+            // проверка на блокировку адреса
+            if($this->checkLockPage()) {
+                // если все нормально - подготовка дополнительных параметров
+                $this->prepareParams();
             }
-            if(array_key_exists($search_route, $this->site_routes)){
-                // предопределеннй маршрут
-                $predefined_roure = $this->site_routes[$search_route];
-                // найденный контроллер - если задан в файле routesпозвол€ет мен€ть class контроллера
-                $this->current_controller = $predefined_roure['controller'];
-            } else {
-                // или из url
-                $this->current_controller = ucfirst($this->url_routes[0]);
-            }
-            // ищем метод
-            if(!empty($predefined_roure['method'])) {
-                $this->current_method = $predefined_roure['method'];
-            } elseif(!empty($this->url_routes[1])) {
-                // аналогично с controller из url
-                $this->current_method = strtolower($this->url_routes[1]);
-            } else {
-                $this->current_method = '';
-            }
-                $this->requestOptions();
+            $this->prepareRoute();
 
         } catch (RouteException $e) {
             if(DEBUG_MODE) {
@@ -143,7 +128,6 @@ class Router
             $this->current_controller = $this->site_routes['404']['controller'];
             $this->current_method = $this->site_routes['404']['method'];
             $this->prepareRoute();
-
         } catch (RouteException $e) {
             throw $e;
         }
@@ -171,7 +155,7 @@ class Router
     /**
      * Checks requested URL on params and id and if exists sets to the private vars.
      *
-     * @param $routes array Requested URL.
+     * @internal param array $routes Requested URL.
      */
     protected function prepareParams()
     {
@@ -245,29 +229,21 @@ class Router
     }
 
     /**
-     *
+     * провер€ем на блокировку
      */
     protected function checkLockPage()
     {
         self::db()->where('url', $this->url);
-        $url_data = self::db()->getOne('lock_page');
+        $lock = self::db()->getOne('lock_page');
 
-        return false;
-    }
-
-    /**
-     * @throws RouteException
-     */
-    private function requestOptions()
-    {
-        $param = $this->checkLockPage();
-        if($param) {
-            $this->current_controller = 'StubPage';
-            $this->current_method = 'stubPage';
+        if(null !== count($lock)) {
+            $this->current_controller = $lock['controller'];
+            $this->current_method = $lock['method'];
+            return false;
         } else {
-            $this->prepareParams();
+            return true;
         }
-        $this->prepareRoute();
+
     }
 
     /**
@@ -289,4 +265,41 @@ class Router
             throw new RouteException($txt_err . ' ' . self::db()->getLastError());
         }
     }
+
+    /**
+     * вычисл€ем действительный контроллер и метод
+     */
+    protected function searchCurrentRoure()
+    {
+        // $this->url_routes[0] - это url controller
+        // $this->url_routes[1] - это url method
+        // если в пути присутствует метод то ищеим в роутах по данному контроллеру и методу
+        if(!empty($this->url_routes[1])) {
+            $search_route = $this->url_routes[0] . '/' . $this->url_routes[1];
+            // иначе просто по контроллеру
+        } else {
+            $search_route = $this->url_routes[0];
+        }
+        // находим однозначный url
+        $this->url = $search_route;
+        if(array_key_exists($search_route, $this->site_routes)) {
+            // предопределеннй маршрут
+            $predefined_roure = $this->site_routes[$search_route];
+            // найденный контроллер - если задан в файле routesпозвол€ет мен€ть class контроллера
+            $this->current_controller = $predefined_roure['controller'];
+        } else {
+            // или из url
+            $this->current_controller = ucfirst($this->url_routes[0]);
+        }
+        // ищем метод
+        if(!empty($predefined_roure['method'])) {
+            $this->current_method = $predefined_roure['method'];
+        } elseif(!empty($this->url_routes[1])) {
+            // аналогично с controller из url
+            $this->current_method = strtolower($this->url_routes[1]);
+        } else {
+            $this->current_method = '';
+        }
+    }
+
 }

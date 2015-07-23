@@ -1,4 +1,4 @@
-/*!
+ï»¿/*!
  * jQuery Countdown plugin v1.0
  * http://www.littlewebthings.com/projects/countdown/
  *
@@ -113,8 +113,6 @@
 		$this.dashChangeTo(id, 'days_dash', days, duration ? duration : 1200);
 		$this.dashChangeTo(id, 'weeks_dash', weeks, duration ? duration : 1200);
 
-		$this.inducementTime(weeks, days, hours, mins, secs);
-
 		$.data($this[0], 'diffSecs', diffSecs);
 		if (diffSecs > 0)
 		{
@@ -127,28 +125,29 @@
 			$.data($this[0], 'callback')();
 		}
 
+		$this.changeTitltTime(weeks, days, hours, mins, secs);
 	};
 
-	//ñêëîíåíèå âğåìåíè
-	$.fn.declOfNum = function (number, titles)
+	//ÑĞºĞ»Ğ¾Ğ½ĞµĞ½Ğ¸Ğµ Ğ²Ñ€ĞµĞ¼ĞµĞ½Ğ¸
+	$.fn.inducingWord = function (number, titles)
 	{
 		var cases = [2, 0, 1, 1, 1, 2];
 		return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
 	};
 
-	$.fn.inducementTime = function (weeks, days, hours, mins, secs)
+	$.fn.changeTitltTime = function (weeks, days, hours, mins, secs)
 	{
-		var sec_end = ['ñåêóíäà', 'ñåêóíäû', 'ñåêóíä'];
-		var minut_end = ['ìèíóòà','ìèíóòû','ìèíóò'];
-		var hour_end = ['÷àñ','÷àñà','÷àñîâ'];
-		var days_end = ['äåíü','äíÿ','äíåé'];
-		var week_end = ['íåäåëÿ','íåäåëè','íåäåëü'];
+		var sec_end = ['ÑĞµĞºÑƒĞ½Ğ´Ğ°', 'ÑĞµĞºÑƒĞ½Ğ´Ñ‹', 'ÑĞµĞºÑƒĞ½Ğ´'];
+		var minut_end = ['Ğ¼Ğ¸Ğ½ÑƒÑ‚Ğ°','Ğ¼Ğ¸Ğ½ÑƒÑ‚Ñ‹','Ğ¼Ğ¸Ğ½ÑƒÑ‚'];
+		var hour_end = ['Ñ‡Ğ°Ñ','Ñ‡Ğ°ÑĞ°','Ñ‡Ğ°ÑĞ¾Ğ²'];
+		var days_end = ['Ğ´ĞµĞ½ÑŒ','Ğ´Ğ½Ñ','Ğ´Ğ½ĞµĞ¹'];
+		var week_end = ['Ğ½ĞµĞ´ĞµĞ»Ñ','Ğ½ĞµĞ´ĞµĞ»Ğ¸','Ğ½ĞµĞ´ĞµĞ»ÑŒ'];
 
-		$('#title_seconds').html($this.declOfNum(secs, sec_end));
-		$('#title_minutes').html($this.declOfNum(mins, minut_end));
-		$('#title_hours').html($this.declOfNum(hours, hour_end));
-		$('#title_days').html($this.declOfNum(days, days_end));
-		$('#title_weeks').html($this.declOfNum(weeks, week_end));
+		$('#title_seconds').html($this.inducingWord(secs, sec_end));
+		$('#title_minutes').html($this.inducingWord(mins, minut_end));
+		$('#title_hours').html($this.inducingWord(hours, hour_end));
+		$('#title_days').html($this.inducingWord(days, days_end));
+		$('#title_weeks').html($this.inducingWord(weeks, week_end));
 
 	};
 

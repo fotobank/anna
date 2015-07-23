@@ -14,7 +14,6 @@
 
 namespace classes\pattern;
 
-use Common\Container\Options;
 use exception\BaseException;
 
 

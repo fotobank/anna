@@ -1,13 +1,16 @@
 <?php
+
 /**
  * @namespace
  */
 namespace Common\Container;
 
+use Exception;
+
 /**
  * Helper trait
  *
- * @package  Common
+ * @link     https://github.com/bluzphp/framework/wiki/Trait-Helper
  */
 trait Helper
 {
@@ -29,7 +32,7 @@ trait Helper
     public function addHelperPath($path)
     {
         $path = rtrim(realpath($path), '/');
-        if (false !== $path && !in_array($path, $this->helpersPath)) {
+        if (false !== $path && !in_array($path, $this->helpersPath, true)) {
             $this->helpersPath[] = $path;
         }
 
@@ -53,23 +56,21 @@ trait Helper
         return $this;
     }
 
-	/**
-	 * Call magic helper
-	 *
-	 * @param string $method
-	 * @param array  $args
-	 *
-	 * @return mixed
-	 * @throws \Exception
-	 */
+    /**
+     * Call magic helper
+     * @param string $method
+     * @param array $args
+     * @throws Exception
+     * @return mixed
+     */
     public function __call($method, $args)
     {
         // Setup key
-        $key = get_called_class() .':'. $method;
+        $key = static::class .':'. $method;
 
-        // Call helper function (or class)
+        // Call callable helper structure (function or class)
         if (isset($this->helpers[$key]) && is_callable($this->helpers[$key])) {
-            return call_user_func_array($this->helpers[$key], $args);
+            return $this->helpers[$key](...$args);
         }
 
         // Try to find helper file
@@ -79,12 +80,12 @@ trait Helper
                 $helperInclude = include $helperPath;
                 if (is_callable($helperInclude)) {
                     $this->helpers[$key] = $helperInclude;
-                    return call_user_func_array($this->helpers[$key], $args);
+                    return $this->helpers[$key](...$args);
                 } else {
-                    throw new \Exception("Helper '$method' not found in file '$helperPath'");
+                    throw new Exception("Helper '$method' not found in file '$helperPath'");
                 }
             }
         }
-        throw new \Exception("Helper '$method' not found for '" . __CLASS__ . "'");
+        throw new Exception("Helper '$method' not found for '" . __CLASS__ . "'");
     }
 }

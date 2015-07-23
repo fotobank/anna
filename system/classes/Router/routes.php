@@ -18,22 +18,28 @@ return [
 		'method'     => 'about'
 	],
 	'portfolio' => [
-//		'controller' => 'Portfolio',
-//		'method'     => 'portfolio'
-		'controller' => 'StubPage',
-		'method'     => 'stubPage'
+		'controller' => 'Portfolio',
+		'method'     => 'portfolio'
+//		'controller' => 'StubPage',
+//		'method'     => 'stubPage'
 	],
 	'news'      => [
 		'controller' => 'News',
 		'method'     => 'news'
+//		'controller' => 'StubPage',
+//		'method'     => 'stubPage'
 	],
 	'services'  => [
 		'controller' => 'Services',
 		'method'     => 'services'
+//		'controller' => 'StubPage',
+//		'method'     => 'stubPage'
 	],
 	'comments'  => [
 		'controller' => 'Comments',
 		'method'     => 'comments'
+//		'controller' => 'StubPage',
+//		'method'     => 'stubPage'
 	],
 	'carousel'      => [
 		'controller' => 'Carousel'
@@ -47,9 +53,9 @@ return [
 		'controller' => 'Error',
 		'method'     => 'error424'
 	],
-	'toEmail' => [
-		'controller' => 'StubPage',
-		'method'     => 'toEmail'
+	'subscription_lock_page' => [
+//		'controller' => 'StubPage',
+//		'method'     => 'toEmail'
 	],
 	'stubPage' => [
 		'controller' => 'StubPage',

@@ -11,7 +11,6 @@ namespace models\Base;
 
 
 use classes\pattern\Registry;
-use classes\pattern\RegistryException;
 use Common\Container\Options;
 use Db as Db;
 use exception\BaseException;
@@ -27,13 +26,14 @@ class BaseModelsException extends BaseException
 {
 }
 
+
 /**
- * Class General
+ * Class Base
  * @package models\Base
  */
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
-abstract class Base
+class Base implements InterfaceModelsBase
 {
 
 	use Options;
@@ -67,6 +67,7 @@ abstract class Base
 	 */
 	public function __construct()
 		{
+			try {
 				$this->file_meta_title = SITE_PATH . 'system/config/meta_title.ini';
 				$this->admin_mode = if_admin(true);
 				// footer
@@ -75,7 +76,12 @@ abstract class Base
 				$this->php_sessid = array_key_exists('PHPSESSID', $_COOKIE) ? $_COOKIE['PHPSESSID'] : ip();
 
 				$this->categorii = $this->getDbTitleName();
+				$url_routes = Registry::call('Router')->getUrlRoutes();
+				$this->current_razdel = $url_routes[0];
 				$this->getMetaTitle();
+			} catch(BaseException $e) {
+				throw ($e);
+			}
 
 		}
 
@@ -87,12 +93,6 @@ abstract class Base
 			try {
 				if(is_file($this->file_meta_title)) {
 					$arrayMetaTitle = parse_ini_file($this->file_meta_title, true);
-					try {
-						$url_routes = Registry::call('Router')->getUrlRoutes();
-					} catch(RegistryException $e) {
-						throw new BaseModelsException($e);
-					}
-					$this->current_razdel = $url_routes[0];
 					foreach ($arrayMetaTitle as $title => $metaData) {
 
 						if('/' . $title . '.php' === $this->current_razdel) {
@@ -150,6 +150,7 @@ abstract class Base
 	/**
 	 * @param $txt_err
 	 *
+	 * @return mixed|void
 	 * @throws \Exception
 	 */
 	public function ifError($txt_err)
@@ -178,6 +179,7 @@ abstract class Base
 	 * показывать только заглавную страницу
 	 *
 	 * @param boolean $onluIndex
+	 * @return mixed|void
 	 */
 	public function setOnluIndex($onluIndex)
 		{

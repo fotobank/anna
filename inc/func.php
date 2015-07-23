@@ -1962,3 +1962,119 @@ function print_r_slice($v, $maxdepth = -1, $prepend_spaces = 0)
     }
     return $result;
 }
+
+
+/**
+ * автоиссправление кодировки
+ * echo fix_charset('РЎРІРµРґРµРЅРёСЏ Рѕ РїСЂРѕС€Р»РѕР№ С‚С ЂСѓРґРѕРІРѕР№ РґРµСЏС‚РµР»СЊРЅРѕСЃС‚Рё
+ * (2 РїРѕСЃР»РµРґРЅРёС… РјРµСЃС‚Р');
+ *
+ * @param $string
+ * @return mixed
+ */
+function fix_charset($string) {
+    $chek_string = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';  //  Строка для поиска совпадений
+    $list_charset = ['UTF-8', 'ASCII', 'Windows-1252', 'CP1256', 'CP1251']; // Список кодировок для поиска
+    $array_result = [];
+
+    foreach ($list_charset as $current_charset)
+    {
+        foreach ($list_charset as $two_charset)
+        {
+            $string_after_conversion = iconv($current_charset, $two_charset, $string);
+            // Проверка результата и занесение данных в массив
+            $matches = 0;
+            $len_chek_string = strlen($chek_string);
+            for ($k=0; $k<$len_chek_string; $k++)
+            {
+                if(eregi($chek_string[$k],$string_after_conversion))
+                {
+                    $matches++;
+                }
+            }
+            $array_result[]= [
+                'matches'=>$matches,
+                'charset_in'=>$current_charset,
+                'charset_out'=>$two_charset,
+                'result'=>$string_after_conversion
+            ];
+            // Конец проверки
+            //echo '<br>'.$current_charset.' - '.$two_charset." - ".$string_after_conversion." (".$matches."/".$len_chek_string.")";
+        }
+    }
+//  Тут бубны для сортировки многомерного массива по полю matches
+    $t = call_user_func_array('array_merge_recursive', $array_result);
+    asort($t['matches']);
+    $so = array_keys($t['matches']);
+    asort($so);
+    $so = array_keys($so);
+    $array_result = array_combine($so, $array_result);
+    krsort($array_result);
+//  теперь массив отсортирован по нужному полю (число совпадений)....
+    /*echo '<pre>';
+    print_R($array_result);
+    echo '</pre>'; die;*/
+//  Показываю последний элемент массива, с самым большим количеством совпадений символов
+    return $array_result[count($array_result)-1]['result'];
+}
+
+/**
+ * функция подсветки синтаксиса
+ *
+echo highlight_html('
+<!-- This is an
+HTML comment -->
+<a href="home.html" style="color:blue;">Home</a>
+<p>Go &amp; here.</p>
+<!-- This is an HTML comment -->
+<form action="/login.php" method="post">
+<input type="text" value="User Name" />
+</form>
+');
+ *
+ * @param $string
+ * @param bool|TRUE $decode
+ * @return string
+ */
+function highlight_html($string, $decode = TRUE){
+    $tag = '#0000ff';
+    $att = '#ff0000';
+    $val = '#8000ff';
+    $com = '#34803a';
+    $find = [
+        '~(\s[a-z].*?=)~',                    // Highlight the attributes
+        '~(&lt;\!--.*?--&gt;)~s',            // Hightlight comments
+        '~(&quot;[a-zA-Z0-9\/].*?&quot;)~',    // Highlight the values
+        '~(&lt;[a-z].*?&gt;)~',                // Highlight the beginning of the opening tag
+        '~(&lt;/[a-z].*?&gt;)~',            // Highlight the closing tag
+        '~(&amp;.*?;)~',                    // Stylize HTML entities
+    ];
+    $replace = [
+        '<span style="color:'.$att.';">$1</span>',
+        '<span style="color:'.$com.';">$1</span>',
+        '<span style="color:'.$val.';">$1</span>',
+        '<span style="color:'.$tag.';">$1</span>',
+        '<span style="color:'.$tag.';">$1</span>',
+        '<span style="font-style:italic;">$1</span>',
+    ];
+    if($decode) $string = htmlentities($string);
+    return '<pre>'.preg_replace($find, $replace, $string).'</pre>';
+}
+
+/**
+ * Сортировка многомерного ассоциативного массива на PHP по любому полю
+ *
+ * @param $array_result
+ * @param $field
+ * @return array
+ */
+function sort_hard_array($array_result, $field) {
+    $t = call_user_func_array('array_merge_recursive', $array_result);
+    asort($t[$field]);
+    $so = array_keys($t[$field]);
+    asort($so);
+    $so = array_keys($so);
+    $array_result = array_combine($so, $array_result);
+    krsort($array_result);
+    return $array_result;
+}

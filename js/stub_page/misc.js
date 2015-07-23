@@ -1,5 +1,5 @@
-function email_focus() {
-    if ($(this).val() == 'Ââåäèòå Âàø E-mail') {
+ï»¿function email_focus() {
+    if ($(this).val() == 'Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ Ğ’Ğ°Ñˆ E-mail') {
         $(this).val('');
         $(this).removeClass('faded');
     }
@@ -7,20 +7,19 @@ function email_focus() {
 
 function email_blur() {
     if ($(this).val() == '') {
-        $(this).val('Ââåäèòå Âàø E-mail');
+        $(this).val('Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ Ğ’Ğ°Ñˆ E-mail');
         $(this).addClass('faded');
     }
 }
 
 function subscribe_submit() {
 
-    $.post('toEmail?json=1', $('#subscribe_form').serialize(), subscribe_result, 'json');
+    $.post('subscription_lock_page?json=1', $('#subscribe_form').serialize(), subscribe_result, 'json');
     $('#subscribe_button').attr("disabled", "disabled");
     $('.form_message').fadeOut('fast');
     $('#loading_mess').fadeIn('fast');
     return false;
 }
-
 
 function subscribe_result(data) {
     $('#loading_mess').hide();

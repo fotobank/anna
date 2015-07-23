@@ -28,13 +28,13 @@ class StubPage extends Base
         $config,  // сообщения и время таймера
         $email_abonent, // почта абонента
         $my_email = 'aleksjurii@gmail.com',  // адрес webmaster
-        $reply_mess = [],  // ответ сервера на запрос о подписке в страницы заглушке
+        $reply_mess = [],  // ответ сервера на ajax запрос о подписке в странице заглушке
         $messages = [];  // заданные системные сообщения
 
     // время отсчета таймера
     public
         $target_day = 30,
-        $target_month = 7,
+        $target_month = 9,
         $target_year = 2015,
         $target_hour = 0,
         $target_minute = 0,
