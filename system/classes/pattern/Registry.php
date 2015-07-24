@@ -77,14 +77,13 @@ class Registry
     {
         try {
             //создание класса
-            $arr = explode(':', $id);
-            $class = reset($arr);
-            self::$vars[$id] = new $class($data);
-            return self::$vars[$id];
+            list($class,) = explode(':', $id);
+            $id_var = str_replace('\\', ':' , $id);
+            self::$vars[$id_var] = new $class($data);
+            return self::$vars[$id_var];
         } catch (RegistryException $e) {
             throw new RegistryException($e);
         }
-
     }
 
     /**
@@ -96,11 +95,12 @@ class Registry
     public static function call($id, $data = false)
     {
         try {
+            $id_var = str_replace('\\', ':' , $id);
             //вызов класса(при отсутствии готового экземпл€ра - создание нового и вызов)
-            if(!array_key_exists($id, self::$vars)) {
+            if(!array_key_exists($id_var, self::$vars)) {
                 return self::build($id, $data);
             } else {
-                return self::$vars[$id];
+                return self::$vars[$id_var];
             }
         } catch (RegistryException $e) {
             throw new RegistryException($e);

@@ -6,7 +6,7 @@
  * Time: 8:17
  */
 
-include __DIR__ . "/inc/func.php";
+include __DIR__ . '/inc/func.php';
 include __DIR__ .'/classes/testTime.php';
 
 /**==========================================0======================================= */
@@ -19,15 +19,17 @@ for ($i=0; $i<1000; $i++) {
 }
 echo "Тест 1 пройден за  ".$timer->finish()." секунд <br>";*/
 
-define('ITERATION', 100); // колличество иттераций
+$id = 'system\class\Boot:start';
+
+define('ITERATION', 1000); // колличество иттераций
 /**==========================================1======================================= */
 $timer1 = new TestTime();
 $test1 = 0;
 for ($i=0; $i<ITERATION; $i++) {
 
 
-
-	rscandir(__DIR__.'/classes/');
+	$arr = explode(':', $id);
+	$class = reset($arr);
 
 
 
@@ -41,7 +43,7 @@ $timer2 = new TestTime();
 $test2 = 0;
 for ($i=0; $i<ITERATION; $i++) {
 
-
+	list($class) = explode(':', $id);
 
 }
 $test2 = $timer2->finish();
@@ -53,6 +55,8 @@ $test3 = 0;
 for ($i=0; $i<ITERATION; $i++) {
 
 
+
+	$class = (strpos($id, ':') === false) ? $id : strstr($id, ':', true);
 
 }
 $test3 = $timer3->finish();

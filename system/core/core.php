@@ -49,7 +49,6 @@ include(SITE_PATH . 'inc/func.php');
 // профилирование
 if (DEBUG_MODE && !is_ajax()) {
     Registry::build('Test');
-//	$test = new Test();
 }
 // защита
 new Security();

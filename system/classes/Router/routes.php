@@ -53,9 +53,10 @@ return [
 		'controller' => 'Error',
 		'method'     => 'error424'
 	],
+	// ajax e-mail на странице блокировки
 	'subscription_lock_page' => [
-//		'controller' => 'StubPage',
-//		'method'     => 'toEmail'
+		'controller' => 'StubPage',
+		'method'     => 'toEmail'
 	],
 	'stubPage' => [
 		'controller' => 'StubPage',

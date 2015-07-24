@@ -13,10 +13,11 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-
+use classes\pattern\Registry;
 use classes\Router\InterfaceRouter;
 use exception\RouteException;
 use Common\Container\Options;
+
 
 /**
  * Class Router
@@ -38,12 +39,16 @@ class Router implements InterfaceRouter
      * массив заданных роутов
      */
     protected $site_routes;
+
     // путь из url
     protected $url;
+
     /* router определенный из url */
     protected $url_routes = [];
+
     // controller страницы - заглушки
     protected $controller_stub_page = 'StubPage';
+
     // method страницы - заглушки
     protected $method_stub_page = 'stubPage';
 
@@ -95,17 +100,12 @@ class Router implements InterfaceRouter
             $url = array_key_exists('url', $_GET) ? $_GET['url'] : 'index';
             $this->url_routes = array_values(array_filter(explode('/', $url)));
             // для SEO защита от повторяющихся контроллеров /index/index/index
-            if( substr_count($url, $this->url_routes[0]) > 1) {
+            if(substr_count($url, $this->url_routes[0]) > 1) {
                 throw new RouteException('если название метода не отличается от имени контроллера то его указывать не надо');
             }
             // действительный крнтроллер и метод
             $this->searchCurrentRoure();
 
-            // проверка на блокировку адреса
-            if($this->checkLockPage()) {
-                // если все нормально - подготовка дополнительных параметров
-                $this->prepareParams();
-            }
             $this->prepareRoute();
 
         } catch (RouteException $e) {
@@ -143,8 +143,12 @@ class Router implements InterfaceRouter
     protected function prepareRoute()
     {
         try {
+            // проверка на блокировку url страницы
+            if($this->checkLockPage()) {
+                // если все нормально - подготовка дополнительных параметров
+                $this->prepareParams();
+            }
             $this->checkControllerExists();
-            $this->createModelInstance();
             $this->createInstance();
 
         } catch (RouteException $e) {
@@ -212,57 +216,22 @@ class Router implements InterfaceRouter
     }
 
     /**
-     * Creates instance of model by requested controller
-     *
-     * @throws RouteException
-     */
-    protected function createModelInstance()
-    {
-        $model_path = SITE_PATH . 'system' . DS . 'models' . DS . $this->current_controller . DS .
-            $this->current_controller . '.php';
-        if(file_exists($model_path)) {
-            /** @noinspection PhpIncludeInspection */
-            require_once($model_path);
-        } else {
-            throw new RouteException('файл модели: "' . $model_path . '" не найден');
-        }
-    }
-
-    /**
-     * проверяем на блокировку
+     * проверяем страницу на блокировку
      */
     protected function checkLockPage()
     {
-        self::db()->where('url', $this->url);
-        $lock = self::db()->getOne('lock_page');
+        try {
 
-        if(null !== count($lock)) {
-            $this->current_controller = $lock['controller'];
-            $this->current_method = $lock['method'];
-            return false;
-        } else {
+            $lock = Registry::call('models\Base\Base')->checkClockLockPage($this->url);
+
+            if(false !== $lock && count($lock) > 0) {
+                $this->current_controller = $lock['controller'];
+                $this->current_method = $lock['method'];
+                return false;
+            }
             return true;
-        }
-
-    }
-
-    /**
-     * @return object
-     */
-    protected static function db()
-    {
-        return Db::getInstance(Db::getParam());
-    }
-
-    /**
-     * @param $txt_err
-     *
-     * @throws \Exception
-     */
-    public function ifError($txt_err)
-    {
-        if(self::db()->getLastError() !== '&nbsp;&nbsp;') {
-            throw new RouteException($txt_err . ' ' . self::db()->getLastError());
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
