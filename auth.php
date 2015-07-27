@@ -1,6 +1,7 @@
 <?
+use classes\pattern\Proxy\Db as Db;
+
 require(__DIR__ .'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
-$db = Db::getInstance(Db::getParam());
 
 $tpl = new Comments\Template("classes/Comments/_templates/");
 $tpl->define( [
@@ -35,8 +36,8 @@ IF ( !isset( $_SESSION['logged'] )  || $_SESSION['logged'] !== TRUE ):
 			$tpl->parse( "ERROR", "error" );
 			$tpl->FastPrint( "ERROR" );
 		} else {
-			$db->where("login", $_POST['login']);
-			$q = $db->get($GLOBALS['tbl_users'], NULL, [ 'id','login','pass' ] );
+			Db::where("login", $_POST['login']);
+			$q = Db::get($GLOBALS['tbl_users'], NULL, [ 'id','login','pass' ] );
 
 			if ( count( $q ) > '0' ) {
 				$_pass = $_id = $_login = NULL;
@@ -59,7 +60,7 @@ IF ( !isset( $_SESSION['logged'] )  || $_SESSION['logged'] !== TRUE ):
 				include( __DIR__ . "/inc/head.php" );
 				$tpl->assign( "{ERROR}", "Неверные логин и пароль!" );
 				$tpl->parse( "ERROR", "error" );
-				$tpl->FastPrint( "ERROR" );
+				$tpl->FastPrint( 'ERROR' );
 			}
 
 
@@ -67,14 +68,12 @@ IF ( !isset( $_SESSION['logged'] )  || $_SESSION['logged'] !== TRUE ):
 	}
 
 	$end = $tpl->utime();
-	$tpl->assign( "{GEN_TIME}", sprintf( "%01.3f ", ( $end - $start ) ) );
-	$tpl->parse( "FOOT", "foot" );
-	$tpl->FastPrint( "FOOT" );
+	$tpl->assign( "{GEN_TIME}", sprintf( '%01.3f ', ( $end - $start ) ) );
+	$tpl->parse( 'FOOT', 'foot' );
+	$tpl->FastPrint( 'FOOT' );
 
- 	include( __DIR__ . "/inc/footer.php" );
+ 	include( __DIR__ . '/inc/footer.php' );
 ELSE:
-	include (__DIR__ . "/inc/func.php");
+	include (__DIR__ . '/inc/func.php');
 	main_redir( 'admin.php' );
 ENDIF;
-
-?>

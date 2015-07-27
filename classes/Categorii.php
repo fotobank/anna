@@ -5,10 +5,14 @@
  * Date: 05.08.14
  * Time: 23:56
  */
+use classes\pattern\Proxy\Db as Db;
 
+
+/**
+ * Class Categorii
+ */
 class Categorii {
 
-	private $db = false; // экземпл€р подключени€ к базе данных
 	private $categorii; // запрос из базы
 	private $menu; // меню
 
@@ -16,8 +20,7 @@ class Categorii {
 	 *
 	 */
 	public function __construct() {
-		$this->db = Db::getInstance(Db::getParam());
-		$this->categorii = $this->db->get("index_menu", NULL, [ "id", "name_head" ] );
+		$this->categorii = Db::get('index_menu', NULL, [ 'id', 'name_head' ] );
 	}
 
 	/**
@@ -25,22 +28,22 @@ class Categorii {
 	 */
 	public function print_menu() {
 
-		$menu = "";
+		$menu = '';
 		if(count($this->categorii)) {
-			$menu .= "<ul class='list-title nav'>";
+			$menu .= '<ul class="list-title nav">';
 			foreach($this->categorii as $key => $cat) {
 
 				if(0 == $key) {
-					$menu .= "<li class='selected'>
-					<a id='head-".$cat['id']."' href='#'>".$cat['name_head']."</a></li>";
+					$menu .= '<li class="selected">
+					<a id="head-'.$cat['id'].'" href="#">'.$cat['name_head'].'</a></li>';
 				} else {
-					$menu .= "<li>
-					<a id='head-".$cat['id']."' href='#'>".$cat['name_head']."</a></li>";
+					$menu .= '<li>
+					<a id="head-'.$cat['id'].'" href="#">'.$cat['name_head'].'</a></li>';
 				}
 
 
 			}
-			$menu .= "</ul>";
+			$menu .= '</ul>';
 		}
 		$this->menu = $menu;
 		return $this->menu;
@@ -52,8 +55,8 @@ class Categorii {
 	 */
 	public function get_razdel() {
 
-		$this->db->where('id_head','');
-		$data_razdel = $this->db->getOne('spec_category', '');
+		Db::where('id_head','');
+		$data_razdel = Db::getOne('spec_category', '');
 	}
 
 	/**

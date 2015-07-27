@@ -16,6 +16,7 @@ namespace models\StubPage;
 
 use models\Base\Base;
 use exception\ModelException;
+use classes\pattern\Proxy\Db as Db;
 
 
 /**
@@ -81,7 +82,7 @@ class StubPage extends Base
     }
 
     /**
-     *
+     * Todo setLockPage()
      */
     public function setLockPage()
     {
@@ -90,6 +91,7 @@ class StubPage extends Base
     }
 
     /**
+     * Todo getLockTime()
      * @return int
      */
     public function getLockTime() {
@@ -179,7 +181,6 @@ class StubPage extends Base
     /**
      * подписка на обновление страницы
      * @return string
-     * @todo доделать запись подписчиков в базу данных
      */
     public function toEmail()
     {
@@ -233,10 +234,9 @@ class StubPage extends Base
      */
     public function checkEmailInDb()
     {
-        self::db()->where('email', $this->email_abonent);
-        self::db()->where('url', $_SERVER['HTTP_REFERER']);
-        $user = self::db()->getOne('subscribers');
-
+        Db::where('email', $this->email_abonent);
+        Db::where('url', $_SERVER['HTTP_REFERER']);
+        $user = Db::getOne('subscribers');
         if($user) {
             // если есть такой email, то вернет true
             $this->reply_mess = $this->messages['email_exists'];
@@ -253,21 +253,20 @@ class StubPage extends Base
      */
     protected function addUserToBase()
     {
-        $db = self::db();
         $data = [
             'email' => $this->email_abonent,
-            'subscribed_at' => $db->now(),
+            'subscribed_at' => Db::now(),
             'url' => $_SERVER['HTTP_REFERER'],
             'ip' => ip()
         ];
 
-        if($db->insert('subscribers', $data)) {
+        if(Db::insert('subscribers', $data)) {
 
             return true;
         } else {
             $this->reply_mess = $this->messages['technical_base'];
-            if(DEBUG) {
-                throw new ModelException('Ошибка при передаче данных в базу: ' . $db->getLastError());
+            if(DEBUG_MODE) {
+                throw new ModelException('Ошибка при передаче данных в базу: ' . Db::getLastError());
             }
             return false;
         }

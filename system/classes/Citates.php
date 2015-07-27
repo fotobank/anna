@@ -5,6 +5,13 @@
  * Date: 11.07.14
  * Time: 13:01
  */
+
+use classes\pattern\Proxy\Db as Db;
+
+
+/**
+ * Class Citates
+ */
 class Citates {
 
 	public $citata = ''; // вывод одной найденной фразы
@@ -14,7 +21,6 @@ class Citates {
 	private $quote = '.quote'; // блок класса состояший из блока цитаты и блока автора
 	private $quote__citata = '.quote__text'; // блок цитаты
 	private $quote__avtor = '.quote__meta'; // длок автора
-	private $db = false; // экземпляр подключения к базе данных
 	private $upd_db = false; // true - обновить принудительно (для настройки)
 	private $time = false; // интервал обновления базы в днях (false - взять из базы, если задан - записать в базу)
 	private $html = ''; // часть страницы сайта донора
@@ -27,20 +33,20 @@ class Citates {
 	/**
 	 * @param $tune
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	function __construct( $tune ) {
 
 		$this->_get_var( $tune ); // обновление исходных данных
-		$this->db = Db::getInstance(Db::getParam());
 
-		if ( $this->db ) {
+		if ( Db::init() ) {
+			/** @noinspection PhpIncludeInspection */
 			require_once( SITE_PATH . 'system/classes/SimpleHtmlDomNode.php' ); // подключение парсера
 			$this->checkUpd();
 			$this->randCitata();
 		} else {
-			$this->error .= "не подключенна база данных \n". $this->db->getLastError();
-			throw new Exception("не подключенна база данных \n" . $this->db->getLastError(), E_USER_ERROR );
+			$this->error .= 'не подключенна база данных \n'. Db::getLastError();
+			throw new \Exception('не подключенна база данных \n' . Db::getLastError(), E_USER_ERROR );
 		}
 	}
 
@@ -57,9 +63,9 @@ class Citates {
 
 	private function checkUpd() {
 
-		$data = $this->db->get( 'pick' );
+		$data = Db::get( 'pick' );
 // debugHC( $data, "data" );
-		if ( $this->db->count > 0 ) {
+		if ( Db::getCount() > 0 ) {
 			foreach ( $data as $rec ) {
 				$this->url           = $rec['url']; // адресс сайта донора
 				$this->quote         = $rec['quote']; // блок класса состояший из блока цитаты и блока автора
@@ -71,8 +77,8 @@ class Citates {
 				if ( $this->upd_db or $this->checkInterval( $rec['date'], $this->time ) ) $this->parser();
 			}
 		} else {
-			$this->error .= " обновление не выполненно, в базе нет данных для парсинга донора \n" . $this->db->getLastError() ;
-			trigger_error("обновление не выполненно, в базе нет данных \n" . $this->db->getLastError() , E_USER_ERROR );
+			$this->error .= " обновление не выполненно, в базе нет данных для парсинга донора \n" . Db::getLastError() ;
+			trigger_error("обновление не выполненно, в базе нет данных \n" . Db::getLastError() , E_USER_ERROR );
 		}
 	}
 
@@ -100,11 +106,11 @@ class Citates {
 				$avtor         = '';
 				if ( $this->htmlCit && $this->htmlCit->innertext != '' and count( $this->htmlCit->find( $this->quote__citata ) ) ) {
 					$cit    = $this->htmlCit->find( $this->quote__citata );
-					$citata = preg_replace( "![\\x00-\\x1F]!s", "", $cit[0]->plaintext );
+					$citata = preg_replace( "![\\x00-\\x1F]!s", '', $cit[0]->plaintext );
 				}
 				if ( $this->htmlCit && $this->htmlCit->innertext != '' and count( $this->htmlCit->find( $this->quote__avtor ) ) ) {
 					$avt   = $this->htmlCit->find( $this->quote__avtor );
-					$avtor = preg_replace( "![\\x00-\\x1F]!s", "", $avt[0]->innertext );
+					$avtor = preg_replace( "![\\x00-\\x1F]!s", '', $avt[0]->innertext );
 				}
 				if ( $this->htmlCit ) {
 					$this->htmlCit->clear(); // подчищаем за собой
@@ -130,11 +136,11 @@ class Citates {
 			return true;
 		}
 		if ( $this->id_pick ) {
-			$this->error .= " запись в базе не обновленна, не доступен донор \n". $this->db->getLastError();
-			trigger_error("запись в базе не обновленна, не доступен донор". $this->db->getLastError() , E_USER_ERROR );
+			$this->error .= ' запись в базе не обновленна, не доступен донор \n'. Db::getLastError();
+			trigger_error('запись в базе не обновленна, не доступен донор'. Db::getLastError() , E_USER_ERROR );
 		} else {
-			$this->error .= " запись в базе не обновленна, нет идентификатора id \n". $this->db->getLastError();
-			trigger_error("запись в базе не обновленна, нет идентификатора id". $this->db->getLastError() , E_USER_ERROR );
+			$this->error .= ' запись в базе не обновленна, нет идентификатора id \n'. Db::getLastError();
+			trigger_error('запись в базе не обновленна, нет идентификатора id'. Db::getLastError() , E_USER_ERROR );
 		}
 		return false;
 	}
@@ -147,8 +153,10 @@ class Citates {
 		if ( $this->html && $this->html->innertext != '' && count( $this->html->find( $this->quote ) ) ) {
 			return true;
 		}
-		$this->error .= " запись в базе не обновленна. Нет контента, удовлетворяющего условиям парсинга \n". $this->db->getLastError();
-		trigger_error("запись в базе не обновленна. Нет контента, удовлетворяющего условиям парсинга" . $this->db->getLastError(), E_USER_ERROR );
+		$this->error .= ' запись в базе не обновленна. Нет контента, удовлетворяющего условиям парсинга \n'.
+						Db::getLastError();
+		trigger_error('запись в базе не обновленна. Нет контента, удовлетворяющего условиям парсинга' .
+					  Db::getLastError(), E_USER_ERROR );
 		return false;
 	}
 
@@ -161,13 +169,13 @@ class Citates {
 	 * @return int
 	 */
 	private function push( $citata, $avtor ) {
-		$data = Array(
-				"cit"     => "$citata",
-				'hash'    => $this->db->func( 'MD5(?)', Array( "$citata" ) ),
-				"avtor"   => "$avtor",
-				"id_pick" => "$this->id_pick"
-		);
-		$this->db->insert( 'citata', $data, 'IGNORE' );
+		$data = [
+				'cit'     => "$citata",
+				'hash'    => Db::func( 'MD5(?)', ["$citata"]),
+				'avtor'   => "$avtor",
+				'id_pick' => "$this->id_pick"
+		];
+		Db::insert( 'citata', $data, 'IGNORE' );
 	}
 
 	/**
@@ -183,8 +191,8 @@ class Citates {
 				'err'  => $this->error
 		];
 
-		$this->db->where( 'id', $this->id_pick );
-		$this->db->update( 'pick', $data );
+		Db::where( 'id', $this->id_pick );
+		Db::update( 'pick', $data );
 	}
 
 	/**
@@ -192,13 +200,13 @@ class Citates {
 	 */
 	public function randCitata() {
 
-		$rand = $this->db->orderBy( 'RAND()' )->get( 'citata', '1', 'cit, avtor' ); // "SELECT cit,avtor FROM citata ORDER BY RAND() LIMIT 1"
+		$rand = Db::orderBy( 'RAND()' )->get( 'citata', '1', 'cit, avtor' ); // "SELECT cit,avtor FROM citata ORDER BY RAND() LIMIT 1"
 		if ( count($rand) > 0 ) {
-			$this->citata = urldecode( $rand [0]["cit"] );
-			$this->avtor  = urldecode( $rand [0]["avtor"] );
+			$this->citata = urldecode( $rand [0]['cit'] );
+			$this->avtor  = urldecode( $rand [0]['avtor'] );
 		} else {
-			$this->citata = "Мир просто не помещается в формат 35-мм камеры."; // цитата по умолчанию.
-			$this->avtor  = "W. Eugene Smith";
+			$this->citata = 'Мир просто не помещается в формат 35-мм камеры.'; // цитата по умолчанию.
+			$this->avtor  = 'W. Eugene Smith';
 		}
 	}
 

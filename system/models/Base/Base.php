@@ -12,7 +12,7 @@ namespace models\Base;
 
 use classes\pattern\Proxy\Router as Router;
 use Common\Container\Options;
-use Db as Db;
+use classes\pattern\Proxy\Db as Db;
 use exception\BaseException;
 
 
@@ -101,8 +101,8 @@ class Base implements InterfaceModelsBase
      */
     public function checkClockLockPage($url)
     {
-        self::db()->where('url', $url);
-        $lock = self::db()->getOne('lock_page');
+        Db::where('url', $url);
+        $lock = Db::getOne('lock_page');
 
         if(null !== count($lock)) {
             $difference_time = $lock['end_date'] - time();
@@ -176,29 +176,8 @@ class Base implements InterfaceModelsBase
      */
     public function getDbTitleName()
     {
-        self::db()->orderBy('position', 'ASC');
-        return self::db()->get('index_menu', null, ['id', 'name_head']);
-    }
-
-    /**
-     * @return object
-     */
-    protected static function db()
-    {
-        return Db::getInstance();
-    }
-
-    /**
-     * @param $txt_err
-     *
-     * @return mixed|void
-     * @throws \Exception
-     */
-    public function ifError($txt_err)
-    {
-        if(self::db()->getLastError() !== '&nbsp;&nbsp;') {
-            throw new BaseModelsException($txt_err . ' ' . self::db()->getLastError());
-        }
+        Db::orderBy('position', 'ASC');
+        return Db::get('index_menu', null, ['id', 'name_head']);
     }
 
     /**

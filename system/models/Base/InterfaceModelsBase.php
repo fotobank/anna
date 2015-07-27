@@ -27,12 +27,6 @@ interface InterfaceModelsBase
     public function getDbTitleName();
 
     /**
-     * @param $txt_err
-     * @return mixed
-     */
-    public function ifError($txt_err);
-
-    /**
      * @param $text
      * @return mixed
      */

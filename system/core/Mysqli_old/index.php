@@ -1,5 +1,5 @@
 <?php
-require_once( __DIR__ . '/../Mysqli/Db.php' );
+require_once(__DIR__ . '/../Db/Db.php');
 error_reporting( E_ALL );
 $action = 'adddb';
 $data = [ ];

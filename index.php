@@ -11,9 +11,7 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-use classes\pattern\Registry;
 use classes\pattern\Proxy\Router as Router;
-
 
 ob_start();
 
@@ -25,10 +23,6 @@ include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config
 include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
 // Загружаем router
-// Registry::build('classes\Router\Router')->start();
-
-
 Router::start();
-
 
 ob_end_flush();

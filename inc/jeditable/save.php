@@ -1,5 +1,5 @@
 <?php
-
+use classes\pattern\Proxy\Db as Db;
 require (__DIR__ .'/../../system/config/config.php');
 
 /*
@@ -11,14 +11,14 @@ if(!empty($_POST['value'])) {
 	$name = $_POST['title'];
 	$value = $_POST['value'];
 
-	$db->where("teg_id", $_POST['pk']['id']);
+	Db::where('teg_id', $_POST['pk']['id']);
 //$text = cp1251(preg_replace('/[\n\t]{1,}/i', '', strip_tags( nl2br($_POST['value']), '<br>')));
 	$text = cp1251(preg_replace('/[\n\t]{1,}/i', '', nl2br(cleanInput($_POST['value']))));
 //	$text = preg_replace('/[tm:]*/i', '', $text);
 	$value = [
 		'text' => $text,
 	];
-	 $db->update("index_body", $value);
+	 Db::update('index_body', $value);
 
 //	$db->rawQuery("UPDATE index_body SET text = ".stripslashes($_POST['value'])." WHERE id=". $_POST['pk']['id']);
 
@@ -35,7 +35,7 @@ if(!empty($_POST['value'])) {
 	usleep(500);
 
 	header( 'Content-type: text/html; charset=windows-1251' );
-	header("Cache-Control: no-cache");
+	header('Cache-Control: no-cache');
 	//here, for debug reason we just return dump of $_POST, you will see result in browser console
 	print_r($_POST);
 } else {
@@ -44,5 +44,5 @@ if(!empty($_POST['value'])) {
 	Response body will be shown as error message in editable form.
 	*/
 	header('HTTP 400 Bad Request', true, 400);
-	echo "This field is required!";
+	echo 'This field is required!';
 }

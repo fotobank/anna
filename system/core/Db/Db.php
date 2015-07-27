@@ -1,6 +1,8 @@
 <?php
 
-use Common\Container\Singleton;
+namespace core\Db;
+
+// use Common\Container\Singleton;
 
 
 if(!defined('SITE_PATH')) {
@@ -18,10 +20,11 @@ if(!defined('SITE_PATH')) {
  * @copyright Copyright (c) 2010
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @version   2.0
+ *
  **/
 class Db
 {
-    use Singleton;
+ //   use Singleton;
 
     /**
      * Table prefix
@@ -30,7 +33,7 @@ class Db
      */
     protected static $_prefix;
     /**
-     * MySQLi instance
+     * Db instance
      *
      * @var mysqli
      */
@@ -84,7 +87,7 @@ class Db
      *
      * @var string
      */ 
-    public $count = 0;
+    protected $count = 0;
     /**
      * Variable which holds an amount of returned rows during get/getOne/select queries with withTotalCount()
      *
@@ -131,15 +134,11 @@ class Db
 
 
 
-    /** @noinspection MagicMethodsValidityInspection */
-    final protected function __construct() {
-        $this-> initDb();
-	}
-
     /**
      * инициализация базы
+     * @return $this|bool
      */
-    public function initDb() {
+    public function init() {
         $config = self::getParam($file = '');
         $this->host     = $config['host'];
         $this->username =  $config['login'];
@@ -149,11 +148,12 @@ class Db
 
         if ( $config === null ) {
             $this->isSubQuery = true;
-            return;
+            return true;
         }
         // for subqueries we do not need database connection and redefine root instance
         $this->connect();
-        self::$instance = $this;
+    //    self::$instance = $this;
+        return $this;
     }
 
 
@@ -181,7 +181,7 @@ class Db
 			self::$config = parse_ini_file(SITE_PATH . self::$_file_pass);
 
 		} else {
-			trigger_error('Не найден файл с паролем!' , E_USER_ERROR );
+			trigger_error('Не найден файл с параметрами подключения.' , E_USER_ERROR );
 			return false;
 		}
 		return self::$config;
@@ -302,7 +302,8 @@ class Db
      *
      * @param string/array $options The optons name of the query.
      *
-     * @return Db
+     * @param $options
+     * @return $this
      */
     public function setQueryOption ($options) {
         $allowedOptions = [
@@ -400,8 +401,8 @@ class Db
     {
         $res = $this->get ($tableName, 1, "{$column} as retval");
 
-        if (isset($res[0]["retval"]))
-            return $res[0]["retval"];
+        if (isset($res[0]['retval']))
+            return $res[0]['retval'];
 
         return null;
     }
@@ -446,7 +447,7 @@ class Db
 		if ( $this->isSubQuery )
 			return null;
 
-		$this->_query = "INSERT ".$insertPrefix." INTO " . self::$_prefix . $tableName;
+		$this->_query = 'INSERT '.$insertPrefix.' INTO ' . self::$_prefix . $tableName;
 		$stmt         = $this->_buildQuery( null, $insertData );
 		$stmt->execute();
 		$this->_stmtError = $stmt->error;
@@ -489,7 +490,7 @@ class Db
         if ($this->isSubQuery)
             return null;
 
-        $this->_query = "UPDATE " . self::$_prefix . $tableName;
+        $this->_query = 'UPDATE ' . self::$_prefix . $tableName;
 
         $stmt = $this->_buildQuery (null, $tableData);
         $status = $stmt->execute();
@@ -513,7 +514,7 @@ class Db
         if ($this->isSubQuery)
             return null;
 
-        $this->_query = "DELETE FROM " . self::$_prefix . $tableName;
+        $this->_query = 'DELETE FROM ' . self::$_prefix . $tableName;
 
         $stmt = $this->_buildQuery($numRows);
         $stmt->execute();
@@ -540,7 +541,7 @@ class Db
         if ($operator)
             $whereValue = [$operator => $whereValue];
 
-        $this->_where[] = ["AND", $whereValue, $whereProp];
+        $this->_where[] = ['AND', $whereValue, $whereProp];
         return $this;
     }
 
@@ -561,7 +562,7 @@ class Db
         if ($operator)
             $whereValue = [$operator => $whereValue];
 
-        $this->_where[] = ["OR", $whereValue, $whereProp];
+        $this->_where[] = ['OR', $whereValue, $whereProp];
         return $this;
     }
     /**
@@ -604,9 +605,9 @@ class Db
 	 * @internal param string $orderByDirection Order direction.
 	 *
 	 */
-    public function orderBy($orderByField, $orderbyDirection = "DESC", $customFields = null)
+    public function orderBy($orderByField, $orderbyDirection = 'DESC', $customFields = null)
     {
-        $allowedDirection = ["ASC", "DESC"];
+        $allowedDirection = ['ASC', 'DESC'];
         $orderbyDirection = strtoupper (trim ($orderbyDirection));
         $orderByField = preg_replace ("/[^-a-z0-9\.\(\),_`]+/i",'', $orderByField);
 
@@ -794,7 +795,7 @@ class Db
      *
      * @return array The results of the SQL fetch.
      */
-    protected function _dynamicBindResults(mysqli_stmt $stmt)
+    protected function _dynamicBindResults(\mysqli_stmt $stmt)
     {
         $parameters = [];
         $results = [];
@@ -848,18 +849,19 @@ class Db
      * Abstraction method that will build an JOIN part of the query
      */
     protected function _buildJoin () {
-        if (empty ($this->_join))
+        if (empty ($this->_join)) {
             return;
+        }
 
         foreach ($this->_join as $data) {
             list ($joinType,  $joinTable, $joinCondition) = $data;
 
             if (is_object ($joinTable))
-                $joinStr = $this->_buildPair ("", $joinTable);
+                $joinStr = $this->_buildPair ('', $joinTable);
             else
                 $joinStr = $joinTable;
 
-            $this->_query .= " " . $joinType. " JOIN " . $joinStr ." on " . $joinCondition;
+            $this->_query .= ' ' . $joinType. ' JOIN ' . $joinStr . ' on ' . $joinCondition;
         }
     }
 
@@ -877,15 +879,15 @@ class Db
             $this->_query .= ' (`' . implode(array_keys($tableData), '`, `') . '`)';
             $this->_query .= ' VALUES (';
         } else
-            $this->_query .= " SET ";
+            $this->_query .= ' SET ';
 
         foreach ($tableData as $column => $value) {
             if ($isUpdate !== false)
-                $this->_query .= "`" . $column . "` = ";
+                $this->_query .= '`' . $column . '` = ';
 
             // Subquery value
             if (is_object ($value)) {
-                $this->_query .= $this->_buildPair ("", $value) . ", ";
+                $this->_query .= $this->_buildPair ('', $value) . ', ';
                 continue;
             }
 
@@ -938,7 +940,7 @@ class Db
         foreach ($this->_where as $cond) {
             list ($concat, $wValue, $wKey) = $cond;
 
-            $this->_query .= " " . $concat ." " . $wKey;
+            $this->_query .= ' ' . $concat .' ' . $wKey;
 
             // Empty value (raw where condition in wKey)
             if ($wValue === null)
@@ -958,7 +960,7 @@ class Db
                 case 'in':
                     $comparison = ' ' . $key . ' (';
                     if (is_object ($val)) {
-                        $comparison .= $this->_buildPair ("", $val);
+                        $comparison .= $this->_buildPair ('', $val);
                     } else {
                         foreach ($val as $v) {
                             $comparison .= ' ?,';
@@ -974,7 +976,7 @@ class Db
                     break;
                 case 'not exists':
                 case 'exists':
-                    $this->_query.= $key . $this->_buildPair ("", $val);
+                    $this->_query.= $key . $this->_buildPair ('', $val);
                     break;
                 default:
                     $this->_query .= $this->_buildPair ($key, $val);
@@ -990,11 +992,11 @@ class Db
         if (empty ($this->_groupBy))
             return;
 
-        $this->_query .= " GROUP BY ";
+        $this->_query .= ' GROUP BY ';
         foreach ($this->_groupBy as $key => $value)
-            $this->_query .= $value . ", ";
+            $this->_query .= $value . ', ';
 
-        $this->_query = rtrim($this->_query, ', ') . " ";
+        $this->_query = rtrim($this->_query, ', ') . ' ';
     }
 
 	/**
@@ -1006,15 +1008,15 @@ class Db
         if (empty ($this->_orderBy))
             return;
 
-        $this->_query .= " ORDER BY ";
+        $this->_query .= ' ORDER BY ';
         foreach ($this->_orderBy as $prop => $value) {
-            if (strtolower (str_replace (" ", "", $prop)) == 'rand()')
-                $this->_query .= "rand(), ";
+            if (strtolower (str_replace (' ', '', $prop)) == 'rand()')
+                $this->_query .= 'rand(), ';
             else
-                $this->_query .= $prop . " " . $value . ", ";
+                $this->_query .= $prop . ' ' . $value . ', ';
         }
 
-        $this->_query = rtrim ($this->_query, ', ') . " ";
+        $this->_query = rtrim ($this->_query, ', ') . ' ';
     }
 
     /**
@@ -1087,9 +1089,9 @@ class Db
      */
     protected function replacePlaceHolders ($str, $vals) {
         $i = 1;
-        $newStr = "";
+        $newStr = '';
 
-        while ($pos = strpos($str, "?")) {
+        while ($pos = strpos($str, '?')) {
             $val = $vals[$i++];
             if (is_object ($val))
                 $val = '[object]';
@@ -1117,7 +1119,7 @@ class Db
      * @return string
      */
     public function getLastError () {
-        return trim ($this->_stmtError . " " . $this->_mysqli->error);
+        return trim ($this->_stmtError . ' ' . $this->_mysqli->error);
     }
 
     /**
@@ -1152,8 +1154,8 @@ class Db
      *
      * @return string
     */
-    public function interval ($diff, $func = "NOW()") {
-        $types = ["s" => "second", "m" => "minute", "h" => "hour", "d" => "day", "M" => "month", "Y" => "year"];
+    public function interval ($diff, $func = 'NOW()') {
+        $types = ['s' => 'second', 'm' => 'minute', 'h' => 'hour', 'd' => 'day', 'M' => 'month', 'Y' => 'year'];
         $incr = '+';
         $items = '';
         $type = 'd';
@@ -1164,7 +1166,7 @@ class Db
             if (!empty ($matches[3])) $type = $matches[3];
             if (!in_array($type, array_keys($types)))
                 trigger_error ("invalid interval type in '{$diff}'");
-            $func .= " ".$incr ." interval ". $items ." ".$types[$type] . " ";
+            $func .= ' '.$incr .' interval '. $items .' '.$types[$type] . ' ';
         }
         return $func;
 
@@ -1180,7 +1182,7 @@ class Db
      *
      * @return array
     */
-    public function now ($diff = null, $func = 'NOW()') {
+    public function now($diff = null, $func = 'NOW()') {
         return ['[F]' => [$this->interval($diff, $func)]];
     }
 
@@ -1202,7 +1204,7 @@ class Db
 	 *
 	 * @return array
 	 */
-    public function dec ($num = 1) {
+    public function dec($num = 1) {
         return ['[I]' => '-' . (int)$num];
     }
 
@@ -1213,7 +1215,7 @@ class Db
 	 *
 	 * @return array
 	 */
-    public function not ($col = null) {
+    public function not($col = null) {
         return ['[N]' => (string)$col];
     }
 
@@ -1226,7 +1228,7 @@ class Db
 	 * @return array
 	 * @internal param user $string function body
 	 */
-    public function func ($expr, $bindParams = null) {
+    public function func($expr, $bindParams = null) {
         return ['[F]' => [$expr, $bindParams]];
     }
 
@@ -1239,7 +1241,7 @@ class Db
 	 */
     public static function subQuery($subQueryAlias = '')
     {
-        return new Db (['host' => $subQueryAlias, 'isSubQuery' => true]);
+        return new Db(['host' => $subQueryAlias, 'isSubQuery' => true]);
     }
 
 	/**
@@ -1249,7 +1251,7 @@ class Db
 	 *
 	 * @return mixed
 	 */
-    public function copy ()
+    public function copy()
     {
         $copy = unserialize (serialize ($this));
         $copy->_mysqli = $this->_mysqli;
@@ -1262,10 +1264,10 @@ class Db
      * @uses mysqli->autocommit(false)
      * @uses register_shutdown_function(array($this, "_transaction_shutdown_check"))
      */
-    public function startTransaction () {
-        $this->_mysqli->autocommit (false);
+    public function startTransaction() {
+        $this->_mysqli->autocommit(false);
         $this->_transaction_in_progress = true;
-        register_shutdown_function ([$this, '_transaction_status_check']);
+        register_shutdown_function([$this, '_transaction_status_check']);
     }
 
     /**
@@ -1274,8 +1276,8 @@ class Db
      * @uses mysqli->commit();
      * @uses mysqli->autocommit(true);
      */
-    public function commit () {
-        $this->_mysqli->commit ();
+    public function commit() {
+        $this->_mysqli->commit();
         $this->_transaction_in_progress = false;
         $this->_mysqli->autocommit (true);
     }
@@ -1286,10 +1288,10 @@ class Db
      * @uses mysqli->rollback();
      * @uses mysqli->autocommit(true);
      */
-    public function rollback () {
-      $this->_mysqli->rollback ();
+    public function rollback() {
+      $this->_mysqli->rollback();
       $this->_transaction_in_progress = false;
-      $this->_mysqli->autocommit (true);
+      $this->_mysqli->autocommit(true);
     }
 
     /**
@@ -1298,10 +1300,10 @@ class Db
      *
      * @uses mysqli->rollback();
      */
-    public function _transaction_status_check () {
+    public function _transaction_status_check() {
         if (!$this->_transaction_in_progress)
             return;
-        $this->rollback ();
+        $this->rollback();
     }
 
 	/**
@@ -1313,7 +1315,7 @@ class Db
 	 *
 	 * @return $this
 	 */
-    public function setTrace ($enabled, $stripPrefix = null) {
+    public function setTrace($enabled, $stripPrefix = null) {
         $this->traceEnabled = $enabled;
         $this->traceStripPrefix = $stripPrefix;
         return $this;
@@ -1323,7 +1325,7 @@ class Db
      *
      * @return string with information
      */
-    private function _traceGetCaller () {
+    private function _traceGetCaller() {
         $dd = debug_backtrace ();
         $caller = next ($dd);
         while (isset ($caller) &&  $caller['file'] == __FILE__ )
@@ -1331,5 +1333,13 @@ class Db
 
         return __CLASS__ . '->' . $caller['function'] . "() >>  file \"" .
                 str_replace ($this->traceStripPrefix, '', $caller['file'] ) . "\" line #" . $caller['line'] . ' ' ;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCount()
+    {
+        return $this->count;
     }
 } // END class

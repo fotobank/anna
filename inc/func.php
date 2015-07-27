@@ -6,7 +6,7 @@
  * Time: 4:36
  */
 use phpbrowscap\Exception;
-
+use classes\pattern\Proxy\Db as Db;
 
 /**
  * Для обрезки строки на 2 части
@@ -479,7 +479,7 @@ function getImageinfo($file, $query)
  */
 function db()
 {
-    return Db::getInstance();
+    return Db::init();
 }
 
 /**
@@ -573,8 +573,8 @@ function if_admin($str)
  */
 function login()
 {
-    db()->where('id', 1);
-    $login = db()->getOne($GLOBALS['tbl_users'], 'login');
+    Db::where('id', 1);
+    $login = Db::getOne($GLOBALS['tbl_users'], 'login');
 
     return $login['login'];
 }
@@ -585,8 +585,8 @@ function login()
  */
 function pass()
 {
-    db()->where('id', 1);
-    $login = db()->getOne($GLOBALS['tbl_users'], 'pass');
+    Db::where('id', 1);
+    $login = Db::getOne($GLOBALS['tbl_users'], 'pass');
 
     return $login['pass'];
 }

@@ -13,6 +13,7 @@
 
 use classes\pattern\Registry;
 use core\Autoloader;
+use classes\pattern\Proxy\Db as Db;
 
 if (session_id() === '') {
     session_start();
@@ -44,6 +45,7 @@ header('Content-type: text/html; charset=windows-1251');
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'system/core/Autoloader.php');
 new Autoloader();
+Db::init();
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'inc/func.php');
 // профилирование
@@ -88,7 +90,6 @@ if (!function_exists('v_dump')) {
         }
     }
 }
-
 
 /** Test Begins **/
 // echo $test_test; // Notice

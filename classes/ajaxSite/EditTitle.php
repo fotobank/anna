@@ -4,6 +4,8 @@ if ( session_id() == '' )
 	session_start();
 header( 'Content-type: text/html; charset=windows-1251' );
 
+use classes\pattern\Proxy\Db as Db;
+
 /**
  * Class EditTitle
  */
@@ -74,13 +76,7 @@ class EditTitle {
 						</div>' ) . '</li>';
 	}
 
-
-	/**
-	 * @return object
-	 */
-	protected static function db() {
-		return Db::getInstance( Db::getParam() );
-	}
+	
 
 	/**
 	 * @param $txt_err
@@ -89,8 +85,8 @@ class EditTitle {
 	 */
 	protected static function if_error( $txt_err ) {
 
-		if ( self::db()->getLastError() != '&nbsp;&nbsp;' ) {
-			throw new Exception( $txt_err . " " . self::db()->getLastError() );
+		if ( Db::getLastError() != '&nbsp;&nbsp;' ) {
+			throw new Exception( $txt_err . ' ' . Db::getLastError() );
 		}
 
 	}
@@ -109,16 +105,16 @@ class EditTitle {
 	public static function edit( $id, $text ) {
 
 		$text = self::esc( $text );
-		if ( !$text ) throw new Exception( "Неправильный обновляемый текст!" );
+		if ( !$text ) throw new Exception( 'Неправильный обновляемый текст!' );
 
 		$value = [
 			'name_head' => $text,
 			'edit_id'    => isset( $_SESSION['id'] ) ? $_SESSION['id'] : 0
 		];
-		self::db()->where( "id", $id );
-		self::db()->update( "index_menu", $value );
+		Db::where( 'id', $id );
+		Db::update( 'index_menu', $value );
 
-		self::if_error( "Не могу обновить пункт!" );
+		self::if_error( 'Не могу обновить пункт!' );
 	}
 
 
@@ -129,10 +125,10 @@ class EditTitle {
 	 */
 	public static function delete( $id ) {
 
-		self::db()->where( "id", $id );
-		self::db()->delete( "index_menu" );
+		Db::where( 'id', $id );
+		Db::delete( 'index_menu' );
 
-		self::if_error( "Не могу удалить пункт!" );
+		self::if_error( 'Не могу удалить пункт!' );
 	}
 
 	/**
@@ -150,7 +146,7 @@ class EditTitle {
 		foreach ( $key_value as $k => $v ) {
 			$strVals[] = 'WHEN ' . (int) $v . ' THEN ' . ( (int) $k + 1 ) . PHP_EOL;
 		}
-		if ( !count( $strVals ) ) throw new Exception( "Нет данных!" );
+		if ( !count( $strVals ) ) throw new Exception( 'Нет данных!' );
 
 		// Мы используем оператор CASE SQL для массового обновления позиции заголовка:
 
@@ -159,9 +155,9 @@ class EditTitle {
 						ELSE position
 						END");*/
 
-		self::db()->rawQuery( "UPDATE index_menu SET position = CASE id " . implode( $strVals ) . " ELSE position END" );
+		Db::rawQuery( 'UPDATE index_menu SET position = CASE id ' . implode( $strVals ) . ' ELSE position END' );
 
-		self::if_error( "Ошибка обновления позиции!" );
+		self::if_error( 'Ошибка обновления позиции!' );
 	}
 
 
@@ -177,11 +173,11 @@ class EditTitle {
 	public static function createNew( $text ) {
 
 		$text = self::esc( $text );
-		if ( !$text ) throw new Exception( "Неправильный ввод данных!" );
+		if ( !$text ) throw new Exception( 'Неправильный ввод данных!' );
 
 //		$position = $db->rawQuery("SELECT MAX(position)+1 FROM index_menu");
 
-		$position = self::db()->getOne( "index_menu", "MAX(position)+1 as maxPosition" );
+		$position = Db::getOne( 'index_menu', 'MAX(position)+1 as maxPosition' );
 
 
 		if ( !$position['maxPosition'] ) $position['maxPosition'] = 1;
@@ -192,13 +188,13 @@ class EditTitle {
 			'edit_id'    => isset( $_SESSION['id'] ) ? $_SESSION['id'] : 0
 
 		];
-		self::db()->insert( "index_menu", $values );
+		Db::insert( 'index_menu', $values );
 
-		self::if_error( "Ошибка вставки главы!" );
+		self::if_error( 'Ошибка вставки главы!' );
 
 		echo( self::new_li_title(
 			[
-				'id'        => self::db()->getInsertId(),
+				'id'        => Db::getInsertId(),
 				'name_head' => $text
 			]
 		)

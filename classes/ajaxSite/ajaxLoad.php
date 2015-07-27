@@ -6,6 +6,8 @@
  * Time: 2:11
  */
 
+use classes\pattern\Proxy\Db as Db;
+
 /** @noinspection PhpIncludeInspection */
 include(__DIR__ .  DIRECTORY_SEPARATOR . '..'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR.'system'.
 									   DIRECTORY_SEPARATOR.'config'. DIRECTORY_SEPARATOR . 'config.php');
@@ -60,8 +62,8 @@ if(isset($_GET['location'])) {
 
 if($id && $table) {
 
-	db()->where("id", $id);
-$query = db()->getOne($table, 'text');
+	Db::where('id', $id);
+$query = Db::getOne($table, 'text');
 
 
 
