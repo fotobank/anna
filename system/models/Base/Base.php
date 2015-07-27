@@ -97,7 +97,7 @@ class Base implements InterfaceModelsBase
     /**
      *  проверка времени блокировки страницы
      * @param $url
-     * @return bool
+     * @return array
      */
     public function checkClockLockPage($url)
     {
@@ -124,6 +124,9 @@ class Base implements InterfaceModelsBase
 
     /**
      * присвоение значений переменным metatitle в шапке
+     * @return bool
+     * @throws BaseModelsException
+     * @throws \Exception
      */
     public function getMetaTitle()
     {

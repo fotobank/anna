@@ -17,7 +17,7 @@ namespace classes\Router;
 
 use exception\RouteException;
 use Common\Container\Helper;
-use classes\pattern\Proxy\Base as ModelBase;
+use classes\pattern\Proxy\Base as BaseModel;
 
 
 /**
@@ -27,6 +27,7 @@ use classes\pattern\Proxy\Base as ModelBase;
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class Router implements InterfaceRouter
 {
+    const ALL_ROUTES = 'system/classes/Router/routes.php';
 
     use Helper;
 
@@ -68,7 +69,7 @@ class Router implements InterfaceRouter
     public function __construct()
     {
         /** @noinspection PhpIncludeInspection */
-        $this->site_routes = include(SITE_PATH . 'system/classes/Router/routes.php');
+        $this->site_routes = include(SITE_PATH . Router::ALL_ROUTES);
     }
 
     /**
@@ -232,7 +233,7 @@ class Router implements InterfaceRouter
     protected function checkLockPage()
     {
         try {
-            $lock = ModelBase::checkClockLockPage($this->url);
+            $lock = BaseModel::checkClockLockPage($this->url);
             if(false !== $lock && count($lock) > 0) {
                 $this->current_controller = $lock['controller'];
                 $this->current_method = $lock['method'];

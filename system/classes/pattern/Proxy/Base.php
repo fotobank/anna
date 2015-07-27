@@ -18,39 +18,38 @@ use models\Base\Base as Instance;
 
 
 /**
- * Class Base
- * @package classes\pattern\Proxy
+ * Proxy to Base model
+ *
+ * Example of usage
+ *     use classes\pattern\Proxy\Base;
+ *
+ *     Base::checkClockLockPage($url)
+ *
+ * @package  Alex\Proxy
+ *
+ *  показывать только заглавную страницу
+ * @method   static mixed|void setOnluIndex($onluIndex)
+ * @see      classes\pattern\Proxy\Base::setOnluIndex()
+ *
+ * @method   static array checkClockLockPage($url)
+ * @see      classes\pattern\Proxy\Base::checkClockLockPage()
+ *
+ * @method   static mixed getDbTitleName()
+ * @see      classes\pattern\Proxy\Base::getDbTitleName()
+ *
+ * @method   static array globalHeartMenu()
+ * @see      classes\pattern\Proxy\Base::globalHeartMenu()
+ *
+ * @method   static bool getMetaTitle()
+ * @see      classes\pattern\Proxy\Base::getMetaTitle()
+ *
+ * @author   Alex Jurii
+ * @package  classes\pattern\Proxy
  */
 class Base extends AbstractProxy
 {
     /**
-     * Base model
-     *
-     * Example of usage
-     *     use classes\pattern\Proxy\Base;
-     *
-     *     Base::checkClockLockPage($url)
-     *
-     * @package  Alex\Proxy
-     *
-     *  показывать только заглавную страницу
-     * @method   static boolean setOnluIndex($onluIndex)
-     * @see      classes\pattern\Proxy\Base::setOnluIndex()
-     *
-     * @method   static void checkClockLockPage($url)
-     * @see      classes\pattern\Proxy\Base::checkClockLockPage()
-     *
-     * @method   static mixed getDbTitleName()
-     * @see      classes\pattern\Proxy\Base::getDbTitleName()
-     *
-     * @method   static array globalHeartMenu()
-     * @see      classes\pattern\Proxy\Base::globalHeartMenu()
-     *
-     * @method   static array getMetaTitle()
-     * @see      classes\pattern\Proxy\Base::getMetaTitle()
-     *
-     * @author   Alex Jurii
-     * @package  classes\pattern\Proxy
+     * @return Instance
      */
     protected static function initInstance()
     {
