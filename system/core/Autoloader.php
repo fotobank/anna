@@ -35,6 +35,7 @@ namespace core;
 use exception\BaseException;
 use Exception;
 
+
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'system/exception/IException.php');
 /** @noinspection PhpIncludeInspection */
@@ -42,7 +43,7 @@ include(SITE_PATH . 'system/exception/BaseException.php');
 
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
-class aException extends BaseException
+class AutoloadException extends BaseException
 {
 }
 
@@ -107,30 +108,34 @@ END;
      */
     public function __construct()
     {
-        spl_autoload_extensions('.php');
-        /** назначаем метод автозагрузки */
-        spl_autoload_register(['Core\\Autoloader', 'autoload']);
+        try {
+            spl_autoload_extensions('.php');
+            /** назначаем метод автозагрузки */
+            spl_autoload_register(['Core\\Autoloader', 'autoload']);
 
-        /** переопределение свойств  */
-        $this->dir_cashe = SITE_PATH . str_replace(['\\', '/'], DS, $this->dir_cashe) . DS;
-        $this->fileLog = $this->dir_cashe . $this->fileLog;
-        $this->file_array_class_cache = $this->dir_cashe . $this->file_array_class_cache;
-        $this->file_array_scan_files = $this->dir_cashe . $this->file_array_scan_files;
-        $this->htaccess = $this->dir_cashe . $this->htaccess;
-        /** проверить директории кэша и задать права */
-        $this->checkDir();
-        /** проверка и создание .htaccess */
-        $this->createFile($this->htaccess, $this->htaccess_data);
-        /** если файла кэша нет - создать */
-        $this->createFile($this->file_array_class_cache, '');
-        /** читаем кэш в массив из файла */
-        $this->array_class_cache = $this->getFileMap();
-        /** если файл скана директорий существует - загрузить его в память
-         * иначе - отсканировать папка, создать файл и загрузить в память  */
-        if (false === $this->createFile($this->file_array_scan_files, '')) {
-            $this->array_scan_files = $this->arrFromFile($this->file_array_scan_files);
-        } else {
-            $this->updateScanFiles();
+            /** переопределение свойств  */
+            $this->dir_cashe = SITE_PATH . str_replace(['\\', '/'], DS, $this->dir_cashe) . DS;
+            $this->fileLog = $this->dir_cashe . $this->fileLog;
+            $this->file_array_class_cache = $this->dir_cashe . $this->file_array_class_cache;
+            $this->file_array_scan_files = $this->dir_cashe . $this->file_array_scan_files;
+            $this->htaccess = $this->dir_cashe . $this->htaccess;
+            /** проверить директории кэша и задать права */
+            $this->checkDir();
+            /** проверка и создание .htaccess */
+            $this->createFile($this->htaccess, $this->htaccess_data);
+            /** если файла кэша нет - создать */
+            $this->createFile($this->file_array_class_cache, '');
+            /** читаем кэш в массив из файла */
+            $this->array_class_cache = $this->getFileMap();
+            /** если файл скана директорий существует - загрузить его в память
+             * иначе - отсканировать папка, создать файл и загрузить в память  */
+            if(false === $this->createFile($this->file_array_scan_files, '')) {
+                $this->array_scan_files = $this->arrFromFile($this->file_array_scan_files);
+            } else {
+                $this->updateScanFiles();
+            }
+        } catch (AutoloadException $e) {
+            throw $e;
         }
     }
 
@@ -138,7 +143,7 @@ END;
      * @param $class_name
      * автозагрузчик файлов классов
      *
-     * @throws aException
+     * @throws AutoloadException
      */
     public function autoload($class_name)
     {
@@ -147,16 +152,15 @@ END;
             $this->name_space = '';
             /** подготовка имени в классах с namespace */
             $lastNsPos = strrpos($class_name, '\\');
-            if ($lastNsPos) {
+            if($lastNsPos) {
                 $this->name_space = str_replace(['\\', '/'], DS, substr($class_name, 0, $lastNsPos));
-                $class_name = substr($class_name, $lastNsPos + 1);
-                $this->findClass($class_name);
-
-                return;
+                $class_name_space = substr($class_name, $lastNsPos + 1);
+                if(!$this->findClass($class_name_space)) {
+                    return;
+                }
             }
             /** попытка поиска без namespace ( если namespace отличается от вложенности директорий ) */
             $this->findClass($class_name);
-
         });
     }
 
@@ -165,27 +169,25 @@ END;
      * @param  $class_name
      *
      * @return bool
-     * @throws aException
+     * @throws AutoloadException
      */
     private function findClass($class_name)
     {
         foreach ($this->files_ext as $ext) {
 
             /** проверка нахождения класса в кэш */
-            if (false === $this->checkClassNameInCash($class_name, $ext)) {
+            if(false === $this->checkClassNameInCash($class_name, $ext)) {
+               return false;
+            }
+            if(false === $this->checkScanFiles($class_name, $ext)) {
                 return false;
             }
+            // сообщение log класс не найден
+            $this->logLoadError($class_name.$ext);
 
-            if (false === $this->checkScanFiles($class_name, $ext)) {
-                return false;
-            }
-            /** сообщение log класс не найден */
-            $this->logLoadError($class_name);
-
-            throw new aException("класс <b>'{$class_name}'</b> не найден");
         }
-
         return true;
+    //    throw new AutoloadException('класс <b>"' . $class_name . '"</b> не найден');
     }
 
     /**
@@ -202,22 +204,22 @@ END;
 
             $class_name_space = $class_name;
 
-            if (!empty($this->name_space)) {
+            if(!empty($this->name_space)) {
 
                 $class_name_space = $this->name_space . DS . $class_name;
             }
 
-            if (!empty($this->array_class_cache[$class_name_space])) {
+            if(!empty($this->array_class_cache[$class_name_space])) {
 
                 // проверка на правильность пути в кэше если есть $this->name_space
                 // если путь неправильный(имена классов совпадают) - выход
-                if (!isset($this->array_class_cache[$class_name_space])) {
+                if(!isset($this->array_class_cache[$class_name_space])) {
                     // записи нет
                     return true;
                 }
 
                 $filePath = $this->array_class_cache[$class_name_space] . DS . $class_name . $ext;
-                if (file_exists($filePath)) {
+                if(file_exists($filePath)) {
 
                     /** @noinspection PhpIncludeInspection */
                     require_once $filePath;
@@ -238,27 +240,25 @@ END;
      * если класс не найден - обновить кэш и проверить еще раз
      *
      * @return bool
-     * @throws aException
+     * @throws AutoloadException
      */
     private function checkScanFiles($class_name, $ext)
     {
         return $this->wrapperTryCatch(function () use ($class_name, $ext) {
 
-            if (isset($this->array_scan_files[$class_name])) {
+            if(array_key_exists($class_name, $this->array_scan_files)) {
 
-                return $this->checkClassNameInBaseScanFiles($class_name, $ext);
-
-            } else {
-                /** обновить информацию в кэше рекурсивного сканирования */
-                $this->updateScanFiles();
-                /** проверить еще раз */
-                if (isset($this->array_scan_files[$class_name])) {
-
-                    return $this->checkClassNameInBaseScanFiles($class_name, $ext);
-
-                } else {
-                    throw new aException('класс <b>"' . $class_name . '"</b> не найден');
-                }
+                 if($this->checkClassNameInBaseScanFiles($class_name, $ext)) {
+                     /**
+                      * если не найден
+                      * обновить информацию в кэше рекурсивного сканирования */
+                     $this->updateScanFiles();
+                     /** проверить еще раз */
+                     return $this->checkClassNameInBaseScanFiles($class_name, $ext);
+                 }
+                     return false;
+             } else {
+                throw new AutoloadException('класс <b>"' . $class_name . '"</b> не найден');
             }
         });
     }
@@ -268,15 +268,16 @@ END;
      * @param $ext
      * @return bool
      */
-    function checkClassNameInBaseScanFiles($class_name, $ext)
+    private function checkClassNameInBaseScanFiles($class_name, $ext)
     {
         /** проверка с namespase */
 
-        if ($this->name_space != '') {
+        if($this->name_space != '') {
             foreach ($this->paths as $path) {
                 $path_class = SITE_PATH . $path . DS . $this->name_space;
 
-                if (false === $this->checkClass($path_class, $class_name, $ext)) {
+                if(false === $this->checkClass($path_class, $class_name, $ext)) {
+                    // класс найден
                     return false;
                 }
             }
@@ -285,18 +286,18 @@ END;
 
         foreach ($this->array_scan_files[$class_name] as $path_class) {
 
-            if (false === $this->checkClass($path_class, $class_name, $ext)) {
+            if(false === $this->checkClass($path_class, $class_name, $ext)) {
                 return false;
             }
         }
-
+        // класс не найден
         return true;
     }
 
     /**
      * создание массива файлов заданных директорий
      * с фильтрацией по расширению
-     * @throws aException
+     * @throws AutoloadException
      */
     protected function updateScanFiles()
     {
@@ -321,25 +322,25 @@ END;
     {
         static $data;
         $this->wrapperTryCatch(function () use ($base, &$data) {
-            if (is_dir($base)) {
+            if(is_dir($base)) {
                 $array = array_diff(scandir($base), ['.', '..']);
                 foreach ($array as $value) {
 
-                    if (is_dir($base . $value)) {
+                    if(is_dir($base . $value)) {
                         $data = $this->rScanDir($base . $value . DS, $data);
 
-                    } elseif (is_file($base . $value)) {
+                    } elseif(is_file($base . $value)) {
                         foreach ($this->files_ext as $mask) {
                             $path_parts = pathinfo($value);
                             $extension = isset($path_parts['extension']) ? $path_parts['extension'] : false;
-                            if ($mask == '.' . $extension) {
+                            if($mask == '.' . $extension) {
                                 $data[$path_parts['filename']][] = rtrim($base, DS);
                             }
                         }
                     }
                 }
             } else {
-                throw new aException("не найдена директория сканирования файлов <br>");
+                throw new AutoloadException('не найдена директория сканирования файлов <br>');
             }
         });
 
@@ -367,17 +368,17 @@ END;
      * @param string $filename - имя файла откуда будет производиться восстановление данных
      *
      * @return mixed
-     * @throws aException
+     * @throws AutoloadException
      */
     protected function arrFromFile($filename)
     {
         return $this->wrapperTryCatch(function () use ($filename) {
-            if (file_exists($filename)) {
+            if(file_exists($filename)) {
 
                 $file = file_get_contents($filename);
                 $value = unserialize($file);
 
-                if ($value === false) {
+                if($value === false) {
                     $this->updateScanFiles();
                     $file = file_get_contents($filename);
                     $value = unserialize($file);
@@ -385,7 +386,7 @@ END;
 
                 return $value;
             }
-            throw new aException("не найден путь файла '{$filename}' <br>");
+            throw new AutoloadException("не найден путь файла '{$filename}' <br>");
         });
     }
 
@@ -395,14 +396,14 @@ END;
     protected function checkDir()
     {
         $this->wrapperTryCatch(function () {
-            if (!is_dir($this->dir_cashe)) {
+            if(!is_dir($this->dir_cashe)) {
                 mkdir($this->dir_cashe, 0711, true);
             }
-            if (!is_writable($this->dir_cashe)) {
+            if(!is_writable($this->dir_cashe)) {
                 chmod($this->dir_cashe, 0711);
             }
-            if (!is_dir($this->dir_cashe) || !is_writable($this->dir_cashe)) {
-                throw new aException('can not create "' . $this->dir_cashe . '" an unwritable dir <br>');
+            if(!is_dir($this->dir_cashe) || !is_writable($this->dir_cashe)) {
+                throw new AutoloadException('can not create "' . $this->dir_cashe . '" an unwritable dir <br>');
             }
         });
     }
@@ -419,10 +420,10 @@ END;
     protected function createFile($file, $data)
     {
         return $this->wrapperTryCatch(function () use ($file, $data) {
-            if (!file_exists($file)) {
+            if(!file_exists($file)) {
                 file_put_contents($file, $data, LOCK_EX);
-                if (!file_exists($file)) {
-                    throw new aException("can not create '{$file}' an unwritable dir '{$this->dir_cashe}'<br>");
+                if(!file_exists($file)) {
+                    throw new AutoloadException("can not create '{$file}' an unwritable dir '{$this->dir_cashe}'<br>");
                 }
                 chmod($file, 0600);
 
@@ -436,15 +437,15 @@ END;
     /**
      * чтение файла кэша в массив
      * @return array|bool|null
-     * @throws aException
+     * @throws AutoloadException
      */
     private function getFileMap()
     {
         return $this->wrapperTryCatch(function () {
 
             $file_string = file_get_contents($this->file_array_class_cache);
-            if ($file_string === false) {
-                throw new aException('Can not read the file <b>"' . $this->file_array_class_cache . '"</b>');
+            if($file_string === false) {
+                throw new AutoloadException('Can not read the file <b>"' . $this->file_array_class_cache . '"</b>');
             }
 
             return parse_ini_string($file_string);
@@ -468,13 +469,13 @@ END;
             $file = $full_path . DS . $file_name . $ext;
             $file_name = ($this->name_space != '') ? $this->name_space . DS . $file_name : $file_name;
             $this->logFindClass($full_path, $file_name . $ext);
-            if (file_exists($file)) {
+            if(file_exists($file)) {
 
                 /** @noinspection PhpIncludeInspection */
                 require_once($file);
                 $this->logLoadOk($full_path . DS, $file_name . $ext);
                 $this->addNamespace($full_path, $file_name);
-                $this->putFileMap($file_name . " = " . $full_path . PHP_EOL);
+                $this->putFileMap($file_name . ' = ' . $full_path . PHP_EOL);
 
                 return false;
             }
@@ -494,7 +495,7 @@ END;
      */
     public function addNamespace($full_path, $file_name)
     {
-        if (is_dir($full_path)) {
+        if(is_dir($full_path)) {
             $this->array_class_cache[$file_name] = $full_path;
         }
     }
@@ -512,19 +513,19 @@ END;
         $this->wrapperTryCatch(function () use ($class) {
             $class = trim($class);
             $file_map = $this->getFileMap();
-            list($file_name, $file_patch) = explode("=", $class);
+            list($file_name, $file_patch) = explode('=', $class);
             $file_patch = trim($file_patch);
             $file_name = trim($file_name);
 
-            if (isset($file_map[$file_name])) {
-                $full_name_map = $file_name . " = " . $file_map[$file_name];
+            if(isset($file_map[$file_name])) {
+                $full_name_map = $file_name . ' = ' . $file_map[$file_name];
                 /** если пути не равны */
-                if ($full_name_map != $class) {
+                if($full_name_map != $class) {
                     /** изменить строку в массиве и записать изменения в файл */
                     $file_map[$file_name] = $file_patch;
-                    $file_map_write = "";
+                    $file_map_write = '';
                     foreach ($file_map as $drop_name_class => $file) {
-                        $file_map_write .= $drop_name_class . " = " . $file . PHP_EOL;
+                        $file_map_write .= $drop_name_class . ' = ' . $file . PHP_EOL;
                     }
                     /** перезаписываем файл */
                     file_put_contents($this->file_array_class_cache, $file_map_write, LOCK_EX);
@@ -542,12 +543,12 @@ END;
      *
      * запись лога в файл
      *
-     * @throws aException
+     * @throws AutoloadException
      */
     private function putLog($data)
     {
         $this->wrapperTryCatch(function () use ($data) {
-            $data = ("[ " . $data . " => " . date('d.m.Y H:i:s') . " ]<br>" . PHP_EOL);
+            $data = ('[ ' . $data . ' => ' . date('d.m.Y H:i:s') . ' ]<br>' . PHP_EOL);
             file_put_contents($this->fileLog, $data, FILE_APPEND | LOCK_EX);
         });
     }
@@ -557,12 +558,18 @@ END;
      * @param $file
      *
      * запись успешного подключения класса в лог
+     * @throws AutoloadException
+     * @throws Exception
      */
     private function logLoadOk($full_path, $file)
     {
-        if (DEBUG_MODE) {
+        try {
+        if(DEBUG_MODE) {
             $this->putLog(('<br><b style="color: #23a126;">подключили </b> ' . '<b style="color: #3a46e1;"> ' .
                 $full_path . '</b>' . '<b style="color: #ff0000;">' . $file . '</b><br>'));
+        }
+        } catch (AutoloadException $e) {
+            throw $e;
         }
     }
 
@@ -571,11 +578,17 @@ END;
      * @param $file
      *
      * запись в лог начала поиска файла
+     * @throws AutoloadException
+     * @throws Exception
      */
     private function logFindClass($file_path, $file)
     {
-        if (DEBUG_MODE) {
-            $this->putLog(('ищем файл <b>"' . $file . '"</b> in ' . $file_path));
+        try {
+            if(DEBUG_MODE) {
+                $this->putLog(('ищем файл <b>"' . $file . '"</b> in ' . $file_path));
+            }
+        } catch (AutoloadException $e) {
+            throw $e;
         }
     }
 
@@ -584,20 +597,28 @@ END;
      */
     private function updateScanFilesLog()
     {
-        if (DEBUG_MODE) {
-            $this->putLog(('<br><b style="background-color: #ffffaa;">сканируем директории и обновляем базу поиска классов</b>'));
+        try {
+            if(DEBUG_MODE) {
+                $this->putLog(('<br><b style="background-color: #ffffaa;">сканируем директории и обновляем базу поиска классов</b>'));
+            }
+        } catch (AutoloadException $e) {
+            throw $e;
         }
     }
 
     /**
-     * @param $file_name
-     *
-     * запись ошибки в лог
+     * @param $class_name
+     * @throws AutoloadException
+     * @throws Exception
      */
-    private function logLoadError($file_name)
+    private function logLoadError($class_name)
     {
-        if (DEBUG_MODE) {
-            $this->putLog(('<br><b style="color: #ff0000;">Класс "' . $file_name . '" не найден</b><br>'));
+        try {
+            if(DEBUG_MODE) {
+                $this->putLog(('<br><b style="color: #ff0000;">Класс "' . $class_name . '" не найден</b><br>'));
+            }
+        } catch (AutoloadException $e) {
+            throw $e;
         }
     }
 
@@ -605,15 +626,15 @@ END;
      * обертка обработки ошибок
      * @param $closure
      * @return bool
-     * @throws Exception
+     * @throws AutoloadException
      */
     protected function wrapperTryCatch($closure)
     {
         try {
             return $closure();
-        } catch (aException $e) {
-            if (DEBUG_MODE) {
-                throw $e;
+        } catch (AutoloadException $e) {
+            if(DEBUG_MODE) {
+                throw ($e);
             }
             return false;
         }

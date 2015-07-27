@@ -479,7 +479,7 @@ function getImageinfo($file, $query)
  */
 function db()
 {
-    return Db::getInstance(Db::getParam());
+    return Db::getInstance();
 }
 
 /**

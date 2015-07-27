@@ -1,4 +1,8 @@
 <?php
+
+use Common\Container\Singleton;
+
+
 if(!defined('SITE_PATH')) {
 	define ( 'SITE_PATH',  realpath( __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR .
 									 '..' . DIRECTORY_SEPARATOR.'..' . DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR );
@@ -17,12 +21,8 @@ if(!defined('SITE_PATH')) {
  **/
 class Db
 {
-    /**
-     * Static instance of self
-     *
-     * @var Db
-     */
-    protected static $_instance;
+    use Singleton;
+
     /**
      * Table prefix
      * 
@@ -111,7 +111,7 @@ class Db
     protected $charset = 'cp1251'; // utf-8;
 
 	protected $_transaction_in_progress; // добавил не была объявленна
-	protected static $_file_pass = "system/config/db_config.ini"; // данные для подключения
+	protected static $_file_pass = 'system/config/db_config.ini'; // данные для подключения
 	protected static $config = [ ];
 
     /**
@@ -129,62 +129,42 @@ class Db
     protected $traceStripPrefix;
     public $trace = [];
 
-	/**
-	 * @param null $config
-	 *
-	 * @internal param string $host
-	 * @internal param string $username
-	 * @internal param string $password
-	 * @internal param string $db
-	 * @internal param int $port
-	 */
-	/**
-	 * @param null $config
-	 */
-	public function __construct( $config = NULL ) {
 
-		$this->host     = $config["host"];
-		$this->username =  $config["login"];
-		$this->password = $config["password"];
-		$this->db       = $config["db"];
-		$this->num_port($config["port"]);
 
-		if ( $config === null ) {
-			$this->isSubQuery = true;
-			return;
-		}
-		// for subqueries we do not need database connection and redefine root instance
-		$this->connect();
-		self::$_instance = $this;
+    /** @noinspection MagicMethodsValidityInspection */
+    final protected function __construct() {
+        $this-> initDb();
 	}
 
-	/**
-	 * A method of returning the static instance to allow access to the
-	 * instantiated object from within another class.
-	 * Inheriting this class would require reloading connection info.
-	 *
-	 * @uses $db = Db::getInstance();
-	 * @return object Returns the current instance.
-	 *
-	 * @param null $config
-	 *
-	 * @return Db
-	 */
-	public static function getInstance( $config = NULL ) {
-		if (self::$_instance == null){
-			self::$_instance = new Db( $config );
-		}
-		return self::$_instance;
-	}
+    /**
+     * инициализация базы
+     */
+    public function initDb() {
+        $config = self::getParam($file = '');
+        $this->host     = $config['host'];
+        $this->username =  $config['login'];
+        $this->password = $config['password'];
+        $this->db       = $config['db'];
+        $this->num_port($config['port']);
+
+        if ( $config === null ) {
+            $this->isSubQuery = true;
+            return;
+        }
+        // for subqueries we do not need database connection and redefine root instance
+        $this->connect();
+        self::$instance = $this;
+    }
+
 
 	/**
 	 * @param $port
 	 */
 	protected function num_port($port){
-		if ( $port == "default" )
-			$this->port = ini_get( 'mysqli.default_port' );
-		else
-			$this->port = $port;
+		if ( $port == 'default' ) {
+            $this->port = ini_get('mysqli.default_port');
+        }else{
+			$this->port = $port;}
 	}
 	/**
 	 * @param string $file
@@ -201,7 +181,7 @@ class Db
 			self::$config = parse_ini_file(SITE_PATH . self::$_file_pass);
 
 		} else {
-			trigger_error("Не найден файл с паролем!" , E_USER_ERROR );
+			trigger_error('Не найден файл с паролем!' , E_USER_ERROR );
 			return false;
 		}
 		return self::$config;
@@ -219,7 +199,7 @@ class Db
         if (empty ($this->host))
             die ('Mysql host is not set');
 
-        $this->_mysqli = new mysqli ($this->host, $this->username, $this->password, $this->db, $this->port)
+        $this->_mysqli = new \mysqli ($this->host, $this->username, $this->password, $this->db, $this->port)
             or die('There was a problem connecting to the database');
 
         if ($this->charset)
@@ -371,7 +351,7 @@ class Db
 
         $column = is_array($columns) ? implode(', ', $columns) : $columns; 
         $this->_query = 'SELECT ' . implode(' ', $this->_queryOptions) . ' ' .
-                        $column . " FROM " .self::$_prefix . $tableName;
+                        $column . ' FROM ' .self::$_prefix . $tableName;
         $stmt = $this->_buildQuery($numRows);
 
         if ($this->isSubQuery)
@@ -1200,8 +1180,8 @@ class Db
      *
      * @return array
     */
-    public function now ($diff = null, $func = "NOW()") {
-        return ["[F]" => [$this->interval($diff, $func)]];
+    public function now ($diff = null, $func = 'NOW()') {
+        return ['[F]' => [$this->interval($diff, $func)]];
     }
 
 	/**
@@ -1212,7 +1192,7 @@ class Db
 	 * @return array
 	 */
     public function inc($num = 1) {
-        return ["[I]" => "+" . (int)$num];
+        return ['[I]' => '+' . (int)$num];
     }
 
 	/**
@@ -1223,7 +1203,7 @@ class Db
 	 * @return array
 	 */
     public function dec ($num = 1) {
-        return ["[I]" => "-" . (int)$num];
+        return ['[I]' => '-' . (int)$num];
     }
 
 	/**
@@ -1234,7 +1214,7 @@ class Db
 	 * @return array
 	 */
     public function not ($col = null) {
-        return ["[N]" => (string)$col];
+        return ['[N]' => (string)$col];
     }
 
 	/**
@@ -1247,7 +1227,7 @@ class Db
 	 * @internal param user $string function body
 	 */
     public function func ($expr, $bindParams = null) {
-        return ["[F]" => [$expr, $bindParams]];
+        return ['[F]' => [$expr, $bindParams]];
     }
 
 	/**
@@ -1257,7 +1237,7 @@ class Db
 	 *
 	 * @return Db
 	 */
-    public static function subQuery($subQueryAlias = "")
+    public static function subQuery($subQueryAlias = '')
     {
         return new Db (['host' => $subQueryAlias, 'isSubQuery' => true]);
     }
@@ -1285,7 +1265,7 @@ class Db
     public function startTransaction () {
         $this->_mysqli->autocommit (false);
         $this->_transaction_in_progress = true;
-        register_shutdown_function ([$this, "_transaction_status_check"]);
+        register_shutdown_function ([$this, '_transaction_status_check']);
     }
 
     /**
@@ -1346,10 +1326,10 @@ class Db
     private function _traceGetCaller () {
         $dd = debug_backtrace ();
         $caller = next ($dd);
-        while (isset ($caller) &&  $caller["file"] == __FILE__ )
+        while (isset ($caller) &&  $caller['file'] == __FILE__ )
             $caller = next($dd);
 
-        return __CLASS__ . "->" . $caller["function"] . "() >>  file \"" .
-                str_replace ($this->traceStripPrefix, '', $caller["file"] ) . "\" line #" . $caller["line"] . " " ;
+        return __CLASS__ . '->' . $caller['function'] . "() >>  file \"" .
+                str_replace ($this->traceStripPrefix, '', $caller['file'] ) . "\" line #" . $caller['line'] . ' ' ;
     }
 } // END class

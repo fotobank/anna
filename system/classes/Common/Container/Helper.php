@@ -6,6 +6,7 @@
 namespace Common\Container;
 
 use Exception;
+use classes\pattern\Registry;
 
 /**
  * Helper trait
@@ -66,11 +67,12 @@ trait Helper
     public function __call($method, $args)
     {
         // Setup key
-        $key = static::class .':'. $method;
+    //    $key = static::class .':'. $method;
+          $key = __CLASS__ . ':' . $method;
 
         // Call callable helper structure (function or class)
-        if (isset($this->helpers[$key]) && is_callable($this->helpers[$key])) {
-            return $this->helpers[$key](...$args);
+        if (array_key_exists($key, $this->helpers) && is_callable($this->helpers[$key])) {
+            return call_user_func($this->helpers[$key], $args);
         }
 
         // Try to find helper file
@@ -80,7 +82,7 @@ trait Helper
                 $helperInclude = include $helperPath;
                 if (is_callable($helperInclude)) {
                     $this->helpers[$key] = $helperInclude;
-                    return $this->helpers[$key](...$args);
+                    return call_user_func($this->helpers[$key], $args);
                 } else {
                     throw new Exception("Helper '$method' not found in file '$helperPath'");
                 }

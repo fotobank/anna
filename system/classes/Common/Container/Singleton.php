@@ -30,16 +30,15 @@ trait Singleton
     /**
      * Disabled by access level
      */
-    protected function __construct()
-    {
-
-    }
+    protected function __construct() {}
 
     /**
      * Disabled by access level
      */
-    protected function __clone()
-    {
+    private function __clone() {}
 
-    }
+    /**
+     *
+     */
+    private function __wakeup() {}
 }

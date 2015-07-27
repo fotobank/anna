@@ -61,5 +61,13 @@ return [
 	'stubPage' => [
 		'controller' => 'StubPage',
 		'method'     => 'stubPage'
-	]
+	],
+	'login' => [
+		'controller' => 'Login',
+		'method'     => 'login'
+	],
+	'admin' => [
+		'controller' => 'Admin',
+		'method'     => 'admin'
+	],
 ];

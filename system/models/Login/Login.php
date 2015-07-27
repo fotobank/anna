@@ -2,26 +2,26 @@
 /**
  * Класс предназначен для
  * @created   by PhpStorm
- * @package   Portfolio.php
+ * @package   Login.php
  * @version   1.0
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
- * @date:     14.07.2015
- * @time:     13:02
+ * @date:     26.07.2015
+ * @time:     0:46
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace models\Portfolio;
+namespace models\Login;
 
 use models\Base as model;
 
 
 /**
- * Class Portfolio
- * @package models\Portfolio
+ * Class Login
+ * @package models\Login
  */
-class Portfolio  extends model\Base
+class Login extends model\Base
 {
 
     /**

@@ -10,7 +10,8 @@
 namespace models\Base;
 
 
-use classes\pattern\Registry;
+// use classes\pattern\Registry;
+use classes\pattern\Proxy\Router as Router;
 use Common\Container\Options;
 use Db as Db;
 use exception\BaseException;
@@ -86,7 +87,7 @@ class Base implements InterfaceModelsBase
             $this->php_sessid = array_key_exists('PHPSESSID', $_COOKIE) ? $_COOKIE['PHPSESSID'] : ip();
 
             $this->categorii = $this->getDbTitleName();
-            $url_routes = Registry::call('Router')->getUrlRoutes();
+            $url_routes = Router::getUrlRoutes();
             $this->current_razdel = $url_routes[0];
             $this->getMetaTitle();
         } catch (BaseException $e) {
@@ -183,7 +184,7 @@ class Base implements InterfaceModelsBase
      */
     protected static function db()
     {
-        return Db::getInstance(Db::getParam());
+        return Db::getInstance();
     }
 
     /**

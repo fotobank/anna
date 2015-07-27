@@ -7,7 +7,7 @@
  */
 
 
-namespace Common\Container;
+namespace classes\pattern;
 
 /**
  * Singleton

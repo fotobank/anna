@@ -1,5 +1,7 @@
 <?php
 
+namespace classes\Router;
+
 /**
  * Класс Router
  * @created   by PhpStorm
@@ -14,9 +16,8 @@
  */
 
 use classes\pattern\Registry;
-use classes\Router\InterfaceRouter;
 use exception\RouteException;
-use Common\Container\Options;
+use Common\Container\Helper;
 
 
 /**
@@ -27,13 +28,13 @@ use Common\Container\Options;
 class Router implements InterfaceRouter
 {
 
-    use Options;
+    use Helper;
 
     private
         $param, /** string Param that sets after request url checked. */
-        $id, /** that sets after request url checked. */
-        $lock_page = []; // массив страниц с перенаправлением на страницу - заглушку
+        $id;
 
+    /** that sets after request url checked. */
 
     /** @var mixed
      * массив заданных роутов
@@ -68,6 +69,14 @@ class Router implements InterfaceRouter
     {
         /** @noinspection PhpIncludeInspection */
         $this->site_routes = include(SITE_PATH . 'system/classes/Router/routes.php');
+    }
+
+    /**
+     * @return array
+     */
+    public function getUrlRoutes()
+    {
+        return $this->url_routes;
     }
 
     /**
@@ -148,7 +157,7 @@ class Router implements InterfaceRouter
                 // если все нормально - подготовка дополнительных параметров
                 $this->prepareParams();
             }
-            $this->checkControllerExists();
+        //    $this->checkControllerExists();
             $this->createInstance();
 
         } catch (RouteException $e) {
@@ -203,7 +212,7 @@ class Router implements InterfaceRouter
         $instance = new $controller;
 
         if(method_exists($instance, $method)) {
-            $reflection = new ReflectionMethod($instance, $method);
+            $reflection = new \ReflectionMethod($instance, $method);
             if($reflection->isPublic()) {
                 $instance->$method($this->id, $this->param);
             } else {
@@ -230,7 +239,7 @@ class Router implements InterfaceRouter
                 return false;
             }
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
