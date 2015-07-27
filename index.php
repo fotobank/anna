@@ -12,7 +12,8 @@
  */
 
 use classes\pattern\Registry;
-use classes\pattern\Proxy\Router;
+use classes\pattern\Proxy\Router as Router;
+
 
 ob_start();
 
@@ -28,7 +29,6 @@ include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
 
 Router::start();
-
 
 
 ob_end_flush();

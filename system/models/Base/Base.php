@@ -10,7 +10,6 @@
 namespace models\Base;
 
 
-// use classes\pattern\Registry;
 use classes\pattern\Proxy\Router as Router;
 use Common\Container\Options;
 use Db as Db;
@@ -87,8 +86,7 @@ class Base implements InterfaceModelsBase
             $this->php_sessid = array_key_exists('PHPSESSID', $_COOKIE) ? $_COOKIE['PHPSESSID'] : ip();
 
             $this->categorii = $this->getDbTitleName();
-            $url_routes = Router::getUrlRoutes();
-            $this->current_razdel = $url_routes[0];
+            $this->current_razdel = Router::getUrlRoutes()[0];
             $this->getMetaTitle();
         } catch (BaseException $e) {
             throw ($e);
@@ -209,9 +207,7 @@ class Base implements InterfaceModelsBase
      */
     public function esc($text)
     {
-
         $text = cp1251(preg_replace('/[\n\t]{1,}/i', '', nl2br(cleanInput($text))));
-
         return $text;
     }
 

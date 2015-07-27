@@ -19,53 +19,53 @@ use Mustache_Autoloader;
 use Mustache_Loader_FilesystemLoader as Loader;
 use Mustache_Logger_StreamLogger as Logger;
 
+
 /**
  * Class controller_Base
  * @package controllers
  */
 abstract class Controller
 {
+    const MUSTACHE_TEMPLATES = 'system/views/Mustache/templates';
+    const MUSTACHE_PARTIALS  = 'system/views/Mustache/templates/partials';
+    const MUSTACHE_CACHE     = 'cache/mustache';
+    const MUSTACHE_LOG       = 'log';
 
-	/**
-	 * @var \Mustache_Engine
-	 */
-	public $mustache;
+    /**
+     * @var \Mustache_Engine
+     */
+    public $mustache;
 
-	/**
-	 *
-	 */
-	public function init()
-		{
+    /**
+     *
+     */
+    public function init()
+    {
 
-			/**==========================для раздела "отзывы"====================*/
-			if (isset($_POST['nick'], $_POST['email'])) {
-				setcookie('nick', $_POST['nick'], time() + 300);
-				setcookie('email', $_POST['email'], time() + 300);
-			}
-			/**==================================================================*/
+        /**==========================для раздела "отзывы"====================*/
+        if(isset($_POST['nick'], $_POST['email'])) {
+            setcookie('nick', $_POST['nick'], time() + 300);
+            setcookie('email', $_POST['email'], time() + 300);
+        }
+        /**==================================================================*/
 
-			// mustache
-			/** @noinspection PhpIncludeInspection */
-			include(SITE_PATH . 'vendor/autoload.php');
-			Mustache_Autoloader::register();
-			// инициализация шаблонизатора Mustache
-			$this->mustache = new Mustache([
-					   // 'template_class_prefix' => '__MyTemplates_',
-					   'cache'                  => (SITE_PATH . 'cache/mustache'),
-					   'cache_file_mode'        => 0666,
-					   // Please, configure your umask instead of doing this :)
-					   'cache_lambda_templates' => true,
-					   'loader'                 => new Loader(SITE_PATH .'system/views/Mustache/templates'),
-					  'partials_loader'         => new Loader(SITE_PATH .'system/views/Mustache/templates/partials'),
-					  // 'helpers' => [ 'i18n'  => function($text) {  } ],
-					   'escape'                 => function ($value) {
-						   return htmlspecialchars($value, ENT_COMPAT, 'windows-1251');
-					   },
-					   'charset'                => 'windows-1251',
-					   'logger'                 => new Logger(SITE_PATH . 'log'),
-					   'strict_callables'       => true,
-					   'pragmas'                => [Mustache::PRAGMA_FILTERS]
-												   ]);
+        // mustache
+        /** @noinspection PhpIncludeInspection */
+        include(SITE_PATH . 'vendor/autoload.php');
+        Mustache_Autoloader::register();
+        // инициализация шаблонизатора Mustache
+        $this->mustache = new Mustache([
+            // 'template_class_prefix' => '__MyTemplates_',
+            'cache' => (SITE_PATH . Controller::MUSTACHE_CACHE), 'cache_file_mode' => 0666,
+            // Please, configure your umask instead of doing this :)
+            'cache_lambda_templates' => true, 'loader' => new Loader(SITE_PATH . Controller::MUSTACHE_TEMPLATES),
+            'partials_loader' => new Loader(SITE_PATH . Controller::MUSTACHE_PARTIALS),
+            // 'helpers' => [ 'i18n'  => function($text) {  } ],
+            'escape' => function ($value) {
+                return htmlspecialchars($value, ENT_COMPAT, 'windows-1251');
+            }, 'charset' => 'windows-1251', 'logger' => new Logger(SITE_PATH . Controller::MUSTACHE_LOG),
+            'strict_callables' => true, 'pragmas' => [Mustache::PRAGMA_FILTERS]
+        ]);
 
-		}
+    }
 }

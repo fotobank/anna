@@ -15,9 +15,9 @@ namespace classes\Router;
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-use classes\pattern\Registry;
 use exception\RouteException;
 use Common\Container\Helper;
+use classes\pattern\Proxy\Base as ModelBase;
 
 
 /**
@@ -102,6 +102,8 @@ class Router implements InterfaceRouter
      * !!! название метода в url должно совпадать с именеи метода в модели
      * или должно быть прописано в routes с указанием в ключе routes текущую controller/modelm
      *
+     * @throws RouteException
+     * @throws \Exception
      */
     public function start()
     {
@@ -230,9 +232,7 @@ class Router implements InterfaceRouter
     protected function checkLockPage()
     {
         try {
-
-            $lock = Registry::call('models\Base\Base')->checkClockLockPage($this->url);
-
+            $lock = ModelBase::checkClockLockPage($this->url);
             if(false !== $lock && count($lock) > 0) {
                 $this->current_controller = $lock['controller'];
                 $this->current_method = $lock['method'];
