@@ -66,8 +66,12 @@ return [
 		'controller' => 'Login',
 		'method'     => 'login'
 	],
+	'redirect' => [
+		'controller' => 'Redirect',
+		'method'     => 'redirect'
+	],
 	'admin' => [
 		'controller' => 'Admin',
 		'method'     => 'admin'
-	],
+	]
 ];

@@ -110,6 +110,7 @@ class Router implements InterfaceRouter
     {
         try {
             $url = array_key_exists('url', $_GET) ? $_GET['url'] : 'index';
+//            $url = array_key_exists('REQUEST_URI', $_SERVER) ? $_SERVER['REQUEST_URI'] : 'index';
             $this->url_routes = array_values(array_filter(explode('/', $url)));
             // дл€ SEO защита от повтор€ющихс€ контроллеров /index/index/index
             if(substr_count($url, $this->url_routes[0]) > 1) {

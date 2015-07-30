@@ -133,8 +133,8 @@ $users = $db->get('users', 10); //contains an Array 10 users
 or select with custom columns set. Functions also could be used
 
 ```php
-$cols = Array ("id", "name", "email");
-$users = $db->get ("users", null, $cols);
+$cols = Array("id", "name", "email");
+$users = $db->get("users", null, $cols);
 if ($db->count > 0)
     foreach ($users as $user) { 
         print_r ($user);

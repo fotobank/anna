@@ -147,7 +147,7 @@ use core\Db\Db as Instance;
  * @method   static connect()
  * @see      classes\pattern\Proxy\Db::connect()
  *
- * @method   static array get($tableName, $numRows = null, $columns = '*')
+ * @method   static $this|array get($tableName, $numRows = null, $columns = '*')
  * @see      classes\pattern\Proxy\Db::get()
  *
  * @method   static string getCount()
@@ -165,6 +165,7 @@ class Db extends AbstractProxy
     protected static function initInstance()
     {
         $instance = new Instance();
+        $instance->init();
         return $instance;
     }
 }

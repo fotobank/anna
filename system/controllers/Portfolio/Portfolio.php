@@ -40,7 +40,7 @@ class Portfolio  extends Controller
      */
     public function portfolio() {
         $model = new model\Portfolio();
-        echo $this->mustache->render('portfolio', $model);
+        echo $this->mustache->render('portfolio\portfolio', $model);
     }
 
 }

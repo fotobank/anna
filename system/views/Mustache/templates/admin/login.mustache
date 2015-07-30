@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+{{!%BLOCKS}}
+{{!<base}}
+
+{{!$stylesheets}}
+<title>Login to control panel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+    <meta http-equiv="content-language" content="ru" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="вход в админку">
+    <meta name="author" lang="ru" content="Alex Jurii | сайты для Вас">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/images/favicon.png"  type="image/png" />
+    <link rel="shortcut icon" href="/images/favicon.png" />
+
+
+<link href='http://fonts.googleapis.com/css?family=Sintony' rel='stylesheet' type='text/css'>
+<link href="/system/admin/resources/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="/system/admin/resources/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="/system/admin/resources/css/style.css" rel="stylesheet" media="screen">
+<link href="/system/admin/resources/css/style-responsive.css" rel="stylesheet" media="screen">
+<link href="/system/admin/resources/css/font_awesome/font-awesome.min.css" rel="stylesheet" media="screen">
+<link href="/system/admin/resources/css/bootstrap_switch/bootstrapSwitch.css" rel="stylesheet" media="screen">
+{{!/stylesheets}}
+
+</head>
+<body>
+
+{{!$content}}
+<div class="container-fluid">
+
+    <div class="row-fluid">
+        <br>
+        <br>
+        <br>
+        <div class="span6 offset3">
+            <div class="widget">
+                <div class="widget-header widget-tabbed">
+                    <i class="icon-legal"></i>
+                    <h3>Вход в админку</h3>
+                    <ul class="nav nav-tabs widget-right-header-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#login">Вход</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#register">Регистрация</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#social">Социальные сети</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /widget-header -->
+                <div class="widget-content blackbg3">
+                    <div class="xxxlarge-text centered orange-text">
+                        Security
+                    </div>
+                    <hr>
+                    <div class="tab-content">
+                        <div id="login" class="tab-pane active">
+                            <form class="form-inline centered" action="login">
+                                <div class="well">
+                                    <input type="email" class="input-medium" placeholder="E-mail" required
+                                           pattern="[0-9a-zA-Z_]+@[0-9a-zA-Z_^\.-]+\.[a-z]{2,3}"
+                                           title="Допустимы любые латинские буквы, цифры и подчеркивание.">
+                                    <input type="password" class="input-medium" placeholder="Пароль" required
+                                           pattern="[?a-zA-Z0-9_-]{6,14}"
+                                           title="Допустимы любые латинские буквы, цифры, подчеркивание и тире в колличестве от 6 до 14шт.">
+                                    <button type="submit" class="btn ml-20">Вход</button>
+
+                                <div class="fright"
+                                     title="Введите E-mail адрес, включите чек-бокс и нажмите кнопку 'Вход'">
+                                    <label class="fleft" for="re_call" style="margin-top: 5px;">Напомнить пароль?</label>
+                                        <div class="switch switch-small ml-20">
+                                            <input id="re_call" type="checkbox">
+                                        </div>
+                                </div>
+                                </div>
+                                <p class="lefted small-text">
+                                    «Lasciate ogni speranza, voi ch'entrate»
+                                </p>
+                            </form>
+                        </div>
+                        <div id="register" class="tab-pane">
+                            <form class="form-horizontal" action="login">
+                        <div class="form-block">
+                                <div class="control-group">
+                                    <label class="control-label" for="inputFirstName">Имя</label>
+                                    <div class="controls">
+                                        <input type="text" id="inputFirstName" required
+                                               pattern="[?a-zA-Zа-яА-Я0-9_-]{2,20}"
+                                               placeholder="Представьтесь, пожалуйста"
+                                               title="Допустимы любые латинские и русские буквы, цифры, подчеркивание и тире в колличестве от 2 до 20шт.">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputLastName">Фамилия</label>
+                                    <div class="controls">
+                                        <input type="text" id="inputLastName" placeholder="Введите свою фамилию" required
+                                               pattern="[?a-zA-Zа-яА-Я0-9_-]{2,20}"
+                                               title="Допустимы любые латинские и русские буквы, цифры, подчеркивание и тире в колличестве от 2 до 20шт.">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputEmail">E-mail</label>
+                                    <div class="controls">
+                                        <input type="email" id="inputEmail" placeholder="формат: username@gmail.com"
+                                               required pattern="[0-9a-zA-Z_]+@[0-9a-zA-Z_^\.-]+\.[a-z]{2,3}"
+                                               title="Допустимы любые латинские буквы, цифры и подчеркивание.">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputPassword">Пароль</label>
+                                    <div class="controls">
+                                        <input type="password" id="inputPassword" placeholder="********" required
+                                               pattern="[?a-zA-Z0-9_-]{6,14}"
+                                               title="Допустимы любые латинские буквы, цифры, подчеркивание и тире в колличестве от 6 до 14шт.">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputPassword2">Повторите пароль</label>
+                                    <div class="controls">
+                                        <input type="password" id="inputPassword2" placeholder="********" required
+                                               pattern="[?a-zA-Z0-9_-]{6,14}"
+                                               title="Допустимы любые латинские буквы, цифры, подчеркивание и тире в колличестве от 6 до 14шт.">
+                                    </div>
+                                </div>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <button type="submit" class="btn"><i class="icon-user"></i> Создание нового аккаунта
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                                <p class="lefted small-text">
+                                    Политика конфиденциальности:
+                                </p>
+                                <p class="lefted small-text">
+                                    п1. Ваши личные данные, введенные при регистрации, не будут переданы третьим лицам без Вашего согласия или без Вашего предварительного разрешения и будут защищены согласно закону «О защите персональных данных».
+                                </p>
+                                <p class="lefted small-text">
+                                    п2. Передача Ваших данных третьим лицам без Вашего согласия возможна только в экстренных случаях, а именно:
+                                </p>
+                                <p class="lefted small-text">
+                                    При при запросе данных следственными органами по криминальным расследованиям или органами государственной власти, которые преследуют по суду административные нарушения, повлекшие штрафы.
+                                </p>
+                            </form>
+                            <p class="lefted small-text clear">
+                                Создавая аккаунт Вы автоматичесски соглашаетесь с политикой  конфиденциальности.
+                            </p>
+                        </div>
+                        <div id="social" class="tab-pane mb-10">
+                            <div class="centered well">
+                                <a href="admin" class="btn btn-medium btn-circle"> <i class="icon-twitter"></i>
+                                    Войти с помощью Twitter
+                                </a>
+                                <a href="admin" class="btn btn-medium btn-circle">
+                                    <i class="icon-facebook"></i>
+                                    Войти с помощью Facebook
+                                </a>
+                                <a href="admin" class="btn btn-medium btn-circle">
+                                    <i class="icon-github"></i>
+                                    Войти с помощью Github
+                                </a>
+                            </div>
+                        </div>
+                        <a href="index" class="btn btn-info btn-half-circle fright" onclick="window.history.back();" >
+                            <i class="icon-backward"></i>
+                            Вернуться назад
+                        </a>
+                    </div>
+                </div>
+                <!-- /widget-content -->
+            </div>
+        </div>
+        <div class="span3"></div>
+    </div>
+</div>
+
+{{!/content}}
+
+{{!$scripts_footer}}
+<script src="/system/admin/resources/js/jquery-1.7.2.min.js"></script>
+<script src="/system/admin/resources/js/modernizr.mq.js"></script>
+<script src="/system/admin/resources/js-webshim/extras/modernizr-custom.js"></script>
+<script src="/system/admin/resources/js-webshim/polyfiller.js"></script>
+<script src="/system/admin/resources/js/bootstrap.min.js"></script>
+<script src="/system/admin/resources/js/prettify/prettify.js"></script>
+<script src="/system/admin/resources/js/format/html-format.js"></script>
+<script src="/system/admin/resources/js/jquery-ui-1.10.2.min.js"></script>
+<script src="/system/admin/resources/js/bootstrap_switch/bootstrapSwitch.js"></script>
+<script src="/system/admin/resources/js/bootstrap_growl/jquery.bootstrap-growl.min.js"></script>
+<script src="/system/admin/resources/js/jstorage/json2.js"></script>
+<script src="/system/admin/resources/js/jstorage/jstorage.min.js"></script>
+<script src="/system/admin/resources/js/gappro/config.js"></script>
+<script src="/system/admin/resources/js/gappro/gappro.js"></script>
+<script src="/system/admin/resources/js/application.js"></script>
+<script src="/system/admin/resources/js/fix/ios-orientationchange-fix.js"></script>
+
+{{!/scripts_footer}}
+
+{{!/base}}
+
+    </body>
+</html>

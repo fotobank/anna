@@ -2,6 +2,8 @@ Order deny,allow
 Allow from all
 Satisfy any
 
+php_value memory_limit 250M
+
 AddDefaultCharset WINDOWS-1251
 #кодировка mb-библиотеки
 php_value mbstring.internal_encoding WINDOWS-1251
@@ -41,8 +43,6 @@ FileETag MTime Size
 #      Header set Cache-Control "max-age=2592000"
 #      Header unset Pragma
 #</FilesMatch>
-
-php_value memory_limit 250M
 
 ServerSignature EMail
 SetEnv SERVER_ADMIN webmaster@annafoto.in.ua
@@ -175,3 +175,13 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+
+#------------------------ new ----------------------------
+# if a directory or a file exists, use it directly
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+#RewriteRule .* index.php
+#RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]

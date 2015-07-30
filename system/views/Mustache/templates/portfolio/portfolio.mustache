@@ -1,0 +1,55 @@
+{{%BLOCKS}}
+{{<base}}
+
+{{$stylesheets}}{{/stylesheets}}
+
+{{$scripts_head}}{{/scripts_head}}
+
+{{$content}}
+<section>
+    <div class="tabs clearfix">
+
+        <div class="col-8">
+            <div class="h-mod">
+                <div class="bb-img-red">
+                    <h3 class="p2">Категории:</h3>
+                </div>
+            </div>
+            <ul class="nav list-title">
+
+                <li id="head-{{i}}" class="text selected"><a href="#tab-{{i}}">{{name}}</a></li>
+                else
+                <li id="head-{{i}}" class="text"><a href="#tab-{{i}}">{{name}}</a></li>
+                <div id="tab-{{i}}" class="tab-content gallery-photo">
+                    <div class="h-mod">
+                        <div class="bb-img-red">
+                            <h3 class="h3-2">{{name}} :</h3>
+                        </div>
+                    </div>
+                    <div class="inner">
+                        <ul id="mycarousel-{{i}}" class="jcarousel-skin-tango">';
+                            <li>
+                                <a class='plus' href="wm?img={{patc_utf8}}">
+                                    <img class="thumb" src="{{img}}"
+                                         alt="Фотография из раздела {{name}} : {{base_name}}">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </ul>
+        </div>
+        <div class="col-9">
+            {{#portfolio}}
+
+            {{/portfolio}}
+        </div>
+
+        {{^portfolio}}Фоторгафий в альбомах пока нет.{{/portfolio}}
+    </div>
+</section>
+{{/content}}
+
+{{$scripts_footer }}{{/scripts_footer }}
+
+{{/base }}

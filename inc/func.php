@@ -5,7 +5,6 @@
  * Date: 08.07.14
  * Time: 4:36
  */
-use phpbrowscap\Exception;
 use classes\pattern\Proxy\Db as Db;
 
 /**
@@ -49,14 +48,11 @@ function _include($path)
  */
 function sklon($num, $p)
 {
-
     if(!is_numeric($num)) {
         return $num;
     }
-
     $numret = (int)$num;
     $num = (int)abs($num);
-
     $name = [
         'y' => ['год', 'года', 'лет'],
         'm' => ['мес€ц', 'мес€ца', 'мес€цев'],
@@ -65,16 +61,13 @@ function sklon($num, $p)
         'i' => ['минута', 'минуты', 'минут'],
         's' => ['секунда', 'секунды', 'секунд']
     ];
-
     if(!array_key_exists($p, $name)) {
         return $num;
     }
-
     $cases = [2, 0, 1, 1, 1, 2];
     $str = $name[$p][($num % 100 > 4 && $num % 100 < 20) ? 2 : $cases[min($num % 10, 5)]];
 
     return $numret . ' ' . $str;
-
 }
 
 /** —клонение существительных с числительными
@@ -101,7 +94,6 @@ function pluralForm($n, $form1, $form2, $form5)
     if($n1 == 1) {
         return $form1;
     }
-
     return $form5;
 }
 
@@ -117,7 +109,6 @@ function pluralForm($n, $form1, $form2, $form5)
 function sklonenie_slov($chislo, $slova)
 {
     $keisi = [2, 0, 1, 1, 1, 2];
-
     return $slova[($chislo % 100 > 4 && $chislo % 100 < 20) ? 2 : $keisi[min($chislo % 10, 5)]];
 }
 
@@ -126,7 +117,6 @@ function sklonenie_slov($chislo, $slova)
  */
 function post_var()
 {
-
     foreach (func_get_args() as $key) {
         if(!empty($_POST[$key])) {
             $$key = $_POST[$key];
@@ -134,7 +124,6 @@ function post_var()
             $$key = null;
         }
     }
-
 }
 
 
@@ -254,7 +243,7 @@ function Greeting()
  *
  * @return mixed
  */
-function ssilka($text)
+function makeLink($text)
 {
     $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
     if(preg_match_all($reg_exUrl, $text, $output)) {
@@ -339,7 +328,7 @@ function hideEmail($email)
  *
  * @return bool
  */
-function send_mime_mail($name_from, // им€ отправител€
+function sendMimeMail($name_from, // им€ отправител€
                         $email_from, // email отправител€
                         $name_to, // им€ получател€
                         $email_to, // email получател€
@@ -350,9 +339,9 @@ function send_mime_mail($name_from, // им€ отправител€
                         $html = false, // письмо в виде html или обычного текста
                         $reply_to = false)
 {
-    $to = mime_header_encode($name_to, $data_charset, $send_charset) . ' <' . $email_to . '>';
-    $subject = mime_header_encode($subject, $data_charset, $send_charset);
-    $from = mime_header_encode($name_from, $data_charset, $send_charset) . ' <' . $email_from . '>';
+    $to = mimeHeaderEncode($name_to, $data_charset, $send_charset) . ' <' . $email_to . '>';
+    $subject = mimeHeaderEncode($subject, $data_charset, $send_charset);
+    $from = mimeHeaderEncode($name_from, $data_charset, $send_charset) . ' <' . $email_from . '>';
     if($data_charset !== $send_charset) {
         $body = iconv($data_charset, $send_charset, $body);
     }
@@ -376,7 +365,7 @@ function send_mime_mail($name_from, // им€ отправител€
  *
  * @return string
  */
-function mime_header_encode($str, $data_charset, $send_charset)
+function mimeHeaderEncode($str, $data_charset, $send_charset)
 {
     if($data_charset !== $send_charset) {
         $str = iconv($data_charset, $send_charset, $str);
@@ -426,13 +415,10 @@ function getFiledate($file, $format)
         $fileDate = filemtime($filePath);
         if($fileDate) {
             $fileDate = date("$format", $fileDate);
-
             return $fileDate;
         }
-
         return false;
     }
-
     return false;
 }
 
@@ -527,7 +513,7 @@ function sterilize($input, $is_sql = false)
  * @param string $addr
  * @param string $code
  */
-function main_redir($addr = '', $code = '303')
+function main_redir($addr = '', $code = '302')
 {
     if(empty($addr)) {
         if(isset($_SERVER['HTTP_REFERER'])) {
@@ -987,7 +973,7 @@ function recursive_dir($dir, $mask = '.jpg', $ok_subdir = [], $no_subdir = [], $
                             if($multi_arrau) {
                                 $arr[$name_subdir][] = $file;
                             } else {
-                                $name_dir = explode("/", $file);
+                                $name_dir = explode('/', $file);
                                 $arr[] = [$name_dir[2], $file];
                             }
                         }
@@ -1568,10 +1554,8 @@ function translate($_str)
  */
 function is_ajax()
 {
-
     return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
     strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
-
 }
 
 /**

@@ -56,7 +56,7 @@ abstract class AbstractProxy
         if (!array_key_exists($class, static::$instances)) {
             static::$instances[$class] = static::initInstance();
             if (!static::$instances[$class]) {
-                throw new ComponentException("Proxy class `$class` is not initialized");
+                throw new ComponentException("Прокси класс `$class` не инициализируется");
             }
         }
 
@@ -87,8 +87,8 @@ abstract class AbstractProxy
         $instance = static::getInstance();
         // не нужно проверять метод на существует т.к. мы можем использовать магичесские методы класса или магические или
         // пустой класс Nil
-        $reflectionMethod = new \ReflectionMethod($instance, $method);
-        return $reflectionMethod->invokeArgs($instance, $args);
-
+        // $reflectionMethod = new \ReflectionMethod($instance, $method);
+        // return $reflectionMethod->invokeArgs($instance, $args);
+        return call_user_func_array([$instance, $method], $args);
     }
 }

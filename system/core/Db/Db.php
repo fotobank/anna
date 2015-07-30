@@ -2,13 +2,14 @@
 
 namespace core\Db;
 
-// use Common\Container\Singleton;
+use mysqli;
 
 
 if(!defined('SITE_PATH')) {
-	define ( 'SITE_PATH',  realpath( __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR .
-									 '..' . DIRECTORY_SEPARATOR.'..' . DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR );
+    define('SITE_PATH', realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' .
+                                 DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
 }
+
 /**
  * Db Class
  *
@@ -24,76 +25,85 @@ if(!defined('SITE_PATH')) {
  **/
 class Db
 {
- //   use Singleton;
 
     /**
      * Table prefix
-     * 
+     *
      * @var string
      */
     protected static $_prefix;
+
     /**
      * Db instance
      *
-     * @var mysqli
+     * @var object mysqli
      */
     protected $_mysqli;
+
     /**
      * The SQL query to be prepared and executed
      *
      * @var string
      */
     protected $_query;
+
     /**
      * The previously executed SQL query
      *
      * @var string
      */
     protected $_lastQuery;
+
     /**
      * The SQL query options required after SELECT, INSERT, UPDATE or DELETE
      *
      * @var string
      */
     protected $_queryOptions = [];
+
     /**
      * An array that holds where joins
      *
      * @var array
      */
     protected $_join = [];
+
     /**
      * An array that holds where conditions 'fieldname' => 'value'
      *
      * @var array
      */
     protected $_where = [];
+
     /**
      * Dynamic type list for order by condition value
      */
     protected $_orderBy = [];
+
     /**
      * Dynamic type list for group by condition value
      */
     protected $_groupBy = [];
+
     /**
      * Dynamic array that holds a combination of where condition/table data value types and parameter references
      *
      * @var array
      */
     protected $_bindParams = ['']; // Create the empty 0 index
+
     /**
      * Variable which holds an amount of returned rows during get/getOne/select queries
-     *
      * @var string
-     */ 
+     */
     protected $count = 0;
+
     /**
      * Variable which holds an amount of returned rows during get/getOne/select queries with withTotalCount()
-     *
      * @var string
-     */ 
+     */
     public $totalCount = 0;
+
     /**
      * Variable which holds last statement error
      *
@@ -107,15 +117,25 @@ class Db
      * @var string
      */
     protected $host;
-    protected $username;
-    protected $password;
-    protected $db;
-    protected $port;
-    protected $charset = 'cp1251'; // utf-8;
 
-	protected $_transaction_in_progress; // добавил не была объявленна
-	protected static $_file_pass = 'system/config/db_config.ini'; // данные для подключения
-	protected static $config = [ ];
+    /**
+     * @var
+     */
+    protected        $username;
+
+    protected        $password;
+
+    protected        $db;
+
+    protected        $port;
+
+    protected        $charset    = 'cp1251'; // utf-8;
+
+    protected        $_transaction_in_progress; // добавил не была объявленна
+
+    protected static $_file_pass = 'system/config/db_config.ini'; // данные для подключения
+
+    protected static $config     = [];
 
     /**
      * Is Subquery object
@@ -128,82 +148,88 @@ class Db
      *
      */
     protected $traceStartQ;
-    protected $traceEnabled;
-    protected $traceStripPrefix;
-    public $trace = [];
 
+    protected $traceEnabled;
+
+    protected $traceStripPrefix;
+
+    public    $trace = [];
 
 
     /**
      * инициализация базы
      * @return $this|bool
      */
-    public function init() {
-        $config = self::getParam($file = '');
+    public function init()
+    {
+        $config         = self::getParam($file = '');
         $this->host     = $config['host'];
-        $this->username =  $config['login'];
+        $this->username = $config['login'];
         $this->password = $config['password'];
         $this->db       = $config['db'];
         $this->num_port($config['port']);
 
-        if ( $config === null ) {
+        if($config === null) {
             $this->isSubQuery = true;
-            return true;
+            return false;
         }
         // for subqueries we do not need database connection and redefine root instance
         $this->connect();
-    //    self::$instance = $this;
+        //    self::$instance = $this;
         return $this;
     }
 
 
-	/**
-	 * @param $port
-	 */
-	protected function num_port($port){
-		if ( $port == 'default' ) {
-            $this->port = ini_get('mysqli.default_port');
-        }else{
-			$this->port = $port;}
-	}
-	/**
-	 * @param string $file
-	 *
-	 * @return array|bool
-	 */
-	public static function getParam($file = ''){
+    /**
+     * @param $port
+     */
+    protected function num_port($port)
+    {
+        $this->port = ($port == 'default') ? ini_get('mysqli.default_port') : $port;
+    }
 
-		if(strlen($file) > 0) {
-			self::$_file_pass = $file;
-		}
-		if ( is_readable( SITE_PATH .  self::$_file_pass ) ) {
+    /**
+     * @param string $file
+     *
+     * @return array|bool
+     */
+    public static function getParam($file = '')
+    {
 
-			self::$config = parse_ini_file(SITE_PATH . self::$_file_pass);
+        if(strlen($file) > 0) {
+            self::$_file_pass = $file;
+        }
+        if(is_readable(SITE_PATH . self::$_file_pass)) {
 
-		} else {
-			trigger_error('Не найден файл с параметрами подключения.' , E_USER_ERROR );
-			return false;
-		}
-		return self::$config;
-	}
+            self::$config = parse_ini_file(SITE_PATH . self::$_file_pass);
 
-	/**
+        } else {
+            trigger_error('Не найден файл с параметрами подключения.', E_USER_ERROR);
+            return false;
+        }
+        return self::$config;
+    }
+
+    /**
      * A method to connect to the database
      *
      */
     public function connect()
     {
-        if ($this->isSubQuery)
+        if($this->isSubQuery) {
             return;
+        }
 
-        if (empty ($this->host))
+        if(empty ($this->host)) {
             die ('Mysql host is not set');
+        }
 
-        $this->_mysqli = new \mysqli ($this->host, $this->username, $this->password, $this->db, $this->port)
-            or die('There was a problem connecting to the database');
+        $this->_mysqli = new mysqli ($this->host, $this->username, $this->password, $this->db, $this->port) or
+        die('There was a problem connecting to the database');
 
-        if ($this->charset)
-            $this->_mysqli->set_charset ($this->charset);
+        if($this->charset) {
+            $this->_mysqli->set_charset($this->charset);
+        }
     }
 
 
@@ -214,25 +240,26 @@ class Db
      */
     protected function reset()
     {
-        if ($this->traceEnabled)
-            $this->trace[] = [$this->_lastQuery, (microtime(true) - $this->traceStartQ) , $this->_traceGetCaller()];
+        if($this->traceEnabled) {
+            $this->trace[] = [$this->_lastQuery, (microtime(true) - $this->traceStartQ), $this->_traceGetCaller()];
+        }
 
-        $this->_where = [];
-        $this->_join = [];
-        $this->_orderBy = [];
-        $this->_groupBy = [];
-        $this->_bindParams = ['']; // Create the empty 0 index
-        $this->_query = null;
+        $this->_where        = [];
+        $this->_join         = [];
+        $this->_orderBy      = [];
+        $this->_groupBy      = [];
+        $this->_bindParams   = ['']; // Create the empty 0 index
+        $this->_query        = null;
         $this->_queryOptions = [];
     }
 
-	/**
-	 * Method to set a prefix
-	 *
-	 * @param string $prefix Contains a tableprefix
-	 *
-	 * @return $this
-	 */
+    /**
+     * Method to set a prefix
+     *
+     * @param string $prefix Contains a tableprefix
+     *
+     * @return $this
+     */
     public function setPrefix($prefix = '')
     {
         self::$_prefix = $prefix;
@@ -242,22 +269,22 @@ class Db
     /**
      * Pass in a raw query and an array containing the parameters to bind to the prepaird statement.
      *
-     * @param string $query      Contains a user-provided query.
-     * @param array  $bindParams All variables to bind to the SQL statment.
-     * @param bool   $sanitize   If query should be filtered before execution
+     * @param string $query Contains a user-provided query.
+     * @param array $bindParams All variables to bind to the SQL statment.
+     * @param bool $sanitize If query should be filtered before execution
      *
      * @return array Contains the returned rows from the query.
      */
-    public function rawQuery ($query, $bindParams = null, $sanitize = true)
+    public function rawQuery($query, $bindParams = null, $sanitize = true)
     {
-        $params = ['']; // Create the empty 0 index
+        $params       = ['']; // Create the empty 0 index
         $this->_query = $query;
-        if ($sanitize)
-            $this->_query = filter_var ($query, FILTER_SANITIZE_STRING,
-                                    FILTER_FLAG_NO_ENCODE_QUOTES);
+        if($sanitize) {
+            $this->_query = filter_var($query, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        }
         $stmt = $this->_prepareQuery();
 
-        if (is_array($bindParams) === true) {
+        if(is_array($bindParams) === true) {
             foreach ($bindParams as $prop => $val) {
                 $params[0] .= $this->_determineType($val);
                 array_push($params, $bindParams[$prop]);
@@ -269,8 +296,8 @@ class Db
 
         $stmt->execute();
         $this->_stmtError = $stmt->error;
-        $this->_lastQuery = $this->replacePlaceHolders ($this->_query, $params);
-        $res = $this->_dynamicBindResults($stmt);
+        $this->_lastQuery = $this->replacePlaceHolders($this->_query, $params);
+        $res              = $this->_dynamicBindResults($stmt);
         $this->reset();
 
         return $res;
@@ -278,18 +305,18 @@ class Db
 
     /**
      *
-     * @param string $query   Contains a user-provided select query.
-     * @param int    $numRows The number of rows total to return.
+     * @param string $query Contains a user-provided select query.
+     * @param int $numRows The number of rows total to return.
      *
      * @return array Contains the returned rows from the query.
      */
     public function query($query, $numRows = null)
     {
         $this->_query = filter_var($query, FILTER_SANITIZE_STRING);
-        $stmt = $this->_buildQuery($numRows);
+        $stmt         = $this->_buildQuery($numRows);
         $stmt->execute();
         $this->_stmtError = $stmt->error;
-        $res = $this->_dynamicBindResults($stmt);
+        $res              = $this->_dynamicBindResults($stmt);
         $this->reset();
 
         return $res;
@@ -300,28 +327,25 @@ class Db
      *
      * @uses $MySqliDb->setQueryOption('name');
      *
-     * @param string/array $options The optons name of the query.
+     * @param string /array $options The optons name of the query.
      *
-     * @param $options
+     * @param array|string $options
      * @return $this
      */
-    public function setQueryOption ($options) {
+    public function setQueryOption($options)
+    {
         $allowedOptions = [
-			'ALL','DISTINCT','DISTINCTROW','HIGH_PRIORITY','STRAIGHT_JOIN','SQL_SMALL_RESULT',
-                          'SQL_BIG_RESULT','SQL_BUFFER_RESULT','SQL_CACHE','SQL_NO_CACHE', 'SQL_CALC_FOUND_ROWS',
-                          'LOW_PRIORITY','IGNORE','QUICK'
-		];
-        if (!is_array ($options))
-            $options = [$options];
+            'ALL', 'DISTINCT', 'DISTINCTROW', 'HIGH_PRIORITY', 'STRAIGHT_JOIN', 'SQL_SMALL_RESULT', 'SQL_BIG_RESULT',
+            'SQL_BUFFER_RESULT', 'SQL_CACHE', 'SQL_NO_CACHE', 'SQL_CALC_FOUND_ROWS', 'LOW_PRIORITY', 'IGNORE', 'QUICK'
+        ];
 
-        foreach ($options as $option) {
-            $option = strtoupper ($option);
-            if (!in_array ($option, $allowedOptions))
-                die ('Wrong query option: '.$option);
-
+        foreach ((array)$options as $option) {
+            $option = strtoupper($option);
+            if(!in_array($option, $allowedOptions, true)) {
+                die ('Wrong query option: ' . $option);
+            }
             $this->_queryOptions[] = $option;
         }
-
         return $this;
     }
 
@@ -330,79 +354,83 @@ class Db
      *
      * @return Db
      */
-    public function withTotalCount () {
-        $this->setQueryOption ('SQL_CALC_FOUND_ROWS');
+    public function withTotalCount()
+    {
+        $this->setQueryOption('SQL_CALC_FOUND_ROWS');
         return $this;
     }
 
-	/**
-	 * A convenient SELECT * function.
-	 *
-	 * @param string  $tableName The name of the database table to work with.
-	 * @param integer $numRows   The number of rows total to return.
-	 *
-	 * @param string  $columns
-	 *
-	 * @return array Contains the returned rows from the select query.
-	 */
+    /**
+     * A convenient SELECT * function.
+     *
+     * @param string $tableName The name of the database table to work with.
+     * @param integer $numRows The number of rows total to return.
+     * @param array|string $columns
+     * @return $this|array Contains the returned rows from the select query.
+     */
     public function get($tableName, $numRows = null, $columns = '*')
     {
-        if (empty ($columns))
+        if(empty ($columns)) {
             $columns = '*';
+        }
 
-        $column = is_array($columns) ? implode(', ', $columns) : $columns; 
-        $this->_query = 'SELECT ' . implode(' ', $this->_queryOptions) . ' ' .
-                        $column . ' FROM ' .self::$_prefix . $tableName;
-        $stmt = $this->_buildQuery($numRows);
+        $column       = is_array($columns) ? implode(', ', $columns) : $columns;
+        $this->_query =
+            'SELECT ' . implode(' ', $this->_queryOptions) . ' ' . $column . ' FROM ' . self::$_prefix . $tableName;
+        $stmt         = $this->_buildQuery($numRows);
 
-        if ($this->isSubQuery)
+        if($this->isSubQuery) {
             return $this;
+        }
 
         $stmt->execute();
         $this->_stmtError = $stmt->error;
-        $res = $this->_dynamicBindResults($stmt);
+        $res              = $this->_dynamicBindResults($stmt);
         $this->reset();
 
         return $res;
     }
 
-	/**
-	 * A convenient SELECT * function to get one record.
-	 *
-	 * @param string $tableName The name of the database table to work with.
-	 *
-	 * @param string $columns
-	 *
-	 * @return array Contains the returned rows from the select query.
-	 */
-    public function getOne($tableName, $columns = '*') 
+    /**
+     * A convenient SELECT * function to get one record.
+     *
+     * @param string $tableName The name of the database table to work with.
+     *
+     * @param string $columns
+     *
+     * @return array Contains the returned rows from the select query.
+     */
+    public function getOne($tableName, $columns = '*')
     {
-        $res = $this->get ($tableName, 1, $columns);
+        $res = $this->get($tableName, 1, $columns);
 
-        if (is_object($res))
+        if(is_object($res)) {
             return $res;
+        }
 
-        if (isset($res[0]))
+        if(isset($res[0])) {
             return $res[0];
+        }
 
         return null;
     }
 
-	/**
-	 * A convenient SELECT * function to get one value.
-	 *
-	 * @param string $tableName The name of the database table to work with.
-	 *
-	 * @param        $column
-	 *
-	 * @return array Contains the returned column from the select query.
-	 */
-    public function getValue($tableName, $column) 
+    /**
+     * A convenient SELECT * function to get one value.
+     *
+     * @param string $tableName The name of the database table to work with.
+     *
+     * @param        $column
+     *
+     * @return array Contains the returned column from the select query.
+     */
+    public function getValue($tableName, $column)
     {
-        $res = $this->get ($tableName, 1, "{$column} as retval");
+        $res = $this->get($tableName, 1, "{$column} as retval");
 
-        if (isset($res[0]['retval']))
+        if(isset($res[0]['retval'])) {
             return $res[0]['retval'];
+        }
 
         return null;
     }
@@ -416,58 +444,65 @@ class Db
      */
     public function insert_($tableName, $insertData)
     {
-        if ($this->isSubQuery)
+        if($this->isSubQuery) {
             return null;
+        }
 
-        $this->_query = "INSERT INTO " .self::$_prefix . $tableName;
-        $stmt = $this->_buildQuery(null, $insertData);
+        $this->_query = 'INSERT INTO ' . self::$_prefix . $tableName;
+        $stmt         = $this->_buildQuery(null, $insertData);
         $stmt->execute();
         $this->_stmtError = $stmt->error;
         $this->reset();
         $this->count = $stmt->affected_rows;
 
-        if ($stmt->affected_rows < 1)
+        if($stmt->affected_rows < 1) {
             return false;
+        }
 
-        if ($stmt->insert_id > 0)
+        if($stmt->insert_id > 0) {
             return $stmt->insert_id;
+        }
 
         return true;
     }
 
-	/**
-	 *
-	 * @param <string $tableName The name of the table.
-	 * @param array $insertData Data containing information for inserting into the DB.
-	 * @param string $insertPrefix ( IGNORE or '' )
-	 *
-	 * @return boolean Boolean indicating whether the insert query was completed succesfully.
-	 */
-	public function insert( $tableName, $insertData, $insertPrefix = NULL ) {
-		if ( $this->isSubQuery )
-			return null;
+    /**
+     *
+     * @param <string $tableName The name of the table.
+     * @param array $insertData Data containing information for inserting into the DB.
+     * @param string $insertPrefix ( IGNORE or '' )
+     *
+     * @return boolean Boolean indicating whether the insert query was completed succesfully.
+     */
+    public function insert($tableName, $insertData, $insertPrefix = NULL)
+    {
+        if($this->isSubQuery) {
+            return null;
+        }
 
-		$this->_query = 'INSERT '.$insertPrefix.' INTO ' . self::$_prefix . $tableName;
-		$stmt         = $this->_buildQuery( null, $insertData );
-		$stmt->execute();
-		$this->_stmtError = $stmt->error;
-		$this->reset();
-		$this->count = $stmt->affected_rows;
+        $this->_query = 'INSERT ' . $insertPrefix . ' INTO ' . self::$_prefix . $tableName;
+        $stmt         = $this->_buildQuery(null, $insertData);
+        $stmt->execute();
+        $this->_stmtError = $stmt->error;
+        $this->reset();
+        $this->count = $stmt->affected_rows;
 
-		if ($stmt->affected_rows < 1)
-			return false;
+        if($stmt->affected_rows < 1) {
+            return false;
+        }
 
-		if ($stmt->insert_id > 0)
-			return $stmt->insert_id;
+        if($stmt->insert_id > 0) {
+            return $stmt->insert_id;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
     /**
      * A convenient function that returns TRUE if exists at least an element that
      * satisfy the where condition specified calling the "where" method before this one.
      *
-     * @param string  $tableName The name of the database table to work with.
+     * @param string $tableName The name of the database table to work with.
      *
      * @return array Contains the returned rows from the select query.
      */
@@ -481,22 +516,23 @@ class Db
      * Update query. Be sure to first call the "where" method.
      *
      * @param string $tableName The name of the database table to work with.
-     * @param array  $tableData Array of data to update the desired row.
+     * @param array $tableData Array of data to update the desired row.
      *
      * @return boolean
      */
     public function update($tableName, $tableData)
     {
-        if ($this->isSubQuery)
+        if($this->isSubQuery) {
             return null;
+        }
 
         $this->_query = 'UPDATE ' . self::$_prefix . $tableName;
 
-        $stmt = $this->_buildQuery (null, $tableData);
+        $stmt   = $this->_buildQuery(null, $tableData);
         $status = $stmt->execute();
         $this->reset();
         $this->_stmtError = $stmt->error;
-        $this->count = $stmt->affected_rows;
+        $this->count      = $stmt->affected_rows;
 
         return $status;
     }
@@ -504,15 +540,16 @@ class Db
     /**
      * Delete query. Call the "where" method first.
      *
-     * @param string  $tableName The name of the database table to work with.
-     * @param integer $numRows   The number of rows to delete.
+     * @param string $tableName The name of the database table to work with.
+     * @param integer $numRows The number of rows to delete.
      *
      * @return boolean Indicates success. 0 or 1.
      */
     public function delete($tableName, $numRows = null)
     {
-        if ($this->isSubQuery)
+        if($this->isSubQuery) {
             return null;
+        }
 
         $this->_query = 'DELETE FROM ' . self::$_prefix . $tableName;
 
@@ -524,47 +561,50 @@ class Db
         return ($stmt->affected_rows > 0);
     }
 
-	/**
-	 * This method allows you to specify multiple (method chaining optional) AND WHERE statements for SQL queries.
-	 *
-	 * @uses $MySqliDb->where('id', 7)->where('title', 'MyTitle');
-	 *
-	 * @param string $whereProp  The name of the database field.
-	 * @param mixed  $whereValue The value of the database field.
-	 *
-	 * @param null   $operator
-	 *
-	 * @return Db
-	 */
+    /**
+     * This method allows you to specify multiple (method chaining optional) AND WHERE statements for SQL queries.
+     *
+     * @uses $MySqliDb->where('id', 7)->where('title', 'MyTitle');
+     *
+     * @param string $whereProp The name of the database field.
+     * @param mixed $whereValue The value of the database field.
+     *
+     * @param null $operator
+     *
+     * @return Db
+     */
     public function where($whereProp, $whereValue = null, $operator = null)
     {
-        if ($operator)
+        if($operator) {
             $whereValue = [$operator => $whereValue];
+        }
 
         $this->_where[] = ['AND', $whereValue, $whereProp];
         return $this;
     }
 
-	/**
-	 * This method allows you to specify multiple (method chaining optional) OR WHERE statements for SQL queries.
-	 *
-	 * @uses $MySqliDb->orWhere('id', 7)->orWhere('title', 'MyTitle');
-	 *
-	 * @param string $whereProp  The name of the database field.
-	 * @param mixed  $whereValue The value of the database field.
-	 *
-	 * @param null   $operator
-	 *
-	 * @return Db
-	 */
+    /**
+     * This method allows you to specify multiple (method chaining optional) OR WHERE statements for SQL queries.
+     *
+     * @uses $MySqliDb->orWhere('id', 7)->orWhere('title', 'MyTitle');
+     *
+     * @param string $whereProp The name of the database field.
+     * @param mixed $whereValue The value of the database field.
+     *
+     * @param null $operator
+     *
+     * @return Db
+     */
     public function orWhere($whereProp, $whereValue = null, $operator = null)
     {
-        if ($operator)
+        if($operator) {
             $whereValue = [$operator => $whereValue];
+        }
 
         $this->_where[] = ['OR', $whereValue, $whereProp];
         return $this;
     }
+
     /**
      * This method allows you to concatenate joins for the final SQL statement.
      *
@@ -576,54 +616,57 @@ class Db
      *
      * @return Db
      */
-     public function join($joinTable, $joinCondition, $joinType = '')
-     {
+    public function join($joinTable, $joinCondition, $joinType = '')
+    {
         $allowedTypes = ['LEFT', 'RIGHT', 'OUTER', 'INNER', 'LEFT OUTER', 'RIGHT OUTER'];
-        $joinType = strtoupper (trim ($joinType));
+        $joinType     = strtoupper(trim($joinType));
 
-        if ($joinType && !in_array ($joinType, $allowedTypes))
-            die ('Wrong JOIN type: '.$joinType);
+        if($joinType && !in_array($joinType, $allowedTypes, true)) {
+            die ('Wrong JOIN type: ' . $joinType);
+        }
 
-        if (!is_object ($joinTable))
+        if(!is_object($joinTable)) {
             $joinTable = self::$_prefix . filter_var($joinTable, FILTER_SANITIZE_STRING);
+        }
 
-        $this->_join[] = [$joinType,  $joinTable, $joinCondition];
+        $this->_join[] = [$joinType, $joinTable, $joinCondition];
 
         return $this;
     }
 
-	/**
-	 * This method allows you to specify multiple (method chaining optional) ORDER BY statements for SQL queries.
-	 *
-	 * @uses     $MySqliDb->orderBy('id', 'desc')->orderBy('name', 'desc');
-	 *
-	 * @param string $orderByField The name of the database field.
-	 * @param string $orderbyDirection
-	 * @param null   $customFields
-	 *
-	 * @return Db
-	 * @internal param string $orderByDirection Order direction.
-	 *
-	 */
+    /**
+     * This method allows you to specify multiple (method chaining optional) ORDER BY statements for SQL queries.
+     *
+     * @uses     $MySqliDb->orderBy('id', 'desc')->orderBy('name', 'desc');
+     *
+     * @param string $orderByField The name of the database field.
+     * @param string $orderbyDirection
+     * @param array|null $customFields
+     *
+     * @return Db
+     * @internal param string $orderByDirection Order direction.
+     *
+     */
     public function orderBy($orderByField, $orderbyDirection = 'DESC', $customFields = null)
     {
         $allowedDirection = ['ASC', 'DESC'];
-        $orderbyDirection = strtoupper (trim ($orderbyDirection));
-        $orderByField = preg_replace ("/[^-a-z0-9\.\(\),_`]+/i",'', $orderByField);
+        $orderbyDirection = strtoupper(trim($orderbyDirection));
+        $orderByField     = preg_replace("/[^-a-z0-9\.\(\),_`]+/i", '', $orderByField);
 
-        if (empty($orderbyDirection) || !in_array ($orderbyDirection, $allowedDirection))
-            die ('Wrong order direction: '.$orderbyDirection);
+        if(empty($orderbyDirection) || !in_array($orderbyDirection, $allowedDirection, true)) {
+            die ('Wrong order direction: ' . $orderbyDirection);
+        }
 
-        if (is_array ($customFields)) {
+        if(is_array($customFields)) {
             foreach ($customFields as $key => $value)
-                $customFields[$key] = preg_replace ("/[^-a-z0-9\.\(\),_`]+/i",'', $value);
+                $customFields[$key] = preg_replace("/[^-a-z0-9\.\(\),_`]+/i", '', $value);
 
             $orderByField = 'FIELD (' . $orderByField . ', "' . implode('","', $customFields) . '")';
         }
 
         $this->_orderBy[$orderByField] = $orderbyDirection;
         return $this;
-    } 
+    }
 
     /**
      * This method allows you to specify multiple (method chaining optional) GROUP BY statements for SQL queries.
@@ -636,11 +679,11 @@ class Db
      */
     public function groupBy($groupByField)
     {
-        $groupByField = preg_replace ("/[^-a-z0-9\.\(\),_]+/i",'', $groupByField);
+        $groupByField = preg_replace("/[^-a-z0-9\.\(\),_]+/i", '', $groupByField);
 
         $this->_groupBy[] = $groupByField;
         return $this;
-    } 
+    }
 
     /**
      * This methods returns the ID of the last inserted item
@@ -672,7 +715,8 @@ class Db
      *
      * @return bool True if connection is up
      */
-    public function ping() {
+    public function ping()
+    {
         return $this->_mysqli->ping();
     }
 
@@ -715,9 +759,10 @@ class Db
      *
      * @param string $value Variable value
      */
-    protected function _bindParam($value) {
-        $this->_bindParams[0] .= $this->_determineType ($value);
-        array_push ($this->_bindParams, $value);
+    protected function _bindParam($value)
+    {
+        $this->_bindParams[0] .= $this->_determineType($value);
+        array_push($this->_bindParams, $value);
     }
 
     /**
@@ -725,32 +770,33 @@ class Db
      *
      * @param Array $values Variable with values
      */
-    protected function _bindParams ($values) {
-        foreach ($values as $value)
-            $this->_bindParam ($value);
+    protected function _bindParams($values)
+    {
+        foreach ($values as $value) $this->_bindParam($value);
     }
 
-	/**
-	 * Helper function to add variables into bind parameters array and will return
-	 * its SQL part of the query according to operator in ' $operator ?' or
-	 * ' $operator ($subquery) ' formats
-	 *
-	 * @param $operator
-	 * @param $value
-	 *
-	 * @return string
-	 * @internal param Variable $Array with values
-	 */
-    protected function _buildPair ($operator, $value) {
-        if (!is_object($value)) {
-            $this->_bindParam ($value);
-            return ' ' . $operator. ' ? ';
+    /**
+     * Helper function to add variables into bind parameters array and will return
+     * its SQL part of the query according to operator in ' $operator ?' or
+     * ' $operator ($subquery) ' formats
+     *
+     * @param $operator
+     * @param Db $value
+     *
+     * @return string
+     * @internal param Variable $Array with values
+     */
+    protected function _buildPair($operator, $value)
+    {
+        if(!is_object($value)) {
+            $this->_bindParam($value);
+            return ' ' . $operator . ' ? ';
         }
 
-        $subQuery = $value->getSubQuery ();
-        $this->_bindParams ($subQuery['params']);
+        $subQuery = $value->getSubQuery();
+        $this->_bindParams($subQuery['params']);
 
-        return " " . $operator . " (" . $subQuery['query'] . ") " . $subQuery['alias'];
+        return ' ' . $operator . ' (' . $subQuery['query'] . ') ' . $subQuery['alias'];
     }
 
     /**
@@ -758,31 +804,33 @@ class Db
      * any passed update data, and the desired rows.
      * It then builds the SQL query.
      *
-     * @param int   $numRows   The number of rows total to return.
+     * @param int $numRows The number of rows total to return.
      * @param array $tableData Should contain an array of data for updating the database.
      *
-     * @return mysqli_stmt Returns the $stmt object.
+     * @return mixed|null mysqli_stmt Returns the $stmt object.
      */
     protected function _buildQuery($numRows = null, $tableData = null)
     {
         $this->_buildJoin();
-        $this->_buildTableData ($tableData);
+        $this->_buildTableData($tableData);
         $this->_buildWhere();
         $this->_buildGroupBy();
         $this->_buildOrderBy();
-        $this->_buildLimit ($numRows);
+        $this->_buildLimit($numRows);
 
-        $this->_lastQuery = $this->replacePlaceHolders ($this->_query, $this->_bindParams);
+        $this->_lastQuery = $this->replacePlaceHolders($this->_query, $this->_bindParams);
 
-        if ($this->isSubQuery)
+        if($this->isSubQuery) {
             return null;
+        }
 
         // Prepare query
         $stmt = $this->_prepareQuery();
 
         // Bind parameters to statement if any
-        if (count ($this->_bindParams) > 1)
+        if(count($this->_bindParams) > 1) {
             call_user_func_array([$stmt, 'bind_param'], $this->refValues($this->_bindParams));
+        }
 
         return $stmt;
     }
@@ -791,38 +839,40 @@ class Db
      * This helper method takes care of prepared statements' "bind_result method
      * , when the number of variables to pass is unknown.
      *
-     * @param mysqli_stmt $stmt Equal to the prepared statement object.
+     * @param \mysqli_stmt $stmt Equal to the prepared statement object.
      *
      * @return array The results of the SQL fetch.
      */
-    protected function _dynamicBindResults(\mysqli_stmt $stmt)
+    protected function _dynamicBindResults($stmt)
     {
         $parameters = [];
-        $results = [];
+        $results    = [];
 
         $meta = $stmt->result_metadata();
 
         // if $meta is false yet sqlstate is true, there's no sql error but the query is
         // most likely an update/insert/delete which doesn't produce any results
-        if(!$meta && $stmt->sqlstate) { 
+        if(!$meta && $stmt->sqlstate) {
             return [];
         }
 
         $row = [];
+        /** @noinspection PhpAssignmentInConditionInspection */
         while ($field = $meta->fetch_field()) {
             $row[$field->name] = null;
-            $parameters[] = & $row[$field->name];
+            $parameters[]      = &$row[$field->name];
         }
 
         // avoid out of memory bug in php 5.2 and 5.3
         // https://github.com/joshcam/PHP-MySQLi-Database-Class/pull/119
-        if (version_compare (phpversion(), '5.4', '<'))
-             $stmt->store_result();
+        if(version_compare(phpversion(), '5.4', '<')) {
+            $stmt->store_result();
+        }
 
         call_user_func_array([$stmt, 'bind_result'], $parameters);
 
         $this->totalCount = 0;
-        $this->count = 0;
+        $this->count      = 0;
         while ($stmt->fetch()) {
             $x = [];
             foreach ($row as $key => $val) {
@@ -832,15 +882,14 @@ class Db
             array_push($results, $x);
         }
         // stored procedures sometimes can return more then 1 resultset
-        if ($this->_mysqli->more_results())
+        if($this->_mysqli->more_results()) {
             $this->_mysqli->next_result();
-
-        if (in_array ('SQL_CALC_FOUND_ROWS', $this->_queryOptions)) {
-            $stmt = $this->_mysqli->query ('SELECT FOUND_ROWS()');
-            $totalCount = $stmt->fetch_row();
-            $this->totalCount = $totalCount[0];
         }
-
+        if(in_array('SQL_CALC_FOUND_ROWS', $this->_queryOptions, true)) {
+            /** @var mysqli $stmt */
+            $stmt             = $this->_mysqli->query('SELECT FOUND_ROWS()');
+            $this->totalCount = $stmt->fetch_row()[0];
+        }
         return $results;
     }
 
@@ -848,89 +897,100 @@ class Db
     /**
      * Abstraction method that will build an JOIN part of the query
      */
-    protected function _buildJoin () {
-        if (empty ($this->_join)) {
+    protected function _buildJoin()
+    {
+        if(0 === count($this->_join)) {
             return;
         }
 
         foreach ($this->_join as $data) {
-            list ($joinType,  $joinTable, $joinCondition) = $data;
+            list ($joinType, $joinTable, $joinCondition) = $data;
 
-            if (is_object ($joinTable))
-                $joinStr = $this->_buildPair ('', $joinTable);
-            else
+            if(is_object($joinTable)) {
+                $joinStr = $this->_buildPair('', $joinTable);
+            } else {
                 $joinStr = $joinTable;
+            }
 
-            $this->_query .= ' ' . $joinType. ' JOIN ' . $joinStr . ' on ' . $joinCondition;
+            $this->_query .= ' ' . $joinType . ' JOIN ' . $joinStr . ' on ' . $joinCondition;
         }
     }
 
     /**
      * Abstraction method that will build an INSERT or UPDATE part of the query
      */
-    protected function _buildTableData ($tableData) {
-        if (!is_array ($tableData))
+    protected function _buildTableData($tableData)
+    {
+        if(!is_array($tableData)) {
             return;
+        }
 
-        $isInsert = strpos ($this->_query, 'INSERT');
-        $isUpdate = strpos ($this->_query, 'UPDATE');
+        $isInsert = strpos($this->_query, 'INSERT');
+        $isUpdate = strpos($this->_query, 'UPDATE');
 
-        if ($isInsert !== false) {
+        if($isInsert !== false) {
             $this->_query .= ' (`' . implode(array_keys($tableData), '`, `') . '`)';
             $this->_query .= ' VALUES (';
-        } else
+        } else {
             $this->_query .= ' SET ';
+        }
 
         foreach ($tableData as $column => $value) {
-            if ($isUpdate !== false)
+            if($isUpdate !== false) {
                 $this->_query .= '`' . $column . '` = ';
+            }
 
             // Subquery value
-            if (is_object ($value)) {
-                $this->_query .= $this->_buildPair ('', $value) . ', ';
+            if(is_object($value)) {
+                $this->_query .= $this->_buildPair('', $value) . ', ';
                 continue;
             }
 
             // Simple value
-            if (!is_array ($value)) {
-                $this->_bindParam ($value);
+            if(!is_array($value)) {
+                $this->_bindParam($value);
                 $this->_query .= '?, ';
                 continue;
             }
 
             // Function value
-            $key = key ($value);
+            $key = key($value);
             $val = $value[$key];
             switch ($key) {
                 case '[I]':
-                    $this->_query .= $column . $val . ", ";
+                    $this->_query .= $column . $val . ', ';
                     break;
                 case '[F]':
-                    $this->_query .= $val[0] . ", ";
-                    if (!empty ($val[1]))
-                        $this->_bindParams ($val[1]);
+                    $this->_query .= $val[0] . ', ';
+                    if(!empty ($val[1])) {
+                        $this->_bindParams($val[1]);
+                    }
                     break;
                 case '[N]':
-                    if ($val == null)
-                        $this->_query .= "!" . $column . ", ";
-                    else
-                        $this->_query .= "!" . $val . ", ";
+                    if($val == null) {
+                        $this->_query .= '!' . $column . ', ';
+                    } else {
+                        $this->_query .= '!' . $val . ', ';
+                    }
                     break;
                 default:
-                    die ("Wrong operation");
+                    die ('Wrong operation');
             }
         }
         $this->_query = rtrim($this->_query, ', ');
-        if ($isInsert !== false)
+        if($isInsert !== false) {
             $this->_query .= ')';
+        }
     }
 
     /**
      * Abstraction method that will build the part of the WHERE conditions
      */
-    protected function _buildWhere () {
-        if (empty ($this->_where))
+    protected function _buildWhere()
+    {
+        if(0 === count($this->_where)) {
             return;
+        }
 
         //Prepair the where portion of the query
         $this->_query .= ' WHERE';
@@ -940,46 +1000,48 @@ class Db
         foreach ($this->_where as $cond) {
             list ($concat, $wValue, $wKey) = $cond;
 
-            $this->_query .= ' ' . $concat .' ' . $wKey;
+            $this->_query .= ' ' . $concat . ' ' . $wKey;
 
             // Empty value (raw where condition in wKey)
-            if ($wValue === null)
+            if($wValue === null) {
                 continue;
+            }
 
             // Simple = comparison
-            if (!is_array ($wValue))
+            if(!is_array($wValue)) {
                 $wValue = ['=' => $wValue];
+            }
 
-            $key = key ($wValue);
+            $key = key($wValue);
             $val = $wValue[$key];
-            switch (strtolower ($key)) {
+            switch (strtolower($key)) {
                 case '0':
-                    $this->_bindParams ($wValue);
+                    $this->_bindParams($wValue);
                     break;
                 case 'not in':
                 case 'in':
                     $comparison = ' ' . $key . ' (';
-                    if (is_object ($val)) {
-                        $comparison .= $this->_buildPair ('', $val);
+                    if(is_object($val)) {
+                        $comparison .= $this->_buildPair('', $val);
                     } else {
                         foreach ($val as $v) {
                             $comparison .= ' ?,';
-                            $this->_bindParam ($v);
+                            $this->_bindParam($v);
                         }
                     }
-                    $this->_query .= rtrim($comparison, ',').' ) ';
+                    $this->_query .= rtrim($comparison, ',') . ' ) ';
                     break;
                 case 'not between':
                 case 'between':
                     $this->_query .= " $key ? AND ? ";
-                    $this->_bindParams ($val);
+                    $this->_bindParams($val);
                     break;
                 case 'not exists':
                 case 'exists':
-                    $this->_query.= $key . $this->_buildPair ('', $val);
+                    $this->_query .= $key . $this->_buildPair('', $val);
                     break;
                 default:
-                    $this->_query .= $this->_buildPair ($key, $val);
+                    $this->_query .= $this->_buildPair($key, $val);
             }
         }
     }
@@ -988,65 +1050,72 @@ class Db
      * Abstraction method that will build the GROUP BY part of the WHERE statement
      *
      */
-    protected function _buildGroupBy () {
-        if (empty ($this->_groupBy))
+    protected function _buildGroupBy()
+    {
+        if(0 === count($this->_groupBy)) {
             return;
-
-        $this->_query .= ' GROUP BY ';
-        foreach ($this->_groupBy as $key => $value)
-            $this->_query .= $value . ', ';
-
-        $this->_query = rtrim($this->_query, ', ') . ' ';
-    }
-
-	/**
-	 * Abstraction method that will build the LIMIT part of the WHERE statement
-	 *
-	 * @internal param int $numRows The number of rows total to return.
-	 */
-    protected function _buildOrderBy () {
-        if (empty ($this->_orderBy))
-            return;
-
-        $this->_query .= ' ORDER BY ';
-        foreach ($this->_orderBy as $prop => $value) {
-            if (strtolower (str_replace (' ', '', $prop)) == 'rand()')
-                $this->_query .= 'rand(), ';
-            else
-                $this->_query .= $prop . ' ' . $value . ', ';
         }
 
-        $this->_query = rtrim ($this->_query, ', ') . ' ';
+        $this->_query .= ' GROUP BY ';
+        foreach ($this->_groupBy as $key => $value) $this->_query .= $value . ', ';
+
+        $this->_query = rtrim($this->_query, ', ') . ' ';
     }
 
     /**
      * Abstraction method that will build the LIMIT part of the WHERE statement
      *
-     * @param int   $numRows   The number of rows total to return.
+     * @internal param int $numRows The number of rows total to return.
      */
-    protected function _buildLimit ($numRows) {
-        if (!isset ($numRows))
+    protected function _buildOrderBy()
+    {
+        if(0 === count($this->_orderBy)) {
             return;
+        }
 
-        if (is_array ($numRows))
+        $this->_query .= ' ORDER BY ';
+        foreach ($this->_orderBy as $prop => $value) {
+            if(strtolower(str_replace(' ', '', $prop)) == 'rand()') {
+                $this->_query .= 'rand(), ';
+            } else {
+                $this->_query .= $prop . ' ' . $value . ', ';
+            }
+        }
+
+        $this->_query = rtrim($this->_query, ', ') . ' ';
+    }
+
+    /**
+     * Abstraction method that will build the LIMIT part of the WHERE statement
+     *
+     * @param array|int $numRows The number of rows total to return.
+     */
+    protected function _buildLimit($numRows)
+    {
+        if(!isset ($numRows)) {
+            return;
+        }
+        if(is_array($numRows)) {
             $this->_query .= ' LIMIT ' . (int)$numRows[0] . ', ' . (int)$numRows[1];
-        else
+        } else {
             $this->_query .= ' LIMIT ' . (int)$numRows;
+        }
     }
 
     /**
      * Method attempts to prepare the SQL query
      * and throws an error if there was a problem.
      *
-     * @return mysqli_stmt
+     * @return mixed mysqli_stmt
      */
     protected function _prepareQuery()
     {
-        if (!$stmt = $this->_mysqli->prepare($this->_query)) {
+        if(!$stmt = $this->_mysqli->prepare($this->_query)) {
             trigger_error("Problem preparing query ($this->_query) " . $this->_mysqli->error, E_USER_ERROR);
         }
-        if ($this->traceEnabled)
-            $this->traceStartQ = microtime (true);
+        if($this->traceEnabled) {
+            $this->traceStartQ = microtime(true);
+        }
 
         return $stmt;
     }
@@ -1056,10 +1125,12 @@ class Db
      */
     public function __destruct()
     {
-        if (!$this->isSubQuery)
+        if(!$this->isSubQuery) {
             return;
-        if ($this->_mysqli)
+        }
+        if($this->_mysqli) {
             $this->_mysqli->close();
+        }
     }
 
     /**
@@ -1070,10 +1141,10 @@ class Db
     protected function refValues($arr)
     {
         //Reference is required for PHP 5.3+
-        if (strnatcmp(phpversion(), '5.3') >= 0) {
+        if(strnatcmp(phpversion(), '5.3') >= 0) {
             $refs = [];
             foreach ($arr as $key => $value) {
-                $refs[$key] = & $arr[$key];
+                $refs[$key] = &$arr[$key];
             }
             return $refs;
         }
@@ -1087,18 +1158,21 @@ class Db
      *
      * @return string
      */
-    protected function replacePlaceHolders ($str, $vals) {
-        $i = 1;
+    protected function replacePlaceHolders($str, $vals)
+    {
+        $i      = 1;
         $newStr = '';
-
+        /** @noinspection PhpAssignmentInConditionInspection */
         while ($pos = strpos($str, '?')) {
             $val = $vals[$i++];
-            if (is_object ($val))
+            if(is_object($val)) {
                 $val = '[object]';
-            if ($val == NULL)
+            }
+            if($val == NULL) {
                 $val = 'NULL';
-            $newStr .= substr ($str, 0, $pos) . "'". $val . "'";
-            $str = substr ($str, $pos + 1);
+            }
+            $newStr .= substr($str, 0, $pos) . "'" . $val . "'";
+            $str = substr($str, $pos + 1);
         }
         $newStr .= $str;
         return $newStr;
@@ -1109,35 +1183,37 @@ class Db
      *
      * @return string
      */
-    public function getLastQuery () {
+    public function getLastQuery()
+    {
         return $this->_lastQuery;
     }
 
     /**
      * Method returns mysql error
-     * 
+     *
      * @return string
      */
-    public function getLastError () {
-        return trim ($this->_stmtError . ' ' . $this->_mysqli->error);
+    public function getLastError()
+    {
+        return trim($this->_stmtError . ' ' . $this->_mysqli->error);
     }
 
     /**
      * Mostly internal method to get query and its params out of subquery object
      * after get() and getAll()
-     * 
+     *
      * @return array
      */
-    public function getSubQuery() {
-        if (!$this->isSubQuery)
+    public function getSubQuery()
+    {
+        if(!$this->isSubQuery) {
             return null;
+        }
 
-        array_shift ($this->_bindParams);
+        array_shift($this->_bindParams);
         $val = [
-			'query' => $this->_query,
-                      'params' => $this->_bindParams,
-                      'alias' => $this->host
-		];
+            'query' => $this->_query, 'params' => $this->_bindParams, 'alias' => $this->host
+        ];
         $this->reset();
         return $val;
     }
@@ -1153,24 +1229,33 @@ class Db
      * @param string $func Initial date
      *
      * @return string
-    */
-    public function interval ($diff, $func = 'NOW()') {
+     */
+    public function interval($diff, $func = 'NOW()')
+    {
         $types = ['s' => 'second', 'm' => 'minute', 'h' => 'hour', 'd' => 'day', 'M' => 'month', 'Y' => 'year'];
-        $incr = '+';
+        $incr  = '+';
         $items = '';
-        $type = 'd';
+        $type  = 'd';
 
-        if ($diff && preg_match('/([+-]?) ?([0-9]+) ?([a-zA-Z]?)/',$diff, $matches)) {
-            if (!empty ($matches[1])) $incr = $matches[1];
-            if (!empty ($matches[2])) $items = $matches[2];
-            if (!empty ($matches[3])) $type = $matches[3];
-            if (!in_array($type, array_keys($types)))
-                trigger_error ("invalid interval type in '{$diff}'");
-            $func .= ' '.$incr .' interval '. $items .' '.$types[$type] . ' ';
+        if($diff && preg_match('/([+-]?) ?([0-9]+) ?([a-zA-Z]?)/', $diff, $matches)) {
+            if(!empty ($matches[1])) {
+                $incr = $matches[1];
+            }
+            if(!empty ($matches[2])) {
+                $items = $matches[2];
+            }
+            if(!empty ($matches[3])) {
+                $type = $matches[3];
+            }
+            if(!in_array($type, array_keys($types), true)) {
+                trigger_error("invalid interval type in '{$diff}'");
+            }
+            $func .= ' ' . $incr . ' interval ' . $items . ' ' . $types[$type] . ' ';
         }
         return $func;
 
     }
+
     /**
      * Method returns generated interval function as an insert/update function
      *
@@ -1181,79 +1266,84 @@ class Db
      * @param string $func Initial date
      *
      * @return array
-    */
-    public function now($diff = null, $func = 'NOW()') {
+     */
+    public function now($diff = null, $func = 'NOW()')
+    {
         return ['[F]' => [$this->interval($diff, $func)]];
     }
 
-	/**
-	 * Method generates incremental function call
-	 *
-	 * @param int $num increment amount. 1 by default
-	 *
-	 * @return array
-	 */
-    public function inc($num = 1) {
+    /**
+     * Method generates incremental function call
+     *
+     * @param int $num increment amount. 1 by default
+     *
+     * @return array
+     */
+    public function inc($num = 1)
+    {
         return ['[I]' => '+' . (int)$num];
     }
 
-	/**
-	 * Method generates decrimental function call
-	 *
-	 * @param int $num amount. 1 by default
-	 *
-	 * @return array
-	 */
-    public function dec($num = 1) {
+    /**
+     * Method generates decrimental function call
+     *
+     * @param int $num amount. 1 by default
+     *
+     * @return array
+     */
+    public function dec($num = 1)
+    {
         return ['[I]' => '-' . (int)$num];
     }
 
-	/**
-	 * Method generates change boolean function call
-	 *
-	 * @param string $col name. null by default
-	 *
-	 * @return array
-	 */
-    public function not($col = null) {
+    /**
+     * Method generates change boolean function call
+     *
+     * @param string $col name. null by default
+     *
+     * @return array
+     */
+    public function not($col = null)
+    {
         return ['[N]' => (string)$col];
     }
 
-	/**
-	 * Method generates user defined function call
-	 *
-	 * @param      $expr
-	 * @param null $bindParams
-	 *
-	 * @return array
-	 * @internal param user $string function body
-	 */
-    public function func($expr, $bindParams = null) {
+    /**
+     * Method generates user defined function call
+     *
+     * @param      $expr
+     * @param null $bindParams
+     *
+     * @return array
+     * @internal param user $string function body
+     */
+    public function func($expr, $bindParams = null)
+    {
         return ['[F]' => [$expr, $bindParams]];
     }
 
-	/**
-	 * Method creates new Db object for a subquery generation
-	 *
-	 * @param string $subQueryAlias
-	 *
-	 * @return Db
-	 */
+    /**
+     * Method creates new Db object for a subquery generation
+     *
+     * @param string $subQueryAlias
+     *
+     * @return Db
+     */
     public static function subQuery($subQueryAlias = '')
     {
         return new Db(['host' => $subQueryAlias, 'isSubQuery' => true]);
     }
 
-	/**
-	 * Method returns a copy of a Db subquery object
-	 *
-	 * @param object Db object
-	 *
-	 * @return mixed
-	 */
+    /**
+     * Method returns a copy of a Db subquery object
+     *
+     * @param object Db object
+     *
+     * @return mixed
+     */
     public function copy()
     {
-        $copy = unserialize (serialize ($this));
+        $copy          = unserialize(serialize($this));
         $copy->_mysqli = $this->_mysqli;
         return $copy;
     }
@@ -1264,7 +1354,8 @@ class Db
      * @uses mysqli->autocommit(false)
      * @uses register_shutdown_function(array($this, "_transaction_shutdown_check"))
      */
-    public function startTransaction() {
+    public function startTransaction()
+    {
         $this->_mysqli->autocommit(false);
         $this->_transaction_in_progress = true;
         register_shutdown_function([$this, '_transaction_status_check']);
@@ -1276,10 +1367,11 @@ class Db
      * @uses mysqli->commit();
      * @uses mysqli->autocommit(true);
      */
-    public function commit() {
+    public function commit()
+    {
         $this->_mysqli->commit();
         $this->_transaction_in_progress = false;
-        $this->_mysqli->autocommit (true);
+        $this->_mysqli->autocommit(true);
     }
 
     /**
@@ -1288,10 +1380,11 @@ class Db
      * @uses mysqli->rollback();
      * @uses mysqli->autocommit(true);
      */
-    public function rollback() {
-      $this->_mysqli->rollback();
-      $this->_transaction_in_progress = false;
-      $this->_mysqli->autocommit(true);
+    public function rollback()
+    {
+        $this->_mysqli->rollback();
+        $this->_transaction_in_progress = false;
+        $this->_mysqli->autocommit(true);
     }
 
     /**
@@ -1300,39 +1393,43 @@ class Db
      *
      * @uses mysqli->rollback();
      */
-    public function _transaction_status_check() {
-        if (!$this->_transaction_in_progress)
+    public function _transaction_status_check()
+    {
+        if(!$this->_transaction_in_progress) {
             return;
+        }
         $this->rollback();
     }
 
-	/**
-	 * Query exection time tracking switch
-	 *
-	 * @param bool   $enabled     Enable execution time tracking
-	 * @param string $stripPrefix Prefix to strip from the path in exec log
-	 *                            *
-	 *
-	 * @return $this
-	 */
-    public function setTrace($enabled, $stripPrefix = null) {
-        $this->traceEnabled = $enabled;
+    /**
+     * Query exection time tracking switch
+     *
+     * @param bool $enabled Enable execution time tracking
+     * @param string $stripPrefix Prefix to strip from the path in exec log
+     *                            *
+     *
+     * @return $this
+     */
+    public function setTrace($enabled, $stripPrefix = null)
+    {
+        $this->traceEnabled     = $enabled;
         $this->traceStripPrefix = $stripPrefix;
         return $this;
     }
+
     /**
      * Get where and what function was called for query stored in Db->trace
      *
      * @return string with information
      */
-    private function _traceGetCaller() {
-        $dd = debug_backtrace ();
-        $caller = next ($dd);
-        while (isset ($caller) &&  $caller['file'] == __FILE__ )
-            $caller = next($dd);
+    private function _traceGetCaller()
+    {
+        $dd     = debug_backtrace();
+        $caller = next($dd);
+        while (isset ($caller) && $caller['file'] == __FILE__) $caller = next($dd);
 
         return __CLASS__ . '->' . $caller['function'] . "() >>  file \"" .
-                str_replace ($this->traceStripPrefix, '', $caller['file'] ) . "\" line #" . $caller['line'] . ' ' ;
+               str_replace($this->traceStripPrefix, '', $caller['file']) . "\" line #" . $caller['line'] . ' ';
     }
 
     /**
@@ -1342,4 +1439,4 @@ class Db
     {
         return $this->count;
     }
-} // END class
+}
