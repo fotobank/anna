@@ -37,7 +37,7 @@ IF ( !isset( $_SESSION['logged'] )  || $_SESSION['logged'] !== TRUE ):
 			$tpl->FastPrint( "ERROR" );
 		} else {
 			Db::where("login", $_POST['login']);
-			$q = Db::get($GLOBALS['tbl_users'], NULL, [ 'id','login','pass' ] );
+			$q = Db::get(TBL_USERS, NULL, [ 'id','login','pass' ] );
 
 			if ( count( $q ) > '0' ) {
 				$_pass = $_id = $_login = NULL;

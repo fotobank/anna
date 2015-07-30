@@ -560,7 +560,7 @@ function if_admin($str)
 function login()
 {
     Db::where('id', 1);
-    $login = Db::getOne($GLOBALS['tbl_users'], 'login');
+    $login = Db::getOne(TBL_USERS, 'login');
 
     return $login['login'];
 }
@@ -572,7 +572,7 @@ function login()
 function pass()
 {
     Db::where('id', 1);
-    $login = Db::getOne($GLOBALS['tbl_users'], 'pass');
+    $login = Db::getOne(TBL_USERS, 'pass');
 
     return $login['pass'];
 }

@@ -33,6 +33,6 @@ ini_set('session.auto_start', 1);
 
 // инициализация базы
 // эти значения рекомендуется не изменять - для гостевой
-$GLOBALS['tbl_posts'] = 'gb_posts';        // имя таблицы с сообщениями
-$GLOBALS['tbl_replies'] = 'gb_replies';    // имя таблицы с ответами
-$GLOBALS['tbl_users'] = 'gb_users';        // имя таблицы с модераторами
+define('TBL_POSTS', 'gb_posts');  // имя таблицы с сообщениями
+define('TBL_REPLIES', 'gb_replies'); // имя таблицы с ответами
+define('TBL_USERS', 'gb_users'); // имя таблицы с модераторами

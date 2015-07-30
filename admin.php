@@ -67,7 +67,7 @@ SWITCH ( $mode ) {
 				} else {
 					for ( $i = 0; $i < count( $ids ); $i ++ ) {
 						Db::where( 'id', $ids[$i] );
-						Db::delete( $GLOBALS['tbl_posts'] );
+						Db::delete( TBL_POSTS );
 					}
 					//	header("Location: ".$_SERVER['PHP_SELF']."?mode=edit"); exit;
 					header( "Location: " . $return );
@@ -86,7 +86,7 @@ SWITCH ( $mode ) {
 						$vars = [
 							'flag' => '1'
 						];
-						Db::update( $GLOBALS['tbl_posts'], $vars );
+						Db::update( TBL_POSTS, $vars );
 					}
 					header( "Location: " . $_SERVER['PHP_SELF'] . "?mode=edit" );
 					exit;
@@ -103,7 +103,7 @@ SWITCH ( $mode ) {
 						$vars = [
 							'flag' => '0'
 						];
-						Db::update( $GLOBALS['tbl_posts'], $vars );
+						Db::update( TBL_POSTS, $vars );
 					}
 					header( "Location: " . $_SERVER['PHP_SELF'] . "?mode=edit" );
 					exit;
@@ -119,7 +119,7 @@ SWITCH ( $mode ) {
 		} ELSE {
 
 			Db::where( "id", $id );
-			$q    = Db::get( $GLOBALS['tbl_posts'], 1, [ 'poster', 'email', 'text' ] );
+			$q    = Db::get( TBL_POSTS, 1, [ 'poster', 'email', 'text' ] );
 			$test = count( $q );
 			if ( count( $q ) != 0 ) {
 
@@ -127,14 +127,14 @@ SWITCH ( $mode ) {
 				extract( $q[0], EXTR_OVERWRITE );
 				Db::where( "parent", $id );
 				Db::where( "poster", $ses_id );
-				$q = Db::get( $GLOBALS['tbl_replies'], 1, [ 'id', 'reply', 'poster' ] );
+				$q = Db::get( TBL_REPLIES, 1, [ 'id', 'reply', 'poster' ] );
 
 				if ( count( $q ) != 0 ) {
 					$_id = $_reply = $_poster = NULL;
 					extract( $q[0], EXTR_PREFIX_ALL, "" );
 
 					Db::where( "id", $_poster );
-					$get = Db::getOne( $GLOBALS['tbl_users'], 'login' );
+					$get = Db::getOne( TBL_USERS, 'login' );
 
 					if ( !isset( $_POST['submit'] ) ) {
 						include( __DIR__ . "/inc/head.php" );
@@ -157,7 +157,7 @@ SWITCH ( $mode ) {
 							'reply'       => $_POST['reply'],
 							'create_time' => time()
 						];
-						Db::update( $GLOBALS['tbl_replies'], $vars );
+						Db::update( TBL_REPLIES, $vars );
 						//	header("Location: ".$_SERVER['PHP_SELF']."?mode=edit"); exit;
 						header( "Location: " . $return );
 						exit;
@@ -165,7 +165,7 @@ SWITCH ( $mode ) {
 				} else {
 
 					Db::where( "id", $ses_id );
-					$get = Db::getOne( $GLOBALS['tbl_users'], 'login' );
+					$get = Db::getOne( TBL_USERS, 'login' );
 
 					if ( !isset( $_POST['submit'] ) ) {
 						include( __DIR__ . "/inc/head.php" );
@@ -193,7 +193,7 @@ SWITCH ( $mode ) {
 							"reply"       => $_POST['reply'],
 							"create_time" => time()
 						];
-						Db::insert( $GLOBALS['tbl_replies'], $values );
+						Db::insert( TBL_REPLIES, $values );
 						//	header("Location: ".$_SERVER['PHP_SELF']."?mode=edit");
 						header( "Location: " . $return );
 						exit;
@@ -210,7 +210,7 @@ SWITCH ( $mode ) {
 		} ELSE {
 			Db::where( 'id', $id );
 			$vars = [ 'flag' => '1' ];
-			Db::update( $GLOBALS['tbl_posts'], $vars );
+			Db::update( TBL_POSTS, $vars );
 			//	header("Location: ".$_SERVER['PHP_SELF']."?mode=edit"); exit;
 			header( "Location: " . $_SERVER['HTTP_REFERER'] );
 			exit;
@@ -224,7 +224,7 @@ SWITCH ( $mode ) {
 		} ELSE {
 			Db::where( 'id', $id );
 			$vars = [ 'flag' => '0' ];
-			Db::update( $GLOBALS['tbl_posts'], $vars );
+			Db::update( TBL_POSTS, $vars );
 			//	header("Location: ".$_SERVER['PHP_SELF']."?mode=edit"); exit;
 			header( "Location: " . $_SERVER['HTTP_REFERER'] );
 			exit;
@@ -237,9 +237,9 @@ SWITCH ( $mode ) {
 			exit;
 		} ELSE {
 			Db::where( 'id', $id );
-			Db::delete( $GLOBALS['tbl_posts'] );
+			Db::delete( TBL_POSTS );
 			Db::where( 'parent', $id );
-			Db::delete( $GLOBALS['tbl_replies'] );
+			Db::delete( TBL_REPLIES );
 			//	header("Location: ".$_SERVER['PHP_SELF']."?mode=edit"); exit;
 			header( "Location: " . $_SERVER['HTTP_REFERER'] );
 			exit;
@@ -250,7 +250,7 @@ SWITCH ( $mode ) {
 		IF ( !$id ) {
 			include( __DIR__ . "/inc/head.php" );
 			Db::orderBy( "create_time" );
-			$q = Db::get( $GLOBALS['tbl_posts'] );
+			$q = Db::get( TBL_POSTS );
 			$tpl->assign( "{TITLE}", "- admin section - Editing" );
 			$tpl->parse( "HEAD", "head" );
 			$tpl->FastPrint( "HEAD" );
@@ -258,11 +258,11 @@ SWITCH ( $mode ) {
 				foreach ( $q as $row ) {
 					Db::where( "parent", $row['id'] );
 					Db::orderBy( "create_time" );
-					$c = Db::get( $GLOBALS['tbl_replies'] );
+					$c = Db::get( TBL_REPLIES );
 					if ( count( $c ) > 0 ) {
 						foreach ( $c as $rep ) {
 							Db::where( "id", $rep['poster'] );
-							$poster = Db::getOne( $GLOBALS['tbl_users'], "login" );
+							$poster = Db::getOne( TBL_USERS, "login" );
 							$tpl->assign( "{REP_AUTHOR}", $poster['login'] );
 							$tpl->assign( "{REPLY}", nl2br( htmlspecialchars( $rep['reply'], ENT_QUOTES, "windows-1251" ) ) );
 							$tpl->parse( "{REPLIES}", ".list_rep" );
@@ -295,7 +295,7 @@ SWITCH ( $mode ) {
 			if ( !isset( $_POST['submit'] ) ) {
 				include( __DIR__ . "/inc/head.php" );
 				Db::where( "id", $id );
-				$q = Db::get( $GLOBALS['tbl_posts'], 1, [ 'poster', 'text', 'email', 'flag' ] );
+				$q = Db::get( TBL_POSTS, 1, [ 'poster', 'text', 'email', 'flag' ] );
 				if ( count( $q ) == '0' ) {
 					$tpl->assign( "{ERROR}", "—ообщени€ с таким ID не существует." );
 					$tpl->parse( "ERROR", "error" );
@@ -336,7 +336,7 @@ SWITCH ( $mode ) {
 						'email'  => $_POST['email'],
 						'flag'   => $_POST['flag']
 					];
-					Db::update( $GLOBALS['tbl_posts'], $vars );
+					Db::update( TBL_POSTS, $vars );
 					header( "Location: " . $return );
 					exit;
 				}
@@ -360,7 +360,7 @@ SWITCH ( $mode ) {
 					} else if ( !isset( $_POST['submit'] ) ) {
 						include( __DIR__ . "/inc/head.php" );
 						Db::where( "id", $id );
-						$c      = Db::get( $GLOBALS['tbl_users'], 1, [ 'login', 'email' ] );
+						$c      = Db::get( TBL_USERS, 1, [ 'login', 'email' ] );
 						$_login = $_email = NULL;
 						extract( $c[0], EXTR_PREFIX_ALL, "" );
 						$tpl->assign( "{TITLE}", "- admin section - Users - —оздание нового модератора" );
@@ -397,7 +397,7 @@ SWITCH ( $mode ) {
 							'login' => $_POST['login'],
 							'email' => $_POST['email']
 						];
-						Db::update( $GLOBALS['tbl_users'], $vars );
+						Db::update( TBL_USERS, $vars );
 						//	header("Location: ".$_SERVER['PHP_SELF']."?mode=".$mode); exit;
 						header( "Location: " . $return );
 						exit;
@@ -408,7 +408,7 @@ SWITCH ( $mode ) {
 							'email' => $_POST['email'],
 							'pass'  => md5( $_POST['p_1'] )
 						];
-						Db::update( $GLOBALS['tbl_users'], $vars );
+						Db::update( TBL_USERS, $vars );
 						//	header("Location: ".$_SERVER['PHP_SELF']."?mode=".$mode); exit;
 						header( "Location: " . $return );
 						exit;
@@ -423,7 +423,7 @@ SWITCH ( $mode ) {
 				} ELSE {
 
 					Db::where( 'id', '1' );
-					$get = Db::getOne( $GLOBALS['tbl_users'], 'login' );
+					$get = Db::getOne( TBL_USERS, 'login' );
 
 					if ( $ses_id != '1' ) {
 						include( __DIR__ . "/inc/head.php" );
@@ -442,7 +442,7 @@ SWITCH ( $mode ) {
 					}
 
 					Db::where( 'id', $id );
-					$_login = Db::delete( $GLOBALS['tbl_users'] );
+					$_login = Db::delete( TBL_USERS );
 					header( "Location: " . $_SERVER['PHP_SELF'] . "?mode=" . $mode );
 					exit;
 				}
@@ -453,7 +453,7 @@ SWITCH ( $mode ) {
 					include( __DIR__ . "/inc/head.php" );
 
 					Db::where( 'id', '1' );
-					$get = Db::getOne( $GLOBALS['tbl_users'], 'login' );
+					$get = Db::getOne( TBL_USERS, 'login' );
 					$tpl->assign( "{ERROR}", "ѕравом создани€ пользователей обладает только <b>" . $get['login'] . "</b>." );
 					$tpl->parse( "ERROR", "error" );
 					$tpl->FastPrint( "ERROR" );
@@ -505,7 +505,7 @@ SWITCH ( $mode ) {
 						exit;
 					}
 					Db::where( 'login', $_POST['login'] );
-					$q = Db::getOne( $GLOBALS['tbl_users'], 'login' );
+					$q = Db::getOne( TBL_USERS, 'login' );
 					if ( count( $q ) > 0 ) {
 						include( __DIR__ . "/inc/head.php" );
 						$tpl->assign( "{ERROR}", "“ака€ учетна€ запись уже существует в базе данных." );
@@ -518,7 +518,7 @@ SWITCH ( $mode ) {
 						"pass"  => md5( $_POST['p_1'] ),
 						"email" => $_POST['email']
 					];
-					Db::insert( $GLOBALS['tbl_users'], $values );
+					Db::insert( TBL_USERS, $values );
 					header( "Location: " . $_SERVER['PHP_SELF'] . "?mode=" . $mode );
 					exit;
 				}
@@ -531,7 +531,7 @@ SWITCH ( $mode ) {
 				$tpl->FastPrint( "HEAD" );
 			//	Db::check_connect();
 				Db::orderBy( 'id', 'ASC' );
-				$q = Db::get( $GLOBALS['tbl_users'], NULL, [ 'id', 'login', 'email' ] );
+				$q = Db::get( TBL_USERS, NULL, [ 'id', 'login', 'email' ] );
 
 				foreach ( $q as $row ) {
 					$tpl->assign( "{ID}", $row['id'] );

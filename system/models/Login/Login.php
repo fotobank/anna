@@ -15,6 +15,7 @@
 namespace models\Login;
 
 use models\Base as model;
+use classes\pattern\Proxy\Db;
 
 
 /**
@@ -41,7 +42,9 @@ class Login extends model\Base
      */
     public function login()
     {
-        IF(!array_key_exists('logged', $_SESSION) || $_SESSION['logged'] !== true):
+        $mess = false;
+        if(!array_key_exists('logged', $_SESSION) || $_SESSION['logged'] !== true)
+        {
             if(!array_key_exists('submit', $_POST))
             {
                 return false;
@@ -55,7 +58,7 @@ class Login extends model\Base
                     $mess = ('Поле "Login" является обязательным для заполнения.');
 
                 }
-                else if(empty($_POST['pass']) || $_POST['pass'] == 'pass')
+                else if(empty($_POST['password']) || $_POST['password'] == 'password')
                 {
 
                     $mess = ('Для входа необходимо вернуться и заполнить поле "Password".');
@@ -64,14 +67,14 @@ class Login extends model\Base
                 else
                 {
                     Db::where('login', $_POST['login']);
-                    $q = Db::get($GLOBALS['tbl_users'], NULL, ['id', 'login', 'pass']);
+                    $q = Db::get(TBL_USERS, NULL, ['id', 'login', 'pass']);
 
                     if(count($q) > '0')
                     {
                         $_pass = $_id = $_login = NULL;
                         extract($q[0], EXTR_PREFIX_ALL, '');
 
-                        if(md5($_POST['pass']) === $_pass)
+                        if(md5($_POST['password']) === $_pass)
                         {
                             $_SESSION['logged'] = TRUE;
                             $_SESSION['id']     = $_id;
@@ -81,7 +84,6 @@ class Login extends model\Base
                                 $_SESSION['admnews'] = md5($_login . '///' . $_pass);
                             }
                             $_SESSION['nick'] = $_login;
-                            main_redir('admin.php');
                         }
                         else
                         {
@@ -93,10 +95,9 @@ class Login extends model\Base
                         $mess = ('Неверные логин и пароль!');
 
                     }
-
                 }
-                return true;
             }
         }
-
+        return $mess;
+    }
 }

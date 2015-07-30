@@ -36,8 +36,17 @@ class Login extends Controller
     /**
      * ύκψεν
      */
-    public function login() {
+    public function login()
+    {
         $model = new model\Login();
-        echo $this->mustache->render('admin\login', $model);
+        $mess  = $model->login();
+        if($mess)
+        {
+            echo $this->mustache->render('admin\admin', $model);
+        }
+        else
+        {
+            echo $this->mustache->render('admin\login', $model);
+        }
     }
 }

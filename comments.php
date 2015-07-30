@@ -56,7 +56,7 @@ IF ( !isset( $_POST['submit'] ) ) {
 
 
 	Db::where( "flag", 1 );
-	$total = Db::getOne( $GLOBALS['tbl_posts'], "count(*) as records" ); // всего разрешенных записей
+	$total = Db::getOne( TBL_POSTS, "count(*) as records" ); // всего разрешенных записей
 	if ( $total['records'] ) {
 		$pages = $total['records'] / $perpage; // рассчетное число страниц
 	} else {
@@ -110,7 +110,7 @@ IF ( !isset( $_POST['submit'] ) ) {
 	$tpl->assign( "{PAGES}", $page_list );
 	Db::where( "flag", 1 );
 	Db::orderBy( "create_time", "DESC" );
-	$resutls = Db::get( $GLOBALS['tbl_posts'], [ $offset, $perpage ] );
+	$resutls = Db::get( TBL_POSTS, [ $offset, $perpage ] );
 
 	if ( count( $resutls ) > 0 ) {
 
@@ -131,13 +131,13 @@ IF ( !isset( $_POST['submit'] ) ) {
 
 			Db::where( "parent", $row['id'] );
 			Db::orderBy( "create_time", "DESC" );
-			$rep = Db::get( $GLOBALS['tbl_replies'], NULL, [ 'poster', 'reply' ] );
+			$rep = Db::get( TBL_REPLIES, NULL, [ 'poster', 'reply' ] );
 
 			if ( count( $rep ) > 0 ) {
 				foreach ( $rep as $reply ) {
 
 					Db::where( "id", $reply['poster'] );
-					$query = Db::get( $GLOBALS['tbl_users'], NULL, [ 'login', 'email' ] );
+					$query = Db::get( TBL_USERS, NULL, [ 'login', 'email' ] );
 
 					$gravatar->email   = $query[0]['email'];
 					$gravatar->default = "http://www.annafoto.in.ua/images/avtor.jpg";
@@ -217,16 +217,16 @@ IF ( !isset( $_POST['submit'] ) ) {
 			"ip"          => ip(),
 			"create_time" => time()
 		];
-		Db::insert( $GLOBALS['tbl_posts'], $values );
-		Db::orderBy( "id" );
-		$q = Db::get( $GLOBALS['tbl_users'], NULL, [ 'login', 'email' ] );
+		Db::insert( TBL_POSTS, $values );
+		Db::orderBy( 'id' );
+		$q = Db::get( TBL_USERS, NULL, [ 'login', 'email' ] );
 
 		foreach ( $q as $row ) {
 
 			mail(
 				$row['email'],
-				"Новое сообщение в гостевой книге",
-				"Здравствуйте, " . $row['login'] .
+				'Новое сообщение в гостевой книге',
+				'Здравствуйте, ' . $row['login'] .
 				"!\n\nВ гостевую книгу было отправлено следующее сообщение:\n\nАвтор: " . $_POST['nick'] . "\nE-mail: " .
 				$_POST['email'] . "\nСообщение:\n" . $_POST['mess'] . "\n\n------\nЧтобы открыть это сообщение, пройдите по следующей ссылке:\nhttp://" .
 				$_SERVER['SERVER_NAME'] . dirname( $_SERVER['PHP_SELF'] ) . "/admin.php?mode=show&id=" . Db::getLastQuery() . "\nУдаление:\nhttp://" .
