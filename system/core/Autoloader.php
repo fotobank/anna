@@ -347,6 +347,7 @@ END;
         file_put_contents($this->fileLog, $data, FILE_APPEND | LOCK_EX);
     }
 
+
     /**
      * @param $class_name
      * автозагрузчик файлов классов
