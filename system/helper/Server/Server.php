@@ -1,6 +1,7 @@
 <?php
 /**
  * Класс Server
+ *
  * @created   by PhpStorm
  * @package   Server.php
  * @version   1.0

@@ -1,6 +1,7 @@
 <?php
 /**
  * Класс предназначен для
+ *
  * @created   by PhpStorm
  * @package   Login.php
  * @version   1.0
@@ -21,6 +22,7 @@ use proxy\Session;
 
 /**
  * Class Login
+ *
  * @package models\Login
  */
 class Login extends model\Base
@@ -47,7 +49,7 @@ class Login extends model\Base
     {
         if(Session::has('logged'))
         {
-            if(!array_key_exists('submit', $_POST))
+            if( ! array_key_exists('submit', $_POST))
             {
                 return false;
             }
@@ -64,7 +66,7 @@ class Login extends model\Base
                 else
                 {
                     Db::where('login', $_POST['login']);
-                    $q = Db::get(TBL_USERS, NULL, ['id', 'login', 'pass']);
+                    $q = Db::get(TBL_USERS, null, ['id', 'login', 'pass']);
 
                     if(count($q) > '0')
                     {
@@ -97,6 +99,7 @@ class Login extends model\Base
                 }
             }
         }
+
         return true;
     }
 }
