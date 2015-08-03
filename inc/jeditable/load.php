@@ -1,5 +1,5 @@
 <?php
-use classes\pattern\Proxy\Db as Db;
+use proxy\Db as Db;
 
 require (__DIR__ .'/../../system/config/config.php');
 header( 'Content-type: text/html; charset=windows-1251' );

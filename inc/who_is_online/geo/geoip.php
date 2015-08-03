@@ -496,5 +496,3 @@ function getdnsattributes ($l,$ip){
   $str = $regs[1];
   return $str;
 }
-
-?>

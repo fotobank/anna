@@ -1,6 +1,6 @@
 <?php
 
-use classes\pattern\Proxy\Profiler;
+use proxy\Profiler;
 
 //Instantiate a profiler object
 echo "Start the profiler.<br>\n";
@@ -24,7 +24,7 @@ Profiler::generateResults();
 
 
 //====================================================
-// use classes\pattern\Proxy\Profiler;
+// use proxy\Profiler;
 $directory = 'system/admin';
 
 Profiler::setIterataions(1);
@@ -36,7 +36,7 @@ Profiler::testMethod($dir, 'dir', [$directory]);
 Profiler::testClass('helper\Recursive',[[], 'dir', [$directory]]);
 
 // статичесский класс
-Profiler::testClass('classes\pattern\Proxy\Recursive',[ [], 'dir', [$directory]]);
+Profiler::testClass('proxy\Recursive',[ [], 'dir', [$directory]]);
 
 
 Profiler::generateResults();

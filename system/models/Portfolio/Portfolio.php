@@ -15,7 +15,7 @@
 namespace models\Portfolio;
 
 use models\Base as model;
-use classes\pattern\Proxy\Recursive;
+use proxy\Recursive;
 
 
 /**

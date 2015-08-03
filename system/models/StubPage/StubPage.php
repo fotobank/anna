@@ -16,7 +16,7 @@ namespace models\StubPage;
 
 use models\Base\Base;
 use exception\ModelException;
-use classes\pattern\Proxy\Db as Db;
+use proxy\Db as Db;
 
 
 /**

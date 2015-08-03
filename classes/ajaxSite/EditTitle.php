@@ -4,7 +4,7 @@ if ( session_id() == '' )
 	session_start();
 header( 'Content-type: text/html; charset=windows-1251' );
 
-use classes\pattern\Proxy\Db as Db;
+use proxy\Db as Db;
 
 /**
  * Class EditTitle

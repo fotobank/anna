@@ -6,7 +6,7 @@
  * Time: 13:01
  */
 
-use classes\pattern\Proxy\Db as Db;
+use proxy\Db as Db;
 
 
 /**

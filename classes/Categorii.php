@@ -5,7 +5,7 @@
  * Date: 05.08.14
  * Time: 23:56
  */
-use classes\pattern\Proxy\Db as Db;
+use proxy\Db as Db;
 
 
 /**

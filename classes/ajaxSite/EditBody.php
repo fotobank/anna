@@ -1,5 +1,5 @@
 <?php
-use classes\pattern\Proxy\Db as Db;
+use proxy\Db as Db;
 
 require (__DIR__ .'/../../system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 

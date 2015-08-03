@@ -5,7 +5,7 @@
  * Date: 08.07.14
  * Time: 4:36
  */
-use classes\pattern\Proxy\Db as Db;
+use proxy\Db as Db;
 
 /**
  * Для обрезки строки на 2 части

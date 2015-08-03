@@ -70,7 +70,7 @@ class Profiler
     /**
      * пример
      *
-     * use classes\pattern\Proxy\Profiler;
+     * use proxy\Profiler;
      * $directory = 'system/admin';
      *
      * количество итераций
@@ -87,7 +87,7 @@ class Profiler
      * статичесский класс
      * Recursive::dir('system/admin');
      * вызов
-     * Profiler::testClass('classes\pattern\Proxy\Recursive',[ [], 'dir', [$directory]]);
+     * Profiler::testClass('proxy\Recursive',[ [], 'dir', [$directory]]);
      *
      * вывод результата
      * Profiler::generateResults();
@@ -126,13 +126,12 @@ class Profiler
         // если метода нет возможно он статичесский
         if($reflected_class->hasMethod($m) === false)
         {
-            $arg = (count($am) === 1) ? $am[0] : $am;
-
             for ($i = 0; $i < $iterations; $i++)
             {
-                    $c::$m($arg);
+                $c::$m($am);
             }
-        } else
+        }
+        else
         {
             for ($i = 0; $i < $iterations; $i++)
             {
@@ -193,8 +192,8 @@ class Profiler
         $elapsed = $this->timerElapsed();
 
         $this->profileResults[] = [
-            'name' => get_class($object) . '->' . $methodName, 'arguments' => $arguments, 'type' => 'classMethod',
-            'iterations' => $iterations, 'time' => $elapsed
+            'name' => get_class($object) . '->' . $methodName . '()', 'arguments' => $arguments,
+            'type' => 'classMethod', 'iterations' => $iterations, 'time' => $elapsed
         ];
 
         return $elapsed;
@@ -223,12 +222,33 @@ class Profiler
         {
             $one = $profile['time'] / $profile['iterations'];
             $one = sprintf('%.3e', $one);
-            $html .= "<h3>
-                название: <span style='color: #ff002b'>{$profile['name']}</span>
-                тип:  <span style='color: #0d43ff'>{$profile['type']}</span>
-                колличество итераций:  <span style='color: #00a0c8'>{$profile['iterations']}</span><br>
-                затраченное время: <span style='color: #d10026'>{$profile['time']}</span><br>
-                на одну итерацию: <span style='color: #d10026'>{$one}</span><br>
+            $html .= "<style>
+.profiler{
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 18px;
+}
+h3 .name {
+  color: #ff002b;
+}
+h3 .count {
+  color: #0091b7;
+}
+h3 .time {
+   color: #18951c;
+}
+h3 .iter {
+  color: #6c3bb8;
+}
+h3 .type {
+  color: #0d39d2;
+}
+</style>
+<h3>
+                название: <span class='profiler name'>{$profile['name']}</span>
+                тип:  <span class='profiler type'>{$profile['type']}</span>
+                колличество итераций:  <span class='profiler count'>{$profile['iterations']}</span><br>
+                затраченное время: <span class='profiler time'>{$profile['time']}</span><br>
+                на одну итерацию: <span class='profiler iter'>{$one}</span><br>
                 аргументы класса:</h3>";
             $html .= '<pre>' . print_r($profile['arguments'], true) . "</pre>\n";
             if(isset($profile['arguments_method']))
@@ -236,7 +256,8 @@ class Profiler
                 if(is_array($profile['arguments_method']))
                 {
                     $arguments_method = sprintf(implode(',', $profile['arguments_method']));
-                } else
+                }
+                else
                 {
                     $arguments_method = $profile['arguments_method'];
                 }
@@ -274,7 +295,8 @@ class Profiler
         if(is_numeric($iterations))
         {
             $this->iterataions = $iterations;
-        } else
+        }
+        else
         {
             throw new ApplicationException('The passed in $iterations variable must be an integer, ' .
                                            gettype($iterations) . ' given.');

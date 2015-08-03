@@ -11,8 +11,10 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-//use classes\pattern\Proxy\Recursive;
-use classes\pattern\Proxy\Router as Router;
+//use proxy\Recursive;
+use proxy\Router as Router;
+// use proxy\Session;
+
 
 ob_start();
 
@@ -26,26 +28,23 @@ include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 // Загружаем router
 Router::start();
 
-//use classes\pattern\Proxy\Profiler;
+//use proxy\Profiler;
 //$directory = 'system/admin';
 
-//Profiler::setIterataions(1000);
+//Profiler::setIterataions(10000);
 // Profiler::testClass('core\Autoloader',[ [], 'rScanDir', [$directory]]);
 
-// $dir = new helper\Recursive();
-// Profiler::testMethod($dir, 'scanDir', ['files/portfolio/03_Банкеты/']);
-
-// Profiler::testClass('helper\Recursive',[[], 'dir', [$directory]]);
-
 // статичесский класс
-//Profiler::testClass('classes\pattern\Proxy\Recursive',[ [], 'dir', [$directory]]);
+//Profiler::testClass('proxy\Recursive',[ [], 'dir', [$directory]]);
 
-//Profiler::testClass('classes\pattern\Proxy\Recursive',[ [], 'dir', ['files/portfolio/03_Банкеты']]);
-//Profiler::testClass('classes\pattern\Proxy\Recursive',[ [], 'scanDir', ['files/portfolio/03_Банкеты/']]);
+//Profiler::testClass('proxy\Recursive',[ [], 'dir', ['files/portfolio/03_Банкеты']]);
+//Profiler::testClass('proxy\Recursive',[ [], 'scanDir', ['files/portfolio/03_Банкеты/']]);
+// use Proxy;
+//Profiler::testClass('proxy\Session',[[], 'has', ['logget']]);
+
+//Profiler::testClass('proxy\Session',[[], 'set', ['test1/test2/test3', 'rrr']]);
+//Profiler::testFunction('array_key_exists',['test1/test2/test3/test4/test5', $_SESSION]);
 //Profiler::generateResults();
-
-// $d = Recursive::dir('system/admin');
-// $r = Recursive::scanDir('system/admin/');
 
 
 ob_end_flush();

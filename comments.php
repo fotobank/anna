@@ -7,7 +7,7 @@
  */
 
 
-use classes\pattern\Proxy\Db as Db;
+use proxy\Db as Db;
 
 require(__DIR__ .'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 include_once( __DIR__ . '/inc/head.php' );
@@ -35,7 +35,7 @@ $tpl->assign( "{SCRIPT}", $_SERVER['PHP_SELF'] );
 
 IF ( !isset( $_POST['submit'] ) ) {
 	$tpl->assign( "{REFRESH_LINK}", "<a class='link-3' href='" . $_SERVER['PHP_SELF'] . "'>reset</a>" );
-	if ( isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" ) {
+	if ( isset( $_SESSION['logged'] ) && $_SESSION['logged'] == true ) {
 		$tpl->assign( "{ADMIN_LINK}", "| <a class='link-3' href='/admin.php'>admin section</a>" );
 	} else {
 		$tpl->assign( "{ADMIN_LINK}", "| <a class='link-3' href='/auth.php'>entrance for admin</a>" );
@@ -151,7 +151,7 @@ IF ( !isset( $_POST['submit'] ) ) {
 				$tpl->assign( "{REPLIES}", '' );
 			}
 			$tpl->assign( "{IP}", $row['ip'] );
-			if ( isset( $_SESSION['logged'] ) && $_SESSION['logged'] == "1" ) {
+			if ( isset( $_SESSION['logged'] ) && $_SESSION['logged'] == true ) {
 				$tpl->parse( "{ADMIN_OPTS}", ".adm_opts" );
 				$tpl->clear( "{ADMIN_OPTS}" );
 			} else {

@@ -64,14 +64,18 @@ return [
 	],
 	'login' => [
 		'controller' => 'Login',
-		'method'     => 'login'
+		'method'     => 'userLogin'
 	],
-	'redirect' => [
-		'controller' => 'Redirect',
-		'method'     => 'redirect'
+	'exit' => [
+		'controller' => 'Login',
+		'method'     => 'userExit'
 	],
 	'admin' => [
 		'controller' => 'Admin',
 		'method'     => 'admin'
-	]
+	],
+    'redirect' => [
+        'controller' => 'Redirect',
+        'method'     => 'redirect'
+    ]
 ];

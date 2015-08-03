@@ -17,7 +17,7 @@ namespace classes\Router;
 
 use exception\RouteException;
 use Common\Container\Helper;
-use classes\pattern\Proxy\Base as BaseModel;
+use proxy\Base as BaseModel;
 
 
 /**

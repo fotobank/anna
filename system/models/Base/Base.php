@@ -10,10 +10,11 @@
 namespace models\Base;
 
 
-use classes\pattern\Proxy\Router as Router;
+use proxy\Router as Router;
 use Common\Container\Options;
-use classes\pattern\Proxy\Db as Db;
+use proxy\Db as Db;
 use exception\BaseException;
+use proxy\Session;
 
 
 /**
@@ -71,6 +72,9 @@ class Base implements InterfaceModelsBase
         'Гостевая' => '/comments'
     ];
 
+    // кнопка login(true) - exit(false)
+    public $login = 0;
+
 
     /**
      *
@@ -88,6 +92,8 @@ class Base implements InterfaceModelsBase
             $this->categorii = $this->getDbTitleName();
             $this->current_razdel = Router::getUrlRoutes()[0];
             $this->getMetaTitle();
+            // кнопка login
+            $this->login = Session::has('logged') ? 1 : 0;
         } catch (BaseException $e) {
             throw ($e);
         }

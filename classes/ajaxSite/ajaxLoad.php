@@ -6,7 +6,7 @@
  * Time: 2:11
  */
 
-use classes\pattern\Proxy\Db as Db;
+use proxy\Db as Db;
 
 /** @noinspection PhpIncludeInspection */
 include(__DIR__ .  DIRECTORY_SEPARATOR . '..'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR.'system'.

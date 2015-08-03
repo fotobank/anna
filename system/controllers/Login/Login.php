@@ -36,11 +36,11 @@ class Login extends Controller
     /**
      * ύκψεν
      */
-    public function login()
+    public function userLogin()
     {
         $model = new model\Login();
-        $mess  = $model->login();
-        if($mess)
+
+        if($model->login())
         {
             echo $this->mustache->render('admin\admin', $model);
         }
@@ -49,4 +49,19 @@ class Login extends Controller
             echo $this->mustache->render('admin\login', $model);
         }
     }
+
+    public function userExit()
+    {
+        if((array_key_exists('url', $_GET) && $_GET['url'] === 'exit') ||
+           !array_key_exists('logged', $_SESSION) || $_SESSION['logged'] !== true)
+        {
+            unset($_SESSION['id'], $_SESSION['logged'], $_SESSION['nick'], $_COOKIE['nick']);
+            if(array_key_exists('admnews', $_SESSION))
+            {
+                unset($_SESSION['admnews']);
+            }
+            header('Location: ' . $_SERVER['HTTP_REFERER'], true, 302);
+        }
+    }
+
 }
