@@ -23,7 +23,17 @@
                                   ><a href="{{global_menu_href}}">{{{global_menu_name}}}</a></li
                                   >
 							{{/globalHeartMenu}}
-                      </ul>
+                          {{#login}}
+                              <li id="admin_button">
+                                  <a href="exit" class="button">Exit</a>
+                              </li>
+                          {{/login}}
+                          {{^login}}
+                              <li id="admin_button">
+                                  <a href="login" class="button">Login</a>
+                              </li>
+                          {{/login}}
+                       </ul>
                   </header>
             </div>
         </nav>
