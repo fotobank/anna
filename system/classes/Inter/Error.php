@@ -5,9 +5,12 @@ namespace classes\Inter;
  * Class Error
  */
 use classes\pattern\Registry;
+use controllers\Controller\Controller;
 use Exception;
 use ErrorException;
 use classes\File;
+use exception\CommonException;
+use proxy\Router;
 
 /**
  * Class Error
@@ -93,9 +96,8 @@ class Error
 	 */
 	public function __construct()
 		{
-			date_default_timezone_set('Europe/Moscow');
+			date_default_timezone_set('Europe/Kiev');
 			set_exception_handler([$this, 'exception_handler']);
-
 
 //			$this->errorConversionMask = E_ALL ^ (E_NOTICE | E_USER_NOTICE);
 			/*if (version_compare(PHP_VERSION, '5.4', '>=')) {
@@ -110,7 +112,7 @@ class Error
 			}
 
 			set_error_handler([$this, 'error_handler']);
-			if (version_compare(PHP_VERSION, '5.4', '>=')) {
+			if (version_compare(PHP_VERSION, '5.5', '>=')) {
 				register_shutdown_function([$this, 'detect_fatal_error']);
 			}
 			$this->_request_uri = $this->_get_request_uri();
@@ -172,7 +174,7 @@ class Error
 					}
 					/** @noinspection PhpIncludeInspection */
 					require($exception_page);
-					exit();
+                    exit;
 				}
 		}
 

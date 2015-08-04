@@ -16,7 +16,7 @@ version_compare(phpversion(), '5.5.0', '>=') === true or die ('PHP5.5 Only');
 
 // Константы:
 defined('PROTECT_PAGE') or define('PROTECT_PAGE', 1);
-// use for production mode 'prod' or for developer 'dev'
+// use for production mode 'prod' or for developer 'prod'
 defined('APP_MODE') or define('APP_MODE', 'dev');
 defined('PATH_SEPARATOR') or define('PATH_SEPARATOR', getenv('COMSPEC') ? ';' : ':');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
