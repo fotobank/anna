@@ -99,5 +99,5 @@ if(!function_exists('v_dump'))
 // echo $test_test; // Notice
 // trigger_error('Это тест' , E_USER_ERROR ); // User_Error
 // throw new Exception('this is a test'); // Uncaught Exception
- echo fatal(); // Fatal Error
+// echo fatal(); // Fatal Error
 //$test = new TestClass();
