@@ -5,7 +5,7 @@
  * Date: 21.07.14
  * Time: 19:49
  */
-defined('_SECUR') or die('Доступ запрещен');
+defined('PROTECT_PAGE') or die('Доступ запрещен');
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 	$row = $_POST["text"];

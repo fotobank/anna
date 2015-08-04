@@ -14,7 +14,7 @@ class Session extends ArrayHelper
      */
     public function __construct()
     {
-        if(isset($_SESSION))
+        if(null !==$_SESSION)
         {
             $this->properties = &$_SESSION;
         }

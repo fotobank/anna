@@ -6,7 +6,7 @@
   @time   - 8:43
 */
 
-defined( '_SECUR' ) or die( 'Доступ запрещен' );
+defined( 'PROTECT_PAGE' ) or die( 'Доступ запрещен' );
 // header( 'Content-type: text/html; charset=windows-1251' );
 /**==========================для раздела "отзывы"====================*/
 if ( isset( $_POST['nick'] ) && isset( $_POST['email'] ) ) {

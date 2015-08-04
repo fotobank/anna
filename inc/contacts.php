@@ -5,7 +5,7 @@
  * Date: 07.07.14
  * Time: 11:24
  */
-defined( '_SECUR' ) or die( 'Доступ запрещен' );
+defined( 'PROTECT_PAGE' ) or die( 'Доступ запрещен' );
 ?>
 <script type="text/javascript">
 	// Добавить в Избранное

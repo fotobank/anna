@@ -5,7 +5,7 @@
  * Date: 16.07.14
  * Time: 9:54
  */
-defined( '_SECUR' ) or die( 'Доступ запрещен' );
+defined( 'PROTECT_PAGE' ) or die( 'Доступ запрещен' );
 /**
  * @return array
  */

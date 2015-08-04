@@ -6,7 +6,7 @@
  * Time: 18:08
  */
 
-// defined( '_SECUR' ) or die( 'Доступ запрещен' );
+defined( 'PROTECT_PAGE' ) or die( 'Доступ запрещен' );
 header( 'Content-type: text/html; charset=windows-1251' );
 ?>
 <!DOCTYPE html>
@@ -14,9 +14,9 @@ header( 'Content-type: text/html; charset=windows-1251' );
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
-	<title>stop - техничесские работы</title>
+	<title>идут техничесские работы</title>
 	<link rel="shortcut icon" href="/images/favicon.png" />
-	<link rel="stylesheet" href="/css/404.css" media="screen" type="text/css" />
+	<link rel="stylesheet" href="/css/stop.css" media="screen" type="text/css" />
 </head>
 
 <body>
@@ -33,9 +33,9 @@ header( 'Content-type: text/html; charset=windows-1251' );
 	<span class="orange">&lt;/style&gt;</span>
      <span class="orange">&lt;body&gt;</span>
 
-
-			                  На сайте <?= $_SERVER['HTTP_HOST']?> идут техничесские работы.
-			                  В ближайшее время работа сайта будет восстановленна.
+		    Приносим свои извинения.
+		    На сайте "<?= $_SERVER['HTTP_HOST']?>" идут техничесские работы.
+		    В ближайшее время работа сайта будет восстановленна.
 
 <span class="tehno-info">
 
@@ -47,4 +47,5 @@ header( 'Content-type: text/html; charset=windows-1251' );
 	</div>
 </div>
 </body>
+<footer></footer>
 </html>

@@ -15,6 +15,7 @@
 
 namespace exception;
 
+use Exception;
     /**
      * Interface IException
      */
@@ -34,8 +35,9 @@ interface IException
     public function __toString();                 // formated string for display
 
     /**
-     * @param null $message
-     * @param int $code
+     * @param null|string $message
+     * @param int         $code
+     * @param \Exception  $previous
      */
-    public function __construct($message = null, $code = 0);
+    public function __construct($message = '', $code = 0, Exception $previous = null);
 }

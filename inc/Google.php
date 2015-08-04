@@ -5,7 +5,7 @@
  * Date: 14.07.14
  * Time: 20:15
  */
-defined('_SECUR') or die('Доступ запрещен');
+defined('PROTECT_PAGE') or die('Доступ запрещен');
 
 $sites  = [ ];
 $str    = $tmp = '';

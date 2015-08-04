@@ -12,12 +12,10 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-define('_SECUR', 1);
-header( 'Content-type: text/html; charset=windows-1251' );
+defined('PROTECT_PAGE') or define('PROTECT_PAGE', 1);
 
-
-if (version_compare(phpversion(), '5.4.0', '<') === true) {
-	die ('PHP5.4 Only');
+if (version_compare(phpversion(), '5.5.0', '<') === true) {
+	die ('PHP5.5 Only');
 }
 // Константы:
 if (!defined('PATH_SEPARATOR')) {
@@ -32,7 +30,7 @@ set_include_path(ini_get('include_path').PATH_SEPARATOR.__DIR__);
 ini_set('session.auto_start', 1);
 
 // инициализация базы
-// эти значения рекомендуется не изменять - для гостевой
+// для гостевой
 define('TBL_POSTS', 'gb_posts');  // имя таблицы с сообщениями
 define('TBL_REPLIES', 'gb_replies'); // имя таблицы с ответами
 define('TBL_USERS', 'gb_users'); // имя таблицы с модераторами

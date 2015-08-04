@@ -1,19 +1,19 @@
 <?php
 /**
- * Класс Server
+ * Класс helper Post
  *
  * @created   by PhpStorm
- * @package   Server.php
+ * @package   Post.php
  * @version   1.0
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
- * @date:     03.08.2015
- * @time:     19:59
+ * @date:     04.08.2015
+ * @time:     0:27
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace helper\Server;
+namespace helper\Post;
 
 use helper\ArrayHelper\ArrayHelper;
 
@@ -21,16 +21,16 @@ use helper\ArrayHelper\ArrayHelper;
 /**
  * Class Server
  */
-class Server extends ArrayHelper
+class Post extends ArrayHelper
 {
     /**
      * конструктор
      */
     public function __construct()
     {
-        if(null !==$_SERVER)
+        if(null !== $_POST)
         {
-            $this->properties = &$_SERVER;
+            $this->properties = &$_POST;
         }
 
     }

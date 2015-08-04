@@ -22,7 +22,7 @@ class Error
 	public $conf = [
 
 		// страница - заглушка
-		'friendlyExceptionPage' => 'stop.php',
+		'friendlyExceptionPage' => 'system/controllers/Error/stop.php',
 		// уровень детализации лога
 		'logType'               => 'detail',
 		// false / simple / detail

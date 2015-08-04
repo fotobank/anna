@@ -5,7 +5,7 @@
  * Date: 21.07.14
  * Time: 17:15
  */
-defined('_SECUR') or die('Доступ запрещен');
+defined('PROTECT_PAGE') or die('Доступ запрещен');
 
 $sitemap = new MapGenerator( "http://" . $_SERVER['HTTP_HOST'] . "/" );
 

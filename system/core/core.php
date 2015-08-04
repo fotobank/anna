@@ -30,8 +30,11 @@ else
 include(SITE_PATH . 'system/core/Autoloader.php');
 new Autoloader();
 
-// включить админа для отладки
-if(Server::get('REMOTE_ADDR') == ('85.238.118.31' || '127.0.0.1'))
+// включить DEBUG_MODE
+Session::set('logged', false);
+
+// автоматичесски включить DEBUG_MODE для удаленной отладки
+if(Server::get('REMOTE_ADDR') == '85.238.118.31')
 {
     Session::set('logged', true);
 }
@@ -43,7 +46,6 @@ if(Session::get('logged') === true)
 }
 else
 {
-
     ini_set('display_errors', 0);
     ini_set('display_startup_errors', 0);
     define('DEBUG_MODE', false);
@@ -51,29 +53,21 @@ else
 
 ini_set('log_errors', 1);
 
-header('Content-type: text/html; charset=windows-1251');
-
-
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'inc/func.php');
-// профилирование
-if(DEBUG_MODE && ! is_ajax())
+
+// профилирование при DEBUG_MODE
+if(DEBUG_MODE && !is_ajax())
 {
     Registry::build('Test');
 }
+
 // защита
 new Security();
 
-if( ! defined('CODE_PAGE'))
-{
-    define(
-    'CODE_PAGE', detect_encoding(
-        SITE_PATH . 'inc/кодировка файловой системы.codepage'
-    )
-    );
-}
+defined('CODE_PAGE') or define('CODE_PAGE', detect_encoding(SITE_PATH . 'inc/кодировка файловой системы.codepage'));
 
-if( ! function_exists('debugHC'))
+if(!function_exists('debugHC'))
 {
     /**
      * @param        $variables
@@ -95,9 +89,9 @@ if( ! function_exists('debugHC'))
 
 $err                 = new classes\Inter\Error();
 $err->conf['logDir'] = SITE_PATH . 'log';
-// $err->conf['otl'] = true; // включить запись лога на 127.0.0.1
+$err->conf['otl'] = true; // включить запись лога на 127.0.0.1
 //$err->var_dump('SITE_PATH'); // вывод дампа переменных
-if( ! function_exists('v_dump'))
+if(!function_exists('v_dump'))
 {
     function v_dump()
     {

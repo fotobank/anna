@@ -10,11 +10,13 @@
 namespace models\Base;
 
 
+use proxy\Cookie;
 use proxy\Router as Router;
 use Common\Container\Options;
 use proxy\Db as Db;
 use exception\BaseException;
 use proxy\Session;
+use Exception;
 
 
 /**
@@ -25,6 +27,28 @@ use proxy\Session;
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class BaseModelsException extends BaseException
 {
+    /**
+     * (PHP 5 &gt;= 5.1.0)<br/>
+     * Construct the exception. Note: The message is NOT binary safe.
+     * @link http://php.net/manual/en/exception.construct.php
+     * Fix for https://github.com/facebook/hhvm/blob/HHVM-3.4.0/hphp/system/php/lang/Exception.php#L55
+     *
+     * @param string    $message  [optional] The Exception message to throw.
+     * @param int       $code     [optional] The Exception code.
+     * @param Exception $previous [optional] The previous exception used for the exception chaining. Since 5.3.0
+     */
+    public function __construct($message = '', $code = 0, Exception $previous = null)
+    {
+        $numAgs = func_num_args();
+        if ($numAgs >= 1) {
+            $this->message = $message;
+        }
+
+        if ($numAgs >= 2) {
+            $this->code = $code;
+        }
+        parent::__construct($this->message, $this->code, $previous);
+    }
 }
 
 
@@ -87,13 +111,12 @@ class Base implements InterfaceModelsBase
             // footer
             $this->debug_mode = DEBUG_MODE;
             $this->auto_copyright = auto_copyright('2011');
-            $this->php_sessid = array_key_exists('PHPSESSID', $_COOKIE) ? $_COOKIE['PHPSESSID'] : ip();
-
+            $this->php_sessid = Cookie::get('PHPSESSID') or ip();
             $this->categorii = $this->getDbTitleName();
             $this->current_razdel = Router::getUrlRoutes()[0];
             $this->getMetaTitle();
             // кнопка login
-            $this->login = Session::has('logged') ? 1 : 0;
+            $this->login = Session::get('logged');
         } catch (BaseException $e) {
             throw ($e);
         }

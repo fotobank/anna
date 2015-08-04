@@ -30,15 +30,16 @@ abstract class BaseException extends Exception implements IException
     private   $trace;                             // Unknown
 
     /**
-     * @param null $message
-     * @param int $code
+     * @param null       $message
+     * @param int        $code
+     * @param \Exception $previous
      */
-    public function __construct($message = null, $code = 0)
+    public function __construct($message = null, $code = 0, Exception $previous = null)
     {
         if (!$message) {
             throw new $this('Unknown '. get_class($this));
         }
-        parent::__construct($message, $code);
+        parent::__construct($message, $code, $previous);
     }
 
 
