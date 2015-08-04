@@ -16,7 +16,7 @@ use proxy\Router as Router;
 
 //use proxy\Session;
 
-//ob_start();
+ob_start();
 
 /** @noinspection PhpIncludeInspection */
 include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php');
@@ -46,4 +46,4 @@ Router::start();
 //Profiler::generateResults();
 
 
-//ob_end_flush();
+ob_end_flush();
