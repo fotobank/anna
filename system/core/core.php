@@ -30,15 +30,7 @@ else
 include(SITE_PATH . 'system/core/Autoloader.php');
 new Autoloader();
 
-// включить DEBUG_MODE
-Session::set('logged', false);
-
-// автоматичесски включить DEBUG_MODE для удаленной отладки
-if(Server::get('REMOTE_ADDR') == '85.238.118.31')
-{
-    Session::set('logged', true);
-}
-if(Session::get('logged') === true)
+if(Session::get('logged') === true or APP_MODE === 'dev')
 {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
