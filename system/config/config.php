@@ -12,21 +12,18 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-defined('PROTECT_PAGE') or define('PROTECT_PAGE', 1);
+version_compare(phpversion(), '5.5.0', '>=') === true or die ('PHP5.5 Only');
 
-if (version_compare(phpversion(), '5.5.0', '<') === true) {
-	die ('PHP5.5 Only');
-}
 // Константы:
-if (!defined('PATH_SEPARATOR')) {
-	define('PATH_SEPARATOR', getenv('COMSPEC') ? ';' : ':');
-}
-// разделитель для путей к файлам
-define ('DS', DIRECTORY_SEPARATOR);
+defined('PROTECT_PAGE') or define('PROTECT_PAGE', 1);
+// use for production mode 'prod' or for developer 'dev'
+defined('APP_MODE') or define('APP_MODE', 'dev');
+defined('PATH_SEPARATOR') or define('PATH_SEPARATOR', getenv('COMSPEC') ? ';' : ':');
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 // путь к корневой папке сайта
-define ('SITE_PATH', realpath(__DIR__.DS.'..'.DS.'..'.DS).DS);
+defined('SITE_PATH') or define('SITE_PATH', realpath(__DIR__ . DS . '..' . DS . '..' . DS) . DS);
 
-set_include_path(ini_get('include_path').PATH_SEPARATOR.__DIR__);
+set_include_path(ini_get('include_path') . PATH_SEPARATOR . __DIR__);
 ini_set('session.auto_start', 1);
 
 // инициализация базы

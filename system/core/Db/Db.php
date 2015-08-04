@@ -1125,7 +1125,7 @@ class Db
      */
     public function __destruct()
     {
-        if(!$this->isSubQuery) {
+        if($this->isSubQuery) {
             return;
         }
         if($this->_mysqli) {

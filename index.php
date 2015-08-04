@@ -18,9 +18,6 @@ use proxy\Router as Router;
 
 ob_start();
 
-//for production mode use 'prod' or 'dev'
-defined('APP_MODE') or define('APP_MODE', 'dev');
-
 /** @noinspection PhpIncludeInspection */
 include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php');
 
@@ -29,25 +26,24 @@ include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config
 include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
 // Загружаем router
-// Router::start();
+Router::start();
 
-use proxy\Profiler;
-//$directory = 'system/admin';
+//use proxy\Profiler;
 
-Profiler::setIterataions(100);
-Profiler::testClass('core\Autoloader',[ [], 'rScanDir', [$directory]]);
+//Profiler::setIterataions(1000);
+//Profiler::testClass('core\Autoloader',[ [], 'rScanDir', ['files/portfolio/03_Банкеты']]);
 
 // статичесский класс
-//Profiler::testClass('proxy\Recursive',[ [], 'dir', [$directory]]);
+//Profiler::testClass('proxy\Recursive',[ [], 'dir', ['files/portfolio/03_Банкеты']]);
 
-Profiler::testClass('proxy\Recursive',[ [], 'dir', ['files/portfolio/03_Банкеты']]);
-Profiler::testClass('proxy\Recursive',[ [], 'scanDir', ['files/portfolio/03_Банкеты/']]);
+//Profiler::testClass('proxy\Recursive',[ [], 'dir', ['files/portfolio/03_Банкеты']]);
+//Profiler::testClass('proxy\Recursive',[ [], 'scanDir', ['files/portfolio/03_Банкеты/']]);
 // use Proxy;
 //Profiler::testClass('proxy\Session',[[], 'has', ['logget']]);
 
 //Profiler::testClass('proxy\Session',[[], 'set', ['test1/test2/test3', 'rrr']]);
 //Profiler::testFunction('array_key_exists',['test1/test2/test3/test4/test5', $_SESSION]);
-Profiler::generateResults();
+//Profiler::generateResults();
 
 
 ob_end_flush();
