@@ -1,15 +1,15 @@
 <?php
-require_once('Db.php');
+require_once('MysqliDb.php');
 error_reporting(E_ALL);
 $action = 'adddb';
-$data = [];
+$data = array();
 
 function printUsers () {
     global $db;
 
-    $users = $db->get ('users');
+    $users = $db->get ("users");
     if ($db->count == 0) {
-        echo '<td align=center colspan=4>No users found</td>';
+        echo "<td align=center colspan=4>No users found</td>";
         return;
     }
     foreach ($users as $u) {
@@ -28,44 +28,44 @@ function printUsers () {
 function action_adddb () {
     global $db;
 
-    $data = [
+    $data = Array(
         'login' => $_POST['login'],
         'customerId' => 1,
         'firstName' => $_POST['firstName'],
         'lastName' => $_POST['lastName'],
-        'password' => $db->func('SHA1(?)', [$_POST['password'] . 'salt123']),
+        'password' => $db->func('SHA1(?)',Array ($_POST['password'] . 'salt123')),
         'createdAt' => $db->now(),
         'expires' => $db->now('+1Y')
-    ];
+    );
     $id = $db->insert ('users', $data);
-    header ('Location: index.php');
+    header ("Location: index.php");
     exit;
 }
 
 function action_moddb () {
     global $db;
 
-    $data = [
+    $data = Array(
         'login' => $_POST['login'],
         'customerId' => 1,
         'firstName' => $_POST['firstName'],
         'lastName' => $_POST['lastName'],
-    ];
+    );
     $id = (int)$_POST['id'];
-    $db->where ('customerId',1);
-    $db->where ('id', $id);
+    $db->where ("customerId",1);
+    $db->where ("id", $id);
     $db->update ('users', $data);
-    header ('Location: index.php');
+    header ("Location: index.php");
     exit;
 
 }
 function action_rm () {
     global $db;
     $id = (int)$_GET['id'];
-    $db->where ('customerId',1);
-    $db->where ('id', $id);
+    $db->where ("customerId",1);
+    $db->where ("id", $id);
     $db->delete ('users');
-    header ('Location: index.php');
+    header ("Location: index.php");
     exit;
 
 }
@@ -76,13 +76,13 @@ function action_mod () {
 
     $action = 'moddb';
     $id = (int)$_GET['id'];
-    $db->where ('id', $id);
-    $data = $db->getOne ('users');
+    $db->where ("id", $id);
+    $data = $db->getOne ("users");
 }
 
-$db = new Db ('localhost', 'root', '', 'testdb');
+$db = new Mysqlidb ('localhost', 'root', '', 'testdb');
 if ($_GET) {
-    $f = 'action_'.$_GET['action'];
+    $f = "action_".$_GET['action'];
     if (function_exists ($f)) {
         $f();
     }
@@ -109,18 +109,15 @@ if ($_GET) {
     </tr>
     <?php printUsers();?>
 
-
-<tr width=50%>
-    <th>
+</table>
+<hr width=50%>
 <form action='index.php?action=<?php echo $action?>' method=post>
     <input type=hidden name='id' value='<?php echo $data['id']?>'>
     <input type=text name='login' required placeholder='Login' value='<?php echo $data['login']?>'>
     <input type=text name='firstName' required placeholder='First Name' value='<?php echo $data['firstName']?>'>
     <input type=text name='lastName' required placeholder='Last Name' value='<?php echo $data['lastName']?>'>
     <input type=password name='password' placeholder='Password'>
-    <input type=submit value='New User'>
-    </th>
-    </tr>
+    <input type=submit value='New User'></td>
 <form>
 </table>
 </center>

@@ -1,7 +1,9 @@
 <?php
 # prevent direct viewing of Security.php
-if (false !== strpos($_SERVER['SCRIPT_NAME'], Alex_selfchk())) {
-	send404();
+use proxy\Error;
+
+if (false !== strpos($_SERVER['SCRIPT_NAME'], AlexSelfChk())) {
+	Error::error404();
 }
 
 /**
@@ -72,7 +74,7 @@ class Security
 	function setVars()
 		{
 
-			$this->_file_stop = '424';
+			$this->_file_stop = '403';
 			$this->_set_error_level();
 
 			# make sure $_SERVER[ 'REQUEST_URI' ] is set
@@ -117,22 +119,11 @@ class Security
 		}
 
 	/**
-	 * send403()
 	 *
 	 */
 	function send403()
 		{
-
-			/*$header = array( 'HTTP/1.1 403 Access Denied', 'Status: 403 Access Denied by Protection ' . $this->_psec, 'Content-Length: 0' );
-			   foreach ( $header as $sent ) {
-				   header( $sent );
-			   }*/
-
-			header('HTTP/1.1 403 Access Denied');
-			header('Content-Length: 0');
-			header('Location: ' . $this->_file_stop, false, 307);  // 307 т.к. на 403 хост не реагирует
-
-			die ('403');
+			Error::error403();
 		}
 
 
@@ -1149,10 +1140,10 @@ class Security
 
 
 /**
- * Alex_selfchk()
+ * AlexSelfChk()
  *
  */
-function Alex_selfchk()
+function AlexSelfChk()
 	{
 		$afp = str_replace(DIRECTORY_SEPARATOR, urldecode('%2F'), __FILE__);
 		$afp = explode('/', $afp);
@@ -1166,19 +1157,4 @@ function Alex_selfchk()
 		}
 
 		return false;
-	}
-
-/**
- * send404()
- *
- */
-function send404()
-	{
-		$header = ['HTTP/1.1 404 Not Found', 'HTTP/1.1 404 Not Found', 'Content-Length: 0'];
-
-		foreach ($header as $sent) {
-			header($sent);
-		}
-		header('Refresh: 0; url=/../../stop.php'); // переадресовать на страницу ошибки немедленно (без задержки).
-		die ('');
 	}

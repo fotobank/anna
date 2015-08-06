@@ -82,6 +82,42 @@ use helper\Session\Check\Session as Instance;
  *
  * @method   static Session clear()
  * @see      proxy\Session::clear()
+ *
+ * @method   static bool sessionExists()
+ * @see      proxy\Session::sessionExists()
+ *
+ * @method   static void start()
+ * @see      proxy\Session::start()
+ *
+ * @method   static string getId()
+ * @see      proxy\Session::getId()
+ *
+ * @method   static bool Session sessionExists()
+ * @see      proxy\Session::sessionExists()
+ *
+ * @method   static destroy()
+ * @see      proxy\Session::destroy()
+ *
+ * @method   static bool cookieExists()
+ * @see      proxy\Session::cookieExists()
+ *
+ * @method   static void expireSessionCookie()
+ * @see      proxy\Session::expireSessionCookie()
+ *
+ * @method   static string getName()
+ * @see      proxy\Session::getName()
+ *
+ * @method   static Session setName($name)
+ * @see      proxy\Session::setName()
+ *
+ * @method   static void setSessionCookieLifetime($ttl)
+ * @see      proxy\Session::setSessionCookieLifetime()
+ *
+ * @method   static bool regenerateId($deleteOldSession = true)
+ * @see      proxy\Session::regenerateId()
+ *
+ * @method   static Session setId($id)
+ * @see      proxy\Session::setId()
  */
 class Session extends AbstractProxy
 {

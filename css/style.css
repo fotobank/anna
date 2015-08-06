@@ -11663,7 +11663,7 @@ footer .social {
   position: relative;
 }
 /* line 217, ../sass/inc/_core.scss */
-footer .container {
+footer .footer-container {
   width: 100%;
   z-index: 0;
   font-size: .875em;

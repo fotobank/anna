@@ -6,7 +6,7 @@
  * Time: 1:48
  */
 
-namespace Common\Container;
+namespace common\Container;
 
 /**
  * Example class to test aspects

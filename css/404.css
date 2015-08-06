@@ -2,12 +2,12 @@ html {
     overflow:  hidden;
 }
 .info, .info:before, .info:after, .tehno-info, .tehno-info:before, .tehno-info:after, .error, .err-404:after,
-.err-404:before, .engineering:after, .engineering:before, .error-424:after, .error-424:before,
-.info-424:before, .info-424:after {
+.err-404:before, .engineering:after, .engineering:before, .error-403:after, .error-403:before,
+.info-403:before, .info-403:after {
 	/*text-align: center;*/
 	position: absolute;
 }
-.err-404:after, .engineering:after, .err-404:before, .engineering:before, .error-424:before, .error-424:after {
+.err-404:after, .engineering:after, .err-404:before, .engineering:before, .error-403:before, .error-403:after {
 	font-size: 120px;
 	width: 750px;
 	margin: auto;
@@ -17,12 +17,12 @@ html {
 	right: 35%;
 	color: white;
 }
-.engineering:after, .err-404:after, .error-424:after {
+.engineering:after, .err-404:after, .error-403:after {
 	opacity: 0.1;
 	/*-webkit-animation: noise-1 7s linear infinite;*/
 	/*animation: noise-1 7s linear infinite;*/
 }
-.engineering:before, .err-404:before, .error-424:before {
+.engineering:before, .err-404:before, .error-403:before {
 	opacity: 0.6;
 	-webkit-animation: noise-2 7s linear infinite;
 	animation: noise-2 7s linear infinite;
@@ -73,13 +73,13 @@ pre code {
 	left: 40px;
 	right: 10px;
 }
-.info:before, .tehno-info:before, .info-424:before {
+.info:before, .tehno-info:before, .info-403:before {
 	opacity: 0.3;
 	color: #8b92ff;
 	-webkit-animation: noise-1 9s linear infinite;
 	animation: noise-1 9s linear infinite;}
 
-.info:after, .tehno-info:after, .info-424:after {
+.info:after, .tehno-info:after, .info-403:after {
 	opacity: 1;
 	color: white;
 	-webkit-animation: noise-2 10s linear infinite;
@@ -184,21 +184,21 @@ span.green {
 	}
 }
 
-/*======================================= - 424 - =========================================*/
+/*======================================= - 403 - =========================================*/
 
-.error-424:after, .error-424:before {
+.error-403:after, .error-403:before {
     position: absolute;
     top: 150px;
 	margin-top: 0;
-	content: 'error 424';
+	content: 'error 403';
 }
-.inner-424{
+.inner-403 {
 	min-width: 100%;
 	position: absolute;
 	margin-top: 80px;
     white-space: pre-wrap;
 }
-div.wrap-424 pre, div.wrap-424 code {
+div.wrap-403 pre, div.wrap-403 code {
 	position: relative;
 	width: 100%;
     height: 700px;
@@ -213,7 +213,7 @@ div.wrap-424 pre, div.wrap-424 code {
     overflow:  hidden;
 }
 /* надпись - protection from hackers */
-.info-424:before, .info-424:after {
+.info-403:before, .info-403:after {
 	content: 'protection from hackers';
 	font-size: 78px;
 	bottom: 0;
@@ -222,7 +222,7 @@ div.wrap-424 pre, div.wrap-424 code {
     top: 80px;
 }
 /* /body и /html */
-.info-424 {
+.info-403 {
 	position: absolute;
 	top: 350px;
 	left: 0;

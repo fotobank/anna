@@ -2,7 +2,7 @@
 /**
  * @namespace
  */
-namespace Common\Container;
+namespace common\Container;
 
 /**
  * Container implements JsonSerializable interface

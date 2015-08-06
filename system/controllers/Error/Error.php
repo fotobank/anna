@@ -34,23 +34,35 @@ class Error extends Controller {
 	}
 
 	/**
-	 * @internal param string $info
-	 * @internal param int|string $err
+	 * error404()
 	 */
 	public function error404() {
 
 		$model = new model\Error();
-		echo $this->mustache->render('404', $model);
+		echo $this->mustache->render('error\404', $model);
+		exit;
 	}
 
 	/**
-	 * @internal param string $info
-	 * @internal param int|string $err
+	 * error403()
 	 */
-	public function error424() {
+	public function error403() {
 
 		$model = new model\Error();
-		echo $this->mustache->render('424', $model);
+		echo $this->mustache->render('error\403', $model);
+		exit;
+	}
+
+	/**
+	 * stop()
+	 */
+	public function stop() {
+
+		$model = new model\Error([
+			                         'http_host' => getenv('HTTP_HOST')
+		                         ]);
+		echo $this->mustache->render('error\stop', $model);
+		exit;
 	}
 
 }

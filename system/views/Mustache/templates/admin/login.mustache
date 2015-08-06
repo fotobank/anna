@@ -65,7 +65,8 @@
                     {{#err_login}}
                     <div class="alert alert-error">
                         <a class="close" data-dismiss="alert" href="#">?</a>
-                        <img src="/system/admin/resources/img/icons/smiley_sad.png" alt=""> Incorrect Username or Password!
+                        <img src="/system/admin/resources/img/icons/smiley_sad.png" alt="ошибка подключения">
+                        {{err_login}}
                     </div>
                     {{/err_login}}
                     <div class="tab-content">
@@ -75,10 +76,12 @@
                                     <input type="text" id="inputFirstName" required
                                            pattern="[?a-zA-Zа-яА-Я0-9_-]{2,20}"
                                            placeholder="Представьтесь, пожалуйста"
+                                           value=""
                                            name="login"
                                            title="Допустимы любые латинские и русские буквы, цифры, подчеркивание и тире в колличестве от 2 до 20шт.">
                                     <input type="password" class="input-medium" placeholder="Пароль" required
                                            pattern="[?a-zA-Z0-9_-]{6,14}"
+                                           value="password"
                                            title="Допустимы любые латинские буквы, цифры, подчеркивание и тире в колличестве от 6 до 14шт."
                                             name="password">
                                     <button type="submit" class="btn ml-20" name="submit">Вход</button>
@@ -97,7 +100,7 @@
                             </form>
                         </div>
                         <div id="register" class="tab-pane">
-                            <form class="form-horizontal" action="register">
+                        <form class="form-horizontal" action="register" method='post' name='register'>
                         <div class="form-block">
                                 <div class="control-group">
                                     <label class="control-label" for="inputFirstName">Имя</label>

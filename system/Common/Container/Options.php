@@ -8,7 +8,7 @@
  */
 
 
-namespace Common\Container;
+namespace common\Container;
 
 use Exception;
 

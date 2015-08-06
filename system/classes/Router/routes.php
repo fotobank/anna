@@ -49,9 +49,13 @@ return [
 		'controller' => 'Error',
 		'method'     => 'error404'
 	],
-	'424'  => [
+	'403'  => [
 		'controller' => 'Error',
-		'method'     => 'error424'
+		'method'     => 'error403'
+	],
+	'stop'  => [
+		'controller' => 'Error',
+		'method'     => 'stop'
 	],
 	// ajax e-mail на странице блокировки
 	'subscription_lock_page' => [

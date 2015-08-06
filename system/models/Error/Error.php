@@ -15,6 +15,7 @@
 namespace models\Error;
 
 use models\Base as model;
+use proxy\Server;
 
 /**
  * Class Error
@@ -32,19 +33,6 @@ class Error extends model\Base {
 		// инициализация конструктора родительского класса
 		parent::__construct();
 
-	}
-
-	/**
-	 * экшен
-	 *
-	 * @throws \phpbrowscap\Exception
-	 */
-	public function error() {
-
-		header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
-		/** @noinspection PhpIncludeInspection */
-		include(SITE_PATH.'404.php');
-		exit();
 	}
 
 }

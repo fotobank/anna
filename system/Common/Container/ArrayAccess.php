@@ -1,5 +1,5 @@
 <?php
-namespace Common\Container;
+namespace common\Container;
 
 /**;
  * Container implements ArrayAccess

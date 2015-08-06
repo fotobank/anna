@@ -16,7 +16,9 @@
 namespace models\Login;
 
 use models\Base as model;
+use proxy\Cookie;
 use proxy\Db;
+use proxy\Post;
 use proxy\Session;
 
 
@@ -28,7 +30,7 @@ use proxy\Session;
 class Login extends model\Base
 {
     // сообщение ошибки для окна логина
-    public $err_login = false;
+    public $err_login = '';
 
     /**
      * @param $options
@@ -47,59 +49,56 @@ class Login extends model\Base
      */
     public function login()
     {
-        if(Session::has('logged'))
+        if(!Session::has('logged'))
         {
-            if( ! array_key_exists('submit', $_POST))
+            if(!Post::has('submit'))
             {
                 return false;
             }
             else
             {
-                if(empty($_POST['login']) || $_POST['login'] == 'login')
+                if(Post::get('login') == '')
                 {
                     $this->err_login = ('Поле "Login" является обязательным для заполнения.');
+                    return false;
                 }
-                else if(empty($_POST['password']) || $_POST['password'] == 'password')
+                else if(Post::get('password') == 'password')
                 {
                     $this->err_login = ('Для входа необходимо вернуться и заполнить поле "Password".');
+                    return false;
                 }
                 else
                 {
-                    Db::where('login', $_POST['login']);
+                    Db::where('login', Post::get('login'));
                     $q = Db::get(TBL_USERS, null, ['id', 'login', 'pass']);
 
-                    if(count($q) > '0')
+                    if(array_key_exists(0, $q))
                     {
                         $_pass = $_id = $_login = null;
                         extract($q[0], EXTR_PREFIX_ALL, '');
 
-                        if(md5($_POST['password']) === $_pass)
+                        $pass = password_hash(Post::get('password'), PASSWORD_BCRYPT, ['salt' => SALT]);
+
+                        if(password_verify(Post::get('password'), $_pass))
                         {
                             Session::set('logged', true);
                             Session::set('id', $_id);
-                            $_COOKIE['nick'] = $_login;
+                            Cookie::set('nick', $_login, time()+3600);
                             if($_id == 1)
                             {
                                 Session::set('admnews', md5($_login . '///' . $_pass));
                             }
                             Session::set('nick', $_login);
                             // отключаем кнопку login и включаем exit
-                            $this->login = 1;
+                            $this->login = true;
+                            return true;
                         }
-                        else
-                        {
-                            $this->err_login = ('Неверные логин и пароль!');
-                        }
-                    }
-                    else
-                    {
-                        $this->err_login = ('Неверные логин и пароль!');
-
                     }
                 }
             }
+            $this->err_login = ('Неверные логин и пароль!');
+            return false;
         }
-
-        return true;
+        return false;
     }
 }

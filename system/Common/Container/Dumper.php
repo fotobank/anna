@@ -12,12 +12,12 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace Common\Container;
+namespace common\Container;
 
 
 /**
  * Class Dumper
- * @package Common\Container
+ * @package common\Container
  */
 trait Dumper
 {

@@ -34,6 +34,7 @@ namespace core;
 
 use Exception;
 use exception\BaseException;
+use proxy\Error;
 
 
 /** @noinspection PhpIncludeInspection */
@@ -505,11 +506,17 @@ END;
         {
             // сообщение log класс не найден
             $this->logLoadError($class_name . $ext);
-            throw new AutoloadException(
-                'класс <b>"' . $class_name . '"</b> не найден'
-            );
+            if(DEBUG_MODE)
+            {
+                throw new AutoloadException(
+                    'класс <b>"' . $class_name . '"</b> не найден'
+                );
+            }
+            else
+            {
+                Error::error404();
+            }
         }
-
         return false;
     }
 
@@ -537,14 +544,14 @@ END;
         }
         /** ищем класс с незаданным namespase */
 
-        foreach($this->array_scan_files[$class_name] as $path_class)
+        if(array_key_exists($class_name, $this->array_scan_files))
         {
+            $path_class = $this->array_scan_files[$class_name][0];
             if(false === $this->checkClass($path_class, $class_name, $ext))
             {
                 return false;
             }
         }
-
         // класс не найден
         return true;
     }

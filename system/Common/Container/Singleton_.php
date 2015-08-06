@@ -6,7 +6,7 @@
  * Time: 23:39
  */
 
-namespace Common\Container;
+namespace common\Container;
 
 /**
  * Class Singleton_

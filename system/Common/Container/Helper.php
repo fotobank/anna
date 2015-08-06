@@ -3,10 +3,10 @@
 /**
  * @namespace
  */
-namespace Common\Container;
+namespace common\Container;
 
 use Exception;
-use classes\pattern\Registry;
+
 
 /**
  * Helper trait

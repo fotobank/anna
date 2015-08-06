@@ -13,7 +13,6 @@
 
 use classes\pattern\Registry;
 use core\Autoloader;
-use proxy\Server;
 use proxy\Session;
 
 
@@ -48,6 +47,8 @@ ini_set('log_errors', 1);
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'inc/func.php');
 
+defined('CODE_PAGE') or define('CODE_PAGE', detect_encoding(SITE_PATH . 'inc/кодировка файловой системы.codepage'));
+
 // профилирование при DEBUG_MODE
 if(DEBUG_MODE && !is_ajax())
 {
@@ -56,8 +57,6 @@ if(DEBUG_MODE && !is_ajax())
 
 // защита
 new Security();
-
-defined('CODE_PAGE') or define('CODE_PAGE', detect_encoding(SITE_PATH . 'inc/кодировка файловой системы.codepage'));
 
 if(!function_exists('debugHC'))
 {
@@ -78,6 +77,7 @@ if(!function_exists('debugHC'))
 // debugHC(SITE_PATH.'classes/Mustache/templates', 'test');
 // debugHC( CODE_PAGE, 'CODE_PAGE' );
 // debugHC( SITE_PATH, 'SITE_PATH' );
+
 
 $err                 = new classes\Inter\Error();
 $err->conf['logDir'] = SITE_PATH . 'log';

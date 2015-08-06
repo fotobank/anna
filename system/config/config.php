@@ -16,11 +16,14 @@ version_compare(phpversion(), '5.5.0', '>=') === true or die ('PHP5.5 Only');
 
 // Константы:
 defined('PROTECT_PAGE') or define('PROTECT_PAGE', 1);
-// use for production mode 'prod' or for developer 'prod'
+// use for production mode 'prod' or for developer 'dev'
 defined('APP_MODE') or define('APP_MODE', 'dev');
 defined('PATH_SEPARATOR') or define('PATH_SEPARATOR', getenv('COMSPEC') ? ';' : ':');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+defined('SALT') or define('SALT', 'qE3!nT^(gj)+?|6~d&.ru|');
+
 // путь к корневой папке сайта
+/** @noinspection RealpathOnRelativePathsInspection */
 defined('SITE_PATH') or define('SITE_PATH', realpath(__DIR__ . DS . '..' . DS . '..' . DS) . DS);
 
 set_include_path(ini_get('include_path') . PATH_SEPARATOR . __DIR__);

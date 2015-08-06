@@ -12,7 +12,7 @@ namespace models\Base;
 
 use proxy\Cookie;
 use proxy\Router as Router;
-use Common\Container\Options;
+use common\Container\Options;
 use proxy\Db as Db;
 use exception\BaseException;
 use proxy\Session;
@@ -99,6 +99,7 @@ class Base implements InterfaceModelsBase
     // кнопка login(true) - exit(false)
     public $login = 0;
 
+    public $http_host;
 
     /**
      *
@@ -113,11 +114,11 @@ class Base implements InterfaceModelsBase
             $this->auto_copyright = auto_copyright('2011');
             $this->php_sessid = Cookie::get('PHPSESSID') or ip();
             $this->categorii = $this->getDbTitleName();
-            $this->current_razdel = Router::getUrlRoutes()[0];
+            $this->current_razdel = Router::getUrlRoutes()[0] or null;
             $this->getMetaTitle();
             // кнопка login
             $this->login = Session::get('logged');
-        } catch (BaseException $e) {
+        } catch (BaseModelsException $e) {
             throw ($e);
         }
 
@@ -155,7 +156,6 @@ class Base implements InterfaceModelsBase
      * присвоение значений переменным metatitle в шапке
      * @return bool
      * @throws BaseModelsException
-     * @throws \Exception
      */
     public function getMetaTitle()
     {
@@ -232,5 +232,4 @@ class Base implements InterfaceModelsBase
     {
         $this->onluIndex = $onluIndex;
     }
-
 }

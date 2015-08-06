@@ -1,16 +1,14 @@
 <?php
 
 namespace classes\Inter;
+
 /**
  * Class Error
  */
 use classes\pattern\Registry;
-use controllers\Controller\Controller;
 use Exception;
 use ErrorException;
 use classes\File;
-use exception\CommonException;
-use proxy\Router;
 
 /**
  * Class Error
@@ -25,7 +23,7 @@ class Error
 	public $conf = [
 
 		// страница - заглушка
-		'friendlyExceptionPage' => 'system/controllers/Error/stop.php',
+		'friendlyExceptionPage' => 'stop',
 		// уровень детализации лога
 		'logType'               => 'detail',
 		// false / simple / detail
@@ -134,7 +132,7 @@ class Error
 					if (0 != count($this->_allError)) {
 						$this->write_errorlog();
 					}
-					$this->printExceptionPage();
+					\proxy\Error::stop();
 				}
 		}
 
@@ -163,21 +161,6 @@ class Error
 			$this->e = $e;
 			$this->print_err();
 		}
-
-	public function printExceptionPage()
-		{
-				$exception_page = SITE_PATH . $this->conf['friendlyExceptionPage'];
-				if (is_file($exception_page)) {
-
-					if (!headers_sent()) {
-						header($_SERVER['SERVER_PROTOCOL'] . ' 503 Retry-After');
-					}
-					/** @noinspection PhpIncludeInspection */
-					require($exception_page);
-                    exit;
-				}
-		}
-
 
 	/**
 	 * @param $errno

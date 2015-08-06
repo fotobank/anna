@@ -6,11 +6,11 @@
  * Time: 1:04
  */
 
-namespace Common\Container;
+namespace common\Container;
 
 /**
  * Class GetterSetter
- * @package Common\Container
+ * @package common\Container
  */
 trait GetterSetter
 {

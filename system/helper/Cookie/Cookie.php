@@ -34,4 +34,32 @@ class Cookie extends ArrayHelper
         }
 
     }
+
+    /**
+     * @param $name
+     * @param $value
+     * @param $expire
+     * @param $path
+     * @param $domain
+     * @param $secure
+     *
+     * @return $this|void
+     */
+    public function set($name, $value, $expire  = 0, $path  = '', $domain  = '', $secure  = 0)
+    {
+        setcookie ($name, $value, $expire, $path, $domain, $secure);
+    }
+
+    /**
+     * Delete a value from session by its key.
+     *
+     * @param $name
+     *
+     * @return bool
+     * @internal param $key
+     */
+    public function del($name)
+    {
+        setcookie ($name, $value = '');
+    }
 }

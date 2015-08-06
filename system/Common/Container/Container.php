@@ -2,7 +2,7 @@
 /**
  * @namespace
  */
-namespace Common\Container;
+namespace common\Container;
 
 /**
  * Container of data for object
@@ -23,7 +23,7 @@ trait Container
      * @param mixed $value
      * @return void
      */
-    protected function doSetContainer($key, $value)
+    protected function setContainer($key, $value)
     {
         $this->container[$key] = $value;
     }
@@ -33,9 +33,9 @@ trait Container
      * @param string $key
      * @return mixed
      */
-    protected function doGetContainer($key)
+    protected function getContainer($key)
     {
-        if ($this->doContainsContainer($key)) {
+        if ($this->containsContainer($key)) {
             return $this->container[$key];
         } else {
             return null;
@@ -47,7 +47,7 @@ trait Container
      * @param string $key
      * @return bool
      */
-    protected function doContainsContainer($key)
+    protected function containsContainer($key)
     {
         return array_key_exists($key, $this->container);
     }
@@ -57,7 +57,7 @@ trait Container
      * @param string $key
      * @return void
      */
-    protected function doDeleteContainer($key)
+    protected function deleteContainer($key)
     {
         unset($this->container[$key]);
     }

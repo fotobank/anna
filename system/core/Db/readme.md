@@ -1,12 +1,13 @@
-MysqliDb -- Simple MySQLi wrapper with prepared statements
+MysqliDb -- Simple MySQLi wrapper and object mapper with prepared statements
 <hr>
 ### Table of Contents
 **[Initialization](#initialization)**  
+**[Objects mapping](#objects-mapping)**  
 **[Insert Query](#insert-query)**  
 **[Update Query](#update-query)**  
 **[Select Query](#select-query)**  
 **[Delete Query](#delete-query)**  
-**[Generic Query](#generic-query-method)**  
+**[Running raw SQL queries](#running-raw-sql-queries)**  
 **[Query Keywords](#query-keywords)**  
 **[Raw Query](#raw-query-method)**  
 **[Where Conditions](#where-method)**  
@@ -52,9 +53,10 @@ $db = new MysqliDb (Array (
                 'password' => 'password',
                 'db'=> 'databaseName',
                 'port' => 3306,
+                'prefix' => 'my_',
                 'charset' => 'utf8'));
 ```
-port and charset params are optional.
+prefix, port and charset params are optional.
 
 Reuse already connected mysqli:
 ```php
@@ -62,12 +64,29 @@ $mysqli = new mysqli ('host', 'username', 'password', 'databaseName');
 $db = new MysqliDb ($mysqli);
 ```
 
-Its also possible to set a table prefix:
+Its also possible to set a table prefix via separate call:
 ```php
 $db->setPrefix ('my_');
 ```
 
+If you need to get already created mysqliDb object from another class or function use
+```php
+    function init () {
+        // db staying private here
+        $db = new MysqliDb ('host', 'username', 'password', 'databaseName');
+    }
+    function myfunc () {
+        // obtain db object created in init  ()
+        $db = MysqliDb::getInstance();
+        ...
+    }
+```
+
 Next, prepare your data, and call the necessary methods. 
+
+### Objects mapping
+dbObject.php is an object mapping library built on top of mysqliDb to provide model prepresentation functionality.
+See <a href='dbObject.md'>dbObject manual for more information</a>
 
 ### Insert Query
 Simple example
@@ -102,8 +121,24 @@ if ($id)
     echo 'user was created. Id=' . $id;
 else
     echo 'insert failed: ' . $db->getLastError();
-
 ```
+
+Insert with on duplicate key update
+```php
+$data = Array ("login" => "admin",
+               "firstName" => "John",
+               "lastName" => 'Doe',
+               "createdAt" => $db->now(),
+               "updatedAt" => $db->now(),
+);
+$updateColumns = Array ("updateAt");
+$lastInsertId = "id";
+$db->onDuplicate($updateColumns, $lastInsertId);
+$id = $db->insert ('users', $data);
+```
+
+### Replace Query
+<a href='https://dev.mysql.com/doc/refman/5.0/en/replace.html'>Replace()</a> method implements same API as insert();
 
 ### Update Query
 ```php
@@ -121,7 +156,6 @@ if ($db->update ('users', $data))
 else
     echo 'update failed: ' . $db->getLastError();
 ```
-
 ### Select Query
 After any select/get function calls amount or returned rows
 is stored in $count variable
@@ -133,8 +167,8 @@ $users = $db->get('users', 10); //contains an Array 10 users
 or select with custom columns set. Functions also could be used
 
 ```php
-$cols = Array("id", "name", "email");
-$users = $db->get("users", null, $cols);
+$cols = Array ("id", "name", "email");
+$users = $db->get ("users", null, $cols);
 if ($db->count > 0)
     foreach ($users as $user) { 
         print_r ($user);
@@ -158,22 +192,22 @@ or select one column value or function result
 $count = $db->getValue ("users", "count(*)");
 echo "{$count} users found";
 ```
-
-### Delete Query
+### Defining a return type
+MysqliDb can return result in 3 different formats: Array of Array, Array of Objects and a Json string. To select a return type use ArrayBuilder(), ObjectBuilder() and JsonBuilder() methods. Note that ArrayBuilder() is a default return type
 ```php
-$db->where('id', 1);
-if($db->delete('users')) echo 'successfully deleted';
+// Array return type
+$= $db->getOne("users");
+echo $u['login'];
+// Object return type
+$u = $db->ObjectBuilder()->getOne("users");
+echo $u->login;
+// Json return type
+$json = $db->JsonBuilder()->getOne("users");
 ```
 
-### Generic Query Method
-By default rawQuery() will filter out special characters so if you getting problems with it
-you might try to disable filtering function. In this case make sure that all external variables are passed to the query via bind variables
-
+### Running raw SQL queries
 ```php
-// filtering enabled
-$users = $db->rawQuery('SELECT * from users where customerId=?', Array (10));
-// filtering disabled
-//$users = $db->rawQuery('SELECT * from users where id >= ?', Array (10), false);
+$users = $db->rawQuery('SELECT * from users where id >= ?', Array (10));
 foreach ($users as $user) {
     print_r ($user);
 }
@@ -265,7 +299,6 @@ $results = $db->get("users");
 ```
 
 Also you can use raw where conditions:
-Также вы можете использовать в raw where условия:
 ```php
 $db->where ("id != companyId");
 $db->where ("DATE(createdAt) = DATE(lastLogin)");
@@ -290,17 +323,17 @@ echo "Showing {$count} from {$db->totalCount}";
 ```
 
 ### Query Keywords
-To add LOW PRIORITY | DELAYED | HIGH PRIORITY | IGNORE and the rest of mysql keywords to INSERT , SELECT , UPDATE, DELETE query:
+To add LOW PRIORITY | DELAYED | HIGH PRIORITY | IGNORE and the rest of the mysql keywords to INSERT (), REPLACE (), GET (), UPDATE (), DELETE() method:
 ```php
 $db->setQueryOption('LOW_PRIORITY');
-$db->insert($table,$param);
+$db->insert ($table, $param);
 // GIVES: INSERT LOW_PRIORITY INTO table ...
 ```
 
 Also you can use an array of keywords:
 ```php
 $db->setQueryOption(Array('LOW_PRIORITY', 'IGNORE'));
-$db->insert($table,$param);
+$db->insert ($table,$param);
 // GIVES: INSERT LOW_PRIORITY IGNORE INTO table ...
 ```
 
@@ -320,6 +353,13 @@ $results = $db
 	->get('users');
 ```
 
+### Delete Query
+```php
+$db->where('id', 1);
+if($db->delete('users')) echo 'successfully deleted';
+```
+
+
 ### Ordering method
 ```php
 $db->orderBy("id","asc");
@@ -329,11 +369,25 @@ $results = $db->get('users');
 // Gives: SELECT * FROM users ORDER BY id ASC,login DESC, RAND ();
 ```
 
-order by values example:
+Order by values example:
 ```php
 $db->orderBy('userGroup', 'ASC', array('superuser', 'admin', 'users'));
 $db->get('users');
 // Gives: SELECT * FROM users ORDER BY FIELD (userGroup, 'superuser', 'admin', 'users') ASC;
+```
+
+If you are using setPrefix () functionality and need to use table names in orderBy() method make sure that table names are escaped with ``.
+
+```php
+$db->setPrefix ("t_");
+$db->orderBy ("users.id","asc");
+$results = $db->get ('users');
+// WRONG: That will give: SELECT * FROM t_users ORDER BY users.id ASC;
+
+$db->setPrefix ("t_");
+$db->orderBy ("`users`.id", "asc");
+$results = $db->get ('users');
+// CORRECT: That will give: SELECT * FROM t_users ORDER BY t_users.id ASC;
 ```
 
 ### Grouping method
@@ -447,11 +501,6 @@ Reconnect in case mysql connection died
 ```php
 if (!$db->ping())
     $db->connect()
-```
-
-Obtain an initialized instance of the class from another class
-```php
-    $db = MysqliDb::getInstance();
 ```
 
 Get last executed SQL query.

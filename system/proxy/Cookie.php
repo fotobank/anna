@@ -15,6 +15,7 @@
 
 namespace proxy;
 
+use core\Db\dbObject;
 use helper\Cookie\Cookie as Instance;
 
 
@@ -24,32 +25,23 @@ use helper\Cookie\Cookie as Instance;
  * Class Session
  * @package Proxy
  *
- * @method   static bool|null get($key)
+ * @method   static bool|null get($name)
  * @see      proxy\Cookie::get()
  *
- * @method   static bool inc($key, $value=1)
+ * @method   static bool inc($name, $value=1)
  * @see      proxy\Cookie::inc()
  *
- * @method   static bool dec($key, $value=1)
+ * @method   static bool dec($name, $value=1)
  * @see      proxy\Cookie::dec()
  *
- * @method   static bool has($key)
+ * @method   static bool has($name)
  * @see      proxy\Cookie::has()
  *
- * @method   static void del($key)
+ * @method   static void del($name)
  * @see      proxy\Cookie::del()
- *
- * @method   static bool _has($path)
- * @see      proxy\Cookie::_has()
  *
  * @method   static array CookieKeys()
  * @see      proxy\Cookie::CookieKeys()
- *
- * @method   static array|mixed _get($path = null)
- * @see      proxy\Cookie::__get()
- *
- * @method   static bool|mixed find($value)
- * @see      proxy\Cookie::find()
  *
  * @method   static bool isIn($name, $value)
  * @see      proxy\Cookie::isIn()
@@ -66,8 +58,9 @@ use helper\Cookie\Cookie as Instance;
  * @method   static array fetchAll()
  * @see      proxy\Cookie::fetchAll()
  *
- * @method   static Session clear()
- * @see      proxy\Cookie::clear()
+ * @method   static object|void set($name, $value, $expire  = 0, $path  = '', $domain  = '', $secure  = 0)
+ * @see      proxy\Cookie::set()
+ *
  */
 class Cookie extends AbstractProxy
 {

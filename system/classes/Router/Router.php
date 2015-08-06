@@ -16,8 +16,10 @@ namespace classes\Router;
  */
 
 use exception\RouteException;
-use Common\Container\Helper;
+use common\Container\Helper;
 use proxy\Base as BaseModel;
+use Exception;
+use ReflectionMethod;
 
 
 /**
@@ -27,8 +29,6 @@ use proxy\Base as BaseModel;
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class Router implements InterfaceRouter
 {
-    const ALL_ROUTES = 'system/classes/Router/routes.php';
-
     use Helper;
 
     private
@@ -41,6 +41,8 @@ class Router implements InterfaceRouter
      * массив заданных роутов
      */
     protected $site_routes;
+
+    protected $all_routes = 'system/classes/Router/routes.php';
 
     // путь из url
     protected $url;
@@ -69,7 +71,7 @@ class Router implements InterfaceRouter
     public function __construct()
     {
         /** @noinspection PhpIncludeInspection */
-        $this->site_routes = include(SITE_PATH . Router::ALL_ROUTES);
+        $this->site_routes = include(SITE_PATH . $this->all_routes);
     }
 
     /**
@@ -185,6 +187,14 @@ class Router implements InterfaceRouter
     }
 
     /**
+     * @param string $all_routes
+     */
+    public function setAllRoutes($all_routes)
+    {
+        $this->all_routes = $all_routes;
+    }
+
+    /**
      * Checks is controller exists and inlcude it.
      *
      * @throws RouteException
@@ -216,15 +226,15 @@ class Router implements InterfaceRouter
         $instance = new $controller;
 
         if(method_exists($instance, $method)) {
-            $reflection = new \ReflectionMethod($instance, $method);
+            $reflection = new ReflectionMethod($instance, $method);
             if($reflection->isPublic()) {
                 $instance->$method($this->id, $this->param);
             } else {
                 throw new RouteException('метод "' . $method . '" не является публичным');
             }
+            unset($reflection);
         } else {
-            throw new RouteException('метод "' . $method . '" не найден в контроллере "' .
-                $controller . '"');
+            throw new RouteException('метод "' . $method . '" не найден в контроллере "' . $controller . '"');
         }
     }
 
@@ -241,7 +251,7 @@ class Router implements InterfaceRouter
                 return false;
             }
             return true;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         }
     }
@@ -265,7 +275,7 @@ class Router implements InterfaceRouter
         if(array_key_exists($search_route, $this->site_routes)) {
             // предопределеннй маршрут
             $predefined_roure = $this->site_routes[$search_route];
-            // найденный контроллер - если задан в файле routesпозволяет менять class контроллера
+            // найденный контроллер - если задан в файле routes позволяет менять class контроллера
             $this->current_controller = $predefined_roure['controller'];
         } else {
             // или из url

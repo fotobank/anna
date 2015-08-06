@@ -55,11 +55,8 @@ class Login extends Controller
         if((array_key_exists('url', $_GET) && $_GET['url'] === 'exit') ||
            !array_key_exists('logged', $_SESSION) || $_SESSION['logged'] !== true)
         {
-            unset($_SESSION['id'], $_SESSION['logged'], $_SESSION['nick'], $_COOKIE['nick']);
-            if(array_key_exists('admnews', $_SESSION))
-            {
-                unset($_SESSION['admnews']);
-            }
+            unset($_SESSION['id'], $_SESSION['logged'], $_SESSION['nick'], $_COOKIE['nick'], $_COOKIE['admnews']);
+
             header('Location: ' . $_SERVER['HTTP_REFERER'], true, 302);
         }
     }
