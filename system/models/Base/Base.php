@@ -19,6 +19,7 @@ use proxy\Session;
 use Exception;
 
 
+
 /**
  * Class BaseModelsException
  * @package models\Base
