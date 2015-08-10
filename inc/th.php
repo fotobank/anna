@@ -24,7 +24,7 @@ if ( $path && preg_match( '/\.(gif|jpeg|jpg|png)/i', $path ) ) {
 	}
 
 	$dirname = $basename = '';
-	extract(path_info($path, EXTR_OVERWRITE));
+	extract(path_info($path));
 	$realpath .= $dirname . '/thumb/' . $basename;
 	$image = @imagecreatefromstring( @file_get_contents( $realpath ) );
 }

@@ -42,7 +42,8 @@ class Portfolio extends model\Base
      */
     public function portfolio()
     {
-        $thumbdir  = Recursive::dir('files/portfolio', '.jpg', [], ['thumb'], true);
+        Recursive::setExcDir([['thumb']]);
+        $thumbdir  = Recursive::scanDir('files/portfolio/', ['jpg'], SCAN_DIR_NAME);
         $i         = 1;
         $portfolio = '';
         if(count($thumbdir)) {
@@ -64,9 +65,11 @@ class Portfolio extends model\Base
                        						<ul id="mycarousel-' . $i . '" class="jcarousel-skin-tango">';
 
 
-                for ($n = 0; $n < ceil(count($val) / 4); $n++) {
+                for ($n = 0; $n < ceil(count($val) / 4); $n++)
+                {
                     $portfolio .= '<li>';
-                    for ($m = 0; $m < ((count($val) - $n * 4 < 4) ? count($val) - $n * 4 : 4); $m++) {
+                    for ($m = 0; $m < ((count($val) - $n * 4 < 4) ? count($val) - $n * 4 : 4); $m++)
+                    {
                         $patcUtf8 = WinUtf($val[$n * 4 + $m], 'w');
                         $img      = preg_replace('/(\w+\/\w+\/[0-9_a-zà-ÿ¸À-ß¨]*)/i', '$1/thumb', $patcUtf8);
                         //	$patcUtf8 = urlencode($patcUtf8);

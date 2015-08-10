@@ -37,6 +37,7 @@ class Recursive
 
 
     /**
+     * быстрый метод сканирования директорий
      * @param string $base - закрывающий слеш обязателен  => dir/foto/
      * @param array  $arr_mask - расширение файла без точки
      * @param int    $type_array
@@ -181,5 +182,21 @@ class Recursive
             $file_info->getExtension() !== $ext or $files[$file_info->getBaseName('.'.$ext)][] = $file_info->getPath();
         }
         return $files;
+    }
+
+    /**
+     * @param array $inc_dir
+     */
+    public function setIncDir($inc_dir)
+    {
+        $this->inc_dir = $inc_dir;
+    }
+
+    /**
+     * @param array $exc_dir
+     */
+    public function setExcDir($exc_dir)
+    {
+        $this->exc_dir = $exc_dir;
     }
 }

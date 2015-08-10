@@ -14,13 +14,26 @@
 
 namespace models\Carousel;
 
+use common\Container\Options;
+
 
 /**
  * Class Litebox
  * @package models\Litebox
+ *
+ * @method   static string setRealPath($path)
+ * @see      models\Carousel\Carousel::setRealPath($path)
+ *
+ * @method   static string setNotFoto($path)
+ * @see      models\Carousel\Carousel::setNotFoto()
+ *
+ * @method   static string setWatermark($path)
+ * @see      models\Carousel\Carousel::setWatermark()
+ *
  */
 class Carousel
 {
+	use Options;
 
 	// путь до папки портфолио
 	protected $real_path;
@@ -35,7 +48,6 @@ class Carousel
 	 */
 	public function __construct()
 		{
-			$this->real_path = SITE_PATH . 'files' . DS . 'portfolio' . DS;
 			$this->not_foto = SITE_PATH . 'images/not_foto.png';
 			$this->watermark = SITE_PATH . 'images/watermark.png';
 		}
@@ -45,7 +57,7 @@ class Carousel
 	 * @param             $path
 	 * @param bool|string $thumb
 	 */
-	public function view($path, $thumb = '')
+	public function view($path)
 		{
 
 			$image = false;
@@ -58,9 +70,7 @@ class Carousel
 
 				}
 
-				$dirname = $basename = '';
-				extract(path_info($path, EXTR_OVERWRITE));
-				$this->real_path .= ($thumb === 'thumb') ? $dirname . '/thumb/' . $basename : $dirname . DS . $basename;
+				$this->real_path .= $path;
 				$image = @imagecreatefromstring(@file_get_contents($this->real_path));
 			}
 
@@ -69,7 +79,7 @@ class Carousel
 				error_log("\$realpath = " . $this->real_path . " \$image = " . $image, 0);
 				$image = imagecreatefromstring(file_get_contents($this->not_foto));
 
-			} elseif (!$thumb) {
+			} elseif(false === stripos($path, 'thumb')) {
 
 				$w = imagesx($image);
 				$h = imagesy($image);

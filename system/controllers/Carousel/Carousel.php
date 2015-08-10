@@ -30,8 +30,8 @@ class Carousel
 	 */
 	public function __construct()
 		{
-
 			$this->model = new model\Carousel();
+			$this->model->setRealPath(SITE_PATH . 'files' . DS . 'portfolio' . DS);
 		}
 
 	/**
@@ -41,7 +41,7 @@ class Carousel
 	public function thumb($dir, $img)
 		{
 			// если задан 'thumb' - вывод€тс€ превьюшки без вод€ного знака
-			$this->model->view( $dir . DS . $img, 'thumb' );
+			$this->model->view( $dir . DS .'thumb'. DS . $img );
 		}
 
 

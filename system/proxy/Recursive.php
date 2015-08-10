@@ -21,6 +21,7 @@ use helper\Recursive as Instance;
  * Class Recursive
  * @package Proxy
  *
+ * $type_array (SCAN_DIR_NAME, SCAN_BASE_NAME, SCAN_MULTI_ARRAY)
  * @method   static array scanDir($base = '', $arr_mask = [], $type_array = SCAN_BASE_NAME,  &$data = [])
  * @see      proxy\Recursive::scanDir()
  *
@@ -32,6 +33,12 @@ use helper\Recursive as Instance;
  *
  * @method   static array recursiveFile($path, $ext = 'php')
  * @see      proxy\Recursive::recursiveFile()
+ *
+ * @method   static setIncDir($inc_dir)
+ * @see      proxy\Recursive::setIncDir()
+ *
+ * @method   static setExcDir($exc_dir)
+ * @see      proxy\Recursive::setExcDir()
  */
 class Recursive extends AbstractProxy
 {
