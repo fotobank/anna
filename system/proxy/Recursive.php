@@ -21,11 +21,17 @@ use helper\Recursive as Instance;
  * Class Recursive
  * @package Proxy
  *
- * @method   static array dir($dir_scan = 'files/portfolio', $mask = '.jpg', $inc_subdir = [], $exc_subdir = [], $multi_arrau = true)
- * @see      proxy\Recursive::dir()
- *
- * @method   static array scanDir($base = '', $arr_mask = [], $inc_dir = [], $exc_dir = [], $multi_arrau = true, &$data = [])
+ * @method   static array scanDir($base = '', $arr_mask = [], $type_array = SCAN_BASE_NAME,  &$data = [])
  * @see      proxy\Recursive::scanDir()
+ *
+ * @method   static array recursiveDir($path, $filter = '')
+ * @see      proxy\Recursive::recursiveDir()
+ *
+ * @method   static array recursiveTree($path, $filter = '')
+ * @see      proxy\Recursive::recursiveTree()
+ *
+ * @method   static array recursiveFile($path, $ext = 'php')
+ * @see      proxy\Recursive::recursiveFile()
  */
 class Recursive extends AbstractProxy
 {

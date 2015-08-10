@@ -11,10 +11,10 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-//use proxy\Recursive;
+use core\Autoloader;
+use proxy\Recursive;
 use proxy\Router as Router;
 
-//use proxy\Session;
 
 ob_start();
 
@@ -26,24 +26,48 @@ include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config
 include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
 // Загружаем router
-Router::start();
+// Router::start();
 
-//use proxy\Profiler;
 
-//Profiler::setIterataions(1000);
-//Profiler::testClass('core\Autoloader',[ [], 'rScanDir', ['files/portfolio/03_Банкеты']]);
+
+$a = new Autoloader();
+$r2 = $a->rScanDir(SITE_PATH.'classes/');
+
+$r = Recursive::scanDir(SITE_PATH.'classes/', ['php']);
+/**
+ * @param $r
+ *
+ * @return array
+ */
+function converterArr($r)
+{
+// для autoload
+    $r1 = [];
+    foreach($r as $v)
+    {
+        foreach($v as $val)
+        {
+            $b        = explode('.', basename($val))[0];
+            $r1[$b][] = dirname($val);
+        }
+    }
+    return $r1;
+}
+
+
+$t = converterArr($r);
+
+use proxy\Profiler;
+Profiler::setIterataions(1);
+Profiler::testClass('core\Autoloader',[ [], 'rScanDir', ['system/']]);
+Profiler::testClass('proxy\Recursive',[ [], 'scanDir', ['system/',['php']]]);
 
 // статичесский класс
 //Profiler::testClass('proxy\Recursive',[ [], 'dir', ['files/portfolio/03_Банкеты']]);
-
-//Profiler::testClass('proxy\Recursive',[ [], 'dir', ['files/portfolio/03_Банкеты']]);
-//Profiler::testClass('proxy\Recursive',[ [], 'scanDir', ['files/portfolio/03_Банкеты/']]);
 // use Proxy;
 //Profiler::testClass('proxy\Session',[[], 'has', ['logget']]);
-
 //Profiler::testClass('proxy\Session',[[], 'set', ['test1/test2/test3', 'rrr']]);
-//Profiler::testFunction('array_key_exists',['test1/test2/test3/test4/test5', $_SESSION]);
-//Profiler::generateResults();
-
+//Profiler::testFunction('itter',[]);
+Profiler::generateResults();
 
 ob_end_flush();

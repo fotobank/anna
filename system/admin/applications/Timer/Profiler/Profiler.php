@@ -7,6 +7,7 @@ use ReflectionClass;
 
 /**
  * * Class Profiler
+ *
  * @package admin\applications\Timer\Profiler
  *
  * @method   timer_reset()
@@ -20,6 +21,7 @@ class Profiler
 
     /**
      * The number of times to test each function/class/method. Defaults to 1,000.
+     *
      * @var int
      */
     private $iterataions = 1000;
@@ -28,6 +30,7 @@ class Profiler
      * The results from the various profile stategies used here. This is a
      * stacking result set, meaning this can be used to profile many items, or
      * even compare the results of several.
+     *
      * @var array
      */
     private $profileResults = [];
@@ -38,8 +41,9 @@ class Profiler
      * $profiler = new admin\applications\Timer\Profiler\Profiler();
      * $timeElapsed = $profiler->testFunction('myFunction', [1, 'test']);
      *
-     * @param $functionName
+     * @param       $functionName
      * @param array $arguments An optional array of arguments to pass into the class constructor
+     *
      * @return mixed number If an argument is of an invalid type or not found
      * param string $functionName The name of the function to profile
      * @throws ApplicationException
@@ -53,7 +57,7 @@ class Profiler
 
         $iterations = $this->iterataions;
         $this->timerReset();
-        for ($i = 0; $i < $iterations; $i++)
+        for($i = 0; $i < $iterations; $i++)
         {
             call_user_func_array($functionName, $arguments);
         }
@@ -61,7 +65,7 @@ class Profiler
 
         $this->profileResults[] = [
             'name' => $functionName, 'arguments' => $arguments, 'type' => 'function', 'iterations' => $iterations,
-            'time' => $elapsed
+            'time' => $elapsed,
         ];
 
         return $elapsed;
@@ -92,8 +96,9 @@ class Profiler
      * вывод результата
      * Profiler::generateResults();
      *
-     * @param $class_name
+     * @param       $class_name
      * @param array $arguments
+     *
      * @return number If an argument is of an invalid type or not found
      * @throws ApplicationException
      * @internal param array $arguments_class
@@ -126,14 +131,14 @@ class Profiler
         // если метода нет возможно он статичесский
         if($reflected_class->hasMethod($m) === false)
         {
-            for ($i = 0; $i < $iterations; $i++)
+            for($i = 0; $i < $iterations; $i++)
             {
                 $c::$m($am);
             }
         }
         else
         {
-            for ($i = 0; $i < $iterations; $i++)
+            for($i = 0; $i < $iterations; $i++)
             {
                 call_user_func_array([new $c($ac), $m], $am);
             }
@@ -141,8 +146,8 @@ class Profiler
         $elapsed = $this->timerElapsed();
 
         $this->profileResults[] = [
-            'name' => $class_name . '->' . $m . '()', 'arguments' => $ac, 'arguments_method' => $am, 'type' => 'class',
-            'iterations' => $iterations, 'time' => $elapsed
+            'name'       => $class_name . '->' . $m, 'arguments' => $ac, 'arguments_method' => $am, 'type' => 'class',
+            'iterations' => $iterations, 'time' => $elapsed,
         ];
 
         return $elapsed;
@@ -157,7 +162,8 @@ class Profiler
      *
      * @param object $object An instantiated class object
      * @param string $methodName The name of the method you wish to profile
-     * @param array $arguments An optional array of arguments to be passed into the mehtod
+     * @param array  $arguments An optional array of arguments to be passed into the mehtod
+     *
      * @return number If an argument is of an invalid type or not found
      * @throws ApplicationException
      */
@@ -185,15 +191,15 @@ class Profiler
 
         $iterations = $this->iterataions;
         $this->timerReset();
-        for ($i = 0; $i < $iterations; $i++)
+        for($i = 0; $i < $iterations; $i++)
         {
             call_user_func_array([$object, $methodName], $arguments);
         }
         $elapsed = $this->timerElapsed();
 
         $this->profileResults[] = [
-            'name' => get_class($object) . '->' . $methodName . '()', 'arguments' => $arguments,
-            'type' => 'classMethod', 'iterations' => $iterations, 'time' => $elapsed
+            'name' => get_class($object) . '->' . $methodName, 'arguments' => $arguments,
+            'type' => 'classMethod', 'iterations' => $iterations, 'time' => $elapsed,
         ];
 
         return $elapsed;
@@ -216,13 +222,7 @@ class Profiler
      */
     public function generateResults()
     {
-        $html = '<h1>Результаты теста:</h1>';
-
-        foreach ($this->profileResults as $profile)
-        {
-            $one = $profile['time'] / $profile['iterations'];
-            $one = sprintf('%.3e', $one);
-            $html .= "<style>
+        $html = '<style>
 .profiler{
   font-family: Verdana, Helvetica, sans-serif;
   font-size: 18px;
@@ -230,7 +230,7 @@ class Profiler
 h3 .name {
   color: #ff002b;
 }
-h3 .count {
+h2 .count {
   color: #0091b7;
 }
 h3 .time {
@@ -242,35 +242,85 @@ h3 .iter {
 h3 .type {
   color: #0d39d2;
 }
-</style>
-<h3>
-                название: <span class='profiler name'>{$profile['name']}</span>
-                тип:  <span class='profiler type'>{$profile['type']}</span>
-                колличество итераций:  <span class='profiler count'>{$profile['iterations']}</span><br>
-                затраченное время: <span class='profiler time'>{$profile['time']}</span><br>
-                на одну итерацию: <span class='profiler iter'>{$one}</span><br>
-                аргументы класса:</h3>";
-            $html .= '<pre>' . print_r($profile['arguments'], true) . "</pre>\n";
-            if(isset($profile['arguments_method']))
+h3 .arguments {
+  color: #6c3bb8;
+  font-size: 16px;
+}
+fieldset {
+width: 800px;
+}
+</style>';
+        $html .= '<h1>Результаты теста:</h1>';
+        $html .= "<h2>колличество итераций:  <span class='profiler count'>{$this->profileResults[0]['iterations']}</span></h2>";
+        foreach($this->profileResults as $key => $profile)
+        {
+            $one       = $profile['time'] / $profile['iterations'];
+            $one       = sprintf('%.3e', $one);
+            $arg_class = '';
+            if($profile['arguments'])
+            {
+                $arg_class .= '<h4><fieldset><legend>аргументы класса:</legend>';
+                $arg_class .= '<pre>' . print_r($profile['arguments'], true) . '</pre></fieldset></h4>';
+            }
+            $arguments_method = '';
+            if($profile['arguments_method'])
             {
                 if(is_array($profile['arguments_method']))
                 {
-                    $arguments_method = sprintf(implode(',', $profile['arguments_method']));
+                    $arguments_method = $this->arrToString($profile['arguments_method']);
                 }
                 else
                 {
                     $arguments_method = $profile['arguments_method'];
                 }
-
-                $html .= '<h3>аргументы: функции:</h3>';
-                $html .= '<pre>' . $arguments_method . "</pre>\n";
             }
+            $html .= '<fieldset><legend><h3>[' . ($key + 1) . "]
+                тип:  <span class='profiler type'>{$profile['type']}</span>
+                вызов: <span class='profiler name'>{$profile['name']}</span>
+                <span class='profiler arguments'>{$arguments_method}</span></h3></legend><h3>
+                затраченное время: <span class='profiler time'>{$profile['time']}</span><br>
+                на одну итерацию: <span class='profiler iter'>{$one}</span><br></h3>";
+            $html .= $arg_class;
+            $html .= '</fieldset>';
         }
         echo $html;
     }
 
     /**
+     * @param $arr
+     *
+     * @return string
+     */
+    protected function arrToString($arr)
+    {
+        try
+        {
+            $string = '';
+            foreach($arr as $var)
+            {
+                if(is_array($var))
+                {
+                    $string .= '["' . implode('","', $var) . '"]';
+                }
+                else
+                {
+                    $string .= '"' . $var . '", ';
+                }
+            }
+
+            return '(' . rtrim($string, ', ') . ')';
+
+        }
+        catch(\Exception $e)
+        {
+            return '(<span style="display: inline-table;">' . print_r($arr, true) . '</span>)';
+        }
+    }
+
+
+    /**
      * вывод результата в виде подсвеченной строки
+     *
      * @return string
      */
     public function printResults()
@@ -287,6 +337,7 @@ h3 .type {
      * Установить колличество операций
      *
      * @param int $iterations
+     *
      * @return Profiler
      * @throws ApplicationException
      */

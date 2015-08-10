@@ -21,6 +21,10 @@ defined('APP_MODE') or define('APP_MODE', 'dev');
 defined('PATH_SEPARATOR') or define('PATH_SEPARATOR', getenv('COMSPEC') ? ';' : ':');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 defined('SALT') or define('SALT', 'qE3!nT^(gj)+?|6~d&.ru|');
+// настройки для classa Recursive
+defined('SCAN_DIR_NAME') or define('SCAN_DIR_NAME', 1);
+defined('SCAN_BASE_NAME') or define('SCAN_BASE_NAME', 2);
+defined('SCAN_MULTI_ARRAY') or define('SCAN_MULTI_ARRAY', 4);
 
 // путь к корневой папке сайта
 /** @noinspection RealpathOnRelativePathsInspection */

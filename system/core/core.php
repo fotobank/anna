@@ -81,7 +81,7 @@ if(!function_exists('debugHC'))
 
 $err                 = new classes\Inter\Error();
 $err->conf['logDir'] = SITE_PATH . 'log';
-$err->conf['otl'] = true; // включить запись лога на 127.0.0.1
+$err->conf['otl']    = true; // включить запись лога на 127.0.0.1
 //$err->var_dump('SITE_PATH'); // вывод дампа переменных
 if(!function_exists('v_dump'))
 {
@@ -100,4 +100,4 @@ if(!function_exists('v_dump'))
 // trigger_error('Это тест' , E_USER_ERROR ); // User_Error
 // throw new Exception('this is a test'); // Uncaught Exception
 // echo fatal(); // Fatal Error
-//$test = new TestClass();
+// $test = new TestClass();
