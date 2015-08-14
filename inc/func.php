@@ -1229,13 +1229,13 @@ function my_array_rand($input, $i = 2)
  * @param     $array
  * @param int $limit
  *
- * @return array
+ * @return array случайный выбор элемента массива с заданным количеством элементов
  * случайный выбор элемента массива с заданным количеством элементов
+ * @throws \Exception
  */
 function get_random_elements($array, $limit = 0)
 {
-
-    if($array)
+    if(is_array($array))
     {
         shuffle($array);
         if($limit > 0)
@@ -1245,9 +1245,8 @@ function get_random_elements($array, $limit = 0)
     }
     else
     {
-        return false;
+        throw new Exception('первая переменная функции "get_random_elements" должна быть массивом');
     }
-
     return $array;
 }
 

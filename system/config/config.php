@@ -24,7 +24,8 @@ defined('SALT') or define('SALT', 'qE3!nT^(gj)+?|6~d&.ru|');
 // настройки для classa Recursive
 defined('SCAN_DIR_NAME') or define('SCAN_DIR_NAME', 1);
 defined('SCAN_BASE_NAME') or define('SCAN_BASE_NAME', 2);
-defined('SCAN_MULTI_ARRAY') or define('SCAN_MULTI_ARRAY', 4);
+defined('SCAN_MULTI_ARRAY') or define('SCAN_MULTI_ARRAY', 3);
+defined('SCAN_CAROUSEL_ARRAY') or define('SCAN_CAROUSEL_ARRAY', 4);
 // максимальный размер выводимого изображения
 defined('MAX_IMG_SIZE') or define('MAX_IMG_SIZE', 5*1024*1024);
 

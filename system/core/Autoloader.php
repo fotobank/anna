@@ -74,16 +74,10 @@ class Autoloader extends Recursive
     public $fileLog = 'log.html';
 
     // расширение файла класса
-    public $files_ext
-        = [
-            '.php', '.class.php',
-        ];
+    public $files_ext = ['.php', '.class.php'];
 
     // массив путей поиска файлов классов
-    public $paths
-        = [
-            'classes', 'system', 'system/controllers', 'system/models',
-        ];
+    public $paths = ['classes', 'system', 'system/controllers', 'system/models'];
 
     // файл настройки
     public $htaccess = '.htaccess';

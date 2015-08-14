@@ -10,6 +10,7 @@
 namespace models\Index;
 
 use models\Base\Base;
+use proxy\Recursive;
 
 
 /**
@@ -82,8 +83,8 @@ class Index extends Base
 	public function _carousel()
 		{
 			/** сканирование в субдеррикториях 'thumb' */
-			$thumb = get_random_elements(recursive_dir('files/portfolio', '.jpg', ['thumb'], [], false), 26);
-
+			$array_files = Recursive::setIncDir([['thumb']])->scanDir('files/portfolio/', ['jpg'], SCAN_CAROUSEL_ARRAY);
+			$thumb = get_random_elements($array_files , 26);
 			$thumb = array_chunk($thumb, 2);
 
 			foreach ($thumb as $key => $value) {

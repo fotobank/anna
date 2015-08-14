@@ -46,9 +46,11 @@ class Recursive
      * @return array
      * @throws \exception\HelperException
      */
-    public function scanDir($base = '', $arr_mask = ['jpg', 'png'], $type_array = SCAN_BASE_NAME,  &$data = [])
+    public function scanDir($base = '', $arr_mask = ['jpg', 'png'], $type_array,  &$data = [])
     {
         static $data;
+        static $dir;
+        $base = str_replace(['\\', '/'], '/', $base);
         if(is_dir($base))
         {
             $array     = array_diff(scandir($base), ['.', '..']);
@@ -57,18 +59,19 @@ class Recursive
             {
                 if(is_dir($base . $value))
                 {
-                    if(count($this->inc_dir) > 0 && !in_array($value, $this->inc_dir, true))
-                    {
-                        continue;
-                    }
                     if(count($this->exc_dir) > 0 && in_array($value, $this->exc_dir, true))
                     {
                         continue;
                     }
+                    $dir = $base_name;
                     $data = $this->scanDir($base . $value . DS, $arr_mask, $type_array, $data);
                 }
                 else
                 {
+                    if(count($this->inc_dir) > 0 && !in_array($base_name, $this->inc_dir, true))
+                    {
+                        continue;
+                    }
                     $path_parts = pathinfo($value);
                     $extension  = array_key_exists('extension', $path_parts) ? $path_parts['extension'] : false;
                     if(count($arr_mask) > 0 && !in_array($extension, $arr_mask, true))
@@ -86,6 +89,13 @@ class Recursive
                             break;
                         case SCAN_MULTI_ARRAY:
                             $data[] = [$base_name, $base . $value];
+                            break;
+                        case SCAN_CAROUSEL_ARRAY:
+                            $data[] = [$dir, $base . $value];
+                            break;
+                        default:
+                            $path_class = preg_replace('#[\\\/]$#', '', $base);
+                            $data[$path_parts['filename']][] = $path_class;
                     }
                 }
             }
@@ -186,17 +196,23 @@ class Recursive
 
     /**
      * @param array $inc_dir
+     *
+     * @return $this
      */
     public function setIncDir($inc_dir)
     {
         $this->inc_dir = $inc_dir;
+        return $this;
     }
 
     /**
      * @param array $exc_dir
+     *
+     * @return $this
      */
     public function setExcDir($exc_dir)
     {
         $this->exc_dir = $exc_dir;
+        return $this;
     }
 }
