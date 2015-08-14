@@ -84,11 +84,13 @@ class Index extends Base
 		{
 			/** сканирование в субдеррикториях 'thumb' */
 			$array_files = Recursive::setIncDir([['thumb']])->scanDir('files/portfolio/', ['jpg'], SCAN_CAROUSEL_ARRAY);
-			// перемешиваем выбираем случайные 26 файлов
+			// перемешиваем массив
 			shuffle($array_files);
+			//  выбираем случайные 26 файлов
 			$thumb = array_splice($array_files, 0, 26);
 			// разбиваем на 2 ряда
 			$thumb = array_chunk($thumb, 2);
+
 			foreach ($thumb as $key => $value) {
 				$this->carousel_link[$key]['carousel_block'][] = $this->photo_link($value['0']);
 				$this->carousel_link[$key]['carousel_block'][] = $this->photo_link($value['1']);
@@ -108,12 +110,11 @@ class Index extends Base
 					$titles[] = ['id_title' => $row['id'], 'name_title' => $row['name_head']];
 				}
 			}
-
 			return $titles;
 		}
 
 	/**
-	 *лайтбокс на главной в шапке
+	 * лайтбокс на главной в шапке
 	 */
 	protected function liteBox()
 		{

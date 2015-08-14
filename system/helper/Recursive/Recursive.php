@@ -46,7 +46,7 @@ class Recursive
      * @return array
      * @throws \exception\HelperException
      */
-    public function scanDir($base = '', $arr_mask = ['jpg', 'png'], $type_array,  &$data = [])
+    public function scanDir($base = '', $arr_mask = ['jpg', 'png'], $type_array)
     {
         static $data;
         static $dir;
@@ -64,7 +64,7 @@ class Recursive
                         continue;
                     }
                     $dir = $base_name;
-                    $data = $this->scanDir($base . $value . DS, $arr_mask, $type_array, $data);
+                    $data = $this->scanDir($base . $value . DS, $arr_mask, $type_array);
                 }
                 else
                 {

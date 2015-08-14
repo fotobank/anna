@@ -180,4 +180,3 @@ trait Options
 			return $option;
 		}
 }
-
