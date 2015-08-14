@@ -61,6 +61,7 @@ class Carousel
 		{
 
 			$image = false;
+			$real_path = $this->real_path;
 
 			if ($path && preg_match('/\.(gif|jpeg|jpg|png)/i', $path)) {
 
@@ -70,13 +71,17 @@ class Carousel
 
 				}
 
-				$this->real_path .= $path;
-				$image = @imagecreatefromstring(@file_get_contents($this->real_path));
+				$real_path .= $path;
+				if(is_readable($real_path) && filesize($real_path) < MAX_IMG_SIZE)
+				{
+					$contents = file_get_contents($real_path);
+					$image    = imagecreatefromstring($contents);
+				}
 			}
 
 			if (!$image) {
 
-				error_log("\$realpath = " . $this->real_path . " \$image = " . $image, 0);
+				error_log('$realpath = ' . $real_path . ' $image = ' . $image, 0);
 				$image = imagecreatefromstring(file_get_contents($this->not_foto));
 
 			} elseif(false === stripos($path, 'thumb')) {

@@ -81,5 +81,13 @@ return [
     'redirect' => [
         'controller' => 'Redirect',
         'method'     => 'redirect'
-    ]
+    ],
+    'wm' => [
+	    'controller' => 'Carousel',
+	    'method'     => 'view'
+    ],
+	'th' => [
+		'controller' => 'Carousel',
+		'method'     => 'thumb'
+	]
 ];

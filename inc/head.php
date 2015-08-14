@@ -97,7 +97,17 @@ list( $current_razdel, $title, $keywords, $description ) = title();
 	<?
 	}
 
-	if ( if_admin( $script = "
+	/**
+	 * @param $str
+	 *
+	 * @return mixed
+     */
+    function if_admin_z($str)
+	{
+	//	return $str;
+	}
+
+	if ( if_admin_z( $script = "
 
     <script type='text/javascript' src='/js/jquery-ui.min.js'></script>
 	<!-- <script type='text/javascript' src='/js/jeditable/jquery.jeditable.js'></script> -->
@@ -114,7 +124,7 @@ list( $current_razdel, $title, $keywords, $description ) = title();
 
 </head>
 <body>
-<?= if_admin( '
+<?= if_admin_z( '
 	<div class="container-admin">
 		<div class="floating-admin">
 
