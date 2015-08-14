@@ -84,14 +84,14 @@ class Index extends Base
 		{
 			/** сканирование в субдеррикториях 'thumb' */
 			$array_files = Recursive::setIncDir([['thumb']])->scanDir('files/portfolio/', ['jpg'], SCAN_CAROUSEL_ARRAY);
-			$thumb = get_random_elements($array_files , 26);
+			// перемешиваем выбираем случайные 26 файлов
+			shuffle($array_files);
+			$thumb = array_splice($array_files, 0, 26);
+			// разбиваем на 2 ряда
 			$thumb = array_chunk($thumb, 2);
-
 			foreach ($thumb as $key => $value) {
-
 				$this->carousel_link[$key]['carousel_block'][] = $this->photo_link($value['0']);
 				$this->carousel_link[$key]['carousel_block'][] = $this->photo_link($value['1']);
-
 			}
 		}
 
