@@ -28,6 +28,8 @@ include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
  Router::start();
 
 
+
+
 //use proxy\Profiler;
 //Profiler::setIterataions(1);
 //Profiler::testClass('proxy\Recursive',[ [], 'scanDir', ['system/',['php']]]);

@@ -236,7 +236,6 @@ class Error
 	 */
 	protected function _get_request_uri()
 		{
-
 			if (array_key_exists('PHP_SELF', $_SERVER)) {
 				if (!empty($_SERVER['argv']) && array_key_exists(0, $_SERVER['argv'])) {
 					return $_SERVER['PHP_SELF'] . '?' . $_SERVER['argv'][0];

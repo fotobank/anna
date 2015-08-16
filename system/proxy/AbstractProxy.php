@@ -11,6 +11,7 @@
  */
 namespace proxy;
 
+use exception\CommonException;
 use exception\ComponentException;
 
 /**
@@ -47,13 +48,15 @@ abstract class AbstractProxy
     public static function getInstance()
     {
         $class = static::class;
-        if (!array_key_exists($class, static::$instances)) {
+        /** @noinspection UnSafeIsSetOverArrayInspection */
+        if (!isset(static::$instances[$class]))
+        {
             static::$instances[$class] = static::initInstance();
-            if (!static::$instances[$class]) {
+            if (!static::$instances[$class])
+            {
                 throw new ComponentException("Прокси класс `$class` не инициализируется");
             }
         }
-
         return static::$instances[$class];
     }
 
@@ -78,17 +81,24 @@ abstract class AbstractProxy
      */
     public static function __callStatic($method, $args)
     {
-        $instance = static::getInstance();
-        // не нужно проверять метод на существует т.к. мы можем использовать магичесские методы класса или магические или
-        // пустой класс Nil
-        // $reflectionMethod = new \ReflectionMethod($instance, $method);
-        // return $reflectionMethod->invokeArgs($instance, $args);
-
-        // если вызван метод с неопределенным количеством аргументов
-        if(isset($args[0]) && is_array($args[0]))
+        try
         {
-            $args = array_shift($args);
+            $instance = static::getInstance();
+            // $reflectionMethod = new \ReflectionMethod($instance, $method);
+            // return $reflectionMethod->invokeArgs($instance, $args);
+
+            // если вызван метод с неопределенным количеством аргументов
+            if(isset($args[0]) && is_array($args[0]))
+            {
+                $args = array_shift($args);
+            }
+            // не нужно проверять метод на существует т.к. мы можем использовать магичесские методы класса
+            // или магические или пустой класс
+            return call_user_func_array([$instance, $method], $args);
         }
-        return call_user_func_array([$instance, $method], $args);
+        catch(CommonException $e)
+        {
+            throw $e;
+        }
     }
 }

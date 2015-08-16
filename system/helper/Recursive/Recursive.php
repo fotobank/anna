@@ -201,7 +201,14 @@ class Recursive
      */
     public function setIncDir($inc_dir)
     {
-        $this->inc_dir = $inc_dir;
+        if(is_array($inc_dir))
+        {
+            $this->inc_dir = array_merge($this->inc_dir, $inc_dir);
+        }
+        else
+        {
+            $this->inc_dir[] = $inc_dir;
+        }
         return $this;
     }
 
@@ -212,7 +219,14 @@ class Recursive
      */
     public function setExcDir($exc_dir)
     {
-        $this->exc_dir = $exc_dir;
+        if(is_array($exc_dir))
+        {
+            $this->exc_dir = array_merge($this->exc_dir, $exc_dir);
+        }
+        else
+        {
+            $this->exc_dir[] = $exc_dir;
+        }
         return $this;
     }
 }

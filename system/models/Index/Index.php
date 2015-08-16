@@ -83,7 +83,7 @@ class Index extends Base
 	public function _carousel()
 		{
 			/** сканирование в субдеррикториях 'thumb' */
-			$array_files = Recursive::setIncDir([['thumb']])->scanDir('files/portfolio/', ['jpg'], SCAN_CAROUSEL_ARRAY);
+			$array_files = Recursive::setIncDir(['thumb'])->scanDir('files/portfolio/', ['jpg'], SCAN_CAROUSEL_ARRAY);
 			// перемешиваем массив
 			shuffle($array_files);
 			//  выбираем случайные 26 файлов

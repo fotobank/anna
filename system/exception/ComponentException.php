@@ -20,4 +20,11 @@ namespace exception;
  */
 class ComponentException extends CommonException
 {
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }
