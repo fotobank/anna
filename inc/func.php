@@ -612,10 +612,10 @@ function if_admin($str)
  */
 function login()
 {
-    Db::where('id', 1);
+    Db::where('userId', 1);
     $login = Db::getOne(TBL_USERS, 'foreignKey');
 
-    return $login['login'];
+    return $login['foreignKey'];
 }
 
 
@@ -624,10 +624,10 @@ function login()
  */
 function pass()
 {
-    Db::where('id', 1);
-    $login = Db::getOne(TBL_USERS, 'pass');
+    Db::where('userId', 1);
+    $login = Db::getOne(TBL_USERS, 'token');
 
-    return $login['pass'];
+    return $login['token'];
 }
 
 /**
