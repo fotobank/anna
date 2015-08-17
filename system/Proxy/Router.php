@@ -4,7 +4,9 @@
  */
 namespace proxy;
 
+use exception\RouteException;
 use classes\Router\Router as Instance;
+
 
 
 /**
@@ -36,11 +38,23 @@ class Router extends AbstractProxy
     /**
      * Init instance
      *
-     * @return Instance
+     * @return \classes\Router\Router
+     * @throws \Exception
+     * @throws \exception\RouteException
      */
     protected static function initInstance()
     {
-        return new Instance();
+        try
+        {
+            $instance = new Instance();
+            $instance->setRoute(Config::getData('router'));
+
+            return $instance;
+        }
+        catch(RouteException $e)
+        {
+            throw $e;
+        }
     }
 
 }

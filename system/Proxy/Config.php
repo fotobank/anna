@@ -1,9 +1,6 @@
 <?php
 /**
- * Bluz Framework Component
- *
- * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/framework
+ * Framework Component
  */
 
 /**
@@ -11,14 +8,15 @@
  */
 namespace proxy;
 
-use proxy\Application\Application;
-use proxy\Config\Config as Instance;
+use application\Application;
+use config\Config as Instance;
+use config\ConfigException;
 
 /**
  * Proxy to Config
  *
  * Example of usage
- *     use Bluz\proxy\Config;
+ *     use proxy\Config;
  *
  *     if (!Config::getData('db')) {
  *          throw new Exception('Configuration for `db` is missed');
@@ -39,15 +37,22 @@ class Config extends AbstractProxy
     /**
      * Init instance
      *
-     * @return Instance
+     * @return \config\Config
+     * @throws \Exception
+     * @throws ConfigException
      */
     protected static function initInstance()
     {
-        $instance = new Instance();
-        $instance->setPath(Application::getInstance()->getPath());
-        $instance->setEnvironment(Application::getInstance()->getEnvironment());
-        $instance->init();
+        try
+        {
+            $instance = new Instance();
+            $instance->setPath(Application::getInstance()->getPath());
+            $instance->init();
 
-        return $instance;
+            return $instance;
+        } catch(ConfigException $e)
+        {
+            throw $e;
+        }
     }
 }
