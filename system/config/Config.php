@@ -68,6 +68,7 @@ class Config
         return include $path;
     }
 
+
     /**
      * Load configuration files to array
      * @param string $path
