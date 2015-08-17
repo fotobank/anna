@@ -38,7 +38,7 @@ class Config
         if (!is_dir($path)) {
             throw new ConfigException('Configuration directory is not exists');
         }
-        $this->path = rtrim($path, '/');
+        $this->path = $path;
     }
 
     /**

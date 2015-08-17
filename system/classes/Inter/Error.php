@@ -376,7 +376,6 @@ class Error
 	 */
 	public function error_display()
 		{
-
 			if (false !== DEBUG_MODE) {
 				$htmlText = '';
 				$message = '';
@@ -424,6 +423,11 @@ class Error
 				echo <<<END
 <HTML>
   <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+    <meta http-equiv="content-language" content="ru" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
   <link rel="icon" href="/images/favicon.png"  type="image/png" />
   <link rel="shortcut icon" href="/images/favicon.png" />
 <style type="text/css">
@@ -692,6 +696,11 @@ END;
 			echo <<<END
 <HTML>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+    <meta http-equiv="content-language" content="ru" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="icon" href="/images/favicon.png"  type="image/png" />
 <link rel="shortcut icon" href="/images/favicon.png" />
 <style type="text/css">
