@@ -40,7 +40,9 @@ class Router extends AbstractProxy
      */
     protected static function initInstance()
     {
-        return new Instance();
+        $instance = new Instance();
+        $instance->setRoute(Config::getData('router'));
+        return $instance;
     }
 
 }

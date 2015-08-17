@@ -22,10 +22,6 @@ namespace classes\Router;
 interface InterfaceRouter
 {
     /**
-     *
-     */
-    public function __construct();
-    /**
      * @param $route
      * @return mixed
      */
