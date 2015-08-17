@@ -613,7 +613,7 @@ function if_admin($str)
 function login()
 {
     Db::where('id', 1);
-    $login = Db::getOne(TBL_USERS, 'login');
+    $login = Db::getOne(TBL_USERS, 'foreignKey');
 
     return $login['login'];
 }
