@@ -419,7 +419,7 @@ class Error
 						continue;
 					}
 				}
-
+				header( 'Content-type: text/html; charset=windows-1251' );
 				echo <<<END
 <HTML>
   <head>
@@ -693,6 +693,7 @@ END;
 				$variables_content .= '</div>';
 			}
 
+			header( 'Content-type: text/html; charset=windows-1251' );
 			echo <<<END
 <HTML>
 <head>
