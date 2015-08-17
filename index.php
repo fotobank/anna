@@ -51,52 +51,6 @@ class DI
  }
 }
 
-interface IAuthor {
-//общие методы
-}
-
-class Author implements IAuthor {
- private $firstName;
- private $lastName;
-
- public function __construct($firstName, $lastName) {
-  $this->firstName = $firstName;
-  $this->lastName = $lastName;
- }
-
- public function getFirstName() {
-  return $this->firstName;
- }
-
- public function getLastName() {
-  return $this->lastName;
- }
-}
-
-class Question {
- private $author;
- private $question;
-
- public function __construct($question, $di) {
-  $this->author = $di->author;
-  $this->question = $question;
- }
-
- public function getAuthor() {
-  return $this->author;
- }
-
- public function getQuestion() {
-  return $this->question;
- }
-}
-
-$di  = new DI();
-$di->author = function() { return new Author('John', 'Brown'); };
-$question = new Question('What time is it?', $di);
-echo $question->getAuthor()->getFirstName();
-
-
 //use proxy\Profiler;
 //Profiler::setIterataions(1);
 //Profiler::testClass('proxy\Recursive',[ [], 'scanDir', ['system/',['php']]]);
