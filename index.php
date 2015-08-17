@@ -25,9 +25,12 @@ include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config
 include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
 // Загружаем router
- Router::start();
+// Router::start();
 
 
+
+$sapi = php_sapi_name();
+echo $sapi;
 
 
 //use proxy\Profiler;

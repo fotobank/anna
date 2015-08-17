@@ -35,8 +35,6 @@ class About extends Controller
 
 	/**
 	 * ύκψεν
-	 *
-	 * @throws \phpbrowscap\Exception
 	 */
 	public function about() {
 		$model = new model\About();

@@ -75,9 +75,13 @@ abstract class AbstractProxy
      * Handle dynamic, static calls to the object.
      *
      * @internal
+     *
      * @param  string $method
-     * @param  array $args
+     * @param  array  $args
+     *
      * @return mixed
+     * @throws \Exception
+     * @throws \exception\CommonException
      */
     public static function __callStatic($method, $args)
     {

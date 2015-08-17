@@ -2316,3 +2316,15 @@ function sort_hard_array($array_result, $field)
 
     return $array_result;
 }
+
+/**
+ * слияние двух массивов без сохранения ключей
+ * @return mixed
+ */
+function array_concat() {
+    $args = func_get_args();
+    foreach ($args as $ak => $av) {
+        $args[$ak] = array_values($av);
+    }
+    return call_user_func_array('array_merge', $args);
+}
