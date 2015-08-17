@@ -30,8 +30,7 @@ defined('SITE_PATH') or define('SITE_PATH', realpath(__DIR__ . DIRECTORY_SEPARAT
 class Db extends MysqliDb
 {
 
-    protected $_transaction_in_progress; // добавил не была объ€вленна
-    protected $file_pass = 'system/config/db_config.php'; // данные дл€ подключени€
+    protected $config; // данные дл€ подключени€
 
     /**
      * инициализаци€ базы
@@ -41,7 +40,7 @@ class Db extends MysqliDb
      */
     public function init()
     {
-        $config         = $this->getParam();
+        $config = $this->config;
         if(!is_array($config))
         {
             throw new Db_Exception('ошибка в файле конфигурации база данных', 500);
@@ -78,28 +77,6 @@ class Db extends MysqliDb
     }
 
     /**
-     * @param string $file
-     *
-     * @return array
-     * @throws Db_Exception
-     */
-    public function getParam($file = '')
-    {
-
-        if($file != '' && is_file($file)) {
-            $this->file_pass = $file;
-        }
-        if(is_readable(SITE_PATH . $this->file_pass)) {
-
-            /** @noinspection PhpIncludeInspection */
-            return require_once(SITE_PATH . $this->file_pass);
-
-        } else {
-            throw new Db_Exception('не найден файл с параметрами подключени€.', 404);
-        }
-    }
-
-    /**
      * @param $port
      */
     protected function num_port($port)
@@ -107,4 +84,11 @@ class Db extends MysqliDb
         $this->port = ($port == 'default') ? ini_get('mysqli.default_port') : $port;
     }
 
+    /**
+     * @param mixed $config
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+    }
 }

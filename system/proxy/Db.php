@@ -16,6 +16,8 @@ namespace proxy;
 
 use core\Db\Db as Instance;
 
+use exception\Db_Exception;
+
 
 /**
  * Proxy to Db
@@ -160,12 +162,23 @@ use core\Db\Db as Instance;
 class Db extends AbstractProxy
 {
     /**
-     * @return Instance
+     * @return \core\Db\Db
+     * @throws \Exception
+     * @throws \exception\Db_Exception
      */
     protected static function initInstance()
     {
-        $instance = new Instance();
-        $instance->init();
-        return $instance;
+        try
+        {
+            $instance = new Instance();
+            $instance->setConfig(Config::getData('db'));
+            $instance->init();
+
+            return $instance;
+        }
+        catch(Db_Exception $e)
+        {
+            throw $e;
+        }
     }
 }
