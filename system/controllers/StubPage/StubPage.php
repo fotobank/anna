@@ -40,7 +40,6 @@ class StubPage extends Controller
     public function stubPage() {
         $model = new model\StubPage([
 
-
         ]);
         echo $this->mustache->render('stubPage', $model);
     }

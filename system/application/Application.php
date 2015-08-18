@@ -9,8 +9,11 @@
 namespace application;
 
 use common;
-use exception\ApplicationException;
+use proxy\Response;
 use proxy\Router;
+use application\Exception\RedirectException;
+use application\Exception\ReloadException;
+use exception\ApplicationException;
 
 
 /**
@@ -18,7 +21,7 @@ use proxy\Router;
 
  * @method void denied()
  * @method void redirect(string $url)
- * @method void redirectTo(string $module, string $controller, array $params = [])
+ * @method void redirectTo(string $controller, string $method, array $params = [])
  * @method void reload()
  *
  */
@@ -31,6 +34,11 @@ class Application
      * @var string Application path
      */
     protected $path;
+
+    /**
+     * @var array Stack of widgets closures
+     */
+    protected $widgets = [];
 
     /**
      * Get path to Application
@@ -51,6 +59,67 @@ class Application
     }
 
     /**
+     * Get widget file
+     * @param  string $module
+     * @param  string $widget
+     * @return string
+     * @throws ApplicationException
+     */
+    protected function getWidgetFile($module, $widget)
+    {
+        $widgetPath = $this->getPath() . '/modules/' . $module
+            . '/widgets/' . $widget . '.php';
+
+        if (!file_exists($widgetPath)) {
+            throw new ApplicationException("Widget file not found '$module/$widget'");
+        }
+
+        return $widgetPath;
+    }
+
+    /**
+     * Widget call
+     *
+     * Call widget from any \Bluz\Package
+     *     Application::getInstance()->widget($module, $widget, array $params);
+     *
+     * @api
+     *
+     * @param string $module
+     * @param string $widget
+     * @param array  $params
+     *
+     * @return \Closure
+     * @throws \exception\ApplicationException
+     */
+    public function widget($module, $widget, $params = [])
+    {
+        $widgetFile = $this->getWidgetFile($module, $widget);
+
+        /**
+         * Cachable widgets
+         * @var \Closure $widgetClosure
+         */
+        if (isset($this->widgets[$module], $this->widgets[$module][$widget])) {
+            $widgetClosure = $this->widgets[$module][$widget];
+        } else {
+            $widgetClosure = include $widgetFile;
+
+            if (!isset($this->widgets[$module])) {
+                $this->widgets[$module] = [];
+            }
+            $this->widgets[$module][$widget] = $widgetClosure;
+        }
+
+        if (!is_callable($widgetClosure)) {
+            throw new ApplicationException("Widget is not callable '$module/$widget'");
+        }
+
+        return $widgetClosure;
+    }
+
+
+    /**
      * Initialize process
      *
      * @throws \exception\ApplicationException
@@ -64,8 +133,38 @@ class Application
             // init router
             Router::start();
 
+        } catch (RedirectException $e) {
+            Response::setException($e);
+            Response::setStatusCode($e->getCode());
+            Response::setHeader('Location', $e->getMessage());
+
+            return null;
+
+        } catch (ReloadException $e) {
+            Response::setException($e);
+            Response::setStatusCode($e->getCode());
+            Response::setHeader('Refresh', '0; url=' . Request::getRequestUri());
+
+            return null;
+
         } catch (\Exception $e) {
+
+            Response::setException($e);
+            // cast to valid HTTP error code
+            // 500 - Internal Server Error
+            $statusCode = (100 <= $e->getCode() && $e->getCode() <= 505) ? $e->getCode() : 500;
+            Response::setStatusCode($statusCode);
+
+            $dispatchResult = $this->dispatch(
+                Router::getErrorModule(),
+                Router::getErrorController(),
+                [
+                    'code' => $e->getCode(),
+                    'message' => $e->getMessage()
+                ]
+            );
             throw $e;
         }
     }
+
 }

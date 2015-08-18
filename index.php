@@ -24,32 +24,8 @@ include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
-
 Application::getInstance()->init();
 
-class DI
-{
- protected $storage = [];
-
- /**
-  * @param $key
-  * @param $value
-     */
- public function __set($key, $value)
- {
-  $this->storage[$key] = $value;
- }
-
- /**
-  * @param $key
-  *
-  * @return mixed
-     */
-    public function __get($key)
- {
-  return $this->storage[$key]($this);
- }
-}
 
 //use proxy\Profiler;
 //Profiler::setIterataions(1);

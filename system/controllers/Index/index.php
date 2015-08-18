@@ -16,6 +16,7 @@ namespace controllers\Index;
 
 use controllers\Controller\Controller;
 use models\Index as model;
+use application\Application;
 
 
 /**

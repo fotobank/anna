@@ -15,6 +15,8 @@ namespace classes\Router;
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
+use common\Container\Container;
+use common\Container\MagicAccess;
 use exception\RouteException;
 use common\Container\Helper;
 use proxy\Base as BaseModel;
@@ -24,12 +26,14 @@ use ReflectionMethod;
 
 /**
  * Class Router
+ *
+ * @method container($name, $instance);
  */
-
-/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class Router implements InterfaceRouter
 {
     use Helper;
+    use Container;
+    use MagicAccess;
 
     private
         $param, /** string Param that sets after request url checked. */
@@ -152,7 +156,7 @@ class Router implements InterfaceRouter
                 // если все нормально - подготовка дополнительных параметров
                 $this->prepareParams();
             }
-        //    $this->checkControllerExists();
+         //   $this->checkControllerExists();
             $this->createInstance();
 
         } catch (RouteException $e) {
@@ -209,7 +213,9 @@ class Router implements InterfaceRouter
         if(method_exists($instance, $method)) {
             $reflection = new ReflectionMethod($instance, $method);
             if($reflection->isPublic()) {
-                $instance->$method($this->id, $this->param);
+            //    $instance->$method($this->id, $this->param);
+                $this->container('router', $this);
+                $this->container('controller', $instance);
             } else {
                 throw new RouteException('метод "' . $method . '" не является публичным');
             }
@@ -283,5 +289,4 @@ class Router implements InterfaceRouter
                 $this->current_method = '';
             }
     }
-
 }
