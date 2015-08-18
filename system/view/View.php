@@ -9,6 +9,7 @@
 namespace view;
 
 use auth\AbstractRowEntity;
+use classes\Router\Router;
 use common\Container\Container;
 use common\Container\JsonSerialize;
 use common\Container\MagicAccess;
@@ -42,10 +43,9 @@ use common\Container\Options;
  * @method string|null url(string $module, string $controller, array $params = [], bool $checkAccess = false)
  * @method AbstractRowEntity|null user()
  * @method void widget($module, $widget, $params = [])
- * @method container($name);
  *
  */
-class View implements ViewInterface, \JsonSerializable
+class View extends Router implements ViewInterface, \JsonSerializable
 {
     use Container;
     use JsonSerialize;
@@ -168,10 +168,10 @@ class View implements ViewInterface, \JsonSerializable
         ob_start();
         try {
             // достаем параметры из контейнера
-            $current_method = $this->container('router')->current_method;
-            $id = $this->container('router')->id;
-            $param = $this->container('router')->param;
-            $instance = $this->container('controller');
+            $current_method = $this->router->current_method;
+            $id = $this->router->id;
+            $param = $this->router->param;
+            $instance = $this->controller;
 
             // вызываем метод с параметрами
             $instance->$current_method($id, $param);

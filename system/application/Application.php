@@ -14,6 +14,8 @@ use proxy\Router;
 use application\Exception\RedirectException;
 use application\Exception\ReloadException;
 use exception\ApplicationException;
+use proxy\Server;
+use view\View;
 
 
 /**
@@ -67,8 +69,7 @@ class Application
      */
     protected function getWidgetFile($module, $widget)
     {
-        $widgetPath = $this->getPath() . '/modules/' . $module
-            . '/widgets/' . $widget . '.php';
+        $widgetPath = $this->getPath() . '/modules/' . $module . '/widgets/' . $widget . '.php';
 
         if (!file_exists($widgetPath)) {
             throw new ApplicationException("Widget file not found '$module/$widget'");
@@ -80,7 +81,7 @@ class Application
     /**
      * Widget call
      *
-     * Call widget from any \Bluz\Package
+     * Call widget from any Package
      *     Application::getInstance()->widget($module, $widget, array $params);
      *
      * @api
@@ -132,6 +133,8 @@ class Application
 
             // init router
             Router::start();
+            $view = new View();
+            $view->render();
 
         } catch (RedirectException $e) {
             Response::setException($e);
@@ -143,26 +146,12 @@ class Application
         } catch (ReloadException $e) {
             Response::setException($e);
             Response::setStatusCode($e->getCode());
-            Response::setHeader('Refresh', '0; url=' . Request::getRequestUri());
+            Response::setHeader('Refresh', '0; url=' . Server::get('REQUEST_URI'));
 
             return null;
 
         } catch (\Exception $e) {
 
-            Response::setException($e);
-            // cast to valid HTTP error code
-            // 500 - Internal Server Error
-            $statusCode = (100 <= $e->getCode() && $e->getCode() <= 505) ? $e->getCode() : 500;
-            Response::setStatusCode($statusCode);
-
-            $dispatchResult = $this->dispatch(
-                Router::getErrorModule(),
-                Router::getErrorController(),
-                [
-                    'code' => $e->getCode(),
-                    'message' => $e->getMessage()
-                ]
-            );
             throw $e;
         }
     }

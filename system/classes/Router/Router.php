@@ -27,7 +27,6 @@ use ReflectionMethod;
 /**
  * Class Router
  *
- * @method container($name, $instance);
  */
 class Router implements InterfaceRouter
 {
@@ -214,12 +213,13 @@ class Router implements InterfaceRouter
             $reflection = new ReflectionMethod($instance, $method);
             if($reflection->isPublic()) {
             //    $instance->$method($this->id, $this->param);
-                $this->container('router', $this);
-                $this->container('controller', $instance);
+                $this->router = $this;
+                $this->controller = $instance;
             } else {
                 throw new RouteException('метод "' . $method . '" не является публичным');
             }
-            unset($reflection);
+            unset($reflection, $instance);
+
         } else {
             throw new RouteException('метод "' . $method . '" не найден в контроллере "' . $controller . '"');
         }
