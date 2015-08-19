@@ -2,7 +2,7 @@
 /**
  * @namespace
  */
-namespace Bluz\Auth;
+namespace Auth;
 
 /**
  * Abstract class for Auth\Row

@@ -1,15 +1,14 @@
 <?php
 /**
- * Framework Component
- *
+ * Alex Framework Component
  */
 
 /**
  * @namespace
  */
-namespace application\Helper;
+namespace Application\Helper;
 
-use application\Application;
+use Application\Application;
 use proxy\Auth;
 
 return

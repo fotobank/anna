@@ -14,7 +14,7 @@
 
 namespace models\Carousel;
 
-use common\Container\Options;
+use common\MagicOptions;
 
 
 /**
@@ -33,7 +33,8 @@ use common\Container\Options;
  */
 class Carousel
 {
-	use Options;
+
+	use MagicOptions;
 
 	// путь до папки портфолио
 	protected $real_path;

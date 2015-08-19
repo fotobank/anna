@@ -15,8 +15,6 @@ namespace classes\Router;
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-use common\Container\Container;
-use common\Container\MagicAccess;
 use exception\RouteException;
 use common\Container\Helper;
 use proxy\Base as BaseModel;
@@ -31,8 +29,11 @@ use ReflectionMethod;
 class Router implements InterfaceRouter
 {
     use Helper;
-    use Container;
-    use MagicAccess;
+
+    const DEFAULT_MODULE = 'index';
+    const DEFAULT_CONTROLLER = 'index';
+    const ERROR_MODULE = 'error';
+    const ERROR_CONTROLLER = 'index';
 
     private
         $param, /** string Param that sets after request url checked. */
@@ -56,6 +57,9 @@ class Router implements InterfaceRouter
 
     // method страницы - заглушки
     protected $method_stub_page = 'stubPage';
+
+    // объект контроллера
+    protected $instance_controller;
 
     /**
      * непосредственный маршрут
@@ -125,6 +129,44 @@ class Router implements InterfaceRouter
     }
 
     /**
+     * @param $controller
+     * @param $method
+     * @param array $params
+     *
+     * @return string
+     */
+    protected function getUrl($controller, $method, $params)
+    {
+
+        $url = $controller . '/' . $method;
+
+        if (0 === count($params)) {
+            if ($controller == self::DEFAULT_CONTROLLER && $method == self::DEFAULT_MODULE)
+            {
+                return $controller;
+            }
+            return $url;
+        }
+
+        $getParams = [];
+        foreach ($params as $key => $value)
+        {
+            // sub-array as GET params
+            if (is_array($value))
+            {
+                $getParams[$key] = $value;
+                continue;
+            }
+            $url .= '/' . urlencode($key) . '/' . urlencode($value);
+        }
+        if (0 !== count($getParams))
+        {
+            $url .= '?' . http_build_query($getParams);
+        }
+        return $url;
+    }
+
+    /**
      * err 404
      *
      * @internal param $err
@@ -155,7 +197,7 @@ class Router implements InterfaceRouter
                 // если все нормально - подготовка дополнительных параметров
                 $this->prepareParams();
             }
-         //   $this->checkControllerExists();
+        //    $this->checkControllerExists();
             $this->createInstance();
 
         } catch (RouteException $e) {
@@ -179,6 +221,38 @@ class Router implements InterfaceRouter
     }
 
     /**
+     * @return mixed
+     */
+    public function getInstanceController()
+    {
+        return $this->instance_controller;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentMethod()
+    {
+        return $this->current_method;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParam()
+    {
+        return $this->param;
+    }
+
+    /**
      * Checks is controller exists and inlcude it.
      *
      * @throws RouteException
@@ -186,17 +260,16 @@ class Router implements InterfaceRouter
      *
      * @internal param string $controller_path Controller path. Used to include and controller.
      */
-    protected function checkControllerExists()
+   /* protected function checkControllerExists()
     {
         $controller_path = SITE_PATH . 'system' . DS . 'controllers' . DS . $this->current_controller .
             DS . $this->current_controller . '.php';
         if(file_exists($controller_path)) {
-            /** @noinspection PhpIncludeInspection */
             require_once $controller_path;
         } else {
             throw new RouteException('файл контроллера: "' . $controller_path . '" не найден');
         }
-    }
+    }*/
 
     /**
      * Creating new instance that required by URL.
@@ -212,9 +285,9 @@ class Router implements InterfaceRouter
         if(method_exists($instance, $method)) {
             $reflection = new ReflectionMethod($instance, $method);
             if($reflection->isPublic()) {
-            //    $instance->$method($this->id, $this->param);
-                $this->router = $this;
-                $this->controller = $instance;
+            //    $this->instance_controller = $instance;
+                $instance->$method($this->id, $this->param);
+
             } else {
                 throw new RouteException('метод "' . $method . '" не является публичным');
             }

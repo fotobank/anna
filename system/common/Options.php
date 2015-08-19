@@ -6,7 +6,7 @@
 /**
  * @namespace
  */
-namespace common\Container;
+namespace common;
 
 /**
  * Options Trait
@@ -30,9 +30,9 @@ namespace common\Container;
  *       }
  *     }
  *
- *     $Foo = new Foo(array('bar'=>123, 'baz'=>456));
+ *     $Foo = new Foo(['bar'=>123, 'baz'=>456]);
  *
- * @package  common
+ * @package common
  */
 trait Options
 {
@@ -50,7 +50,7 @@ trait Options
     public function getOption($key, $section = null)
     {
         if (isset($this->options[$key])) {
-            if (!is_null($section)) {
+            if (null !== ($section)) {
                 return isset($this->options[$key][$section])?$this->options[$key][$section]:null;
             } else {
                 return $this->options[$key];
@@ -113,7 +113,6 @@ trait Options
 
     /**
      * Check and initialize options in package
-     * @throws \Bluz\Config\ConfigException
      * @return void
      */
     protected function initOptions()

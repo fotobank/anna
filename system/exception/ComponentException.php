@@ -1,9 +1,6 @@
 <?php
 /**
- * Bluz Framework Component
- *
- * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/framework
+ * Alex Framework Component
  */
 
 /**
@@ -14,8 +11,8 @@ namespace exception;
 /**
  * Exception throws by component for wrong requirements
  *
- * @package  Bluz\Common\Exception
- * @author   Anton Shevchuk
+ * @package  Common\Exception
+ * @author   Alex Jurii
  * @created  26.09.14 11:17
  */
 class ComponentException extends CommonException

@@ -11,7 +11,7 @@ class ArrayHelper
      * holder of values
      * @var array $properties
      */
-    protected $properties      = [];
+    protected $properties = [];
 
     private $flat_properties = [];
 
@@ -73,11 +73,11 @@ class ArrayHelper
     }
 
     /**
-     * Get a session value by its key.
+     * Get value by its key.
      * @param $path
      * @return mixed
      */
-    public function has($path)
+    public function has($path = null)
     {
         if($this->get($path) === false)
         {
@@ -107,7 +107,7 @@ class ArrayHelper
      */
     public function get($path)
     {
-        if(isset($this->properties))
+        if(0 !== count($this->properties))
         {
             if(empty($path))
             {
@@ -225,7 +225,7 @@ class ArrayHelper
         {
             if(is_array($data) and array_key_exists($path, $data))
             {
-                return $data[$path];
+                return $data[(string)$path];
             }
             else
             {
@@ -385,7 +385,10 @@ class ArrayHelper
 
     /**
      * быстрый метод схлопавания массива
+     *
      * @param $arr
+     * @param $arr_one
+     *
      * @return array
      */
     public function arrMultiToOne($arr, &$arr_one)

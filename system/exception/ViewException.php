@@ -1,15 +1,15 @@
 <?php
 /**
- * Класс предназначен для
+ * Класс ViewException
  *
  * @created   by PhpStorm
- * @package   SessionException.php
+ * @package   ViewException.php
  * @version   1.0
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
- * @date:     04.08.2015
- * @time:     14:15
+ * @date:     18.08.2015
+ * @time:     22:59
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
@@ -17,13 +17,10 @@ namespace exception;
 
 
 /**
- * Exception
+ * Class ViewException
  *
- * @package  Session
- *
- * @author   Alex Jurii
- * @created  26.01.12 19:06
+ * @package exception
  */
-class SessionException extends CommonException
+class ViewException extends BaseException
 {
 }

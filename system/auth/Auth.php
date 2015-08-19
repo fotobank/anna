@@ -8,7 +8,7 @@
  */
 namespace auth;
 
-use common\Container\Options;
+use common\Options;
 use proxy\Server;
 use proxy\Session;
 

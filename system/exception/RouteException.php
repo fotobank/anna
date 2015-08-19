@@ -1,6 +1,6 @@
 <?php
 /**
- * Класс предназначен для
+ * Класс RouteException
  * @created   by PhpStorm
  * @package   RouteException.php
  * @version   1.0

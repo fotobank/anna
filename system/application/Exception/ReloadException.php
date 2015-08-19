@@ -14,9 +14,9 @@ use exception\ApplicationException;
 /**
  * Reload Exception
  *
- * @package  Bluz\Application\Exception
+ * @package  Application\Exception
  *
- * @author   Anton Shevchuk
+ * @author   Alex Jurii
  * @created  23.01.13 17:40
  */
 class ReloadException extends ApplicationException

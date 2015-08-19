@@ -1,29 +1,26 @@
 <?php
 /**
- * Класс предназначен для
+ * Класс Row
  *
  * @created   by PhpStorm
- * @package   SessionException.php
+ * @package   Row.php
  * @version   1.0
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
- * @date:     04.08.2015
- * @time:     14:15
+ * @date:     19.08.2015
+ * @time:     21:01
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace exception;
+namespace auth;
 
 
 /**
- * Exception
+ * Class Row
  *
- * @package  Session
- *
- * @author   Alex Jurii
- * @created  26.01.12 19:06
+ * @package application
  */
-class SessionException extends CommonException
+class Row extends AbstractRow
 {
 }

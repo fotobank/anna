@@ -1,27 +1,24 @@
 <?php
 /**
- * Bluz Framework Component
- *
- * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/framework
+ * Alex Framework Component
  */
 
 /**
  * @namespace
  */
-namespace Bluz\Common\Container;
+namespace Common\Container;
 
 /**
  * Implements regular access to container
  *
- * @package  Bluz\Common
+ * @package  Common
  *
  * @method void doSetContainer($key, $value)
  * @method mixed doGetContainer($key)
  * @method bool doContainsContainer($key)
  * @method void doDeleteContainer($key)
  *
- * @author   Anton Shevchuk
+ * @author   Alex Jurii
  * @created  14.10.2014 10:11
  */
 trait RegularAccess

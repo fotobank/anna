@@ -36,7 +36,7 @@ use helper\Post\Post as Instance;
  * @method   static bool dec($key, $value=1)
  * @see      proxy\Post::dec()
  *
- * @method   static bool has($key)
+ * @method   static bool has($key=null)
  * @see      proxy\Post::has()
  *
  * @method   static void del($key)

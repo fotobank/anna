@@ -16,7 +16,7 @@ use view\View;
  * Proxy to Response
  *
  * Example of usage
- *     use Bluz\Proxy\Response;
+ *     use Proxy\Response;
  *
  *     Response::setStatusCode(304);
  *     Response::setHeader('Location', '/index/index');

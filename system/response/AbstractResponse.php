@@ -8,8 +8,8 @@
  */
 namespace response;
 
-use common\Container\Options;
-use Bluz\Response\Presentation\AbstractPresentation;
+use common\Options;
+use response\Presentation\AbstractPresentation;
 use view\View;
 
 /**
@@ -83,7 +83,7 @@ abstract class AbstractResponse
         // Apply presentation metamorphosis
         if ($this->presentation) {
             if (is_string($this->presentation)) {
-                $presentationClass = '\\Bluz\\Response\\Presentation\\'.ucfirst(strtolower($this->presentation));
+                $presentationClass = '\\\Response\\Presentation\\'.ucfirst(strtolower($this->presentation));
                 $this->presentation = new $presentationClass($this);
             }
 
@@ -169,7 +169,7 @@ abstract class AbstractResponse
     public function getHeader($header)
     {
         if ($this->hasHeader($header)) {
-            return join(', ', $this->headers[$header]);
+            return implode(', ', $this->headers[$header]);
         } else {
             return '';
         }
@@ -186,7 +186,7 @@ abstract class AbstractResponse
         if ($this->hasHeader($header)) {
             return $this->headers[$header];
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -304,7 +304,7 @@ abstract class AbstractResponse
      */
     public function removeHeaders()
     {
-        $this->headers = array();
+        $this->headers = [];
     }
 
     /**

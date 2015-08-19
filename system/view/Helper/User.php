@@ -16,7 +16,7 @@ return
      * Get current user
      *
      * @var View $this
-     * @return \Bluz\Auth\AbstractRowEntity|null
+     * @return \Auth\AbstractRowEntity|null
      */
     function () {
         return Auth::getIdentity();

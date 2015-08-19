@@ -15,7 +15,7 @@ use core\Autoloader;
 use application\Application;
 
 
-ob_start();
+//ob_start();
 
 /** @noinspection PhpIncludeInspection */
 include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'primary_config.php');
@@ -39,4 +39,4 @@ Application::getInstance()->init();
 //Profiler::testFunction('itter',[]);
 //Profiler::generateResults();
 
-ob_end_flush();
+//ob_end_flush();

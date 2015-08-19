@@ -9,12 +9,13 @@
 namespace view;
 
 use auth\AbstractRowEntity;
-use classes\Router\Router;
 use common\Container\Container;
 use common\Container\JsonSerialize;
 use common\Container\MagicAccess;
 use common\Container\Helper;
-use common\Container\Options;
+use common\Options;
+use exception\ViewException;
+use proxy\Router;
 
 /**
  * View
@@ -45,7 +46,7 @@ use common\Container\Options;
  * @method void widget($module, $widget, $params = [])
  *
  */
-class View extends Router implements ViewInterface, \JsonSerializable
+class View implements ViewInterface, \JsonSerializable
 {
     use Container;
     use JsonSerialize;
@@ -100,11 +101,20 @@ class View extends Router implements ViewInterface, \JsonSerializable
 
     /**
      * View should be callable
+     *
      * @return string
+     * @throws \Exception
      */
     public function __invoke()
     {
+        try
+        {
         return $this->render();
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
 
     /**
@@ -167,16 +177,16 @@ class View extends Router implements ViewInterface, \JsonSerializable
     {
         ob_start();
         try {
-            // достаем параметры из контейнера
-            $current_method = $this->router->current_method;
-            $id = $this->router->id;
-            $param = $this->router->param;
-            $instance = $this->controller;
+            // достаем параметры из router
+            $current_method = Router::getCurrentMethod();
+            $id = Router::getId();
+            $param = Router::getParam();
+            $instance = Router::getInstanceController();
 
             // вызываем метод с параметрами
             $instance->$current_method($id, $param);
 
-        } catch (\Exception $e) {
+        } catch (ViewException $e) {
             // clean output
             ob_end_clean();
             throw $e;

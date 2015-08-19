@@ -15,7 +15,7 @@ use application\Exception\RedirectException;
 use application\Exception\ReloadException;
 use exception\ApplicationException;
 use proxy\Server;
-use view\View;
+use proxy\View;
 
 
 /**
@@ -130,11 +130,9 @@ class Application
         try {
             // initial default helper path
             $this->addHelperPath(__DIR__ . '/Helper/');
-
             // init router
             Router::start();
-            $view = new View();
-            $view->render();
+            View::render();
 
         } catch (RedirectException $e) {
             Response::setException($e);
@@ -155,5 +153,4 @@ class Application
             throw $e;
         }
     }
-
 }

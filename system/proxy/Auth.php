@@ -1,9 +1,6 @@
 <?php
 /**
- * Bluz Framework Component
- *
- * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/framework
+ * Alex Framework Component
  */
 
 /**
@@ -22,18 +19,18 @@ use auth\EntityInterface;
  *
  *     $user = Auth::getIdentity();
  *
- * @package  Bluz\Proxy
+ * @package  Proxy
  *
  * @method   static Instance getInstance()
  *
  * @method   static void setIdentity(EntityInterface $identity)
- * @see      Bluz\Auth\Auth::setIdentity()
+ * @see      Auth\Auth::setIdentity()
  *
  * @method   static EntityInterface getIdentity()
- * @see      Bluz\Auth\Auth::getIdentity()
+ * @see      Auth\Auth::getIdentity()
  *
  * @method   static void clearIdentity()
- * @see      Bluz\Auth\Auth::clearIdentity()
+ * @see      Auth\Auth::clearIdentity()
  */
 class Auth extends AbstractProxy
 {

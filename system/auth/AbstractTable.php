@@ -1,13 +1,13 @@
 <?php
 /**
- * Bluz Framework Component
+ * Alex Framework Component
  *
  */
 
 /**
  * @namespace
  */
-namespace Bluz\Auth;
+namespace Auth;
 
 use proxy\Db;
 

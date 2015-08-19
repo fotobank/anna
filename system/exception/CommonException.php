@@ -1,6 +1,6 @@
 <?php
 /**
- * Bluz Framework Component
+ * Alex Framework Component
  *
  * @copyright Bluz PHP Team
  * @link      https://github.com/bluzphp/framework
@@ -14,11 +14,10 @@ namespace exception;
 use Exception;
 
 /**
- * Basic Exception for Bluz framework
+ * Basic Exception for Alex framework
  *
- * @package  Bluz\Common\Exception
- * @author   Anton Shevchuk
- * @created  06.07.11 16:46
+ * @package  Common\Exception
+ * @author   Alex Jurii
  */
 class CommonException extends Exception
 {

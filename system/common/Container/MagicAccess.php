@@ -11,7 +11,7 @@ namespace common\Container;
 /**
  * Implements magic access to container
  *
- * @package  Bluz\Common
+ * @package  Common
  *
  * @method void setContainer($key, $value)
  * @method mixed getContainer($key)

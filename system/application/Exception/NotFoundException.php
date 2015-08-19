@@ -6,7 +6,7 @@
 /**
  * @namespace
  */
-namespace Bluz\Application\Exception;
+namespace Application\Exception;
 use exception\ApplicationException;
 
 /**

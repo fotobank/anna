@@ -11,7 +11,7 @@ namespace models\Base;
 
 use proxy\Cookie;
 use proxy\Router as Router;
-use common\Container\Options;
+use common\MagicOptions;
 use proxy\Db as Db;
 use exception\BaseException;
 use proxy\Session;
@@ -27,28 +27,6 @@ use Exception;
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class BaseModelsException extends BaseException
 {
-    /**
-     * (PHP 5 &gt;= 5.1.0)<br/>
-     * Construct the exception. Note: The message is NOT binary safe.
-     * @link http://php.net/manual/en/exception.construct.php
-     * Fix for https://github.com/facebook/hhvm/blob/HHVM-3.4.0/hphp/system/php/lang/Exception.php#L55
-     *
-     * @param string    $message  [optional] The Exception message to throw.
-     * @param int       $code     [optional] The Exception code.
-     * @param Exception $previous [optional] The previous exception used for the exception chaining. Since 5.3.0
-     */
-    public function __construct($message = '', $code = 0, Exception $previous = null)
-    {
-        $numAgs = func_num_args();
-        if ($numAgs >= 1) {
-            $this->message = $message;
-        }
-
-        if ($numAgs >= 2) {
-            $this->code = $code;
-        }
-        parent::__construct($this->message, $this->code, $previous);
-    }
 }
 
 
@@ -61,7 +39,7 @@ class BaseModelsException extends BaseException
 class Base implements InterfaceModelsBase
 {
 
-    use Options;
+    use MagicOptions;
 
     public $categorii;
 
