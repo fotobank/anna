@@ -48,15 +48,17 @@ abstract class AbstractTable
 
     /**
      * Get AuthRow
-     * @param string $provider
-     * @param string $foreignKey
-     * @return AbstractRow
+     *
+     * @param $provider
+     * @param $foreignKey
+     *
+     * @return array
      */
     public function getAuthRow($provider, $foreignKey)
     {
         Db::where('provider', $provider);
         Db::where('foreignKey', $foreignKey);
-        $find_row = Db::get('auth');
+        $find_row = Db::getOne('auth');
         return $find_row;
     }
 

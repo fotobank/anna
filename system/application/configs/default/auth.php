@@ -13,8 +13,15 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
+
 return [
     'equals' => [
+        'hash' => function ($password) {
+            return password_hash($password, PASSWORD_DEFAULT);
+        },
+        'verify' => function ($password, $hash) {
+            return password_verify($password, $hash);
+        },
         'encryptFunction' => function ($password, $salt = SALT) {
             return password_hash($password, PASSWORD_DEFAULT, ['salt' => $salt]);
         }

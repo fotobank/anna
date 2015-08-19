@@ -8,6 +8,7 @@
  */
 namespace application;
 
+use auth\Table;
 use common;
 use proxy\Response;
 use proxy\Router;
@@ -128,6 +129,11 @@ class Application
     public function init()
     {
         try {
+            $t = new Table();
+//            $t->authenticateEquals('admin', 'admin');
+            $t->authenticateToken('f9705d72d58b2a305ab6f5913ba60a61');
+
+
             // initial default helper path
             $this->addHelperPath(__DIR__ . '/Helper/');
             // init router

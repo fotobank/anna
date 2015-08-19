@@ -24,13 +24,16 @@ use auth\EntityInterface;
  * @method   static Instance getInstance()
  *
  * @method   static void setIdentity(EntityInterface $identity)
- * @see      Auth\Auth::setIdentity()
+ * @see      auth\Auth::setIdentity()
  *
  * @method   static EntityInterface getIdentity()
- * @see      Auth\Auth::getIdentity()
+ * @see      auth\Auth::getIdentity()
  *
  * @method   static void clearIdentity()
- * @see      Auth\Auth::clearIdentity()
+ * @see      auth\Auth::clearIdentity()
+ *
+ * @method   static mixed getOption($key, $section = null)
+ * @see      auth\Auth::getOption()
  */
 class Auth extends AbstractProxy
 {
