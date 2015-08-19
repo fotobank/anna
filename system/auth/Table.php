@@ -84,8 +84,7 @@ class Table extends AbstractTable implements EntityInterface
     public function authenticateEquals($username, $password)
     {
         $userId = $this->checkEquals($username, $password)['userId'];
-        Db::where('auth', $userId);
-        $this->status = Db::getOne('db_users', 'status')['status'];
+        $this->checkStatus($userId);
         // try to login
         $this->login();
     }
@@ -99,10 +98,34 @@ class Table extends AbstractTable implements EntityInterface
     public function authenticateToken($token)
     {
         $userId = $this->checkToken($token)['userId'];
-        Db::where('auth', $userId);
-        $this->status = Db::getOne('db_users', 'status')['status'];
+        $this->checkStatus($userId);
         // try to login
         $this->login();
+    }
+
+    /**
+     * Authenticate via cookie
+     *
+     * @param $userId
+     * @param $token
+     * @throws AuthException
+     * @throws Exception
+     */
+    public function authenticateCookie($userId, $token)
+    {
+        $userId = $this->checkCookie($userId, $token)['userId'];
+        $this->checkStatus($userId);
+        // try to login
+        $this->login();
+    }
+
+    /**
+     * @param $userId
+     */
+    private function checkStatus($userId)
+    {
+        Db::where('auth', $userId);
+        $this->status = Db::getOne('db_users', 'status')['status'];
     }
 
     /**
@@ -266,7 +289,7 @@ class Table extends AbstractTable implements EntityInterface
     public function getPrivileges()
     {
         if (!$this->privileges) {
-        //    $this->privileges = Privileges\Table::getInstance()->getUserPrivileges($this->id);
+            $this->privileges = Privileges\Table::getInstance()->getUserPrivileges($this->id);
         }
         return $this->privileges;
     }
@@ -283,4 +306,80 @@ class Table extends AbstractTable implements EntityInterface
         return true;
     }
 
+    /**
+     * Removes a cookie-token from database
+     *
+     * @param $userId
+     * @throws \Bluz\Db\Exception\DbException
+     */
+    public function removeCookieToken($userId)
+    {
+        $this->delete(
+            [
+                'userId' => $userId,
+                'provider' => self::PROVIDER_COOKIE
+            ]
+        );
+    }
+
+    /**
+     * Check if supplied cookie is valid
+     *
+     * @param $userId
+     * @param $token
+     * @return Row
+     * @throws AuthException
+     */
+    public function checkCookie($userId, $token)
+    {
+        if (!$authRow = $this->findRowWhere(['userId' => $userId, 'provider' => self::PROVIDER_COOKIE])) {
+            throw new AuthException('User not found');
+        }
+
+        if (strtotime($authRow->expired) < time()) {
+            $this->removeCookieToken($userId);
+            throw new AuthException('Token has expired');
+        }
+
+        if ($authRow->token != hash('md5', $authRow->tokenSecret . $token)) {
+            throw new AuthException('Incorrect token');
+        }
+
+        return $authRow;
+    }
+
+    /**
+     * Generates cookie for authentication
+     *
+     * @throws \Bluz\Db\Exception\DbException
+     */
+    public function generateCookie()
+    {
+        $hash = hash('md5', microtime(true));
+        $ttl = Config::getModuleData('users', 'rememberMe');
+
+        $this->delete(
+            [
+                'userId' => app()->user()->id,
+                'foreignKey' => app()->user()->login,
+                'provider' => self::PROVIDER_COOKIE,
+                'tokenType' => self::TYPE_ACCESS,
+            ]
+        );
+
+        $row = new Row();
+        $row->userId = app()->user()->id;
+        $row->foreignKey = app()->user()->login;
+        $row->provider = self::PROVIDER_COOKIE;
+        $row->tokenType = self::TYPE_ACCESS;
+        $row->expired = gmdate('Y-m-d H:i:s', time() + $ttl);
+
+        $row->tokenSecret = $this->generateSecret(app()->user()->id);
+        $row->token = hash('md5', $row->tokenSecret . $hash);
+
+        $row->save();
+
+        Response::setCookie('rToken', $hash, time() + $ttl, '/');
+        Response::setCookie('rId', app()->user()->id, time() + $ttl, '/');
+    }
 }
