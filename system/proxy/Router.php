@@ -45,6 +45,18 @@ use classes\Router\Router as Instance;
  * @method   static string getUrl($controller, $method, $params)
  * @see      proxy\Router::getUrl()
  *
+ * @method   static goto404()
+ * @see      proxy\Router::goto404()
+ *
+ * @method   static goto403()
+ * @see      proxy\Router::goto403()
+ *
+ * @method   static stopPage()
+ * @see      proxy\Router::stop()
+ *
+ * @method   static gotoPage($controller, $method, $params = [])
+ * @see      proxy\Router::gotot()
+ *
  * @author   Alex Jurii
  * @package  Proxy
  */

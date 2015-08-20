@@ -123,7 +123,7 @@ class Router implements InterfaceRouter
             if(DEBUG_MODE) {
                 throw $e;
             } else {
-                $this->get404();
+                $this->goto404();
             }
         }
     }
@@ -135,7 +135,7 @@ class Router implements InterfaceRouter
      *
      * @return string
      */
-    protected function getUrl($controller, $method, $params)
+    public function getUrl($controller, $method, $params = [])
     {
 
         $url = $controller . '/' . $method;
@@ -149,15 +149,18 @@ class Router implements InterfaceRouter
         }
 
         $getParams = [];
-        foreach ($params as $key => $value)
+        if (0 !== count($params))
         {
-            // sub-array as GET params
-            if (is_array($value))
+            foreach($params as $key => $value)
             {
-                $getParams[$key] = $value;
-                continue;
+                // sub-array as GET params
+                if(is_array($value))
+                {
+                    $getParams[$key] = $value;
+                    continue;
+                }
+                $url .= '/' . urlencode($key) . '/' . urlencode($value);
             }
-            $url .= '/' . urlencode($key) . '/' . urlencode($value);
         }
         if (0 !== count($getParams))
         {
@@ -171,12 +174,75 @@ class Router implements InterfaceRouter
      *
      * @internal param $err
      */
-    protected function get404()
+    public function goto404()
     {
         try {
             $this->current_controller = $this->site_routes['404']['controller'];
             $this->current_method = $this->site_routes['404']['method'];
             $this->prepareRoute();
+        } catch (RouteException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @throws \Exception
+     * @throws \exception\RouteException
+     */
+    public function goto403()
+    {
+        try {
+            $this->current_controller = $this->site_routes['403']['controller'];
+            $this->current_method = $this->site_routes['403']['method'];
+            $this->prepareRoute();
+        } catch (RouteException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @throws \Exception
+     * @throws \exception\RouteException
+     */
+    public function stopPage()
+    {
+        try {
+            $this->current_controller = $this->site_routes['stop']['controller'];
+            $this->current_method = $this->site_routes['stop']['method'];
+            $this->prepareRoute();
+        } catch (RouteException $e) {
+            throw $e;
+        }
+    }
+
+
+    /**
+     * @param       $controller
+     * @param       $method
+     * @param array $params
+     *
+     * @throws \Exception
+     * @throws \exception\RouteException
+     */
+    public function gotoPage($controller, $method, $params = [])
+    {
+        try {
+            $this->current_controller = $controller;
+            $this->current_method = $method;
+
+        if (0 !== count($params))
+        {
+            if(!empty($params[0]))
+            {
+                $this->id = $params[0];
+            }
+            if((!empty($params[1])))
+            {
+                $this->param = $params[1];
+            }
+        }
+            $this->prepareRoute();
+
         } catch (RouteException $e) {
             throw $e;
         }
@@ -260,7 +326,7 @@ class Router implements InterfaceRouter
      *
      * @internal param string $controller_path Controller path. Used to include and controller.
      */
-   /* protected function checkControllerExists()
+    /*protected function checkControllerExists()
     {
         $controller_path = SITE_PATH . 'system' . DS . 'controllers' . DS . $this->current_controller .
             DS . $this->current_controller . '.php';

@@ -7,16 +7,16 @@
  */
 defined('PROTECT_PAGE') or die('Доступ запрещен');
 
-$sitemap = new MapGenerator( "http://" . $_SERVER['HTTP_HOST'] . "/" );
+$sitemap = new MapGenerator( 'http://' . $_SERVER['HTTP_HOST'] . '/' );
 
 // add urls
-$sitemap->addUrl( "http://" . $_SERVER['HTTP_HOST'], date( 'c' ), 'daily', '1' );
-$sitemap->addUrl( "http://" . $_SERVER['HTTP_HOST'] . "/index.php", date( 'c' ), 'daily', '0.8' );
-$sitemap->addUrl( "http://" . $_SERVER['HTTP_HOST'] . "/about.php", date( 'c' ), 'daily', '0.8' );
-$sitemap->addUrl( "http://" . $_SERVER['HTTP_HOST'] . "/portfolio.php", date( 'c' ), 'daily', '0.8' );
-$sitemap->addUrl( "http://" . $_SERVER['HTTP_HOST'] . "/services.php", date( 'c' ), 'daily', '0.8' );
-$sitemap->addUrl( "http://" . $_SERVER['HTTP_HOST'] . "/news.php", date( 'c' ), 'daily', '0.8' );
-$sitemap->addUrl( "http://" . $_SERVER['HTTP_HOST'] . "/comments.php", date( 'c' ), 'daily', '0.8' );
+$sitemap->addUrl( 'http://' . $_SERVER['HTTP_HOST'], date( 'c' ), 'daily', '1' );
+$sitemap->addUrl( 'http://' . $_SERVER['HTTP_HOST'] . '/index.php', date( 'c' ), 'daily', '0.8' );
+$sitemap->addUrl( 'http://' . $_SERVER['HTTP_HOST'] . '/about.php', date( 'c' ), 'daily', '0.8' );
+$sitemap->addUrl( 'http://' . $_SERVER['HTTP_HOST'] . '/portfolio.php', date( 'c' ), 'daily', '0.8' );
+$sitemap->addUrl( 'http://' . $_SERVER['HTTP_HOST'] . '/services.php', date( 'c' ), 'daily', '0.8' );
+$sitemap->addUrl( 'http://' . $_SERVER['HTTP_HOST'] . '/news.php', date( 'c' ), 'daily', '0.8' );
+$sitemap->addUrl( 'http://' . $_SERVER['HTTP_HOST'] . '/comments.php', date( 'c' ), 'daily', '0.8' );
 
 // will create also compressed (gzipped) sitemap
 $sitemap->createGZipFile = true;

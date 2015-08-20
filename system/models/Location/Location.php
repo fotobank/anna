@@ -1,6 +1,6 @@
 <?php
 /**
- * Класс Error
+ * Класс PrintError
  * @created   by PhpStorm
  * @package   Error.php
  * @version   1.0
@@ -12,16 +12,16 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace models\Error;
+namespace models\Location;
 
 use models\Base as model;
-use proxy\Server;
+
 
 /**
  * Class Error
  * @package models\Error
  */
-class Error extends model\Base {
+class Location extends model\Base {
 
 	/**
 	 * @param $options

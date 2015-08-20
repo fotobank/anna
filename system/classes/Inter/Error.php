@@ -9,6 +9,8 @@ use classes\pattern\Registry;
 use Exception;
 use ErrorException;
 use classes\File;
+use proxy\Location;
+use proxy\Router;
 
 /**
  * Class Error
@@ -132,7 +134,7 @@ class Error
 					if (0 != count($this->_allError)) {
 						$this->write_errorlog();
 					}
-					\proxy\Error::stop();
+                    Router::stopPage();
 				}
 		}
 

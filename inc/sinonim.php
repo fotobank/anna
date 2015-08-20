@@ -5,18 +5,21 @@
  * Date: 21.07.14
  * Time: 19:49
  */
+
+use proxy\Error;
+
 defined('PROTECT_PAGE') or die('Доступ запрещен');
-if($_SERVER["REQUEST_METHOD"] == "POST")
+if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-	$row = $_POST["text"];
-	$znak= array(" ",".",",",":",";"," - ","!","?");
-	$fileSin = __DIR__ . "/../classes/Synonym/Synonym.txt";
+	$row = $_POST['text'];
+	$znak= [' ','.',',',':',';',' - ','!','?'];
+	$fileSin = __DIR__ . '/../classes/Synonym/Synonym.txt';
 	$masSin=file($fileSin);
 
 	$len2=strlen($row);
 	for ($t=0; $t<count($masSin); $t++)
 	{
-		$sin=explode("|",$masSin[$t]);
+		$sin=explode('|',$masSin[$t]);
 		$len=strlen($sin[0]);
 		if($len) {
 			$pos=strpos($row, $sin[0]);
@@ -33,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		  }
 	   }
 	}
-	$row=preg_replace("/[\r\n\s]+/"," ",$row);
+	$row=preg_replace("/[\r\n\s]+/",' ',$row);
 	Error::var_dump('row');
 }
 ?>

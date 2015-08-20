@@ -46,15 +46,15 @@ return [
 
 	],
 	'404'  => [
-		'controller' => 'Error',
+		'controller' => 'Location',
 		'method'     => 'error404'
 	],
 	'403'  => [
-		'controller' => 'Error',
+		'controller' => 'Location',
 		'method'     => 'error403'
 	],
 	'stop'  => [
-		'controller' => 'Error',
+		'controller' => 'Location',
 		'method'     => 'stop'
 	],
 	// ajax e-mail на странице блокировки

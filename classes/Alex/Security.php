@@ -1,9 +1,9 @@
 <?php
 # prevent direct viewing of Security.php
-use proxy\Error;
+use proxy\Location;
 
 if (false !== strpos($_SERVER['SCRIPT_NAME'], AlexSelfChk())) {
-	Error::error404();
+	Location::error404();
 }
 
 /**
@@ -123,7 +123,7 @@ class Security
 	 */
 	function send403()
 		{
-			Error::error403();
+			Location::error403();
 		}
 
 

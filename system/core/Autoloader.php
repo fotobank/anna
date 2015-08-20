@@ -35,7 +35,7 @@ namespace core;
 use Exception;
 use exception\BaseException;
 use helper\Recursive;
-use proxy\Error;
+use proxy\Location;
 
 
 /** @noinspection PhpIncludeInspection */
@@ -430,13 +430,12 @@ END;
             }
             else
             {
-                Error::error404();
+                Location::error404();
             }
         }
 
         return false;
     }
-
 
     /**
      * @param $class_name

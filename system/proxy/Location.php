@@ -15,7 +15,7 @@
 
 namespace proxy;
 
-use controllers\Error\Error as Instance;
+use controllers\Location\Location as Instance;
 
 /**
  * Class Error
@@ -23,16 +23,16 @@ use controllers\Error\Error as Instance;
  * @package proxy
  *
  * @method   static error404()
- * @see      proxy\Profiler::error404()
+ * @see      proxy\Location::error404()
  *
  * @method   static error403()
- * @see      proxy\Profiler::error403()
+ * @see      proxy\Location::error403()
  *
  * @method   static stop()
- * @see      proxy\Profiler::stop()
+ * @see      proxy\Location::stop()
  *
  */
-class Error  extends AbstractProxy
+class Location extends AbstractProxy
 {
     /**
      * Init instance

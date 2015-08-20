@@ -1,6 +1,6 @@
 <?php
 /**
- * Класс controllers\Error
+ * Класс controllers\PrintError
  * @created   by PhpStorm
  * @package   Error.php
  * @version   1.0
@@ -12,17 +12,17 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace controllers\Error;
+namespace controllers\Location;
 
 use controllers\Controller\Controller;
-use models\Error as model;
+use models\Location as model;
 
 
 /**
  * Class Error
  * @package controllers\Error
  */
-class Error extends Controller {
+class Location extends Controller {
 
 	/**
 	 *
@@ -38,7 +38,7 @@ class Error extends Controller {
 	 */
 	public function error404() {
 
-		$model = new model\Error();
+		$model = new model\Location();
 		echo $this->mustache->render('error\404', $model);
 		exit;
 	}
@@ -48,7 +48,7 @@ class Error extends Controller {
 	 */
 	public function error403() {
 
-		$model = new model\Error();
+		$model = new model\Location();
 		echo $this->mustache->render('error\403', $model);
 		exit;
 	}
@@ -58,7 +58,7 @@ class Error extends Controller {
 	 */
 	public function stop() {
 
-		$model = new model\Error([
+		$model = new model\Location([
 			                         'http_host' => getenv('HTTP_HOST')
 		                         ]);
 		echo $this->mustache->render('error\stop', $model);
