@@ -2,6 +2,13 @@ Order deny,allow
 Allow from all
 Satisfy any
 
+# use for production mode 'production' or for developer 'developer'
+SetEnv APP_MODE developer
+# true/false
+SetEnv SITE_LOG true
+# true/false
+SetEnv DEBUG_MODE true
+
 php_value memory_limit 250M
 
 AddDefaultCharset WINDOWS-1251

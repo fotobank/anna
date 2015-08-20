@@ -12,12 +12,22 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-version_compare(phpversion(), '5.5.0', '>=') === true or die ('PHP5.5 Only');
+//version_compare(phpversion(), '5.5.0', '>=') === true or die ('PHP5.5 Only');
 
-// Константы:
+if (version_compare(phpversion(), '5.5.0', '<')) {
+    printf("PHP 5.5.0 is required, you have %s\n", phpversion());
+    exit(1);
+}
+
+// защита страницы
 defined('PROTECT_PAGE') or define('PROTECT_PAGE', 1);
-// use for production mode 'prod' or for developer 'dev'
-defined('APP_MODE') or define('APP_MODE', 'dev');
+// use for production mode 'production' or for developer 'developer'
+defined('APP_MODE') or define('APP_MODE', (getenv('APP_MODE') === 'developer') ? 'developer' : 'production');
+if (getenv('DEBUG_MODE') === 'true') {
+    defined('DEBUG_MODE') or define('DEBUG_MODE', true);
+} else {
+    defined('DEBUG_MODE') or define('DEBUG_MODE', false);
+}
 defined('PATH_SEPARATOR') or define('PATH_SEPARATOR', getenv('COMSPEC') ? ';' : ':');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 defined('SALT') or define('SALT', 'qE3!nT^(gj)+?|6~d&.ru|');
@@ -36,6 +46,8 @@ defined('SITE_PATH') or define('SITE_PATH', realpath(__DIR__ . DS . '..' . DS . 
 defined('PATH_ROOT') or define('PATH_ROOT', realpath(__DIR__. DS . '..' . DS) . DS);
 defined('PATH_APPLICATION') or define('PATH_APPLICATION', PATH_ROOT . 'application' . DS);
 defined('PATH_VENDOR') or define('PATH_VENDOR', SITE_PATH . 'vendor' . DS);
+defined('PATH_DATA') or define('PATH_DATA', SITE_PATH . 'data');
+defined('PATH_PUBLIC') or define('PATH_PUBLIC', SITE_PATH . 'public');
 
 set_include_path(ini_get('include_path') . PATH_SEPARATOR . __DIR__);
 ini_set('session.auto_start', 1);
@@ -44,4 +56,4 @@ ini_set('session.auto_start', 1);
 // для гостевой
 define('TBL_POSTS', 'gb_posts');  // имя таблицы с сообщениями
 define('TBL_REPLIES', 'gb_replies'); // имя таблицы с ответами
-define('TBL_USERS', 'auth'); // имя таблицы с модераторами
+define('TBL_USERS', 'gb_users'); // имя таблицы с модераторами

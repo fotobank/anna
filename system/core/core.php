@@ -29,20 +29,22 @@ else
 include(SITE_PATH . 'system/core/Autoloader.php');
 new Autoloader();
 
-if(Session::get('logged') === true or APP_MODE === 'dev')
+if(Session::get('logged') === true or DEBUG_MODE)
 {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
-    define('DEBUG_MODE', true); // показ ошибок на монитор
 }
 else
 {
     ini_set('display_errors', 0);
     ini_set('display_startup_errors', 0);
-    define('DEBUG_MODE', false);
+}
+if (getenv('SITE_LOG') === 'true') {
+    ini_set('log_errors', 1);
+} else {
+    ini_set('log_errors', 0);
 }
 
-ini_set('log_errors', 1);
 
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'inc/func.php');

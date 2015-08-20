@@ -2,8 +2,8 @@
 /**
  * Alex Framework Component
  *
- * @copyright Bluz PHP Team
- * @link      https://github.com/bluzphp/framework
+ * @copyright Alex PHP
+ *
  */
 
 /**

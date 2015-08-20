@@ -22,6 +22,7 @@
       <sourceFolder url="file://$MODULE_DIR$/system" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/hybridauth/hybridauth" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mustache" />
     </content>
     <content url="file://C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-core-1.0.3/stylesheets" />
@@ -36,16 +37,18 @@
     <orderEntry type="module-library">
       <library name="PHP">
         <CLASSES>
-          <root url="file://C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass" />
-          <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
-          <root url="file://O:/modules/php/PHP-5.5" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/hybridauth/hybridauth" />
+          <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
+          <root url="file://C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass" />
+          <root url="file://O:/modules/php/PHP-5.5" />
         </CLASSES>
         <SOURCES>
-          <root url="file://C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass" />
-          <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
-          <root url="file://O:/modules/php/PHP-5.5" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/hybridauth/hybridauth" />
+          <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
+          <root url="file://C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass" />
+          <root url="file://O:/modules/php/PHP-5.5" />
         </SOURCES>
       </library>
     </orderEntry>
