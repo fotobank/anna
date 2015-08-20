@@ -11,7 +11,6 @@ use Exception;
 /**
  * Helper trait
  *
- * @link     https://github.com/bluzphp/framework/wiki/Trait-Helper
  */
 trait Helper
 {

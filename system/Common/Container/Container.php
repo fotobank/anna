@@ -7,7 +7,7 @@ namespace common\Container;
 /**
  * Container of data for object
  *
- * @package  Bluz\Common
+ * @package  Common
  */
 trait Container
 {

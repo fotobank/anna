@@ -48,6 +48,8 @@ if (getenv('SITE_LOG') === 'true') {
 
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'inc/func.php');
+/** @noinspection PhpIncludeInspection */
+include(PATH_ROOT . '_functions.php');
 
 defined('CODE_PAGE') or define('CODE_PAGE', detect_encoding(SITE_PATH . 'inc/кодировка файловой системы.codepage'));
 

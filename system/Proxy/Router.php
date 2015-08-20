@@ -30,6 +30,21 @@ use classes\Router\Router as Instance;
  * @method   static void start()
  * @see      proxy\Router::start()
  *
+ * @method   static mixed getInstanceController()
+ * @see      proxy\Router::getInstanceController()
+ *
+ * @method   static mixed getCurrentMethod()
+ * @see      proxy\Router::getCurrentMethod()
+ *
+ * @method   static mixed getParam()
+ * @see      proxy\Router::getParam()
+ *
+ * @method   static mixed getId()
+ * @see      proxy\Router::getId()
+ *
+ * @method   static string getUrl($controller, $method, $params)
+ * @see      proxy\Router::getUrl()
+ *
  * @author   Alex Jurii
  * @package  Proxy
  */
@@ -56,5 +71,4 @@ class Router extends AbstractProxy
             throw $e;
         }
     }
-
 }

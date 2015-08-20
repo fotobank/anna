@@ -287,7 +287,7 @@ END;
     {
         try
         {
-            if(APP_MODE === 'dev')
+            if(DEBUG_LOG)
             {
                 $this->putLog(
                     ('<br><b style="background-color: #ffffaa;">сканируем директории и обновляем базу поиска классов</b>'));
@@ -424,7 +424,7 @@ END;
         {
             // сообщение log класс не найден
             $this->logLoadError($class_name . $ext);
-            if(APP_MODE === 'dev')
+            if(DEBUG_MODE)
             {
                 throw new AutoloadException('класс <b>"' . $class_name . '"</b> не найден');
             }
@@ -524,7 +524,7 @@ END;
      */
     private function logFindClass($file_path, $file)
     {
-        if(APP_MODE === 'dev')
+        if(DEBUG_LOG)
         {
             $this->putLog('ищем файл <b>"' . $file . '"</b> in ' . $file_path);
         }
@@ -541,7 +541,7 @@ END;
      */
     private function logLoadOk($full_path, $file)
     {
-        if(APP_MODE === 'dev')
+        if(DEBUG_LOG)
         {
             $this->putLog(
                 ('<br><b style="color: #23a126;">подключили </b> '
@@ -629,7 +629,7 @@ END;
     {
         try
         {
-            if(APP_MODE === 'dev')
+            if(DEBUG_LOG)
             {
                 $this->putLog('<br><b style="color: #ff0000;">Класс "' . $class_name . '" не найден</b><br>');
             }

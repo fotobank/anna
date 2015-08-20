@@ -5,7 +5,7 @@ Satisfy any
 # use for production mode 'production' or for developer 'developer'
 SetEnv APP_MODE developer
 # true/false
-SetEnv SITE_LOG true
+SetEnv DEBUG_LOG true
 # true/false
 SetEnv DEBUG_MODE true
 

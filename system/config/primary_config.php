@@ -12,22 +12,20 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-//version_compare(phpversion(), '5.5.0', '>=') === true or die ('PHP5.5 Only');
-
-if (version_compare(phpversion(), '5.5.0', '<')) {
-    printf("PHP 5.5.0 is required, you have %s\n", phpversion());
-    exit(1);
-}
+version_compare(phpversion(), '5.5.0', '>=') === true or die ('PHP 5.5.0 is required, you have ' . phpversion());
 
 // защита страницы
 defined('PROTECT_PAGE') or define('PROTECT_PAGE', 1);
+
 // use for production mode 'production' or for developer 'developer'
 defined('APP_MODE') or define('APP_MODE', (getenv('APP_MODE') === 'developer') ? 'developer' : 'production');
-if (getenv('DEBUG_MODE') === 'true') {
-    defined('DEBUG_MODE') or define('DEBUG_MODE', true);
-} else {
-    defined('DEBUG_MODE') or define('DEBUG_MODE', false);
-}
+
+/** @noinspection TernaryOperatorSimplifyInspection */
+defined('DEBUG_MODE') or define('DEBUG_MODE', (getenv('DEBUG_MODE') === 'true') ? true : false);
+
+/** @noinspection TernaryOperatorSimplifyInspection */
+defined('DEBUG_LOG') or define('DEBUG_LOG', (getenv('DEBUG_LOG') === 'true') ? true : false);
+
 defined('PATH_SEPARATOR') or define('PATH_SEPARATOR', getenv('COMSPEC') ? ';' : ':');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 defined('SALT') or define('SALT', 'qE3!nT^(gj)+?|6~d&.ru|');
