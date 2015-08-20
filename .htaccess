@@ -7,7 +7,7 @@ SetEnv APP_MODE developer
 # true/false
 SetEnv DEBUG_LOG true
 # true/false
-SetEnv DEBUG_MODE false
+SetEnv DEBUG_MODE true
 
 php_value memory_limit 250M
 

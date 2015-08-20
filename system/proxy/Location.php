@@ -28,7 +28,7 @@ use controllers\Location\Location as Instance;
  * @method   static error403()
  * @see      proxy\Location::error403()
  *
- * @method   static stop()
+ * @method   static stopPage()
  * @see      proxy\Location::stop()
  *
  */

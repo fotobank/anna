@@ -56,7 +56,7 @@ class Location extends Controller {
 	/**
 	 * stop()
 	 */
-	public function stop() {
+	public function stopPage() {
 
 		$model = new model\Location([
 			                         'http_host' => getenv('HTTP_HOST')

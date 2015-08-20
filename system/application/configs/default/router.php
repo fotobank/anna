@@ -55,7 +55,7 @@ return [
 	],
 	'stop'  => [
 		'controller' => 'Location',
-		'method'     => 'stop'
+		'method'     => 'stopPage'
 	],
 	// ajax e-mail на странице блокировки
 	'subscription_lock_page' => [

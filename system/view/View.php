@@ -187,7 +187,7 @@ class View implements ViewInterface, \JsonSerializable
             $instance->$current_method($id, $param);
 
         } catch (ViewException $e) {
-            // clean output
+//             clean output
             ob_end_clean();
             throw $e;
         }

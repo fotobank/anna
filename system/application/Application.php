@@ -137,8 +137,8 @@ class Application
             // initial default helper path
             $this->addHelperPath(__DIR__ . '/Helper/');
             // init router
-//            Router::start();
-            View::render();
+            Router::start();
+            echo View::render();
 
         } catch (RedirectException $e) {
             Response::setException($e);
