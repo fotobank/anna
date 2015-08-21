@@ -56,7 +56,7 @@ if (!function_exists('app')) {
     /**
      * Alias for call instance of Application
      *
-     * @return \Bluz\Application\Application
+     * @return \application\Application
      */
     function app()
     {

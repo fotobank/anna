@@ -156,6 +156,7 @@ class Request extends AbstractProxy
      */
     protected static function initInstance()
     {
-        throw new ComponentException("Class `Proxy\\Request` required external initialization");
+        return new Instance();
+     //   throw new ComponentException("Class `Proxy\\Request` required external initialization");
     }
 }

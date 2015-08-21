@@ -17,7 +17,7 @@ use view\View;
  *
  * @package  Response
  */
-abstract class AbstractResponse
+class AbstractResponse
 {
     use Options;
 
@@ -62,16 +62,30 @@ abstract class AbstractResponse
     protected $presentation;
 
     /**
-     * Send messages to client
-     * @return mixed
+     * Send headers
+     *
+     * HTTP does not define any limit
+     * However most web servers do limit size of headers they accept.
+     * For example in Apache default limit is 8KB, in IIS it's 16K.
+     * Server will return 413 Entity Too Large error if headers size exceeds that limit
+     *
+     * @return void
      */
-    abstract protected function sendHeaders();
+    public function sendHeaders()
+    {
+        // setup response code
+        http_response_code($this->code);
 
-    /**
-     * Send messages to client
-     * @return mixed
-     */
-    abstract protected function sendBody();
+        // send stored cookies
+        foreach ($this->cookies as $cookie) {
+            setcookie(array_values($cookie));
+        }
+
+        // send stored headers
+        foreach ($this->headers as $key => $value) {
+            header($key .': '. implode(', ', $value));
+        }
+    }
 
     /**
      * Send data to client (console or browser)
@@ -90,7 +104,6 @@ abstract class AbstractResponse
             $this->presentation->process();
         }
         $this->sendHeaders();
-        $this->sendBody();
     }
 
     /**
@@ -216,7 +229,7 @@ abstract class AbstractResponse
      */
     public function setHeader($header, $value)
     {
-        $this->headers[$header] = (array) $value;
+        $this->headers[$header] = (array)$value;
     }
 
     /**
@@ -305,34 +318,6 @@ abstract class AbstractResponse
     public function removeHeaders()
     {
         $this->headers = [];
-    }
-
-    /**
-     * Set response body
-     * @param mixed $body
-     * @return void
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-    }
-
-    /**
-     * Get response body
-     * @return View
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * Clear response body
-     * @return void
-     */
-    public function clearBody()
-    {
-        $this->body = null;
     }
 
     /**

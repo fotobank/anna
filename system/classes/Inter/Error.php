@@ -11,6 +11,7 @@ use ErrorException;
 use classes\File;
 use proxy\Location;
 use proxy\Router;
+use proxy\View;
 
 /**
  * Class Error
@@ -147,6 +148,10 @@ class Error
 	 */
 	public function exception_handler(Exception $e)
 		{
+            if($e->getCode() == (200 or 302))
+            {
+                return;
+            }
 			$errorInfo = [];
 			$errorInfo['time'] = time();
 			$errorInfo['type'] = 'EXCEPTION';

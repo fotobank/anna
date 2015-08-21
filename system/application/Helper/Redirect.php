@@ -19,5 +19,5 @@ return
      * @return void
      */
     function ($url) {
-        throw new RedirectException($url);
+        throw new RedirectException($url[0]);
     };

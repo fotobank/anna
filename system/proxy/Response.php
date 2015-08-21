@@ -86,6 +86,9 @@ use view\View;
  * @method   static \Exception getPresentation()
  * @see      response\AbstractResponse::getPresentation()
  *
+ * @method   static \Exception sendHeaders()
+ * @see      response\AbstractResponse::sendHeaders()
+ *
  */
 class Response extends AbstractProxy
 {
@@ -97,6 +100,7 @@ class Response extends AbstractProxy
      */
     protected static function initInstance()
     {
-        throw new ComponentException("Class `Proxy\\Request` required external initialization");
+        return new Instance();
+//        throw new ComponentException("Class `Proxy\\Request` required external initialization");
     }
 }
