@@ -82,6 +82,12 @@ class View implements ViewInterface, \JsonSerializable
     protected $template;
 
     /**
+     * объект роутера
+     * @var MainRouter
+     */
+    protected $router;
+
+    /**
      * Create view instance, initial default helper path
      */
     public function __construct()
@@ -109,7 +115,7 @@ class View implements ViewInterface, \JsonSerializable
     {
         try
         {
-        return $this->render();
+        return $this->render($this->router);
         }
         catch(\Exception $e)
         {
@@ -127,7 +133,7 @@ class View implements ViewInterface, \JsonSerializable
     {
         try
         {
-            return $this->render();
+            return $this->render($this->router);
         }
         catch(\Exception $e)
         {
@@ -180,14 +186,14 @@ class View implements ViewInterface, \JsonSerializable
     {
         ob_start();
         try {
+            $this->router = $router;
             // достаем параметры из router
             $current_method = $router->getCurrentMethod();
             $id = $router->getId();
             $param = $router->getParam();
-            $instance = $router->getInstanceController();
 
             // вызываем метод с параметрами
-            $instance->$current_method($id, $param);
+            $router->getInstanceController()->$current_method($id, $param);
 
         } catch (ViewException $e) {
 
