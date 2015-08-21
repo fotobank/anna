@@ -10,21 +10,20 @@
  * @time      :     0:52
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
+use proxy\View;
 
-use core\Autoloader;
-use application\Application;
-
-
-//ob_start();
 
 /** @noinspection PhpIncludeInspection */
-include(__DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'primary_config.php');
+include(__DIR__ . '/system/config/primary_config.php');
 
 // подключаем ядро сайта
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
-Application::getInstance()->init();
+$router = app()->init('production');
+$page = View::render($router);
+
+echo $page;
 
 
 //use proxy\Profiler;
@@ -38,5 +37,3 @@ Application::getInstance()->init();
 //Profiler::testClass('proxy\Session',[[], 'set', ['test1/test2/test3', 'rrr']]);
 //Profiler::testFunction('itter',[]);
 //Profiler::generateResults();
-
-//ob_end_flush();

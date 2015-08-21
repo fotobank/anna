@@ -15,7 +15,7 @@ use common\Container\MagicAccess;
 use common\Container\Helper;
 use common\Options;
 use exception\ViewException;
-use proxy\Router;
+use classes\Router\Router as MainRouter;
 
 /**
  * View
@@ -170,27 +170,31 @@ class View implements ViewInterface, \JsonSerializable
     /**
      * Render
      *
+     * @param MainRouter $router
+     *
      * @return string
      * @throws \Exception
+     * @throws \exception\ViewException
      */
-    public function render()
+    public function render(MainRouter $router)
     {
         ob_start();
         try {
             // достаем параметры из router
-            $current_method = Router::getCurrentMethod();
-            $id = Router::getId();
-            $param = Router::getParam();
-            $instance = Router::getInstanceController();
+            $current_method = $router->getCurrentMethod();
+            $id = $router->getId();
+            $param = $router->getParam();
+            $instance = $router->getInstanceController();
 
             // вызываем метод с параметрами
             $instance->$current_method($id, $param);
 
         } catch (ViewException $e) {
-//             clean output
+
             ob_end_clean();
             throw $e;
         }
         return ob_get_clean();
+//         ob_end_flush();
     }
 }

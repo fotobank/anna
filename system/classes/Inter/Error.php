@@ -10,9 +10,7 @@ use Exception;
 use ErrorException;
 use classes\File;
 use proxy\Location;
-use proxy\Response;
 use proxy\Router;
-use proxy\View;
 
 /**
  * Class Error

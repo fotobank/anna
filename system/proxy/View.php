@@ -17,6 +17,7 @@ namespace proxy;
 
 use view\View as Instance;
 use auth\AbstractRowEntity;
+use classes\Router\Router as MainRouter;
 
 
 /**
@@ -48,7 +49,7 @@ use auth\AbstractRowEntity;
  * @method static void setPath($path)
  * @method static void setTemplate($file)
  * @method static View addPartialPath($path)
- * @method static string render()
+ * @method static string render(MainRouter $router)
  */
 class View extends AbstractProxy
 {

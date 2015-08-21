@@ -11,12 +11,11 @@ namespace application;
 use auth\Table;
 use common;
 use proxy\Response;
-use proxy\Router;
 use application\Exception\RedirectException;
 use application\Exception\ReloadException;
 use exception\ApplicationException;
 use proxy\Server;
-use proxy\View;
+use classes\Router\Router as MainRouter;
 
 
 /**
@@ -26,6 +25,7 @@ use proxy\View;
  * @method void redirect(string $url)
  * @method void redirectTo($controller, string $method = null, array $params = [])
  * @method void reload()
+ * @method MainRouter initRouter()
  *
  */
 class Application
@@ -39,9 +39,24 @@ class Application
     protected $path;
 
     /**
+     * @var string Environment name
+     */
+    protected $environment = 'production';
+
+    /**
      * @var array Stack of widgets closures
      */
     protected $widgets = [];
+
+
+    /**
+     * Get application environment
+     * @return string
+     */
+    public function getEnvironment()
+    {
+        return $this->environment;
+    }
 
     /**
      * Get path to Application
@@ -124,37 +139,34 @@ class Application
     /**
      * Initialize process
      *
-     * @throws \exception\ApplicationException
+     * @param string $environment
+     *
+     * @return null|string
+     * @throws \Exception
      */
-    public function init()
+    public function init($environment = 'production')
     {
         try {
 //            $t = new Table();
 //            $t->authenticateEquals('admin', 'admin');
 //            $t->authenticateToken('f9705d72d58b2a305ab6f5913ba60a61');
 
+            $this->environment = $environment;
             // initial default helper path
             $this->addHelperPath(__DIR__ . '/Helper/');
 
-
-
-            // init router
-            Router::start();
-
+            $router = $this->initRouter();
+            return $router;
 
         } catch (RedirectException $e) {
-            Response::setException($e);
-            Response::setStatusCode($e->getCode());
-            Response::setHeader('Location', $e->getMessage());
-            Response::send();
+            Response::removeHeaders();
+            Response::pushHeader('Location', $e->getMessage(), $e->getCode());
 
             return null;
 
         } catch (ReloadException $e) {
-            Response::setException($e);
-            Response::setStatusCode($e->getCode());
-            Response::setHeader('Refresh', '0; url=' . Server::get('REQUEST_URI'));
-            Response::send();
+            Response::removeHeaders();
+            Response::pushHeader('Refresh', '0; url=' . Server::get('REQUEST_URI'), $e->getCode());
 
             return null;
 
@@ -162,7 +174,5 @@ class Application
 
             throw $e;
         }
-
-        echo View::render();
     }
 }

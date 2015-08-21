@@ -9,7 +9,7 @@
 namespace proxy;
 
 use exception\ComponentException;
-use response\AbstractResponse as Instance;
+use response\Response as Instance;
 use view\View;
 
 /**
@@ -47,8 +47,8 @@ use view\View;
  * @see      response\AbstractResponse::getHeaderAsArray()
  * @method   static bool   hasHeader($header)
  * @see      response\AbstractResponse::hasHeader()
- * @method   static void   setHeader($header, $value)
- * @see      response\AbstractResponse::setHeader()
+ * @method   static void   pushHeader($action, $url, $code)
+ * @see      response\AbstractResponse::pushHeader()
  * @method   static void   addHeader($header, $value)
  * @see      response\AbstractResponse::addHeader()
  * @method   static void   removeHeader($header)
@@ -63,28 +63,11 @@ use view\View;
  * @method   static void   removeHeaders()
  * @see      response\AbstractResponse::removeHeaders()
  *
- * @method   static void  setBody($phrase)
- * @see      response\AbstractResponse::setBody()
- * @method   static View  getBody()
- * @see      response\AbstractResponse::getBody()
- * @method   static void  clearBody()
- * @see      response\AbstractResponse::clearBody()
- *
  * @method   static void setCookie($name, $value = null, $expire = 0, $path = '/', $domain = null, $s = null, $h = null)
  * @see      response\AbstractResponse::setCookie($name, $value = null, $expire = 0, $path = '/', $domain = null,
  *              $secure = null, $httpOnly = null)
  * @method   static array getCookie()
  * @see      response\AbstractResponse::getCookie()
- *
- * @method   static void  setException($exception)
- * @see      response\AbstractResponse::setException()
- * @method   static \Exception getException()
- * @see      response\AbstractResponse::getException()
- *
- * @method   static void  setPresentation($presentation)
- * @see      response\AbstractResponse::setPresentation()
- * @method   static \Exception getPresentation()
- * @see      response\AbstractResponse::getPresentation()
  *
  * @method   static \Exception sendHeaders()
  * @see      response\AbstractResponse::sendHeaders()
@@ -101,6 +84,5 @@ class Response extends AbstractProxy
     protected static function initInstance()
     {
         return new Instance();
-//        throw new ComponentException("Class `Proxy\\Request` required external initialization");
     }
 }

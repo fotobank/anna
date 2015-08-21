@@ -38,9 +38,14 @@ class CommonException extends Exception
      */
     public function __construct($message = '', $code = 0, Exception $previous = null)
     {
-        $this->message = $message;
-        $this->code = $code;
+        $numAgs = func_num_args();
+        if ($numAgs >= 1) {
+             $this->message = $message;
+        }
 
+        if ($numAgs >= 2) {
+            $this->code = $code;
+        }
         parent::__construct($this->message, $this->code, $previous);
     }
 }

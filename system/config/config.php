@@ -27,6 +27,11 @@ class Config
     protected $path;
 
     /**
+     * @var string Environment
+     */
+    protected $environment;
+
+    /**
      * Set path to configuration files
      *
      * @param string $path
@@ -42,6 +47,17 @@ class Config
     }
 
     /**
+     * Set application environment
+     *
+     * @param string $environment
+     * @return void
+     */
+    public function setEnvironment($environment)
+    {
+        $this->environment = $environment;
+    }
+
+    /**
      * Load configuration
      * @throws ConfigException
      * @return void
@@ -51,7 +67,13 @@ class Config
         if (!$this->path) {
             throw new ConfigException('Configuration directory is not setup');
         }
-        $this->config = $this->loadFiles($this->path .'configs/default');
+
+        $this->config = $this->loadFiles($this->path .'/configs/default');
+
+        if ($this->environment) {
+            $customConfig = $this->loadFiles($this->path . '/configs/' . $this->environment);
+            $this->config = array_replace_recursive($this->config, $customConfig);
+        }
     }
 
     /**

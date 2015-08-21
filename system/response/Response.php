@@ -9,14 +9,13 @@
 namespace response;
 
 use common\Options;
-use response\Presentation\AbstractPresentation;
 
 /**
- * AbstractResponse
+ * Response
  *
  * @package  Response
  */
-class AbstractResponse
+class Response
 {
     use Options;
 
@@ -45,66 +44,44 @@ class AbstractResponse
      */
     protected $cookies = [];
 
-    /**
-     * @var mixed Result can be View|object|function
-     */
-    protected $body;
 
     /**
-     * @var \Exception Catches exception
+     * @param $action
+     * @param $url
+     * @param $code
      */
-    protected $exception;
+    public function pushHeader($action = '', $url = '', $code = 200)
+{
+    $this->code = $code;
+    $this->setHeader($action, $url);
+    // setup response code
+    http_response_code($this->code);
 
-    /**
-     * @var string|AbstractPresentation Support JSON, JSONP, XML, CLI
-     */
-    protected $presentation;
-
-    /**
-     * Send headers
-     *
-     * HTTP does not define any limit
-     * However most web servers do limit size of headers they accept.
-     * For example in Apache default limit is 8KB, in IIS it's 16K.
-     * Server will return 413 Entity Too Large error if headers size exceeds that limit
-     *
-     * @return void
-     */
-    public function sendHeaders()
+    // send stored cookies
+    foreach ($this->cookies as $cookie) {
+        setcookie(array_values($cookie));
+    }
+    // send stored headers
+    if(empty($action or $url))
     {
-        // setup response code
-        http_response_code($this->code);
-
-        // send stored cookies
-        foreach ($this->cookies as $cookie) {
-            setcookie(array_values($cookie));
+        if(getenv('HTTP_REFERER'))
+        {
+            header('location: ' . getenv('HTTP_REFERER'));
         }
-        // send stored headers
+        else
+        {
+            header('location: /index.php');
+        }
+    }
+    else
+    {
         foreach ($this->headers as $key => $value)
         {
             header($key .': '. implode(', ', $value));
         }
-        exit(0);
     }
-
-    /**
-     * Send data to client (console or browser)
-     * @access  public
-     * @return void
-     */
-    public function send()
-    {
-        // Apply presentation metamorphosis
-        if ($this->presentation) {
-            if (is_string($this->presentation)) {
-                $presentationClass = '\\\Response\\Presentation\\'.ucfirst(strtolower($this->presentation));
-                $this->presentation = new $presentationClass($this);
-            }
-
-            $this->presentation->process();
-        }
-        $this->sendHeaders();
-    }
+    exit();
+}
 
     /**
      * Gets the HTTP protocol version as a string.
@@ -138,7 +115,7 @@ class AbstractResponse
      */
     public function setStatusCode($code)
     {
-        $this->code = (int) $code;
+        $this->code = (int)$code;
     }
 
     /**
@@ -333,14 +310,15 @@ class AbstractResponse
      * @return void
      */
     public function setCookie(
-        $name,
-        $value = null,
-        $expire = 0,
-        $path = '/',
-        $domain = null,
-        $secure = false,
-        $httpOnly = true
-    ) {
+                                $name,
+                                $value = null,
+                                $expire = 0,
+                                $path = '/',
+                                $domain = null,
+                                $secure = false,
+                                $httpOnly = true
+                                )
+    {
         // from PHP source code
         if (preg_match("/[=,; \t\r\n\013\014]/", $name)) {
             throw new \InvalidArgumentException('The cookie name contains invalid characters.');
@@ -366,8 +344,8 @@ class AbstractResponse
             'expire' => $expire,
             'path' => empty($path) ? '/' : $path,
             'domain' => $domain,
-            'secure' => (bool) $secure,
-            'httpOnly' => (bool) $httpOnly
+            'secure' => (bool)$secure,
+            'httpOnly' => (bool)$httpOnly
         ];
     }
 
@@ -380,44 +358,5 @@ class AbstractResponse
     public function getCookie($name)
     {
         return isset($this->cookies[$name])?$this->cookies[$name]:null;
-    }
-
-    /**
-     * Set Exception
-     * @param \Exception $exception
-     * @return void
-     */
-    public function setException($exception)
-    {
-        $this->removeHeaders();
-        $this->exception = $exception;
-    }
-
-    /**
-     * Get Exception
-     * @return \Exception
-     */
-    public function getException()
-    {
-        return $this->exception;
-    }
-
-    /**
-     * Set Presentation
-     * @param string $presentation
-     * @return void
-     */
-    public function setPresentation($presentation)
-    {
-        $this->presentation = $presentation;
-    }
-
-    /**
-     * Get Presentation
-     * @return string
-     */
-    public function getPresentation()
-    {
-        return $this->presentation;
     }
 }

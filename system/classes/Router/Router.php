@@ -351,8 +351,9 @@ class Router implements InterfaceRouter
         if(method_exists($instance, $method)) {
             $reflection = new ReflectionMethod($instance, $method);
             if($reflection->isPublic()) {
+            //  записываем в кеш инициализированный контроллер
                 $this->instance_controller = $instance;
-            //    $instance->$method($this->id, $this->param);
+            //  $instance->$method($this->id, $this->param);
 
             } else {
                 throw new RouteException('метод "' . $method . '" не является публичным');

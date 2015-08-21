@@ -47,6 +47,7 @@ class Config extends AbstractProxy
         {
             $instance = new Instance();
             $instance->setPath(Application::getInstance()->getPath());
+            $instance->setEnvironment(Application::getInstance()->getEnvironment());
             $instance->init();
 
             return $instance;
