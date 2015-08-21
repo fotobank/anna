@@ -57,7 +57,6 @@ use classes\Router\Router as Instance;
  * @method   static gotoPage($controller, $method, $params = [])
  * @see      proxy\Router::gotot()
  *
- *
  * @author   Alex Jurii
  * @package  Proxy
  */
