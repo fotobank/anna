@@ -16,9 +16,12 @@ return
      * @var Application $this
      * @param string $module
      * @param string $controller
-     * @param array $params
      * @return void
      */
-    function ($controller = 'index', $method = 'index', $params = []) {
-        $this->redirect($controller, $method, $params);
+    function ($arr_param)
+    {
+        $controller = $arr_param[0];
+        $method = array_key_exists(1, $arr_param) ? $arr_param[1] : null;
+
+        $this->redirect($controller, $method);
     };

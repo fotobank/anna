@@ -10,7 +10,6 @@ namespace response;
 
 use common\Options;
 use response\Presentation\AbstractPresentation;
-use view\View;
 
 /**
  * AbstractResponse
@@ -80,11 +79,12 @@ class AbstractResponse
         foreach ($this->cookies as $cookie) {
             setcookie(array_values($cookie));
         }
-
         // send stored headers
-        foreach ($this->headers as $key => $value) {
+        foreach ($this->headers as $key => $value)
+        {
             header($key .': '. implode(', ', $value));
         }
+        exit(0);
     }
 
     /**
@@ -390,7 +390,6 @@ class AbstractResponse
     public function setException($exception)
     {
         $this->removeHeaders();
-        $this->clearBody();
         $this->exception = $exception;
     }
 

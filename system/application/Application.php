@@ -24,7 +24,7 @@ use proxy\View;
 
  * @method void denied()
  * @method void redirect(string $url)
- * @method void redirectTo(string $controller, string $method, array $params = [])
+ * @method void redirectTo($controller, string $method = null, array $params = [])
  * @method void reload()
  *
  */
@@ -135,8 +135,6 @@ class Application
 
             // initial default helper path
             $this->addHelperPath(__DIR__ . '/Helper/');
-
-
 
 
 

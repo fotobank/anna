@@ -19,5 +19,9 @@ return
      * @return void
      */
     function ($url) {
-        throw new RedirectException($url[0]);
+        if(is_array($url))
+        {
+            $url = (implode('/', $url));
+        }
+        throw new RedirectException($url, 302);
     };
