@@ -10,8 +10,8 @@
  * @time      :     0:52
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
+use proxy\Location;
 use proxy\View;
-
 
 /** @noinspection PhpIncludeInspection */
 include(__DIR__ . '/system/config/primary_config.php');
@@ -20,10 +20,18 @@ include(__DIR__ . '/system/config/primary_config.php');
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
 
-$router = app()->init('production');
-$page = View::render($router);
+$router = app()->init(APP_MODE);
+if($router)
+{
+    $page = View::render($router);
+    echo $page;
+}
+else
+{
+    Location::stopPage();
+}
 
-echo $page;
+
 
 
 //use proxy\Profiler;

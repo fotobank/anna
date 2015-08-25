@@ -3,7 +3,7 @@
 /**
  * @namespace
  */
-namespace common\Container;
+namespace common;
 
 use Exception;
 
@@ -11,10 +11,12 @@ use Exception;
 /**
  * Helper trait
  *
+ * Dependency Injection
  */
 trait Helper
 {
     /**
+     * Service Container
      * @var array of helpers
      */
     protected $helpers = [];

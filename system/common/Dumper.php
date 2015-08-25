@@ -1,6 +1,6 @@
 <?php
 /**
- * Класс предназначен для
+ * Класс Dumper
  * @created   by PhpStorm
  * @package   Dumper.php
  * @version   1.0
@@ -12,7 +12,7 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace common\Container;
+namespace common;
 
 
 /**

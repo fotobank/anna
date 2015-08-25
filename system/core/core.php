@@ -26,6 +26,8 @@ else
 }
 
 /** @noinspection PhpIncludeInspection */
+include(SITE_PATH . 'vendor/autoload.php');
+/** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'system/core/Autoloader.php');
 new Autoloader();
 

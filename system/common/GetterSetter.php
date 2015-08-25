@@ -6,7 +6,7 @@
  * Time: 1:04
  */
 
-namespace common\Container;
+namespace common;
 
 /**
  * Class GetterSetter

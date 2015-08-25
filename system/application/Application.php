@@ -8,19 +8,20 @@
  */
 namespace application;
 
-use auth\Table;
-use common;
-use proxy\Response;
-use application\Exception\RedirectException;
-use application\Exception\ReloadException;
-use exception\ApplicationException;
-use proxy\Server;
 use classes\Router\Router as MainRouter;
+use common;
+use DI\ContainerBuilder;
+use exception\ApplicationException;
+use application\Exception\ReloadException;
+use application\Exception\RedirectException;
+use proxy\Config;
+use proxy\Response;
+use proxy\Server;
+use proxy\Router;
 
 
 /**
  * Application
-
  * @method void denied()
  * @method void redirect(string $url)
  * @method void redirectTo($controller, string $method = null, array $params = [])
@@ -30,8 +31,8 @@ use classes\Router\Router as MainRouter;
  */
 class Application
 {
-    use common\Container\Helper;
-    use common\Container\Singleton;
+    use common\Helper;
+    use common\Singleton;
 
     /**
      * @var string Application path
@@ -51,6 +52,7 @@ class Application
 
     /**
      * Get application environment
+     *
      * @return string
      */
     public function getEnvironment()
@@ -60,26 +62,34 @@ class Application
 
     /**
      * Get path to Application
+     *
      * @return string
      */
     public function getPath()
     {
-        if (!$this->path) {
-            if (defined('PATH_APPLICATION')) {
+        if(!$this->path)
+        {
+            if(defined('PATH_APPLICATION'))
+            {
                 $this->path = PATH_APPLICATION;
-            } else {
+            }
+            else
+            {
                 $reflection = new \ReflectionClass($this);
                 // 3 level up
                 $this->path = dirname(dirname(dirname($reflection->getFileName())));
             }
         }
+
         return $this->path;
     }
 
     /**
      * Get widget file
+     *
      * @param  string $module
      * @param  string $widget
+     *
      * @return string
      * @throws ApplicationException
      */
@@ -87,7 +97,8 @@ class Application
     {
         $widgetPath = $this->getPath() . '/modules/' . $module . '/widgets/' . $widget . '.php';
 
-        if (!file_exists($widgetPath)) {
+        if(!file_exists($widgetPath))
+        {
             throw new ApplicationException("Widget file not found '$module/$widget'");
         }
 
@@ -115,20 +126,26 @@ class Application
 
         /**
          * Cachable widgets
+         *
          * @var \Closure $widgetClosure
          */
-        if (isset($this->widgets[$module], $this->widgets[$module][$widget])) {
+        if(isset($this->widgets[$module], $this->widgets[$module][$widget]))
+        {
             $widgetClosure = $this->widgets[$module][$widget];
-        } else {
+        }
+        else
+        {
             $widgetClosure = include $widgetFile;
 
-            if (!isset($this->widgets[$module])) {
+            if(!isset($this->widgets[$module]))
+            {
                 $this->widgets[$module] = [];
             }
             $this->widgets[$module][$widget] = $widgetClosure;
         }
 
-        if (!is_callable($widgetClosure)) {
+        if(!is_callable($widgetClosure))
+        {
             throw new ApplicationException("Widget is not callable '$module/$widget'");
         }
 
@@ -141,12 +158,13 @@ class Application
      *
      * @param string $environment
      *
-     * @return null|string
+     * @return MainRouter
      * @throws \Exception
      */
     public function init($environment = 'production')
     {
-        try {
+        try
+        {
 //            $t = new Table();
 //            $t->authenticateEquals('admin', 'admin');
 //            $t->authenticateToken('f9705d72d58b2a305ab6f5913ba60a61');
@@ -155,22 +173,43 @@ class Application
             // initial default helper path
             $this->addHelperPath(__DIR__ . '/Helper/');
 
-            $router = $this->initRouter();
-            return $router;
 
-        } catch (RedirectException $e) {
+            $container = ContainerBuilder::buildDevContainer();
+
+            $container->set('MainRouter', function () {
+                return $this->initRouter();
+            });
+
+            $router = $container->get('MainRouter');
+
+
+
+            //  $router = $this->initRouter();
+           return $router;
+
+        }
+        catch(RedirectException $e)
+        {
+            // Redirect
             Response::removeHeaders();
             Response::pushHeader('Location', $e->getMessage(), $e->getCode());
 
             return null;
 
-        } catch (ReloadException $e) {
+            // Reload
+        }
+
+        catch
+        (ReloadException $e)
+        {
             Response::removeHeaders();
             Response::pushHeader('Refresh', '0; url=' . Server::get('REQUEST_URI'), $e->getCode());
 
             return null;
 
-        } catch (\Exception $e) {
+        }
+        catch(\Exception $e)
+        {
 
             throw $e;
         }

@@ -12,7 +12,7 @@ use auth\AbstractRowEntity;
 use common\Container\Container;
 use common\Container\JsonSerialize;
 use common\Container\MagicAccess;
-use common\Container\Helper;
+use common\Helper;
 use common\Options;
 use exception\ViewException;
 use classes\Router\Router as MainRouter;
@@ -201,6 +201,6 @@ class View implements ViewInterface, \JsonSerializable
             throw $e;
         }
         return ob_get_clean();
-//         ob_end_flush();
+    //  ob_end_flush();
     }
 }

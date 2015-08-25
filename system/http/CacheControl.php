@@ -30,7 +30,7 @@ class CacheControl
     use Container;
 
     /**
-     * @var $response
+     * @var \response\Response $response
      */
     protected $response;
 

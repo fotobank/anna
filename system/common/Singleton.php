@@ -2,7 +2,7 @@
 /**
  * @namespace
  */
-namespace common\Container;
+namespace common;
 
 /**
  * Singleton

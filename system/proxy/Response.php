@@ -49,6 +49,8 @@ use view\View;
  * @see      response\AbstractResponse::hasHeader()
  * @method   static void   pushHeader($action, $url, $code)
  * @see      response\AbstractResponse::pushHeader()
+ * @method   static void   setHeader($header, $value)
+ * @see      response\AbstractResponse::setHeader()
  * @method   static void   addHeader($header, $value)
  * @see      response\AbstractResponse::addHeader()
  * @method   static void   removeHeader($header)
