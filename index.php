@@ -30,15 +30,15 @@ app()->init(APP_MODE);
 
 
 // proxy
-echo View::render();
+//echo View::render();
 
 
 
 // php::di
 //$container = ContainerBuilder::buildDevContainer();
 
-/*$builder = new ContainerBuilder();
-$builder->useAnnotations(true);
+$builder = new ContainerBuilder();
+$builder->useAnnotations(false);
 $builder->addDefinitions([
                     'Config' => new Config(),
                     'classes\Router\Router' => function(ContainerInterface $c){
@@ -49,10 +49,9 @@ $builder->addDefinitions([
                     }
 
                          ]);
-$container = $builder->build(); */
+$container = $builder->build();
 
-
-//echo $container->get('view\View');
+echo $container->get('view\View');
 
 
 

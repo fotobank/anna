@@ -1,5 +1,6 @@
 <?php
 
+use proxy\Cookie;
 use proxy\Db as Db;
 
 /** @noinspection PhpIncludeInspection */
@@ -26,11 +27,11 @@ if(!count($inDB))
 {
 	// This user is not in the database, so we must fetch
 	// the geoip data and insert it into the online table:
-	if($_COOKIE['geoData'])
+	if(Cookie::has('geoData'))
 	{
 		// A "geoData" cookie has been previously set by the script, so we will use it
 		// Always escape any user input, including cookies:
-		list($city,$countryName,$countryAbbrev) = explode('|', strip_tags($_COOKIE['geoData']));
+		list($city,$countryName,$countryAbbrev) = explode('|', strip_tags(Cookie::get('geoData')));
 	}
 	else
 	{
@@ -64,7 +65,7 @@ if(!count($inDB))
 		geoip_close($gi);
 
 		// Setting a cookie with the data, which is set to expire in a month:
-		setcookie('geoData', $city.'|'.$countryName.'|'.$countryAbbrev, time()+60*60*24*30,'/');
+		Cookie::set('geoData', $city.'|'.$countryName.'|'.$countryAbbrev, time()+60*60*24*30,'/');
 	}
 	
 	$countryName = str_replace('(Unknown Country?)','UNKNOWN', $countryName);
