@@ -27,7 +27,7 @@ include(__DIR__ . '/src/config/primary_config.php');
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'src' . DS . 'core' . DS . 'core.php');
 
-/*$router = app()->init(APP_MODE);
+$router = app()->init(APP_MODE);
 if($router)
 {
     Router::start();
@@ -37,12 +37,12 @@ if($router)
 else
 {
     Location::stopPage();
-}*/
+}
 
 
 //$container = ContainerBuilder::buildDevContainer();
 
-$builder = new ContainerBuilder();
+/*$builder = new ContainerBuilder();
 $builder->useAnnotations(true);
 $builder->addDefinitions([
                     'Config' => new Config(),
@@ -58,7 +58,7 @@ $container = $builder->build();
 
 
 
-echo $container->get('view\View');
+echo $container->get('view\View');*/
 
 
 
