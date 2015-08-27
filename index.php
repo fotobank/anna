@@ -27,17 +27,11 @@ include(__DIR__ . '/src/config/primary_config.php');
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'src' . DS . 'core' . DS . 'core.php');
 
-$router = app()->init(APP_MODE);
-if($router)
-{
-    Router::start();
+app()->init(APP_MODE);
+
     $page = View::render();
     echo $page;
-}
-else
-{
-    Location::stopPage();
-}
+
 
 
 //$container = ContainerBuilder::buildDevContainer();

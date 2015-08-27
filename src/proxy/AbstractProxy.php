@@ -11,11 +11,13 @@ namespace proxy;
 use exception\CommonException;
 use exception\ComponentException;
 
+
 /**
  * Abstract Proxy
  */
 abstract class AbstractProxy
 {
+
     /**
      * @var array Instances of classes
      */

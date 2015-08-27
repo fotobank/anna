@@ -24,4 +24,12 @@ namespace core;
 class Framework
 {
     const VERSION = '0.1';
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+
+    }
 }

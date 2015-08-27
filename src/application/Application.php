@@ -17,6 +17,7 @@ use application\Exception\RedirectException;
 use proxy\Response;
 use proxy\Server;
 use DI;
+use proxy\Router;
 
 
 /**
@@ -174,8 +175,6 @@ class Application
             // initial default helper path
             $this->addHelperPath(__DIR__ . '/Helper/');
 
-
-            return $this->initRouter();
         }
         catch(RedirectException $e)
         {
