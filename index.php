@@ -30,7 +30,7 @@ app()->init(APP_MODE);
 
 
 // proxy
-//echo View::render();
+echo View::render();
 
 
 
@@ -52,16 +52,7 @@ $builder->addDefinitions([
 $container = $builder->build(); */
 
 
-
-
-
-// orno/di
-$container = new \Orno\Di\Container();
-
-
-
-//$container = new \Orno\Di\Container;
-echo $container->get('view\View');
+//echo $container->get('view\View');
 
 
 

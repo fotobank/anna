@@ -14,8 +14,6 @@
     "mustache/mustache": "v2.8.0",
     "hybridauth/hybridauth": "v2.4.1",
     "php-di/php-di": "5.0.3",
-    "doctrine/annotations": "~1.2",
-    "orno/di": "v2.3.2",
-    "orno/cache": "v1.0.0"
+    "doctrine/annotations": "~1.2"
   }
 }

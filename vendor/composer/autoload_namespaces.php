@@ -6,8 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Predis' => array($vendorDir . '/predis/predis/lib'),
-    'Orno\\Cache' => array($vendorDir . '/orno/cache/src'),
     'Mustache' => array($vendorDir . '/mustache/mustache/src'),
     'Hybrid' => array($vendorDir . '/hybridauth/hybridauth/hybridauth'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),

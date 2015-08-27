@@ -2,7 +2,7 @@ Order deny,allow
 Allow from all
 Satisfy any
 
-# use for production mode 'production' or for developer 'developer'
+# use for production mode 'production' or for developer 'developer' or for test 'test'
 SetEnv APP_MODE developer
 # true/false
 SetEnv DEBUG_LOG true
