@@ -1,7 +1,7 @@
 <?php
 use proxy\Db as Db;
 
-require (__DIR__ .'/../../system/config/config.php');
+require(__DIR__ . '/../../src/config/config.php');
 header( 'Content-type: text/html; charset=windows-1251' );
 header('Cache-Control: no-cache');
 if(isset($_GET['renderer'])) {

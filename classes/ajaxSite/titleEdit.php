@@ -1,7 +1,7 @@
 <?php
 
 
-require (__DIR__ .'/../../system/config/config.php');;
+require(__DIR__ . '/../../src/config/config.php');;
 header( 'Content-type: text/html; charset=windows-1251' );
 
 

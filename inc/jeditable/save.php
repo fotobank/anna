@@ -1,6 +1,6 @@
 <?php
 use proxy\Db as Db;
-require (__DIR__ .'/../../system/config/config.php');
+require(__DIR__ . '/../../src/config/config.php');
 
 /*
  Check submitted value

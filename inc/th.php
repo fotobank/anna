@@ -7,7 +7,7 @@
  */
 
 include(__DIR__.'/func.php');
-include(__DIR__ .'/../system/config/config.php');
+include(__DIR__ . '/../src/config/config.php');
 
 if (!defined('CODE_PAGE')) {
 	define( 'CODE_PAGE', detect_encoding(SITE_PATH . 'inc/кодировка файловой системы.codepage'));

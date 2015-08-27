@@ -4,8 +4,8 @@
     <file url="file://$PROJECT_DIR$/js/stub_page/jquery.lwtCountdown-1.0.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/js/stub_page/misc.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/login.html" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/system/classes/Inter/Error.php" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/system/views/Mustache/templates/stubPage.mustache" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/classes/Inter/Error.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/views/Mustache/templates/stubPage.mustache" charset="windows-1251" />
     <file url="PROJECT" charset="windows-1251" />
   </component>
 </project>

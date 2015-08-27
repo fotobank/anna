@@ -1,11 +1,11 @@
 {
-  "name": "jurii/annafoto",
-  "description": "sait annafoto",
+  "name": "ALEX",
+  "description": "framework ALEX",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
     {
-      "name": "Jurii",
+      "name": "Jurii Alex",
       "email": "jurii@mail.ru"
     }
   ],
@@ -13,6 +13,7 @@
     "php": ">=5.3.0",
     "mustache/mustache": "v2.8.0",
     "hybridauth/hybridauth": "v2.4.1",
-    "php-di/php-di": "5.0.3"
+    "php-di/php-di": "5.0.3",
+    "doctrine/annotations": "~1.2"
   }
 }

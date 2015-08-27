@@ -1,7 +1,7 @@
 <?
 use proxy\Db as Db;
 
-require(__DIR__ .'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
+require(__DIR__ . '/src/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 
 $tpl = new Comments\Template("classes/Comments/_templates/");
 $tpl->define( [

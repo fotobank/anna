@@ -6,7 +6,7 @@
  * Time: 11:23
  */
 
-require(__DIR__ .'/system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
+require(__DIR__ . '/src/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 include_once( __DIR__ . '/inc/func.php' );
 include_once( __DIR__ . '/inc/head.php' );
 ?>

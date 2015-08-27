@@ -1,7 +1,7 @@
 <?php
 use proxy\Db as Db;
 
-require (__DIR__ .'/../../system/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
+require(__DIR__ . '/../../src/config/config.php'); // старт сессии, автолоадер, подключение базы, обработчик ошибок, файл функций
 
 if(session_id() == ''){session_start();}
 header( 'Content-type: text/html; charset=windows-1251' );

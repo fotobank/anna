@@ -12,31 +12,64 @@
  */
 use proxy\Location;
 use proxy\View;
+use proxy\Router;
+
+use classes\Router\Router as MainRouter;
+use DI\ContainerBuilder;
+use \Interop\Container\ContainerInterface;
+use config\Config;
+
 
 /** @noinspection PhpIncludeInspection */
-include(__DIR__ . '/system/config/primary_config.php');
+include(__DIR__ . '/src/config/primary_config.php');
 
 // подключаем ядро сайта
 /** @noinspection PhpIncludeInspection */
-include(SITE_PATH . 'system' . DS . 'core' . DS . 'core.php');
+include(SITE_PATH . 'src' . DS . 'core' . DS . 'core.php');
 
-$router = app()->init(APP_MODE);
+/*$router = app()->init(APP_MODE);
 if($router)
 {
-    $page = View::render($router);
+    Router::start();
+    $page = View::render();
     echo $page;
 }
 else
 {
     Location::stopPage();
-}
+}*/
+
+
+$container = ContainerBuilder::buildDevContainer();
+
+/*$builder = new ContainerBuilder();
+$builder->useAnnotations(true);
+$builder->addDefinitions([
+                    'Config' => new Config(),
+                    'classes\Router\Router' => function(ContainerInterface $c){
+                                        return new MainRouter($c->get('Config'));
+                     },
+                    'url_routes' => function(ContainerInterface $c){
+                        return $c->get('classes\Router\Router')->getUrlRoutes();
+                    }
+
+                         ]);
+$container = $builder->build();*/
+
+
+
+$page = $container->get('view\View');
+echo $page;
+
+
+
 
 
 
 
 //use proxy\Profiler;
 //Profiler::setIterataions(1);
-//Profiler::testClass('proxy\Recursive',[ [], 'scanDir', ['system/',['php']]]);
+//Profiler::testClass('proxy\Recursive',[ [], 'scanDir', ['src/',['php']]]);
 
 // статичесский класс
 //Profiler::testClass('proxy\Recursive',[ [], 'dir', ['files/portfolio/03_Банкеты']]);
