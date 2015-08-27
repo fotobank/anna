@@ -10,9 +10,8 @@
  * @time      :     0:52
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
-use proxy\Location;
+
 use proxy\View;
-use proxy\Router;
 
 use classes\Router\Router as MainRouter;
 use DI\ContainerBuilder;
@@ -29,11 +28,13 @@ include(SITE_PATH . 'src' . DS . 'core' . DS . 'core.php');
 
 app()->init(APP_MODE);
 
-    $page = View::render();
-    echo $page;
+
+// proxy
+//echo View::render();
 
 
 
+// php::di
 //$container = ContainerBuilder::buildDevContainer();
 
 /*$builder = new ContainerBuilder();
@@ -48,12 +49,19 @@ $builder->addDefinitions([
                     }
 
                          ]);
-$container = $builder->build();
+$container = $builder->build(); */
 
 
 
-echo $container->get('view\View');*/
 
+
+// orno/di
+$container = new \Orno\Di\Container();
+
+
+
+//$container = new \Orno\Di\Container;
+echo $container->get('view\View');
 
 
 

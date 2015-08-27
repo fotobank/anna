@@ -426,7 +426,7 @@ END;
             $this->logLoadError($class_name . $ext);
             if(DEBUG_MODE)
             {
-                throw new AutoloadException('класс <b>"' . $class_name . '"</b> не найден');
+                throw new AutoloadException('Class <b>"' . $class_name . '"</b>  not found');
             }
             else
             {
