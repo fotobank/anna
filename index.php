@@ -40,9 +40,9 @@ else
 }*/
 
 
-$container = ContainerBuilder::buildDevContainer();
+//$container = ContainerBuilder::buildDevContainer();
 
-/*$builder = new ContainerBuilder();
+$builder = new ContainerBuilder();
 $builder->useAnnotations(true);
 $builder->addDefinitions([
                     'Config' => new Config(),
@@ -54,15 +54,11 @@ $builder->addDefinitions([
                     }
 
                          ]);
-$container = $builder->build();*/
+$container = $builder->build();
 
 
 
-$page = $container->get('view\View');
-echo $page;
-
-
-
+echo $container->get('view\View');
 
 
 

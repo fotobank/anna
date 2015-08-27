@@ -63,4 +63,41 @@ class View extends AbstractProxy
         $instance = new Instance($router);
         return $instance;
     }
+
+    /**
+     * Render like string
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function __toString()
+    {
+        try
+        {
+            return static::render();
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
+
+    }
+
+    /**
+     * View should be callable
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function __invoke()
+    {
+        try
+        {
+            return static::render();
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
+    }
 }
