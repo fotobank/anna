@@ -47,10 +47,10 @@ class Config
             throw new ConfigException('Configuration directory is not setup');
         }
 
-        $this->config = $this->loadFiles($this->path .'/configs/default');
+        $this->config = $this->loadFiles($this->path .'configs/default');
 
         if ($this->environment) {
-            $customConfig = $this->loadFiles($this->path . '/configs/' . $this->environment);
+            $customConfig = $this->loadFiles($this->path . 'configs/' . $this->environment);
             $this->config = array_replace_recursive($this->config, $customConfig);
         }
     }

@@ -78,7 +78,6 @@ class Autoloader extends Recursive
     // массив путей поиска файлов классов
     public $paths = ['classes', 'src', 'src/controllers', 'src/models', 'application'];
 
-
     // файл настройки
     public $htaccess = '.htaccess';
 
