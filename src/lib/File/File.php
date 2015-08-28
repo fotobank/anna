@@ -3,7 +3,7 @@
  * file.class.php
  */
 
-namespace classes\File;
+namespace lib\File;
 /**
  * Class file
  */

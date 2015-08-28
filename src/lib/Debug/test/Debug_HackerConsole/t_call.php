@@ -11,8 +11,8 @@ function F1() {
 }
 
 function F2() {
-	echo "<pre>"; print_r(Main::debug_backtrace_smart('call_user_func.*', true)); echo "</pre>";
-	Main::out("test");
+	echo '<pre>'; print_r(Main::debug_backtrace_smart('call_user_func.*', true)); echo "</pre>";
+	Main::out('test');
 }
 
 ?>

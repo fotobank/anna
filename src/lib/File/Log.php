@@ -18,7 +18,7 @@
  * $log->get_log();
  * 
  */
-namespace classes\File;
+namespace lib\File;
 
 /**
  * Class log

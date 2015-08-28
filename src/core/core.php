@@ -11,8 +11,8 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-use lib\pattern\Registry;
 use core\Autoloader;
+use lib\pattern\Registry;
 use proxy\Session;
 
 
@@ -41,9 +41,12 @@ else
     ini_set('display_errors', 0);
     ini_set('display_startup_errors', 0);
 }
-if (getenv('SITE_LOG') === 'true') {
+if(getenv('SITE_LOG') === 'true')
+{
     ini_set('log_errors', 1);
-} else {
+}
+else
+{
     ini_set('log_errors', 0);
 }
 
@@ -72,7 +75,7 @@ if(!function_exists('debugHC'))
      */
     function debugHC($variables, $group = 'message')
     {
-        if(DEBUG_MODE && is_callable($func = ['Main', 'out']))
+        if(DEBUG_MODE && is_callable($func = ['lib\Debug\HackerConsole\HackerConsole', 'out']))
         {
             call_user_func($func, $variables, $group);
         }
@@ -80,12 +83,12 @@ if(!function_exists('debugHC'))
 }
 
 // демо debug:
-// debugHC(SITE_PATH.'classes/Mustache/templates', 'test');
+ debugHC(SITE_PATH.'classes/Mustache/templates', 'Mustache');
 // debugHC( CODE_PAGE, 'CODE_PAGE' );
 // debugHC( SITE_PATH, 'SITE_PATH' );
 
 
-$err                 = new classes\Inter\Error();
+$err                 = new lib\Inter\Error();
 $err->conf['logDir'] = SITE_PATH . 'log';
 $err->conf['otl']    = true; // включить запись лога на 127.0.0.1
 //$err->var_dump('SITE_PATH'); // вывод дампа переменных

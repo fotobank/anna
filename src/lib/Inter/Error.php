@@ -1,6 +1,6 @@
 <?php
 
-namespace classes\Inter;
+namespace lib\Inter;
 
 /**
  * Class Error
@@ -8,13 +8,13 @@ namespace classes\Inter;
 use lib\pattern\Registry;
 use Exception;
 use ErrorException;
-use classes\File;
+use lib\File;
 use proxy\Location;
 use proxy\Router;
 
 /**
  * Class Error
- * @package classes\Inter
+ * @package lib\Inter
  */
 class Error
 {
@@ -360,7 +360,7 @@ class Error
 
 					try {
 
-						$log = Registry::call('classes\File\Log');
+						$log = Registry::call('lib\File\Log');
 
 						$log->put_log($logFilename, $logText);
 

@@ -12,7 +12,7 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace Ini;
+namespace lib\Ini;
 
 use ArrayAccess;
 use Countable;

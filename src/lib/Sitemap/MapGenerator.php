@@ -9,20 +9,20 @@ class MapGenerator {
      * @var string
      * @access public
      */
-    public $sitemapFileName = "sitemap.xml";
+    public $sitemapFileName = 'sitemap.xml';
     /**
      * Name of sitemap index file
      * @var string
      * @access public
      */
 
-    public $sitemapIndexFileName = "sitemap-index.xml";
+    public $sitemapIndexFileName = 'sitemap-index.xml';
     /**
      * Robots file name
      * @var string
      * @access public
      */
-    public $robotsFileName = "robots.txt";
+    public $robotsFileName = 'robots.txt';
     /**
      * Quantity of URLs per single sitemap file.
      * According to specification max value is 50.000.
@@ -62,11 +62,11 @@ class MapGenerator {
      * @access private
      */
     private $searchEngines = [
-        [ "http://search.yahooapis.com/SiteExplorerService/V1/updateNotification?appid=USERID&url=",
-        "http://search.yahooapis.com/SiteExplorerService/V1/ping?sitemap=" ],
-        "http://www.google.com/webmasters/tools/ping?sitemap=",
-        "http://submissions.ask.com/ping?sitemap=",
-        "http://www.bing.com/webmaster/ping.aspx?siteMap="
+        [ 'http://search.yahooapis.com/SiteExplorerService/V1/updateNotification?appid=USERID&url=',
+        'http://search.yahooapis.com/SiteExplorerService/V1/ping?sitemap=' ],
+        'http://www.google.com/webmasters/tools/ping?sitemap=',
+        'http://submissions.ask.com/ping?sitemap=',
+        'http://www.bing.com/webmaster/ping.aspx?siteMap='
 	];
     /**
      * Array with urls
@@ -100,7 +100,7 @@ class MapGenerator {
      * @param string $baseURL You site URL, with / at the end.
      * @param string|null $basePath Relative path where sitemap and robots should be stored.
      */
-    public function __construct($baseURL, $basePath = "") {
+    public function __construct($baseURL, $basePath = '') {
         $this->baseURL = $baseURL;
         $this->basePath = $basePath;
     }
@@ -117,7 +117,7 @@ class MapGenerator {
 
 	public function addUrls($urlsArray) {
         if (!is_array($urlsArray))
-            throw new InvalidArgumentException("Array as argument should be given.");
+            throw new InvalidArgumentException('Array as argument should be given.');
         foreach ($urlsArray as $url) {
             $this->addUrl(isset ($url[0]) ? $url[0] : null,
                 isset ($url[1]) ? $url[1] : null,
@@ -138,12 +138,12 @@ class MapGenerator {
 
 	public function addUrl($url, $lastModified = null, $changeFrequency = null, $priority = null) {
         if ($url == null)
-            throw new InvalidArgumentException("URL is mandatory. At least one argument should be given.");
+            throw new InvalidArgumentException('URL is mandatory. At least one argument should be given.');
         $urlLenght = extension_loaded('mbstring') ? mb_strlen($url) : strlen($url);
         if ($urlLenght > 2048)
-            throw new InvalidArgumentException("URL lenght can't be bigger than 2048 characters.
+            throw new InvalidArgumentException('URL lenght can\'t be bigger than 2048 characters.
                                                 Note, that precise url length check is guaranteed only using mb_string extension.
-                                                Make sure Your server allow to use mbstring extension.");
+                                                Make sure Your server allow to use mbstring extension.');
         $tmp = [ ];
         $tmp['loc'] = $url;
         if (isset($lastModified)) $tmp['lastmod'] = $lastModified;
@@ -156,9 +156,9 @@ class MapGenerator {
      */
     public function createSitemap() {
         if (!isset($this->urls))
-            throw new BadMethodCallException("To create sitemap, call addUrl or addUrls function first.");
+            throw new BadMethodCallException('To create sitemap, call addUrl or addUrls function first.');
         if ($this->maxURLsPerSitemap > 50000)
-            throw new InvalidArgumentException("More than 50,000 URLs per single sitemap is not allowed.");
+            throw new InvalidArgumentException('More than 50,000 URLs per single sitemap is not allowed.');
 
         $generatorInfo = '<!-- generated-on="'.date('c').'" -->';
         $sitemapHeader = '<?xml version="1.0" encoding="UTF-8"?>'.$generatorInfo.'
