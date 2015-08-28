@@ -39,7 +39,6 @@ app()->init(APP_MODE);
 
 $builder = new ContainerBuilder();
 $builder->useAnnotations(false);
-debug($_SERVER['APP_MODE']);
 $builder->addDefinitions([
                     'Config' => new Config(),
                     'router\Router' => function(ContainerInterface $c){
