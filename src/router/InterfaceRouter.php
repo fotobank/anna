@@ -12,12 +12,12 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace classes\Router;
+namespace router;
 
 
 /**
  * Interface InterfaceRouter
- * @package classes\Router
+ * @package router
  */
 interface InterfaceRouter
 {

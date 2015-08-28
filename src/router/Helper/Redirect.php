@@ -8,7 +8,7 @@
 /**
  * @namespace
  */
-namespace classes\Router\Helper\Redirect;
+namespace router\Helper\Redirect;
 
 use Application\Exception\RedirectException;
 

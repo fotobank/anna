@@ -1,6 +1,6 @@
 <?php
 
-namespace classes\Router;
+namespace router;
 
 /**
  * Класс Router
@@ -186,6 +186,7 @@ class Router implements InterfaceRouter
         $widget_dir = $this->ucwordsKey($this->current_method);
         $this->addHelperPath(PATH_ROOT . strtolower($this->current_controller) . '/' . $widget_dir . '/');
         $widget = $this->url_routes[2];
+        // вызов виджета
         $this->$widget();
         exit;
     }

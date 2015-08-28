@@ -15,7 +15,7 @@ use common\Container\MagicAccess;
 use common\Helper;
 use common\Options;
 use exception\ViewException;
-use classes\Router\Router as MainRouter;
+use router\Router as MainRouter;
 
 /**
  * View
@@ -90,7 +90,7 @@ class View implements ViewInterface, \JsonSerializable
     /**
      * Create view instance, initial default helper path
      *
-     * @param \classes\Router\Router $router
+     * @param \router\Router $router
      */
     public function __construct(MainRouter $router)
     {
@@ -182,7 +182,7 @@ class View implements ViewInterface, \JsonSerializable
      * @return string
      * @throws \Exception
      * @throws \exception\ViewException
-     * @internal param \classes\Router\Router $router
+     * @internal param \router\Router $router
      *
      */
     public function render()

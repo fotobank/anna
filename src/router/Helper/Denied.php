@@ -8,7 +8,7 @@
 /**
  * @namespace
  */
-namespace classes\Router\Helper\Denied;
+namespace router\Helper\Denied;
 
 use Application\Exception\ForbiddenException;
 

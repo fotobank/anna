@@ -13,7 +13,7 @@
 
 use proxy\View;
 
-use classes\Router\Router as MainRouter;
+use router\Router as MainRouter;
 use DI\ContainerBuilder;
 use \Interop\Container\ContainerInterface;
 use config\Config;
@@ -41,11 +41,11 @@ $builder = new ContainerBuilder();
 $builder->useAnnotations(false);
 $builder->addDefinitions([
                     'Config' => new Config(),
-                    'classes\Router\Router' => function(ContainerInterface $c){
+                    'router\Router' => function(ContainerInterface $c){
                                         return new MainRouter($c->get('Config'));
                      },
                     'url_routes' => function(ContainerInterface $c){
-                        return $c->get('classes\Router\Router')->getUrlRoutes();
+                        return $c->get('router\Router')->getUrlRoutes();
                     }
 
                          ]);

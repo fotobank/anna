@@ -6,7 +6,7 @@ namespace proxy;
 
 use exception\RouteException;
 use exception\ComponentException;
-use classes\Router\Router as Instance;
+use router\Router as Instance;
 
 
 
@@ -66,7 +66,7 @@ class Router extends AbstractProxy
     /**
      * Init instance
      *
-     * @return \classes\Router\Router
+     * @return \router\Router
      * @throws \Exception
      * @throws \exception\RouteException
      */

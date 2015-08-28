@@ -8,7 +8,7 @@
  */
 namespace application;
 
-use classes\Router\Router as MainRouter;
+use router\Router as MainRouter;
 use common\Singleton;
 use common\Helper;
 use exception\ApplicationException;
