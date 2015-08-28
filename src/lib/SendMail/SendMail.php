@@ -290,7 +290,7 @@ class SendMail
 				}
 			}
 
-			$header .= ("Reply-To: ".$this->_params['from_email']."\r\n"."X-Priority: ".$this->_params['priority'].
+			$header .= ('Reply-To: '.$this->_params['from_email']."\r\n".'X-Priority: '.$this->_params['priority'].
 						"\r\n"."MIME-Version: 1.0\r\n");
 
 
@@ -301,14 +301,14 @@ class SendMail
 				$header .= ("Content-Type: multipart/mixed; boundary=\"".$bound."\"\r\n".
 							"This is a multi-part message in MIME format.\r\n");
 
-				$message = ("--".$bound."\r\n"."Content-Type: text/".$this->_params['content_type']."; charset=".
-							$this->_params['charset']."\r\n"."Content-Transfer-Encoding: ".
+				$message = ('--'.$bound."\r\n".'Content-Type: text/'.$this->_params['content_type'].'; charset='.
+							$this->_params['charset']."\r\n".'Content-Transfer-Encoding: '.
 							$this->_params['content_encoding']."\r\n\r\n".
 							$this->_strEncoding($this->_params['message'])."\r\n\r\n");
 
 				$finfo = null;
 
-				if (function_exists("finfo_open") && function_exists("finfo_file")) {
+				if (function_exists('finfo_open') && function_exists('finfo_file')) {
 					$finfo = finfo_open(FILEINFO_MIME_TYPE);
 				}
 

@@ -12,14 +12,14 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace classes\pattern;
+namespace lib\pattern;
 
 use exception\BaseException;
 
 
 /**
  * Class RegException
- * @package classes\pattern
+ * @package lib\pattern
  */
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
@@ -58,7 +58,7 @@ class RegistryException extends BaseException
  * $template2 = Registry::call('tpl:style2')->load('index')->compile(); //получить шаблон index из стиля style2
  *
  * Class Registry
- * @package classes\pattern
+ * @package lib\pattern
  */
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */

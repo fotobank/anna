@@ -5,7 +5,7 @@ namespace classes\Inter;
 /**
  * Class Error
  */
-use classes\pattern\Registry;
+use lib\pattern\Registry;
 use Exception;
 use ErrorException;
 use classes\File;

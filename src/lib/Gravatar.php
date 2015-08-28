@@ -31,31 +31,32 @@
  * @version 1.0
  * @package Gravatar
  */
+
 class Gravatar {
 	/**
 	 *    Gravatar's url
 	 */
-	const GRAVATAR_URL = "http://www.gravatar.com/avatar.php";
+	const GRAVATAR_URL = 'http://www.gravatar.com/avatar.php';
 
 	/**
 	 *    Ratings available
 	 */
-	private $GRAVATAR_RATING = [ "G", "PG", "R", "X" ];
+	private $GRAVATAR_RATING = [ 'G', 'PG', 'R', 'X' ];
 
 	/**
 	 *    Query string. key/value
 	 */
 	protected $properties = [
-		"gravatar_id" => NULL,
-		"default"     => NULL,
-		"size"        => 40,
-		"rating"      => "G"
+		'gravatar_id' => NULL,
+		'default'     => NULL,
+		'size'        => 40,
+		'rating'      => 'G'
 	];
 
 	/**
 	 *    Extra attributes to the IMG tag like ALT, CLASS, STYLE...
 	 */
-	protected $_extra = "";
+	protected $_extra = '';
 
 
 	/**
@@ -211,10 +212,10 @@ class Gravatar {
 	 */
 	public function toHTML($src = NULL) {
 		$url = !empty($src)?$src:$this->getSrc();
-		return "<img src='". $url ."'"
+		return '<img src=\''. $url ."'"
 		. ( ! isset( $this->size ) ? '' : " width='{$this->size}px' height='{$this->size}px' ")
 		. $this->_extra
-		. " />";
+		. ' />';
 	}
 
 	/**
@@ -224,5 +225,3 @@ class Gravatar {
 		return $this->toHTML();
 	}
 }
-
-?> 

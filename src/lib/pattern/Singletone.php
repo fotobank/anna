@@ -7,7 +7,7 @@
  */
 
 
-namespace classes\pattern;
+namespace lib\pattern;
 
 /**
  * Singleton

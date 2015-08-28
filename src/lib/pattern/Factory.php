@@ -6,7 +6,7 @@
  * Time: 16:28
  */
 
-namespace classes\pattern;
+namespace lib\pattern;
 /**
  * Пул объектов
  */

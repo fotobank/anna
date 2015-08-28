@@ -11,7 +11,7 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-use classes\pattern\Registry;
+use lib\pattern\Registry;
 use core\Autoloader;
 use proxy\Session;
 

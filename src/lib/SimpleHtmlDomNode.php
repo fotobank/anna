@@ -61,7 +61,7 @@ define( 'HDOM_INFO_OUTER', 6 );
 define( 'HDOM_INFO_ENDSPACE', 7 );
 define( 'DEFAULT_TARGET_CHARSET', 'UTF-8' );
 define( 'DEFAULT_BR_TEXT', "\r\n" );
-define( 'DEFAULT_SPAN_TEXT', " " );
+define( 'DEFAULT_SPAN_TEXT', ' ' );
 define( 'MAX_FILE_SIZE', 600000 );
 // helper functions
 // -----------------------------------------------------------------------------
@@ -135,12 +135,12 @@ function dump_html_tree( $node, $show_attr = true, $deep = 0 ) {
 class SimpleHtmlDomNode {
 	public $nodetype = HDOM_TYPE_TEXT;
 	public $tag = 'text';
-	public $attr = array();
-	public $children = array();
-	public $nodes = array();
+	public $attr = [];
+	public $children = [];
+	public $nodes = [];
 	public $parent = null;
 	// The "info" array - see HDOM_INFO_... for what each element contains.
-	public $_ = array();
+	public $_ = [];
 	public $tag_start = 0;
 	private $dom = null;
 
