@@ -51,7 +51,7 @@ $builder->addDefinitions([
                          ]);
 $container = $builder->build();
 
-echo $container->get('view\View');
+echo $container->get('views\View\View');
 
 
 

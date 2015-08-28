@@ -7,10 +7,10 @@
 /**
  * @namespace
  */
-namespace view\Helper;
+namespace views\View\Helper\Partial;
 
-use view\View;
-use view\ViewException;
+use views\View\View;
+use views\View\ViewException;
 
 return
     /**

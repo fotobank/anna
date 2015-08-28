@@ -6,7 +6,7 @@
 /**
  * @namespace
  */
-namespace view;
+namespace views\View;
 
 use auth\AbstractRowEntity;
 use common\Container\Container;

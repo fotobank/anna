@@ -6,7 +6,7 @@
 /**
  * @namespace
  */
-namespace view;
+namespace views\View;
 
 use exception\CommonException;
 

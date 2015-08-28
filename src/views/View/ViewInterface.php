@@ -7,7 +7,7 @@
 /**
  * @namespace
  */
-namespace view;
+namespace views\View;
 
 /**
  * ViewInterface

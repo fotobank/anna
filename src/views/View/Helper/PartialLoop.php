@@ -6,10 +6,10 @@
 /**
  * @namespace
  */
-namespace view\Helper;
+namespace views\View\Helper\PartialLoop;
 
-use view\View;
-use view\ViewException;
+use views\View\View;
+use views\View\ViewException;
 
 return
     /**

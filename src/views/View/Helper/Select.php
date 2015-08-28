@@ -6,9 +6,9 @@
 /**
  * @namespace
  */
-namespace view\Helper;
+namespace views\View\Helper\Select;
 
-use view\View;
+use views\View\View;
 
 return
     /**
@@ -40,39 +40,52 @@ return
      *     </select>
      *
      * @author The-Who
-     * @var View $this
-     * @param string $name
-     * @param array $options
+     * @var View           $this
+     *
+     * @param string       $name
+     * @param array        $options
      * @param array|string $selected
-     * @param array $attributes
+     * @param array        $attributes
+     *
      * @return string
      */
-    function ($name, array $options = [], $selected = null, array $attributes = []) {
+    function ($name, array $options = [], $selected = null, array $attributes = [])
+    {
         $attributes['name'] = $name;
 
-        if (!is_array($selected)) {
-            if ($selected === null) {
+        if(!is_array($selected))
+        {
+            if($selected === null)
+            {
                 // empty array
                 $selected = [];
-            } else {
+            }
+            else
+            {
                 // convert one option to an array
                 $selected = [(string)$selected];
             }
-        } elseif (is_array($selected) && count($selected) > 1) {
+        }
+        elseif(is_array($selected) && count($selected) > 1)
+        {
             $attributes['multiple'] = 'multiple';
         }
 
         /**
          * @param $value
          * @param $text
+         *
          * @return string
          */
-        $buildOption = function ($value, $text) use ($selected) {
-            $value = (string)$value;
+        $buildOption = function ($value, $text) use ($selected)
+        {
+            $value  = (string)$value;
             $option = ['value' => $value];
-            if (in_array($value, $selected)) {
+            if(in_array($value, $selected))
+            {
                 $option['selected'] = 'selected';
             }
+
             return '<option ' . $this->attributes($option) . '>' . htmlspecialchars(
                 (string)$text,
                 ENT_QUOTES,
@@ -83,24 +96,30 @@ return
 
 
         $result = [];
-    foreach ($options as $value => $text) {
-        if (is_array($text)) {
-            // optgroup support
-            // create a list of sub-options
-            $subOptions = [];
-            foreach ($text as $subValue => $subText) {
-                $subOptions[] = $buildOption($subValue, $subText);
+        foreach($options as $value => $text)
+        {
+            if(is_array($text))
+            {
+                // optgroup support
+                // create a list of sub-options
+                $subOptions = [];
+                foreach($text as $subValue => $subText)
+                {
+                    $subOptions[] = $buildOption($subValue, $subText);
+                }
+                // build string from array
+                $subOptions = "\n" . implode("\n", $subOptions) . "\n";
+
+                $result[] = '<optgroup ' . $this->attributes(['label' => $value]) . '>' . $subOptions . '</optgroup>';
+
             }
-            // build string from array
-            $subOptions = "\n" . implode("\n", $subOptions) . "\n";
-
-            $result[] = '<optgroup ' . $this->attributes(['label' => $value]) . '>' . $subOptions . '</optgroup>';
-
-        } else {
-            $result[] = $buildOption($value, $text);
+            else
+            {
+                $result[] = $buildOption($value, $text);
+            }
         }
-    }
 
         $result = "\n" . implode("\n", $result) . "\n";
+
         return '<select ' . $this->attributes($attributes) . '>' . $result . '</select>';
     };

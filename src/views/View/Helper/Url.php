@@ -7,9 +7,9 @@
 /**
  * @namespace
  */
-namespace view\Helper;
+namespace views\View\Helper\Url;
 
-use view\View;
+use views\View\View;
 
 return
     /**

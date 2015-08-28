@@ -7,9 +7,9 @@
 /**
  * @namespace
  */
-namespace view\Helper;
+namespace views\View\Helper\Exception;
 
-use view\View;
+use views\View\View;
 
 return
     /**
@@ -19,7 +19,7 @@ return
      * @param \Exception $exception
      * @return string
      */
-    function ($exception) {
+    function (\Exception $exception) {
         if (DEBUG_MODE) {
             // @codeCoverageIgnoreStart
             // exception message for developers

@@ -15,7 +15,7 @@
 
 namespace proxy;
 
-use view\View as Instance;
+use views\View\View as Instance;
 use auth\AbstractRowEntity;
 
 

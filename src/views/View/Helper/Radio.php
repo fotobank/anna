@@ -6,14 +6,13 @@
 /**
  * @namespace
  */
-namespace view\Helper;
+namespace views\View\Helper\Radio;
 
-use view\View;
+use views\View\View;
 
 return
     /**
-     * Generate HTML for <input type="checkbox">
-     *
+     * Generate HTML for <input type="radio">
      *
      * @var View $this
      * @param string $name
@@ -26,8 +25,6 @@ return
         /** @var View $this */
         if (true === $checked) {
             $attributes['checked'] = 'checked';
-        } elseif (false !== $checked && ($checked == $value)) {
-            $attributes['checked'] = 'checked';
         }
 
         if (null !== $value) {
@@ -35,7 +32,7 @@ return
         }
 
         $attributes['name'] = $name;
-        $attributes['type'] = 'checkbox';
+        $attributes['type'] = 'radio';
 
         return '<input ' . $this->attributes($attributes) . '/>';
     };

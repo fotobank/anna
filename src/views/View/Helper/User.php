@@ -6,9 +6,9 @@
 /**
  * @namespace
  */
-namespace piew\Helper;
+namespace views\View\Helper\User;
 
-use view\View;
+use views\View\View;
 use proxy\Auth;
 
 return

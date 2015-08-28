@@ -6,9 +6,9 @@
 /**
  * @namespace
  */
-namespace view\Helper;
+namespace views\View\Helper\Script;
 
-use view\View;
+use views\View\View;
 
 return
     /**

@@ -6,7 +6,7 @@
 /**
  * @namespace
  */
-namespace view\Helper;
+namespace views\View\Helper\HeadStyle;
 
 return
     /**

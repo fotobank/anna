@@ -6,11 +6,11 @@
 /**
  * @namespace
  */
-namespace view\Helper;
+namespace views\View\Helper\Widget;
 
 use application\Application;
 use application\Exception\ForbiddenException;
-use view\View;
+use views\View\View;
 
 return
     /**

@@ -7,7 +7,7 @@
 /**
  * @namespace
  */
-namespace view\Helper;
+namespace views\View\Helper\HeadScript;
 
 
 return

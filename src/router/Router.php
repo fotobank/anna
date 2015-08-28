@@ -116,7 +116,6 @@ class Router implements InterfaceRouter
             {
                 $this->prepareRoute();
             }
-
         }
         catch(RouteException $e)
         {
