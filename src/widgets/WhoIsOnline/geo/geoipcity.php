@@ -111,6 +111,12 @@ function getrecordwithdnsservice($str){
   return $record;
 }
 
+/**
+ * @param $gi
+ * @param $ipnum
+ *
+ * @return \geoiprecord
+ */
 function _get_record($gi,$ipnum){
   $seek_country = _geoip_seek_country($gi,$ipnum);
   if ($seek_country == $gi->databaseSegments) {
@@ -182,7 +188,7 @@ function _get_record($gi,$ipnum){
   $record->longitude = ($longitude/10000) - 180;
   if (GEOIP_CITY_EDITION_REV1 == $gi->databaseType){
     $dmaarea_combo = 0;
-    if ($record->country_code == "US"){
+    if ($record->country_code == 'US'){
       for ($j = 0;$j < 3;++$j){
         $char = ord(substr($record_buf,$record_buf_pos++,1));
         $dmaarea_combo += ($char << ($j * 8));
@@ -194,7 +200,13 @@ function _get_record($gi,$ipnum){
   return $record;
 }
 
-function GeoIP_record_by_addr ($gi,$addr){
+/**
+ * @param $gi
+ * @param $addr
+ *
+ * @return \geoiprecord|int
+ */
+function geoip_record_by_addr($gi,$addr){
   if ($addr == NULL){
      return 0;
   }

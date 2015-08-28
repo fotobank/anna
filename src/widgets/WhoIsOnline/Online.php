@@ -30,11 +30,10 @@ return
     function ()
     {
 
-
         $stringIp = ip();
         $intIp    = ip2long($stringIp);
 
-// Checking wheter the visitor is already marked as being online:
+        // Checking wheter the visitor is already marked as being online:
         Db::where('ip', $intIp);
         $inDB = Db::getOne('tz_who_is_online', '1');
 
@@ -66,7 +65,7 @@ return
 
 
                 include('geo/geoipcity.php');
-                $gi     = geoip_open('geo/GeoLiteCity.dat', GEOIP_STANDARD);
+                $gi     = geoip_open(__DIR__.'/geo/GeoLiteCity.dat', GEOIP_STANDARD);
                 $record = geoip_record_by_addr($gi, $stringIp);
                 if(is_null($record))
                 {
@@ -83,25 +82,16 @@ return
                 geoip_close($gi);
 
                 // Setting a cookie with the data, which is set to expire in a month:
-                Cookie::set('geoData', $city . '|' . $countryName . '|' . $countryAbbrev, time() + 60 * 60 * 24 * 30,
-                            '/');
+                Cookie::set('geoData', $city . '|' . $countryName . '|' . $countryAbbrev,
+                            time() + 60 * 60 * 24 * 30, '/');
             }
 
             $countryName = str_replace('(Unknown Country?)', 'UNKNOWN', $countryName);
-
-            // In case the Hostip API fails:
-            /*if (!$countryName)
-            {
-                $countryName='UNKNOWN';
-                $countryAbbrev='XX';
-                $city='(Unknown City?)';
-            }*/
-
             $values = [
-                'ip'          => 'INET_ATON(' . $intIp . ')',
+                'ip'          => $intIp,
                 'country'     => $countryName,
                 'countrycode' => $countryAbbrev,
-                'city'        => $city,
+                'city'        => $city
             ];
             Db::insert('tz_who_is_online', $values);
         }
@@ -109,14 +99,12 @@ return
         {
             // If the visitor is already online, just update the dt value of the row:
             Db::rawQuery('UPDATE `tz_who_is_online` SET dt=NOW() WHERE ip=' . $intIp);
-
         }
 
-// Removing entries not updated in the last 10 minutes:  Now()
+        // Removing entries not updated in the last 10 minutes:  Now()
         Db::where('Unix_timestamp(dt)', (time() - 600), '<');
         Db::delete('tz_who_is_online');
 
-// Counting all the online visitors:
         $number = Db::getOne('tz_who_is_online', 'count(*) as online');
 
         echo('<span id="online">' . $number['online'] . '</span>');

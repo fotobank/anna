@@ -134,18 +134,16 @@ class Router implements InterfaceRouter
             {
                 throw new RouteException('если название метода не отличается от имени контроллера то его указывать не надо');
             }
+
+            // действительный крнтроллер и метод
+            $this->searchCurrentRoure();
+
             if(isset($this->url_routes[0]) && $this->url_routes[0] == 'widgets')
             {
-                $widget_dir = $this->ucwordsKey($this->url_routes[1]);
-                $this->addHelperPath(PATH_ROOT . '/widgets/' . $widget_dir . '/');
-                $widget = $this->url_routes[2];
-                $this->$widget();
-                exit;
+                $this->loadWidget();
             }
             else
             {
-                // действительный крнтроллер и метод
-                $this->searchCurrentRoure();
                 $this->prepareRoute();
             }
 
@@ -161,6 +159,18 @@ class Router implements InterfaceRouter
                 $this->goto404();
             }
         }
+    }
+
+    /**
+     * загрузка виджета
+     */
+    protected function loadWidget()
+    {
+        $widget_dir = $this->ucwordsKey($this->current_method);
+        $this->addHelperPath(PATH_ROOT . strtolower($this->current_controller).'/' . $widget_dir . '/');
+        $widget = $this->url_routes[2];
+        $this->$widget();
+        exit;
     }
 
     /**
