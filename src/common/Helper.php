@@ -90,4 +90,16 @@ trait Helper
         }
         throw new Exception('Helper method "'. $method .'" not found for class "' . __CLASS__ . '"');
     }
+
+    /**
+     * Normalize key name
+     * @param  string $key
+     * @return string
+     */
+    public function ucwordsKey($key)
+    {
+        $option = str_replace(['_', '-'], ' ', strtolower($key));
+        $option = str_replace(' ', '', ucwords($option));
+        return $option;
+    }
 }

@@ -10,7 +10,8 @@ $(document).ready(function(){
 	var timeout;
 
 	// Loading the number of users online into the count div:
-	count.load('/inc/who_is_online/online.php #online');
+	//count.load('/inc/who_is_online/online.php');
+	count.load('/widgets/who_is_online/online');
 
 	$('.onlineWidget').hover(
 		function(){
@@ -36,7 +37,8 @@ $(document).ready(function(){
 			if(!loaded)
 			{
 //				panel('.container',  $(this).load('inc/who_is_online/geodata.php'));
-				panel.load('/inc/who_is_online/geodata.php #geodata');
+//				panel.load('/inc/who_is_online/geodata.php #geodata');
+				panel.load('/widgets/who_is_online/geodata');
 
 				// Loading the countries and the flags once the sliding panel is shown:
 				// panel.load('inc/who_is_online/geodata.php');

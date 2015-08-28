@@ -42,7 +42,7 @@ defined('MAX_IMG_SIZE') or define('MAX_IMG_SIZE', 5*1024*1024);
 defined('SITE_PATH') or define('SITE_PATH', realpath(__DIR__ . DS . '..' . DS . '..' . DS) . DS);
 /** @noinspection RealpathOnRelativePathsInspection */
 defined('PATH_ROOT') or define('PATH_ROOT', realpath(__DIR__. DS . '..' . DS) . DS);
-defined('PATH_APPLICATION') or define('PATH_APPLICATION', PATH_ROOT . 'application' . DS);
+defined('PATH_APPLICATION') or define('PATH_APPLICATION', SITE_PATH . 'application' . DS);
 defined('PATH_VENDOR') or define('PATH_VENDOR', SITE_PATH . 'vendor' . DS);
 defined('PATH_DATA') or define('PATH_DATA', SITE_PATH . 'data');
 defined('PATH_PUBLIC') or define('PATH_PUBLIC', SITE_PATH . 'public');

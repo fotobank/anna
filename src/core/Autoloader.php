@@ -49,7 +49,6 @@ include(SITE_PATH . 'src/helper/Recursive/Recursive.php');
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class AutoloadException extends BaseException
 {
-
 }
 
 
@@ -77,7 +76,7 @@ class Autoloader extends Recursive
     public $files_ext = ['.php', '.class.php'];
 
     // массив путей поиска файлов классов
-    public $paths = ['classes', 'src', 'src/controllers', 'src/models'];
+    public $paths = ['classes', 'src', 'src/controllers', 'src/models', 'application'];
 
     // файл настройки
     public $htaccess = '.htaccess';

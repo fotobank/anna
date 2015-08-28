@@ -4,6 +4,7 @@ namespace classes\Router;
 
 /**
  * Класс Router
+ *
  * @created   by PhpStorm
  * @package   Router.php
  * @version   1.0
@@ -15,12 +16,12 @@ namespace classes\Router;
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-use exception\RouteException;
 use common\Helper;
-use proxy\Base as BaseModel;
-use Exception;
-use ReflectionMethod;
 use config\Config;
+use Exception;
+use exception\RouteException;
+use proxy\Base as BaseModel;
+use ReflectionMethod;
 
 
 /**
@@ -31,10 +32,10 @@ class Router implements InterfaceRouter
 {
     use Helper;
 
-    const DEFAULT_MODULE = 'index';
+    const DEFAULT_MODULE     = 'index';
     const DEFAULT_CONTROLLER = 'index';
-    const ERROR_MODULE = 'error';
-    const ERROR_CONTROLLER = 'index';
+    const ERROR_MODULE       = 'error';
+    const ERROR_CONTROLLER   = 'index';
 
     private
         $param, /** string Param that sets after request url checked. */
@@ -64,13 +65,13 @@ class Router implements InterfaceRouter
 
     /**
      * непосредственный маршрут
+     *
      * @var
      */
     public
         $current_roure = [],
         $current_controller = '',
         $current_method = '';
-
 
 
     /**
@@ -89,9 +90,12 @@ class Router implements InterfaceRouter
      */
     public function setRoute($route)
     {
-        if(is_array($route)) {
+        if(is_array($route))
+        {
             $this->site_routes = array_merge($this->site_routes, $route);
-        } else {
+        }
+        else
+        {
             throw new RouteException('$route is not array');
         }
     }
@@ -121,29 +125,47 @@ class Router implements InterfaceRouter
      */
     public function start()
     {
-        try {
-            $url = array_key_exists('url', $_GET) ? $_GET['url'] : 'index';
+        try
+        {
+            $url              = array_key_exists('url', $_GET) ? $_GET['url'] : 'index';
             $this->url_routes = array_values(array_filter(explode('/', $url)));
             // для SEO защита от повторяющихся контроллеров /index/index/index
-            if(substr_count($url, $this->url_routes[0]) > 1) {
+            if(substr_count($url, $this->url_routes[0]) > 1)
+            {
                 throw new RouteException('если название метода не отличается от имени контроллера то его указывать не надо');
             }
-            // действительный крнтроллер и метод
-            $this->searchCurrentRoure();
-            $this->prepareRoute();
+            if(isset($this->url_routes[0]) && $this->url_routes[0] == 'widgets')
+            {
+                $widget_dir = $this->ucwordsKey($this->url_routes[1]);
+                $this->addHelperPath(PATH_ROOT . '/widgets/' . $widget_dir . '/');
+                $widget = $this->url_routes[2];
+                $this->$widget();
+                exit;
+            }
+            else
+            {
+                // действительный крнтроллер и метод
+                $this->searchCurrentRoure();
+                $this->prepareRoute();
+            }
 
-        } catch (RouteException $e) {
-            if(DEBUG_MODE) {
+        }
+        catch(RouteException $e)
+        {
+            if(DEBUG_MODE)
+            {
                 throw $e;
-            } else {
+            }
+            else
+            {
                 $this->goto404();
             }
         }
     }
 
     /**
-     * @param $controller
-     * @param $method
+     * @param       $controller
+     * @param       $method
      * @param array $params
      *
      * @return string
@@ -153,16 +175,18 @@ class Router implements InterfaceRouter
 
         $url = $controller . '/' . $method;
 
-        if (0 === count($params)) {
-            if ($controller == self::DEFAULT_CONTROLLER && $method == self::DEFAULT_MODULE)
+        if(0 === count($params))
+        {
+            if($controller == self::DEFAULT_CONTROLLER && $method == self::DEFAULT_MODULE)
             {
                 return $controller;
             }
+
             return $url;
         }
 
         $getParams = [];
-        if (0 !== count($params))
+        if(0 !== count($params))
         {
             foreach($params as $key => $value)
             {
@@ -175,10 +199,11 @@ class Router implements InterfaceRouter
                 $url .= '/' . urlencode($key) . '/' . urlencode($value);
             }
         }
-        if (0 !== count($getParams))
+        if(0 !== count($getParams))
         {
             $url .= '?' . http_build_query($getParams);
         }
+
         return $url;
     }
 
@@ -189,11 +214,14 @@ class Router implements InterfaceRouter
      */
     public function goto404()
     {
-        try {
+        try
+        {
             $this->current_controller = $this->site_routes['404']['controller'];
-            $this->current_method = $this->site_routes['404']['method'];
+            $this->current_method     = $this->site_routes['404']['method'];
             $this->prepareRoute();
-        } catch (RouteException $e) {
+        }
+        catch(RouteException $e)
+        {
             throw $e;
         }
     }
@@ -204,11 +232,14 @@ class Router implements InterfaceRouter
      */
     public function goto403()
     {
-        try {
+        try
+        {
             $this->current_controller = $this->site_routes['403']['controller'];
-            $this->current_method = $this->site_routes['403']['method'];
+            $this->current_method     = $this->site_routes['403']['method'];
             $this->prepareRoute();
-        } catch (RouteException $e) {
+        }
+        catch(RouteException $e)
+        {
             throw $e;
         }
     }
@@ -219,11 +250,14 @@ class Router implements InterfaceRouter
      */
     public function stopPage()
     {
-        try {
+        try
+        {
             $this->current_controller = $this->site_routes['stop']['controller'];
-            $this->current_method = $this->site_routes['stop']['method'];
+            $this->current_method     = $this->site_routes['stop']['method'];
             $this->prepareRoute();
-        } catch (RouteException $e) {
+        }
+        catch(RouteException $e)
+        {
             throw $e;
         }
     }
@@ -239,24 +273,27 @@ class Router implements InterfaceRouter
      */
     public function gotoPage($controller, $method, $params = [])
     {
-        try {
-            $this->current_controller = $controller;
-            $this->current_method = $method;
-
-        if (0 !== count($params))
+        try
         {
-            if(!empty($params[0]))
+            $this->current_controller = $controller;
+            $this->current_method     = $method;
+
+            if(0 !== count($params))
             {
-                $this->id = $params[0];
+                if(!empty($params[0]))
+                {
+                    $this->id = $params[0];
+                }
+                if((!empty($params[1])))
+                {
+                    $this->param = $params[1];
+                }
             }
-            if((!empty($params[1])))
-            {
-                $this->param = $params[1];
-            }
-        }
             $this->prepareRoute();
 
-        } catch (RouteException $e) {
+        }
+        catch(RouteException $e)
+        {
             throw $e;
         }
     }
@@ -270,16 +307,20 @@ class Router implements InterfaceRouter
      */
     protected function prepareRoute()
     {
-        try {
+        try
+        {
             // проверка на блокировку url страницы
-            if($this->checkLockPage()) {
+            if($this->checkLockPage())
+            {
                 // если все нормально - подготовка дополнительных параметров
                 $this->prepareParams();
             }
-        //    $this->checkControllerExists();
+            //    $this->checkControllerExists();
             $this->createInstance();
 
-        } catch (RouteException $e) {
+        }
+        catch(RouteException $e)
+        {
             throw $e;
         }
     }
@@ -291,10 +332,12 @@ class Router implements InterfaceRouter
      */
     protected function prepareParams()
     {
-        if(!empty($this->url_routes[2])) {
+        if(!empty($this->url_routes[2]))
+        {
             $this->id = $this->url_routes[2];
         }
-        if((!empty($this->url_routes[3]))) {
+        if((!empty($this->url_routes[3])))
+        {
             $this->param = $this->url_routes[3];
         }
     }
@@ -358,22 +401,28 @@ class Router implements InterfaceRouter
     protected function createInstance()
     {
         $controller = 'controllers\\' . $this->current_controller . '\\' . $this->current_controller;
-        $method = $this->current_method;
-        $instance = new $controller;
+        $method     = $this->current_method;
+        $instance   = new $controller;
 
-        if(method_exists($instance, $method)) {
+        if(method_exists($instance, $method))
+        {
             $reflection = new ReflectionMethod($instance, $method);
-            if($reflection->isPublic()) {
-            //  записываем в кеш инициализированный контроллер
+            if($reflection->isPublic())
+            {
+                //  записываем в кеш инициализированный контроллер
                 $this->instance_controller = $instance;
-            //  $instance->$method($this->id, $this->param);
+                //  $instance->$method($this->id, $this->param);
 
-            } else {
+            }
+            else
+            {
                 throw new RouteException('метод "' . $method . '" не является публичным');
             }
             unset($reflection, $instance);
 
-        } else {
+        }
+        else
+        {
             throw new RouteException('метод "' . $method . '" не найден в контроллере "' . $controller . '"');
         }
     }
@@ -383,15 +432,21 @@ class Router implements InterfaceRouter
      */
     protected function checkLockPage()
     {
-        try {
+        try
+        {
             $lock = BaseModel::checkClockLockPage($this->url);
-            if(false !== $lock && count($lock) > 0) {
+            if(false !== $lock && count($lock) > 0)
+            {
                 $this->current_controller = $lock['controller'];
-                $this->current_method = $lock['method'];
+                $this->current_method     = $lock['method'];
+
                 return false;
             }
+
             return true;
-        } catch (Exception $e) {
+        }
+        catch(Exception $e)
+        {
             throw $e;
         }
     }
@@ -401,45 +456,45 @@ class Router implements InterfaceRouter
      */
     protected function searchCurrentRoure()
     {
-            // $this->url_routes[0] - это url controller
-            // $this->url_routes[1] - это url method
-            // если в пути присутствует метод то ищеим в роутах по данному контроллеру и методу
-            if(!empty($this->url_routes[1]))
-            {
-                $search_route = $this->url_routes[0] . '/' . $this->url_routes[1];
-                // иначе просто по контроллеру
-            }
-            else
-            {
-                $search_route = $this->url_routes[0];
-            }
-            // находим однозначный url
-            $this->url = $search_route;
-            if(array_key_exists($search_route, $this->site_routes))
-            {
-                // предопределеннй маршрут
-                $predefined_roure = $this->site_routes[$search_route];
-                // найденный контроллер - если задан в файле routes позволяет менять class контроллера
-                $this->current_controller = $predefined_roure['controller'];
-            }
-            else
-            {
-                // или из url
-                $this->current_controller = ucfirst($this->url_routes[0]);
-            }
-            // ищем метод
-            if(!empty($predefined_roure['method']))
-            {
-                $this->current_method = $predefined_roure['method'];
-            }
-            elseif(!empty($this->url_routes[1]))
-            {
-                // аналогично с controller из url
-                $this->current_method = strtolower($this->url_routes[1]);
-            }
-            else
-            {
-                $this->current_method = '';
-            }
+        // $this->url_routes[0] - это url controller
+        // $this->url_routes[1] - это url method
+        // если в пути присутствует метод то ищеим в роутах по данному контроллеру и методу
+        if(!empty($this->url_routes[1]))
+        {
+            $search_route = $this->url_routes[0] . '/' . $this->url_routes[1];
+            // иначе просто по контроллеру
+        }
+        else
+        {
+            $search_route = $this->url_routes[0];
+        }
+        // находим однозначный url
+        $this->url = $search_route;
+        if(array_key_exists($search_route, $this->site_routes))
+        {
+            // предопределеннй маршрут
+            $predefined_roure = $this->site_routes[$search_route];
+            // найденный контроллер - если задан в файле routes позволяет менять class контроллера
+            $this->current_controller = $predefined_roure['controller'];
+        }
+        else
+        {
+            // или из url
+            $this->current_controller = ucfirst($this->url_routes[0]);
+        }
+        // ищем метод
+        if(!empty($predefined_roure['method']))
+        {
+            $this->current_method = $predefined_roure['method'];
+        }
+        elseif(!empty($this->url_routes[1]))
+        {
+            // аналогично с controller из url
+            $this->current_method = strtolower($this->url_routes[1]);
+        }
+        else
+        {
+            $this->current_method = '';
+        }
     }
 }

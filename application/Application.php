@@ -17,7 +17,6 @@ use application\Exception\RedirectException;
 use proxy\Response;
 use proxy\Server;
 use DI;
-use proxy\Router;
 
 
 /**
@@ -87,19 +86,20 @@ class Application
     /**
      * Get widget file
      *
-     * @param  string $module
+     * @param         $controller
      * @param  string $widget
      *
      * @return string
-     * @throws ApplicationException
+     * @throws \exception\ApplicationException
+     * @internal param string $module
      */
-    protected function getWidgetFile($module, $widget)
+    protected function getWidgetFile($controller, $widget)
     {
-        $widgetPath = $this->getPath() . '/modules/' . $module . '/widgets/' . $widget . '.php';
+        $widgetPath = $this->getPath() . '/modules/' . $controller . '/widgets/' . $widget . '.php';
 
         if(!file_exists($widgetPath))
         {
-            throw new ApplicationException("Widget file not found '$module/$widget'");
+            throw new ApplicationException("Widget file not found '$controller/$widget'");
         }
 
         return $widgetPath;
