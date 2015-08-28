@@ -24,9 +24,7 @@ if(is_bot())
     die();
 }
 
-
 return
-
     function ()
     {
 
@@ -67,7 +65,7 @@ return
                 include('geo/geoipcity.php');
                 $gi     = geoip_open(__DIR__.'/geo/GeoLiteCity.dat', GEOIP_STANDARD);
                 $record = geoip_record_by_addr($gi, $stringIp);
-                if(is_null($record))
+                if(null === ($record))
                 {
                     $city          = '(Unknown City?)';
                     $countryName   = 'UNKNOWN';
