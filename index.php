@@ -39,7 +39,7 @@ app()->init(APP_MODE);
 
 $builder = new ContainerBuilder();
 $builder->useAnnotations(false);
-debug($_SERVER['Request_URI']);
+debug($_SERVER['PERCORSO_GLOBALS']);
 $builder->addDefinitions([
                     'Config' => new Config(),
                     'router\Router' => function(ContainerInterface $c){
