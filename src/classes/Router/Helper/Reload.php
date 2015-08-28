@@ -6,7 +6,7 @@
 /**
  * @namespace
  */
-namespace classes\Router\Helper;
+namespace classes\Router\Helper\Reload;
 
 use Application\Exception\ReloadException;
 

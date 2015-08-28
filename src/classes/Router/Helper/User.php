@@ -6,7 +6,7 @@
 /**
  * @namespace
  */
-namespace classes\Router\Helper;
+namespace classes\Router\Helper\User;
 
 use Application\Application;
 use proxy\Auth;

@@ -28,81 +28,92 @@
  *                  this library can be used in the same script as geoip.inc.
  */
 
-define("FULL_RECORD_LENGTH",50);
+define('FULL_RECORD_LENGTH',50);
 
 require_once 'geoip.php';
 require_once 'geoipregionvars.php';
 
+/**
+ * Class geoiprecord
+ */
 class geoiprecord {
-  var $country_code;
-  var $country_code3;
-  var $country_name;
-  var $region;
-  var $city;
-  var $postal_code;
-  var $latitude;
-  var $longitude;
-  var $area_code;
-  var $dma_code;
+  public $country_code;
+  public $country_code3;
+  public $country_name;
+  public $region;
+  public $city;
+  public $postal_code;
+  public $latitude;
+  public $longitude;
+  public $area_code;
+  public $dma_code;
 }
 
+/**
+ * Class geoipdnsrecord
+ */
 class geoipdnsrecord {
-  var $country_code;
-  var $country_code3;
-  var $country_name;
-  var $region;
-  var $regionname;
-  var $city;
-  var $postal_code;
-  var $latitude;
-  var $longitude;
-  var $areacode;
-  var $dmacode;
-  var $isp;
-  var $org;
+  public $country_code;
+  public $country_code3;
+  public $country_name;
+  public $region;
+  public $regionname;
+  public $city;
+  public $postal_code;
+  public $latitude;
+  public $longitude;
+  public $areacode;
+  public $dmacode;
+  public $isp;
+  public $org;
 }
 
+/**
+ * @param $str
+ *
+ * @return \geoipdnsrecord
+ */
 function getrecordwithdnsservice($str){
   $record = new geoipdnsrecord;
-  $keyvalue = explode(";",$str);
+  $keyvalue = explode(';',$str);
   foreach ($keyvalue as $keyvalue2){
-    list($key,$value) = explode("=",$keyvalue2);
-    if ($key == "co"){
+    list($key,$value) = explode('=',$keyvalue2);
+    if ($key == 'co'){
       $record->country_code = $value;
     }
-    if ($key == "ci"){
+    if ($key == 'ci'){
       $record->city = $value;
     }
-    if ($key == "re"){
+    if ($key == 're'){
       $record->region = $value;
     }
-    if ($key == "ac"){
+    if ($key == 'ac'){
       $record->areacode = $value;
     }
-    if ($key == "dm"){
+    if ($key == 'dm'){
       $record->dmacode = $value;
     }
-    if ($key == "is"){
+    if ($key == 'is'){
       $record->isp = $value;
     }
-    if ($key == "or"){
+    if ($key == 'or'){
       $record->org = $value;
     }
-    if ($key == "zi"){
+    if ($key == 'zi'){
       $record->postal_code = $value;
     }
-    if ($key == "la"){
+    if ($key == 'la'){
       $record->latitude = $value;
     }
-    if ($key == "lo"){
+    if ($key == 'lo'){
       $record->longitude = $value;
     }
   }
   $number = $GLOBALS['GEOIP_COUNTRY_CODE_TO_NUMBER'][$record->country_code];
   $record->country_code3 = $GLOBALS['GEOIP_COUNTRY_CODES3'][$number];
   $record->country_name = $GLOBALS['GEOIP_COUNTRY_NAMES'][$number];
-  if ($record->region != "") {
-    if (($record->country_code == "US") || ($record->country_code == "CA")){
+  if ($record->region != '') {
+    if (($record->country_code == 'US') || ($record->country_code == 'CA')){
       $record->regionname = $GLOBALS['ISO'][$record->country_code][$record->region];
     } else {
       $record->regionname = $GLOBALS['FIPS'][$record->country_code][$record->region];

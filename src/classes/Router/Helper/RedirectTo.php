@@ -6,7 +6,7 @@
 /**
  * @namespace
  */
-namespace classes\Router\Helper;
+namespace classes\Router\Helper\RedirectTo;
 
 use Application\Application;
 use proxy\Router;
