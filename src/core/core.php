@@ -80,7 +80,6 @@ if(!function_exists('v_dump'))
         if(DEBUG_MODE && is_callable($func = ['lib\Inter\Error', 'var_dump']))
         {
             $variables = func_get_args();
-//            call_user_func($func, $variables);
             $dump = new lib\Inter\Error(Config::getInstance());
             $dump->var_dump($variables);
             unset($dump);
@@ -91,6 +90,6 @@ if(!function_exists('v_dump'))
 //throw new exception\CommonException('Err', 301);
 // echo $test_test; // Notice
 // trigger_error('Это тест' , E_USER_ERROR ); // User_Error
- throw new Exception('this is a test'); // Uncaught Exception
+// throw new Exception('this is a test'); // Uncaught Exception
 // echo fatal(); // Fatal Error
 // $test = new TestClass();

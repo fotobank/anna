@@ -371,7 +371,7 @@ class Error
 					}
 
 					$logFilename = $this->conf['logDir'] . DIRECTORY_SEPARATOR . date('d-m-Y', time());
-					$logFilename .=	'_' . $errorInfo['name'] . '_';
+					$logFilename .=	'_' . str_replace('\\', '-', $errorInfo['name']) . '_';
 					$logFilename .= md5($errorInfo['code'] . $errorInfo['line'] . $errorInfo['message']) . '.log';
 
 					try {
