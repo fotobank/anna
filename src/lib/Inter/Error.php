@@ -10,6 +10,7 @@ use Exception;
 use ErrorException;
 use lib\File;
 use proxy\Location;
+use proxy\Log;
 use proxy\Router;
 
 /**
@@ -360,12 +361,9 @@ class Error
 
 					try {
 
-						$log = Registry::call('lib\File\Log');
-
-						$log->put_log($logFilename, $logText);
-
-						if (!$log->isExists()) {
-							error_log($logText);
+						Log::putLog($logFilename, $logText);
+						if (!Log::getInstance()) {
+							error_log($logText, 3, $logFilename);
 						}
 						unset($logText);
 					}

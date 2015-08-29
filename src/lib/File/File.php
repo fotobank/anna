@@ -4,6 +4,8 @@
  */
 
 namespace lib\File;
+
+use Exception;
 /**
  * Class file
  */
@@ -40,13 +42,15 @@ class File
     // The size of the file in bytes
     protected $size = 0;
 
-    // размер директории в колобайтах
+    // размер директории в килобайтах
     protected $total_size = 0;
 
 
     /**
      * @param      $filepath
      * @param bool $create
+     *
+     * @throws \Exception
      */
     public function __construct($filepath, $create = true)
     {
@@ -58,14 +62,14 @@ class File
             $this->name = $info['filename'];
             $this->path = $filepath;
         } else {
-            throw new \Exception ('Не указано имя и путь к файлу!', E_USER_NOTICE);
+            throw new Exception ('Не указаны имя или путь к файлу!');
         }
         /**
          * Если файл не существует пробуем создать его
          */
-        if (!is_readable($filepath) && $this->checkfolder() && $create && !touch($filepath) && DEBUG_MODE) {
+        if (!is_readable($filepath) && $this->checkFolder() && $create && !touch($filepath) && DEBUG_MODE) {
 
-            trigger_error('Невозможно создать файл!', E_USER_ERROR);
+            throw new Exception('Невозможно создать файл!');
         }
 
         // Set some flags about this file
@@ -100,7 +104,7 @@ class File
     /**
      * очистка директории
      */
-    protected function clesr_dir()
+    protected function clesrDir()
     {
         if (is_dir($this->dirname) && is_writable($this->dirname)) {
             $files = glob($this->dirname . '/*');
@@ -115,7 +119,7 @@ class File
     /**
      * @return bool
      */
-    protected function checkfolder()
+    protected function checkFolder()
     {
         if (null !== ($this->dirname) && !is_dir($this->dirname)) {
             if (mkdir($this->dirname, 0777)) {
@@ -171,11 +175,11 @@ class File
 
     /**
      * Return the file as an array
-     * array to_array( int $flags = FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES )
+     * array toArray( int $flags = FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES )
      * @param null $flags
      * @return array
      */
-    public function to_array($flags = null)
+    public function toArray($flags = null)
     {
         $arr = [];
         if ($this->is_readable) {
@@ -192,11 +196,11 @@ class File
     /**
      * Пишет строку в файл
      * Если filename не существует, файл будет создан. Иначе, существующий файл будет перезаписан.
-     * int put_contents( string $contents )
+     * int putContents( string $contents )
      * @param $contents
      * @return bool|int
      */
-    public function put_contents($contents)
+    public function putContents($contents)
     {
         if ($this->is_writable) {
             return file_put_contents($this->path, $contents, LOCK_EX);
@@ -208,9 +212,9 @@ class File
 
     /**
      * File get Contents,
-     * string get_contents( void )
+     * string getContents( void )
      */
-    public function get_contents()
+    public function getContents()
     {
         if ($this->is_readable) {
             return file_get_contents($this->path);
@@ -228,7 +232,7 @@ class File
     {
         if (!$this->is_readable) {
 
-            trigger_error('Can not return a string for a unreadable file.');
+            throw new Exception('Can not return a string for a unreadable file.');
         }
         return file_get_contents($this->path);
     }

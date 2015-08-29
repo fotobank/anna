@@ -13,6 +13,7 @@
 
 use core\Autoloader;
 use lib\pattern\Registry;
+use proxy\Log;
 use proxy\Session;
 
 
@@ -85,7 +86,8 @@ if(!function_exists('v_dump'))
         }
     }
 }
-v_dump('$_SERVER');
+Log::putLog(SITE_PATH.'log/test.log', 'Test');
+//v_dump($_SERVER);
 //throw new exception\CommonException('Err', 301);
 // echo $test_test; // Notice
 // trigger_error('Это тест' , E_USER_ERROR ); // User_Error

@@ -1,22 +1,22 @@
 <?php
 
-/*
+/**
  * log.class.php
- * 
+ *
  * A generic log file object to use for logging activity to an array or a file.
- * 
+ *
  * EXAMPLES
- * 
+ *
  * $log = new Log();
  * $log->write("Log Entry");
- * $log->get_log();
- * 
- * 
+ * $log->getLog();
+ *
+ *
  * $log = new Log("Path/to/file.log");
  * $log->write("log Entry");
  * $log->load();
- * $log->get_log();
- * 
+ * $log->getLog();
+ *
  */
 namespace lib\File;
 
@@ -25,294 +25,329 @@ use common\Options;
 /**
  * Class log
  */
-class Log extends File {
+class Log extends File
+{
 
-	use Options
+    use Options;
 
-	/**
-	 * адресс для отправки лога админу
-	 * сообщение отправляется один раз в день во время создания нового файла лога
-	 * @var string
-	 */
-	protected $email = 'aleksjurii@gmail.com';
-	/**
-	 * максимально допустимый размер лог директории
-	 * в килобайтах
-	 * @var int
-	 */
-	protected $max_dir = 10000;
-/**
-	 * Разрешенный интервал обновления для одной и той же ошибки
-	 * в минутах
-	 * @var int
-	 */
-	protected $interval = 5;
-	/**
-	 * новый контент для записилога
-	 * @var string
-	 */
-	protected $contents = '';
-	/**
-	 * лог из файла в виде строки
-	 * @var string
-	 */
-	protected $str_log = '';
-	/**
-	 * Последний журнал активности
-	 * Recent log activity
-	 * @var array
-	 */
-	protected $log = [ ];
-		protected $glue = PHP_EOL; // мин
-	protected $max_file_size = 1;
-
-	/** @noinspection MagicMethodsValidityInspection */
-	/** @noinspection PhpMissingParentConstructorInspection */
-	public function __construct() {}
-
-	/**
-	 * @param string $email
-	 */
-	public function setEmail($email)
-	{
-		$this->email = $email;
-	}
-
-	// The End of line Glue
-
-	/**
-	 * @param int $max_dir
-	 */
-	public function setMaxDir($max_dir)
-	{
-		$this->max_dir = $max_dir;
-	}
-
-	// Max size of log file MB
-	// 1048576 bytes
-
-	/**
-	 * @param int $interval
-	 */
-	public function setInterval($interval)
-	{
-		$this->interval = $interval;
-	}
-
-
-	/**
-	 * нужен для отмены инициализации класса File
+    /**
+     * адресс для отправки лога админу
+     * сообщение отправляется один раз в день во время создания нового файла лога
+     *
+     * @var string
      */
-	/** @noinspection PhpMissingParentConstructorInspection */
+    protected $email;
+    /**
+     * максимально допустимый размер лог директории
+     * в килобайтах
+     *
+     * @var int
+     */
+    protected $max_dir;
+    /**
+     * Разрешенный интервал обновления для одной и той же ошибки
+     * в минутах
+     *
+     * @var int
+     */
+    protected $interval;
+    /**
+     * новый контент для записилога
+     *
+     * @var string
+     */
+    protected $contents = '';
+    /**
+     * лог из файла в виде строки
+     *
+     * @var string
+     */
+    protected $str_log = '';
+    /**
+     * Последний журнал активности
+     * Recent log activity
+     *
+     * @var array
+     */
+    protected $log = [];
+    protected $glue = PHP_EOL;
+    /**
+     * Max size of log file MB
+     * 1048576 bytes
+     */
+    protected $max_file_size;
 
-	/**
-	 * @param int $max_file_size
-	 */
-	public function setMaxFileSize($max_file_size)
-	{
-		$this->max_file_size = $max_file_size;
-	}
+    /**
+     * нужен для отмены инициализации класса File
+     */
+    /** @noinspection PhpMissingParentConstructorInspection */
+    /** @noinspection MagicMethodsValidityInspection */
+    public function __construct()
+    {
+    }
 
-	/**
-	 * вывод переменной о существовании файла
-	 * @return bool
-	 */
-	public function isExists() {
-		return $this->exists;
-	}
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
 
-	/**
-	 * Пишет строку в файл
-	 * Если filename не существует, файл будет создан. Иначе, существующий файл будет перезаписан.
-	 * int putlog( string $contents )
-	 *
-	 * @param $filepath
-	 * @param $contents
-	 */
-	public function put_log( $filepath, $contents ) {
-		$this->contents = $contents;
-		$this->is_file( $filepath );
-		$this->get_file_log();
-		if ( $this->checkInterval()) {
-			$this->put_contents( $this->contents );
-		}
-	}
+    /**
+     * @param int $max_dir
+     */
+    public function setMaxDir($max_dir)
+    {
+        $this->max_dir = $max_dir;
+    }
 
-	/**
-	 * Создание файла, если его нет и проверка размера файла
-	 * если он больше установленного размера - очистка
-	 * проверка и очистка директории, если размер превышает установленный
-	 * void filename( string $filename )
-	 *
-	 * @param      $filepath
-	 * @param bool $create
-	 */
-	public function is_file( $filepath, $create = true ) {
-		if ( (int) ( $this->total_size ) > (int) ( $this->max_dir ) ) {
-			$this->clesr_dir();
-		}
-		if ( $this->size > ( 1048576 * $this->max_file_size ) ) {
-			$this->truncate();
-		}
-		parent::__construct( $filepath, $create );
-		if ( ! $this->exists ) {
-			$this->put_email();
-		}
-	}
+    /**
+     * @param int $interval
+     */
+    public function setInterval($interval)
+    {
+        $this->interval = $interval;
+    }
 
-	/**
-	 * отсылка лога ошибки
-	 */
-	public function put_email() {
-		error_log( $this->contents, 1, $this->email );
-	}
+    /**
+     * @param int $max_file_size
+     */
+    public function setMaxFileSize($max_file_size)
+    {
+        $this->max_file_size = $max_file_size;
+    }
 
-	/**
-	 * чтение файла
-	 */
-	public function get_file_log() {
-		$this->str_log = $this->get_contents();
-		if ( $this->str_log ) {
-			return true;
-		}
-		return false;
-	}
+    /**
+     * вывод переменной о существовании файла
+     *
+     * @return bool
+     */
+    public function isExists()
+    {
+        return $this->exists;
+    }
 
-	/**
-	 * проверка времени
-	 * и чтение колличеств данной ошибки
-	 * @return bool
-	 */
-	public function checkInterval() {
+    /**
+     * Пишет строку в файл
+     * Если filename не существует, файл будет создан. Иначе, существующий файл будет перезаписан.
+     * int putlog( string $contents )
+     *
+     * @param $filepath
+     * @param $contents
+     */
+    public function putLog($filepath, $contents)
+    {
+        $this->contents = $contents;
+        $this->isFile($filepath);
+        $this->getFileLog();
+        if($this->checkInterval())
+        {
+            $this->putContents($this->contents);
+        }
+    }
 
-		if ( '' !== $this->str_log ) {
+    /**
+     * Создание файла, если его нет и проверка размера файла
+     * если он больше установленного размера - очистка
+     * проверка и очистка директории, если размер превышает установленный
+     * void filename( string $filename )
+     *
+     * @param      $filepath
+     * @param bool $create
+     */
+    protected function isFile($filepath, $create = true)
+    {
+        if((int)($this->total_size) > (int)($this->max_dir))
+        {
+            $this->clesrDir();
+        }
+        if($this->size > (1048576 * $this->max_file_size))
+        {
+            $this->truncate();
+        }
+        parent::__construct($filepath, $create);
+        if(!$this->exists)
+        {
+            $this->putEmail();
+        }
+    }
 
-			preg_match('/\[(?P<err_num>[\d]+)\]\s*(?P<date_old>[\d-]+)\s(?P<time_old>[\d:]+)/', $this->str_log, $matches);
+    /**
+     * отсылка лога ошибки
+     */
+    public function putEmail()
+    {
+        error_log($this->contents, 1, $this->email);
+    }
 
-			$time_interval = strtotime( $matches['date_old'].' '.$matches['time_old'] ) + $this->interval * 60;
-			$time_new = strtotime( date( 'd-m-Y H:i:s', time() ) );
+    /**
+     * чтение файла
+     */
+    public function getFileLog()
+    {
+        $this->str_log = $this->getContents();
+        if($this->str_log)
+        {
+            return true;
+        }
 
-				if ( $time_interval < $time_new ) {
-					$this->contents = '['.($matches['err_num']+1).'] ' . $this->contents;
-					// прибавление к ошибке единицу
-					return true;
-				} else {
-					// интервал еще не закончился
-					return false;
-				}
+        return false;
+    }
 
-		} else {
+    /**
+     * проверка времени
+     * и чтение колличеств данной ошибки
+     *
+     * @return bool
+     */
+    protected function checkInterval()
+    {
+        if('' !== $this->str_log)
+        {
+            preg_match('/\[(?P<err_num>[\d]+)\]/', $this->str_log, $matches);
+            $time_interval = filemtime($this->path) + $this->interval * 60;
+            $time_new      = strtotime(date('d-m-Y H:i:s', time()));
+            if($time_interval < $time_new)
+            {
+                $this->contents = '[' . ($matches['err_num'] + 1) . '] ' . $this->contents;
+                // прибавление к ошибке единицу
+                return true;
+            }
+            else
+            {
+                // интервал еще не закончился
+                return false;
+            }
+        }
+        else
+        {
+            $this->contents = '[1] ' . $this->contents; // первая запись
+            return true;
+        }
+    }
 
-			$this->contents = '[1] '.$this->contents; // первая запись
-			return true;
-		}
-	}
+    /**
+     * запись массива в файл лога и сброс массива
+     */
+    public function writeLog()
+    {
+        if(count($this->log) > 0)
+        {
+            foreach($this->log as $line)
+            {
+                $this->write(trim($line));
+            }
+            $this->log = [];
+        }
+    }
 
-	/**
-	 * запись массива в файл лога и сброс массива
-	 */
-	public function write_log() {
-		if ( count( $this->log ) > 0 ) {
-			foreach ( $this->log as $line ) {
-				$this->write( trim( $line ) );
-			}
-			$this->log = [ ];
-		}
-	}
+    /**
+     * Добавить запись в журнал
+     * void write ( string $entry )
+     *
+     * @param $entry
+     */
+    public function write($entry)
+    {
+        $this->log[] = $entry;
+        if($this->exists)
+        {
+            $this->append($this->glue . $entry);
+        }
+    }
 
-	/**
-	 * Добавить запись в журнал
-	 * void write ( string $entry )
-	 *
-	 * @param $entry
-	 */
-	public function write( $entry ) {
-		$this->log[] = $entry;
-		if ( $this->exists ) {
-			$this->append( $this->glue . $entry );
-		}
-	}
+    /**
+     * Получение и установка свойств объекта через вызов магического метода вида:
+     * $object->(get|set)PropertyName($prop);
+     * Properti с большой буквы в CamelCase стиле
+     *
+     * @param $method_name
+     * @param $argument
+     *
+     * @see __call
+     * @return $this|bool|null
+     *
+     */
+    public function __call($method_name, $argument)
+    {
+        $args          = preg_split('/(?<=\w)(?=[A-Z])/', $method_name);
+        $action        = array_shift($args);
+        $property_name = strtolower(implode('_', $args));
 
-	/**
-	 * Получение и установка свойств объекта через вызов магического метода вида:
-	 * $object->(get|set)PropertyName($prop);
-	 * Properti с большой буквы в CamelCase стиле
-	 *
-	 * @param $method_name
-	 * @param $argument
-	 *
-	 * @see __call
-	 * @return $this|bool|null
-	 *
-	 */
-	public function __call( $method_name, $argument ) {
-		$args          = preg_split( '/(?<=\w)(?=[A-Z])/', $method_name );
-		$action        = array_shift( $args );
-		$property_name = strtolower( implode( '_', $args ) );
+        switch($action)
+        {
+            case 'get':
+                return isset($this->$property_name) ? $this->$property_name : null;
+            case 'set':
+                $this->$property_name = $argument[0];
 
-		switch ( $action ) {
-			case 'get':
-				return isset( $this->$property_name ) ? $this->$property_name : null;
-			case 'set':
-				$this->$property_name = $argument[0];
-				return $this;
-			default:
-				return $this;
-		}
-	}
+                return $this;
+            default:
+                return $this;
+        }
+    }
 
-	/**
-	 * Get any information contained in the current log
-	 * Получить любую информацию, содержащуюся в текущем журнале
-	 * array get_log( void )
-	 *
-	 * @param $logFilename
-	 *
-	 * @return array
-	 */
-	public function get_log( $logFilename ) {
-		$this->is_file( $logFilename, false );
-		$this->load();
-		return $this->log;
-	}
+    /**
+     * Get any information contained in the current log
+     * Получить любую информацию, содержащуюся в текущем журнале
+     * array getLog( void )
+     *
+     * @param $logFilename
+     *
+     * @return array
+     */
+    public function getLog($logFilename)
+    {
+        $this->isFile($logFilename, false);
+        $this->load();
 
-	/**
-	 * Load the log file
-	 * void filename( void )
-	 */
-	public function load() {
-		if ( $this->exists ) {
-			$this->log = $this->to_array();
-		}
-	}
+        return $this->log;
+    }
 
-	/*
-	 * Clear the log, recent activity and the log file will be emptied
-	 * void empty_log( void )
-	 */
+    /**
+     * Load the log file
+     * void filename( void )
+     */
+    public function load()
+    {
+        if($this->exists)
+        {
+            $this->log = $this->toArray();
+        }
+    }
 
-	/**
-	 * Set the Glue
-	 * void setglue( string $glue )
-	 *
-	 * @param $glue
-	 */
-	public function setglue( $glue ) {
-		$this->glue = $glue;
-	}
+    /**
+     * Set the Glue
+     * void setGlue( string $glue )
+     *
+     * @param $glue
+     */
+    public function setGlue($glue)
+    {
+        $this->glue = $glue;
+    }
 
-	public function empty_log() {
-		if ( $this->exists ) {
-			$this->truncate();
-		}
-		$this->log = [ ];
-	}
 
-	/**
-	 * Return Object string
-	 * string __toString( void )
-	 */
-	public function __toString() {
-		return implode( $this->glue, $this->log );
-	}
+    /**
+     * Clear the log, recent activity and the log file will be emptied
+     * void emptyLog( void )
+     */
+    public function emptyLog()
+    {
+        if($this->exists)
+        {
+            $this->truncate();
+        }
+        $this->log = [];
+    }
+
+    /**
+     * Return Object string
+     * string __toString( void )
+     */
+    public function __toString()
+    {
+        return implode($this->glue, $this->log);
+    }
 }

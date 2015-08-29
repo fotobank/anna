@@ -22,6 +22,49 @@ use lib\File\Log as Instance;
  * Class Log
  *
  * @package proxy
+ *
+ * @method   static putLog($filepath, $contents)
+ * @see      lib\File\Log::putLog()
+ *
+ * @method   static putEmail()
+ * @see      lib\File\Log::putEmail()
+ *
+ * @method   static getFileLog()
+ * @see      lib\File\Log::getFileLog()
+ *
+ * @method   static writeLog()
+ * @see      lib\File\Log::writeLog()
+ *
+ * @method   static write($entry)
+ * @see      lib\File\Log::write()
+ *
+ * @method   static getLog($logFilename)
+ * @see      lib\File\Log::getLog()
+ *
+ * @method   static load()
+ * @see      lib\File\Log::load()
+ *
+ * @method   static emptyLog()
+ * @see      lib\File\Log::emptyLog()
+ *
+ * @method   static setEmail($email)
+ * @see      lib\File\Log::setEmail()
+ *
+ * @method   static setMaxDir($max_dir)
+ * @see      lib\File\Log::setMaxDir()
+ *
+ * @method   static setInterval($interval)
+ * @see      lib\File\Log::setInterval()
+ *
+ * @method   static setMaxFileSize($max_file_size)
+ * @see      lib\File\Log::setMaxFileSize()
+ *
+ * @method   static isExists()
+ * @see      lib\File\Log::isExists()
+ *
+ * @method   static setGlue($glue)
+ * @see      lib\File\Log::setGlue()
+ *
  */
 class Log  extends AbstractProxy
 {
@@ -34,7 +77,8 @@ class Log  extends AbstractProxy
     protected static function initInstance()
     {
         $instance = new Instance();
-        $instance->setOptions(Config::getData('log'));
+        $options = Config::getData('log');
+        $instance->setOptions($options);
         return $instance;
     }
 
