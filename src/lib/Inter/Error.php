@@ -682,24 +682,10 @@ END;
 	 */
 	public function show_variables($variables)
 		{
-			$variables_link = '';
-			$variables_content = '';
-			foreach ($variables as $key) {
+			$html = $this->createHTML($variables);
+			$variables_link = $html['variables_link'];
+			$variables_content = $html['variables_content'];
 
-				$variables_link .= '<a href="#variables' . $key . '" style="color: #A0A">$' . $key .
-								   '<strong style="color: #000">;</strong></a>&nbsp;';
-				$variables_content .=
-					'<div class="variablessubtitle"><a name="variables' . $key . '" id="variables' . $key . '"></a>
-                                       <strong style="color: #0000aa;">$' . $key . ':</strong></div>
-						               <div class="variablescontent">';
-
-				if (!array_key_exists($key, $GLOBALS)) {
-					$variables_content .= '$' . $key . ' IS NOT SET.';
-				} else {
-					$variables_content .= '<pre>' . htmlspecialchars(print_r($GLOBALS[$key], 1)) . '<pre>';
-				}
-				$variables_content .= '</div>';
-			}
 
 			header( 'Content-type: text/html; charset=windows-1251' );
 			echo <<<END
@@ -781,7 +767,7 @@ DIV.container {
 <div class="container">
 <div class="variablesblock">
     <div class="variablessubtitle">Variables: {$variables_link}</div>
-    {$variables_link}
+    {$variables_content}
 </div></div>
 
 <script type="text/javascript">
@@ -806,4 +792,37 @@ window.onload = function () {
 END;
 
 		}
+
+	/**
+	 * @param $variables
+	 *
+	 * @return string
+	 * @internal param $variables_link
+	 * @internal param $variables_content
+	 *
+	 */
+	protected function createHTML($variables)
+	{
+		$variables_link = '';
+		$variables_content = '';
+		foreach($variables as $key => $var)
+		{
+			if(is_array($var))
+			{
+				$html = $this->createHTML($var);
+				$variables_link .= $html['variables_link'];
+				$variables_content .= $html['variables_content'];
+				continue;
+			}
+
+			$variables_link .= '<a href="#variables'.$key.'" style="color: #A0A;">$'.$key.
+				'<strong style="color: #000;">;</strong></a>&nbsp;';
+			$variables_content .=
+				'<div class="variablessubtitle"><a name="variables' . $key . '" id="variables' . $key . '"></a>
+                                       <strong style="color: #0000aa;">$' . $key . ':</strong></div>';
+			$variables_content .= '<div class="variablescontent">'.$var.'</div>';
+		}
+
+		return ['variables_link' => $variables_link, 'variables_content' => $variables_content];
+	}
 }

@@ -54,7 +54,7 @@ class HackerConsole
     {
         if($autoAttach)
         {
-            ob_start([&$this, '_obHandler']);
+            ob_start([&$this, 'obHandler']);
         }
         $GLOBALS['Debug_HackerConsole_Main_LAST'] = &$this;
     }
@@ -127,12 +127,25 @@ class HackerConsole
             }
         }
         $html .= "\n";
-        $html .= "<script type=\"text/javascript\" language=\"JavaScript\">//<![CDATA[\n{$js}\n{$code}\n//]]></script>\n";
+        if(!$this->is_ajax())
+        {
+            $html .= "<script type=\"text/javascript\" language=\"JavaScript\">//<![CDATA[\n{$js}\n{$code}\n//]]></script>\n";
+        }
         $page = preg_replace('{(?=</body[^>]*>|$)}si', preg_replace('/([\\\\$])/', '\\\\$1', $html), $page, 1);
 
         return $page;
     }
 
+    /**
+     *  Для ajax запроса она вернет true, а для обычного запроса false.
+     *
+     * Check if current request is AJAX.
+     */
+    private function is_ajax()
+    {
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+        && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+    }
 
     /**
      * void out(string $msg, string $group="message", $color=null, $tip=null)
@@ -342,7 +355,7 @@ class HackerConsole
     /**
      * Internal methods.
      */
-    public function _obHandler($s)
+    public function obHandler($s)
     {
         return $this->attachToHtml($s);
     }

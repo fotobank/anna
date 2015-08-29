@@ -1799,7 +1799,7 @@ function file_dload($file, $name = 'test.txt', $type = 'application/octet-stream
  *
  * @param $var
  */
-function debug($var)
+function debugVar($var)
 {
     $tpl = php_sapi_name() !== 'cli' ? '<pre>%s</pre>' : "\n%s\n";
     printf($tpl, print_r($var, true));

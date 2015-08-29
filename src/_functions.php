@@ -8,8 +8,6 @@ use translator\Translator;
 /**
  * Simple functions of framework
  * be careful with this way
- * @author   Anton Shevchuk
- * @created  07.09.12 11:29
  */
 
 if (!function_exists('debug')) {
@@ -44,13 +42,35 @@ if (!function_exists('debug')) {
             }
             var_dump(array_slice(func_get_args(), 0));
         } else {
-            echo '<div class="textleft clear"><pre>';
+            echo '<div><pre>';
             debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
             var_dump(array_slice(func_get_args(), 0));
             echo '</pre></div>';
         }
     }
 }
+
+if(!function_exists('debugHC'))
+{
+    /**
+     * @param        $variables
+     * @param string $group
+     */
+    function debugHC($variables, $group = 'message')
+    {
+        if(DEBUG_MODE && is_callable($func = ['lib\Debug\HackerConsole\HackerConsole', 'out']))
+        {
+            call_user_func($func, $variables, $group);
+        }
+    }
+}
+
+// демо debug:
+//debugHC(SITE_PATH.'classes/Mustache/templates', 'Mustache');
+//debug($_SERVER);
+// debugHC( CODE_PAGE, 'CODE_PAGE' );
+// debugHC( SITE_PATH, 'SITE_PATH' );
+
 
 if (!function_exists('app')) {
     /**

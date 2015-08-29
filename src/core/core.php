@@ -67,44 +67,26 @@ if(DEBUG_MODE && !is_ajax())
 // защита
 new Security();
 
-if(!function_exists('debugHC'))
-{
-    /**
-     * @param        $variables
-     * @param string $group
-     */
-    function debugHC($variables, $group = 'message')
-    {
-        if(DEBUG_MODE && is_callable($func = ['lib\Debug\HackerConsole\HackerConsole', 'out']))
-        {
-            call_user_func($func, $variables, $group);
-        }
-    }
-}
-
-// демо debug:
- debugHC(SITE_PATH.'classes/Mustache/templates', 'Mustache');
-// debugHC( CODE_PAGE, 'CODE_PAGE' );
-// debugHC( SITE_PATH, 'SITE_PATH' );
-
-
 $err                 = new lib\Inter\Error();
 $err->conf['logDir'] = SITE_PATH . 'log';
 $err->conf['otl']    = true; // включить запись лога на 127.0.0.1
-//$err->var_dump('SITE_PATH'); // вывод дампа переменных
+//$err->var_dump($_SERVER, '$_SERVER'); // вывод дампа переменных
 if(!function_exists('v_dump'))
 {
     function v_dump()
     {
-        if(DEBUG_MODE && is_callable($func = ['Error', 'var_dump']))
+        if(DEBUG_MODE && is_callable($func = ['lib\Inter\Error', 'var_dump']))
         {
             $variables = func_get_args();
-            call_user_func($func, $variables);
+//            call_user_func($func, $variables);
+            $dump = new lib\Inter\Error();
+            $dump->var_dump($variables);
+            unset($dump);
         }
     }
 }
+v_dump('$_SERVER');
 //throw new exception\CommonException('Err', 301);
-/** Test Begins **/
 // echo $test_test; // Notice
 // trigger_error('Это тест' , E_USER_ERROR ); // User_Error
 // throw new Exception('this is a test'); // Uncaught Exception

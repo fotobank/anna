@@ -20,10 +20,14 @@
  */
 namespace lib\File;
 
+use common\Options;
+
 /**
  * Class log
  */
 class Log extends File {
+
+	use Options
 
 	/**
 	 * адресс для отправки лога админу
@@ -37,12 +41,12 @@ class Log extends File {
 	 * @var int
 	 */
 	protected $max_dir = 10000;
-	/**
+/**
 	 * Разрешенный интервал обновления для одной и той же ошибки
 	 * в минутах
 	 * @var int
 	 */
-	protected $interval = 5; // мин
+	protected $interval = 5;
 	/**
 	 * новый контент для записилога
 	 * @var string
@@ -59,21 +63,80 @@ class Log extends File {
 	 * @var array
 	 */
 	protected $log = [ ];
+		protected $glue = PHP_EOL; // мин
+	protected $max_file_size = 1;
+
+	/** @noinspection MagicMethodsValidityInspection */
+	/** @noinspection PhpMissingParentConstructorInspection */
+	public function __construct() {}
+
+	/**
+	 * @param string $email
+	 */
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
 
 	// The End of line Glue
-	protected $glue = PHP_EOL;
+
+	/**
+	 * @param int $max_dir
+	 */
+	public function setMaxDir($max_dir)
+	{
+		$this->max_dir = $max_dir;
+	}
 
 	// Max size of log file MB
 	// 1048576 bytes
-	protected $max_file_size = 1;
+
+	/**
+	 * @param int $interval
+	 */
+	public function setInterval($interval)
+	{
+		$this->interval = $interval;
+	}
 
 
 	/**
 	 * нужен для отмены инициализации класса File
      */
 	/** @noinspection PhpMissingParentConstructorInspection */
-	/** @noinspection MagicMethodsValidityInspection */
-	public function __construct() {}
+
+	/**
+	 * @param int $max_file_size
+	 */
+	public function setMaxFileSize($max_file_size)
+	{
+		$this->max_file_size = $max_file_size;
+	}
+
+	/**
+	 * вывод переменной о существовании файла
+	 * @return bool
+	 */
+	public function isExists() {
+		return $this->exists;
+	}
+
+	/**
+	 * Пишет строку в файл
+	 * Если filename не существует, файл будет создан. Иначе, существующий файл будет перезаписан.
+	 * int putlog( string $contents )
+	 *
+	 * @param $filepath
+	 * @param $contents
+	 */
+	public function put_log( $filepath, $contents ) {
+		$this->contents = $contents;
+		$this->is_file( $filepath );
+		$this->get_file_log();
+		if ( $this->checkInterval()) {
+			$this->put_contents( $this->contents );
+		}
+	}
 
 	/**
 	 * Создание файла, если его нет и проверка размера файла
@@ -98,103 +161,10 @@ class Log extends File {
 	}
 
 	/**
-	 * вывод переменной о существовании файла
-	 * @return bool
-	 */
-	public function isExists() {
-		return $this->exists;
-	}
-
-	/**
-	 * Добавить запись в журнал
-	 * void write ( string $entry )
-	 *
-	 * @param $entry
-	 */
-	public function write( $entry ) {
-		$this->log[] = $entry;
-		if ( $this->exists ) {
-			$this->append( $this->glue . $entry );
-		}
-	}
-
-	/**
-	 * Пишет строку в файл
-	 * Если filename не существует, файл будет создан. Иначе, существующий файл будет перезаписан.
-	 * int putlog( string $contents )
-	 *
-	 * @param $filepath
-	 * @param $contents
-	 */
-	public function put_log( $filepath, $contents ) {
-		$this->contents = $contents;
-		$this->is_file( $filepath );
-		$this->get_file_log();
-		if ( $this->checkInterval()) {
-			$this->put_contents( $this->contents );
-		}
-	}
-
-	/**
-	 * запись массива в файл лога и сброс массива
-	 */
-	public function write_log() {
-		if ( count( $this->log ) > 0 ) {
-			foreach ( $this->log as $line ) {
-				$this->write( trim( $line ) );
-			}
-			$this->log = [ ];
-		}
-	}
-
-	/**
-	 * Получение и установка свойств объекта через вызов магического метода вида:
-	 * $object->(get|set)PropertyName($prop);
-	 * Properti с большой буквы в CamelCase стиле
-	 *
-	 * @param $method_name
-	 * @param $argument
-	 *
-	 * @see __call
-	 * @return $this|bool|null
-	 *
-	 */
-	public function __call( $method_name, $argument ) {
-		$args          = preg_split( '/(?<=\w)(?=[A-Z])/', $method_name );
-		$action        = array_shift( $args );
-		$property_name = strtolower( implode( '_', $args ) );
-
-		switch ( $action ) {
-			case 'get':
-				return isset( $this->$property_name ) ? $this->$property_name : null;
-			case 'set':
-				$this->$property_name = $argument[0];
-				return $this;
-			default:
-				return $this;
-		}
-	}
-
-	/**
 	 * отсылка лога ошибки
 	 */
 	public function put_email() {
 		error_log( $this->contents, 1, $this->email );
-	}
-
-	/**
-	 * Get any information contained in the current log
-	 * Получить любую информацию, содержащуюся в текущем журнале
-	 * array get_log( void )
-	 *
-	 * @param $logFilename
-	 *
-	 * @return array
-	 */
-	public function get_log( $logFilename ) {
-		$this->is_file( $logFilename, false );
-		$this->load();
-		return $this->log;
 	}
 
 	/**
@@ -239,6 +209,89 @@ class Log extends File {
 	}
 
 	/**
+	 * запись массива в файл лога и сброс массива
+	 */
+	public function write_log() {
+		if ( count( $this->log ) > 0 ) {
+			foreach ( $this->log as $line ) {
+				$this->write( trim( $line ) );
+			}
+			$this->log = [ ];
+		}
+	}
+
+	/**
+	 * Добавить запись в журнал
+	 * void write ( string $entry )
+	 *
+	 * @param $entry
+	 */
+	public function write( $entry ) {
+		$this->log[] = $entry;
+		if ( $this->exists ) {
+			$this->append( $this->glue . $entry );
+		}
+	}
+
+	/**
+	 * Получение и установка свойств объекта через вызов магического метода вида:
+	 * $object->(get|set)PropertyName($prop);
+	 * Properti с большой буквы в CamelCase стиле
+	 *
+	 * @param $method_name
+	 * @param $argument
+	 *
+	 * @see __call
+	 * @return $this|bool|null
+	 *
+	 */
+	public function __call( $method_name, $argument ) {
+		$args          = preg_split( '/(?<=\w)(?=[A-Z])/', $method_name );
+		$action        = array_shift( $args );
+		$property_name = strtolower( implode( '_', $args ) );
+
+		switch ( $action ) {
+			case 'get':
+				return isset( $this->$property_name ) ? $this->$property_name : null;
+			case 'set':
+				$this->$property_name = $argument[0];
+				return $this;
+			default:
+				return $this;
+		}
+	}
+
+	/**
+	 * Get any information contained in the current log
+	 * Получить любую информацию, содержащуюся в текущем журнале
+	 * array get_log( void )
+	 *
+	 * @param $logFilename
+	 *
+	 * @return array
+	 */
+	public function get_log( $logFilename ) {
+		$this->is_file( $logFilename, false );
+		$this->load();
+		return $this->log;
+	}
+
+	/**
+	 * Load the log file
+	 * void filename( void )
+	 */
+	public function load() {
+		if ( $this->exists ) {
+			$this->log = $this->to_array();
+		}
+	}
+
+	/*
+	 * Clear the log, recent activity and the log file will be emptied
+	 * void empty_log( void )
+	 */
+
+	/**
 	 * Set the Glue
 	 * void setglue( string $glue )
 	 *
@@ -248,10 +301,6 @@ class Log extends File {
 		$this->glue = $glue;
 	}
 
-	/*
-	 * Clear the log, recent activity and the log file will be emptied
-	 * void empty_log( void )
-	 */
 	public function empty_log() {
 		if ( $this->exists ) {
 			$this->truncate();
@@ -265,15 +314,5 @@ class Log extends File {
 	 */
 	public function __toString() {
 		return implode( $this->glue, $this->log );
-	}
-
-	/**
-	 * Load the log file
-	 * void filename( void )
-	 */
-	public function load() {
-		if ( $this->exists ) {
-			$this->log = $this->to_array();
-		}
 	}
 }
