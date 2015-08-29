@@ -40,12 +40,21 @@ class Auth extends AbstractProxy
     /**
      * Init instance
      *
-     * @return Instance
+     * @return \auth\Auth
+     * @throws \Exception
      */
     protected static function initInstance()
     {
-        $instance = new Instance();
-        $instance->setOptions(Config::getData('auth'));
-        return $instance;
+        try
+        {
+            $instance = new Instance();
+            $instance->setOptions(Config::getInstance());
+
+            return $instance;
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
 }

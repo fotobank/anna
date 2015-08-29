@@ -5,7 +5,7 @@ use proxy\Db as Db;
 
 /** @noinspection PhpIncludeInspection */
 include(__DIR__ .  DIRECTORY_SEPARATOR . '..'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR.'src'.
-		DIRECTORY_SEPARATOR.'config'. DIRECTORY_SEPARATOR . 'primary_config.php');
+		DIRECTORY_SEPARATOR.'config'. DIRECTORY_SEPARATOR . 'define_config.php');
 
 // подключаем ядро сайта
 /** @noinspection PhpIncludeInspection */

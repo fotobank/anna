@@ -15,7 +15,7 @@
 
 namespace proxy;
 
-use controllers\Location\Location as Instance;
+use modules\Controllers\Location\Location as Instance;
 
 /**
  * Class Error

@@ -14,7 +14,7 @@
 
 namespace proxy;
 
-use helper\Recursive as Instance;
+use helper\Recursive\Recursive as Instance;
 
 
 /**

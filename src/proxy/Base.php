@@ -14,7 +14,7 @@
 
 namespace proxy;
 
-use models\Base\Base as Instance;
+use modules\Models\Base\Base as Instance;
 
 
 /**

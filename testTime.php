@@ -6,7 +6,7 @@
  * Time: 8:17
  */
 
-include __DIR__ . '/inc/func.php';
+include(ROOT_PATH . 'func.php');
 include __DIR__ .'/classes/testTime.php';
 
 /**==========================================0======================================= */

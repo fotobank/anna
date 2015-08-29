@@ -1,5 +1,5 @@
 <?php
-namespace helper\Session\Check;
+namespace helper\Session;
 
 use helper\ArrayHelper\ArrayHelper;
 use proxy;

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once (__DIR__ . '/inc/func.php');
+include(ROOT_PATH . 'func.php');
 
 $browser_cache = 60*60*24*7; // How long the BROWSER cache should last (seconds, minutes, hours, days. 7days by default)
 $id = (int)trim($_GET['id']);

@@ -9,6 +9,7 @@
 namespace auth;
 
 use common\Options;
+use lib\Config\Config;
 use proxy\Server;
 use proxy\Session;
 
@@ -25,6 +26,38 @@ class Auth
      * @var EntityInterface Instance of EntityInterface
      */
     protected $identity;
+
+    /**
+     * Setup, check and init options
+     *
+     * Requirements
+     * - options must be a array
+     * - options can be null
+     *
+     * @param array|\lib\Config\Config $options
+     *
+     * @return \auth\Auth
+     * @throws \Exception
+     */
+    public function setOptions(Config $options)
+    {
+        try
+        {
+            $this->options = $options->getData('auth');
+
+            // apply options
+            foreach($this->options as $key => $value)
+            {
+                $this->setOption($key, $value);
+            }
+
+            return $this;
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
+    }
 
     /**
      * Setup identity

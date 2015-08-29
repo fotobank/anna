@@ -14,7 +14,7 @@
 
 namespace proxy;
 
-use helper\Session\Check\Session as Instance;
+use helper\Session\Session as Instance;
 
 
 /**

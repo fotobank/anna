@@ -10,7 +10,7 @@ namespace proxy;
 
 use exception\ComponentException;
 use response\Response as Instance;
-use views\View;
+use view;
 
 /**
  * Proxy to Response

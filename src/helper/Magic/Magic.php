@@ -17,7 +17,17 @@
  * exho $t->test; // 1
  *
  */
-abstract class Magic implements ArrayAccess
+
+namespace helper\Magic;
+
+
+
+/**
+ * Class Magic
+ *
+ * @package helper\Magic
+ */
+abstract class Magic implements \ArrayAccess
 {
     /**
      *    Вернуться true, если ключ не пуст

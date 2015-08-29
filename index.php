@@ -16,15 +16,16 @@ use proxy\View;
 use router\Router as MainRouter;
 use DI\ContainerBuilder;
 use \Interop\Container\ContainerInterface;
-use config\Config;
+use lib\Config\Config;
 
 
 /** @noinspection PhpIncludeInspection */
-include(__DIR__ . '/src/config/primary_config.php');
+include(__DIR__ . '/src/configs/define/config.php');
+
 
 // подключаем ядро сайта
 /** @noinspection PhpIncludeInspection */
-include(SITE_PATH . 'src' . DS . 'core' . DS . 'core.php');
+include(ROOT_PATH . DS . 'core' . DS . 'core.php');
 
 app()->init(APP_MODE);
 
@@ -51,8 +52,7 @@ $builder->addDefinitions([
                          ]);
 $container = $builder->build();
 
-echo $container->get('views\View\View');
-
+echo $container->get('view\View');
 
 
 //use proxy\Profiler;

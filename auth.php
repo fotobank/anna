@@ -74,6 +74,6 @@ IF ( !isset( $_SESSION['logged'] )  || $_SESSION['logged'] !== TRUE ):
 
  	include( __DIR__ . '/inc/footer.php' );
 ELSE:
-	include (__DIR__ . '/inc/func.php');
+	include(ROOT_PATH . 'func.php');
 	main_redir( 'admin.php' );
 ENDIF;

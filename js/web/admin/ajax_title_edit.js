@@ -16,7 +16,7 @@
 			});
 
 			// Saving with AJAX
-			$.get('/classes/ajaxSite/titleEdit.php', {action: 'rearrange', positions: arr});
+			$.get('/src/lib/ajaxSite/titleEdit.php', {action: 'rearrange', positions: arr});
 		},
 
 		/* fix: */
@@ -39,7 +39,7 @@
 		buttons  : {
 			'Удалить': function () {
 
-				$.get("/classes/ajaxSite/titleEdit.php", {
+				$.get("/src/lib/ajaxSite/titleEdit.php", {
 					"action": "delete",
 					"id"    : currentBlock.data('id')
 				}, function (msg) {
@@ -70,7 +70,7 @@
 		$(this).parent().addClass('selected').siblings().removeClass('selected');
 
 		$('ul.list-title').ajax_load('load', {
-			'url'    : '/classes/ajaxSite/ajaxLoad.php', // адрес скрипта
+			'url'    : '/src/lib/ajaxSite/ajaxLoad.php', // адрес скрипта
 			'id_load': '#pageContent', // id для загрузки ответа сервера (контента)
 			'type'   : 'GET', // тип вызова
 			'header' : 'Content-Type: application/json; charset=utf-8;', // посылаемый заголовок
@@ -152,7 +152,7 @@
 	blockList.on('click', 'a.saveChanges', function (e) {
 		var text = currentBlock.find("input[type=text]").val();
 
-		$.get("/classes/ajaxSite/titleEdit.php", {'action': 'edit', 'id': currentBlock.data('id'), 'text': text});
+		$.get("/src/lib/ajaxSite/titleEdit.php", {'action': 'edit', 'id': currentBlock.data('id'), 'text': text});
 
 		currentBlock.removeData('origText')
 				.find(".navlink")
@@ -168,7 +168,7 @@
 		// Добавление не чаще 1 раза в секунду
 		if ((new Date()).getTime() - timestamp < 1000) return false;
 
-		$.get("/classes/ajaxSite/titleEdit.php", {
+		$.get("/src/lib/ajaxSite/titleEdit.php", {
 			'action': 'new',
 			'text'  : 'Новый раздел',
 			'rand'  : Math.random()

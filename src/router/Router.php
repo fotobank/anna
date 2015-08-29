@@ -17,7 +17,7 @@ namespace router;
  */
 
 use common\Helper;
-use config\Config;
+use lib\Config\Config;
 use Exception;
 use exception\RouteException;
 use proxy\Base as BaseModel;
@@ -71,15 +71,21 @@ class Router implements InterfaceRouter
         $id;
 
     /**
-     * @param \config\Config $config
+     * @param \lib\Config\Config|\lib\Config\Config $config
      *
-     * @throws \config\ConfigException
-     * @throws \exception\RouteException
+     * @throws \Exception
      */
     public function __construct(Config $config)
     {
-        $this->site_routes = $config->getData('router');
-        $this->start();
+        try
+        {
+            $this->site_routes = $config->getData('router');
+            $this->start();
+        }
+        catch(Exception $e)
+        {
+            throw $e;
+        }
     }
 
     /**
@@ -183,7 +189,7 @@ class Router implements InterfaceRouter
     protected function loadWidget()
     {
         $widget_dir = $this->ucwordsKey($this->current_method);
-        $this->addHelperPath(PATH_ROOT . strtolower($this->current_controller) . '/' . $widget_dir . '/');
+        $this->addHelperPath(ROOT_PATH . strtolower($this->current_controller) . '/' . $widget_dir . '/');
         $widget = $this->url_routes[2];
         // вызов виджета
         $this->$widget();
@@ -264,7 +270,7 @@ class Router implements InterfaceRouter
      */
     protected function createInstance()
     {
-        $controller = 'controllers\\' . $this->current_controller . '\\' . $this->current_controller;
+        $controller = 'modules\Controllers\\' . $this->current_controller . '\\' . $this->current_controller;
         $method     = $this->current_method;
         $instance   = new $controller;
 

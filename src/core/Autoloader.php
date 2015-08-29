@@ -34,16 +34,16 @@ namespace core;
 
 use Exception;
 use exception\BaseException;
-use helper\Recursive;
+use helper\Recursive\Recursive;
 use proxy\Location;
 
 
 /** @noinspection PhpIncludeInspection */
-include(SITE_PATH . 'src/exception/IException.php');
+include(ROOT_PATH . 'exception/IException.php');
 /** @noinspection PhpIncludeInspection */
-include(SITE_PATH . 'src/exception/BaseException.php');
+include(ROOT_PATH . 'exception/BaseException.php');
 /** @noinspection PhpIncludeInspection */
-include(SITE_PATH . 'src/helper/Recursive/Recursive.php');
+include(ROOT_PATH . 'helper/Recursive/Recursive.php');
 
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
@@ -61,7 +61,7 @@ class Autoloader extends Recursive
 {
 
     // папка кэша и лога
-    public $dir_cashe = 'cache/autoload';
+    public $dir_cashe = 'assests/cache/autoload';
 
     // имя файла кеша без слэша
     public $file_array_class_cache = 'class_cache.php';
@@ -76,7 +76,7 @@ class Autoloader extends Recursive
     public $files_ext = ['.php', '.class.php'];
 
     // массив путей поиска файлов классов
-    public $paths = ['classes', 'src', 'src/controllers', 'src/models', 'application'];
+    public $paths = ['classes', 'src', 'src/modules/Controllers', 'src/modules/Models', 'application'];
 
     // файл настройки
     public $htaccess = '.htaccess';
@@ -114,7 +114,7 @@ END;
             spl_autoload_register(['Core\\Autoloader', 'autoload']);
 
             /** переопределение свойств  */
-            $this->dir_cashe              = SITE_PATH . str_replace(['\\', '/'], DS, $this->dir_cashe) . DS;
+            $this->dir_cashe              = ROOT_PATH . str_replace(['\\', '/'], DS, $this->dir_cashe) . DS;
             $this->fileLog                = $this->dir_cashe . $this->fileLog;
             $this->file_array_class_cache = $this->dir_cashe . $this->file_array_class_cache;
             $this->file_array_scan_files  = $this->dir_cashe . $this->file_array_scan_files;
@@ -253,14 +253,21 @@ END;
      */
     protected function updateScanFiles()
     {
-        foreach($this->paths as $path)
+        try
         {
-            $path = str_replace(['\\', '/'], DS, $path);
-            //  $this->array_scan_files = $this->rScanDir(SITE_PATH . $path . DS);
-            $this->array_scan_files = $this->scanDir(SITE_PATH . $path . DS, ['php'], SCAN_BASE_NAME);
+            foreach($this->paths as $path)
+            {
+                $path = str_replace(['\\', '/'], DS, $path);
+                //  $this->array_scan_files = $this->rScanDir(SITE_PATH . $path . DS);
+                $this->array_scan_files = $this->scanDir(SITE_PATH . $path . DS, ['php'], SCAN_BASE_NAME);
+            }
+            $this->arrToFile($this->array_scan_files, $this->file_array_scan_files);
+            $this->updateScanFilesLog();
         }
-        $this->arrToFile($this->array_scan_files, $this->file_array_scan_files);
-        $this->updateScanFilesLog();
+        catch(Exception $e)
+        {
+            throw $e;
+        }
     }
 
 
@@ -284,17 +291,9 @@ END;
      */
     private function updateScanFilesLog()
     {
-        try
+        if(DEBUG_LOG)
         {
-            if(DEBUG_LOG)
-            {
-                $this->putLog(
-                    ('<br><b style="background-color: #ffffaa;">сканируем директории и обновляем базу поиска классов</b>'));
-            }
-        }
-        catch(AutoloadException $e)
-        {
-            throw $e;
+            $this->putLog('<br><b style="background-color: #ffffaa;">сканируем директории и обновляем базу поиска классов</b>');
         }
     }
 
@@ -307,8 +306,7 @@ END;
      */
     private function putLog($data)
     {
-        $data = ('[ ' . $data . ' => ' . date('d.m.Y H:i:s') . ' ]<br>'
-            . PHP_EOL);
+        $data = ('[ ' . $data . ' => ' . date('d.m.Y H:i:s') . ' ]<br>' . PHP_EOL);
         file_put_contents($this->fileLog, $data, FILE_APPEND | LOCK_EX);
     }
 
@@ -320,6 +318,10 @@ END;
      */
     public function autoload($class_name)
     {
+        if($class_name === 'Classes')
+        {
+            $t = $class_name;
+        }
         $this->name_space = '';
         /** подготовка имени в классах с namespace */
         $lastNsPos = strrpos($class_name, '\\');

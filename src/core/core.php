@@ -14,8 +14,9 @@
 use core\Autoloader;
 use lib\pattern\Registry;
 use proxy\Config;
-use proxy\Log;
 use proxy\Session;
+use lib\Security\Security;
+use lib\Error\Error;
 
 
 if(session_id() === '')
@@ -30,7 +31,7 @@ else
 /** @noinspection PhpIncludeInspection */
 include(SITE_PATH . 'vendor/autoload.php');
 /** @noinspection PhpIncludeInspection */
-include(SITE_PATH . 'src/core/Autoloader.php');
+include(ROOT_PATH . 'core/Autoloader.php');
 new Autoloader();
 
 if(Session::get('logged') === true or DEBUG_MODE)
@@ -54,9 +55,9 @@ else
 
 
 /** @noinspection PhpIncludeInspection */
-include(SITE_PATH . 'inc/func.php');
+include(ROOT_PATH . 'func.php');
 /** @noinspection PhpIncludeInspection */
-include(PATH_ROOT . '_functions.php');
+include(ROOT_PATH . '_functions.php');
 
 defined('CODE_PAGE') or define('CODE_PAGE', detect_encoding(SITE_PATH . 'inc/кодировка файловой системы.codepage'));
 
@@ -69,9 +70,7 @@ if(DEBUG_MODE && !is_ajax())
 // защита
 new Security();
 
-$err                 = new lib\Inter\Error(Config::getInstance());
-$err->conf['logDir'] = SITE_PATH . 'log';
-$err->conf['otl']    = true; // включить запись лога на 127.0.0.1
+$err = new Error(Config::getInstance());
 //$err->var_dump($_SERVER, '$_SERVER'); // вывод дампа переменных
 if(!function_exists('v_dump'))
 {
@@ -80,7 +79,7 @@ if(!function_exists('v_dump'))
         if(DEBUG_MODE && is_callable($func = ['lib\Inter\Error', 'var_dump']))
         {
             $variables = func_get_args();
-            $dump = new lib\Inter\Error(Config::getInstance());
+            $dump = new Error(Config::getInstance());
             $dump->var_dump($variables);
             unset($dump);
         }

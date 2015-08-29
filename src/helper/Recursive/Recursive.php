@@ -13,7 +13,7 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-namespace helper;
+namespace helper\Recursive;
 
 use exception\HelperException;
 use RecursiveDirectoryIterator;
@@ -38,15 +38,17 @@ class Recursive
 
     /**
      * быстрый метод сканирования директорий
+     *
      * @param string $base - закрывающий слеш обязателен  => dir/foto/
-     * @param array  $arr_mask - расширение файла без точки
-     * @param int    $type_array
-     * @param array  $data (SCAN_DIR_NAME, SCAN_BASE_NAME, SCAN_MULTI_ARRAY)
+     * @param array $arr_mask = ['jpg', 'png'] - расширение файла без точки
+     * @param int $type_array
      *
      * @return array
      * @throws \exception\HelperException
+     * param array $data (SCAN_DIR_NAME, SCAN_BASE_NAME, SCAN_MULTI_ARRAY)
+     *
      */
-    public function scanDir($base = '', $arr_mask = ['jpg', 'png'], $type_array)
+    public function scanDir($base = '', $arr_mask, $type_array)
     {
         static $data;
         static $dir;

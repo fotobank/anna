@@ -8,8 +8,8 @@
  */
 namespace proxy;
 
-use config\Config as Instance;
-use config\ConfigException;
+use lib\Config\Config as Instance;
+use lib\Config\ConfigException;
 
 /**
  * Proxy to Config
@@ -44,7 +44,8 @@ class Config extends AbstractProxy
     {
         try
         {
-            return new Instance();
+            $instance = new Instance();
+            return $instance;
 
         } catch(ConfigException $e)
         {
