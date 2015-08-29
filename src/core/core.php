@@ -13,6 +13,7 @@
 
 use core\Autoloader;
 use lib\pattern\Registry;
+use proxy\Config;
 use proxy\Log;
 use proxy\Session;
 
@@ -68,7 +69,7 @@ if(DEBUG_MODE && !is_ajax())
 // защита
 new Security();
 
-$err                 = new lib\Inter\Error();
+$err                 = new lib\Inter\Error(Config::getInstance());
 $err->conf['logDir'] = SITE_PATH . 'log';
 $err->conf['otl']    = true; // включить запись лога на 127.0.0.1
 //$err->var_dump($_SERVER, '$_SERVER'); // вывод дампа переменных
@@ -80,17 +81,16 @@ if(!function_exists('v_dump'))
         {
             $variables = func_get_args();
 //            call_user_func($func, $variables);
-            $dump = new lib\Inter\Error();
+            $dump = new lib\Inter\Error(Config::getInstance());
             $dump->var_dump($variables);
             unset($dump);
         }
     }
 }
-Log::putLog(SITE_PATH.'log/test.log', 'Test');
 //v_dump($_SERVER);
 //throw new exception\CommonException('Err', 301);
 // echo $test_test; // Notice
 // trigger_error('Это тест' , E_USER_ERROR ); // User_Error
-// throw new Exception('this is a test'); // Uncaught Exception
+ throw new Exception('this is a test'); // Uncaught Exception
 // echo fatal(); // Fatal Error
 // $test = new TestClass();

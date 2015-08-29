@@ -5,13 +5,12 @@ namespace lib\Inter;
 /**
  * Class Error
  */
-use lib\pattern\Registry;
+use config\Config;
 use Exception;
 use ErrorException;
 use lib\File;
 use proxy\Location;
 use proxy\Log;
-use proxy\Router;
 
 /**
  * Class Error
@@ -94,29 +93,45 @@ class Error
 
 	/**
 	 * инициализация
+	 *
+	 * @param \config\Config $config
+	 *
+	 * @throws \Exception
 	 */
-	public function __construct()
+	public function __construct(Config $config)
 		{
-			date_default_timezone_set('Europe/Kiev');
-			set_exception_handler([$this, 'exception_handler']);
+			try
+			{
+				$this->conf = $config->getData('error');
+				date_default_timezone_set('Europe/Kiev');
+				set_exception_handler([$this, 'exception_handler']);
 
 //			$this->errorConversionMask = E_ALL ^ (E_NOTICE | E_USER_NOTICE);
-			/*if (version_compare(PHP_VERSION, '5.4', '>=')) {
-				$this->errorConversionMask = $this->errorConversionMask ^ E_STRICT;
-			}*/
-			$this->errorConversionMask = E_ALL;
+				/*if (version_compare(PHP_VERSION, '5.4', '>=')) {
+                    $this->errorConversionMask = $this->errorConversionMask ^ E_STRICT;
+                }*/
+				$this->errorConversionMask = E_ALL;
 
-			if(DEBUG_MODE) {
-				error_reporting($this->errorConversionMask);
-			} else {
-				error_reporting(0);
-			}
+				if(DEBUG_MODE)
+				{
+					error_reporting($this->errorConversionMask);
+				}
+				else
+				{
+					error_reporting(0);
+				}
 
-			set_error_handler([$this, 'error_handler']);
-			if (version_compare(PHP_VERSION, '5.5', '>=')) {
-				register_shutdown_function([$this, 'detect_fatal_error']);
+				set_error_handler([$this, 'error_handler']);
+				if(version_compare(PHP_VERSION, '5.5', '>='))
+				{
+					register_shutdown_function([$this, 'detect_fatal_error']);
+				}
+				$this->_request_uri = $this->_get_request_uri();
 			}
-			$this->_request_uri = $this->_get_request_uri();
+			catch(Exception $e)
+			{
+				throw $e;
+			}
 		}
 
 	/**
@@ -135,9 +150,9 @@ class Error
 					if (0 != count($this->_allError)) {
 						$this->write_errorlog();
 					}
-                 //   Router::stopPage();
-//                    Router::gotoPage('Location', 'stopPage');
-                    Location::stopPage();
+                  //  Router::stopPage();
+                  //  Router::gotoPage('Location', 'stopPage');
+                      Location::stopPage();
 				}
 		}
 
@@ -360,7 +375,6 @@ class Error
 					$logFilename .= md5($errorInfo['code'] . $errorInfo['line'] . $errorInfo['message']) . '.log';
 
 					try {
-
 						Log::putLog($logFilename, $logText);
 						if (!Log::getInstance()) {
 							error_log($logText, 3, $logFilename);
