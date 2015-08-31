@@ -28,6 +28,11 @@ class Router extends AbstractRouter
 {
 
     /**
+     * modules\Controllers\Controller
+     * @var  $instance */
+    protected $instance;
+
+    /**
      * @param \lib\Config\Config|\lib\Config\Config $config
      *
      * @throws \Exception
@@ -54,8 +59,8 @@ class Router extends AbstractRouter
         assert('method_exists($instance, $method)', "метод '$method' не найден в контроллере '$controller_path'");
         assert('$reflection = new \ReflectionMethod($instance, $method);');
         assert('$reflection->isPublic()', "метод '$method' не является публичным в контроллере '$controller_path'");
-        assert('unset($reflection);');
 
-        $instance->$this->current_method($this->id, $this->param);
+        $this->instance = $instance;
+//      $instance->$method($this->id, $this->param);
     }
 }

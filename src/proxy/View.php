@@ -59,8 +59,7 @@ class View extends AbstractProxy
      */
     protected static function initInstance()
     {
-        $router = Router::getInstance();
-        $instance = new Instance($router);
+        $instance = new Instance();
         return $instance;
     }
 

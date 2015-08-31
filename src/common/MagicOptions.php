@@ -125,11 +125,6 @@ trait MagicOptions
 		{
 			$method = 'set'.$this->normalizeKey($key);
 			$this->$method($value);
-			/*if (method_exists($this, $method)) {
-				$this->$method($value);
-			} else {
-				$this->options[$key] = $value;
-			}*/
 		}
 
 	/**

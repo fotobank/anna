@@ -30,4 +30,7 @@ use common\Helper;
 abstract class Controller
 {
     use Helper;
+
+    /** @var  \view\View */
+    protected $viewer;
 }

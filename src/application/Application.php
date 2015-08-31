@@ -175,6 +175,11 @@ class Application
             // initial default helper path
             $this->addHelperPath(__DIR__ . '/Helper/');
 
+
+
+
+
+
         }
         catch(RedirectException $e)
         {

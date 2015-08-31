@@ -16,7 +16,8 @@ namespace modules\Controllers\Index;
 
 use modules\Controllers\Controller\Controller;
 use modules\Models\Index as model;
-use application\Application;
+use view\View;
+use Exception;
 
 
 /**
@@ -26,11 +27,13 @@ use application\Application;
 class Index extends Controller
 {
 	/**
-	 * инициализация вьювера Mustache
+	 * инициализация вьювера
+	 *
+	 * @param View $view
 	 */
-	public function __construct()
+	public function __construct(View $view)
 		{
-			parent::init();
+			$this->viewer = $view;
 		}
 
 
@@ -40,12 +43,19 @@ class Index extends Controller
 	 * @throws \phpbrowscap\Exception
 	 */
 	public function index() {
-		$model = new model\Index([
-								// свойства IndexPage
-								'http_host'       => getenv('HTTP_HOST'),  // телефон в слайдере
-								'filenews'        => 'news.txt', // файл новостей
-								'lite_box_path'   => 'files/slides/*.jpg' // маска и путь сканирования лайтбокса
-										]);
-		return $this->mustache->render('index', $model);
+		try
+		{
+			$model = new model\Index([
+				                         // свойства IndexPage
+				                         'http_host'     => getenv('HTTP_HOST'),  // телефон в слайдере
+				                         'filenews'      => 'news.txt', // файл новостей
+				                         'lite_box_path' => 'files/slides/*.jpg' // маска и путь сканирования лайтбокса
+			                         ]);
+			echo $this->viewer->render('index', $model);
+		}
+		catch(Exception $e)
+		{
+			throw $e;
+		}
 	}
 }

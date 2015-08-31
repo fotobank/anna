@@ -17,6 +17,8 @@ use router\Router as MainRouter;
 use DI\ContainerBuilder;
 use \Interop\Container\ContainerInterface;
 use lib\Config\Config;
+use router\Router;
+use view\View as BaseView;;
 
 
 /** @noinspection PhpIncludeInspection */
@@ -31,14 +33,16 @@ app()->init(APP_MODE);
 
 
 // proxy
-//echo View::render();
+$config = new Config();
+$view = new BaseView();
+$router = new Router($config, $view);
 
 
 
 // php::di
 //$container = ContainerBuilder::buildDevContainer();
 
-$builder = new ContainerBuilder();
+/*$builder = new ContainerBuilder();
 $builder->useAnnotations(false);
 $builder->addDefinitions([
                     'Config' => new Config(),
@@ -54,7 +58,7 @@ $builder->addDefinitions([
                          ]);
 $container = $builder->build();
 
-echo $container->get('view\View');
+echo $container->get('view\View');*/
 
 
 

@@ -111,14 +111,17 @@ class View implements ViewInterface, \JsonSerializable
     /**
      * View should be callable
      *
+     * @param $template
+     * @param $model
+     *
      * @return string
      * @throws \Exception
      */
-    public function __invoke()
+    public function __invoke($template, $model)
     {
         try
         {
-        return $this->render();
+        return $this->render($template, $model);
         }
         catch(\Exception $e)
         {
@@ -187,27 +190,34 @@ class View implements ViewInterface, \JsonSerializable
     /**
      * Render
      *
+     * @param $template
+     * @param $model
+     *
      * @return string
      * @throws \Exception
      * @throws \exception\ViewException
-     *
+     * @internal param $layout
+     * @internal param $model
      */
-    public function render()
+    public function render($template, $model)
     {
         ob_start();
         try {
             header('Content-type: text/html; charset=windows-1251');
+            if(DEBUG_MODE)
+            {
+                setcookie('XDEBUG_SESSION ', 'PHPSTORM', time() + 300);
+            }
             /**==========================для раздела "отзывы"====================*/
             if(Post::_has('nick') && Post::has('email'))
             {
                 setcookie('nick', Post::get('nick'), time() + 300);
                 setcookie('email', Post::get('email'), time() + 300);
-
-                setcookie('XDEBUG_SESSION ', 'PHPSTORM', time() + 300);
             }
             /**==================================================================*/
 
 
+        echo $this->mustache->render($template, $model);
 
         } catch (ViewException $e) {
 
