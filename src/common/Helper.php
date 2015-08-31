@@ -24,7 +24,12 @@ trait Helper
     /**
      * @var array of helpers paths
      */
-    protected $helpersPath = [];
+    protected $helpers_path = [];
+
+    /**
+     * @var array of plugins paths
+     */
+    protected $plugins_path = [];
 
     /**
      * Add helper path
@@ -34,8 +39,8 @@ trait Helper
     public function addHelperPath($path)
     {
         $path = rtrim(realpath($path), '/');
-        if (false !== $path && !in_array($path, $this->helpersPath, true)) {
-            $this->helpersPath[] = $path;
+        if (false !== $path && !in_array($path, $this->helpers_path, true)) {
+            $this->helpers_path[] = $path;
         }
 
         return $this;
@@ -59,6 +64,56 @@ trait Helper
     }
 
     /**
+     *
+     */
+    public function runPlugins()
+    {
+        $arr_path = [];
+        foreach($this->plugins_path as $path)
+        {
+            $arr_path = array_merge( $arr_path, glob($path.'\*.php'));
+        }
+        foreach($arr_path as $a)
+        {
+            $plugins_name = lcfirst(basename($a, '.php'));
+            $this->$plugins_name();
+        }
+    }
+
+    /**
+     * Add plugins path
+     * @param string $path
+     * @return self
+     */
+    public function addPluginsPath($path)
+    {
+        $path = realpath($path);
+        if (false !== $path && !in_array($path, $this->plugins_path, true)) {
+            $this->plugins_path[] = $path;
+        }
+        $this->addHelperPath($path);
+        $this->runPlugins();
+        return $this;
+    }
+
+    /**
+     * Set plugins path
+     * @param string|array $plugins_path
+     * @return self
+     */
+    public function setPluginsPath($plugins_path)
+    {
+        if (is_array($plugins_path)) {
+            foreach ($plugins_path as $path) {
+                $this->addPluginsPath((string)$path);
+            }
+        } else {
+            $this->addPluginsPath((string)$plugins_path);
+        }
+        return $this;
+    }
+
+    /**
      * Call magic helper
      * @param string $method
      * @param array $args
@@ -76,9 +131,10 @@ trait Helper
         }
 
         // Try to find helper file
-        foreach ($this->helpersPath as $helperPath) {
+        foreach ($this->helpers_path as $helperPath) {
             $helperPath = realpath($helperPath . '/' . ucfirst($method) . '.php');
-            if ($helperPath) {
+            if ($helperPath)
+            {
                 $helperInclude = include $helperPath;
                 if (is_callable($helperInclude)) {
                     $this->helpers[$key] = $helperInclude;

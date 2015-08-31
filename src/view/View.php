@@ -178,27 +178,7 @@ class View implements ViewInterface, \JsonSerializable
         return $this;
     }
 
-    /**
-     * Creating new instance that required by URL.
-     *
-     * @param $current_controller
-     * @param $method
-     *
-     * @return
-     * @throws \exception\ViewException
-     */
-    protected function createInstanceController($current_controller, $method)
-    {
-        $controller = 'modules\Controllers\\' . $current_controller . '\\' . $current_controller;
-        $instance   = new $controller;
-        // тесты
-        assert('method_exists($instance, $method)', "метод '$method' не найден в контроллере '$controller'");
-        assert('$reflection = new \ReflectionMethod($instance, $method)');
-        assert('$reflection->isPublic()', "метод '$method' не является публичным в контроллере '$controller'");
 
-        unset($reflection);
-        return $instance;
-    }
 
 
     /**
