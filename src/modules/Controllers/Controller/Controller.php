@@ -16,9 +16,8 @@
 
 namespace modules\Controllers\Controller;
 
-use proxy\Post;
+
 use common\Helper;
-use Mustache_Engine as Mustache;
 
 
 /**
@@ -27,37 +26,8 @@ use Mustache_Engine as Mustache;
  * @package controllers
  * @formatter:off
  *
- * @method Mustache mustacheRegister();
  */
 abstract class Controller
 {
     use Helper;
-
-
-    /**
-     * @var \Mustache_Engine
-     */
-    public $mustache;
-
-    /**
-     * инициализация класса
-     */
-    public function init()
-    {
-        header('Content-type: text/html; charset=windows-1251');
-
-        /**==========================для раздела "отзывы"====================*/
-        if(Post::_has('nick') && Post::has('email'))
-        {
-            setcookie('nick', Post::get('nick'), time() + 300);
-            setcookie('email', Post::get('email'), time() + 300);
-
-            setcookie('XDEBUG_SESSION ', 'PHPSTORM', time() + 300);
-        }
-        /**==================================================================*/
-
-        $this->addHelperPath(__DIR__ . '/Helper/');
-
-        $this->mustache = $this->mustacheRegister();
-    }
 }

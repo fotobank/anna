@@ -16,7 +16,8 @@ use common\Container\MagicAccess;
 use common\Helper;
 use common\Options;
 use exception\ViewException;
-use router\Router as MainRouter;
+use proxy\Post;
+use Mustache_Engine as Mustache;
 
 
 /**
@@ -46,6 +47,7 @@ use router\Router as MainRouter;
  * @method string|null url(string $module, string $controller, array $params = [], bool $checkAccess = false)
  * @method AbstractRowEntity|null user()
  * @method void widget($module, $widget, $params = [])
+ * @method Mustache mustacheRegister();
  *
  */
 class View implements ViewInterface, \JsonSerializable
@@ -84,21 +86,17 @@ class View implements ViewInterface, \JsonSerializable
     protected $template;
 
     /**
-     * объект роутера
-     * @var MainRouter
+     * @var \Mustache_Engine
      */
-    protected $router;
+    public $mustache;
 
     /**
      * Create view instance, initial default helper path
-     *
-     * @param \router\Router $router
      */
-    public function __construct(MainRouter $router)
+    public function __construct()
     {
-        $this->router = $router;
-        // initial default helper path
         $this->addHelperPath(__DIR__ . '/Helper/');
+        $this->mustache = $this->mustacheRegister();
     }
 
     /**
@@ -178,8 +176,13 @@ class View implements ViewInterface, \JsonSerializable
         return $this;
     }
 
+    /**
+     * инициализация класса
+     */
+    public function init()
+    {
 
-
+    }
 
     /**
      * Render
@@ -187,22 +190,24 @@ class View implements ViewInterface, \JsonSerializable
      * @return string
      * @throws \Exception
      * @throws \exception\ViewException
-     * @internal param \router\Router $router
      *
      */
     public function render()
     {
         ob_start();
         try {
-            // достаем параметры из router
-            $controller = $this->router->getCurrentController();
-            $method = $this->router->getCurrentMethod();
-            $id = $this->router->getId();
-            $param = $this->router->getParam();
+            header('Content-type: text/html; charset=windows-1251');
+            /**==========================для раздела "отзывы"====================*/
+            if(Post::_has('nick') && Post::has('email'))
+            {
+                setcookie('nick', Post::get('nick'), time() + 300);
+                setcookie('email', Post::get('email'), time() + 300);
 
-            $instance_controller = $this->createInstanceController($controller, $method);
-            // вызываем метод с параметрами
-            echo $instance_controller->$method($id, $param);
+                setcookie('XDEBUG_SESSION ', 'PHPSTORM', time() + 300);
+            }
+            /**==================================================================*/
+
+
 
         } catch (ViewException $e) {
 

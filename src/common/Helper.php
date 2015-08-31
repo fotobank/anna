@@ -87,7 +87,6 @@ trait Helper
      */
     public function addPluginsPath($path)
     {
-        $path = realpath($path);
         if (false !== $path && !in_array($path, $this->plugins_path, true)) {
             $this->plugins_path[] = $path;
         }
@@ -132,16 +131,17 @@ trait Helper
 
         // Try to find helper file
         foreach ($this->helpers_path as $helperPath) {
-            $helperPath = realpath($helperPath . '/' . ucfirst($method) . '.php');
-            if ($helperPath)
+            /** @noinspection DisconnectedForeachInstructionInspection */
+            $helperPath .= DS . ucfirst($method) . '.php';
+            if (is_file($helperPath))
             {
+                /** @noinspection PhpIncludeInspection */
                 $helperInclude = include $helperPath;
-                if (is_callable($helperInclude)) {
-                    $this->helpers[$key] = $helperInclude;
-                    return call_user_func($this->helpers[$key], $args);
-                } else {
-                    throw new Exception("Helper '$method' not found in file '$helperPath'");
-                }
+                assert('is_callable($helperInclude)', 'in class "'.__CLASS__.
+                                                     '" not found helper method "'.$method.
+                                                     '", error in file "'.$helperPath.'"');
+                $this->helpers[$key] = $helperInclude;
+                return call_user_func($this->helpers[$key], $args);
             }
         }
         throw new Exception('Helper method "'. $method .'" not found for class "' . __CLASS__ . '"');
