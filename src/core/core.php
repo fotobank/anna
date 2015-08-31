@@ -70,7 +70,11 @@ if(DEBUG_MODE && !is_ajax())
 // защита
 new Security();
 
-$err = new Error(Config::getInstance());
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
+
+//$err = new Error(Config::getInstance());
 //$err->var_dump($_SERVER, '$_SERVER'); // вывод дампа переменных
 if(!function_exists('v_dump'))
 {

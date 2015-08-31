@@ -32,7 +32,5 @@ class About extends Base
 		$this->setOptions($options);
 		// инициализация конструктора родительского класса
 		parent::__construct();
-
 	}
-
 }

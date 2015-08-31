@@ -46,6 +46,6 @@ class Index extends Controller
 								'filenews'        => 'news.txt', // файл новостей
 								'lite_box_path'   => 'files/slides/*.jpg' // маска и путь сканирования лайтбокса
 										]);
-		echo $this->mustache->render('index', $model);
+		return $this->mustache->render('index', $model);
 	}
 }

@@ -178,15 +178,11 @@ class Application
         }
         catch(RedirectException $e)
         {
-            // Redirect
             Response::removeHeaders();
             Response::pushHeader('Location', $e->getMessage(), $e->getCode());
 
             return null;
-
-            // Reload
         }
-
         catch
         (ReloadException $e)
         {
@@ -194,11 +190,9 @@ class Application
             Response::pushHeader('Refresh', '0; url=' . Server::get('REQUEST_URI'), $e->getCode());
 
             return null;
-
         }
         catch(\Exception $e)
         {
-
             throw $e;
         }
     }

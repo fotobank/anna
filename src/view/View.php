@@ -8,6 +8,7 @@
  */
 namespace view;
 
+use modules;
 use auth\AbstractRowEntity;
 use common\Container\Container;
 use common\Container\JsonSerialize;
@@ -16,6 +17,7 @@ use common\Helper;
 use common\Options;
 use exception\ViewException;
 use router\Router as MainRouter;
+
 
 /**
  * View
@@ -177,6 +179,29 @@ class View implements ViewInterface, \JsonSerializable
     }
 
     /**
+     * Creating new instance that required by URL.
+     *
+     * @param $current_controller
+     * @param $method
+     *
+     * @return
+     * @throws \exception\ViewException
+     */
+    protected function createInstanceController($current_controller, $method)
+    {
+        $controller = 'modules\Controllers\\' . $current_controller . '\\' . $current_controller;
+        $instance   = new $controller;
+        // тесты
+        assert('method_exists($instance, $method)', "метод '$method' не найден в контроллере '$controller'");
+        assert('$reflection = new \ReflectionMethod($instance, $method)');
+        assert('$reflection->isPublic()', "метод '$method' не является публичным в контроллере '$controller'");
+
+        unset($reflection);
+        return $instance;
+    }
+
+
+    /**
      * Render
      *
      * @return string
@@ -189,15 +214,15 @@ class View implements ViewInterface, \JsonSerializable
     {
         ob_start();
         try {
-
-            $this->router->start();
             // достаем параметры из router
-            $current_method =  $this->router->getCurrentMethod();
+            $controller = $this->router->getCurrentController();
+            $method = $this->router->getCurrentMethod();
             $id = $this->router->getId();
             $param = $this->router->getParam();
 
+            $instance_controller = $this->createInstanceController($controller, $method);
             // вызываем метод с параметрами
-            $this->router->getInstanceController()->$current_method($id, $param);
+            echo $instance_controller->$method($id, $param);
 
         } catch (ViewException $e) {
 

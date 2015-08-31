@@ -51,6 +51,8 @@ abstract class Controller
         {
             setcookie('nick', Post::get('nick'), time() + 300);
             setcookie('email', Post::get('email'), time() + 300);
+
+            setcookie('XDEBUG_SESSION ', 'PHPSTORM', time() + 300);
         }
         /**==================================================================*/
 

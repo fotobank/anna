@@ -41,7 +41,7 @@ class Services extends Controller
     public function services($dates) {
 
         $model = new model\Services($dates);
-        echo $this->mustache->render('services', $model);
+        return $this->mustache->render('services', $model);
 
     }
 

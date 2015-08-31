@@ -20,8 +20,7 @@ use common\Helper;
 use lib\Config\Config;
 use Exception;
 use exception\RouteException;
-use proxy\Base as BaseModel;
-use ReflectionMethod;
+use proxy\Db;
 
 
 /**
@@ -64,8 +63,6 @@ class Router implements InterfaceRouter
     // method страницы - заглушки
     protected $method_stub_page = 'stubPage';
 
-    // объект контроллера
-    protected $instance_controller;
     private
         $param, /** string Param that sets after request url checked. */
         $id;
@@ -212,8 +209,6 @@ class Router implements InterfaceRouter
                 // если все нормально - подготовка дополнительных параметров
                 $this->prepareParams();
             }
-            //    $this->checkControllerExists();
-            $this->createInstance();
 
         }
         catch(RouteException $e)
@@ -223,17 +218,49 @@ class Router implements InterfaceRouter
     }
 
     /**
+     *  проверка времени блокировки страницы
+     * @param $url
+     * @return array
+     */
+    protected function checkClockLockPage()
+    {
+        Db::where('url', $this->current_controller);
+        $lock = Db::getOne('lock_page');
+
+        if(null !== count($lock)) {
+            $difference_time = $lock['end_date'] - time();
+            if($difference_time > 0) {
+                // если время таймера не вышло показывать страницу - заглушку
+                return $lock;
+            }
+            if($lock['auto_run'] === 1) {
+                // загрузить обычную страницу
+                return false;
+            } else {
+                return $lock;
+            }
+        }
+        // если записи нет загрузить обычную страницу
+        return false;
+    }
+
+    /**
      * проверяем страницу на блокировку
+     *
+     * @param \modules\Models\StubPage\TableStubPage $lock
+     *
+     * @return bool
+     * @throws \Exception
      */
     protected function checkLockPage()
     {
         try
         {
-            $lock = BaseModel::checkClockLockPage($this->url);
-            if(false !== $lock && count($lock) > 0)
+            $lock_page = $this->checkClockLockPage();
+            if(false !== $lock_page && count($lock_page) > 0)
             {
-                $this->current_controller = $lock['controller'];
-                $this->current_method     = $lock['method'];
+                $this->current_controller = $lock_page['controller'];
+                $this->current_method     = $lock_page['method'];
 
                 return false;
             }
@@ -260,40 +287,6 @@ class Router implements InterfaceRouter
         if((!empty($this->url_routes[3])))
         {
             $this->param = $this->url_routes[3];
-        }
-    }
-
-    /**
-     * Creating new instance that required by URL.
-     *
-     * @throws RouteException
-     */
-    protected function createInstance()
-    {
-        $controller = 'modules\Controllers\\' . $this->current_controller . '\\' . $this->current_controller;
-        $method     = $this->current_method;
-        $instance   = new $controller;
-
-        if(method_exists($instance, $method))
-        {
-            $reflection = new ReflectionMethod($instance, $method);
-            if($reflection->isPublic())
-            {
-                //  записываем в кеш инициализированный контроллер
-                $this->instance_controller = $instance;
-                //  $instance->$method($this->id, $this->param);
-
-            }
-            else
-            {
-                throw new RouteException('метод "' . $method . '" не является публичным');
-            }
-            unset($reflection, $instance);
-
-        }
-        else
-        {
-            throw new RouteException('метод "' . $method . '" не найден в контроллере "' . $controller . '"');
         }
     }
 
@@ -460,33 +453,6 @@ class Router implements InterfaceRouter
     /**
      * @return mixed
      */
-    public function getInstanceController()
-    {
-        return $this->instance_controller;
-    }
-
-    /**
-     * Checks is controller exists and inlcude it.
-     *
-     * @throws RouteException
-     * @internal param $controller_path
-     *
-     * @internal param string $controller_path Controller path. Used to include and controller.
-     */
-    /*protected function checkControllerExists()
-    {
-        $controller_path = SITE_PATH . 'src' . DS . 'controllers' . DS . $this->current_controller .
-            DS . $this->current_controller . '.php';
-        if(file_exists($controller_path)) {
-            require_once $controller_path;
-        } else {
-            throw new RouteException('файл контроллера: "' . $controller_path . '" не найден');
-        }
-    }*/
-
-    /**
-     * @return mixed
-     */
     public function getCurrentMethod()
     {
         return $this->current_method;
@@ -506,5 +472,13 @@ class Router implements InterfaceRouter
     public function getParam()
     {
         return $this->param;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentController()
+    {
+        return $this->current_controller;
     }
 }

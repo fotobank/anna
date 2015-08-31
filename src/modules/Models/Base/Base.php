@@ -92,6 +92,7 @@ class Base implements InterfaceModelsBase
             $this->auto_copyright = auto_copyright('2011');
             $this->php_sessid = Cookie::get('PHPSESSID') or ip();
             $this->categorii = $this->getDbTitleName();
+
 //            $this->current_razdel = array_key_exists(0, Router::getUrlRoutes()) ? Router::getUrlRoutes()[0] : null;
             $this->current_razdel = 'index';
                 $this->getMetaTitle();
@@ -102,34 +103,6 @@ class Base implements InterfaceModelsBase
         }
 
     }
-
-    /**
-     *  проверка времени блокировки страницы
-     * @param $url
-     * @return array
-     */
-    public function checkClockLockPage($url)
-    {
-        Db::where('url', $url);
-        $lock = Db::getOne('lock_page');
-
-        if(null !== count($lock)) {
-            $difference_time = $lock['end_date'] - time();
-            if($difference_time > 0) {
-                // если время таймера не вышло показывать страницу - заглушку
-                return $lock;
-            }
-            if($lock['auto_run'] === 1) {
-                // загрузить обычную страницу
-                return false;
-            } else {
-                return $lock;
-            }
-        }
-        // если записи нет загрузить обычную страницу
-        return false;
-    }
-
 
     /**
      * присвоение значений переменным metatitle в шапке

@@ -41,7 +41,7 @@ class Comments  extends Controller
      */
     public function comments() {
         $model = new model\Comments();
-        echo $this->mustache->render('comments', $model);
+        return $this->mustache->render('comments', $model);
     }
 
 }

@@ -31,9 +31,6 @@ use router\Router as Instance;
  * @method   static void start()
  * @see      proxy\Router::start()
  *
- * @method   static mixed getInstanceController()
- * @see      proxy\Router::getInstanceController()
- *
  * @method   static mixed getCurrentMethod()
  * @see      proxy\Router::getCurrentMethod()
  *

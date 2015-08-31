@@ -41,7 +41,7 @@ class StubPage extends Controller
         $model = new model\StubPage([
 
         ]);
-        echo $this->mustache->render('stubPage', $model);
+        return $this->mustache->render('stubPage', $model);
     }
 
     /**
@@ -53,6 +53,6 @@ class StubPage extends Controller
         $model = new model\StubPage();
         $mess = $model->toEmail();
         header('Content-Type: application/json');
-        echo $mess;
+        return $mess;
     }
 }

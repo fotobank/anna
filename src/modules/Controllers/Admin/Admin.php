@@ -38,6 +38,6 @@ class Admin extends Controller
      */
     public function admin() {
         $model = new model\Admin();
-        echo $this->mustache->render('admin/admin', $model);
+        return $this->mustache->render('admin/admin', $model);
     }
 }

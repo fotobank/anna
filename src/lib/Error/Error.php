@@ -383,7 +383,7 @@ class Error
 						unset($logText);
 					}
 					catch (Exception $e) {
-						throw new Exception('Îøèáêà çàïèñè ëîãà: ' . $e->getMessage(), E_USER_ERROR);
+						throw new ErrorException('Îøèáêà çàïèñè ëîãà: ' . $e->getMessage());
 					}
 
 				}

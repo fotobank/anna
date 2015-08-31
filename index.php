@@ -47,12 +47,16 @@ $builder->addDefinitions([
                      },
                     'url_routes' => function(ContainerInterface $c){
                         return $c->get('router\Router')->getUrlRoutes();
-                    }
+                    },
+                    'environment' => 'production',
+
 
                          ]);
 $container = $builder->build();
 
 echo $container->get('view\View');
+
+
 
 
 //use proxy\Profiler;

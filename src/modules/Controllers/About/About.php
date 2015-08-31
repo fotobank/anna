@@ -1,6 +1,6 @@
 <?php
 /**
- * Класс предназначен для
+ * Класс Controller About
  * @created   by PhpStorm
  * @package   About.php
  * @version   1.0
@@ -15,7 +15,7 @@
 namespace modules\Controllers\About;
 
 use modules\Controllers\Controller\Controller;
-use modules\Models\About as model;
+use modules\Models\About\About as ModelAbout;
 
 
 /**
@@ -34,10 +34,10 @@ class About extends Controller
 		}
 
 	/**
-	 * экшен
+	 *
 	 */
 	public function about() {
-		$model = new model\About();
-		echo $this->mustache->render('about', $model);
+		$model = new ModelAbout();
+		return $this->mustache->render('about', $model);
 	}
 }

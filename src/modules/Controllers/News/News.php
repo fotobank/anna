@@ -40,7 +40,7 @@ class News  extends Controller
      */
     public function news() {
         $model = new model\News();
-        echo $this->mustache->render('news', $model);
+        return $this->mustache->render('news', $model);
     }
 
 }
