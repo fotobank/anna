@@ -209,7 +209,6 @@ class Router implements InterfaceRouter
                 // если все нормально - подготовка дополнительных параметров
                 $this->prepareParams();
             }
-
         }
         catch(RouteException $e)
         {
@@ -243,6 +242,7 @@ class Router implements InterfaceRouter
         // если записи нет загрузить обычную страницу
         return false;
     }
+
 
     /**
      * проверяем страницу на блокировку
