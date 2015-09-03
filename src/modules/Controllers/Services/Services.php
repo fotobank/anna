@@ -15,8 +15,8 @@
 namespace modules\Controllers\Services;
 
 use modules\Controllers\Controller\Controller;
-use modules\Models\Services as model;
-
+use modules\Models\Services\Services as ModelServices;
+use view\View;
 
 /**
  * Class Services
@@ -26,24 +26,35 @@ class Services extends Controller
 {
 
     /**
-     * инициализация вьювера Mustache
+     * инициализация вьювера
+     *
+     * @param \view\View $view
+     *
      */
-    public function __construct()
+    public function __construct(View $view)
     {
-        parent::init();
+        $this->viewer = $view;
     }
 
     /**
      * экшен
      *
-     * @throws \phpbrowscap\Exception
+     * @param $dates
+     *
+     * @return string
+     * @throws \Exception
      */
     public function services($dates) {
 
-        $model = new model\Services($dates);
-        return $this->mustache->render('services', $model);
+        try
+        {
+            $model = new ModelServices($dates);
 
+            return $this->viewer->render('services', $model);
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
-
-
 }

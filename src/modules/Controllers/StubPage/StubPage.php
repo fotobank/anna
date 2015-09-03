@@ -15,7 +15,8 @@
 namespace modules\Controllers\StubPage;
 
 use modules\Controllers\Controller\Controller;
-use modules\Models\StubPage as model;
+use modules\Models\StubPage\StubPage as ModelStubPage;
+use view\View;
 
 /**
  * Class StubPage
@@ -25,11 +26,14 @@ class StubPage extends Controller
 {
 
     /**
-     * инициализация вьювера Mustache
+     * инициализация вьювера
+     *
+     * @param \view\View $view
+     *
      */
-    public function __construct()
+    public function __construct(View $view)
     {
-        parent::init();
+        $this->viewer = $view;
     }
 
     /**
@@ -38,10 +42,16 @@ class StubPage extends Controller
      * @throws \phpbrowscap\Exception
      */
     public function stubPage() {
-        $model = new model\StubPage([
+        try
+        {
+            $model = new ModelStubPage([]);
 
-        ]);
-        return $this->mustache->render('stubPage', $model);
+            return $this->viewer->render('stubPage', $model);
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
 
     /**
@@ -50,9 +60,17 @@ class StubPage extends Controller
      * @throws \phpbrowscap\Exception
      */
     public function toEmail() {
-        $model = new model\StubPage();
-        $mess = $model->toEmail();
-        header('Content-Type: application/json');
-        return $mess;
+        try
+        {
+            $model = new ModelStubPage();
+            $mess  = $model->toEmail();
+            header('Content-Type: application/json');
+
+            return $mess;
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
 }

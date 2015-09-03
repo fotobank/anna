@@ -41,7 +41,15 @@ class About extends Controller
 	 *
 	 */
 	public function about() {
-		$model = new ModelAbout();
-		return $this->viewer->render('about', $model);
+		try
+		{
+			$model = new ModelAbout();
+
+			return $this->viewer->render('about', $model);
+		}
+		catch(\Exception $e)
+		{
+			throw $e;
+		}
 	}
 }

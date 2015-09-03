@@ -16,8 +16,8 @@ namespace modules\Controllers\Comments;
 
 
 use modules\Controllers\Controller\Controller;
-use modules\Models\Comments as model;
-
+use modules\Models\Comments\Comments as ModelComments;
+use view\View;
 
 /**
  * Class Comments
@@ -27,11 +27,14 @@ class Comments  extends Controller
 {
 
     /**
-     * инициализация вьювера Mustache
+     * инициализация вьювера
+     *
+     * @param \view\View $view
+     *
      */
-    public function __construct()
+    public function __construct(View $view)
     {
-        parent::init();
+        $this->viewer = $view;
     }
 
     /**
@@ -40,8 +43,16 @@ class Comments  extends Controller
      * @throws \phpbrowscap\Exception
      */
     public function comments() {
-        $model = new model\Comments();
-        return $this->mustache->render('comments', $model);
+        try
+        {
+            $model = new ModelComments();
+
+            return $this->viewer->render('comments', $model);
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
 
 }

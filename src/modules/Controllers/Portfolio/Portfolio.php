@@ -15,8 +15,8 @@
 namespace modules\Controllers\Portfolio;
 
 use modules\Controllers\Controller\Controller;
-use modules\Models\Portfolio as model;
-
+use modules\Models\Portfolio\Portfolio as ModelPortfolio;
+use view\View;
 
 /**
  * Class Portfolio
@@ -26,11 +26,14 @@ class Portfolio  extends Controller
 {
 
     /**
-     * инициализация вьювера Mustache
+     * инициализация вьювера
+     *
+     * @param \view\View $view
+     *
      */
-    public function __construct()
+    public function __construct(View $view)
     {
-        parent::init();
+        $this->viewer = $view;
     }
 
     /**
@@ -39,8 +42,8 @@ class Portfolio  extends Controller
      * @throws \phpbrowscap\Exception
      */
     public function portfolio() {
-        $model = new model\Portfolio();
-        return $this->mustache->render('portfolio\portfolio', $model);
+        $model = new ModelPortfolio();
+        return $this->viewer->render('portfolio\portfolio', $model);
     }
 
 }

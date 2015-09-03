@@ -16,6 +16,7 @@ namespace modules\Controllers\News;
 
 use modules\Controllers\Controller\Controller;
 use modules\Models\News as model;
+use view\View;
 
 
 /**
@@ -26,11 +27,14 @@ class News  extends Controller
 {
 
     /**
-     * инициализация вьювера Mustache
+     * инициализация вьювера
+     *
+     * @param \view\View $view
+     *
      */
-    public function __construct()
+    public function __construct(View $view)
     {
-        parent::init();
+        $this->viewer = $view;
     }
 
     /**
@@ -39,8 +43,16 @@ class News  extends Controller
      * @throws \phpbrowscap\Exception
      */
     public function news() {
-        $model = new model\News();
-        return $this->mustache->render('news', $model);
+        try
+        {
+            $model = new model\News();
+
+            return $this->viewer->render('news', $model);
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
 
 }
