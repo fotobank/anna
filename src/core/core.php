@@ -14,9 +14,11 @@
 use core\Autoloader;
 use lib\pattern\Registry;
 use proxy\Config;
+use proxy\Di;
 use proxy\Session;
 use lib\Security\Security;
 use lib\Error\Error;
+use Whoops\Handler\PrettyPageHandler;
 
 
 if(session_id() === '')
@@ -70,11 +72,15 @@ if(DEBUG_MODE && !is_ajax())
 // защита
 new Security();
 
-$whoops = new \Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-$whoops->register();
 
-//$err = new Error(Config::getInstance());
+//$whoops = new \Whoops\Run;
+//$handler = new PrettyPageHandler;
+//$handler->setEditor('phpstorm');
+//$whoops->pushHandler($handler);
+//$whoops->register();
+
+
+$err = new Error(Di::getContainer());
 //$err->var_dump($_SERVER, '$_SERVER'); // вывод дампа переменных
 if(!function_exists('v_dump'))
 {
@@ -83,7 +89,7 @@ if(!function_exists('v_dump'))
         if(DEBUG_MODE && is_callable($func = ['lib\Inter\Error', 'var_dump']))
         {
             $variables = func_get_args();
-            $dump = new Error(Config::getInstance());
+            $dump = new Error(Di::getContainer());
             $dump->var_dump($variables);
             unset($dump);
         }

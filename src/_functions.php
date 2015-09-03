@@ -80,7 +80,7 @@ if (!function_exists('app')) {
      */
     function app()
     {
-        return application\Application::getInstance();
+        return new application\Application;
     }
 }
 
@@ -150,4 +150,3 @@ if (!function_exists('_n')) {
         return Translator::translatePlural($singular, $plural, $number, array_slice(func_get_args(), 3));
     }
 }
-// @codingStandardsIgnoreEnd

@@ -71,7 +71,7 @@ class Router extends AbstractProxy
     {
         try
         {
-            return new Instance(Config::getInstance(), View::getInstance());
+            return new Instance(Di::getContainer(), View::getInstance());
         }
         catch(RouteException $e)
         {

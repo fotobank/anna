@@ -8,7 +8,6 @@
  */
 namespace lib\Config;
 
-use application\Application;
 
 /**
  * Config
@@ -41,8 +40,7 @@ class Config
     public function __construct()
     {
         $this->setPath(ROOT_PATH);
-        $this->setEnvironment(Application::getInstance()->getEnvironment());
-
+        $this->setEnvironment(APP_MODE);
         if (!$this->path) {
             throw new ConfigException('Configuration directory is not setup');
         }
@@ -92,6 +90,8 @@ class Config
         if (!is_file($path) && !is_readable($path)) {
             throw new ConfigException('Configuration file `'.$path.'` not found');
         }
+
+        /** @noinspection PhpIncludeInspection */
         return include $path;
     }
 
@@ -140,9 +140,11 @@ class Config
         }
 
         // return part of configuration
+        /** @noinspection UnSafeIsSetOverArrayInspection */
         if (isset($this->config[$key])) {
             // return section of configuration
             if (null !== $section) {
+                /** @noinspection UnSafeIsSetOverArrayInspection */
                 return isset($this->config[$key][$section])?$this->config[$key][$section]:null;
             } else {
                 return $this->config[$key];

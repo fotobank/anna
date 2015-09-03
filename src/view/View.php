@@ -105,7 +105,7 @@ class View implements ViewInterface, \JsonSerializable
      */
     public function __sleep()
     {
-        return ['baseUrl', 'container', 'helpersPath', 'path', 'partialPath', 'template'];
+        return ['baseUrl'];
     }
 
     /**
@@ -137,15 +137,7 @@ class View implements ViewInterface, \JsonSerializable
      */
     public function __toString()
     {
-        try
-        {
-            return $this->render();
-        }
-        catch(\Exception $e)
-        {
-            throw $e;
-        }
-
+//        return $this->render();
     }
 
     /**
@@ -180,14 +172,6 @@ class View implements ViewInterface, \JsonSerializable
     }
 
     /**
-     * инициализация класса
-     */
-    public function init()
-    {
-
-    }
-
-    /**
      * Render
      *
      * @param $template
@@ -196,8 +180,6 @@ class View implements ViewInterface, \JsonSerializable
      * @return string
      * @throws \Exception
      * @throws \exception\ViewException
-     * @internal param $layout
-     * @internal param $model
      */
     public function render($template, $model)
     {
@@ -206,7 +188,7 @@ class View implements ViewInterface, \JsonSerializable
             header('Content-type: text/html; charset=windows-1251');
             if(DEBUG_MODE)
             {
-                setcookie('XDEBUG_SESSION ', 'PHPSTORM', time() + 300);
+                setcookie('XDEBUG_SESSION', 'PHPSTORM', time() + 300);
             }
             /**==========================для раздела "отзывы"====================*/
             if(Post::_has('nick') && Post::has('email'))
@@ -224,7 +206,7 @@ class View implements ViewInterface, \JsonSerializable
             ob_end_clean();
             throw $e;
         }
-        return ob_get_clean();
-    //  ob_end_flush();
+//        return ob_get_clean();
+       ob_end_flush();
     }
 }

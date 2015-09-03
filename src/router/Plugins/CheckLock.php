@@ -29,13 +29,14 @@ return
     {
         Db::where('url', $this->current_controller);
         $lock = Db::getOne('lock_page');
-        assert('$lock', 'в базе нет записей о "LockPage" контроллера "' . $this->current_controller . '"');
-
-        $difference_time = $lock['end_date'] - time();
-        /** если время таймера не вышло или если вышло но не включен автостарт - показывать страницу заглушку */
-        if($difference_time > 0 || ($difference_time < 0 && $lock['auto_run'] !== 1))
+        if($lock)
         {
-            $this->current_controller = $lock['controller'];
-            $this->current_method     = $lock['method'];
+            $difference_time = $lock['end_date'] - time();
+            /** если время таймера не вышло или если вышло но не включен автостарт - показывать страницу заглушку */
+            if($difference_time > 0 || ($difference_time < 0 && $lock['auto_run'] !== 1))
+            {
+                $this->current_controller = $lock['controller'];
+                $this->current_method     = $lock['method'];
+            }
         }
     };

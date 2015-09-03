@@ -1,6 +1,7 @@
 <?php
 /**
  * Класс Index
+ *
  * @created   by PhpStorm
  * @package   Index.php
  * @version   1.0
@@ -14,48 +15,75 @@
 
 namespace modules\Controllers\Index;
 
-use modules\Controllers\Controller\Controller;
-use modules\Models\Index as model;
-use view\View;
 use Exception;
+use modules\Controllers\Controller\Controller;
+use modules\Models\Index\Index as ModelIndex;
+use view\View;
 
 
 /**
  * Class controller_Index
+ *
  * @package modules\Controllers\Index
  */
 class Index extends Controller
 {
-	/**
-	 * инициализация вьювера
-	 *
-	 * @param View $view
-	 */
-	public function __construct(View $view)
-		{
-			$this->viewer = $view;
-		}
+    /**
+     * инициализация вьювера
+     *
+     * @param \view\View $view
+     *
+     */
+    public function __construct(View $view)
+    {
+       $this->viewer = $view;
+    }
 
 
-	/**
-	 * экшен
-	 *
-	 * @throws \phpbrowscap\Exception
-	 */
-	public function index() {
-		try
-		{
-			$model = new model\Index([
-				                         // свойства IndexPage
-				                         'http_host'     => getenv('HTTP_HOST'),  // телефон в слайдере
-				                         'filenews'      => 'news.txt', // файл новостей
-				                         'lite_box_path' => 'files/slides/*.jpg' // маска и путь сканирования лайтбокса
-			                         ]);
-			echo $this->viewer->render('index', $model);
-		}
-		catch(Exception $e)
-		{
-			throw $e;
-		}
-	}
+    /**
+     * экшен
+     *
+     * @throws Exception
+     */
+    public function index()
+    {
+        $options = [
+            // свойства IndexPage
+            'http_host'     => getenv('HTTP_HOST'),  // телефон в слайдере
+            'filenews'      => 'news.txt', // файл новостей
+            'lite_box_path' => 'files/slides/*.jpg' // маска и путь сканирования лайтбокса
+        ];
+        $model = new ModelIndex($options);
+
+        $this->viewer->render('index', $model);
+    }
+
+    /**
+     * View should be callable
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function __invoke()
+    {
+        $this->index();
+    }
+
+    /**
+     * Render like string
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function __toString()
+    {
+        try
+        {
+            $this->index();
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
+    }
 }

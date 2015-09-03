@@ -18,13 +18,14 @@ trait Singleton
 
     /**
      * Get instance
-     * @return static::$instance
+     *
+     * @return static ::$instance
      */
     final public static function getInstance()
     {
         return isset(static::$instance)
             ? static::$instance
-            : static::$instance = new static;
+            : static::$instance = new static();
     }
 
     /**

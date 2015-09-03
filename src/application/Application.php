@@ -9,7 +9,6 @@
 namespace application;
 
 use router\Router as MainRouter;
-use common\Singleton;
 use common\Helper;
 use exception\ApplicationException;
 use application\Exception\ReloadException;
@@ -17,6 +16,7 @@ use application\Exception\RedirectException;
 use proxy\Response;
 use proxy\Server;
 use DI;
+use router\Router;
 
 
 /**
@@ -31,7 +31,6 @@ use DI;
 class Application
 {
     use Helper;
-    use Singleton;
 
     /**
      * @var string Application path
@@ -48,6 +47,16 @@ class Application
      */
     protected $widgets = [];
 
+    /** @var  Router */
+    protected  $router;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->environment = APP_MODE;
+    }
 
     /**
      * Get application environment
@@ -157,12 +166,12 @@ class Application
     /**
      * Initialize process
      *
-     * @param string $environment
-     *
-     * @return MainRouter
+     * @return \router\Router
      * @throws \Exception
+     * @internal param string $environment
+     *
      */
-    public function init($environment = 'production')
+    public function run()
     {
         try
         {
@@ -171,14 +180,10 @@ class Application
 //            $t->authenticateToken('f9705d72d58b2a305ab6f5913ba60a61');
 
 
-            $this->environment = $environment;
             // initial default helper path
             $this->addHelperPath(__DIR__ . '/Helper/');
 
-
-
-
-
+            $this->router->runInstance();
 
         }
         catch(RedirectException $e)
@@ -200,5 +205,21 @@ class Application
         {
             throw $e;
         }
+    }
+
+    /**
+     * @return \router\Router
+     */
+    public function getRouter()
+    {
+        return $this->router;
+    }
+
+    /**
+     * @param \router\Router $router
+     */
+    public function setRouter(Router $router)
+    {
+        $this->router = $router;
     }
 }

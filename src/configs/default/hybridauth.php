@@ -7,6 +7,7 @@
  * @link http://hybridauth.sourceforge.net/userguide/Configuration.html
  */
 return [
+    'hybridauth' => [
         //"base_url" the url that point to HybridAuth Endpoint (where index.php and config.php are found)
         'base_url' => '%%domain%%/auth/endpoint',
 
@@ -45,4 +46,5 @@ return [
 
         // to enable logging, set 'debug_mode' to true, then provide here a path of a writable file
         'debug_file' =>''
-];
+]
+    ];

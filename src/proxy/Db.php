@@ -171,7 +171,7 @@ class Db extends AbstractProxy
         try
         {
             $instance = new Instance();
-            $instance->setConfig(Config::getData('db'));
+            $instance->setConfig(Di::get('db'));
             $instance->init();
 
             return $instance;

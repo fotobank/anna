@@ -21,7 +21,7 @@ namespace controller\Helper;
 
 use Mustache_Autoloader;
 use Mustache_Engine as Mustache;
-use proxy\Config;
+use proxy\Di;
 
 return
     /**
@@ -31,5 +31,5 @@ return
         // mustache
         Mustache_Autoloader::register();
         // инициализация шаблонизатора Mustache
-        return new Mustache(Config::getData('mustache'));
+        return new Mustache(Di::get('mustache'));
     };

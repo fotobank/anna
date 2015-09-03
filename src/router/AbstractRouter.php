@@ -16,9 +16,9 @@
 namespace router;
 
 use common\Helper;
-use lib\Config\Config;
 use Exception;
 use exception\RouteException;
+use Di\Container;
 
 
 /**
@@ -72,11 +72,12 @@ class AbstractRouter implements InterfaceRouter
      *
      * @throws \Exception
      */
-    public function __construct(Config $config)
+    public function __construct(Container $config)
     {
         try
         {
-            $this->site_routes = $config->getData('router');
+            $this->site_routes = $config->get('routes');
+            assert('$this->site_routes', "не найден массив 'routes'");
             $this->start();
         }
         catch(Exception $e)
@@ -111,7 +112,7 @@ class AbstractRouter implements InterfaceRouter
             // действительный крнтроллер и метод
             $this->searchCurrentRoure();
 
-            if(array_key_exists([0], $this->url_routes) && $this->url_routes[0] == 'widgets')
+            if(array_key_exists(0, $this->url_routes) && $this->url_routes[0] == 'widgets')
             {
                 $this->loadWidget();
             }

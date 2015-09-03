@@ -5,10 +5,10 @@ namespace lib\Error;
 /**
  * Class Error
  */
-use lib\Config\Config;
 use Exception;
 use ErrorException;
 use lib\File;
+use Di\Container;
 use proxy\Location;
 use proxy\Log;
 
@@ -98,11 +98,11 @@ class Error
 	 *
 	 * @throws \Exception
 	 */
-	public function __construct(Config $config)
+	public function __construct(Container $config)
 		{
 			try
 			{
-				$this->conf = $config->getData('error');
+				$this->conf = $config->get('error');
 				date_default_timezone_set('Europe/Kiev');
 				set_exception_handler([$this, 'exception_handler']);
 

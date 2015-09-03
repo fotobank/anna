@@ -8,7 +8,7 @@
  */
 namespace proxy;
 
-use lib\Config\Config as Instance;
+//use lib\Config\Config as Instance;
 use lib\Config\ConfigException;
 
 /**
@@ -27,9 +27,6 @@ use lib\Config\ConfigException;
  *
  * @method   static mixed getData($key = null, $section = null)
  * @see      proxy\Config\Config::getData()
- *
- * @method   static mixed getModuleData($module, $section = null)
- * @see      proxy\Config\Config::getModuleData()
  */
 class Config extends AbstractProxy
 {
@@ -44,10 +41,11 @@ class Config extends AbstractProxy
     {
         try
         {
-            $instance = new Instance();
-            return $instance;
+//            $instance = new Instance();
+//            return $instance;
+            return Di::getContainer();
 
-        } catch(ConfigException $e)
+        } catch(\Exception $e)
         {
             throw $e;
         }

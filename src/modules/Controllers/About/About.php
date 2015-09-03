@@ -16,6 +16,7 @@ namespace modules\Controllers\About;
 
 use modules\Controllers\Controller\Controller;
 use modules\Models\About\About as ModelAbout;
+use view\View;
 
 
 /**
@@ -26,18 +27,21 @@ class About extends Controller
 {
 
 	/**
-	 * инициализация вьювера Mustache
+	 * инициализация вьювера
+	 *
+	 * @param \view\View $view
+	 *
 	 */
-	public function __construct()
-		{
-			parent::init();
-		}
+	public function __construct(View $view)
+	{
+		$this->viewer = $view;
+	}
 
 	/**
 	 *
 	 */
 	public function about() {
 		$model = new ModelAbout();
-		return $this->mustache->render('about', $model);
+		return $this->viewer->render('about', $model);
 	}
 }

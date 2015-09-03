@@ -16,8 +16,9 @@ namespace router;
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-use lib\Config\Config;
+use Di\Container;
 use Exception;
+use view\View;
 
 
 /**
@@ -32,19 +33,22 @@ class Router extends AbstractRouter
      * @var  $instance */
     protected $instance;
 
+    protected $viewer;
+
     /**
      * @param \lib\Config\Config|\lib\Config\Config $config
      *
+     * @param \view\View                            $view
+     *
      * @throws \Exception
      */
-    public function __construct(Config $config)
+    public function __construct(Container $config, View $view)
     {
+        $this->viewer = $view;
         parent::__construct($config);
         // add and avtorun plugins
         $this->addPluginsPath(__DIR__ . '/Plugins/');
-        $this->createInstance();
     }
-
 
     /**
      * Creating new instance that required by URL.
@@ -54,13 +58,22 @@ class Router extends AbstractRouter
         $controller = $this->current_controller;
         $method = $this->current_method;
         $controller_path = 'modules\Controllers\\' . $controller . '\\' . $controller;
-        $instance   = new $controller_path;
+        $instance   = new $controller_path($this->viewer);
         // тесты
         assert('method_exists($instance, $method)', "метод '$method' не найден в контроллере '$controller_path'");
         assert('$reflection = new \ReflectionMethod($instance, $method);');
         assert('$reflection->isPublic()', "метод '$method' не является публичным в контроллере '$controller_path'");
 
         $this->instance = $instance;
-//      $instance->$method($this->id, $this->param);
+    }
+
+    /**
+     * runInstance()
+     */
+    public function runInstance()
+    {
+        $this->createInstance();
+        $method = $this->current_method;
+        $this->instance->$method($this->id, $this->param);
     }
 }
