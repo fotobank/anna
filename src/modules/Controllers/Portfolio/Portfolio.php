@@ -42,8 +42,16 @@ class Portfolio  extends Controller
      * @throws \phpbrowscap\Exception
      */
     public function portfolio() {
-        $model = new ModelPortfolio();
-        return $this->viewer->render('portfolio\portfolio', $model);
+        try
+        {
+            $model = new ModelPortfolio();
+
+            return $this->viewer->render('portfolio\portfolio', $model);
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
 
 }
