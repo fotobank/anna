@@ -9,7 +9,6 @@ use exception\ComponentException;
 use router\Router as Instance;
 
 
-
 /**
  * Proxy to Router
  *
