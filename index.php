@@ -11,6 +11,11 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
+use Nette\DI\ContainerLoader;
+
+use proxy\View;
+use router\Router;
+use proxy\Config;
 
 /** @noinspection PhpIncludeInspection */
 include(__DIR__ . '/src/configs/define/config.php');
@@ -22,24 +27,20 @@ include(ROOT_PATH . DS . 'core' . DS . 'core.php');
 
 
 
-/*$config = new Config();
-$view = new BaseView();
-$router = new Router($config, $view);
-
-app()->setRouter($router);
-app()->run(APP_MODE);*/
+$router = new Router(Config::getInstance(), View::getInstance());
+app($router)->run();
 
 
 
 
-$loader = new Nette\DI\ContainerLoader(ROOT_PATH . 'assests/temp', false);
-$class = $loader->load('', function($compiler) {
+//$loader = new ContainerLoader(ROOT_PATH . 'assests/temp', false);
+//$class = $loader->load('', function($compiler) {
     /** @var Nette\DI\Compiler $compiler */
-    $compiler->loadConfig(ROOT_PATH . 'configs/di/config.neon');
-});
+//    $compiler->loadConfig(ROOT_PATH . 'configs/di/config.neon');
+//});
 /** @var Nette\DI\Container $container */
-$container = new $class;
-$container->getByType('application\Application')->run();
+//$container = new $class;
+//$container->getByType('application\Application')->run();
 
 
 

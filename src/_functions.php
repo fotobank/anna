@@ -4,6 +4,7 @@
  */
 
 use translator\Translator;
+use router\Router;
 
 /**
  * Simple functions of framework
@@ -76,11 +77,13 @@ if (!function_exists('app')) {
     /**
      * Alias for call instance of Application
      *
+     * @param $router
+     *
      * @return \application\Application
      */
-    function app()
+    function app(Router $router)
     {
-        return new application\Application;
+        return new application\Application($router);
     }
 }
 

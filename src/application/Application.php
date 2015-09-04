@@ -15,7 +15,6 @@ use application\Exception\ReloadException;
 use application\Exception\RedirectException;
 use proxy\Response;
 use proxy\Server;
-use DI;
 use router\Router;
 
 
@@ -169,8 +168,6 @@ class Application
      *
      * @return \router\Router
      * @throws \Exception
-     * @internal param string $environment
-     *
      */
     public function run()
     {
