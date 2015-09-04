@@ -10,7 +10,6 @@ namespace auth;
 
 use common\Options;
 use lib\Config\Config;
-use proxy\Di;
 use proxy\Server;
 use proxy\Session;
 
@@ -40,11 +39,11 @@ class Auth
      * @return \auth\Auth
      * @throws \Exception
      */
-    public function setOptions(Di $options)
+    public function setOptions(Config $options)
     {
         try
         {
-            $this->options = $options->get('auth');
+            $this->options = $options->getData('auth');
 
             // apply options
             foreach($this->options as $key => $value)

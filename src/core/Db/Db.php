@@ -16,6 +16,7 @@
 namespace core\Db;
 
 use exception\Db_Exception;
+use lib\Config\Config;
 
 /** @noinspection RealpathOnRelativePathsInspection */
 defined('SITE_PATH') or define('SITE_PATH', realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' .
@@ -31,6 +32,33 @@ class Db extends MysqliDb
 {
 
     protected $config; // данные для подключения
+
+    /**
+     * @param \lib\Config\Config $config
+     *
+     * @throws \Exception
+     */
+    public function __construct(Config $config)
+    {
+        try
+        {
+            $this->config = $config->getData('db');
+            self::$prefix = $this->config['prefix'];
+            parent::__construct(
+                $this->config['host'],
+                $this->config['login'],
+                $this->config['password'],
+                $this->config['db'],
+                $this->config['port'],
+                $this->config['charset']
+            );
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
+
+    }
 
     /**
      * инициализация базы
@@ -89,6 +117,9 @@ class Db extends MysqliDb
      */
     public function setConfig($config)
     {
-        $this->config = $config;
+        if(is_array($config))
+        {
+            $this->config = $config;
+        }
     }
 }

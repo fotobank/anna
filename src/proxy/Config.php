@@ -8,7 +8,7 @@
  */
 namespace proxy;
 
-//use lib\Config\Config as Instance;
+use lib\Config\Config as Instance;
 use lib\Config\ConfigException;
 
 /**
@@ -32,8 +32,8 @@ class Config extends AbstractProxy
 {
     /**
      * Init instance
+     * @return \lib\Config\Config
      *
-     * @return \config\Config
      * @throws \Exception
      * @throws ConfigException
      */
@@ -41,9 +41,8 @@ class Config extends AbstractProxy
     {
         try
         {
-//            $instance = new Instance();
-//            return $instance;
-            return Di::getContainer();
+            $instance = new Instance();
+            return $instance;
 
         } catch(\Exception $e)
         {

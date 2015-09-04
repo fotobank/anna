@@ -15,7 +15,7 @@
     "hybridauth/hybridauth": "v2.4.1",
     "php-di/php-di": "5.0.3",
     "doctrine/annotations": "~1.2",
-    "filp/whoops": "1.1.7",
-    "doctrine/cache": "1.5.x-dev"
+    "doctrine/cache": "1.5.x-dev",
+    "tracy/tracy": "v2.3.4"
   }
 }

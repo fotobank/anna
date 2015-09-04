@@ -210,7 +210,7 @@ END;
         $file_string = file_get_contents($this->file_array_class_cache);
         if($file_string === false)
         {
-            throw new AutoloadException('Can not read the file <b>"' . $this->file_array_class_cache . '"</b>');
+            throw new AutoloadException('Can not read the file "' . $this->file_array_class_cache . '"');
         }
 
         return parse_ini_string($file_string);
@@ -293,7 +293,7 @@ END;
     {
         if(DEBUG_LOG)
         {
-            $this->putLog('<br><b style="background-color: #ffffaa;">сканируем директории и обновляем базу поиска классов</b>');
+            $this->putLog('<br><b style="background-color: #ffffaa;">сканируем директории и обновляем базу поиска классов');
         }
     }
 
@@ -361,7 +361,7 @@ END;
         }
 
         return true;
-        //    throw new AutoloadException('класс <b>"' . $class_name . '"</b> не найден');
+        //    throw new AutoloadException('класс "' . $class_name . '" не найден');
     }
 
     /**
@@ -427,7 +427,7 @@ END;
             $this->logLoadError($class_name . $ext);
             if(DEBUG_MODE)
             {
-                throw new AutoloadException('Class <b>"' . $class_name . '"</b>  not found');
+                throw new AutoloadException('Class "' . $class_name . '"  not found');
             }
             else
             {
@@ -527,7 +527,7 @@ END;
     {
         if(DEBUG_LOG)
         {
-            $this->putLog('ищем файл <b>"' . $file . '"</b> in ' . $file_path);
+            $this->putLog('ищем файл "' . $file . '" in ' . $file_path);
         }
     }
 
@@ -545,11 +545,11 @@ END;
         if(DEBUG_LOG)
         {
             $this->putLog(
-                ('<br><b style="color: #23a126;">подключили </b> '
+                ('<br><b style="color: #23a126;">подключили  '
                     . '<b style="color: #3a46e1;"> ' .
-                    $full_path . '</b>' . '<b style="color: #ff0000;">'
+                    $full_path . '' . '<b style="color: #ff0000;">'
                     . $file
-                    . '</b><br>')
+                    . '<br>')
             );
         }
     }
@@ -632,7 +632,7 @@ END;
         {
             if(DEBUG_LOG)
             {
-                $this->putLog('<br><b style="color: #ff0000;">Класс "' . $class_name . '" не найден</b><br>');
+                $this->putLog('<br><b style="color: #ff0000;">Класс "' . $class_name . '" не найден<br>');
             }
         }
         catch(AutoloadException $e)

@@ -14,7 +14,7 @@
 
 namespace modules\Controllers\Carousel;
 
-use modules\Models\Carousel as model;
+use modules\Models\Carousel\Carousel as ModelCarousel;
 
 
 /**
@@ -30,7 +30,7 @@ class Carousel
 	 */
 	public function __construct()
 		{
-			$this->model = new model\Carousel();
+			$this->model = new ModelCarousel();
 			$this->model->setRealPath(SITE_PATH . 'files' . DS . 'portfolio' . DS);
 		}
 

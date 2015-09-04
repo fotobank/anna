@@ -15,7 +15,7 @@
 namespace modules\Controllers\News;
 
 use modules\Controllers\Controller\Controller;
-use modules\Models\News as model;
+use modules\Models\News\News as ModelNews;
 use view\View;
 
 
@@ -45,7 +45,7 @@ class News  extends Controller
     public function news() {
         try
         {
-            $model = new model\News();
+            $model = new ModelNews();
 
             return $this->viewer->render('news', $model);
         }

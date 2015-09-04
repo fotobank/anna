@@ -20,6 +20,8 @@ use lib\Security\Security;
 use lib\Error\Error;
 use Whoops\Handler\PrettyPageHandler;
 
+use Tracy\Debugger;
+
 
 if(session_id() === '')
 {
@@ -64,38 +66,29 @@ include(ROOT_PATH . '_functions.php');
 defined('CODE_PAGE') or define('CODE_PAGE', detect_encoding(SITE_PATH . 'inc/кодировка файловой системы.codepage'));
 
 // профилирование при DEBUG_MODE
-if(DEBUG_MODE && !is_ajax())
+/*if(DEBUG_MODE && !is_ajax())
 {
     Registry::build('Test');
-}
+}*/
 
 // защита
 new Security();
 
 
-//$whoops = new \Whoops\Run;
-//$handler = new PrettyPageHandler;
-//$handler->setEditor('phpstorm');
-//$whoops->pushHandler($handler);
-//$whoops->register();
+// PRODUCTION or DEVELOPMENT or DETECT
+Debugger::enable(Debugger::DETECT, SITE_PATH . 'src/assests/log');
+// выводить нотисы в строке
+Debugger::$strictMode = false;
+Debugger::$email = 'aleksjurii@jmail.com';
+Debugger::$maxDepth = 3; // default: 3
+Debugger::$maxLen = 50; // default: 150
 
+//Debugger::fireLog('Hello World'); // render string into Firebug console
+//Debugger::fireLog($_SERVER); // or even arrays and objects
+//Debugger::fireLog(new Exception('Test Exception')); // or exceptions
 
-$err = new Error(Di::getContainer());
-//$err->var_dump($_SERVER, '$_SERVER'); // вывод дампа переменных
-if(!function_exists('v_dump'))
-{
-    function v_dump()
-    {
-        if(DEBUG_MODE && is_callable($func = ['lib\Inter\Error', 'var_dump']))
-        {
-            $variables = func_get_args();
-            $dump = new Error(Di::getContainer());
-            $dump->var_dump($variables);
-            unset($dump);
-        }
-    }
-}
-//v_dump($_SERVER);
+//$err = new Error(Config::getInstance());
+
 //throw new exception\CommonException('Err', 301);
 // echo $test_test; // Notice
 // trigger_error('Это тест' , E_USER_ERROR ); // User_Error

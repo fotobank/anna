@@ -1,6 +1,5 @@
 <?php
 return [
-    'routes' => [
         'index'                  => [
             'controller' => 'Index',
             'method'     => 'index',
@@ -91,5 +90,4 @@ return [
             'controller' => 'Carousel',
             'method'     => 'thumb',
         ],
-    ],
 ];

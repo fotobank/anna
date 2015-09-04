@@ -11,18 +11,18 @@
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-use application\Application;
-use Doctrine\Common\Cache\ApcCache;
-use proxy\Di;
-use proxy\View;
 
+//use proxy\Di;
 use router\Router as MainRouter;
+use view\View as Views;;
+use application\Application;
+//use Doctrine\Common\Cache\ApcCache;
+//use proxy\View;
 use DI\ContainerBuilder;
 use \Interop\Container\ContainerInterface;
+use proxy\Config;
+//use router\Router;
 
-use lib\Config\Config;
-use router\Router;
-use view\View as BaseView;;
 
 
 /** @noinspection PhpIncludeInspection */
@@ -56,28 +56,36 @@ app()->run(APP_MODE);*/
 
 
 
-//$builder = new ContainerBuilder();
-//$builder->useAnnotations(true);
-//$builder->setDefinitionCache(new ApcCache());
-//$builder->addDefinitions('file.php');
-//$builder->addDefinitions([
-//                    'config' => function(){ return new Config(); },
-//                    'view' => function(){ return new BaseView(); },
-//                    'router' => function(ContainerInterface $c){return new MainRouter($c->get('config'), $c->get('view'));},
-//                    'app' => function(){ return new Application; },
+$builder = new ContainerBuilder();
+$builder->useAnnotations(true);
+//$builder->setDefinitionCache(new ApcCache());;
+$builder->addDefinitions([
+                    'config' => function(){ return Config::getInstance(); },
+                    'view' => function(){ return new Views(); },
+                    'router' => function(ContainerInterface $c){return new MainRouter($c->get('config'), $c->get('view'));},
+                    'app' => function(){ return new Application; },
 //                    Application::class => DI\object()->method('setRouter', DI\get('router')),
 //                    Application::class => DI\object()->method('run')
 
-//                         ]);
-//$container = $builder->build();
+                         ]);
+$container = $builder->build();
 
-$container = Di::getContainer();
 
-$container->set('view', new BaseView());
-$container->set('router', new MainRouter($container, $container->get('view')));
-$container->make('router\Router');
-$container->set('app', new Application());
-$container->get('app')->setRouter($container->get('router\Router'));
+/*$container = Di::getContainer();
+$container->set('view', function() {
+    return new Views();
+});
+$container->set('router', function() use($container)
+{
+    $routes = $container->get('routes');
+    return new MainRouter($routes, $container->get('view'));
+});
+$container->set('app', function() {
+    return new Application();
+});
+$container->set('router\Router', \DI\object()->constructor($container->get('routes')));*/
+
+$container->get('app')->setRouter($container->get('router'));
 $container->get('app')->run();
 
 

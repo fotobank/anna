@@ -18,7 +18,6 @@ namespace router;
 use common\Helper;
 use Exception;
 use exception\RouteException;
-use Di\Container;
 
 
 /**
@@ -45,7 +44,6 @@ class AbstractRouter implements InterfaceRouter
         $current_controller = '',
         $current_method = '';
 
-    /** that sets after request url checked. */
     /** @var mixed
      * массив заданных роутов
      */
@@ -67,24 +65,7 @@ class AbstractRouter implements InterfaceRouter
     protected $param;
     protected $id;
 
-    /**
-     * @param \lib\Config\Config|\lib\Config\Config $config
-     *
-     * @throws \Exception
-     */
-    public function __construct(Container $config)
-    {
-        try
-        {
-            $this->site_routes = $config->get('routes');
-            assert('$this->site_routes', "не найден массив 'routes'");
-            $this->start();
-        }
-        catch(Exception $e)
-        {
-            throw $e;
-        }
-    }
+
 
     /**
      * Mapping requested URL with specified routes in routing list.
@@ -237,16 +218,16 @@ class AbstractRouter implements InterfaceRouter
     }
 
     /**
-     * @param $route
+     * @param $routes
      *
      * @return mixed|void
      * @throws RouteException
      */
-    public function setRoute($route)
+    public function setRoute($routes)
     {
-        if(is_array($route))
+        if(null !== $routes && is_array($routes))
         {
-            $this->site_routes = array_merge($this->site_routes, $route);
+            $this->site_routes = array_merge($this->site_routes, $routes);
         }
         else
         {

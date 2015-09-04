@@ -39,7 +39,7 @@ class Translator extends AbstractProxy
     protected static function initInstance()
     {
         $instance = new Instance();
-        $instance->setOptions(Di::get('translator'));
+        $instance->setOptions(Config::getData('translator'));
         return $instance;
     }
 }

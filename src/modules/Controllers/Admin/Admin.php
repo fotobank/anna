@@ -16,8 +16,8 @@ namespace modules\Controllers\Admin;
 
 
 use modules\Controllers\Controller\Controller;
-use modules\Models\Admin as model;
-
+use modules\Models\Admin\Admin as ModelAdmin;
+use view\View;
 
 /**
  * Class Admin
@@ -26,18 +26,29 @@ use modules\Models\Admin as model;
 class Admin extends Controller
 {
     /**
-     * инициализация вьювера Mustache
+     * инициализация вьювера
+     *
+     * @param \view\View $view
+     *
      */
-    public function __construct()
+    public function __construct(View $view)
     {
-        parent::init();
+        $this->viewer = $view;
     }
 
     /**
      * экшен
      */
     public function admin() {
-        $model = new model\Admin();
-        return $this->mustache->render('admin/admin', $model);
+        try
+        {
+            $model = new ModelAdmin();
+
+            return $this->viewer->render('admin/admin', $model);
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
 }

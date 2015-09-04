@@ -77,7 +77,7 @@ class Log  extends AbstractProxy
     protected static function initInstance()
     {
         $instance = new Instance();
-        $options = Di::get('log');
+        $options = Config::getData('log');
         $instance->setOptions($options);
         return $instance;
     }

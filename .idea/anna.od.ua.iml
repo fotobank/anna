@@ -26,12 +26,12 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/filp/whoops" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hybridauth/hybridauth" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mustache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-di/invoker" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-di/php-di" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-di/phpdoc-reader" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tracy/tracy" />
     </content>
     <content url="file://C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-core-1.0.3/stylesheets" />
     <content url="file://C:/Ruby21-x64/lib/ruby/gems/2.1.0/gems/compass-recipes-0.3.0/stylesheets" />
@@ -50,12 +50,12 @@
           <root url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/cache" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
-          <root url="file://$MODULE_DIR$/vendor/filp/whoops" />
           <root url="file://$MODULE_DIR$/vendor/hybridauth/hybridauth" />
           <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
           <root url="file://$MODULE_DIR$/vendor/php-di/invoker" />
           <root url="file://$MODULE_DIR$/vendor/php-di/php-di" />
           <root url="file://$MODULE_DIR$/vendor/php-di/phpdoc-reader" />
+          <root url="file://$MODULE_DIR$/vendor/tracy/tracy" />
           <root url="file://C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass" />
           <root url="file://O:/modules/php/PHP-5.5" />
         </CLASSES>
@@ -65,12 +65,12 @@
           <root url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/cache" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
-          <root url="file://$MODULE_DIR$/vendor/filp/whoops" />
           <root url="file://$MODULE_DIR$/vendor/hybridauth/hybridauth" />
           <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
           <root url="file://$MODULE_DIR$/vendor/php-di/invoker" />
           <root url="file://$MODULE_DIR$/vendor/php-di/php-di" />
           <root url="file://$MODULE_DIR$/vendor/php-di/phpdoc-reader" />
+          <root url="file://$MODULE_DIR$/vendor/tracy/tracy" />
           <root url="file://C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass" />
           <root url="file://O:/modules/php/PHP-5.5" />
         </SOURCES>

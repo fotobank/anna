@@ -48,7 +48,7 @@ class Auth extends AbstractProxy
         try
         {
             $instance = new Instance();
-            $instance->setOptions(Di::getContainer());
+            $instance->setOptions(Config::getInstance());
 
             return $instance;
         }

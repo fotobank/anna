@@ -24,7 +24,6 @@ defined('MUSTACHE_LOG') or define('MUSTACHE_LOG', 'assests/log');
 
 
 return [
-    'mustache' => [
         // 'template_class_prefix' => '__MyTemplates_',
         'cache'                  => (ROOT_PATH . MUSTACHE_CACHE),
         'cache_file_mode'        => 0666,
@@ -39,5 +38,4 @@ return [
         'charset'                => 'windows-1251',
         'logger'                 => new Logger(ROOT_PATH . MUSTACHE_LOG),
         'strict_callables'       => true, 'pragmas' => [Mustache::PRAGMA_FILTERS],
-    ],
 ];

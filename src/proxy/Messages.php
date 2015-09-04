@@ -55,7 +55,7 @@ class Messages extends AbstractProxy
     protected static function initInstance()
     {
         $instance = new Instance();
-        $instance->setOptions(Di::get('messages'));
+        $instance->setOptions(Config::getData('messages'));
         return $instance;
     }
 }
