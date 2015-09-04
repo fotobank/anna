@@ -47,47 +47,25 @@ app()->run(APP_MODE);*/
 
 
 // php::di
-
-//$container = ContainerBuilder::buildDevContainer();
+$container = ContainerBuilder::buildDevContainer();
 //$container->set('foo', 'hello');
 //$container->set('bar', new MyClass());
 //$container->set('baz', DI\object('MyClass'));
 
 
-
-
-$builder = new ContainerBuilder();
-$builder->useAnnotations(true);
+//$builder = new ContainerBuilder();
+//$builder->useAnnotations(true);
 //$builder->setDefinitionCache(new ApcCache());;
-$builder->addDefinitions([
-                    'config' => function(){ return Config::getInstance(); },
-                    'view' => function(){ return new Views(); },
-                    'router' => function(ContainerInterface $c){return new MainRouter($c->get('config'), $c->get('view'));},
-                    'app' => function(){ return new Application; },
+//$builder->addDefinitions([
+//                    'config' => function(){ return Config::getInstance(); },
+//                    'view' => function(){ return new Views(); },
+//                    'router' => function(ContainerInterface $c){return new MainRouter($c->get('config'), $c->get('view'));},
+//                    'app' => function(){ return new Application; },
 //                    Application::class => DI\object()->method('setRouter', DI\get('router')),
 //                    Application::class => DI\object()->method('run')
-
-                         ]);
-$container = $builder->build();
-
-
-/*$container = Di::getContainer();
-$container->set('view', function() {
-    return new Views();
-});
-$container->set('router', function() use($container)
-{
-    $routes = $container->get('routes');
-    return new MainRouter($routes, $container->get('view'));
-});
-$container->set('app', function() {
-    return new Application();
-});
-$container->set('router\Router', \DI\object()->constructor($container->get('routes')));*/
-
-$container->get('app')->setRouter($container->get('router'));
-$container->get('app')->run();
-
+//                         ]);
+//$container = $builder->build();
+$container->get('application\Application')->run();
 
 
 

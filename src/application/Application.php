@@ -51,10 +51,11 @@ class Application
     protected  $router;
 
     /**
-     *
+     * @param \router\Router $router
      */
-    public function __construct()
+    public function __construct(Router $router)
     {
+        $this->router = $router;
         $this->environment = APP_MODE;
     }
 
