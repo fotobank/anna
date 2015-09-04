@@ -18,7 +18,7 @@ namespace router;
 
 use Exception;
 use exception\RouteException;
-use lib\Config\Config;
+use lib\Config\InterfaceConfig;
 use view\View;
 
 
@@ -38,14 +38,14 @@ class Router extends AbstractRouter
 
     /**
      *
-     * @param \lib\Config\Config $config
+     * @param \lib\Config\InterfaceConfig $config
      * @param \view\View    $view
      *
      * @throws \Exception
      * @throws \exception\RouteException
      *
      */
-    public function __construct(Config $config, View $view)
+    public function __construct(InterfaceConfig $config, View $view)
     {
         try
         {

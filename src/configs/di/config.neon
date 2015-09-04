@@ -1,0 +1,5 @@
+services:
+    - lib\Config\Config
+    - view\View
+    - router\Router
+    - application\Application

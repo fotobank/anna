@@ -16,7 +16,7 @@
 namespace core\Db;
 
 use exception\Db_Exception;
-use lib\Config\Config;
+use lib\Config\InterfaceConfig;
 
 /** @noinspection RealpathOnRelativePathsInspection */
 defined('SITE_PATH') or define('SITE_PATH', realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' .
@@ -38,7 +38,7 @@ class Db extends MysqliDb
      *
      * @throws \Exception
      */
-    public function __construct(Config $config)
+    public function __construct(InterfaceConfig $config)
     {
         try
         {

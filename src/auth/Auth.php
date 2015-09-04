@@ -9,7 +9,7 @@
 namespace auth;
 
 use common\Options;
-use lib\Config\Config;
+use lib\Config\InterfaceConfig;
 use proxy\Server;
 use proxy\Session;
 
@@ -39,7 +39,7 @@ class Auth
      * @return \auth\Auth
      * @throws \Exception
      */
-    public function setOptions(Config $options)
+    public function setOptions(InterfaceConfig $options)
     {
         try
         {

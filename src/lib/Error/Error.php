@@ -7,7 +7,7 @@ namespace lib\Error;
  */
 use Exception;
 use ErrorException;
-use lib\Config\Config;
+use lib\Config\InterfaceConfig;
 use lib\File;
 use proxy\Location;
 use proxy\Log;
@@ -98,7 +98,7 @@ class Error
 	 *
 	 * @throws \Exception
 	 */
-	public function __construct(Config $config)
+	public function __construct(InterfaceConfig $config)
 		{
 			try
 			{

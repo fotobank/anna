@@ -12,19 +12,6 @@
  */
 
 
-//use proxy\Di;
-use router\Router as MainRouter;
-use view\View as Views;;
-use application\Application;
-//use Doctrine\Common\Cache\ApcCache;
-//use proxy\View;
-use DI\ContainerBuilder;
-use \Interop\Container\ContainerInterface;
-use proxy\Config;
-//use router\Router;
-
-
-
 /** @noinspection PhpIncludeInspection */
 include(__DIR__ . '/src/configs/define/config.php');
 
@@ -32,7 +19,6 @@ include(__DIR__ . '/src/configs/define/config.php');
 // подключаем ядро сайта
 /** @noinspection PhpIncludeInspection */
 include(ROOT_PATH . DS . 'core' . DS . 'core.php');
-
 
 
 
@@ -46,27 +32,14 @@ app()->run(APP_MODE);*/
 
 
 
-// php::di
-$container = ContainerBuilder::buildDevContainer();
-//$container->set('foo', 'hello');
-//$container->set('bar', new MyClass());
-//$container->set('baz', DI\object('MyClass'));
-
-
-//$builder = new ContainerBuilder();
-//$builder->useAnnotations(true);
-//$builder->setDefinitionCache(new ApcCache());;
-//$builder->addDefinitions([
-//                    'config' => function(){ return Config::getInstance(); },
-//                    'view' => function(){ return new Views(); },
-//                    'router' => function(ContainerInterface $c){return new MainRouter($c->get('config'), $c->get('view'));},
-//                    'app' => function(){ return new Application; },
-//                    Application::class => DI\object()->method('setRouter', DI\get('router')),
-//                    Application::class => DI\object()->method('run')
-//                         ]);
-//$container = $builder->build();
-$container->get('application\Application')->run();
-
+$loader = new Nette\DI\ContainerLoader(ROOT_PATH . 'assests/temp', false);
+$class = $loader->load('', function($compiler) {
+    /** @var Nette\DI\Compiler $compiler */
+    $compiler->loadConfig(ROOT_PATH . 'configs/di/config.neon');
+});
+/** @var Nette\DI\Container $container */
+$container = new $class;
+$container->getByType('application\Application')->run();
 
 
 

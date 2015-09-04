@@ -14,7 +14,7 @@ namespace lib\Config;
  *
  * @package  Config
  */
-class Config
+class Config implements InterfaceConfig
 {
     /**
      * @var array Configuration data
