@@ -14,11 +14,9 @@
 use core\Autoloader;
 use lib\pattern\Registry;
 use proxy\Config;
-use proxy\Di;
 use proxy\Session;
 use lib\Security\Security;
 use lib\Error\Error;
-use Whoops\Handler\PrettyPageHandler;
 
 use Tracy\Debugger;
 
