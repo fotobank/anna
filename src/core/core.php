@@ -12,13 +12,10 @@
  */
 
 use core\Autoloader;
-use lib\pattern\Registry;
-use proxy\Config;
+use lib\Security\Security;
+use proxy\File;
 use proxy\Location;
 use proxy\Session;
-use lib\Security\Security;
-use lib\Error\Error;
-
 use Tracy\Debugger;
 
 
@@ -73,21 +70,21 @@ defined('CODE_PAGE') or define('CODE_PAGE', detect_encoding(SITE_PATH . 'inc/код
 // защита
 new Security();
 
-Location::stopPage();
 
 /** PRODUCTION or DEVELOPMENT or DETECT */
 Debugger::enable(Debugger::DETECT, SITE_PATH . 'src/assests/log');
-/** выводить нотисы в строке */
-Debugger::$strictMode = false;
-Debugger::$email = 'aleksjurii@jmail.com';
-Debugger::$maxDepth = 5; // default: 3
-Debugger::$maxLen = 200; // default: 150
-/*Debugger::$errorTemplate = function()
-{
-    ob_start();
-    Location::stopPage();
-    return ob_get_clean();
-};*/
+/** выводить нотисы в строке
+ * true - вызов Exception
+ */
+Debugger::$strictMode = true;
+Debugger::$email      = 'aleksjurii@jmail.com';
+Debugger::$maxDepth   = 5; // default: 3
+Debugger::$maxLen     = 200; // default: 150
+Debugger::$errorTemplate = ROOT_PATH . 'modules/Views/stop.php';
+
+
+
+
 
 //Debugger::fireLog('Hello World'); // render string into Firebug console
 //Debugger::fireLog($_SERVER); // or even arrays and objects
