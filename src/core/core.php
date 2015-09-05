@@ -85,7 +85,7 @@ Debugger::$errorTemplate = ROOT_PATH . 'modules/Views/stop.php';
 
 
 
-$t = File::has('dropbox://ANYA.avi');
+$t = File::has('dropbox://Public/ANYA.avi');
 Debugger::dump($t);
 
 
