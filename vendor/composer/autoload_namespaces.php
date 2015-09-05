@@ -12,4 +12,5 @@ return array(
     'Packfire\\FuelBlade\\' => array($vendorDir . '/packfire/fuelblade/src'),
     'Mustache' => array($vendorDir . '/mustache/mustache/src'),
     'Hybrid' => array($vendorDir . '/hybridauth/hybridauth/hybridauth'),
+    'Dropbox' => array($vendorDir . '/dropbox/dropbox-sdk/lib'),
 );

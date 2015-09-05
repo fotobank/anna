@@ -20,6 +20,9 @@ use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use League\Flysystem\MountManager;
 
+use League\Flysystem\Dropbox\DropboxAdapter;
+use Dropbox\Client;
+
 
 /**
  * Class File
@@ -102,8 +105,13 @@ class File extends AbstractProxy
             $localAdapter = new Local($config['local']['path.local.adapter']);
             $local        = new Filesystem($localAdapter);
 
+            $client = new Client($config['dropbox']['access.token'], $config['dropbox']['app.secret']);
+            $adapter = new DropboxAdapter($client, 'dropbox');
+            $drop_box = new Filesystem($adapter);
+
             $manager = new MountManager([
-                                            'local' => $local
+                                            'local' => $local,
+                                            'dropbox' => $drop_box
                                         ]);
             return $manager;
         }

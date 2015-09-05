@@ -15,8 +15,12 @@
 
 return
     [
-        'local' =>
-            [
-                'path.local.adapter' => SITE_PATH,
-            ],
+        'local'   => [
+            'path.local.adapter' => SITE_PATH,
+        ],
+        'dropbox' => [
+            'access.token' => 'VpKgIdfD4ZMAAAAAAACLlumDQQ5RJBfyu6ufHYEtcDOnwagdrDwP2QfyMhuZ97rL',
+            'app.secret' => 'ewc69x9phcxrskm',
+            'app.key' => 'vs17e81nvxecjjd'
+        ],
     ];
