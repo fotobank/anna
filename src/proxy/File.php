@@ -109,7 +109,7 @@ class File extends AbstractProxy
             $local        = new Filesystem($localAdapter);
 
             $client = new Client($config['dropbox']['access.token'], $config['dropbox']['app.secret']);
-            $adapter = new DropboxAdapter($client, 'dropbox');
+            $adapter = new DropboxAdapter($client);
             $drop_box = new Filesystem($adapter);
 
             $ftp = new Filesystem(new FtpAdapter([
