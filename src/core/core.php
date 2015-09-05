@@ -84,7 +84,7 @@ Debugger::$maxLen = 200; // default: 150
 Debugger::$errorTemplate = function()
 {
     ob_start();
-    Location::stopPage();
+    echo Location::stopPage();
     return ob_get_clean();
 };
 
