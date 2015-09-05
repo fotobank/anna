@@ -98,7 +98,8 @@ class File extends AbstractProxy
     {
         try
         {
-            $localAdapter = new Local(SITE_PATH);
+            $config = Config::getData('filesystem');
+            $localAdapter = new Local($config['local']['path.local.adapter']);
             $local        = new Filesystem($localAdapter);
 
             $manager = new MountManager([

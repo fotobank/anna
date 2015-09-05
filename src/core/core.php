@@ -84,8 +84,6 @@ Debugger::$errorTemplate = ROOT_PATH . 'modules/Views/stop.php';
 
 
 
-
-
 //Debugger::fireLog('Hello World'); // render string into Firebug console
 //Debugger::fireLog($_SERVER); // or even arrays and objects
 //Debugger::fireLog(new Exception('Test Exception')); // or exceptions
