@@ -64,9 +64,9 @@ class StubPage extends Controller
         {
             $model = new ModelStubPage();
             $mess  = $model->toEmail();
-            header('Content-Type: application/json');
 
-            return $mess;
+            header('Content-Type: application/json');
+            echo $mess;
         }
         catch(\Exception $e)
         {

@@ -27,20 +27,20 @@ include(ROOT_PATH . DS . 'core' . DS . 'core.php');
 
 
 
-$router = new Router(Config::getInstance(), View::getInstance());
-app($router)->run();
+//$router = new Router(Config::getInstance(), View::getInstance());
+//app($router)->run();
 
 
 
 
-//$loader = new ContainerLoader(ROOT_PATH . 'assests/temp', false);
-//$class = $loader->load('', function($compiler) {
+$loader = new ContainerLoader(ROOT_PATH . 'assests/temp', true);
+$class = $loader->load('', function($compiler) {
     /** @var Nette\DI\Compiler $compiler */
-//    $compiler->loadConfig(ROOT_PATH . 'configs/di/config.neon');
-//});
+    $compiler->loadConfig(ROOT_PATH . 'configs/di/config.neon');
+});
 /** @var Nette\DI\Container $container */
-//$container = new $class;
-//$container->getByType('application\Application')->run();
+$container = new $class;
+$container->getByType('application\Application')->run();
 
 
 

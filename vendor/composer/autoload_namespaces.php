@@ -7,7 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'phpDocumentor' => array($vendorDir . '/phpdocumentor/reflection-docblock/src'),
+    'Samsui\\' => array($vendorDir . '/mauris/samsui/src'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
+    'Packfire\\FuelBlade\\' => array($vendorDir . '/packfire/fuelblade/src'),
     'Mustache' => array($vendorDir . '/mustache/mustache/src'),
     'Hybrid' => array($vendorDir . '/hybridauth/hybridauth/hybridauth'),
 );

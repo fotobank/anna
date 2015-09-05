@@ -198,7 +198,6 @@ class View implements ViewInterface, \JsonSerializable
             }
             /**==================================================================*/
 
-
         echo $this->mustache->render($template, $model);
 
         } catch (ViewException $e) {

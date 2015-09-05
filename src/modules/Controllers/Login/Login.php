@@ -16,7 +16,7 @@ namespace modules\Controllers\Login;
 
 use modules\Controllers\Controller\Controller;
 use modules\Models\Login as model;
-
+use view\View;
 
 /**
  * Class Login
@@ -26,11 +26,14 @@ class Login extends Controller
 {
 
     /**
-     * инициализация вьювера Mustache
+     * инициализация вьювера
+     *
+     * @param \view\View $view
+     *
      */
-    public function __construct()
+    public function __construct(View $view)
     {
-        parent::init();
+        $this->viewer = $view;
     }
 
     /**
@@ -38,15 +41,21 @@ class Login extends Controller
      */
     public function userLogin()
     {
-        $model = new model\Login();
-
-        if($model->login())
+        try
         {
-            echo $this->mustache->render('admin\admin', $model);
+            $model = new model\Login();
+            if($model->login())
+            {
+                echo $this->viewer->render('admin\admin', $model);
+            }
+            else
+            {
+                echo $this->viewer->render('admin\login', $model);
+            }
         }
-        else
+        catch(\Exception $e)
         {
-            echo $this->mustache->render('admin\login', $model);
+            throw $e;
         }
     }
 

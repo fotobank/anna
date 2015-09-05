@@ -73,9 +73,9 @@ defined('CODE_PAGE') or define('CODE_PAGE', detect_encoding(SITE_PATH . 'inc/код
 new Security();
 
 
-// PRODUCTION or DEVELOPMENT or DETECT
+/** PRODUCTION or DEVELOPMENT or DETECT */
 Debugger::enable(Debugger::DETECT, SITE_PATH . 'src/assests/log');
-// выводить нотисы в строке
+/** выводить нотисы в строке */
 Debugger::$strictMode = false;
 Debugger::$email = 'aleksjurii@jmail.com';
 Debugger::$maxDepth = 3; // default: 3

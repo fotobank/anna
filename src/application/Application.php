@@ -8,6 +8,7 @@
  */
 namespace application;
 
+use core\Framework;
 use router\Router as MainRouter;
 use common\Helper;
 use exception\ApplicationException;
@@ -56,6 +57,8 @@ class Application
     {
         $this->router = $router;
         $this->environment = APP_MODE;
+        // initial default helper path
+        $this->addHelperPath(__DIR__ . '/Helper/');
     }
 
     /**
@@ -176,10 +179,6 @@ class Application
 //            $t = new Table();
 //            $t->authenticateEquals('admin', 'admin');
 //            $t->authenticateToken('f9705d72d58b2a305ab6f5913ba60a61');
-
-
-            // initial default helper path
-            $this->addHelperPath(__DIR__ . '/Helper/');
 
             $this->router->runInstance();
 

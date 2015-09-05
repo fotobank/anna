@@ -92,8 +92,7 @@ class Base implements InterfaceModelsBase
             $this->auto_copyright = auto_copyright('2011');
             $this->php_sessid = Cookie::get('PHPSESSID') or ip();
             $this->categorii = $this->getDbTitleName();
-
-       $this->current_razdel = array_key_exists(0, Router::getUrlRoutes()) ? Router::getUrlRoutes()[0] : null;
+            $this->current_razdel = array_key_exists(0, Router::getUrlRoutes()) ? Router::getUrlRoutes()[0] : null;
             $this->getMetaTitle();
             // кнопка login
             $this->login = Session::get('logged');
