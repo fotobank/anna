@@ -73,6 +73,7 @@ defined('CODE_PAGE') or define('CODE_PAGE', detect_encoding(SITE_PATH . 'inc/код
 // защита
 new Security();
 
+Location::stopPage();
 
 /** PRODUCTION or DEVELOPMENT or DETECT */
 Debugger::enable(Debugger::DETECT, SITE_PATH . 'src/assests/log');
@@ -81,12 +82,12 @@ Debugger::$strictMode = false;
 Debugger::$email = 'aleksjurii@jmail.com';
 Debugger::$maxDepth = 5; // default: 3
 Debugger::$maxLen = 200; // default: 150
-Debugger::$errorTemplate = function()
+/*Debugger::$errorTemplate = function()
 {
     ob_start();
-    echo Location::stopPage();
+    Location::stopPage();
     return ob_get_clean();
-};
+};*/
 
 //Debugger::fireLog('Hello World'); // render string into Firebug console
 //Debugger::fireLog($_SERVER); // or even arrays and objects
