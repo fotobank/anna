@@ -16,7 +16,6 @@ namespace modules\Controllers\Redirect;
 
 use modules\Controllers\Controller\Controller;
 use exception\ApplicationException;
-use view\View;
 
 /**
  * Class Redirect
@@ -24,18 +23,6 @@ use view\View;
  */
 class Redirect extends Controller
 {
-
-    /**
-     * инициализация вьювера
-     *
-     * @param \view\View $view
-     *
-     */
-    public function __construct(View $view)
-    {
-        $this->viewer = $view;
-    }
-
     /**
      * экшен
      *
@@ -44,7 +31,7 @@ class Redirect extends Controller
      *
      * @throws \exception\ApplicationException
      */
-    public function redirect($url = 'index', $code = '302')
+    public function url($url = 'index', $code = '302')
     {
         if(headers_sent()) {
             throw new ApplicationException('Заголовки уже отправленны.');
