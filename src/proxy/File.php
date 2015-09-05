@@ -23,6 +23,9 @@ use League\Flysystem\MountManager;
 use League\Flysystem\Dropbox\DropboxAdapter;
 use Dropbox\Client;
 
+use League\Flysystem\Adapter\Ftp as FtpAdapter;
+
+
 
 /**
  * Class File
@@ -109,9 +112,23 @@ class File extends AbstractProxy
             $adapter = new DropboxAdapter($client, 'dropbox');
             $drop_box = new Filesystem($adapter);
 
+            $ftp = new Filesystem(new FtpAdapter([
+                                                         'host' => 'ftp.example.com',
+                                                         'username' => 'username',
+                                                         'password' => 'password',
+
+                                                         /** optional config settings */
+                                                         'port' => 21,
+                                                         'root' => '/path/to/root',
+                                                         'passive' => true,
+                                                         'ssl' => true,
+                                                         'timeout' => 30,
+                                                     ]));
+
             $manager = new MountManager([
                                             'local' => $local,
-                                            'dropbox' => $drop_box
+                                            'dropbox' => $drop_box,
+                                            'ftp' => $ftp
                                         ]);
             return $manager;
         }

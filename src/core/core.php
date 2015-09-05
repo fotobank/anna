@@ -84,8 +84,9 @@ Debugger::$errorTemplate = ROOT_PATH . 'modules/Views/stop.php';
 
 
 
+
 $t = File::has('dropbox://Getting Started.pdf');
-$t1 = 0;
+Debugger::dump($t);
 
 
 //Debugger::fireLog('Hello World'); // render string into Firebug console
