@@ -16,7 +16,7 @@ namespace modules\Controllers\Location;
 
 use modules\Controllers\Controller\Controller;
 use modules\Models\Location as model;
-
+use view\View;
 
 /**
  * Class Error
@@ -25,12 +25,14 @@ use modules\Models\Location as model;
 class Location extends Controller {
 
 	/**
+	 * инициализация вьювера
+	 *
+	 * @param \view\View $view
 	 *
 	 */
-	public function __construct() {
-		{
-			parent::init();
-		}
+	public function __construct(View $view)
+	{
+		$this->viewer = $view;
 	}
 
 	/**
@@ -38,9 +40,16 @@ class Location extends Controller {
 	 */
 	public function error404() {
 
-		$model = new model\Location();
-		echo $this->mustache->render('error\404', $model);
-		exit;
+		try
+		{
+			$model = new model\Location();
+			echo $this->viewer->render('error\404', $model);
+			exit;
+		}
+		catch(\Exception $e)
+		{
+			throw $e;
+		}
 	}
 
 	/**
@@ -48,9 +57,16 @@ class Location extends Controller {
 	 */
 	public function error403() {
 
-		$model = new model\Location();
-		echo $this->mustache->render('error\403', $model);
-		exit;
+		try
+		{
+			$model = new model\Location();
+			echo $this->viewer->render('error\403', $model);
+			exit;
+		}
+		catch(\Exception $e)
+		{
+			throw $e;
+		}
 	}
 
 	/**
@@ -58,11 +74,18 @@ class Location extends Controller {
 	 */
 	public function stopPage() {
 
-		$model = new model\Location([
-			                         'http_host' => getenv('HTTP_HOST')
-		                         ]);
-		echo $this->mustache->render('error\stop', $model);
-		exit;
+		try
+		{
+			$model = new model\Location([
+				                            'http_host' => getenv('HTTP_HOST'),
+			                            ]);
+			echo $this->viewer->render('error\stop', $model);
+			exit;
+		}
+		catch(\Exception $e)
+		{
+			throw $e;
+		}
 	}
 
 }

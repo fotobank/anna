@@ -16,7 +16,7 @@ namespace modules\Controllers\Redirect;
 
 use modules\Controllers\Controller\Controller;
 use exception\ApplicationException;
-
+use view\View;
 
 /**
  * Class Redirect
@@ -26,18 +26,23 @@ class Redirect extends Controller
 {
 
     /**
-     * инициализация вьювера Mustache
+     * инициализация вьювера
+     *
+     * @param \view\View $view
+     *
      */
-    public function __construct()
+    public function __construct(View $view)
     {
-        parent::init();
+        $this->viewer = $view;
     }
 
     /**
      * экшен
+     *
      * @param string $url
      * @param string $code
-     * @internal param string $addr
+     *
+     * @throws \exception\ApplicationException
      */
     public function redirect($url = 'index', $code = '302')
     {
