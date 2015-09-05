@@ -85,7 +85,7 @@ Debugger::$errorTemplate = ROOT_PATH . 'modules/Views/stop.php';
 
 
 
-$t = File::rename('dropbox://Public/ANYA.avi', 'ANYA1.avi');
+$t = File::write('dropbox://Public/test.txt', 'ANYA1.avi');
 Debugger::dump($t);
 
 
