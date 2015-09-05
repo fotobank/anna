@@ -14,6 +14,7 @@
 use core\Autoloader;
 use lib\pattern\Registry;
 use proxy\Config;
+use proxy\Location;
 use proxy\Session;
 use lib\Security\Security;
 use lib\Error\Error;
@@ -78,8 +79,9 @@ Debugger::enable(Debugger::DETECT, SITE_PATH . 'src/assests/log');
 /** выводить нотисы в строке */
 Debugger::$strictMode = false;
 Debugger::$email = 'aleksjurii@jmail.com';
-Debugger::$maxDepth = 3; // default: 3
-Debugger::$maxLen = 50; // default: 150
+Debugger::$maxDepth = 5; // default: 3
+Debugger::$maxLen = 200; // default: 150
+Debugger::$errorTemplate = Location::stopPage();
 
 //Debugger::fireLog('Hello World'); // render string into Firebug console
 //Debugger::fireLog($_SERVER); // or even arrays and objects
