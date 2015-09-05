@@ -81,7 +81,12 @@ Debugger::$strictMode = false;
 Debugger::$email = 'aleksjurii@jmail.com';
 Debugger::$maxDepth = 5; // default: 3
 Debugger::$maxLen = 200; // default: 150
-Debugger::$errorTemplate = function() { return Location::stopPage();};
+Debugger::$errorTemplate = function()
+{
+    ob_start();
+    Location::stopPage();
+    return ob_get_clean();
+};
 
 //Debugger::fireLog('Hello World'); // render string into Firebug console
 //Debugger::fireLog($_SERVER); // or even arrays and objects
