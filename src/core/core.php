@@ -72,7 +72,7 @@ new Security();
 
 
 /** PRODUCTION or DEVELOPMENT or DETECT */
-Debugger::enable(Debugger::DETECT, SITE_PATH . 'src/assests/log');
+Debugger::enable(Debugger::DEVELOPMENT, SITE_PATH . 'src/assests/log');
 /** выводить нотисы в строке
  * true - вызов Exception
  */
@@ -85,7 +85,7 @@ Debugger::$errorTemplate = ROOT_PATH . 'modules/Views/stop.php';
 
 
 
-$t = File::has('dropbox://Getting Started.pdf');
+$t = File::has('dropbox://Price3_05.11.2012.xls');
 Debugger::dump($t);
 
 
