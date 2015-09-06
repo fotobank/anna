@@ -631,7 +631,7 @@ END;
         {
             if(DEBUG_LOG)
             {
-                $this->putLog('<br><b style="color: #ff0000;">Класс "' . $class_name . '" не найден</b><br>');
+                $this->putLog('<b style="color: #ff0000;">Класс "' . $class_name . '" не найден</b>');
             }
         }
         catch(AutoloadException $e)

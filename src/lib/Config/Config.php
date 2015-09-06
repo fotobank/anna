@@ -8,6 +8,7 @@
  */
 namespace lib\Config;
 
+use \Symfony\Component\Yaml\Parser;
 
 /**
  * Config
@@ -31,6 +32,8 @@ class Config implements InterfaceConfig
      */
     protected $environment;
 
+    protected $environment_path;
+
 
     /**
      * Load configuration
@@ -40,6 +43,7 @@ class Config implements InterfaceConfig
     public function __construct()
     {
         $this->setPath(ROOT_PATH);
+        $this->setEnvironmentPath(APP_PATH);
         $this->setEnvironment(APP_MODE);
         if (!$this->path) {
             throw new ConfigException('Configuration directory is not setup');
@@ -48,7 +52,7 @@ class Config implements InterfaceConfig
         $this->config = $this->loadFiles($this->path .'configs/default');
 
         if ($this->environment) {
-            $customConfig = $this->loadFiles(APP_PATH . 'configs/' . $this->environment);
+            $customConfig = $this->loadFiles($this->environment_path . 'configs/' . $this->environment);
             $this->config = array_replace_recursive($this->config, $customConfig);
         }
     }
@@ -79,44 +83,52 @@ class Config implements InterfaceConfig
         $this->environment = $environment;
     }
 
-    /**
-     * Load configuration file
-     * @param string $path
-     * @throws ConfigException
-     * @return array
-     */
-    protected function loadFile($path)
-    {
-        if (!is_file($path) && !is_readable($path)) {
-            throw new ConfigException('Configuration file `'.$path.'` not found');
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        return include $path;
-    }
 
     /**
      * Load configuration files to array
+     *
      * @param string $path
-     * @throws ConfigException
+     *
      * @return array
+     * @throws \Exception
      */
     protected function loadFiles($path)
     {
-        $config = [];
+        try
+        {
+            $config = [];
+            if(!is_dir($path))
+            {
+                throw new ConfigException('Configuration directory `' . $path . '` not found');
+            }
+            $iterator_php = new \GlobIterator($path . '/*.php',
+                                              \FilesystemIterator::KEY_AS_FILENAME
+                                              | \FilesystemIterator::CURRENT_AS_PATHNAME
+            );
 
-        if (!is_dir($path)) {
-            throw new ConfigException('Configuration directory `'.$path.'` not found');
-        }
-        $iterator = new \GlobIterator($path .'/*.php',
-            \FilesystemIterator::KEY_AS_FILENAME | \FilesystemIterator::CURRENT_AS_PATHNAME
-        );
+            foreach($iterator_php as $name => $file)
+            {
+                $name = substr($name, 0, -4);
+                /** @noinspection PhpIncludeInspection */
+                $config[$name] = include $file;
+            }
+            $iterator_yml = new \GlobIterator($path . '/*.yml',
+                                              \FilesystemIterator::KEY_AS_FILENAME
+                                              | \FilesystemIterator::CURRENT_AS_PATHNAME
+            );
+            $yaml_parser  = new Parser();
+            foreach($iterator_yml as $name => $file)
+            {
+                $name          = substr($name, 0, -4);
+                $config[$name] = $yaml_parser->parse(file_get_contents($file));
+            }
 
-        foreach ($iterator as $name => $file) {
-            $name = substr($name, 0, -4);
-            $config[$name] = $this->loadFile($file);
+            return $config;
         }
-        return $config;
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
 
     /**
@@ -152,5 +164,13 @@ class Config implements InterfaceConfig
         } else {
             return null;
         }
+    }
+
+    /**
+     * @param mixed $environment_path
+     */
+    public function setEnvironmentPath($environment_path)
+    {
+        $this->environment_path = $environment_path;
     }
 }
