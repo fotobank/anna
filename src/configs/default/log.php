@@ -18,6 +18,6 @@ return
         'max_dir'       => 10000,
         'interval'      => 5,
         'max_file_size' => 1,
-        'glue'          => PHP_EOL,
+        'glue'          => PHP_EOL
 
     ];
