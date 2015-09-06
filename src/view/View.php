@@ -185,13 +185,16 @@ class View implements ViewInterface, \JsonSerializable
     {
         ob_start();
         try {
-            header('Content-type: text/html; charset=windows-1251');
-            if(DEBUG_MODE)
+            if(!headers_sent())
             {
-                setcookie('XDEBUG_SESSION', 'PHPSTORM', time() + 300);
+                header('Content-type: text/html; charset=windows-1251');
+                if(DEBUG_MODE)
+                {
+                    setcookie('XDEBUG_SESSION', 'PHPSTORM', time() + 300);
+                }
             }
             /**==========================для раздела "отзывы"====================*/
-            if(Post::_has('nick') && Post::has('email'))
+            if(Post::_has('nick') && Post::has('email') && !headers_sent())
             {
                 setcookie('nick', Post::get('nick'), time() + 300);
                 setcookie('email', Post::get('email'), time() + 300);

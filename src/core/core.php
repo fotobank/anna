@@ -84,10 +84,7 @@ Debugger::$errorTemplate = ROOT_PATH . 'modules/Views/stop.php';
 
 
 
-
-$t = File::write('dropbox://Public/test.txt', 'ANYA1.avi');
-Debugger::dump($t);
-
+//Debugger::dump($_SERVER);
 
 //Debugger::fireLog('Hello World'); // render string into Firebug console
 //Debugger::fireLog($_SERVER); // or even arrays and objects

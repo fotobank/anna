@@ -28,6 +28,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/hybridauth/hybridauth" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem-dropbox" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem-ziparchive" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mauris/samsui" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mustache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/di" />
@@ -74,6 +75,7 @@
           <root url="file://$MODULE_DIR$/vendor/hybridauth/hybridauth" />
           <root url="file://$MODULE_DIR$/vendor/league/flysystem" />
           <root url="file://$MODULE_DIR$/vendor/league/flysystem-dropbox" />
+          <root url="file://$MODULE_DIR$/vendor/league/flysystem-ziparchive" />
           <root url="file://$MODULE_DIR$/vendor/mauris/samsui" />
           <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
           <root url="file://$MODULE_DIR$/vendor/nette/di" />
@@ -111,6 +113,7 @@
           <root url="file://$MODULE_DIR$/vendor/hybridauth/hybridauth" />
           <root url="file://$MODULE_DIR$/vendor/league/flysystem" />
           <root url="file://$MODULE_DIR$/vendor/league/flysystem-dropbox" />
+          <root url="file://$MODULE_DIR$/vendor/league/flysystem-ziparchive" />
           <root url="file://$MODULE_DIR$/vendor/mauris/samsui" />
           <root url="file://$MODULE_DIR$/vendor/mustache/mustache" />
           <root url="file://$MODULE_DIR$/vendor/nette/di" />

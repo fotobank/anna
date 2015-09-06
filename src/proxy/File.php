@@ -1,6 +1,7 @@
 <?php
 /**
  * Framework Component
+ * Local, FTP, Dropbox, Zip adapter filesystem
  *
  * @created   by PhpStorm
  * @package   File.php
@@ -24,6 +25,10 @@ use League\Flysystem\Dropbox\DropboxAdapter;
 use Dropbox\Client;
 
 use League\Flysystem\Adapter\Ftp as FtpAdapter;
+
+use League\Flysystem\ZipArchive\ZipArchiveAdapter;
+
+
 
 
 
@@ -93,6 +98,13 @@ use League\Flysystem\Adapter\Ftp as FtpAdapter;
  */
 class File extends AbstractProxy
 {
+    /** корневая директория на Dropbox
+     * File::$dropbox_prefix_dir = Public ( или корень, если не указана )
+     */
+    static public $dropbox_prefix_dir;
+
+    /** @var string путь и имя архива */
+    static public $zip_file_path = 'assests/temp/archive.zip';
 
     /**
      * Init instance
@@ -105,30 +117,21 @@ class File extends AbstractProxy
         try
         {
             $config = Config::getData('filesystem');
-            $localAdapter = new Local($config['local']['path.local.adapter']);
-            $local        = new Filesystem($localAdapter);
+            $local_adapter = new Local($config['local']['path.local.adapter']);
+            $local        = new Filesystem($local_adapter);
 
             $client = new Client($config['dropbox']['access.token'], $config['dropbox']['app.secret']);
-            $adapter = new DropboxAdapter($client);
-            $drop_box = new Filesystem($adapter);
+            $dropbox_adapter = new DropboxAdapter($client, static::$dropbox_prefix_dir);
+            $drop_box = new Filesystem($dropbox_adapter);
 
-            $ftp = new Filesystem(new FtpAdapter([
-                                                         'host' => 'ftp.example.com',
-                                                         'username' => 'username',
-                                                         'password' => 'password',
-
-                                                         /** optional config settings */
-                                                         'port' => 21,
-                                                         'root' => '/path/to/root',
-                                                         'passive' => true,
-                                                         'ssl' => true,
-                                                         'timeout' => 30,
-                                                     ]));
+            $ftp = new Filesystem(new FtpAdapter($config['ftp']));
+            $zip = new Filesystem(new ZipArchiveAdapter(ROOT_PATH . static::$zip_file_path));
 
             $manager = new MountManager([
                                             'local' => $local,
                                             'dropbox' => $drop_box,
-                                            'ftp' => $ftp
+                                            'ftp' => $ftp,
+                                            'zip' => $zip
                                         ]);
             return $manager;
         }
