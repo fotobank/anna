@@ -293,7 +293,8 @@ END;
     {
         if(DEBUG_LOG)
         {
-            $this->putLog('<br><b style="background-color: #ffffaa;">сканируем директории и обновляем базу поиска классов');
+            $this->putLog(
+                '<br><b style="background-color: #ffffaa;">сканируем директории и обновляем базу поиска классов</b>');
         }
     }
 
@@ -545,11 +546,9 @@ END;
         if(DEBUG_LOG)
         {
             $this->putLog(
-                ('<br><b style="color: #23a126;">подключили  '
+                ('<br><b style="color: #23a126;">подключили  </b>'
                     . '<b style="color: #3a46e1;"> ' .
-                    $full_path . '' . '<b style="color: #ff0000;">'
-                    . $file
-                    . '<br>')
+                    $full_path . '</b>' . '<b style="color: #ff0000;">' . $file . '</b><br>')
             );
         }
     }
@@ -632,7 +631,7 @@ END;
         {
             if(DEBUG_LOG)
             {
-                $this->putLog('<br><b style="color: #ff0000;">Класс "' . $class_name . '" не найден<br>');
+                $this->putLog('<br><b style="color: #ff0000;">Класс "' . $class_name . '" не найден</b><br>');
             }
         }
         catch(AutoloadException $e)
