@@ -294,7 +294,7 @@ END;
         if(DEBUG_LOG)
         {
             $this->putLog(
-                '<br><b style="background-color: #ffffaa;">сканируем директории и обновляем базу поиска классов</b>');
+                '<b style="background-color: #ffffaa;">сканируем директории и обновляем базу поиска классов</b>');
         }
     }
 
@@ -546,9 +546,9 @@ END;
         if(DEBUG_LOG)
         {
             $this->putLog(
-                ('<br><b style="color: #23a126;">подключили  </b>'
+                ('<b style="color: #23a126;">подключили  </b>'
                     . '<b style="color: #3a46e1;"> ' .
-                    $full_path . '</b>' . '<b style="color: #ff0000;">' . $file . '</b><br>')
+                    $full_path . '</b>' . '<b style="color: #ff0000;">' . $file . '</b>')
             );
         }
     }
