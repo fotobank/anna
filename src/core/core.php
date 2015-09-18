@@ -17,6 +17,8 @@ use proxy\File;
 use proxy\Location;
 use proxy\Session;
 use Tracy\Debugger;
+use Tracy\DefaultBarPanel;
+use Tracy\Dumper;
 
 
 if(session_id() === '')
@@ -80,10 +82,11 @@ Debugger::$strictMode = true;
 Debugger::$email      = 'aleksjurii@jmail.com';
 Debugger::$maxDepth   = 5; // default: 3
 Debugger::$maxLen     = 200; // default: 150
+Debugger::$showLocation = true;
 Debugger::$errorTemplate = ROOT_PATH . 'modules/Views/stop.php';
 
 
-
+//Debugger::barDump($_SERVER, 'SERVER');
 //Debugger::dump($_SERVER);
 
 //Debugger::fireLog('Hello World'); // render string into Firebug console

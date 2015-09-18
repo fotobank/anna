@@ -14,23 +14,36 @@
 
 namespace modules\Models\About;
 
-use modules\Models\Base\Base;
+use modules\Models\Model\Model;
+use lib\Config\Config;
 
 /**
  * Class About
  * @package modules\Models\About
  */
-class About extends Base
+class About extends Model
 {
 
 	/**
-	 * @param $options
+	 * @param \lib\Config\Config $config
+	 *
+	 * @throws \Exception
+	 * @throws \lib\Config\ConfigException
+	 * @throws \modules\Models\Model\ModelException
 	 */
-	public function __construct($options = [])
+	public function __construct(Config $config)
 	{
-		// настройка свойств класса
-		$this->setOptions($options);
-		// инициализация конструктора родительского класса
-		parent::__construct();
+		try
+		{
+			// настройка свойств класса
+			$this->setOptions($config->getData('about'));
+			// инициализация конструктора родительского класса
+			parent::__construct($config);
+		}
+		catch(\Exception $e)
+		{
+			throw $e;
+		}
+
 	}
 }

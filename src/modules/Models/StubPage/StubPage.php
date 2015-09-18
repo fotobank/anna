@@ -14,7 +14,7 @@
 
 namespace modules\Models\StubPage;
 
-use modules\Models\Base\Base;
+use modules\Models\Model\Model;
 use exception\ModelException;
 use proxy\Db as Db;
 
@@ -23,7 +23,7 @@ use proxy\Db as Db;
  * Class StubPage
  * @package modules\Models\StubPage
  */
-class StubPage extends Base
+class StubPage extends Model
 {
     protected
         $config,  // сообщения и время таймера

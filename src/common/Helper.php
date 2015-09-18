@@ -91,7 +91,6 @@ trait Helper
             $this->plugins_path[] = $path;
         }
         $this->addHelperPath($path);
-        $this->runPlugins();
         return $this;
     }
 

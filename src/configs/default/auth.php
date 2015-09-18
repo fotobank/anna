@@ -27,6 +27,6 @@ return [
         'encryptFunction' => function ($password, $salt = SALT)
         {
             return password_hash($password, PASSWORD_DEFAULT, ['salt' => $salt]);
-        },
-    ],
+        }
+    ]
 ];

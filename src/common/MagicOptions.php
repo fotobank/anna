@@ -123,6 +123,10 @@ trait MagicOptions
 	 */
 	public function setOption($key, $value)
 		{
+			if($value instanceof \Closure)
+			{
+				$value = $value();
+			}
 			$method = 'set'.$this->normalizeKey($key);
 			$this->$method($value);
 		}

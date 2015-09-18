@@ -17,8 +17,8 @@ namespace modules\Controllers\Index;
 
 use Exception;
 use modules\Controllers\Controller\Controller;
-use modules\Models\Index\Index as ModelIndex;
-use view\View;
+use modules\Models\Model\Model;
+use modules\Views\View\View;
 
 
 /**
@@ -29,14 +29,13 @@ use view\View;
 class Index extends Controller
 {
     /**
-     * инициализация вьювера
-     *
-     * @param \view\View $view
-     *
+     * @param \modules\Models\Model\Model $model
+     * @param \modules\Views\View\View    $view
      */
-    public function __construct(View $view)
+    public function __construct(Model $model, View $view)
     {
-       $this->viewer = $view;
+        $this->model = $model;
+        $this->view  = $view;
     }
 
 
@@ -47,39 +46,9 @@ class Index extends Controller
      */
     public function index()
     {
-        $options = [
-            // свойства IndexPage
-            'http_host'     => getenv('HTTP_HOST'),  // телефон в слайдере
-            'filenews'      => 'news.txt', // файл новостей
-            'lite_box_path' => 'files/slides/*.jpg' // маска и путь сканирования лайтбокса
-        ];
-        $model = new ModelIndex($options);
-
-        $this->viewer->render('index', $model);
-    }
-
-    /**
-     * View should be callable
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public function __invoke()
-    {
-        $this->index();
-    }
-
-    /**
-     * Render like string
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public function __toString()
-    {
         try
         {
-            $this->index();
+            $this->model->attach($this->view);
         }
         catch(\Exception $e)
         {

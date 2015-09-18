@@ -14,13 +14,13 @@
 
 namespace modules\Models\News;
 
-use modules\Models\Base\Base;
+use modules\Models\Model\Model;
 
 /**
  * Class News
  * @package modules\Models\News
  */
-class News extends Base
+class News extends Model
 {
 
     /**

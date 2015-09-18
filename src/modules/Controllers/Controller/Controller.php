@@ -31,7 +31,15 @@ abstract class Controller
 {
     use Helper;
 
-    /** @var  \view\View */
-    protected $viewer;
+    /** @var  \modules\Models\Model\Model $model */
+    protected $model;
+
+    /** @var  \modules\Views\View\View */
+	protected $view;
+
+    public function __destruct()
+    {
+        $this->model->notify();
+    }
 
 }

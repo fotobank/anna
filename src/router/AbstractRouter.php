@@ -1,209 +1,360 @@
 <?php
-/**
- * Класс AbstractRouter
- *
- * @created   by PhpStorm
- * @package   AbstractRouter.php
- * @version   1.0
- * @author    Alex Jurii <jurii@mail.ru>
- * @link      http://alex.od.ua
- * @copyright Авторские права (C) 2000-2015, Alex Jurii
- * @date:     31.08.2015
- * @time:     6:05
- * @license   MIT License: http://opensource.org/licenses/MIT
- */
 
 namespace router;
 
+use InvalidArgumentException;
 use common\Helper;
-use Exception;
-use exception\RouteException;
+use proxy\Config;
+use proxy\Db;
 
 
 /**
  * Class AbstractRouter
  *
- * @package router
+ * @package router\AbstractRouter
  */
 class AbstractRouter implements InterfaceRouter
 {
 
     use Helper;
 
-    const DEFAULT_MODULE     = 'index';
-    const DEFAULT_CONTROLLER = 'index';
-    const ERROR_MODULE       = 'error';
-    const ERROR_CONTROLLER   = 'index';
-    /**
-     * непосредственный маршрут
-     *
-     * @var
-     */
-    public
-        $current_roure = [],
-        $current_controller = '',
-        $current_method = '';
+    const GET     = 1;
+    const POST    = 2;
+    const PUT     = 4;
+    const DELETE  = 8;
+    const HEAD    = 16;
+    const TRACE   = 32;
+    const OPTIONS = 64;
+    const CONNECT = 128;
 
-    /** @var mixed
-     * массив заданных роутов
-     */
-    protected $site_routes = [];
-
-    /** путь из url*/
-    protected $url;
-
-    /** router определенный из url */
-    protected $url_routes = [];
-
-    /** controller страницы - заглушки */
-    protected $controller_stub_page = 'StubPage';
-
-    /** method страницы - заглушки */
-    protected $method_stub_page = 'stubPage';
-
-    /** string Param that sets after request url checked. */
-    protected $param;
-    protected $id;
-
-
+    protected $routes = [];
+    protected $current_route = [];
+    protected $routeFactory;
+    protected $defaultCallback;
 
     /**
-     * Mapping requested URL with specified routes in routing list.
+     * @param RouteFactory $routeFactory Optionally supply an instance of a RouteFactory
+     *  that may instantiate alternative Route objects. Defaults to standard RouteFactory.
+     */
+    public function __construct(RouteFactory $routeFactory = null) {
+        if (!$routeFactory) {
+            require_once __DIR__ . DIRECTORY_SEPARATOR . 'RouteFactory.php';
+            $routeFactory = new RouteFactory;
+        }
+        $this->routeFactory = $routeFactory;
+        // add and avtorun plugins
+        $this->addPluginsPath(__DIR__ . '/Plugins/');
+    }
+
+    /**
+     * Create a new route using a pattern, dispatch array and callback and add it to the stack.
+     * Matches GET, POST, PUT and DELETE request methods.
      *
-     * param array $site_routes Array list of routes from routes config file.
+     * @param string   $pattern
+     * @param array    $dispatch
+     * @param callable $callback
      *
-     * !!! название метода в url должно совпадать с именеи метода в модели
-     * или должно быть прописано в routes с указанием в ключе routes текущую controller/modelm
-     *
-     * @throws RouteException
      * @throws \Exception
      */
-    public function start()
+    public function add($pattern, array $dispatch = [], $callback = null) {
+        try
+        {
+            $this->addMethodRoute(self::GET | self::POST | self::PUT | self::DELETE,
+                                  $this->routeFactory->newRoute($pattern, $dispatch), $callback);
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
+    }
+    
+    /**
+     * Create a new route matching GET requests.
+     *
+     * @param string $pattern
+     * @param array $dispatch
+     * @param callable $callback
+     */
+    public function addGet($pattern, array $dispatch = [], $callback = null) {
+        $this->addMethod(self::GET, $pattern, $dispatch, $callback);
+    }
+
+    /**
+     * Create a new route matching POST requests.
+     *
+     * @param string $pattern
+     * @param array $dispatch
+     * @param callable $callback
+     */
+    public function addPost($pattern, array $dispatch = [], $callback = null) {
+        $this->addMethod(self::POST, $pattern, $dispatch, $callback);
+    }
+
+    /**
+     * Create a new route matching PUT requests.
+     *
+     * @param string $pattern
+     * @param array $dispatch
+     * @param callable $callback
+     */
+    public function addPut($pattern, array $dispatch = [], $callback = null) {
+        $this->addMethod(self::PUT, $pattern, $dispatch, $callback);
+    }
+
+    /**
+     * Create a new route matching DELETE requests.
+     *
+     * @param string $pattern
+     * @param array $dispatch
+     * @param callable $callback
+     */
+    public function addDelete($pattern, array $dispatch = [], $callback = null) {
+        $this->addMethod(self::DELETE, $pattern, $dispatch, $callback);
+    }
+
+    /**
+     * Create a new route matching a custom combination of request methods.
+     *
+     * @param int $method A bitmask of request methods.
+     * @param string $pattern
+     * @param array $dispatch
+     * @param callable $callback
+     */
+    public function addMethod($method, $pattern, array $dispatch = [], $callback = null) {
+        $this->addMethodRoute($method, $this->routeFactory->newRoute($pattern, $dispatch), $callback);
+    }
+
+    /**
+     * Add a Route object and a callback to the stack.
+     * Matches GET, POST, PUT and DELETE request methods.
+     * 
+     * @param Route $route
+     * @param callable $callback
+     * @throws InvalidArgumentException if $callback is not callable
+     */
+    public function addRoute(Route $route, $callback = null) {
+        $this->addMethodRoute(self::GET | self::POST | self::PUT | self::DELETE, $route, $callback);
+    }
+    
+    /**
+     * Add a Route object with specified request method and a callback to the stack.
+     * 
+     * @param int $method A bitmask of request methods.
+     * @param Route $route
+     * @param callable $callback
+     * @throws InvalidArgumentException if $callback is not callable
+     */
+    public function addMethodRoute($method, Route $route, $callback = null) {
+        if ($callback && !is_callable($callback, true)) {
+            throw new InvalidArgumentException('$callback must be of type callable, got ' . gettype($callback));
+        }
+        $this->routes[] = compact('method', 'route', 'callback');
+    }
+
+    /**
+     * Set a default callback for routes that have no specific callback defined.
+     *
+     * @param callable $callback
+     * @throws InvalidArgumentException if $callback is not callable
+     */
+    public function defaultCallback($callback) {
+        if ($callback && !is_callable($callback, true)) {
+            throw new InvalidArgumentException('$callback must be of type callable, got ' . gettype($callback));
+        }
+        $this->defaultCallback = $callback;
+    }
+
+    /**
+     * Start the routing process.
+     * Matches GET, POST, PUT and DELETE requests equally.
+     *
+     * @param string $url The URL to route.
+     * @param callable $noMatch Callback in case no route matched.
+     * @return mixed Return value of whatever callback was invoked.
+     * @throws InvalidArgumentException if $noMatch is not callable.
+     * @throws NotFoundException in case no route matched and no callback was supplied.
+     */
+    public function route($url, $noMatch = null) {
+        return $this->routeMethod(self::GET | self::POST | self::PUT | self::DELETE, $url, $noMatch);
+    }
+    
+    /**
+     * Start the routing process for a specific request method.
+     * The request method is supplied as string, i.e. can be plucked directly from $_SERVER['REQUEST_METHOD'].
+     *
+     * @param string $method The request method.
+     * @param string $url The URL to route.
+     * @param callable $noMatch Callback in case no route matched.
+     * @return mixed Return value of whatever callback was invoked.
+     * @throws InvalidArgumentException if $method is not supported or $noMatch is not callable.
+     * @throws NotFoundException in case no route matched and no callback was supplied.
+     */
+    public function routeMethodFromString($method, $url, $noMatch = null) {
+        return $this->routeMethod($this->stringToRequestMethod($method), $url, $noMatch);
+    }
+    
+    /**
+     * Start the routing process for a specific request method.
+     *
+     * @param int $method Bitmask of the request method.
+     * @param string $url The URL to route.
+     * @param callable $noMatch Callback in case no route matched.
+     * @return mixed Return value of whatever callback was invoked.
+     * @throws InvalidArgumentException if $noMatch is not callable.
+     * @throws NotFoundException in case no route matched and no callback was supplied.
+     */
+    public function routeMethod($method, $url, $noMatch = null) {
+        if ($noMatch && !is_callable($noMatch, true)) {
+            throw new InvalidArgumentException('$noMatch must be of type callable, got ' . gettype($noMatch));
+        }
+
+        foreach ($this->routes as $route) {
+            if (!($route['method'] & $method)) {
+                continue;
+            }
+
+            /** @var Route $match */
+            $match = $route['route']->matchUrl($url);
+            if ($match) {
+                $this->current_route = $match->dispatchValues();
+                $this->runPlugins();
+                $this->checkLock($match);
+                return $this->callback($route['callback'], $match);
+            }
+        }
+
+        if ($noMatch) {
+            return call_user_func($noMatch, $url);
+        }
+        
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'NotFoundException.php';
+        throw new NotFoundException("No route matched $url");
+    }
+
+    /**
+     * проверка блокировки страницы
+     *
+     * @param Route $match
+     *
+     * @throws \Exception
+     */
+    protected function checkLock(& $match)
     {
         try
         {
-            $url              = array_key_exists('url', $_GET) ? $_GET['url'] : 'index';
-            $this->url_routes = array_values(array_filter(explode('/', $url)));
-            // для SEO защита от повторяющихся контроллеров /index/index/index
-            if(substr_count($url, $this->url_routes[0]) > 1)
+            $section_title = Config::getData('section_title');
+            $controller    = strtolower($this->current_route['controller']);
+            if(in_array('/' . $controller, $section_title, true))
             {
-                throw new RouteException('если название метода не отличается от имени контроллера то его указывать не надо');
-            }
-
-            // действительный крнтроллер и метод
-            $this->searchCurrentRoure();
-
-            if(array_key_exists(0, $this->url_routes) && $this->url_routes[0] == 'widgets')
-            {
-                $this->loadWidget();
-            }
-            else
-            {
-                $this->prepareParams();
+                Db::where('url', $controller);
+                $lock = Db::getOne('lock_page');
+                if($lock)
+                {
+                    $difference_time = $lock['end_date'] - time();
+                    /** если время таймера не вышло или если вышло но не включен автостарт - показывать страницу заглушку */
+                    if($difference_time > 0 || ($difference_time < 0 && $lock['auto_run'] !== 1))
+                    {
+                        $match->setDispatchValue('controller', $lock['controller']);
+                        $match->setDispatchValue('action', $lock['action']);
+                    }
+                }
             }
         }
-        catch(RouteException $e)
+        catch(\Exception $e)
         {
-            if(DEBUG_MODE)
-            {
-                throw $e;
-            }
-            else
-            {
-                $this->goto404();
-            }
+            throw $e;
         }
     }
 
     /**
-     * вычисляем действительный контроллер и метод
-     */
-    protected function searchCurrentRoure()
-    {
-        // $this->url_routes[0] - это url controller
-        // $this->url_routes[1] - это url method
-        // если в пути присутствует метод то ищеим в роутах по данному контроллеру и методу
-        if(!empty($this->url_routes[1]))
-        {
-            $search_route = $this->url_routes[0] . '/' . $this->url_routes[1];
-            // иначе просто по контроллеру
-        }
-        else
-        {
-            $search_route = $this->url_routes[0];
-        }
-        // находим однозначный url
-        $this->url = $search_route;
-        if(array_key_exists($search_route, $this->site_routes))
-        {
-            // предопределеннй маршрут
-            $predefined_roure = $this->site_routes[$search_route];
-            // найденный контроллер - если задан в файле routes позволяет менять class контроллера
-            $this->current_controller = $predefined_roure['controller'];
-        }
-        else
-        {
-            // или из url
-            $this->current_controller = ucfirst($this->url_routes[0]);
-        }
-        $this->current_method = '';
-        // ищем метод
-        if(!empty($predefined_roure['method']))
-        {
-            $this->current_method = $predefined_roure['method'];
-        }
-        elseif(!empty($this->url_routes[1]))
-        {
-            // аналогично с controller из url
-            $this->current_method = strtolower($this->url_routes[1]);
-        }
-    }
-
-    /**
-     * загрузка виджета
-     */
-    protected function loadWidget()
-    {
-        $widget_dir = $this->ucwordsKey($this->current_method);
-        $this->addHelperPath(ROOT_PATH . strtolower($this->current_controller) . '/' . $widget_dir . '/');
-        $widget = $this->url_routes[2];
-        // вызов виджета
-        $this->$widget();
-        exit;
-    }
-
-
-
-    /**
-     * Checks requested URL on params and id and if exists sets to the private vars.
+     * Get a URL from a dispatch array.
+     * Matches GET, POST, PUT and DELETE routes equally.
      *
-     * @internal param array $routes Requested URL.
+     * @param array $dispatch
+     * @return mixed Matching URL or false if no match.
      */
-    protected function prepareParams()
-    {
-        if(!empty($this->url_routes[2]))
-        {
-            $this->id = $this->url_routes[2];
-        }
-        if((!empty($this->url_routes[3])))
-        {
-            $this->param = $this->url_routes[3];
-        }
+    public function reverseRoute(array $dispatch) {
+        return $this->reverseRouteMethod(self::GET | self::POST | self::PUT | self::DELETE, $dispatch);
     }
 
     /**
-     * err 404
+     * Get a URL from a dispatch array for a specific method.
      *
-     * @internal param $err
+     * @param       $method
+     * @param array $dispatch
+     *
+     * @return mixed Matching URL or false if no match.
      */
-    public function goto404()
-    {
+    public function reverseRouteMethod($method, array $dispatch) {
+        foreach ($this->routes as $route) {
+            if (!($route['method'] & $method)) {
+                continue;
+            }
+            /** @var Route $match */
+            /** @var Route $route['route'] */
+            $match = $route['route']->matchDispatch($dispatch);
+            if ($match) {
+                return $match->url();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Executes a callback or the default callback for a matched route.
+     *
+     * @param               $callback
+     * @param \router\Route $route
+     *
+     * @return mixed
+     */
+    protected function callback($callback, Route $route) {
         try
         {
-            $this->current_controller = $this->site_routes['404']['controller'];
-            $this->current_method     = $this->site_routes['404']['method'];
+            if($callback)
+            {
+                if(!is_callable($callback, true))
+                {
+                    throw new InvalidArgumentException('$callback must be of type callable, got '. gettype($callback));
+                }
+                return call_user_func($callback, $route);
+            }
+            if($this->defaultCallback)
+            {
+                return call_user_func($this->defaultCallback, $route);
+            }
+            throw new NotFoundException(sprintf('Route %s matched URL %s, but no callback given',
+                                                $route->pattern(), $route->url()));
         }
-        catch(RouteException $e)
+        catch(InvalidArgumentException $e)
+        {
+            throw $e;
+        }catch(NotFoundException $e)
+        {
+            throw $e;
+        }
+    }
+
+    /**
+     * Returns matching request method constant from string representation.
+     *
+     * @param $string
+     *
+     * @return mixed
+     */
+    protected function stringToRequestMethod($string) {
+        try
+        {
+            $self   = new \ReflectionClass($this);
+            $method = $self->getConstant(strtoupper($string));
+            if(!$method)
+            {
+                throw new InvalidArgumentException("Unsupported request method '$string'");
+            }
+
+            return $method;
+        }
+        catch(InvalidArgumentException $e)
         {
             throw $e;
         }
@@ -212,171 +363,9 @@ class AbstractRouter implements InterfaceRouter
     /**
      * @return array
      */
-    public function getUrlRoutes()
+    public function getCurrentRoute()
     {
-        return $this->url_routes;
+        return $this->current_route;
     }
 
-    /**
-     * @param $routes
-     *
-     * @return mixed|void
-     * @throws RouteException
-     */
-    public function setRoute($routes)
-    {
-        if(null !== $routes && is_array($routes))
-        {
-            $this->site_routes = array_merge($this->site_routes, $routes);
-        }
-        else
-        {
-            throw new RouteException('$route is not array');
-        }
-    }
-
-    /**
-     * @param       $controller
-     * @param       $method
-     * @param array $params
-     *
-     * @return string
-     */
-    public function getUrl($controller, $method, $params = null)
-    {
-
-        $url = $controller . '/' . $method;
-
-        if(0 === count($params))
-        {
-            if($controller == self::DEFAULT_CONTROLLER && $method == self::DEFAULT_MODULE)
-            {
-                return $controller;
-            }
-
-            return $url;
-        }
-
-        $getParams = [];
-        if(0 !== count($params))
-        {
-            foreach($params as $key => $value)
-            {
-                // sub-array as GET params
-                if(is_array($value))
-                {
-                    $getParams[$key] = $value;
-                    continue;
-                }
-                $url .= '/' . urlencode($key) . '/' . urlencode($value);
-            }
-        }
-        if(0 !== count($getParams))
-        {
-            $url .= '?' . http_build_query($getParams);
-        }
-
-        return $url;
-    }
-
-    /**
-     * @throws \Exception
-     * @throws \exception\RouteException
-     */
-    public function goto403()
-    {
-        try
-        {
-            $this->current_controller = $this->site_routes['403']['controller'];
-            $this->current_method     = $this->site_routes['403']['method'];
-        }
-        catch(RouteException $e)
-        {
-            throw $e;
-        }
-    }
-
-    /**
-     * @throws \Exception
-     * @throws \exception\RouteException
-     */
-    public function stopPage()
-    {
-        try
-        {
-            $this->current_controller = $this->site_routes['stop']['controller'];
-            $this->current_method     = $this->site_routes['stop']['method'];
-        }
-        catch(RouteException $e)
-        {
-            throw $e;
-        }
-    }
-
-    /**
-     * @param       $controller
-     * @param       $method
-     * @param array $params
-     *
-     * @throws \Exception
-     * @throws \exception\RouteException
-     */
-    public function gotoPage($controller, $method, $params = null)
-    {
-        try
-        {
-            $this->current_controller = $controller;
-            $this->current_method     = $method;
-
-            if(0 !== count($params))
-            {
-                if(!empty($params[0]))
-                {
-                    $this->id = $params[0];
-                }
-                if((!empty($params[1])))
-                {
-                    $this->param = $params[1];
-                }
-            }
-            $this->prepareParams();
-
-        }
-        catch(RouteException $e)
-        {
-            throw $e;
-        }
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCurrentMethod()
-    {
-        return $this->current_method;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getParam()
-    {
-        return $this->param;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCurrentController()
-    {
-        return $this->current_controller;
-    }
 }

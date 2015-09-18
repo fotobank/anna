@@ -14,14 +14,14 @@
 
 namespace proxy;
 
-use modules\Models\Base\Base as Instance;
+use modules\Models\Model\Model as Instance;
 
 
 /**
- * Proxy to Base model
+ * Proxy to Model model
  *
  * Example of usage
- *     use proxy\Base;
+ *     use proxy\Model;
  *
  *     Base::checkClockLockPage($url)
  *
@@ -29,30 +29,38 @@ use modules\Models\Base\Base as Instance;
  *
  *  показывать только заглавную страницу
  * @method   static mixed|void setOnluIndex($onluIndex)
- * @see      proxy\Base::setOnluIndex()
+ * @see      proxy\Model::setOnluIndex()
  *
  * @method   static array checkClockLockPage($url)
- * @see      proxy\Base::checkClockLockPage()
+ * @see      proxy\Model::checkClockLockPage()
  *
  * @method   static mixed getDbTitleName()
- * @see      proxy\Base::getDbTitleName()
+ * @see      proxy\Model::getDbTitleName()
  *
  * @method   static array globalHeartMenu()
- * @see      proxy\Base::globalHeartMenu()
+ * @see      proxy\Model::globalHeartMenu()
  *
  * @method   static bool getMetaTitle()
- * @see      proxy\Base::getMetaTitle()
+ * @see      proxy\Model::getMetaTitle()
  *
  * @author   Alex Jurii
  * @package  Proxy
  */
-class Base extends AbstractProxy
+class Model extends AbstractProxy
 {
     /**
-     * @return Instance
+     * @return \modules\Models\Model\Model
+     * @throws \Exception
      */
     protected static function initInstance()
     {
-        return new Instance();
+        try
+        {
+            return new Instance(Config::getInstance());
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
 }

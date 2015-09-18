@@ -27,7 +27,6 @@ if(is_bot())
 return
     function ()
     {
-
         $stringIp = ip();
         $intIp    = ip2long($stringIp);
 

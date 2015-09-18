@@ -70,19 +70,23 @@ assert_options(ASSERT_QUIET_EVAL, 0);
 assert_options(ASSERT_BAIL, 1);
 assert_options( ASSERT_CALLBACK, 'assert_callback');
 
-/**
- * @param      $file
- * @param      $line
- * @param      $message
- * @param null $desc описание проверки
- */
-function assert_callback($file, $line, $message, $desc = null) {
-
-    echo "<h1>Тест провален!</h1>
+if (!function_exists('assert_callback'))
+{
+    /**
+     * @param      $file
+     * @param      $line
+     * @param      $message
+     * @param null $desc описание проверки
+     */
+    function assert_callback($file, $line, $message, $desc = null)
+    {
+        echo "<h1>Тест провален!</h1>
         File: <strong>$file</strong> in
         Line: <strong>$line</strong><br/>
         Test: <b>$message</b><br/>";
-    if ($desc) {
-        echo "Описание: <b>$desc</b><br/>";
+        if($desc)
+        {
+            echo "Описание: <b>$desc</b><br/>";
+        }
     }
 }

@@ -11,13 +11,13 @@
  */
 namespace modules\Models\Services;
 
-use modules\Models\Base\Base;
+use modules\Models\Model\Model;
 
 	/**
 	 * Class classServices
 	 * @package mySpace
 	 */
-	class Services extends Base
+	class Services extends Model
 	{
 		private $edit;
 		public $tabs;

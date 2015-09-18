@@ -9,14 +9,15 @@
 
 namespace modules\Models\Index;
 
-use modules\Models\Base\Base;
+use modules\Models\Model\Model;
 use proxy\Recursive;
+use lib\Config\Config;
 
 
 /**
  * Class ajaxSite_web_index
  */
-class Index extends Base
+class Index extends Model
 {
 
 	// телефон в слайдере
@@ -35,17 +36,27 @@ class Index extends Base
 
 
 	/**
-	 * @param $options
+	 * @param \lib\Config\Config $config
+	 *
+	 * @throws \Exception
+	 * @internal param $options
 	 */
-	public function __construct($options)
+	public function __construct(Config $config)
 		{
-			// настройка свойств класса
-			$this->setOptions($options);
-			// инициализация конструктора родительского класса
-			parent::__construct();
-			// лайтбокс в шапке
-			$this->liteBox();
-			$this->_carousel();
+			try
+			{
+				// настройка свойств класса
+				$this->setOptions($config->getData('index'));
+				// инициализация конструктора родительского класса
+				parent::__construct($config);
+				// лайтбокс в шапке
+				$this->liteBox();
+				$this->_carousel();
+			}
+			catch(\Exception $e)
+			{
+				throw $e;
+			}
 		}
 
 
@@ -142,17 +153,20 @@ class Index extends Base
 				$news = explode('||', $this->replaceBBCode($news));
 				if (count(($news))) {
 					$count_news = count($news);
-					for ($i = 0; $i < $count_news; $i ++) {
+					for ($i = 0; $i < $count_news; $i ++)
+					{
 						$new = explode('[]', $news[$i]);
 						if (count($new) > 0) {
 
 							$print[$i]['titleNews'] = trim($new[0]);
 							$print[$i]['bodyNews'] = array_key_exists(1, $new) ? $new[1] : false;
-							if (array_key_exists(1, $new)) {
+							if (array_key_exists(1, $new))
+							{
 								$print[$i]['body'] = true;
 								$print[$i]['bodyNews'] = $new[1];
 							}
-							if (array_key_exists(2, $new)) {
+							if (array_key_exists(2, $new))
+							{
 								$print[$i]['link'] = true;
 								$print[$i]['linkNewsDetail'] = '/news.php';
 							} else {

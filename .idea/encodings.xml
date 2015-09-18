@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/js/stub_page/misc.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/login.html" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/configs/default/db.yml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/configs/default/meta_title.yml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/configs/default/routes.yml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/lib/Error/Error.php" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/modules/Views/layouts/stubPage.mustache" charset="windows-1251" />

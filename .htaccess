@@ -164,24 +164,34 @@ ExpiresDefault "access plus 2 days"
   # END Adaptive-Images -------------------------------------------------------------------------------
 #</IfModule>
 
-RewriteEngine On
-
+#<IfModule mod_rewrite.c>
+#RewriteEngine On
 #убрать слэш в конце строки запроса
-RewriteBase /
-RewriteCond %{HTTP_HOST} (.*)
-RewriteCond %{REQUEST_URI} /$ [NC]
-RewriteRule ^(.*)(/)$ $1 [L,R=301]
+#RewriteBase /
+#RewriteCond %{HTTP_HOST} (.*)
+#RewriteCond %{REQUEST_URI} /$ [NC]
+#RewriteRule ^(.*)(/)$ $1 [L,R=301]
 
 #редирект на страницу без www
-RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
-RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+#RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+#RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 
-ErrorDocument 404 /404.php
+#ErrorDocument 404 /404.php
 
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-l
-RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-l
+#RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+#</IfModule>
+
+
+
+
+<IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteRule ^(.*)$ index.php?url=/$1 [QSA,L]
+</IfModule>
 
 
 #------------------------ new ----------------------------

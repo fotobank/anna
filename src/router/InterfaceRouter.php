@@ -21,12 +21,5 @@ namespace router;
  */
 interface InterfaceRouter
 {
-    /**
-     * @param $route
-     * @return mixed
-     */
-    public function setRoute($route);
-
-    public function start();
 
 }

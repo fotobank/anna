@@ -1,81 +1,108 @@
-index:
-      controller: Index
-      method: index
-        
-index/id:
-      controller: Index
-      method: id
+/:
+      dispatch:
+                controller: "Index"
+                action: "index"
+      callback: "dispatch"
+
+/index:
+      dispatch:
+                controller: "Index"
+                action: "index"
+       
+/index/id:
+      dispatch:
+            controller: 'Index'
+            action: 'id'
         
 # заглушка
-favicon.ico:
-      controller: Index
-      method: index
+/favicon.ico:
+      dispatch:
+            controller: 'Index'
+            action: 'index'
         
-about:
-      controller: About
-      method: about
+/about:
+      dispatch:
+            controller: 'About'
+            action: 'about'
         
-portfolio:
-      controller: Portfolio
-      method: portfolio
+/portfolio:
+      dispatch:
+            controller: 'Portfolio'
+            action: 'portfolio'
 
-news:
-      controller: News
-      method: news
+/news:
+      dispatch:
+            controller: 'News'
+            action: 'news'
 
-services:
-      controller: Services
-      method: services
+/services:
+      dispatch:
+            controller: 'Services'
+            action: 'services'
 
-comments:
-      controller: Comments
-      method: comments
+/comments:
+      dispatch:
+            controller: 'Comments'
+            action: 'comments'
         
-carousel:
-      controller: Carousel
+/carousel/:action/:dir/:file:
+            dispatch:
+                  controller: 'Carousel'
+            callback: "carousel"
 
         
-404:
-      controller: Location
-      method: error404
+/404:
+      dispatch:
+            controller: 'Location'
+            action: 'error404'
         
-403:
-      controller: Location
-      method: error403
+/403:
+      dispatch:
+            controller: 'Location'
+            action: 'error403'
         
-stop:
-      controller: Location
-      method: stopPage
+/stop:
+      dispatch:
+            controller: 'Location'
+            action: 'stopPage'
         
 # ajax e-mail на странице блокировки
-subscription_lock_page:
-      controller: StubPage
-      method: toEmail
+/subscription_lock_page:
+      dispatch:
+            controller: 'StubPage'
+            action: 'toEmail'
         
-stubPage:
-      controller: StubPage
-      method: stubPage
+/stubPage:
+      dispatch:
+            controller: 'StubPage'
+            action: 'stubPage'
         
-login:
-      controller: Login
-      method: userLogin
+/login:
+      dispatch:
+            controller: 'Login'
+            action: 'userLogin'
         
-exit:
-      controller: Login
-      method: userExit
+/exit:
+      dispatch:
+            controller: 'Login'
+            action: 'userExit'
         
-admin:
-      controller: Admin
-      method: admin
+/admin:
+      dispatch:
+            controller: 'Admin'
+            action: 'admin'
         
-redirect:
-      controller: Redirect
-      method: redirect
+/redirect:
+      dispatch:
+            controller: 'Redirect'
+            action: 'redirect'
         
-wm:
-      controller: Carousel
-      method: view
+/wm:
+      dispatch:
+            controller: 'Carousel'
+            action: 'view'
         
-th:
-      controller: Carousel
-      method: thumb
+/th:
+      dispatch:
+            controller: 'Carousel'
+            action: 'thumb'

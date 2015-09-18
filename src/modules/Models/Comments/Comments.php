@@ -14,13 +14,13 @@
 
 namespace modules\Models\Comments;
 
-use modules\Models\Base\Base;
+use modules\Models\Model\Model;
 
 /**
  * Class Comments
  * @package modules\Models\Comments
  */
-class Comments  extends Base
+class Comments  extends Model
 {
 
     /**

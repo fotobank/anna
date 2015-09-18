@@ -1,9 +1,6 @@
 <?php
-
-namespace router;
-
 /**
- * Класс Router
+ * Framework Component
  *
  * @created   by PhpStorm
  * @package   Router.php
@@ -11,90 +8,154 @@ namespace router;
  * @author    Alex Jurii <jurii@mail.ru>
  * @link      http://alex.od.ua
  * @copyright Авторские права (C) 2000-2015, Alex Jurii
- * @date      :     26.05.2015
- * @time      :     1:15
+ * @date:     10.09.2015
+ * @time:     16:39
  * @license   MIT License: http://opensource.org/licenses/MIT
  */
 
-use Exception;
+namespace router;
+
+
 use exception\RouteException;
+use lib\Config\ConfigException;
 use lib\Config\InterfaceConfig;
-use view\View;
 
 
 /**
  * Class Router
  *
+ * @package router
  */
 class Router extends AbstractRouter
 {
 
     /**
-     * modules\Controllers\Controller
-     * @var  $instance */
-    protected $instance;
-
-    protected $viewer;
-
-    /**
-     *
      * @param \lib\Config\InterfaceConfig $config
-     * @param \view\View    $view
+     * @param \router\RouteFactory|null   $routeFactory
      *
      * @throws \Exception
-     * @throws \exception\RouteException
-     *
+     * @throws \lib\Config\ConfigException
      */
-    public function __construct(InterfaceConfig $config, View $view)
+    public function __construct(InterfaceConfig $config, RouteFactory $routeFactory = null)
+    {
+
+        try
+        {
+            parent::__construct($routeFactory);
+
+            $config_routes = $config->getData('routes');
+            $this->addRoures($config_routes);
+        }
+        catch(ConfigException $e)
+        {
+            throw $e;
+        }
+
+    }
+
+
+    /**
+     * err 404
+     *
+     * @internal param $err
+     */
+    public function goto404()
     {
         try
         {
-            $this->viewer      = $view;
-            $this->site_routes = $config->getData('routes');
-            $this->start();
-            // add and avtorun plugins
-            $this->addPluginsPath(__DIR__ . '/Plugins/');
+            $this->current_controller = $this->site_routes['404']['controller'];
+            $this->current_method     = $this->site_routes['404']['method'];
         }
-        catch(\Exception $e)
+        catch(RouteException $e)
         {
             throw $e;
         }
     }
 
     /**
-     * Creating new instance that required by URL.
+     * @throws \Exception
+     * @throws \exception\RouteException
      */
-    protected function createInstance()
+    public function goto403()
     {
-        try{
-        $controller = $this->current_controller;
-        $method = $this->current_method;
-        $controller_path = 'modules\Controllers\\' . $controller . '\\' . $controller;
-        $instance = new $controller_path($this->viewer);
-        if(method_exists($instance, $method))
+        try
         {
-            // тесты
-            assert('method_exists($instance, $method)', "метод '$method' не найден в контроллере '$controller_path'");
-            assert('$reflection = new \ReflectionMethod($instance, $method);');
-            assert('$reflection->isPublic()', "метод '$method' не является публичным в контроллере '$controller_path'");
-            $this->instance = $instance;
+            $this->current_controller = $this->site_routes['403']['controller'];
+            $this->current_method     = $this->site_routes['403']['method'];
         }
-        else
+        catch(RouteException $e)
         {
-            throw new RouteException("метод '$method' не найден в контроллере '$controller_path'");
-        }
-        }catch(RouteException $e){
             throw $e;
         }
     }
 
     /**
-     * runInstance()
+     * @throws \Exception
+     * @throws \exception\RouteException
      */
-    public function runInstance()
+    public function stopPage()
     {
-        $this->createInstance();
-        $method = $this->current_method;
-        $this->instance->$method($this->id, $this->param);
+        try
+        {
+            $this->current_controller = $this->site_routes['stop']['controller'];
+            $this->current_method     = $this->site_routes['stop']['method'];
+        }
+        catch(RouteException $e)
+        {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param       $controller
+     * @param       $method
+     * @param array $params
+     *
+     * @throws \Exception
+     * @throws \exception\RouteException
+     */
+    public function gotoPage($controller, $method, $params = null)
+    {
+        try
+        {
+            $this->current_controller = $controller;
+            $this->current_method     = $method;
+
+            if(0 !== count($params))
+            {
+                if(!empty($params[0]))
+                {
+                    $this->id = $params[0];
+                }
+                if((!empty($params[1])))
+                {
+                    $this->param = $params[1];
+                }
+            }
+            $this->prepareParams();
+
+        }
+        catch(RouteException $e)
+        {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param $config_routes
+     *
+     * @throws \Exception
+     */
+    protected function addRoures($config_routes)
+    {
+        if(is_array($config_routes))
+        {
+            foreach($config_routes as $pattern => $route)
+            {
+                $dispatch = array_key_exists('dispatch', $route) ? $route['dispatch'] : [];
+                $callback = array_key_exists('callback', $route) ? $route['callback'] : null;
+                $this->add($pattern, $dispatch, $callback);
+            }
+        }
     }
 }

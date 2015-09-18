@@ -8,8 +8,7 @@
  */
 namespace application;
 
-use core\Framework;
-use router\Router as MainRouter;
+
 use common\Helper;
 use exception\ApplicationException;
 use application\Exception\ReloadException;
@@ -25,7 +24,7 @@ use router\Router;
  * @method void redirect(string $url)
  * @method void redirectTo($controller, string $method = null, array $params = [])
  * @method void reload()
- * @method MainRouter initRouter()
+ * @method Router initRouter()
  *
  */
 class Application

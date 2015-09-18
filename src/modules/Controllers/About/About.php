@@ -1,6 +1,7 @@
 <?php
 /**
  * Класс Controller About
+ *
  * @created   by PhpStorm
  * @package   About.php
  * @version   1.0
@@ -15,41 +16,39 @@
 namespace modules\Controllers\About;
 
 use modules\Controllers\Controller\Controller;
-use modules\Models\About\About as ModelAbout;
-use view\View;
+use modules\Models\Model\Model;
+use modules\Views\View\View;
 
 
 /**
  * Class About
+ *
  * @package modules\Controllers\About
  */
 class About extends Controller
 {
+    /**
+     * @param \modules\Models\Model\Model $model
+     * @param \modules\Views\View\View    $view
+     */
+    public function __construct(Model $model, View $view)
+    {
+        $this->model = $model;
+        $this->view  = $view;
+    }
 
-	/**
-	 * инициализация вьювера
-	 *
-	 * @param \view\View $view
-	 *
-	 */
-	public function __construct(View $view)
-	{
-		$this->viewer = $view;
-	}
-
-	/**
-	 *
-	 */
-	public function about() {
-		try
-		{
-			$model = new ModelAbout();
-
-			return $this->viewer->render('about', $model);
-		}
-		catch(\Exception $e)
-		{
-			throw $e;
-		}
-	}
+    /**
+     * @throws \Exception
+     */
+    public function about()
+    {
+        try
+        {
+            $this->model->attach($this->view);
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
+    }
 }
