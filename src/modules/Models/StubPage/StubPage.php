@@ -15,6 +15,8 @@
 namespace modules\Models\StubPage;
 
 use modules\Models\Model\Model;
+use lib\Config\Config;
+
 use exception\ModelException;
 use proxy\Db as Db;
 
@@ -63,16 +65,20 @@ class StubPage extends Model
     $seconds = 'секунд';
 
     /**
-     * @param array $options
-     * @throws ModelException
+     * @param \lib\Config\Config $config
+     *
+     * @throws \Exception
+     * @throws \exception\ModelException
+     * @throws \lib\Config\ConfigException
+     * @internal param array $options
      */
-    public function __construct($options = [])
+    public function __construct(Config $config)
     {
         try {
             // настройка свойств класса
-            $this->setOptions($options);
+            $this->setOptions($config->getData('services'));
             // инициализация конструктора родительского класса
-            parent::__construct();
+            parent::__construct($config);
 
             $this->messages = $this->getMessages();
             $this->processDate();

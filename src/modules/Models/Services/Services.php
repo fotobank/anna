@@ -12,6 +12,7 @@
 namespace modules\Models\Services;
 
 use modules\Models\Model\Model;
+use lib\Config\Config;
 
 	/**
 	 * Class classServices
@@ -29,19 +30,27 @@ use modules\Models\Model\Model;
 
 
 		/**
-		 * @param $options
-		 * param $dates
+		 * @param \lib\Config\Config $config
+		 *
+		 * @throws \Exception
+		 * @internal param $options param $dates* param $dates
 		 */
-		public function __construct($options) {
+		public function __construct(Config $config) {
 
-			// настройка свойств класса
-			$this->setOptions($options);
-			// инициализация конструктора родительского класса
-			parent::__construct();
-			// лайтбокс в шапке
+			try
+			{
+				// настройка свойств класса
+				$this->setOptions($config->getData('services'));
+				// инициализация конструктора родительского класса
+				parent::__construct($config);
 
-			// установка исходных данных
+				// установка исходных данных
 //			$this->set_var( $options );
+			}
+			catch(\Exception $e)
+			{
+				throw $e;
+			}
 		}
 
 		/**

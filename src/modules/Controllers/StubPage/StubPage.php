@@ -15,8 +15,8 @@
 namespace modules\Controllers\StubPage;
 
 use modules\Controllers\Controller\Controller;
-use modules\Models\StubPage\StubPage as ModelStubPage;
-use view\View;
+use modules\Models\Model\Model;
+use modules\Views\View\View;
 
 /**
  * Class StubPage
@@ -26,14 +26,13 @@ class StubPage extends Controller
 {
 
     /**
-     * инициализация вьювера
-     *
-     * @param \view\View $view
-     *
+     * @param \modules\Models\Model\Model $model
+     * @param \modules\Views\View\View    $view
      */
-    public function __construct(View $view)
+    public function __construct(Model $model, View $view)
     {
-        $this->viewer = $view;
+        $this->model = $model;
+        $this->view  = $view;
     }
 
     /**
@@ -44,9 +43,7 @@ class StubPage extends Controller
     public function stubPage() {
         try
         {
-            $model = new ModelStubPage([]);
-
-            return $this->viewer->render('stubPage', $model);
+            $this->model->attach($this->view);
         }
         catch(\Exception $e)
         {

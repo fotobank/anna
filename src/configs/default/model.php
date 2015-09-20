@@ -44,5 +44,6 @@ return
         'login'          => function()
         {
             return Session::get('logged');
-        }
+        },
+        'onluIndex' => false
     ];

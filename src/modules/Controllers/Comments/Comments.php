@@ -14,10 +14,9 @@
 
 namespace modules\Controllers\Comments;
 
-
 use modules\Controllers\Controller\Controller;
-use modules\Models\Comments\Comments as ModelComments;
-use view\View;
+use modules\Models\Model\Model;
+use modules\Views\View\View;
 
 /**
  * Class Comments
@@ -27,14 +26,13 @@ class Comments  extends Controller
 {
 
     /**
-     * инициализация вьювера
-     *
-     * @param \view\View $view
-     *
+     * @param \modules\Models\Model\Model $model
+     * @param \modules\Views\View\View    $view
      */
-    public function __construct(View $view)
+    public function __construct(Model $model, View $view)
     {
-        $this->viewer = $view;
+        $this->model = $model;
+        $this->view  = $view;
     }
 
     /**
@@ -45,9 +43,7 @@ class Comments  extends Controller
     public function comments() {
         try
         {
-            $model = new ModelComments();
-
-            return $this->viewer->render('comments', $model);
+            $this->model->attach($this->view);
         }
         catch(\Exception $e)
         {

@@ -15,6 +15,7 @@
 namespace modules\Models\Comments;
 
 use modules\Models\Model\Model;
+use lib\Config\Config;
 
 /**
  * Class Comments
@@ -24,15 +25,24 @@ class Comments  extends Model
 {
 
     /**
-     * @param $options
+     * @param \lib\Config\Config $config
+     *
+     * @throws \Exception
+     * @internal param $options
      */
-    public function __construct($options = [])
+    public function __construct(Config $config)
     {
-        // настройка свойств класса
-        $this->setOptions($options);
-        // инициализация конструктора родительского класса
-        parent::__construct();
-
+        try
+        {
+            // настройка свойств класса
+            $this->setOptions($config->getData('comments'));
+            // инициализация конструктора родительского класса
+            parent::__construct($config);
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
     }
 
 }

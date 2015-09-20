@@ -15,8 +15,8 @@
 namespace modules\Controllers\News;
 
 use modules\Controllers\Controller\Controller;
-use modules\Models\News\News as ModelNews;
-use view\View;
+use modules\Models\Model\Model;
+use modules\Views\View\View;
 
 
 /**
@@ -27,14 +27,13 @@ class News  extends Controller
 {
 
     /**
-     * инициализация вьювера
-     *
-     * @param \view\View $view
-     *
+     * @param \modules\Models\Model\Model $model
+     * @param \modules\Views\View\View    $view
      */
-    public function __construct(View $view)
+    public function __construct(Model $model, View $view)
     {
-        $this->viewer = $view;
+        $this->model = $model;
+        $this->view  = $view;
     }
 
     /**
@@ -45,9 +44,7 @@ class News  extends Controller
     public function news() {
         try
         {
-            $model = new ModelNews();
-
-            return $this->viewer->render('news', $model);
+            $this->model->attach($this->view);
         }
         catch(\Exception $e)
         {

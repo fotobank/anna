@@ -15,8 +15,8 @@
 namespace modules\Controllers\Services;
 
 use modules\Controllers\Controller\Controller;
-use modules\Models\Services\Services as ModelServices;
-use view\View;
+use modules\Models\Model\Model;
+use modules\Views\View\View;
 
 /**
  * Class Services
@@ -26,31 +26,26 @@ class Services extends Controller
 {
 
     /**
-     * инициализация вьювера
-     *
-     * @param \view\View $view
-     *
+     * @param \modules\Models\Model\Model $model
+     * @param \modules\Views\View\View    $view
      */
-    public function __construct(View $view)
+    public function __construct(Model $model, View $view)
     {
-        $this->viewer = $view;
+        $this->model = $model;
+        $this->view  = $view;
     }
 
     /**
      * экшен
      *
-     * @param $dates
-     *
      * @return string
      * @throws \Exception
      */
-    public function services($dates) {
+    public function services() {
 
         try
         {
-            $model = new ModelServices($dates);
-
-            return $this->viewer->render('services', $model);
+            $this->model->attach($this->view);
         }
         catch(\Exception $e)
         {

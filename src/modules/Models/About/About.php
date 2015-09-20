@@ -44,6 +44,5 @@ class About extends Model
 		{
 			throw $e;
 		}
-
 	}
 }

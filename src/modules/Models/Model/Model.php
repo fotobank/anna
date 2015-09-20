@@ -10,28 +10,13 @@ namespace modules\Models\Model;
 
 
 use lib\Config\Config;
-use proxy\Cookie;
-use proxy\Router as Router;
 use common\MagicOptions;
 use proxy\Db as Db;
-use exception\BaseException;
-use proxy\Session;
 use Exception;
 use SplSubject;
 use SplObserver;
 use SplObjectStorage;
 
-
-/**
- * Class BaseModelsException
- *
- * @package modules\Models\Base
- */
-
-/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
-class ModelException extends BaseException
-{
-}
 
 
 /**
@@ -84,7 +69,7 @@ class Model implements InterfaceModel, SplSubject
      * @param \lib\Config\Config $config
      *
      * @throws \Exception
-     * @throws \modules\Models\Model\ModelException
+     * @throws \exception\ModelException;
      */
     public function __construct(Config $config)
     {
@@ -93,16 +78,26 @@ class Model implements InterfaceModel, SplSubject
             $this->storage = new SplObjectStorage();
             $this->setOptions($config->getData('model'));
             $this->categorii = $this->getCategorii();
-            $this->setOptions($config->getData('meta_title', $this->current_razdel));
-            $this->title       = cp1251($this->title);
-            $this->keywords    = cp1251($this->keywords);
-            $this->description = cp1251($this->description);
+            $this->setMetaTitle($config);
         }
         catch(Exception $e)
         {
             throw ($e);
         }
 
+    }
+
+    /**
+     * @param \lib\Config\Config $config
+     *
+     * @throws \lib\Config\ConfigException
+     */
+    protected function setMetaTitle(Config $config)
+    {
+        $this->setOptions($config->getData('meta_title', $this->current_razdel));
+        $this->title       = cp1251($this->title);
+        $this->keywords    = cp1251($this->keywords);
+        $this->description = cp1251($this->description);
     }
 
 

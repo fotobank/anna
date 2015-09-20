@@ -14,7 +14,8 @@
 
 namespace modules\Models\Portfolio;
 
-use modules\Models\Base as model;
+use modules\Models\Model\Model;
+use lib\Config\Config;
 use proxy\Recursive;
 
 
@@ -22,18 +23,29 @@ use proxy\Recursive;
  * Class Portfolio
  * @package modules\Models\Portfolio
  */
-class Portfolio extends model\Base
+class Portfolio extends Model
 {
 
     /**
-     * @param $options
+     * @param \lib\Config\Config $config
+     *
+     * @throws \Exception
+     * @throws \lib\Config\ConfigException
+     * @throws \modules\Models\Model\ModelException
      */
-    public function __construct($options = [])
+    public function __construct(Config $config)
     {
-        // настройка свойств класса
-        $this->setOptions($options);
-        // инициализация конструктора родительского класса
-        parent::__construct();
+        try
+        {
+            // настройка свойств класса
+            $this->setOptions($config->getData('portfolio'));
+            // инициализация конструктора родительского класса
+            parent::__construct($config);
+        }
+        catch(\Exception $e)
+        {
+            throw $e;
+        }
 
     }
 

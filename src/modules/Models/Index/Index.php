@@ -151,8 +151,8 @@ class Index extends Model
 			$news = (file_exists($this->filenews)) ? file_get_contents($this->filenews) : $print;
 			if ($news !== '') {
 				$news = explode('||', $this->replaceBBCode($news));
-				if (count(($news))) {
-					$count_news = count($news);
+				$count_news = count($news);
+				if ($count_news) {
 					for ($i = 0; $i < $count_news; $i ++)
 					{
 						$new = explode('[]', $news[$i]);
